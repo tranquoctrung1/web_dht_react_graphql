@@ -43,3 +43,15 @@ module.exports.DeviceMeter = class DeviceMeter {
         this.Nationality = Nationality;
     }
 };
+
+module.exports.GetMeterBySerial = async (serial) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DeviceMeterCollection);
+
+    let result = await collection.find({ Serial: serial }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

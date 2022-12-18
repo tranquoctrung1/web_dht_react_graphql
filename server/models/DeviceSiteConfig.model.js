@@ -28,3 +28,15 @@ module.exports.DeviceSiteConfig = class DeviceSiteConfig {
         this.Pressure1 = Pressure1;
     }
 };
+
+module.exports.GetChannelBySiteId = async (siteId) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DeviceSiteConfigCollection);
+
+    let result = await collection.find({ SiteId: siteId }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

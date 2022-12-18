@@ -91,3 +91,15 @@ module.exports.SiteSite = class SiteSite {
         this.District = District;
     }
 };
+
+module.exports.GetSiteByCompany = async (company) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection.find({ Company: company }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
