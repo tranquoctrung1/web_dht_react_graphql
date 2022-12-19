@@ -12,3 +12,17 @@ module.exports.DataManual = class DataManual {
         this.Description = Description;
     }
 };
+
+module.exports.GetDataManualBySiteId = async (siteid, time) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DataManualCollection);
+
+    let result = await collection
+        .find({ SiteId: siteid, TimeStamp: time })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

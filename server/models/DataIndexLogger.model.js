@@ -11,6 +11,7 @@ module.exports.DeviceMeter = class DeviceMeter {
 
 module.exports.GetIndexLogger = async (channelid, start, end) => {
     let startDate = new Date(parseInt(start));
+    startDate.setDate(startDate.getDate() - 1);
     let endDate = new Date(parseInt(end));
     endDate.setDate(endDate.getDate() + 1);
 

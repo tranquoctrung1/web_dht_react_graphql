@@ -2,6 +2,7 @@ const DataIndexLoggerModel = require('../../models/DataIndexLogger.model');
 const SiteSiteModel = require('../../models/SiteSite.model');
 const DeviceSiteConfigModel = require('../../models/DeviceSiteConfig.model');
 const DeviceMeterModel = require('../../models/DeviceMeter.model');
+const DataManualModel = require('../../models/DataManual.model');
 const Utils = require('../../utils');
 
 module.exports = {
@@ -110,104 +111,132 @@ module.exports = {
                                 }
 
                                 for (let i = 0; i < totalDay; i++) {
-                                    let tempStart = new Date(startDate);
-                                    let tempEnd = new Date(startDate);
-
-                                    let tempStart2 = new Date(startDate);
-                                    let tempEnd2 = new Date(startDate);
-
-                                    tempStart.setDate(tempStart.getDate() + i);
-                                    tempStart.setHours(
-                                        tempStart.getHours() + startHour,
-                                    );
-                                    tempStart.setMinutes(
-                                        tempStart.getMinutes() + startMinute,
-                                    );
-
-                                    tempEnd.setDate(tempEnd.getDate() + i + 1);
-                                    tempEnd.setHours(
-                                        tempEnd.getHours() + startHour,
-                                    );
-                                    tempEnd.setMinutes(
-                                        tempEnd.getMinutes() + startMinute,
-                                    );
-                                    tempEnd.setSeconds(
-                                        tempEnd.getSeconds() - 1,
-                                    );
-
-                                    tempStart2.setDate(
-                                        tempStart2.getDate() + i + 1,
-                                    );
-                                    tempStart2.setHours(
-                                        tempStart2.getHours() + startHour,
-                                    );
-                                    tempStart2.setMinutes(
-                                        tempStart2.getMinutes() + startMinute,
-                                    );
-
-                                    tempEnd2.setDate(
-                                        tempEnd2.getDate() + i + 2,
-                                    );
-                                    tempEnd2.setHours(
-                                        tempEnd2.getHours() + startHour,
-                                    );
-                                    tempEnd2.setMinutes(
-                                        tempEnd2.getMinutes() + startMinute,
-                                    );
-                                    tempEnd2.setSeconds(
-                                        tempEnd2.getSeconds() - 1,
-                                    );
-
                                     let objQuantity = {};
-                                    objQuantity.TimeStamp = tempStart;
+                                    objQuantity.TimeStamp = null;
                                     objQuantity.Value = null;
 
-                                    let indexForwardStart = 0;
-                                    let indexForwardEnd = 0;
-                                    let indexReverseStart = 0;
-                                    let indexReverseEnd = 0;
-
-                                    let find = listIndexFoward.find(
-                                        (el) =>
-                                            el.TimeStamp >= tempStart &&
-                                            el.TimeStamp <= tempEnd,
+                                    let tempStartDataManual = new Date(
+                                        startDate,
+                                    );
+                                    tempStartDataManual.setDate(
+                                        tempStartDataManual.getDate() + i,
                                     );
 
-                                    if (find != undefined) {
-                                        indexForwardStart = find.Value;
-                                    }
+                                    let dataManual =
+                                        await DataManualModel.GetDataManualBySiteId(
+                                            site._id,
+                                            tempStartDataManual,
+                                        );
+                                    if (dataManual.length > 0) {
+                                        tempStartDataManual.setHours(
+                                            tempStartDataManual.getHours() + 7,
+                                        );
+                                        objQuantity.TimeStamp =
+                                            tempStartDataManual;
+                                        objQuantity.Value =
+                                            dataManual[0].Output;
+                                    } else {
+                                        let tempStart = new Date(startDate);
+                                        let tempEnd = new Date(startDate);
 
-                                    find = listIndexFoward.find(
-                                        (el) =>
-                                            el.TimeStamp >= tempStart2 &&
-                                            el.TimeStamp <= tempEnd2,
-                                    );
-                                    if (find != undefined) {
-                                        indexForwardEnd = find.Value;
-                                    }
+                                        let tempStart2 = new Date(startDate);
+                                        let tempEnd2 = new Date(startDate);
 
-                                    find = listIndexReverse.find(
-                                        (el) =>
-                                            el.TimeStamp >= tempStart &&
-                                            el.TimeStamp <= tempEnd,
-                                    );
-                                    if (find != undefined) {
-                                        indexReverseStart = find.Value;
-                                    }
+                                        tempStart.setDate(
+                                            tempStart.getDate() + i - 1,
+                                        );
+                                        tempStart.setHours(
+                                            tempStart.getHours() + startHour,
+                                        );
+                                        tempStart.setMinutes(
+                                            tempStart.getMinutes() +
+                                                startMinute,
+                                        );
 
-                                    find = listIndexReverse.find(
-                                        (el) =>
-                                            el.TimeStamp >= tempStart2 &&
-                                            el.TimeStamp <= tempEnd2,
-                                    );
-                                    if (find != undefined) {
-                                        indexReverseEnd = find.Value;
-                                    }
+                                        tempEnd.setDate(tempEnd.getDate() + i);
+                                        tempEnd.setHours(
+                                            tempEnd.getHours() + startHour,
+                                        );
+                                        tempEnd.setMinutes(
+                                            tempEnd.getMinutes() + startMinute,
+                                        );
+                                        tempEnd.setSeconds(
+                                            tempEnd.getSeconds() - 1,
+                                        );
 
-                                    objQuantity.Value =
-                                        indexForwardEnd -
-                                        indexReverseEnd -
-                                        (indexForwardStart - indexReverseStart);
+                                        tempStart2.setDate(
+                                            tempStart2.getDate() + i,
+                                        );
+                                        tempStart2.setHours(
+                                            tempStart2.getHours() + startHour,
+                                        );
+                                        tempStart2.setMinutes(
+                                            tempStart2.getMinutes() +
+                                                startMinute,
+                                        );
+
+                                        tempEnd2.setDate(
+                                            tempEnd2.getDate() + i + 1,
+                                        );
+                                        tempEnd2.setHours(
+                                            tempEnd2.getHours() + startHour,
+                                        );
+                                        tempEnd2.setMinutes(
+                                            tempEnd2.getMinutes() + startMinute,
+                                        );
+                                        tempEnd2.setSeconds(
+                                            tempEnd2.getSeconds() - 1,
+                                        );
+
+                                        let indexForwardStart = 0;
+                                        let indexForwardEnd = 0;
+                                        let indexReverseStart = 0;
+                                        let indexReverseEnd = 0;
+
+                                        let find = listIndexFoward.find(
+                                            (el) =>
+                                                el.TimeStamp >= tempStart &&
+                                                el.TimeStamp <= tempEnd,
+                                        );
+
+                                        if (find != undefined) {
+                                            indexForwardStart = find.Value;
+                                        }
+
+                                        find = listIndexFoward.find(
+                                            (el) =>
+                                                el.TimeStamp >= tempStart2 &&
+                                                el.TimeStamp <= tempEnd2,
+                                        );
+                                        if (find != undefined) {
+                                            indexForwardEnd = find.Value;
+                                        }
+
+                                        find = listIndexReverse.find(
+                                            (el) =>
+                                                el.TimeStamp >= tempStart &&
+                                                el.TimeStamp <= tempEnd,
+                                        );
+                                        if (find != undefined) {
+                                            indexReverseStart = find.Value;
+                                        }
+
+                                        find = listIndexReverse.find(
+                                            (el) =>
+                                                el.TimeStamp >= tempStart2 &&
+                                                el.TimeStamp <= tempEnd2,
+                                        );
+                                        if (find != undefined) {
+                                            indexReverseEnd = find.Value;
+                                        }
+
+                                        objQuantity.TimeStamp = tempStart2;
+                                        objQuantity.Value =
+                                            indexForwardEnd -
+                                            indexReverseEnd -
+                                            (indexForwardStart -
+                                                indexReverseStart);
+                                    }
 
                                     obj.ListQuantity.push(objQuantity);
                                 }
