@@ -20,7 +20,7 @@ module.exports = {
             let tEnd = new Date(parseInt(end));
             tEnd.setDate(tEnd.getDate() + 1);
 
-            let totalDay = Utils.CalculateSpcaeDay(startDate, tEnd);
+            let totalDay = Utils.CalculateSpcaeDay(startDate, endDate);
 
             let sites = await SiteSiteModel.GetSiteByCompany(company);
 
@@ -236,6 +236,10 @@ module.exports = {
                                             indexReverseEnd -
                                             (indexForwardStart -
                                                 indexReverseStart);
+
+                                        if (objQuantity.Value < 0) {
+                                            objQuantity.Value = 0;
+                                        }
                                     }
 
                                     obj.ListQuantity.push(objQuantity);
