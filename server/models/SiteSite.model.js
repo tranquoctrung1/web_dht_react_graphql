@@ -97,7 +97,9 @@ module.exports.GetSiteByCompany = async (company) => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = await collection.find({ Company: company }).toArray();
+    let result = await collection
+        .find({ Company: company, Display: true })
+        .toArray();
 
     Connect.disconnect();
 
