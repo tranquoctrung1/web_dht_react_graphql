@@ -5,8 +5,13 @@ import App from './App';
 import './index.css';
 import { store } from './store';
 
+import { ApolloProvider } from '@apollo/client';
+import client from './client/client';
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
-        <App />
+        <ApolloProvider client={client}>
+            <App />
+        </ApolloProvider>
     </Provider>,
 );

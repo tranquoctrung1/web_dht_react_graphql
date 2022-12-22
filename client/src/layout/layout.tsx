@@ -1,12 +1,167 @@
-import { Outlet } from 'react-router-dom';
+import {
+    ActionIcon,
+    AppShell,
+    Burger,
+    ColorSchemeProvider,
+    Header,
+    Image,
+    MantineProvider,
+    MediaQuery,
+    Navbar,
+    Space,
+    Text,
+} from '@mantine/core';
+import { useHotkeys, useLocalStorage } from '@mantine/hooks';
+import { useState } from 'react';
+
+import Logo from '../assets/logo.png';
+
+import { NavbarNested } from './navbar';
+
+import { IconPower } from '@tabler/icons';
+
+import { useSelector } from 'react-redux';
+
+import IconChangeTheme from '../components/iconChangeTheme';
+
+import { Outlet, useNavigate } from 'react-router-dom';
+
+import { AnimatePresence } from 'framer-motion';
+
 const Layout = () => {
+    const [colorScheme, setColorScheme] = useLocalStorage({
+        key: 'mantine-color-scheme-xntd',
+        defaultValue: 'light',
+        getInitialValueInEffect: true,
+    });
+
+    const toggleColorScheme = (value: string) =>
+        setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+
+    const [opened, setOpened] = useState(false);
+
+    const navigate = useNavigate();
+
+    const onLogoutClick = () => {
+        localStorage.removeItem('username');
+        localStorage.removeItem('role');
+        localStorage.removeItem('token');
+
+        navigate('/login');
+    };
+
     return (
-        <>
-            <div>adfasdfasdfasd</div>
-            <div id="detail">
-                <Outlet />
-            </div>
-        </>
+        <ColorSchemeProvider
+            colorScheme={colorScheme}
+            toggleColorScheme={toggleColorScheme}
+        >
+            <MantineProvider
+                theme={{ colorScheme }}
+                withGlobalStyles
+                withNormalizeCSS
+            >
+                <div className="main" style={{ background: '#ecf0f12b' }}>
+                    <AppShell
+                        padding="md"
+                        navbarOffsetBreakpoint="sm"
+                        navbar={
+                            <Navbar
+                                hiddenBreakpoint="sm"
+                                hidden={!opened}
+                                width={{ sm: 300 }}
+                                p="xs"
+                                style={{
+                                    boxShadow: '0 0 5px 0 rgba(0, 0, 0, .1)',
+                                }}
+                            >
+                                <NavbarNested />
+                            </Navbar>
+                        }
+                        header={
+                            <Header
+                                height={60}
+                                p="xs"
+                                style={{
+                                    boxShadow: '0 0 5px 0 rgba(0, 0, 0, .1)',
+                                    borderBottom: '0',
+                                    padding: '0 15px',
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        height: '100%',
+                                        overflow: 'hidden',
+                                    }}
+                                >
+                                    <MediaQuery
+                                        largerThan="sm"
+                                        styles={{ display: 'none' }}
+                                    >
+                                        <Burger
+                                            opened={opened}
+                                            onClick={() => setOpened((o) => !o)}
+                                            size="sm"
+                                            mr="xl"
+                                        />
+                                    </MediaQuery>
+                                    <Image
+                                        width={50}
+                                        radius="md"
+                                        src={Logo}
+                                        alt="Random unsplash image"
+                                    />
+                                    <Text
+                                        size="lg"
+                                        weight={500}
+                                        variant="gradient"
+                                        gradient={{
+                                            from: 'blue',
+                                            to: 'aqua',
+                                            deg: 45,
+                                        }}
+                                        transform="uppercase"
+                                    >
+                                        Tổng Công Ty Câp Nước Sài Gòn - Xí
+                                        Nghiệp Truyền Dẫn Nước Sạch
+                                    </Text>
+
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                        }}
+                                    >
+                                        <Text color="white" size="sm">
+                                            {localStorage.getItem('username')}
+                                        </Text>
+                                        <Space w="md" />
+                                        <ActionIcon
+                                            color="teal"
+                                            variant="filled"
+                                            onClick={onLogoutClick}
+                                        >
+                                            <IconPower size={18} />
+                                        </ActionIcon>
+                                        <Space w="md" />
+                                        <IconChangeTheme />
+                                    </div>
+                                </div>
+                            </Header>
+                        }
+                    >
+                        <AnimatePresence>
+                            <div id="detail">
+                                <Outlet />
+                            </div>
+                        </AnimatePresence>
+                    </AppShell>
+                </div>
+            </MantineProvider>
+        </ColorSchemeProvider>
     );
 };
 
