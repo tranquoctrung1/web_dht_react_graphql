@@ -114,6 +114,7 @@ module.exports = {
                                     let objQuantity = {};
                                     objQuantity.TimeStamp = null;
                                     objQuantity.Value = null;
+                                    objQuantity.IsEnoughData = true;
 
                                     let tempStartDataManual = new Date(
                                         startDate,
@@ -228,6 +229,35 @@ module.exports = {
                                         );
                                         if (find != undefined) {
                                             indexReverseEnd = find.Value;
+                                        }
+
+                                        let findEnoughData =
+                                            listIndexFoward.find(
+                                                (el) =>
+                                                    el.TimeStamp >= tempStart &&
+                                                    el.TimeStamp <= tempEnd &&
+                                                    el.IsEnoughData === false,
+                                            );
+
+                                        if (findEnoughData != undefined) {
+                                            objQuantity.IsEnoughData = false;
+                                        } else {
+                                            findEnoughData =
+                                                listIndexReverse.find(
+                                                    (el) =>
+                                                        el.TimeStamp >=
+                                                            tempStart &&
+                                                        el.TimeStamp <=
+                                                            tempEnd &&
+                                                        el.IsEnoughData ===
+                                                            false,
+                                                );
+
+                                            if (findEnoughData != undefined) {
+                                                objQuantity.IsEnoughData = false;
+                                            } else {
+                                                objQuantity.IsEnoughData = true;
+                                            }
                                         }
 
                                         objQuantity.TimeStamp = tempStart2;

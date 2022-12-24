@@ -9,3 +9,15 @@ module.exports.SiteCompanies = class SiteCompanies {
         this.Description = Description;
     }
 };
+
+module.exports.GetSiteCompanies = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteCompaniesCollection);
+
+    let result = await collection.find({}).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

@@ -6,6 +6,7 @@ import Layout from './layout/layout';
 import AboutPage from './pages/about';
 import ErrorPage from './pages/error';
 import HomePage from './pages/home';
+import QuantityCompanyPage from './pages/quantityCompany';
 
 function App() {
     const router = createBrowserRouter([
@@ -16,6 +17,10 @@ function App() {
                 {
                     path: '',
                     element: <HomePage />,
+                },
+                {
+                    path: '/quantityCompany',
+                    element: <QuantityCompanyPage />,
                 },
             ],
         },

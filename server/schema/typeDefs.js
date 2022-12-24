@@ -8,6 +8,7 @@ module.exports = gql`
     type Quantity {
         TimeStamp: Date
         Value: Float
+        IsEnoughData: Boolean
     }
 
     type QuantityDayCompany {
@@ -25,6 +26,12 @@ module.exports = gql`
         ListQuantity: [Quantity]
     }
 
+    type Company {
+        Company: String
+        Production: Int
+        Description: String
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -32,6 +39,8 @@ module.exports = gql`
             start: String!
             end: String!
         ): [QuantityDayCompany!]!
+
+        GetCompanies: [Company!]
     }
 
     # declare Mutation

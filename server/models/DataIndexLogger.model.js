@@ -3,9 +3,10 @@ const ConnectDB = require('../db/connect');
 const DataIndexLoggerCollection = 't_Index_';
 
 module.exports.DeviceMeter = class DeviceMeter {
-    constructor(TimeStamp, Value) {
+    constructor(TimeStamp, Value, IsEnoughData) {
         this.TimeStamp = TimeStamp;
         this.Value = Value;
+        this.IsEnoughData = IsEnoughData;
     }
 };
 

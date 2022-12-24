@@ -1,0 +1,7 @@
+query GetCompanies {
+    GetCompanies {
+        Company
+        Description
+        Production
+    }
+}
