@@ -20,7 +20,7 @@ module.exports = {
             let tEnd = new Date(parseInt(end));
             tEnd.setDate(tEnd.getDate() + 1);
 
-            let totalDay = Utils.CalculateSpcaeDay(startDate, endDate);
+            let totalDay = Utils.CalculateSpcaeDay(startDate, endDate) + 1;
 
             let sites = await SiteSiteModel.GetSiteByCompany(company);
 
@@ -46,7 +46,7 @@ module.exports = {
                         site._id != ''
                     ) {
                         let meter = await DeviceMeterModel.GetMeterBySerial(
-                            site._id,
+                            site.Meter,
                         );
                         if (meter.length > 0) {
                             obj.Marks = meter[0].Marks;
@@ -113,7 +113,7 @@ module.exports = {
                                 for (let i = 0; i < totalDay; i++) {
                                     let objQuantity = {};
                                     objQuantity.TimeStamp = null;
-                                    objQuantity.Value = null;
+                                    objQuantity.Value = 0;
                                     objQuantity.IsEnoughData = true;
 
                                     let tempStartDataManual = new Date(
@@ -274,6 +274,19 @@ module.exports = {
 
                                     obj.ListQuantity.push(objQuantity);
                                 }
+                            }
+                        } else {
+                            for (let i = 0; i < totalDay; i++) {
+                                let tempStart2 = new Date(startDate);
+
+                                tempStart2.setDate(tempStart2.getDate() + i);
+
+                                let objQuantity = {};
+                                objQuantity.TimeStamp = tempStart2;
+                                objQuantity.Value = 0;
+                                objQuantity.IsEnoughData = true;
+
+                                obj.ListQuantity.push(objQuantity);
                             }
                         }
                     }
