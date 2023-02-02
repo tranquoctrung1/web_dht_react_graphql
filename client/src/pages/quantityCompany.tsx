@@ -1,4 +1,13 @@
-import { Button, Center, Col, Grid, Select, Table, Text } from '@mantine/core';
+import {
+    Button,
+    Center,
+    Col,
+    Grid,
+    Select,
+    Space,
+    Table,
+    Text,
+} from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { motion } from 'framer-motion';
 
@@ -11,7 +20,12 @@ import { useState } from 'react';
 
 import Swal from 'sweetalert2';
 
-import { convertDateToStringNotTime } from '../utils/utils';
+import {
+    convertDateToStringNotTime,
+    convertDateToStringNotTimeForTitle,
+} from '../utils/utils';
+
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 interface Companies {
     value: string;
@@ -32,14 +46,14 @@ const QuantityCompanyPage = () => {
     if (loading) {
         return (
             <Text color="blue" weight={500}>
-                Đang tải danh sách công ty
+                Đang tải danh sách đơn vị quản lý
             </Text>
         );
     }
     if (error) {
         return (
             <Text color="red" weight={500}>
-                Lỗi khi tải dánh sách công ty
+                Lỗi khi tải dánh sách đơn vị quản lý
             </Text>
         );
     }
@@ -109,9 +123,9 @@ const QuantityCompanyPage = () => {
         } else {
             getQuantityCompany({
                 variables: {
-                    company: 'XN',
-                    start: '1667908800000',
-                    end: '1670500800000',
+                    company: selectedCompany,
+                    start: startDate.toString(),
+                    end: endDate.toString(),
                 },
             });
         }
@@ -479,14 +493,28 @@ const QuantityCompanyPage = () => {
 
                         let rowValueBody = data.QuantityDayCompany[
                             i
-                        ].ListQuantity.map((el: any, index: any) => (
-                            <td
-                                key={index}
-                                color={el.IsEnoughData == false ? 'yellow' : ''}
-                            >
-                                {el.Value.toFixed(2)}
-                            </td>
-                        ));
+                        ].ListQuantity.map((el: any, index: any) => {
+                            if (el.IsEnoughData == false) {
+                                return (
+                                    <td
+                                        key={index}
+                                        style={{ backgroundColor: 'yellow' }}
+                                    >
+                                        {new Intl.NumberFormat('en-EN', {
+                                            maximumSignificantDigits: 3,
+                                        }).format(el.Value.toFixed(0))}
+                                    </td>
+                                );
+                            } else {
+                                return (
+                                    <td key={index}>
+                                        {new Intl.NumberFormat('en-EN', {
+                                            maximumSignificantDigits: 3,
+                                        }).format(el.Value.toFixed(0))}
+                                    </td>
+                                );
+                            }
+                        });
 
                         let rowBody = (
                             <tr key={data.QuantityDayCompany[i].SiteId}>
@@ -495,8 +523,16 @@ const QuantityCompanyPage = () => {
                                 <td>{data.QuantityDayCompany[i].Size}</td>
                                 <td>{data.QuantityDayCompany[i].SiteId}</td>
                                 <td>{data.QuantityDayCompany[i].Location}</td>
-                                <td>{sum.toFixed(2)}</td>
-                                <td>{avg.toFixed(2)}</td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(sum.toFixed(0))}
+                                </td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(avg.toFixed(0))}
+                                </td>
                                 {rowValueBody}
                             </tr>
                         );
@@ -513,7 +549,11 @@ const QuantityCompanyPage = () => {
 
                         let rowBodyCanGioValue = cangio.map(
                             (el: any, index: any) => (
-                                <td key={index}>{el.value.toFixed(2)}</td>
+                                <td key={index}>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(el.value.toFixed(0))}
+                                </td>
                             ),
                         );
 
@@ -524,8 +564,16 @@ const QuantityCompanyPage = () => {
                                         <Text weight={500}>Cộng Cần Giờ</Text>
                                     </Center>
                                 </td>
-                                <td>{sumCanGio.toFixed(2)}</td>
-                                <td>{avgCangio.toFixed(2)}</td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(sumCanGio.toFixed(0))}
+                                </td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(avgCangio.toFixed(0))}
+                                </td>
                                 {rowBodyCanGioValue}
                             </tr>
                         );
@@ -541,7 +589,11 @@ const QuantityCompanyPage = () => {
 
                         let rowBodyOutletValue = outlet.map(
                             (el: any, index: any) => (
-                                <td key={index}>{el.value.toFixed(2)}</td>
+                                <td key={index}>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(el.value.toFixed(0))}
+                                </td>
                             ),
                         );
 
@@ -552,8 +604,16 @@ const QuantityCompanyPage = () => {
                                         <Text weight={500}>Cộng Outlet</Text>
                                     </Center>
                                 </td>
-                                <td>{sumOutlet.toFixed(2)}</td>
-                                <td>{avgOutlet.toFixed(2)}</td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(sumOutlet.toFixed(0))}
+                                </td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(avgOutlet.toFixed(0))}
+                                </td>
                                 {rowBodyOutletValue}
                             </tr>
                         );
@@ -569,7 +629,11 @@ const QuantityCompanyPage = () => {
 
                         let rowBodyTachMangValue = tachmang.map(
                             (el: any, index: any) => (
-                                <td key={index}>{el.value.toFixed(2)}</td>
+                                <td key={index}>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(el.value.toFixed(0))}
+                                </td>
                             ),
                         );
 
@@ -580,8 +644,16 @@ const QuantityCompanyPage = () => {
                                         <Text weight={500}>Cộng Tách Mạng</Text>
                                     </Center>
                                 </td>
-                                <td>{sumTachMang.toFixed(2)}</td>
-                                <td>{avgTachMang.toFixed(2)}</td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(sumTachMang.toFixed(0))}
+                                </td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(avgTachMang.toFixed(0))}
+                                </td>
                                 {rowBodyTachMangValue}
                             </tr>
                         );
@@ -597,7 +669,11 @@ const QuantityCompanyPage = () => {
 
                         let rowBodyGiengValue = gieng.map(
                             (el: any, index: any) => (
-                                <td key={index}>{el.value.toFixed(2)}</td>
+                                <td key={index}>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(el.value.toFixed(0))}
+                                </td>
                             ),
                         );
 
@@ -608,8 +684,16 @@ const QuantityCompanyPage = () => {
                                         <Text weight={500}>Cộng Giếng</Text>
                                     </Center>
                                 </td>
-                                <td>{sumGieng.toFixed(2)}</td>
-                                <td>{avgGieng.toFixed(2)}</td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(sumGieng.toFixed(0))}
+                                </td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(avgGieng.toFixed(0))}
+                                </td>
                                 {rowBodyGiengValue}
                             </tr>
                         );
@@ -625,7 +709,11 @@ const QuantityCompanyPage = () => {
 
                         let rowBodyNuocNgamValue = nuocngam.map(
                             (el: any, index: any) => (
-                                <td key={index}>{el.value.toFixed(2)}</td>
+                                <td key={index}>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(el.value.toFixed(0))}
+                                </td>
                             ),
                         );
 
@@ -636,8 +724,16 @@ const QuantityCompanyPage = () => {
                                         <Text weight={500}>Cộng Nước Ngầm</Text>
                                     </Center>
                                 </td>
-                                <td>{sumNuocNgam.toFixed(2)}</td>
-                                <td>{avgNuocNgam.toFixed(2)}</td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(sumNuocNgam.toFixed(0))}
+                                </td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(avgNuocNgam.toFixed(0))}
+                                </td>
                                 {rowBodyNuocNgamValue}
                             </tr>
                         );
@@ -653,7 +749,11 @@ const QuantityCompanyPage = () => {
 
                         let rowBodyXaHoiHoaValue = xahoihoa.map(
                             (el: any, index: any) => (
-                                <td key={index}>{el.value.toFixed(2)}</td>
+                                <td key={index}>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(el.value.toFixed(0))}
+                                </td>
                             ),
                         );
 
@@ -666,8 +766,16 @@ const QuantityCompanyPage = () => {
                                         </Text>
                                     </Center>
                                 </td>
-                                <td>{sumXaHoiHoa.toFixed(2)}</td>
-                                <td>{avgXaHoiHoa.toFixed(2)}</td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(sumXaHoiHoa.toFixed(0))}
+                                </td>
+                                <td>
+                                    {new Intl.NumberFormat('en-EN', {
+                                        maximumSignificantDigits: 3,
+                                    }).format(avgXaHoiHoa.toFixed(0))}
+                                </td>
                                 {rowBodyXaHoiHoaValue}
                             </tr>
                         );
@@ -677,7 +785,11 @@ const QuantityCompanyPage = () => {
 
                     let rowBodyTotalValue = bodyTotal.map(
                         (el: any, index: any) => (
-                            <td key={index}>{el.value.toFixed(2)}</td>
+                            <td key={index}>
+                                {new Intl.NumberFormat('en-EN', {
+                                    maximumSignificantDigits: 3,
+                                }).format(el.value.toFixed(0))}
+                            </td>
                         ),
                     );
 
@@ -688,8 +800,16 @@ const QuantityCompanyPage = () => {
                                     <Text weight={500}>Cộng</Text>
                                 </Center>
                             </td>
-                            <td>{sumBodyTotal.toFixed(2)}</td>
-                            <td>{avgBodyTotal.toFixed(2)}</td>
+                            <td>
+                                {new Intl.NumberFormat('en-EN', {
+                                    maximumSignificantDigits: 3,
+                                }).format(sumBodyTotal.toFixed(0))}
+                            </td>
+                            <td>
+                                {new Intl.NumberFormat('en-EN', {
+                                    maximumSignificantDigits: 3,
+                                }).format(avgBodyTotal.toFixed(0))}
+                            </td>
                             {rowBodyTotalValue}
                         </tr>
                     );
@@ -723,8 +843,18 @@ const QuantityCompanyPage = () => {
                             highlightOnHover
                             withBorder
                             withColumnBorders
+                            id="tableQuantity"
                         >
-                            <caption></caption>
+                            <caption>
+                                Sản Lượng {selectedCompany} từ{' '}
+                                {convertDateToStringNotTimeForTitle(
+                                    new Date(startDate),
+                                )}{' '}
+                                đến{' '}
+                                {convertDateToStringNotTimeForTitle(
+                                    new Date(endDate),
+                                )}
+                            </caption>
                             <thead>{th}</thead>
                             <tbody>{body}</tbody>
                         </Table>
@@ -744,8 +874,8 @@ const QuantityCompanyPage = () => {
                 <Grid>
                     <Col md={4} sm={12}>
                         <Select
-                            label="Công ty"
-                            placeholder="Chọn công ty"
+                            label="Đơn vị quản lý"
+                            placeholder="Chọn đơn vị quản lý"
                             withAsterisk
                             data={tempData}
                             onChange={onCompaniesChanged}
@@ -778,6 +908,23 @@ const QuantityCompanyPage = () => {
                             >
                                 Sản Lượng
                             </Button>
+                            {dataQuanity && (
+                                <>
+                                    <Space w="xl" />
+                                    <ReactHTMLTableToExcel
+                                        id="table-xls"
+                                        className="mantine-UnstyledButton-root mantine-Button-root mantine-1a6zj3b"
+                                        table="tableQuantity"
+                                        filename={`Sản lượng ${selectedCompany} từ ${convertDateToStringNotTimeForTitle(
+                                            new Date(startDate),
+                                        )} đến  ${convertDateToStringNotTimeForTitle(
+                                            new Date(endDate),
+                                        )}`}
+                                        sheet="tableQuantity"
+                                        buttonText="Xuất Excel"
+                                    />
+                                </>
+                            )}
                         </Center>
                     </Col>
                     {dataQuanity && (
