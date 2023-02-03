@@ -5,6 +5,7 @@ const DeviceSiteConfigCollection = 't_Devices_SitesConfigs';
 module.exports.DeviceSiteConfig = class DeviceSiteConfig {
     constructor(
         _id,
+        LoggerId,
         SiteId,
         Tel,
         Pressure,
@@ -16,6 +17,7 @@ module.exports.DeviceSiteConfig = class DeviceSiteConfig {
         Pressure1,
     ) {
         this._id = _id;
+        this.LoggerId = this.LoggerId;
         this.SiteId = SiteId;
         this.Tel = Tel;
         this.Pressure = Pressure;

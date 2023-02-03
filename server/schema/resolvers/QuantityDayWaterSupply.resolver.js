@@ -80,11 +80,11 @@ module.exports = {
 
                         if (channels.length > 0) {
                             if (
-                                channels[0]._id != null &&
-                                channels[0]._id != undefined &&
-                                channels[0]._id != ''
+                                channels[0].LoggerId != null &&
+                                channels[0].LoggerId != undefined &&
+                                channels[0].LoggerId != ''
                             ) {
-                                let loggerId = channels[0]._id;
+                                let loggerId = channels[0].LoggerId;
                                 let channelFlow = channels[0].Forward;
                                 let channelReverse = channels[0].Reverse;
                                 let startHour = 0;
