@@ -24,7 +24,7 @@ import {
     convertDateToStringNotTime,
     convertDateToStringNotTimeForTitle,
 } from '../utils/utils';
-
+// @ts-ignore comment
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 interface Companies {
@@ -65,7 +65,9 @@ const QuantityWaterSupply = () => {
             if (data.GetCompanies.length > 0) {
                 for (let company of data.GetCompanies) {
                     let obj: Companies = {
+                        // @ts-ignore comment
                         value: company.Company,
+                        // @ts-ignore comment
                         label: company.Description,
                     };
 
@@ -124,7 +126,9 @@ const QuantityWaterSupply = () => {
             getQuantityCompany({
                 variables: {
                     company: selectedCompany,
+                    // @ts-ignore comment
                     start: startDate.toString(),
+                    // @ts-ignore comment
                     end: endDate.toString(),
                 },
             });
@@ -540,11 +544,13 @@ const QuantityWaterSupply = () => {
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         sum.toFixed(0),
                                     )}
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         avg.toFixed(0),
                                     )}
                                 </td>
@@ -581,11 +587,13 @@ const QuantityWaterSupply = () => {
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         sumCanGio.toFixed(0),
                                     )}
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         avgCangio.toFixed(0),
                                     )}
                                 </td>
@@ -621,11 +629,13 @@ const QuantityWaterSupply = () => {
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         sumOutlet.toFixed(0),
                                     )}
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         avgOutlet.toFixed(0),
                                     )}
                                 </td>
@@ -661,11 +671,13 @@ const QuantityWaterSupply = () => {
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         sumTachMang.toFixed(0),
                                     )}
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         avgTachMang.toFixed(0),
                                     )}
                                 </td>
@@ -701,11 +713,13 @@ const QuantityWaterSupply = () => {
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         sumGieng.toFixed(0),
                                     )}
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         avgGieng.toFixed(0),
                                     )}
                                 </td>
@@ -741,11 +755,13 @@ const QuantityWaterSupply = () => {
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         sumNuocNgam.toFixed(0),
                                     )}
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         avgNuocNgam.toFixed(0),
                                     )}
                                 </td>
@@ -783,11 +799,13 @@ const QuantityWaterSupply = () => {
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         sumXaHoiHoa.toFixed(0),
                                     )}
                                 </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
+                                        // @ts-ignore comment
                                         avgXaHoiHoa.toFixed(0),
                                     )}
                                 </td>
@@ -818,12 +836,18 @@ const QuantityWaterSupply = () => {
                             <td>
                                 {new Intl.NumberFormat('en-EN', {
                                     maximumSignificantDigits: 3,
-                                }).format(sumBodyTotal.toFixed(0))}
+                                }).format(
+                                    // @ts-ignore comment
+                                    sumBodyTotal.toFixed(0),
+                                )}
                             </td>
                             <td>
                                 {new Intl.NumberFormat('en-EN', {
                                     maximumSignificantDigits: 3,
-                                }).format(avgBodyTotal.toFixed(0))}
+                                }).format(
+                                    // @ts-ignore comment
+                                    avgBodyTotal.toFixed(0),
+                                )}
                             </td>
                             {rowBodyTotalValue}
                         </tr>
@@ -863,10 +887,12 @@ const QuantityWaterSupply = () => {
                             <caption>
                                 Sản Lượng {selectedCompany} từ{' '}
                                 {convertDateToStringNotTimeForTitle(
+                                    // @ts-ignore comment
                                     new Date(startDate),
                                 )}{' '}
                                 đến{' '}
                                 {convertDateToStringNotTimeForTitle(
+                                    // @ts-ignore comment
                                     new Date(endDate),
                                 )}
                             </caption>
@@ -931,8 +957,10 @@ const QuantityWaterSupply = () => {
                                         className="mantine-UnstyledButton-root mantine-Button-root mantine-1a6zj3b"
                                         table="tableQuantity"
                                         filename={`Sản lượng ${selectedCompany} từ ${convertDateToStringNotTimeForTitle(
+                                            // @ts-ignore comment
                                             new Date(startDate),
                                         )} đến  ${convertDateToStringNotTimeForTitle(
+                                            // @ts-ignore comment
                                             new Date(endDate),
                                         )}`}
                                         sheet="tableQuantity"

@@ -2,6 +2,7 @@
     "name": "client",
     "private": true,
     "version": "0.0.0",
+    "homepage": ".",
     "scripts": {
         "dev": " concurrently \"vite\" \" graphql-codegen --config graphql.config.yaml --errors-only --watch\"",
         "build": "tsc && vite build",

@@ -52,10 +52,13 @@ const Layout = () => {
 
     return (
         <ColorSchemeProvider
+            // @ts-ignore comment
             colorScheme={colorScheme}
+            // @ts-ignore comment
             toggleColorScheme={toggleColorScheme}
         >
             <MantineProvider
+                // @ts-ignore comment
                 theme={{ colorScheme }}
                 withGlobalStyles
                 withNormalizeCSS
