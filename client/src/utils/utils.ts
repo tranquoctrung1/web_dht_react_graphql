@@ -5,8 +5,6 @@ export const convertDateToStringNotTime = (date: any) => {
         date.toString().trim() != '' &&
         date != 'NO DATA'
     ) {
-        date.setHours(date.getHours() - 7);
-
         let year = date.getFullYear();
         let month =
             date.getMonth() + 1 >= 10

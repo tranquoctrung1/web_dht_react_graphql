@@ -13,7 +13,7 @@ import { motion } from 'framer-motion';
 
 import {
     useGetCompaniesQuery,
-    useQuantityDayCompanyLazyQuery,
+    useQuantityDayWaterSupplyLazyQuery,
 } from '../__generated__/graphql';
 
 import { useState } from 'react';
@@ -32,7 +32,7 @@ interface Companies {
     label: string;
 }
 
-const QuantityCompanyPage = () => {
+const QuantityWaterSupply = () => {
     const [selectedCompany, setSelectedCompany] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -41,19 +41,19 @@ const QuantityCompanyPage = () => {
     const [
         getQuantityCompany,
         { loading: loadingQuantity, error: errorQuantity, data: dataQuanity },
-    ] = useQuantityDayCompanyLazyQuery();
+    ] = useQuantityDayWaterSupplyLazyQuery();
 
     if (loading) {
         return (
             <Text color="blue" weight={500}>
-                Đang tải danh sách đơn vị quản lý
+                Đang tải danh sách công ty
             </Text>
         );
     }
     if (error) {
         return (
             <Text color="red" weight={500}>
-                Lỗi khi tải dánh sách đơn vị quản lý
+                Lỗi khi tải dánh sách công ty
             </Text>
         );
     }
@@ -102,7 +102,7 @@ const QuantityCompanyPage = () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Chưa chọn đơn vị quản lý!',
+                text: 'Chưa chọn công ty!',
             });
         } else if (
             startDate == null ||
@@ -134,12 +134,12 @@ const QuantityCompanyPage = () => {
     const renderTableQuantity = (data: any) => {
         if (data != null && data != undefined) {
             if (
-                data.QuantityDayCompany != null &&
-                data.QuantityDayCompany != undefined
+                data.QuantityDayWaterSupply != null &&
+                data.QuantityDayWaterSupply != undefined
             ) {
-                if (data.QuantityDayCompany.length > 0) {
+                if (data.QuantityDayWaterSupply.length > 0) {
                     let maxLengthQuantity =
-                        data.QuantityDayCompany[0].ListQuantity.length;
+                        data.QuantityDayWaterSupply[0].ListQuantity.length;
                     let indexMaxLengthQuantity = 0;
 
                     let body = [];
@@ -183,7 +183,11 @@ const QuantityCompanyPage = () => {
                     let countXaHoiHoa = 0;
                     let avgXaHoiHoa = 0;
 
-                    for (let i = 0; i < data.QuantityDayCompany.length; i++) {
+                    for (
+                        let i = 0;
+                        i < data.QuantityDayWaterSupply.length;
+                        i++
+                    ) {
                         isCangio = false;
                         isOutlet = false;
                         isTachMang = false;
@@ -192,11 +196,12 @@ const QuantityCompanyPage = () => {
                         isXaHoiHoa = false;
 
                         if (
-                            data.QuantityDayCompany[i].ListQuantity.length >
+                            data.QuantityDayWaterSupply[i].ListQuantity.length >
                             maxLengthQuantity
                         ) {
                             maxLengthQuantity =
-                                data.QuantityDayCompany[i].ListQuantity.length;
+                                data.QuantityDayWaterSupply[i].ListQuantity
+                                    .length;
                             indexMaxLengthQuantity = i;
                         }
 
@@ -205,11 +210,13 @@ const QuantityCompanyPage = () => {
                         let avg = 0;
 
                         if (
-                            data.QuantityDayCompany[i].SiteId != null &&
-                            data.QuantityDayCompany[i].SiteId != undefined &&
-                            data.QuantityDayCompany[i].SiteId != ''
+                            data.QuantityDayWaterSupply[i].SiteId != null &&
+                            data.QuantityDayWaterSupply[i].SiteId !=
+                                undefined &&
+                            data.QuantityDayWaterSupply[i].SiteId != ''
                         ) {
-                            let marker = data.QuantityDayCompany[i].SiteId[2];
+                            let marker =
+                                data.QuantityDayWaterSupply[i].SiteId[2];
                             if (marker == '0') {
                                 isCangio = true;
                             } else if (marker == '1') {
@@ -227,27 +234,32 @@ const QuantityCompanyPage = () => {
 
                         for (
                             let j = 0;
-                            j < data.QuantityDayCompany[i].ListQuantity.length;
+                            j <
+                            data.QuantityDayWaterSupply[i].ListQuantity.length;
                             j++
                         ) {
                             if (
-                                data.QuantityDayCompany[i].ListQuantity[j] !=
-                                    null &&
-                                data.QuantityDayCompany[i].ListQuantity[j] !=
-                                    undefined
+                                data.QuantityDayWaterSupply[i].ListQuantity[
+                                    j
+                                ] != null &&
+                                data.QuantityDayWaterSupply[i].ListQuantity[
+                                    j
+                                ] != undefined
                             ) {
                                 if (
-                                    data.QuantityDayCompany[i].ListQuantity[j]
-                                        .Value != null &&
-                                    data.QuantityDayCompany[i].ListQuantity[j]
-                                        .Value != undefined &&
-                                    data.QuantityDayCompany[i].ListQuantity[j]
-                                        .Value != 0
+                                    data.QuantityDayWaterSupply[i].ListQuantity[
+                                        j
+                                    ].Value != null &&
+                                    data.QuantityDayWaterSupply[i].ListQuantity[
+                                        j
+                                    ].Value != undefined &&
+                                    data.QuantityDayWaterSupply[i].ListQuantity[
+                                        j
+                                    ].Value != 0
                                 ) {
                                     sum +=
-                                        data.QuantityDayCompany[i].ListQuantity[
-                                            j
-                                        ].Value;
+                                        data.QuantityDayWaterSupply[i]
+                                            .ListQuantity[j].Value;
                                     count += 1;
 
                                     if (
@@ -255,13 +267,14 @@ const QuantityCompanyPage = () => {
                                         bodyTotal[j] != undefined
                                     ) {
                                         bodyTotal[j].value +=
-                                            data.QuantityDayCompany[
+                                            data.QuantityDayWaterSupply[
                                                 i
                                             ].ListQuantity[j].Value;
                                     } else {
                                         let obj = {
-                                            value: data.QuantityDayCompany[i]
-                                                .ListQuantity[j].Value,
+                                            value: data.QuantityDayWaterSupply[
+                                                i
+                                            ].ListQuantity[j].Value,
                                         };
                                         bodyTotal.push(obj);
                                     }
@@ -271,19 +284,19 @@ const QuantityCompanyPage = () => {
                                             cangio[j] != undefined
                                         ) {
                                             cangio[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             cangio.push(obj);
                                         }
                                         sumCanGio +=
-                                            data.QuantityDayCompany[i]
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
                                         countCanGio += 1;
                                     } else if (isOutlet == true) {
@@ -292,19 +305,19 @@ const QuantityCompanyPage = () => {
                                             outlet[j] != undefined
                                         ) {
                                             outlet[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             outlet.push(obj);
                                         }
                                         sumOutlet +=
-                                            data.QuantityDayCompany[i]
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
                                         countOutlet += 1;
                                     } else if (isTachMang == true) {
@@ -313,19 +326,19 @@ const QuantityCompanyPage = () => {
                                             tachmang[j] != undefined
                                         ) {
                                             tachmang[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             tachmang.push(obj);
                                         }
                                         sumTachMang +=
-                                            data.QuantityDayCompany[i]
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
                                         countTachMang += 1;
                                     } else if (isGieng == true) {
@@ -334,19 +347,19 @@ const QuantityCompanyPage = () => {
                                             gieng[j] != undefined
                                         ) {
                                             gieng[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             gieng.push(obj);
                                         }
                                         sumGieng +=
-                                            data.QuantityDayCompany[i]
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
                                         countGieng += 1;
                                     } else if (isNuocNgam == true) {
@@ -355,19 +368,19 @@ const QuantityCompanyPage = () => {
                                             nuocngam[j] != undefined
                                         ) {
                                             nuocngam[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             nuocngam.push(obj);
                                         }
                                         countNuocNgam +=
-                                            data.QuantityDayCompany[i]
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
                                         countNuocNgam += 1;
                                     } else if (isXaHoiHoa == true) {
@@ -376,19 +389,19 @@ const QuantityCompanyPage = () => {
                                             xahoihoa[j] != undefined
                                         ) {
                                             xahoihoa[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             xahoihoa.push(obj);
                                         }
                                         sumXaHoiHoa +=
-                                            data.QuantityDayCompany[i]
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
                                         countXaHoiHoa += 1;
                                     }
@@ -491,7 +504,7 @@ const QuantityCompanyPage = () => {
                         sumBodyTotal += sum;
                         avgBodyTotal += avg;
 
-                        let rowValueBody = data.QuantityDayCompany[
+                        let rowValueBody = data.QuantityDayWaterSupply[
                             i
                         ].ListQuantity.map((el: any, index: any) => {
                             if (el.IsEnoughData == false) {
@@ -517,12 +530,14 @@ const QuantityCompanyPage = () => {
                         });
 
                         let rowBody = (
-                            <tr key={data.QuantityDayCompany[i].SiteId}>
+                            <tr key={data.QuantityDayWaterSupply[i].SiteId}>
                                 <td>{i + 1}</td>
-                                <td>{data.QuantityDayCompany[i].Marks}</td>
-                                <td>{data.QuantityDayCompany[i].Size}</td>
-                                <td>{data.QuantityDayCompany[i].SiteId}</td>
-                                <td>{data.QuantityDayCompany[i].Location}</td>
+                                <td>{data.QuantityDayWaterSupply[i].Marks}</td>
+                                <td>{data.QuantityDayWaterSupply[i].Size}</td>
+                                <td>{data.QuantityDayWaterSupply[i].SiteId}</td>
+                                <td>
+                                    {data.QuantityDayWaterSupply[i].Location}
+                                </td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
                                         sum.toFixed(0),
@@ -816,7 +831,7 @@ const QuantityCompanyPage = () => {
 
                     body.push(rowBodyTotal);
 
-                    let timestampHeader = data.QuantityDayCompany[
+                    let timestampHeader = data.QuantityDayWaterSupply[
                         indexMaxLengthQuantity
                     ].ListQuantity.map((el: any) => (
                         <th key={el.TimeStamp}>
@@ -874,8 +889,8 @@ const QuantityCompanyPage = () => {
                 <Grid>
                     <Col md={4} sm={12}>
                         <Select
-                            label="Đơn vị quản lý"
-                            placeholder="Chọn đơn vị quản lý"
+                            label="Công ty"
+                            placeholder="Chọn công ty"
                             withAsterisk
                             data={tempData}
                             onChange={onCompaniesChanged}
@@ -945,4 +960,4 @@ const QuantityCompanyPage = () => {
     );
 };
 
-export default QuantityCompanyPage;
+export default QuantityWaterSupply;

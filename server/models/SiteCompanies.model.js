@@ -21,3 +21,15 @@ module.exports.GetSiteCompanies = async () => {
 
     return result;
 };
+
+module.exports.GetSiteCompniesByCompany = async (company) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteCompaniesCollection);
+
+    let result = await collection.find({ Company: company }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

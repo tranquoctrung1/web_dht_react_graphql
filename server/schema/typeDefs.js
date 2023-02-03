@@ -32,6 +32,23 @@ module.exports = gql`
         Description: String
     }
 
+    type QuantityDayWaterSupply {
+        SiteId: String!
+        Location: String
+        Marks: String
+        Size: Int
+        MeterDirection: String
+        IstDistributionCompany: String
+        QndDistributionCompany: String
+        OldId: String
+        Company: String
+        Address: String
+        Display: Boolean
+        IstDoNotCalculateReverse: Int
+        QndDoNotCalculateReverse: Int
+        ListQuantity: [Quantity]
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -41,6 +58,12 @@ module.exports = gql`
         ): [QuantityDayCompany!]!
 
         GetCompanies: [Company!]
+
+        QuantityDayWaterSupply(
+            company: String!
+            start: String!
+            end: String!
+        ): [QuantityDayWaterSupply!]!
     }
 
     # declare Mutation

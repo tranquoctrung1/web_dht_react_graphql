@@ -105,3 +105,28 @@ module.exports.GetSiteByCompany = async (company) => {
 
     return result;
 };
+
+module.exports.GetSiteByWaterSupply = async (company) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({
+            $and: [
+                {
+                    $or: [
+                        { ProductionCompany: company },
+                        { IstDistributionCompany: company },
+                        { QndDistributionCompany: company },
+                    ],
+                },
+                { Display: true },
+            ],
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

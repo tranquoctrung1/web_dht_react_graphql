@@ -7,6 +7,7 @@ import AboutPage from './pages/about';
 import ErrorPage from './pages/error';
 import HomePage from './pages/home';
 import QuantityCompanyPage from './pages/quantityCompany';
+import QuantityWaterSupplyPage from './pages/quantityWaterSupply';
 
 function App() {
     const router = createBrowserRouter([
@@ -21,6 +22,10 @@ function App() {
                 {
                     path: '/quantityCompany',
                     element: <QuantityCompanyPage />,
+                },
+                {
+                    path: '/quantityCompanyWaterSupply',
+                    element: <QuantityWaterSupplyPage />,
                 },
             ],
         },

@@ -3,11 +3,12 @@ const SiteSiteModel = require('../../models/SiteSite.model');
 const DeviceSiteConfigModel = require('../../models/DeviceSiteConfig.model');
 const DeviceMeterModel = require('../../models/DeviceMeter.model');
 const DataManualModel = require('../../models/DataManual.model');
+const SiteCompaniesModel = require('../../models/SiteCompanies.model');
 const Utils = require('../../utils');
 
 module.exports = {
     Query: {
-        QuantityDayCompany: async (
+        QuantityDayWaterSupply: async (
             parent,
             { company, start, end },
             context,
@@ -22,7 +23,7 @@ module.exports = {
 
             let totalDay = Utils.CalculateSpcaeDay(startDate, endDate) + 1;
 
-            let sites = await SiteSiteModel.GetSiteByCompany(company);
+            let sites = await SiteSiteModel.GetSiteByWaterSupply(company);
 
             if (sites.length > 0) {
                 for (let site of sites) {
@@ -39,6 +40,10 @@ module.exports = {
                     obj.Size = 0;
                     obj.Marks = '';
                     obj.Display = site.Display;
+                    obj.IstDoNotCalculateReverse =
+                        site.IstDoNotCalculateReverse;
+                    obj.QndDoNotCalculateReverse =
+                        site.QndDoNotCalculateReverse;
 
                     if (
                         site._id != null &&
@@ -51,6 +56,21 @@ module.exports = {
                         if (meter.length > 0) {
                             obj.Marks = meter[0].Marks;
                             obj.Size = meter[0].Size;
+                        }
+
+                        let siteCompanies =
+                            await SiteCompaniesModel.GetSiteCompniesByCompany(
+                                company,
+                            );
+                        let production = null;
+
+                        if (siteCompanies.length > 0) {
+                            if (
+                                siteCompanies[0].Production != null &&
+                                siteCompanies[0].Production != undefined
+                            ) {
+                                production = siteCompanies[0].Production;
+                            }
                         }
 
                         let channels =
@@ -266,6 +286,34 @@ module.exports = {
                                             indexReverseEnd -
                                             (indexForwardStart -
                                                 indexReverseStart);
+
+                                        if (
+                                            (obj.MeterDirection == 'P' &&
+                                                obj.IstDistributionCompany ==
+                                                    company) ||
+                                            (obj.MeterDirection == 'N' &&
+                                                obj.QndDistributionCompany ==
+                                                    company) ||
+                                            (objQuantity.Value < 0 &&
+                                                production == 1)
+                                        ) {
+                                            objQuantity.Value =
+                                                -objQuantity.Value;
+                                        }
+
+                                        if (
+                                            (objQuantity.Value < 0 &&
+                                                obj.IstDoNotCalculateReverse ==
+                                                    1 &&
+                                                obj.MeterDirection == 'P') ||
+                                            (objQuantity.Value > 0 &&
+                                                obj.QndDoNotCalculateReverse ==
+                                                    1 &&
+                                                obj.MeterDirection == 'N') ||
+                                            objQuantity.Value == null
+                                        ) {
+                                            objQuantity.Value = 0;
+                                        }
                                     }
 
                                     obj.ListQuantity.push(objQuantity);
