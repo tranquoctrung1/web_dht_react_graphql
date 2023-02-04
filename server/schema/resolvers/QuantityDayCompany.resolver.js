@@ -23,7 +23,6 @@ module.exports = {
             let totalDay = Utils.CalculateSpcaeDay(startDate, endDate) + 1;
 
             let sites = await SiteSiteModel.GetSiteByCompany(company);
-
             if (sites.length > 0) {
                 for (let site of sites) {
                     let obj = {};

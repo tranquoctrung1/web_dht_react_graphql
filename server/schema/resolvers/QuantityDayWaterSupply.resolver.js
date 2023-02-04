@@ -287,33 +287,33 @@ module.exports = {
                                             (indexForwardStart -
                                                 indexReverseStart);
 
-                                        if (
-                                            (obj.MeterDirection == 'P' &&
-                                                obj.IstDistributionCompany ==
-                                                    company) ||
-                                            (obj.MeterDirection == 'N' &&
-                                                obj.QndDistributionCompany ==
-                                                    company) ||
-                                            (objQuantity.Value < 0 &&
-                                                production == 1)
-                                        ) {
-                                            objQuantity.Value =
-                                                -objQuantity.Value;
-                                        }
+                                        // if (
+                                        //     (obj.MeterDirection == 'P' &&
+                                        //         obj.IstDistributionCompany ==
+                                        //             company) ||
+                                        //     (obj.MeterDirection == 'N' &&
+                                        //         obj.QndDistributionCompany ==
+                                        //             company) ||
+                                        //     (objQuantity.Value < 0 &&
+                                        //         production == 1)
+                                        // ) {
+                                        //     objQuantity.Value =
+                                        //         -objQuantity.Value;
+                                        // }
 
-                                        if (
-                                            (objQuantity.Value < 0 &&
-                                                obj.IstDoNotCalculateReverse ==
-                                                    1 &&
-                                                obj.MeterDirection == 'P') ||
-                                            (objQuantity.Value > 0 &&
-                                                obj.QndDoNotCalculateReverse ==
-                                                    1 &&
-                                                obj.MeterDirection == 'N') ||
-                                            objQuantity.Value == null
-                                        ) {
-                                            objQuantity.Value = 0;
-                                        }
+                                        // if (
+                                        //     (objQuantity.Value < 0 &&
+                                        //         obj.IstDoNotCalculateReverse ==
+                                        //             1 &&
+                                        //         obj.MeterDirection == 'P') ||
+                                        //     (objQuantity.Value > 0 &&
+                                        //         obj.QndDoNotCalculateReverse ==
+                                        //             1 &&
+                                        //         obj.MeterDirection == 'N') ||
+                                        //     objQuantity.Value == null
+                                        // ) {
+                                        //     objQuantity.Value = 0;
+                                        // }
                                     }
 
                                     obj.ListQuantity.push(objQuantity);

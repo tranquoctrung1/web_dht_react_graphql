@@ -154,37 +154,31 @@ const QuantityCompanyPage = () => {
                     let cangio = [];
                     let isCangio = false;
                     let sumCanGio = 0;
-                    let countCanGio = 0;
                     let avgCangio = 0;
 
                     let outlet = [];
                     let isOutlet = false;
                     let sumOutlet = 0;
-                    let countOutlet = 0;
                     let avgOutlet = 0;
 
                     let tachmang = [];
                     let isTachMang = false;
                     let sumTachMang = 0;
-                    let countTachMang = 0;
                     let avgTachMang = 0;
 
                     let gieng = [];
                     let isGieng = false;
                     let sumGieng = 0;
-                    let countGieng = 0;
                     let avgGieng = 0;
 
                     let nuocngam = [];
                     let isNuocNgam = false;
                     let sumNuocNgam = 0;
-                    let countNuocNgam = 0;
                     let avgNuocNgam = 0;
 
                     let xahoihoa = [];
                     let isXaHoiHoa = false;
                     let sumXaHoiHoa = 0;
-                    let countXaHoiHoa = 0;
                     let avgXaHoiHoa = 0;
 
                     for (let i = 0; i < data.QuantityDayCompany.length; i++) {
@@ -207,6 +201,18 @@ const QuantityCompanyPage = () => {
                         let sum = 0;
                         let count = 0;
                         let avg = 0;
+                        let tempSumCanGio = 0;
+                        let tempcountCanGio = 0;
+                        let tempSumOutlet = 0;
+                        let tempCountOutlet = 0;
+                        let tempSumTachMang = 0;
+                        let tempCountTachMang = 0;
+                        let tempSumNuocNgam = 0;
+                        let tempCountNuocNgam = 0;
+                        let tempSumGieng = 0;
+                        let tempCountGieng = 0;
+                        let tempSumXaHoiHoa = 0;
+                        let tempCountXaHoiHoa = 0;
 
                         if (
                             data.QuantityDayCompany[i].SiteId != null &&
@@ -275,126 +281,144 @@ const QuantityCompanyPage = () => {
                                             cangio[j] != undefined
                                         ) {
                                             cangio[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             cangio.push(obj);
                                         }
                                         sumCanGio +=
-                                            data.QuantityDayCompany[i]
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
-                                        countCanGio += 1;
+                                        tempcountCanGio += 1;
+                                        tempSumCanGio +=
+                                            data.QuantityDayWaterSupply[i]
+                                                .ListQuantity[j].Value;
                                     } else if (isOutlet == true) {
                                         if (
                                             outlet[j] != null &&
                                             outlet[j] != undefined
                                         ) {
                                             outlet[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             outlet.push(obj);
                                         }
                                         sumOutlet +=
-                                            data.QuantityDayCompany[i]
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
-                                        countOutlet += 1;
+                                        tempCountOutlet += 1;
+                                        tempSumOutlet +=
+                                            data.QuantityDayWaterSupply[i]
+                                                .ListQuantity[j].Value;
                                     } else if (isTachMang == true) {
                                         if (
                                             tachmang[j] != null &&
                                             tachmang[j] != undefined
                                         ) {
                                             tachmang[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             tachmang.push(obj);
                                         }
                                         sumTachMang +=
-                                            data.QuantityDayCompany[i]
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
-                                        countTachMang += 1;
+                                        tempCountTachMang += 1;
+                                        tempSumTachMang +=
+                                            data.QuantityDayWaterSupply[i]
+                                                .ListQuantity[j].Value;
                                     } else if (isGieng == true) {
                                         if (
                                             gieng[j] != null &&
                                             gieng[j] != undefined
                                         ) {
                                             gieng[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             gieng.push(obj);
                                         }
                                         sumGieng +=
-                                            data.QuantityDayCompany[i]
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
-                                        countGieng += 1;
+                                        tempCountGieng += 1;
+                                        tempSumGieng +=
+                                            data.QuantityDayWaterSupply[i]
+                                                .ListQuantity[j].Value;
                                     } else if (isNuocNgam == true) {
                                         if (
                                             nuocngam[j] != null &&
                                             nuocngam[j] != undefined
                                         ) {
                                             nuocngam[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             nuocngam.push(obj);
                                         }
-                                        countNuocNgam +=
-                                            data.QuantityDayCompany[i]
+                                        sumNuocNgam +=
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
-                                        countNuocNgam += 1;
+                                        tempCountNuocNgam += 1;
+                                        tempSumNuocNgam +=
+                                            data.QuantityDayWaterSupply[i]
+                                                .ListQuantity[j].Value;
                                     } else if (isXaHoiHoa == true) {
                                         if (
                                             xahoihoa[j] != null &&
                                             xahoihoa[j] != undefined
                                         ) {
                                             xahoihoa[j].value +=
-                                                data.QuantityDayCompany[
+                                                data.QuantityDayWaterSupply[
                                                     i
                                                 ].ListQuantity[j].Value;
                                         } else {
                                             let obj = {
-                                                value: data.QuantityDayCompany[
-                                                    i
-                                                ].ListQuantity[j].Value,
+                                                value: data
+                                                    .QuantityDayWaterSupply[i]
+                                                    .ListQuantity[j].Value,
                                             };
                                             xahoihoa.push(obj);
                                         }
                                         sumXaHoiHoa +=
-                                            data.QuantityDayCompany[i]
+                                            data.QuantityDayWaterSupply[i]
                                                 .ListQuantity[j].Value;
-                                        countXaHoiHoa += 1;
+                                        tempCountXaHoiHoa += 1;
+                                        tempSumXaHoiHoa +=
+                                            data.QuantityDayWaterSupply[i]
+                                                .ListQuantity[j].Value;
                                     }
                                 } else {
                                     if (
@@ -547,12 +571,6 @@ const QuantityCompanyPage = () => {
                     }
 
                     if (cangio.length > 0) {
-                        if (countCanGio == 0) {
-                            countCanGio = 1;
-                        }
-
-                        avgCangio = sumCanGio / countCanGio;
-
                         let rowBodyCanGioValue = cangio.map(
                             (el: any, index: any) => (
                                 <td key={index}>
@@ -589,12 +607,6 @@ const QuantityCompanyPage = () => {
                         body.push(rowBodyCanGio);
                     }
                     if (outlet.length > 0) {
-                        if (countOutlet == 0) {
-                            countOutlet = 1;
-                        }
-
-                        avgOutlet = sumOutlet / countOutlet;
-
                         let rowBodyOutletValue = outlet.map(
                             (el: any, index: any) => (
                                 <td key={index}>
@@ -631,12 +643,6 @@ const QuantityCompanyPage = () => {
                         body.push(rowBodyOutlet);
                     }
                     if (tachmang.length > 0) {
-                        if (countTachMang == 0) {
-                            countTachMang = 1;
-                        }
-
-                        avgTachMang = sumTachMang / countTachMang;
-
                         let rowBodyTachMangValue = tachmang.map(
                             (el: any, index: any) => (
                                 <td key={index}>
@@ -673,12 +679,6 @@ const QuantityCompanyPage = () => {
                         body.push(rowBodyTachMang);
                     }
                     if (gieng.length > 0) {
-                        if (countGieng == 0) {
-                            countGieng = 1;
-                        }
-
-                        avgGieng = sumGieng / countGieng;
-
                         let rowBodyGiengValue = gieng.map(
                             (el: any, index: any) => (
                                 <td key={index}>
@@ -715,12 +715,6 @@ const QuantityCompanyPage = () => {
                         body.push(rowBodyGieng);
                     }
                     if (nuocngam.length > 0) {
-                        if (countNuocNgam == 0) {
-                            countNuocNgam = 1;
-                        }
-
-                        avgNuocNgam = sumNuocNgam / countNuocNgam;
-
                         let rowBodyNuocNgamValue = nuocngam.map(
                             (el: any, index: any) => (
                                 <td key={index}>
@@ -757,12 +751,6 @@ const QuantityCompanyPage = () => {
                         body.push(rowBodyNuocNgam);
                     }
                     if (xahoihoa.length > 0) {
-                        if (countXaHoiHoa == 0) {
-                            countXaHoiHoa = 1;
-                        }
-
-                        avgXaHoiHoa = sumXaHoiHoa / countXaHoiHoa;
-
                         let rowBodyXaHoiHoaValue = xahoihoa.map(
                             (el: any, index: any) => (
                                 <td key={index}>
@@ -804,9 +792,9 @@ const QuantityCompanyPage = () => {
                     let rowBodyTotalValue = bodyTotal.map(
                         (el: any, index: any) => (
                             <td key={index}>
-                                {new Intl.NumberFormat('en-EN', {
-                                    maximumSignificantDigits: 3,
-                                }).format(el.value.toFixed(0))}
+                                {new Intl.NumberFormat('en-EN', {}).format(
+                                    el.value.toFixed(0),
+                                )}
                             </td>
                         ),
                     );
@@ -819,17 +807,13 @@ const QuantityCompanyPage = () => {
                                 </Center>
                             </td>
                             <td>
-                                {new Intl.NumberFormat('en-EN', {
-                                    maximumSignificantDigits: 3,
-                                }).format(
+                                {new Intl.NumberFormat('en-EN', {}).format(
                                     // @ts-ignore comment
                                     sumBodyTotal.toFixed(0),
                                 )}
                             </td>
                             <td>
-                                {new Intl.NumberFormat('en-EN', {
-                                    maximumSignificantDigits: 3,
-                                }).format(
+                                {new Intl.NumberFormat('en-EN', {}).format(
                                     // @ts-ignore comment
                                     avgBodyTotal.toFixed(0),
                                 )}
