@@ -16,6 +16,10 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { OpenState, toggle } from '../features/openSidebar';
+
+import { useDispatch, useSelector } from 'react-redux';
+
 const useStyles = createStyles((theme) => ({
     control: {
         fontWeight: 500,
@@ -82,6 +86,9 @@ export function LinksGroup({
 }: LinksGroupProps) {
     const navigate = useNavigate();
 
+    const open = useSelector(OpenState);
+    const dispatch = useDispatch();
+
     const { classes, theme } = useStyles();
     const hasLinks = Array.isArray(links);
     const [opened, setOpened] = useState(initiallyOpened || false);
@@ -95,6 +102,7 @@ export function LinksGroup({
             className={classes.link}
             key={link.label}
             onClick={() => {
+                dispatch(toggle());
                 return navigate(link.link);
             }}
         >

@@ -20,13 +20,15 @@ import { NavbarNested } from './navbar';
 
 import { IconPower } from '@tabler/icons';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import IconChangeTheme from '../components/iconChangeTheme';
 
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { AnimatePresence } from 'framer-motion';
+
+import { OpenState, toggle } from '../features/openSidebar';
 
 const Layout = () => {
     const [colorScheme, setColorScheme] = useLocalStorage({
@@ -38,7 +40,15 @@ const Layout = () => {
     const toggleColorScheme = (value: string) =>
         setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
-    const [opened, setOpened] = useState(false);
+    const open = useSelector(OpenState);
+
+    const dispatch = useDispatch();
+
+    //const [opened, setOpened] = useState(open);
+
+    const onOpenSidebarClicked = () => {
+        dispatch(toggle());
+    };
 
     const navigate = useNavigate();
 
@@ -70,7 +80,7 @@ const Layout = () => {
                         navbar={
                             <Navbar
                                 hiddenBreakpoint="sm"
-                                hidden={!opened}
+                                hidden={!open}
                                 width={{ sm: 300 }}
                                 p="xs"
                                 style={{
@@ -104,8 +114,8 @@ const Layout = () => {
                                         styles={{ display: 'none' }}
                                     >
                                         <Burger
-                                            opened={opened}
-                                            onClick={() => setOpened((o) => !o)}
+                                            opened={open}
+                                            onClick={onOpenSidebarClicked}
                                             size="sm"
                                             mr="xl"
                                         />

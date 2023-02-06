@@ -23,6 +23,7 @@ import Swal from 'sweetalert2';
 import {
     convertDateToStringNotTime,
     convertDateToStringNotTimeForTitle,
+    quickSort,
 } from '../utils/utils';
 // @ts-ignore comment
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
@@ -136,14 +137,12 @@ const QuantityWaterSupply = () => {
     };
 
     const renderTableQuantity = (data: any) => {
+        let sortedData = quickSort(data.QuantityDayWaterSupply);
+
         if (data != null && data != undefined) {
-            if (
-                data.QuantityDayWaterSupply != null &&
-                data.QuantityDayWaterSupply != undefined
-            ) {
-                if (data.QuantityDayWaterSupply.length > 0) {
-                    let maxLengthQuantity =
-                        data.QuantityDayWaterSupply[0].ListQuantity.length;
+            if (sortedData != null && sortedData != undefined) {
+                if (sortedData.length > 0) {
+                    let maxLengthQuantity = sortedData[0].ListQuantity.length;
                     let indexMaxLengthQuantity = 0;
 
                     let body = [];
@@ -153,39 +152,41 @@ const QuantityWaterSupply = () => {
 
                     let cangio = [];
                     let isCangio = false;
+                    let countCanGio = 0;
                     let sumCanGio = 0;
                     let avgCangio = 0;
 
                     let outlet = [];
                     let isOutlet = false;
+                    let countOutlet = 0;
                     let sumOutlet = 0;
                     let avgOutlet = 0;
 
                     let tachmang = [];
                     let isTachMang = false;
+                    let countTachMang = 0;
                     let sumTachMang = 0;
                     let avgTachMang = 0;
 
                     let gieng = [];
                     let isGieng = false;
+                    let countGieng = 0;
                     let sumGieng = 0;
                     let avgGieng = 0;
 
                     let nuocngam = [];
                     let isNuocNgam = false;
                     let sumNuocNgam = 0;
+                    let countNuocNgam = 0;
                     let avgNuocNgam = 0;
 
                     let xahoihoa = [];
                     let isXaHoiHoa = false;
+                    let countXaHoiHoa = 0;
                     let sumXaHoiHoa = 0;
                     let avgXaHoiHoa = 0;
 
-                    for (
-                        let i = 0;
-                        i < data.QuantityDayWaterSupply.length;
-                        i++
-                    ) {
+                    for (let i = 0; i < sortedData.length; i++) {
                         isCangio = false;
                         isOutlet = false;
                         isTachMang = false;
@@ -194,12 +195,11 @@ const QuantityWaterSupply = () => {
                         isXaHoiHoa = false;
 
                         if (
-                            data.QuantityDayWaterSupply[i].ListQuantity.length >
+                            sortedData[i].ListQuantity.length >
                             maxLengthQuantity
                         ) {
                             maxLengthQuantity =
-                                data.QuantityDayWaterSupply[i].ListQuantity
-                                    .length;
+                                sortedData[i].ListQuantity.length;
                             indexMaxLengthQuantity = i;
                         }
 
@@ -220,56 +220,48 @@ const QuantityWaterSupply = () => {
                         let tempCountXaHoiHoa = 0;
 
                         if (
-                            data.QuantityDayWaterSupply[i].SiteId != null &&
-                            data.QuantityDayWaterSupply[i].SiteId !=
-                                undefined &&
-                            data.QuantityDayWaterSupply[i].SiteId != ''
+                            sortedData[i].SiteId != null &&
+                            sortedData[i].SiteId != undefined &&
+                            sortedData[i].SiteId != ''
                         ) {
-                            let marker =
-                                data.QuantityDayWaterSupply[i].SiteId[2];
+                            let marker = sortedData[i].SiteId[2];
                             if (marker == '0') {
                                 isCangio = true;
+                                countCanGio += 1;
                             } else if (marker == '1') {
                                 isOutlet = true;
+                                countOutlet += 1;
                             } else if (marker == '2') {
                                 isTachMang = true;
+                                countTachMang += 1;
                             } else if (marker == '3') {
                                 isGieng = true;
+                                countGieng += 1;
                             } else if (marker == '4') {
                                 isNuocNgam = true;
+                                countNuocNgam += 1;
                             } else if (marker == '5') {
                                 isXaHoiHoa = true;
+                                countXaHoiHoa += 1;
                             }
                         }
 
                         for (
                             let j = 0;
-                            j <
-                            data.QuantityDayWaterSupply[i].ListQuantity.length;
+                            j < sortedData[i].ListQuantity.length;
                             j++
                         ) {
                             if (
-                                data.QuantityDayWaterSupply[i].ListQuantity[
-                                    j
-                                ] != null &&
-                                data.QuantityDayWaterSupply[i].ListQuantity[
-                                    j
-                                ] != undefined
+                                sortedData[i].ListQuantity[j] != null &&
+                                sortedData[i].ListQuantity[j] != undefined
                             ) {
                                 if (
-                                    data.QuantityDayWaterSupply[i].ListQuantity[
-                                        j
-                                    ].Value != null &&
-                                    data.QuantityDayWaterSupply[i].ListQuantity[
-                                        j
-                                    ].Value != undefined &&
-                                    data.QuantityDayWaterSupply[i].ListQuantity[
-                                        j
-                                    ].Value != 0
+                                    sortedData[i].ListQuantity[j].Value !=
+                                        null &&
+                                    sortedData[i].ListQuantity[j].Value !=
+                                        undefined
                                 ) {
-                                    sum +=
-                                        data.QuantityDayWaterSupply[i]
-                                            .ListQuantity[j].Value;
+                                    sum += sortedData[i].ListQuantity[j].Value;
                                     count += 1;
 
                                     if (
@@ -277,14 +269,11 @@ const QuantityWaterSupply = () => {
                                         bodyTotal[j] != undefined
                                     ) {
                                         bodyTotal[j].value +=
-                                            data.QuantityDayWaterSupply[
-                                                i
-                                            ].ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                     } else {
                                         let obj = {
-                                            value: data.QuantityDayWaterSupply[
-                                                i
-                                            ].ListQuantity[j].Value,
+                                            value: sortedData[i].ListQuantity[j]
+                                                .Value,
                                         };
                                         bodyTotal.push(obj);
                                     }
@@ -294,144 +283,126 @@ const QuantityWaterSupply = () => {
                                             cangio[j] != undefined
                                         ) {
                                             cangio[j].value +=
-                                                data.QuantityDayWaterSupply[
-                                                    i
-                                                ].ListQuantity[j].Value;
+                                                sortedData[i].ListQuantity[
+                                                    j
+                                                ].Value;
                                         } else {
                                             let obj = {
-                                                value: data
-                                                    .QuantityDayWaterSupply[i]
+                                                value: sortedData[i]
                                                     .ListQuantity[j].Value,
                                             };
                                             cangio.push(obj);
                                         }
                                         sumCanGio +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                         tempcountCanGio += 1;
                                         tempSumCanGio +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                     } else if (isOutlet == true) {
                                         if (
                                             outlet[j] != null &&
                                             outlet[j] != undefined
                                         ) {
                                             outlet[j].value +=
-                                                data.QuantityDayWaterSupply[
-                                                    i
-                                                ].ListQuantity[j].Value;
+                                                sortedData[i].ListQuantity[
+                                                    j
+                                                ].Value;
                                         } else {
                                             let obj = {
-                                                value: data
-                                                    .QuantityDayWaterSupply[i]
+                                                value: sortedData[i]
                                                     .ListQuantity[j].Value,
                                             };
                                             outlet.push(obj);
                                         }
                                         sumOutlet +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                         tempCountOutlet += 1;
                                         tempSumOutlet +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                     } else if (isTachMang == true) {
                                         if (
                                             tachmang[j] != null &&
                                             tachmang[j] != undefined
                                         ) {
                                             tachmang[j].value +=
-                                                data.QuantityDayWaterSupply[
-                                                    i
-                                                ].ListQuantity[j].Value;
+                                                sortedData[i].ListQuantity[
+                                                    j
+                                                ].Value;
                                         } else {
                                             let obj = {
-                                                value: data
-                                                    .QuantityDayWaterSupply[i]
+                                                value: sortedData[i]
                                                     .ListQuantity[j].Value,
                                             };
                                             tachmang.push(obj);
                                         }
                                         sumTachMang +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                         tempCountTachMang += 1;
                                         tempSumTachMang +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                     } else if (isGieng == true) {
                                         if (
                                             gieng[j] != null &&
                                             gieng[j] != undefined
                                         ) {
                                             gieng[j].value +=
-                                                data.QuantityDayWaterSupply[
-                                                    i
-                                                ].ListQuantity[j].Value;
+                                                sortedData[i].ListQuantity[
+                                                    j
+                                                ].Value;
                                         } else {
                                             let obj = {
-                                                value: data
-                                                    .QuantityDayWaterSupply[i]
+                                                value: sortedData[i]
                                                     .ListQuantity[j].Value,
                                             };
                                             gieng.push(obj);
                                         }
                                         sumGieng +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                         tempCountGieng += 1;
                                         tempSumGieng +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                     } else if (isNuocNgam == true) {
                                         if (
                                             nuocngam[j] != null &&
                                             nuocngam[j] != undefined
                                         ) {
                                             nuocngam[j].value +=
-                                                data.QuantityDayWaterSupply[
-                                                    i
-                                                ].ListQuantity[j].Value;
+                                                sortedData[i].ListQuantity[
+                                                    j
+                                                ].Value;
                                         } else {
                                             let obj = {
-                                                value: data
-                                                    .QuantityDayWaterSupply[i]
+                                                value: sortedData[i]
                                                     .ListQuantity[j].Value,
                                             };
                                             nuocngam.push(obj);
                                         }
                                         sumNuocNgam +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                         tempCountNuocNgam += 1;
                                         tempSumNuocNgam +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                     } else if (isXaHoiHoa == true) {
                                         if (
                                             xahoihoa[j] != null &&
                                             xahoihoa[j] != undefined
                                         ) {
                                             xahoihoa[j].value +=
-                                                data.QuantityDayWaterSupply[
-                                                    i
-                                                ].ListQuantity[j].Value;
+                                                sortedData[i].ListQuantity[
+                                                    j
+                                                ].Value;
                                         } else {
                                             let obj = {
-                                                value: data
-                                                    .QuantityDayWaterSupply[i]
+                                                value: sortedData[i]
                                                     .ListQuantity[j].Value,
                                             };
                                             xahoihoa.push(obj);
                                         }
                                         sumXaHoiHoa +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                         tempCountXaHoiHoa += 1;
                                         tempSumXaHoiHoa +=
-                                            data.QuantityDayWaterSupply[i]
-                                                .ListQuantity[j].Value;
+                                            sortedData[i].ListQuantity[j].Value;
                                     }
                                 } else {
                                     if (
@@ -568,40 +539,40 @@ const QuantityWaterSupply = () => {
 
                         avgXaHoiHoa += tempSumXaHoiHoa / tempCountXaHoiHoa;
 
-                        let rowValueBody = data.QuantityDayWaterSupply[
-                            i
-                        ].ListQuantity.map((el: any, index: any) => {
-                            if (el.IsEnoughData == false) {
-                                return (
-                                    <td
-                                        key={index}
-                                        //style={{ backgroundColor: 'yellow' }}
-                                    >
-                                        {new Intl.NumberFormat('en-EN').format(
-                                            el.Value.toFixed(0),
-                                        )}
-                                    </td>
-                                );
-                            } else {
-                                return (
-                                    <td key={index}>
-                                        {new Intl.NumberFormat('en-EN').format(
-                                            el.Value.toFixed(0),
-                                        )}
-                                    </td>
-                                );
-                            }
-                        });
+                        let rowValueBody = sortedData[i].ListQuantity.map(
+                            (el: any, index: any) => {
+                                if (el.IsEnoughData == false) {
+                                    return (
+                                        <td
+                                            key={index}
+                                            style={{
+                                                backgroundColor: 'yellow',
+                                            }}
+                                        >
+                                            {new Intl.NumberFormat(
+                                                'en-EN',
+                                            ).format(el.Value.toFixed(0))}
+                                        </td>
+                                    );
+                                } else {
+                                    return (
+                                        <td key={index}>
+                                            {new Intl.NumberFormat(
+                                                'en-EN',
+                                            ).format(el.Value.toFixed(0))}
+                                        </td>
+                                    );
+                                }
+                            },
+                        );
 
                         let rowBody = (
-                            <tr key={data.QuantityDayWaterSupply[i].SiteId}>
+                            <tr key={sortedData[i].SiteId}>
                                 <td>{i + 1}</td>
-                                <td>{data.QuantityDayWaterSupply[i].Marks}</td>
-                                <td>{data.QuantityDayWaterSupply[i].Size}</td>
-                                <td>{data.QuantityDayWaterSupply[i].SiteId}</td>
-                                <td>
-                                    {data.QuantityDayWaterSupply[i].Location}
-                                </td>
+                                <td>{sortedData[i].Marks}</td>
+                                <td>{sortedData[i].Size}</td>
+                                <td>{sortedData[i].SiteId}</td>
+                                <td>{sortedData[i].Location}</td>
                                 <td>
                                     {new Intl.NumberFormat('en-EN').format(
                                         // @ts-ignore comment
@@ -655,7 +626,9 @@ const QuantityWaterSupply = () => {
                             </tr>
                         );
 
-                        body.push(rowBodyCanGio);
+                        //body.push(rowBodyCanGio);
+                        body.splice(countCanGio, 0, rowBodyCanGio);
+                        countCanGio += 1;
                     }
                     if (outlet.length > 0) {
                         let rowBodyOutletValue = outlet.map(
@@ -691,7 +664,14 @@ const QuantityWaterSupply = () => {
                             </tr>
                         );
 
-                        body.push(rowBodyOutlet);
+                        //body.push(rowBodyOutlet);
+                        body.splice(
+                            countOutlet + countCanGio,
+                            0,
+                            rowBodyOutlet,
+                        );
+
+                        countOutlet += 1;
                     }
                     if (tachmang.length > 0) {
                         let rowBodyTachMangValue = tachmang.map(
@@ -727,7 +707,14 @@ const QuantityWaterSupply = () => {
                             </tr>
                         );
 
-                        body.push(rowBodyTachMang);
+                        //body.push(rowBodyTachMang);
+                        body.splice(
+                            countTachMang + countCanGio + countOutlet,
+                            0,
+                            rowBodyTachMang,
+                        );
+
+                        countTachMang += 1;
                     }
                     if (gieng.length > 0) {
                         let rowBodyGiengValue = gieng.map(
@@ -763,7 +750,16 @@ const QuantityWaterSupply = () => {
                             </tr>
                         );
 
-                        body.push(rowBodyGieng);
+                        //body.push(rowBodyGieng);
+                        body.splice(
+                            countGieng +
+                                countCanGio +
+                                countOutlet +
+                                countTachMang,
+                            0,
+                            rowBodyGieng,
+                        );
+                        countGieng += 1;
                     }
                     if (nuocngam.length > 0) {
                         let rowBodyNuocNgamValue = nuocngam.map(
@@ -799,7 +795,18 @@ const QuantityWaterSupply = () => {
                             </tr>
                         );
 
-                        body.push(rowBodyNuocNgam);
+                        //body.push(rowBodyNuocNgam);
+                        body.splice(
+                            countNuocNgam +
+                                countCanGio +
+                                countOutlet +
+                                countGieng +
+                                countTachMang,
+                            0,
+                            rowBodyNuocNgam,
+                        );
+
+                        countNuocNgam += 1;
                     }
                     if (xahoihoa.length > 0) {
                         let rowBodyXaHoiHoaValue = xahoihoa.map(
@@ -837,7 +844,19 @@ const QuantityWaterSupply = () => {
                             </tr>
                         );
 
-                        body.push(rowBodyXaHoiHoa);
+                        //body.push(rowBodyXaHoiHoa);
+                        body.splice(
+                            countXaHoiHoa +
+                                countCanGio +
+                                countOutlet +
+                                countTachMang +
+                                countGieng +
+                                countNuocNgam,
+                            0,
+                            rowBodyXaHoiHoa,
+                        );
+
+                        countXaHoiHoa += 1;
                     }
 
                     let rowBodyTotalValue = bodyTotal.map(
@@ -875,7 +894,7 @@ const QuantityWaterSupply = () => {
 
                     body.push(rowBodyTotal);
 
-                    let timestampHeader = data.QuantityDayWaterSupply[
+                    let timestampHeader = sortedData[
                         indexMaxLengthQuantity
                     ].ListQuantity.map((el: any) => (
                         <th key={el.TimeStamp}>

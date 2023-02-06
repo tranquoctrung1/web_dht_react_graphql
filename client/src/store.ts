@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import CounterSlice from './features/counter';
+import OpenSidebarSlice from './features/openSidebar';
 
 export const store = configureStore({
     reducer: {
         counter: CounterSlice,
+        open: OpenSidebarSlice,
     },
 });
 
