@@ -99,6 +99,7 @@ module.exports.GetSiteByCompany = async (company) => {
 
     let result = await collection
         .find({ Company: company, Display: true })
+        .sort({ _id: -1 })
         .toArray();
 
     Connect.disconnect();
@@ -124,6 +125,7 @@ module.exports.GetSiteByWaterSupply = async (company) => {
                 { Display: true },
             ],
         })
+        .sort({ _id: -1 })
         .toArray();
 
     Connect.disconnect();

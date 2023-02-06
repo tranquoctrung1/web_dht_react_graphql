@@ -188,10 +188,10 @@ module.exports = {
                                             tempEnd2.getSeconds() - 1,
                                         );
 
-                                        let indexForwardStart = 0;
-                                        let indexForwardEnd = 0;
-                                        let indexReverseStart = 0;
-                                        let indexReverseEnd = 0;
+                                        let indexForwardStart = null;
+                                        let indexForwardEnd = null;
+                                        let indexReverseStart = null;
+                                        let indexReverseEnd = null;
 
                                         let find = listIndexFoward.find(
                                             (el) =>
@@ -260,11 +260,87 @@ module.exports = {
                                         }
 
                                         objQuantity.TimeStamp = tempStart2;
-                                        objQuantity.Value =
-                                            indexForwardEnd -
-                                            indexReverseEnd -
-                                            (indexForwardStart -
-                                                indexReverseStart);
+                                        if (
+                                            channelFlow != null &&
+                                            channelFlow != undefined &&
+                                            channelFlow != '' &&
+                                            channelReverse != null &&
+                                            channelReverse != undefined &&
+                                            channelReverse != ''
+                                        ) {
+                                            if (
+                                                indexForwardEnd != null &&
+                                                indexReverseEnd != null
+                                            ) {
+                                                objQuantity.Value +=
+                                                    indexForwardEnd;
+                                                objQuantity.Value -=
+                                                    indexReverseEnd;
+
+                                                if (
+                                                    indexForwardStart != null &&
+                                                    indexReverseStart != null
+                                                ) {
+                                                    objQuantity.Value -=
+                                                        indexForwardStart;
+                                                    objQuantity.Value +=
+                                                        indexReverseStart;
+                                                } else {
+                                                    objQuantity.Value = 0;
+                                                    objQuantity.IsEnoughData = false;
+                                                }
+                                            } else {
+                                                objQuantity.Value = 0;
+                                                objQuantity.IsEnoughData = false;
+                                            }
+                                        } else if (
+                                            channelFlow != null &&
+                                            channelFlow != undefined &&
+                                            channelFlow != '' &&
+                                            (channelReverse == null ||
+                                                channelReverse == undefined ||
+                                                channelReverse == '')
+                                        ) {
+                                            if (indexForwardEnd != null) {
+                                                objQuantity.Value +=
+                                                    indexForwardEnd;
+                                                if (indexForwardStart != null) {
+                                                    objQuantity.Value -=
+                                                        indexForwardStart;
+                                                } else {
+                                                    objQuantity.Value = 0;
+                                                    objQuantity.IsEnoughData = false;
+                                                }
+                                            } else {
+                                                objQuantity.Value = 0;
+                                                objQuantity.IsEnoughData = false;
+                                            }
+                                        } else if (
+                                            channelReverse != null &&
+                                            channelReverse != undefined &&
+                                            channelReverse != '' &&
+                                            (channelFlow == null ||
+                                                channelFlow == undefined ||
+                                                channelFlow == '')
+                                        ) {
+                                            if (indexReverseEnd != null) {
+                                                objQuantity.Value -=
+                                                    indexReverseEnd;
+                                                if (indexReverseStart != null) {
+                                                    objQuantity.Value -=
+                                                        indexReverseStart;
+                                                } else {
+                                                    objQuantity.Value = 0;
+                                                    objQuantity.IsEnoughData = false;
+                                                }
+                                            } else {
+                                                objQuantity.Value = 0;
+                                                objQuantity.IsEnoughData = false;
+                                            }
+                                        } else {
+                                            objQuantity.Value = 0;
+                                            objQuantity.IsEnoughData = false;
+                                        }
                                     }
 
                                     obj.ListQuantity.push(objQuantity);
@@ -279,7 +355,7 @@ module.exports = {
                                 let objQuantity = {};
                                 objQuantity.TimeStamp = tempStart2;
                                 objQuantity.Value = 0;
-                                objQuantity.IsEnoughData = true;
+                                objQuantity.IsEnoughData = false;
 
                                 obj.ListQuantity.push(objQuantity);
                             }
