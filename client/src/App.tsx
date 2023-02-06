@@ -6,6 +6,7 @@ import Layout from './layout/layout';
 import AboutPage from './pages/about';
 import ErrorPage from './pages/error';
 import HomePage from './pages/home';
+import LoginPage from './pages/login';
 import QuantityCompanyPage from './pages/quantityCompany';
 import QuantityWaterSupplyPage from './pages/quantityWaterSupply';
 
@@ -36,6 +37,10 @@ function App() {
         {
             path: '*',
             element: <ErrorPage />,
+        },
+        {
+            path: '/login',
+            element: <LoginPage />,
         },
     ]);
 

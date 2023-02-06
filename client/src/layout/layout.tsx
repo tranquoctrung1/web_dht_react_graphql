@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import IconChangeTheme from '../components/iconChangeTheme';
 
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 import { AnimatePresence } from 'framer-motion';
 
@@ -168,7 +168,12 @@ const Layout = () => {
                     >
                         <AnimatePresence>
                             <div id="detail">
-                                <Outlet />
+                                {localStorage.getItem('username') &&
+                                localStorage.getItem('username') === 'admin' ? (
+                                    <Outlet />
+                                ) : (
+                                    <Navigate to="/login" />
+                                )}
                             </div>
                         </AnimatePresence>
                     </AppShell>
