@@ -994,7 +994,7 @@ const QuantityCompanyPage = () => {
                                     <Space w="xl" />
                                     <ReactHTMLTableToExcel
                                         id="table-xls"
-                                        className="mantine-UnstyledButton-root mantine-Button-root mantine-1a6zj3b"
+                                        className="btn-export"
                                         table="tableQuantity"
                                         filename={`Sản lượng ${selectedCompany} từ ${convertDateToStringNotTimeForTitle(
                                             // @ts-ignore comment

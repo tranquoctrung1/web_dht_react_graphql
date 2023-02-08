@@ -64,11 +64,30 @@ export type QuantityDayWaterSupply = {
   Size?: Maybe<Scalars['Int']>;
 };
 
+export type QuantityLoggerDayWaterSupply = {
+  __typename?: 'QuantityLoggerDayWaterSupply';
+  Address?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Display?: Maybe<Scalars['Boolean']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
+  IstDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  ListQuantity?: Maybe<Array<Maybe<Quantity>>>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  MeterDirection?: Maybe<Scalars['String']>;
+  OldId?: Maybe<Scalars['String']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  QndDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  SiteId: Scalars['String'];
+  Size?: Maybe<Scalars['Int']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   GetCompanies?: Maybe<Array<Company>>;
   QuantityDayCompany: Array<QuantityDayCompany>;
   QuantityDayWaterSupply: Array<QuantityDayWaterSupply>;
+  QuantityLoggerDayWaterSupply: Array<QuantityLoggerDayWaterSupply>;
 };
 
 
@@ -80,6 +99,13 @@ export type QueryQuantityDayCompanyArgs = {
 
 
 export type QueryQuantityDayWaterSupplyArgs = {
+  company: Scalars['String'];
+  end: Scalars['String'];
+  start: Scalars['String'];
+};
+
+
+export type QueryQuantityLoggerDayWaterSupplyArgs = {
   company: Scalars['String'];
   end: Scalars['String'];
   start: Scalars['String'];
@@ -107,6 +133,15 @@ export type QuantityDayWaterSupplyQueryVariables = Exact<{
 
 
 export type QuantityDayWaterSupplyQuery = { __typename?: 'Query', QuantityDayWaterSupply: Array<{ __typename?: 'QuantityDayWaterSupply', Address?: string | null, Company?: string | null, IstDistributionCompany?: string | null, Display?: boolean | null, Location?: string | null, Marks?: string | null, OldId?: string | null, MeterDirection?: string | null, QndDistributionCompany?: string | null, SiteId: string, Size?: number | null, IstDoNotCalculateReverse?: number | null, QndDoNotCalculateReverse?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
+
+export type QuantityLoggerDayWaterSupplyQueryVariables = Exact<{
+  company: Scalars['String'];
+  start: Scalars['String'];
+  end: Scalars['String'];
+}>;
+
+
+export type QuantityLoggerDayWaterSupplyQuery = { __typename?: 'Query', QuantityLoggerDayWaterSupply: Array<{ __typename?: 'QuantityLoggerDayWaterSupply', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, Size?: number | null, SiteId: string, OldId?: string | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
 
 
 export const GetCompaniesDocument = gql`
@@ -259,4 +294,61 @@ export type QuantityDayWaterSupplyLazyQueryHookResult = ReturnType<typeof useQua
 export type QuantityDayWaterSupplyQueryResult = Apollo.QueryResult<QuantityDayWaterSupplyQuery, QuantityDayWaterSupplyQueryVariables>;
 export function refetchQuantityDayWaterSupplyQuery(variables: QuantityDayWaterSupplyQueryVariables) {
       return { query: QuantityDayWaterSupplyDocument, variables: variables }
+    }
+export const QuantityLoggerDayWaterSupplyDocument = gql`
+    query QuantityLoggerDayWaterSupply($company: String!, $start: String!, $end: String!) {
+  QuantityLoggerDayWaterSupply(company: $company, start: $start, end: $end) {
+    Address
+    Company
+    Display
+    IstDistributionCompany
+    IstDoNotCalculateReverse
+    Location
+    Marks
+    MeterDirection
+    QndDistributionCompany
+    QndDoNotCalculateReverse
+    Size
+    SiteId
+    OldId
+    ListQuantity {
+      IsEnoughData
+      TimeStamp
+      Value
+    }
+  }
+}
+    `;
+
+/**
+ * __useQuantityLoggerDayWaterSupplyQuery__
+ *
+ * To run a query within a React component, call `useQuantityLoggerDayWaterSupplyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuantityLoggerDayWaterSupplyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuantityLoggerDayWaterSupplyQuery({
+ *   variables: {
+ *      company: // value for 'company'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useQuantityLoggerDayWaterSupplyQuery(baseOptions: Apollo.QueryHookOptions<QuantityLoggerDayWaterSupplyQuery, QuantityLoggerDayWaterSupplyQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QuantityLoggerDayWaterSupplyQuery, QuantityLoggerDayWaterSupplyQueryVariables>(QuantityLoggerDayWaterSupplyDocument, options);
+      }
+export function useQuantityLoggerDayWaterSupplyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuantityLoggerDayWaterSupplyQuery, QuantityLoggerDayWaterSupplyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QuantityLoggerDayWaterSupplyQuery, QuantityLoggerDayWaterSupplyQueryVariables>(QuantityLoggerDayWaterSupplyDocument, options);
+        }
+export type QuantityLoggerDayWaterSupplyQueryHookResult = ReturnType<typeof useQuantityLoggerDayWaterSupplyQuery>;
+export type QuantityLoggerDayWaterSupplyLazyQueryHookResult = ReturnType<typeof useQuantityLoggerDayWaterSupplyLazyQuery>;
+export type QuantityLoggerDayWaterSupplyQueryResult = Apollo.QueryResult<QuantityLoggerDayWaterSupplyQuery, QuantityLoggerDayWaterSupplyQueryVariables>;
+export function refetchQuantityLoggerDayWaterSupplyQuery(variables: QuantityLoggerDayWaterSupplyQueryVariables) {
+      return { query: QuantityLoggerDayWaterSupplyDocument, variables: variables }
     }

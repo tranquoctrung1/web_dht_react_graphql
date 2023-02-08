@@ -148,7 +148,11 @@ const Layout = () => {
                                             justifyContent: 'space-between',
                                         }}
                                     >
-                                        <Text color="white" size="sm">
+                                        <Text
+                                            size="sm"
+                                            weight={500}
+                                            transform="uppercase"
+                                        >
                                             {localStorage.getItem('username')}
                                         </Text>
                                         <Space w="md" />

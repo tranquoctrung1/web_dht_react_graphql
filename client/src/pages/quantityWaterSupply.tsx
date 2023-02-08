@@ -3,6 +3,7 @@ import {
     Center,
     Col,
     Grid,
+    Modal,
     Select,
     Space,
     Table,
@@ -14,6 +15,7 @@ import { motion } from 'framer-motion';
 import {
     useGetCompaniesQuery,
     useQuantityDayWaterSupplyLazyQuery,
+    useQuantityLoggerDayWaterSupplyLazyQuery,
 } from '../__generated__/graphql';
 
 import { useState } from 'react';
@@ -37,12 +39,28 @@ const QuantityWaterSupply = () => {
     const [selectedCompany, setSelectedCompany] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [openModal, setOpenModal] = useState(false);
+    const [renderQuantityDayWaterSupply, setRenderQuantityDayWaterSupply] =
+        useState(false);
+    const [
+        renderQuantityLoggerDayWaterSupply,
+        setRenderQuantityLoggerDayWaterSupply,
+    ] = useState(false);
 
     const { data, error, loading } = useGetCompaniesQuery();
     const [
         getQuantityCompany,
         { loading: loadingQuantity, error: errorQuantity, data: dataQuanity },
     ] = useQuantityDayWaterSupplyLazyQuery();
+
+    const [
+        getQuantityLoggerDayWaterSupply,
+        {
+            loading: loadingLoggerDayWaterSupply,
+            error: errorLoggerDayWaterSupply,
+            data: dataLoggerDayWaterSupply,
+        },
+    ] = useQuantityLoggerDayWaterSupplyLazyQuery();
 
     if (loading) {
         return (
@@ -124,6 +142,8 @@ const QuantityWaterSupply = () => {
                 text: 'Chưa chọn thời gian kết thúc!',
             });
         } else {
+            setRenderQuantityDayWaterSupply(true);
+            setRenderQuantityLoggerDayWaterSupply(false);
             getQuantityCompany({
                 variables: {
                     company: selectedCompany,
@@ -136,8 +156,50 @@ const QuantityWaterSupply = () => {
         }
     };
 
-    const renderTableQuantity = (data: any) => {
-        let sortedData = quickSort(data.QuantityDayWaterSupply);
+    const onQuantityLoggerDayWaterSupplyClicked = (e: any) => {
+        if (
+            selectedCompany == null ||
+            selectedCompany == undefined ||
+            selectedCompany == ''
+        ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa chọn công ty!',
+            });
+        } else if (
+            startDate == null ||
+            startDate == undefined ||
+            startDate == ''
+        ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa chọn thời gian bắt đầu!',
+            });
+        } else if (endDate == null || endDate == undefined || endDate == '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa chọn thời gian kết thúc!',
+            });
+        } else {
+            setRenderQuantityLoggerDayWaterSupply(true);
+            setRenderQuantityDayWaterSupply(false);
+            getQuantityLoggerDayWaterSupply({
+                variables: {
+                    company: selectedCompany,
+                    // @ts-ignore comment
+                    start: startDate.toString(),
+                    // @ts-ignore comment
+                    end: endDate.toString(),
+                },
+            });
+        }
+    };
+
+    const renderTableQuantity = (data: any, isLogger: boolean) => {
+        let sortedData = quickSort(data);
 
         if (data != null && data != undefined) {
             if (sortedData != null && sortedData != undefined) {
@@ -924,7 +986,8 @@ const QuantityWaterSupply = () => {
                             id="tableQuantity"
                         >
                             <caption>
-                                Sản Lượng {selectedCompany} từ{' '}
+                                Sản Lượng {isLogger == false ? 'logger' : ''}{' '}
+                                {selectedCompany} từ{' '}
                                 {convertDateToStringNotTimeForTitle(
                                     // @ts-ignore comment
                                     new Date(startDate),
@@ -981,6 +1044,14 @@ const QuantityWaterSupply = () => {
                         <Center>
                             <Button
                                 variant="filled"
+                                color="blue"
+                                onClick={() => setOpenModal(!openModal)}
+                            >
+                                Biên bản
+                            </Button>
+                            <Space w="md" />
+                            <Button
+                                variant="filled"
                                 color="green"
                                 onClick={onViewClicked}
                                 loading={loadingQuantity}
@@ -988,40 +1059,112 @@ const QuantityWaterSupply = () => {
                             >
                                 Sản Lượng
                             </Button>
-                            {dataQuanity && (
-                                <>
-                                    <Space w="xl" />
-                                    <ReactHTMLTableToExcel
-                                        id="table-xls"
-                                        className="mantine-UnstyledButton-root mantine-Button-root mantine-1a6zj3b"
-                                        table="tableQuantity"
-                                        filename={`Sản lượng ${selectedCompany} từ ${convertDateToStringNotTimeForTitle(
-                                            // @ts-ignore comment
-                                            new Date(startDate),
-                                        )} đến  ${convertDateToStringNotTimeForTitle(
-                                            // @ts-ignore comment
-                                            new Date(endDate),
-                                        )}`}
-                                        sheet="tableQuantity"
-                                        buttonText="Xuất Excel"
-                                    />
-                                </>
+                            <Space w="md" />
+                            <Button
+                                variant="filled"
+                                color="violet"
+                                onClick={onQuantityLoggerDayWaterSupplyClicked}
+                                loading={loadingLoggerDayWaterSupply}
+                                loaderPosition="right"
+                            >
+                                Sản lượng Logger
+                            </Button>
+                        </Center>
+                    </Col>
+                    <Col span={12}>
+                        <Center>
+                            {renderQuantityDayWaterSupply ? (
+                                dataQuanity && (
+                                    <>
+                                        <ReactHTMLTableToExcel
+                                            id="table-xls"
+                                            className="btn-export"
+                                            table="tableQuantity"
+                                            filename={`Sản lượng ${selectedCompany} từ ${convertDateToStringNotTimeForTitle(
+                                                // @ts-ignore comment
+                                                new Date(startDate),
+                                            )} đến  ${convertDateToStringNotTimeForTitle(
+                                                // @ts-ignore comment
+                                                new Date(endDate),
+                                            )}`}
+                                            sheet="tableQuantity"
+                                            buttonText="Xuất Excel"
+                                        />
+                                    </>
+                                )
+                            ) : (
+                                <></>
+                            )}
+
+                            {renderQuantityLoggerDayWaterSupply ? (
+                                dataLoggerDayWaterSupply && (
+                                    <>
+                                        <ReactHTMLTableToExcel
+                                            id="table-xls"
+                                            className="btn-export"
+                                            table="tableQuantity"
+                                            filename={`Sản lượng logger ${selectedCompany} từ ${convertDateToStringNotTimeForTitle(
+                                                // @ts-ignore comment
+                                                new Date(startDate),
+                                            )} đến  ${convertDateToStringNotTimeForTitle(
+                                                // @ts-ignore comment
+                                                new Date(endDate),
+                                            )}`}
+                                            sheet="tableQuantity"
+                                            buttonText="Xuất Excel"
+                                        />
+                                    </>
+                                )
+                            ) : (
+                                <></>
                             )}
                         </Center>
                     </Col>
-                    {dataQuanity && (
-                        <Col
-                            span={12}
-                            style={{
-                                overflow: 'scroll',
-                                width: '95%',
-                                height: '50rem',
-                            }}
-                        >
-                            {renderTableQuantity(dataQuanity)}
-                        </Col>
+                    {renderQuantityLoggerDayWaterSupply ? (
+                        dataLoggerDayWaterSupply && (
+                            <Col
+                                span={12}
+                                style={{
+                                    overflow: 'scroll',
+                                    width: '95%',
+                                    height: '50rem',
+                                }}
+                            >
+                                {renderTableQuantity(
+                                    dataLoggerDayWaterSupply.QuantityLoggerDayWaterSupply,
+                                    false,
+                                )}
+                            </Col>
+                        )
+                    ) : (
+                        <></>
+                    )}
+                    {renderQuantityDayWaterSupply ? (
+                        dataQuanity && (
+                            <Col
+                                span={12}
+                                style={{
+                                    overflow: 'scroll',
+                                    width: '95%',
+                                    height: '50rem',
+                                }}
+                            >
+                                {renderTableQuantity(
+                                    dataQuanity.QuantityDayWaterSupply,
+                                    true,
+                                )}
+                            </Col>
+                        )
+                    ) : (
+                        <></>
                     )}
                 </Grid>
+                <Modal
+                    centered
+                    opened={openModal}
+                    onClose={() => setOpenModal(false)}
+                    title="Biên bản"
+                ></Modal>
             </>
         </motion.div>
     );

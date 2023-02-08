@@ -1,0 +1,26 @@
+query QuantityLoggerDayWaterSupply(
+    $company: String!
+    $start: String!
+    $end: String!
+) {
+    QuantityLoggerDayWaterSupply(company: $company, start: $start, end: $end) {
+        Address
+        Company
+        Display
+        IstDistributionCompany
+        IstDoNotCalculateReverse
+        Location
+        Marks
+        MeterDirection
+        QndDistributionCompany
+        QndDoNotCalculateReverse
+        Size
+        SiteId
+        OldId
+        ListQuantity {
+            IsEnoughData
+            TimeStamp
+            Value
+        }
+    }
+}
