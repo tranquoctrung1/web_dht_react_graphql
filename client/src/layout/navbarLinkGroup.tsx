@@ -16,9 +16,9 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { OpenState, toggle } from '../features/openSidebar';
+import { toggle } from '../features/openSidebar';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const useStyles = createStyles((theme) => ({
     control: {
@@ -86,7 +86,6 @@ export function LinksGroup({
 }: LinksGroupProps) {
     const navigate = useNavigate();
 
-    const open = useSelector(OpenState);
     const dispatch = useDispatch();
 
     const { classes, theme } = useStyles();

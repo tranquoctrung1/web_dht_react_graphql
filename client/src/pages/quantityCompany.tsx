@@ -1,19 +1,19 @@
 import {
-    Button,
-    Center,
-    Col,
-    Grid,
-    Select,
-    Space,
-    Table,
-    Text,
+	Button,
+	Center,
+	Col,
+	Grid,
+	Select,
+	Space,
+	Table,
+	Text
 } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { motion } from 'framer-motion';
 
 import {
-    useGetCompaniesQuery,
-    useQuantityDayCompanyLazyQuery,
+	useGetCompaniesQuery,
+	useQuantityDayCompanyLazyQuery
 } from '../__generated__/graphql';
 
 import { useState } from 'react';
@@ -21,9 +21,9 @@ import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 import {
-    convertDateToStringNotTime,
-    convertDateToStringNotTimeForTitle,
-    quickSort,
+	convertDateToStringNotTime,
+	convertDateToStringNotTimeForTitle,
+	quickSort
 } from '../utils/utils';
 // @ts-ignore comment
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
@@ -86,6 +86,7 @@ const QuantityCompanyPage = () => {
 
     const onStartDateChanged = (e: any) => {
         if (e != null && e != undefined && e != '') {
+			
             setStartDate(e.getTime());
         }
     };
@@ -263,7 +264,6 @@ const QuantityCompanyPage = () => {
                                 ) {
                                     sum += sortedData[i].ListQuantity[j].Value;
                                     count += 1;
-
                                     if (
                                         bodyTotal[j] != null &&
                                         bodyTotal[j] != undefined

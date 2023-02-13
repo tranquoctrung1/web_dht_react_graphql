@@ -7,6 +7,7 @@ import AboutPage from './pages/about';
 import ErrorPage from './pages/error';
 import HomePage from './pages/home';
 import LoginPage from './pages/login';
+import MapPage from './pages/map';
 import QuantityCompanyPage from './pages/quantityCompany';
 import QuantityWaterSupplyPage from './pages/quantityWaterSupply';
 
@@ -19,6 +20,10 @@ function App() {
                 {
                     path: '',
                     element: <HomePage />,
+                },
+                {
+                    path: '/map',
+                    element: <MapPage />,
                 },
                 {
                     path: '/quantityCompany',

@@ -9,7 +9,6 @@ const ErrorPage = () => {
     const onReturnOnClicked = () => {
         navigate(-1);
     };
-
     return (
         <motion.div
             initial={{ opacity: 0 }}
