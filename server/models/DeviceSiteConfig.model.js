@@ -17,7 +17,7 @@ module.exports.DeviceSiteConfig = class DeviceSiteConfig {
         Pressure1,
     ) {
         this._id = _id;
-        this.LoggerId = this.LoggerId;
+        this.LoggerId = LoggerId;
         this.SiteId = SiteId;
         this.Tel = Tel;
         this.Pressure = Pressure;

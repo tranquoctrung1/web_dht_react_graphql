@@ -32,6 +32,95 @@ module.exports = gql`
         Description: String
     }
 
+    type Site {
+        _id: String!
+        OldId: String
+        Location: String
+        Latitude: Float
+        Longitude: Float
+        ViewGroup: String
+        StaffId: String
+        Meter: String
+        Transmitter: String
+        Logger: String
+        DateOfMeterChange: Date
+        DateOfLoggerChange: Date
+        DateOfTransmitterChange: Date
+        DateOfBatteyChange: Date
+        DateOfTransmitterBatteryChgange: Date
+        DateOfLoggerBatteryChange: Date
+        DescriptionOfChange: String
+        ChangeIndex: Float
+        Level: String
+        Group: String
+        Company: String
+        Takeovered: Boolean
+        TakeoverDate: Date
+        Availability: String
+        Display: Boolean
+        Property: Boolean
+        UsingLogger: Boolean
+        MeterDirection: String
+        ProductionCompany: String
+        IsDistributionCompany: String
+        QndDistributionCompany: String
+        IstDoNotCalculateReverse: Boolean
+        QndDoNotCalculateReverse: Boolean
+        Description: String
+        ChangeIndex1: Float
+        Group2: String
+        Address: String
+        CoverID: String
+        Group3: String
+        Group4: String
+        Group5: String
+        District: String
+        IsErrorBattery: Boolean
+    }
+
+    type Channel {
+        _id: String
+        LoggerId: String
+        Name: String
+        Unit: String
+        LastTimeStamp: Date
+        LastValue: Float
+        Description: String
+        BaseMin: Float
+        BaseMax: Float
+        BaseLine: Float
+        GroupChannel: String
+        Pressure1: Boolean
+        Pressure2: Boolean
+        ForwardFlow: Boolean
+        ReverseFlow: Boolean
+        DisplayOnGraph: Boolean
+        IndexTimeStamp: Date
+        LastIndex: Float
+        StatusViewAlarm: Boolean
+    }
+
+    type SiteAndChannel {
+        _id: String!
+        OldId: String
+        Location: String
+        Latitude: Float
+        LoggerId: String
+        Longitude: Float
+        Level: String
+        Group: String
+        Company: String
+        Description: String
+        Group2: String
+        Address: String
+        Group3: String
+        Group4: String
+        Group5: String
+        District: String
+        IsErrorBattery: Boolean
+        Channels: [Channel!]
+    }
+
     type QuantityDayWaterSupply {
         SiteId: String!
         Location: String
@@ -87,6 +176,12 @@ module.exports = gql`
             start: String!
             end: String!
         ): [QuantityLoggerDayWaterSupply!]!
+
+        GetAllSites: [Site]!
+
+        GetChannelByLoggerId(loggerid: String!): [Channel]
+
+        GetAllSiteAndChannel: [SiteAndChannel!]
     }
 
     # declare Mutation

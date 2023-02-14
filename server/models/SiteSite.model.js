@@ -132,3 +132,15 @@ module.exports.GetSiteByWaterSupply = async (company) => {
 
     return result;
 };
+
+module.exports.GetAllSites = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection.find({}).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
