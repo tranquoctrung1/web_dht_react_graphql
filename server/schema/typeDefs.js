@@ -155,6 +155,11 @@ module.exports = gql`
         ListQuantity: [Quantity]
     }
 
+    type DataLogger {
+        TimeStamp: Date
+        Value: Float
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -182,6 +187,14 @@ module.exports = gql`
         GetChannelByLoggerId(loggerid: String!): [Channel]
 
         GetAllSiteAndChannel: [SiteAndChannel!]
+
+        GetDataLoggerByTimeStamp(
+            channelid: String!
+            start: String!
+            end: String!
+        ): [DataLogger!]
+
+        GetDataLoggerByLastRecord(channelid: String!): [DataLogger!]
     }
 
     # declare Mutation

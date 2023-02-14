@@ -5,6 +5,8 @@ const QuantityLoggerDayWaterSupply = require('./QuantityLoggerDayWaterSupply.res
 const Site = require('./Site.resolver');
 const Channel = require('./Channel.resolver');
 const SiteAndChannel = require('./SiteAndChannel.resolver');
+const DataLogger = require('./DataLogger.resolver');
+
 const Nested = require('./Nested.resolver');
 
 module.exports = {
@@ -16,6 +18,7 @@ module.exports = {
         ...Site.Query,
         ...Channel.Query,
         ...SiteAndChannel.Query,
+        ...DataLogger.Query,
     },
 
     SiteAndChannel: {
