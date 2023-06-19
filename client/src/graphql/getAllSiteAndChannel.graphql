@@ -1,0 +1,42 @@
+query GetAllSiteAndChannel {
+    GetAllSiteAndChannel {
+        Address
+        Channels {
+            BaseMin
+            BaseLine
+            BaseMax
+            Description
+            DisplayOnGraph
+            ForwardFlow
+            GroupChannel
+            IndexTimeStamp
+            LastIndex
+            LastTimeStamp
+            LastValue
+            LoggerId
+            Name
+            Pressure1
+            Pressure2
+            ReverseFlow
+            StatusViewAlarm
+            Unit
+            _id
+        }
+        Company
+        Description
+        District
+        Group
+        Group2
+        Group3
+        Group4
+        Group5
+        IsErrorBattery
+        Latitude
+        Level
+        Location
+        LoggerId
+        Longitude
+        OldId
+        _id
+    }
+}

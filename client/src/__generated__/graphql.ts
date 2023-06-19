@@ -16,11 +16,40 @@ export type Scalars = {
   Date: any;
 };
 
+export type Channel = {
+  __typename?: 'Channel';
+  BaseLine?: Maybe<Scalars['Float']>;
+  BaseMax?: Maybe<Scalars['Float']>;
+  BaseMin?: Maybe<Scalars['Float']>;
+  Description?: Maybe<Scalars['String']>;
+  DisplayOnGraph?: Maybe<Scalars['Boolean']>;
+  ForwardFlow?: Maybe<Scalars['Boolean']>;
+  GroupChannel?: Maybe<Scalars['String']>;
+  IndexTimeStamp?: Maybe<Scalars['Date']>;
+  LastIndex?: Maybe<Scalars['Float']>;
+  LastTimeStamp?: Maybe<Scalars['Date']>;
+  LastValue?: Maybe<Scalars['Float']>;
+  LoggerId?: Maybe<Scalars['String']>;
+  Name?: Maybe<Scalars['String']>;
+  Pressure1?: Maybe<Scalars['Boolean']>;
+  Pressure2?: Maybe<Scalars['Boolean']>;
+  ReverseFlow?: Maybe<Scalars['Boolean']>;
+  StatusViewAlarm?: Maybe<Scalars['Boolean']>;
+  Unit?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['String']>;
+};
+
 export type Company = {
   __typename?: 'Company';
   Company?: Maybe<Scalars['String']>;
   Description?: Maybe<Scalars['String']>;
   Production?: Maybe<Scalars['Int']>;
+};
+
+export type DataLogger = {
+  __typename?: 'DataLogger';
+  TimeStamp?: Maybe<Scalars['Date']>;
+  Value?: Maybe<Scalars['Float']>;
 };
 
 export type Quantity = {
@@ -84,10 +113,32 @@ export type QuantityLoggerDayWaterSupply = {
 
 export type Query = {
   __typename?: 'Query';
+  GetAllSiteAndChannel?: Maybe<Array<SiteAndChannel>>;
+  GetAllSites: Array<Maybe<Site>>;
+  GetChannelByLoggerId?: Maybe<Array<Maybe<Channel>>>;
   GetCompanies?: Maybe<Array<Company>>;
+  GetDataLoggerByLastRecord?: Maybe<Array<DataLogger>>;
+  GetDataLoggerByTimeStamp?: Maybe<Array<DataLogger>>;
   QuantityDayCompany: Array<QuantityDayCompany>;
   QuantityDayWaterSupply: Array<QuantityDayWaterSupply>;
   QuantityLoggerDayWaterSupply: Array<QuantityLoggerDayWaterSupply>;
+};
+
+
+export type QueryGetChannelByLoggerIdArgs = {
+  loggerid: Scalars['String'];
+};
+
+
+export type QueryGetDataLoggerByLastRecordArgs = {
+  channelid: Scalars['String'];
+};
+
+
+export type QueryGetDataLoggerByTimeStampArgs = {
+  channelid: Scalars['String'];
+  end: Scalars['String'];
+  start: Scalars['String'];
 };
 
 
@@ -111,10 +162,112 @@ export type QueryQuantityLoggerDayWaterSupplyArgs = {
   start: Scalars['String'];
 };
 
+export type Site = {
+  __typename?: 'Site';
+  Address?: Maybe<Scalars['String']>;
+  Availability?: Maybe<Scalars['String']>;
+  ChangeIndex?: Maybe<Scalars['Float']>;
+  ChangeIndex1?: Maybe<Scalars['Float']>;
+  Company?: Maybe<Scalars['String']>;
+  CoverID?: Maybe<Scalars['String']>;
+  DateOfBatteyChange?: Maybe<Scalars['Date']>;
+  DateOfLoggerBatteryChange?: Maybe<Scalars['Date']>;
+  DateOfLoggerChange?: Maybe<Scalars['Date']>;
+  DateOfMeterChange?: Maybe<Scalars['Date']>;
+  DateOfTransmitterBatteryChgange?: Maybe<Scalars['Date']>;
+  DateOfTransmitterChange?: Maybe<Scalars['Date']>;
+  Description?: Maybe<Scalars['String']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  Display?: Maybe<Scalars['Boolean']>;
+  District?: Maybe<Scalars['String']>;
+  Group?: Maybe<Scalars['String']>;
+  Group2?: Maybe<Scalars['String']>;
+  Group3?: Maybe<Scalars['String']>;
+  Group4?: Maybe<Scalars['String']>;
+  Group5?: Maybe<Scalars['String']>;
+  IsDistributionCompany?: Maybe<Scalars['String']>;
+  IsErrorBattery?: Maybe<Scalars['Boolean']>;
+  IstDoNotCalculateReverse?: Maybe<Scalars['Boolean']>;
+  Latitude?: Maybe<Scalars['Float']>;
+  Level?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Logger?: Maybe<Scalars['String']>;
+  Longitude?: Maybe<Scalars['Float']>;
+  Meter?: Maybe<Scalars['String']>;
+  MeterDirection?: Maybe<Scalars['String']>;
+  OldId?: Maybe<Scalars['String']>;
+  ProductionCompany?: Maybe<Scalars['String']>;
+  Property?: Maybe<Scalars['Boolean']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  QndDoNotCalculateReverse?: Maybe<Scalars['Boolean']>;
+  StaffId?: Maybe<Scalars['String']>;
+  TakeoverDate?: Maybe<Scalars['Date']>;
+  Takeovered?: Maybe<Scalars['Boolean']>;
+  Transmitter?: Maybe<Scalars['String']>;
+  UsingLogger?: Maybe<Scalars['Boolean']>;
+  ViewGroup?: Maybe<Scalars['String']>;
+  _id: Scalars['String'];
+};
+
+export type SiteAndChannel = {
+  __typename?: 'SiteAndChannel';
+  Address?: Maybe<Scalars['String']>;
+  Channels?: Maybe<Array<Channel>>;
+  Company?: Maybe<Scalars['String']>;
+  Description?: Maybe<Scalars['String']>;
+  District?: Maybe<Scalars['String']>;
+  Group?: Maybe<Scalars['String']>;
+  Group2?: Maybe<Scalars['String']>;
+  Group3?: Maybe<Scalars['String']>;
+  Group4?: Maybe<Scalars['String']>;
+  Group5?: Maybe<Scalars['String']>;
+  IsErrorBattery?: Maybe<Scalars['Boolean']>;
+  Latitude?: Maybe<Scalars['Float']>;
+  Level?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  LoggerId?: Maybe<Scalars['String']>;
+  Longitude?: Maybe<Scalars['Float']>;
+  OldId?: Maybe<Scalars['String']>;
+  _id: Scalars['String'];
+};
+
 export type GetCompaniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCompaniesQuery = { __typename?: 'Query', GetCompanies?: Array<{ __typename?: 'Company', Company?: string | null, Description?: string | null, Production?: number | null }> | null };
+
+export type GetAllSitesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSitesQuery = { __typename?: 'Query', GetAllSites: Array<{ __typename?: 'Site', Address?: string | null, Availability?: string | null, ChangeIndex1?: number | null, ChangeIndex?: number | null, Company?: string | null, CoverID?: string | null, DateOfBatteyChange?: any | null, DateOfLoggerChange?: any | null, DateOfLoggerBatteryChange?: any | null, DateOfMeterChange?: any | null, DateOfTransmitterChange?: any | null, DateOfTransmitterBatteryChgange?: any | null, Description?: string | null, DescriptionOfChange?: string | null, Display?: boolean | null, District?: string | null, Group?: string | null, Group2?: string | null, Group3?: string | null, Group4?: string | null, IsDistributionCompany?: string | null, Group5?: string | null, IsErrorBattery?: boolean | null, Latitude?: number | null, Level?: string | null, IstDoNotCalculateReverse?: boolean | null, Location?: string | null, Logger?: string | null, Longitude?: number | null, Meter?: string | null, MeterDirection?: string | null, OldId?: string | null, ProductionCompany?: string | null, Property?: boolean | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: boolean | null, StaffId?: string | null, Takeovered?: boolean | null, TakeoverDate?: any | null, Transmitter?: string | null, UsingLogger?: boolean | null, ViewGroup?: string | null, _id: string } | null> };
+
+export type GetAllSiteAndChannelQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteAndChannelQuery = { __typename?: 'Query', GetAllSiteAndChannel?: Array<{ __typename?: 'SiteAndChannel', Address?: string | null, Company?: string | null, Description?: string | null, District?: string | null, Group?: string | null, Group2?: string | null, Group3?: string | null, Group4?: string | null, Group5?: string | null, IsErrorBattery?: boolean | null, Latitude?: number | null, Level?: string | null, Location?: string | null, LoggerId?: string | null, Longitude?: number | null, OldId?: string | null, _id: string, Channels?: Array<{ __typename?: 'Channel', BaseMin?: number | null, BaseLine?: number | null, BaseMax?: number | null, Description?: string | null, DisplayOnGraph?: boolean | null, ForwardFlow?: boolean | null, GroupChannel?: string | null, IndexTimeStamp?: any | null, LastIndex?: number | null, LastTimeStamp?: any | null, LastValue?: number | null, LoggerId?: string | null, Name?: string | null, Pressure1?: boolean | null, Pressure2?: boolean | null, ReverseFlow?: boolean | null, StatusViewAlarm?: boolean | null, Unit?: string | null, _id?: string | null }> | null }> | null };
+
+export type QueryQueryVariables = Exact<{
+  loggerid: Scalars['String'];
+}>;
+
+
+export type QueryQuery = { __typename?: 'Query', GetChannelByLoggerId?: Array<{ __typename?: 'Channel', BaseLine?: number | null, BaseMax?: number | null, BaseMin?: number | null, Description?: string | null, DisplayOnGraph?: boolean | null, ForwardFlow?: boolean | null, IndexTimeStamp?: any | null, GroupChannel?: string | null, LastIndex?: number | null, LastTimeStamp?: any | null, LastValue?: number | null, LoggerId?: string | null, Name?: string | null, Pressure1?: boolean | null, Pressure2?: boolean | null, ReverseFlow?: boolean | null, StatusViewAlarm?: boolean | null, _id?: string | null, Unit?: string | null } | null> | null };
+
+export type GetDataLoggerByLastRecordQueryVariables = Exact<{
+  channelid: Scalars['String'];
+}>;
+
+
+export type GetDataLoggerByLastRecordQuery = { __typename?: 'Query', GetDataLoggerByLastRecord?: Array<{ __typename?: 'DataLogger', TimeStamp?: any | null, Value?: number | null }> | null };
+
+export type GetDataLoggerByTimeStampQueryVariables = Exact<{
+  channelid: Scalars['String'];
+  start: Scalars['String'];
+  end: Scalars['String'];
+}>;
+
+
+export type GetDataLoggerByTimeStampQuery = { __typename?: 'Query', GetDataLoggerByTimeStamp?: Array<{ __typename?: 'DataLogger', TimeStamp?: any | null, Value?: number | null }> | null };
 
 export type QuantityDayCompanyQueryVariables = Exact<{
   company: Scalars['String'];
@@ -182,6 +335,295 @@ export type GetCompaniesLazyQueryHookResult = ReturnType<typeof useGetCompaniesL
 export type GetCompaniesQueryResult = Apollo.QueryResult<GetCompaniesQuery, GetCompaniesQueryVariables>;
 export function refetchGetCompaniesQuery(variables?: GetCompaniesQueryVariables) {
       return { query: GetCompaniesDocument, variables: variables }
+    }
+export const GetAllSitesDocument = gql`
+    query GetAllSites {
+  GetAllSites {
+    Address
+    Availability
+    ChangeIndex1
+    ChangeIndex
+    Company
+    CoverID
+    DateOfBatteyChange
+    DateOfLoggerChange
+    DateOfLoggerBatteryChange
+    DateOfMeterChange
+    DateOfTransmitterChange
+    DateOfTransmitterBatteryChgange
+    Description
+    DescriptionOfChange
+    Display
+    District
+    Group
+    Group2
+    Group3
+    Group4
+    IsDistributionCompany
+    Group5
+    IsErrorBattery
+    Latitude
+    Level
+    IstDoNotCalculateReverse
+    Location
+    Logger
+    Longitude
+    Meter
+    MeterDirection
+    OldId
+    ProductionCompany
+    Property
+    QndDistributionCompany
+    QndDoNotCalculateReverse
+    StaffId
+    Takeovered
+    TakeoverDate
+    Transmitter
+    UsingLogger
+    ViewGroup
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSitesQuery__
+ *
+ * To run a query within a React component, call `useGetAllSitesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSitesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSitesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSitesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSitesQuery, GetAllSitesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSitesQuery, GetAllSitesQueryVariables>(GetAllSitesDocument, options);
+      }
+export function useGetAllSitesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSitesQuery, GetAllSitesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSitesQuery, GetAllSitesQueryVariables>(GetAllSitesDocument, options);
+        }
+export type GetAllSitesQueryHookResult = ReturnType<typeof useGetAllSitesQuery>;
+export type GetAllSitesLazyQueryHookResult = ReturnType<typeof useGetAllSitesLazyQuery>;
+export type GetAllSitesQueryResult = Apollo.QueryResult<GetAllSitesQuery, GetAllSitesQueryVariables>;
+export function refetchGetAllSitesQuery(variables?: GetAllSitesQueryVariables) {
+      return { query: GetAllSitesDocument, variables: variables }
+    }
+export const GetAllSiteAndChannelDocument = gql`
+    query GetAllSiteAndChannel {
+  GetAllSiteAndChannel {
+    Address
+    Channels {
+      BaseMin
+      BaseLine
+      BaseMax
+      Description
+      DisplayOnGraph
+      ForwardFlow
+      GroupChannel
+      IndexTimeStamp
+      LastIndex
+      LastTimeStamp
+      LastValue
+      LoggerId
+      Name
+      Pressure1
+      Pressure2
+      ReverseFlow
+      StatusViewAlarm
+      Unit
+      _id
+    }
+    Company
+    Description
+    District
+    Group
+    Group2
+    Group3
+    Group4
+    Group5
+    IsErrorBattery
+    Latitude
+    Level
+    Location
+    LoggerId
+    Longitude
+    OldId
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSiteAndChannelQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteAndChannelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteAndChannelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteAndChannelQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteAndChannelQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteAndChannelQuery, GetAllSiteAndChannelQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteAndChannelQuery, GetAllSiteAndChannelQueryVariables>(GetAllSiteAndChannelDocument, options);
+      }
+export function useGetAllSiteAndChannelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteAndChannelQuery, GetAllSiteAndChannelQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteAndChannelQuery, GetAllSiteAndChannelQueryVariables>(GetAllSiteAndChannelDocument, options);
+        }
+export type GetAllSiteAndChannelQueryHookResult = ReturnType<typeof useGetAllSiteAndChannelQuery>;
+export type GetAllSiteAndChannelLazyQueryHookResult = ReturnType<typeof useGetAllSiteAndChannelLazyQuery>;
+export type GetAllSiteAndChannelQueryResult = Apollo.QueryResult<GetAllSiteAndChannelQuery, GetAllSiteAndChannelQueryVariables>;
+export function refetchGetAllSiteAndChannelQuery(variables?: GetAllSiteAndChannelQueryVariables) {
+      return { query: GetAllSiteAndChannelDocument, variables: variables }
+    }
+export const QueryDocument = gql`
+    query Query($loggerid: String!) {
+  GetChannelByLoggerId(loggerid: $loggerid) {
+    BaseLine
+    BaseMax
+    BaseMin
+    Description
+    DisplayOnGraph
+    ForwardFlow
+    IndexTimeStamp
+    GroupChannel
+    LastIndex
+    LastTimeStamp
+    LastValue
+    LoggerId
+    Name
+    Pressure1
+    Pressure2
+    ReverseFlow
+    StatusViewAlarm
+    _id
+    Unit
+  }
+}
+    `;
+
+/**
+ * __useQueryQuery__
+ *
+ * To run a query within a React component, call `useQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueryQuery({
+ *   variables: {
+ *      loggerid: // value for 'loggerid'
+ *   },
+ * });
+ */
+export function useQueryQuery(baseOptions: Apollo.QueryHookOptions<QueryQuery, QueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueryQuery, QueryQueryVariables>(QueryDocument, options);
+      }
+export function useQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryQuery, QueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueryQuery, QueryQueryVariables>(QueryDocument, options);
+        }
+export type QueryQueryHookResult = ReturnType<typeof useQueryQuery>;
+export type QueryLazyQueryHookResult = ReturnType<typeof useQueryLazyQuery>;
+export type QueryQueryResult = Apollo.QueryResult<QueryQuery, QueryQueryVariables>;
+export function refetchQueryQuery(variables: QueryQueryVariables) {
+      return { query: QueryDocument, variables: variables }
+    }
+export const GetDataLoggerByLastRecordDocument = gql`
+    query GetDataLoggerByLastRecord($channelid: String!) {
+  GetDataLoggerByLastRecord(channelid: $channelid) {
+    TimeStamp
+    Value
+  }
+}
+    `;
+
+/**
+ * __useGetDataLoggerByLastRecordQuery__
+ *
+ * To run a query within a React component, call `useGetDataLoggerByLastRecordQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataLoggerByLastRecordQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDataLoggerByLastRecordQuery({
+ *   variables: {
+ *      channelid: // value for 'channelid'
+ *   },
+ * });
+ */
+export function useGetDataLoggerByLastRecordQuery(baseOptions: Apollo.QueryHookOptions<GetDataLoggerByLastRecordQuery, GetDataLoggerByLastRecordQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetDataLoggerByLastRecordQuery, GetDataLoggerByLastRecordQueryVariables>(GetDataLoggerByLastRecordDocument, options);
+      }
+export function useGetDataLoggerByLastRecordLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDataLoggerByLastRecordQuery, GetDataLoggerByLastRecordQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetDataLoggerByLastRecordQuery, GetDataLoggerByLastRecordQueryVariables>(GetDataLoggerByLastRecordDocument, options);
+        }
+export type GetDataLoggerByLastRecordQueryHookResult = ReturnType<typeof useGetDataLoggerByLastRecordQuery>;
+export type GetDataLoggerByLastRecordLazyQueryHookResult = ReturnType<typeof useGetDataLoggerByLastRecordLazyQuery>;
+export type GetDataLoggerByLastRecordQueryResult = Apollo.QueryResult<GetDataLoggerByLastRecordQuery, GetDataLoggerByLastRecordQueryVariables>;
+export function refetchGetDataLoggerByLastRecordQuery(variables: GetDataLoggerByLastRecordQueryVariables) {
+      return { query: GetDataLoggerByLastRecordDocument, variables: variables }
+    }
+export const GetDataLoggerByTimeStampDocument = gql`
+    query GetDataLoggerByTimeStamp($channelid: String!, $start: String!, $end: String!) {
+  GetDataLoggerByTimeStamp(channelid: $channelid, start: $start, end: $end) {
+    TimeStamp
+    Value
+  }
+}
+    `;
+
+/**
+ * __useGetDataLoggerByTimeStampQuery__
+ *
+ * To run a query within a React component, call `useGetDataLoggerByTimeStampQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataLoggerByTimeStampQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDataLoggerByTimeStampQuery({
+ *   variables: {
+ *      channelid: // value for 'channelid'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useGetDataLoggerByTimeStampQuery(baseOptions: Apollo.QueryHookOptions<GetDataLoggerByTimeStampQuery, GetDataLoggerByTimeStampQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetDataLoggerByTimeStampQuery, GetDataLoggerByTimeStampQueryVariables>(GetDataLoggerByTimeStampDocument, options);
+      }
+export function useGetDataLoggerByTimeStampLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDataLoggerByTimeStampQuery, GetDataLoggerByTimeStampQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetDataLoggerByTimeStampQuery, GetDataLoggerByTimeStampQueryVariables>(GetDataLoggerByTimeStampDocument, options);
+        }
+export type GetDataLoggerByTimeStampQueryHookResult = ReturnType<typeof useGetDataLoggerByTimeStampQuery>;
+export type GetDataLoggerByTimeStampLazyQueryHookResult = ReturnType<typeof useGetDataLoggerByTimeStampLazyQuery>;
+export type GetDataLoggerByTimeStampQueryResult = Apollo.QueryResult<GetDataLoggerByTimeStampQuery, GetDataLoggerByTimeStampQueryVariables>;
+export function refetchGetDataLoggerByTimeStampQuery(variables: GetDataLoggerByTimeStampQueryVariables) {
+      return { query: GetDataLoggerByTimeStampDocument, variables: variables }
     }
 export const QuantityDayCompanyDocument = gql`
     query QuantityDayCompany($company: String!, $start: String!, $end: String!) {

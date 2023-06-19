@@ -18,7 +18,7 @@ import Logo from '../assets/logo.png';
 
 import { NavbarNested } from './navbar';
 
-import { IconPower } from '@tabler/icons';
+import { IconPower } from '@tabler/icons-react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -161,7 +161,7 @@ const Layout = () => {
                                             variant="filled"
                                             onClick={onLogoutClick}
                                         >
-                                            <IconPower size={18} />
+                                            <IconPower size="1.125rem" />
                                         </ActionIcon>
                                         <Space w="md" />
                                         <IconChangeTheme />

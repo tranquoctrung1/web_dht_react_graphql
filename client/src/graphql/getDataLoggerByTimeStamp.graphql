@@ -1,0 +1,10 @@
+query GetDataLoggerByTimeStamp(
+    $channelid: String!
+    $start: String!
+    $end: String!
+) {
+    GetDataLoggerByTimeStamp(channelid: $channelid, start: $start, end: $end) {
+        TimeStamp
+        Value
+    }
+}

@@ -1,0 +1,6 @@
+query GetDataLoggerByLastRecord($channelid: String!) {
+    GetDataLoggerByLastRecord(channelid: $channelid) {
+        TimeStamp
+        Value
+    }
+}

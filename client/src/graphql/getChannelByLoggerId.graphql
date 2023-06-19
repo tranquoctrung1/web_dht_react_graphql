@@ -1,0 +1,23 @@
+query Query($loggerid: String!) {
+    GetChannelByLoggerId(loggerid: $loggerid) {
+        BaseLine
+        BaseMax
+        BaseMin
+        Description
+        DisplayOnGraph
+        ForwardFlow
+        IndexTimeStamp
+        GroupChannel
+        LastIndex
+        LastTimeStamp
+        LastValue
+        LoggerId
+        Name
+        Pressure1
+        Pressure2
+        ReverseFlow
+        StatusViewAlarm
+        _id
+        Unit
+    }
+}

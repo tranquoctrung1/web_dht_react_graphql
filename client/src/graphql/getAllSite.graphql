@@ -1,0 +1,47 @@
+query GetAllSites {
+    GetAllSites {
+        Address
+        Availability
+        ChangeIndex1
+        ChangeIndex
+        Company
+        CoverID
+        DateOfBatteyChange
+        DateOfLoggerChange
+        DateOfLoggerBatteryChange
+        DateOfMeterChange
+        DateOfTransmitterChange
+        DateOfTransmitterBatteryChgange
+        Description
+        DescriptionOfChange
+        Display
+        District
+        Group
+        Group2
+        Group3
+        Group4
+        IsDistributionCompany
+        Group5
+        IsErrorBattery
+        Latitude
+        Level
+        IstDoNotCalculateReverse
+        Location
+        Logger
+        Longitude
+        Meter
+        MeterDirection
+        OldId
+        ProductionCompany
+        Property
+        QndDistributionCompany
+        QndDoNotCalculateReverse
+        StaffId
+        Takeovered
+        TakeoverDate
+        Transmitter
+        UsingLogger
+        ViewGroup
+        _id
+    }
+}

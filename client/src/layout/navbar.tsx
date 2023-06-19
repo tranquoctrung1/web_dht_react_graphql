@@ -21,7 +21,7 @@ import {
     IconNotes,
     IconReceipt2,
     IconUserCircle,
-} from '@tabler/icons';
+} from '@tabler/icons-react';
 import { LinksGroup } from './navbarLinkGroup';
 
 const mockdata = [
@@ -239,6 +239,7 @@ const useStyles = createStyles((theme) => ({
     links: {
         marginLeft: -theme.spacing.md,
         marginRight: -theme.spacing.md,
+        padding: `${theme.spacing.md}px ${theme.spacing.xl}px`,
     },
 
     linksInner: {

@@ -12,7 +12,7 @@ import {
     IconChevronLeft,
     IconChevronRight,
     TablerIcon,
-} from '@tabler/icons';
+} from '@tabler/icons-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,10 +25,10 @@ const useStyles = createStyles((theme) => ({
         fontWeight: 500,
         display: 'block',
         width: '100%',
-        padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+        padding: `5px`,
         color:
             theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-        fontSize: theme.fontSizes.sm,
+        fontSize: theme.fontSizes.md,
 
         '&:hover': {
             backgroundColor:
@@ -43,10 +43,10 @@ const useStyles = createStyles((theme) => ({
         fontWeight: 500,
         display: 'block',
         textDecoration: 'none',
-        padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+        padding: `5px`,
         paddingLeft: 31,
         marginLeft: 30,
-        fontSize: theme.fontSizes.sm,
+        fontSize: theme.fontSizes.md,
         color:
             theme.colorScheme === 'dark'
                 ? theme.colors.dark[0]
@@ -97,6 +97,7 @@ export function LinksGroup({
         <Text
             style={{
                 cursor: 'pointer',
+                padding: '5px',
             }}
             className={classes.link}
             key={link.label}
@@ -117,8 +118,8 @@ export function LinksGroup({
             >
                 <Group position="apart" spacing={0}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <ThemeIcon variant="light" size={30}>
-                            <Icon size={18} />
+                        <ThemeIcon variant="light" size="">
+                            <Icon size="1.125rem" />
                         </ThemeIcon>
                         <Box ml="md">{label}</Box>
                     </Box>
@@ -158,7 +159,7 @@ export function NavbarLinksGroup() {
         <Box
             sx={(theme) => ({
                 minHeight: 220,
-                padding: theme.spacing.md,
+                padding: theme.spacing.xl,
                 backgroundColor:
                     theme.colorScheme === 'dark'
                         ? theme.colors.dark[6]

@@ -9,8 +9,10 @@ import {
     Table,
     Text,
 } from '@mantine/core';
-import { DatePicker } from '@mantine/dates';
+import { DateInput } from '@mantine/dates';
 import { motion } from 'framer-motion';
+
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
 import {
     useGetCompaniesQuery,
@@ -30,16 +32,16 @@ import {
 // @ts-ignore comment
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
-interface Companies {
-    value: string;
-    label: string;
-}
+import ReportAveragePrecious from '../components/reportAveragePrecious';
+
+import Companies from '../types/companies.type';
 
 const QuantityWaterSupply = () => {
     const [selectedCompany, setSelectedCompany] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-    const [openModal, setOpenModal] = useState(false);
+    const [opened, { open, close }] = useDisclosure(false);
+    const isMobile = useMediaQuery('(max-width: 50em)');
     const [renderQuantityDayWaterSupply, setRenderQuantityDayWaterSupply] =
         useState(false);
     const [
@@ -1025,17 +1027,19 @@ const QuantityWaterSupply = () => {
                         />
                     </Col>
                     <Col md={4} sm={12}>
-                        <DatePicker
+                        <DateInput
                             placeholder="Ngày bắt đầu"
                             label="Ngày bắt đầu"
                             withAsterisk
+                            valueFormat="DD/MM/YYYY"
                             onChange={onStartDateChanged}
                         />
                     </Col>
                     <Col md={4} sm={12}>
-                        <DatePicker
+                        <DateInput
                             placeholder="Ngày kết thúc"
                             label="Ngày kết thúc"
+                            valueFormat="DD/MM/YYYY"
                             withAsterisk
                             onChange={onEndDateChanged}
                         />
@@ -1045,7 +1049,7 @@ const QuantityWaterSupply = () => {
                             <Button
                                 variant="filled"
                                 color="blue"
-                                onClick={() => setOpenModal(!openModal)}
+                                onClick={() => open()}
                             >
                                 Biên bản
                             </Button>
@@ -1161,10 +1165,19 @@ const QuantityWaterSupply = () => {
                 </Grid>
                 <Modal
                     centered
-                    opened={openModal}
-                    onClose={() => setOpenModal(false)}
-                    title="Biên bản"
-                ></Modal>
+                    opened={opened}
+                    onClose={close}
+                    size="75%"
+                    fullScreen={isMobile}
+                    transitionProps={{ transition: 'fade', duration: 200 }}
+                    title={
+                        <Text weight={500} transform="uppercase">
+                            Biên Bản Trung Bình Quý
+                        </Text>
+                    }
+                >
+                    <ReportAveragePrecious />
+                </Modal>
             </>
         </motion.div>
     );

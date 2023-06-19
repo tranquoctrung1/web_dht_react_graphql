@@ -15,7 +15,7 @@ import {
 import { motion } from 'framer-motion';
 import BackgroundWater from '../assets/background.png';
 
-import { IconKey, IconUser } from '@tabler/icons';
+import { IconKey, IconUser } from '@tabler/icons-react';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Logo from '../assets/logo.png';

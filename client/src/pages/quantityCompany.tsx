@@ -1,19 +1,19 @@
 import {
-	Button,
-	Center,
-	Col,
-	Grid,
-	Select,
-	Space,
-	Table,
-	Text
+    Button,
+    Center,
+    Col,
+    Grid,
+    Select,
+    Space,
+    Table,
+    Text,
 } from '@mantine/core';
-import { DatePicker } from '@mantine/dates';
+import { DateInput } from '@mantine/dates';
 import { motion } from 'framer-motion';
 
 import {
-	useGetCompaniesQuery,
-	useQuantityDayCompanyLazyQuery
+    useGetCompaniesQuery,
+    useQuantityDayCompanyLazyQuery,
 } from '../__generated__/graphql';
 
 import { useState } from 'react';
@@ -21,17 +21,14 @@ import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 import {
-	convertDateToStringNotTime,
-	convertDateToStringNotTimeForTitle,
-	quickSort
+    convertDateToStringNotTime,
+    convertDateToStringNotTimeForTitle,
+    quickSort,
 } from '../utils/utils';
 // @ts-ignore comment
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
-interface Companies {
-    value: string;
-    label: string;
-}
+import Companies from '../types/companies.type';
 
 const QuantityCompanyPage = () => {
     const [selectedCompany, setSelectedCompany] = useState(null);
@@ -86,7 +83,6 @@ const QuantityCompanyPage = () => {
 
     const onStartDateChanged = (e: any) => {
         if (e != null && e != undefined && e != '') {
-			
             setStartDate(e.getTime());
         }
     };
@@ -963,17 +959,19 @@ const QuantityCompanyPage = () => {
                         />
                     </Col>
                     <Col md={4} sm={12}>
-                        <DatePicker
+                        <DateInput
                             placeholder="Ngày bắt đầu"
                             label="Ngày bắt đầu"
                             withAsterisk
+                            valueFormat="DD/MM/YYYY"
                             onChange={onStartDateChanged}
                         />
                     </Col>
                     <Col md={4} sm={12}>
-                        <DatePicker
+                        <DateInput
                             placeholder="Ngày kết thúc"
                             label="Ngày kết thúc"
+                            valueFormat="DD/MM/YYYY"
                             withAsterisk
                             onChange={onEndDateChanged}
                         />
