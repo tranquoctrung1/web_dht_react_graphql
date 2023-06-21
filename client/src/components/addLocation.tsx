@@ -5,12 +5,17 @@ import { IconMapPinFilled, IconX } from '@tabler/icons-react';
 import { useState } from 'react';
 import AddLocationInterface from '../types/addLocation.type';
 
+import { useDispatch } from 'react-redux';
+import { deleteLocation } from '../features/addLocation';
+
 const AddLocation = ({ index }: AddLocationInterface) => {
     const [searchValue, onSearchChange] = useState('');
     const [averageDate, setAverageDate] = useState<Date[]>([]);
 
+    const dispatch = useDispatch();
+
     const onCloseAddLocationClicked = () => {
-        console.log(11111);
+        dispatch(deleteLocation(index));
     };
 
     return (

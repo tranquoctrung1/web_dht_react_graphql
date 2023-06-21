@@ -21,11 +21,29 @@ import AddSubtractWaterB1 from './addSubtractWaterB1';
 import AddSubtractWaterB2 from './addSubtractWaterB2';
 import AddWaterCustomer from './addWaterCustomer';
 
+import { useDispatch, useSelector } from 'react-redux';
+
+import { AddIndexState } from '../features/addIndex';
+import { AddLocationState, addLocation } from '../features/addLocation';
+import { AddLockValveState } from '../features/addLockValve';
+import { AddSubtractWaterB1State } from '../features/addSubtractWaterB1';
+import { AddSubtractWaterB2State } from '../features/addSubtractWaterB2';
+import { AddWaterCustomerState } from '../features/addWaterCustomer';
+
 const ReportAveragePrecious = () => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [tetHolidayPre, setTetHolidayPre] = useState(null);
     const [tetHoliday, setTetHoliday] = useState(null);
+
+    const addLocationState = useSelector(AddLocationState);
+    const addIndexState = useSelector(AddIndexState);
+    const addLockValveState = useSelector(AddLockValveState);
+    const addSubtractWaterB1State = useSelector(AddSubtractWaterB1State);
+    const addSubtractWaterB2State = useSelector(AddSubtractWaterB2State);
+    const addWaterCustomerState = useSelector(AddWaterCustomerState);
+
+    const dispatch = useDispatch();
 
     const { data, error, loading } = useGetCompaniesQuery();
 
@@ -71,7 +89,7 @@ const ReportAveragePrecious = () => {
     };
 
     const onAddLocationClicked = () => {
-        console.log(111111);
+        dispatch(addLocation({}));
     };
 
     const onAddIndexClicked = () => {
@@ -157,15 +175,21 @@ const ReportAveragePrecious = () => {
                         onChange={onTetHoliDayChanged}
                     />
                     <Space h="md" />
-                    <div
-                        style={{
-                            padding: '10px',
-                            border: '1px solid #95a5a6',
-                            borderRadius: '10px',
-                        }}
-                    >
-                        {<AddLocation index={1} />}
-                    </div>
+                    {addLocationState.length > 0 ? (
+                        <div
+                            style={{
+                                padding: '10px',
+                                border: '1px solid #95a5a6',
+                                borderRadius: '10px',
+                            }}
+                        >
+                            {addLocationState.map((el, index) => {
+                                return (
+                                    <AddLocation key={index} index={index} />
+                                );
+                            })}
+                        </div>
+                    ) : null}
                     <Space h="md" />
                     <Button
                         leftIcon={<IconPlus />}
@@ -442,22 +466,6 @@ const ReportAveragePrecious = () => {
                             color="green"
                         >
                             Lưu biên bản
-                        </Button>
-                        <Space w="md" />
-                        <Button
-                            leftIcon={<IconFileX />}
-                            variant="filled"
-                            color="blue"
-                        >
-                            Sản lượng
-                        </Button>
-                        <Space w="md" />
-                        <Button
-                            leftIcon={<IconFileX />}
-                            variant="filled"
-                            color="blue"
-                        >
-                            Sản lượng logger
                         </Button>
                         <Space w="md" />
                         <Button
