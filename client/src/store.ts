@@ -6,6 +6,9 @@ import AddSubtractWaterB1Slice from './features/addSubtractWaterB1';
 import AddSubtractWaterB2Slice from './features/addSubtractWaterB2';
 import AddWaterCustomerSlice from './features/addWaterCustomer';
 import CounterSlice from './features/counter';
+import CurrentCompanyPreciousSlice from './features/currentCompanyPercious';
+import CurrentEndDatePreciousSlice from './features/currentEndDatePrecious';
+import CurrentStartDatePreciousSlice from './features/currentStartDatePrecious';
 import OpenSidebarSlice from './features/openSidebar';
 
 export const store = configureStore({
@@ -18,6 +21,9 @@ export const store = configureStore({
         addSubtractWaterB1: AddSubtractWaterB1Slice,
         addSubtractWaterB2: AddSubtractWaterB2Slice,
         addWaterCustomer: AddWaterCustomerSlice,
+        currentCompanyPrecious: CurrentCompanyPreciousSlice,
+        currentStartDatePrecious: CurrentStartDatePreciousSlice,
+        currentEndDatePrecious: CurrentEndDatePreciousSlice,
     },
 });
 

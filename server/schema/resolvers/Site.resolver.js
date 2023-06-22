@@ -5,5 +5,8 @@ module.exports = {
         GetAllSites: async (parent, {}, context, info) => {
             return await SiteModel.GetAllSites();
         },
+        GetSiteByWaterSupply: async (parent, { company }, context, info) => {
+            return await SiteModel.GetSiteByWaterSupply(company);
+        },
     },
 };

@@ -1,0 +1,3 @@
+query QuantityLoggerDay($siteid: String!, $start: String!, $end: String!) {
+    QuantityLoggerDay(siteid: $siteid, start: $start, end: $end)
+}

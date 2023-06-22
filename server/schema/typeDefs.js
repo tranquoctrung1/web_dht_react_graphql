@@ -160,6 +160,23 @@ module.exports = gql`
         Value: Float
     }
 
+    type QuantityLoggerDay {
+        SiteId: String!
+        Location: String
+        Marks: String
+        Size: Int
+        MeterDirection: String
+        IstDistributionCompany: String
+        QndDistributionCompany: String
+        OldId: String
+        Company: String
+        Address: String
+        Display: Boolean
+        IstDoNotCalculateReverse: Int
+        QndDoNotCalculateReverse: Int
+        ListQuantity: [Quantity]
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -195,6 +212,10 @@ module.exports = gql`
         ): [DataLogger!]
 
         GetDataLoggerByLastRecord(channelid: String!): [DataLogger!]
+
+        QuantityLoggerDay(siteid: String!, start: String!, end: String!): Float!
+
+        GetSiteByWaterSupply(company: String!): [Site!]!
     }
 
     # declare Mutation

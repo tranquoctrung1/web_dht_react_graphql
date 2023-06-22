@@ -1,0 +1,17 @@
+query GetSiteByWaterSupply($company: String!) {
+    GetSiteByWaterSupply(company: $company) {
+        _id
+        OldId
+        Location
+        Logger
+        Company
+        Description
+        MeterDirection
+        ProductionCompany
+        IsDistributionCompany
+        QndDistributionCompany
+        IstDoNotCalculateReverse
+        QndDoNotCalculateReverse
+        Address
+    }
+}

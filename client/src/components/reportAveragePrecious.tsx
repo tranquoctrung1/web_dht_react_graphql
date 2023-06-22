@@ -1,5 +1,5 @@
 import { Button, Center, Col, Grid, Select, Space, Text } from '@mantine/core';
-import { DateInput } from '@mantine/dates';
+import { DateInput, DateTimePicker } from '@mantine/dates';
 
 import {
     IconDeviceFloppy,
@@ -29,6 +29,18 @@ import { AddLockValveState } from '../features/addLockValve';
 import { AddSubtractWaterB1State } from '../features/addSubtractWaterB1';
 import { AddSubtractWaterB2State } from '../features/addSubtractWaterB2';
 import { AddWaterCustomerState } from '../features/addWaterCustomer';
+import {
+    CurrentCompanyPreciousState,
+    setCurrentCompanyPrecious,
+} from '../features/currentCompanyPercious';
+import {
+    CurrentEndDatePreciousState,
+    setCurrentEndDatePrecious,
+} from '../features/currentEndDatePrecious';
+import {
+    CurrentStartDatePreciousState,
+    setCurrentStartDatePrecious,
+} from '../features/currentStartDatePrecious';
 
 const ReportAveragePrecious = () => {
     const [startDate, setStartDate] = useState(null);
@@ -57,7 +69,7 @@ const ReportAveragePrecious = () => {
                         // @ts-ignore comment
                         value: company.Company,
                         // @ts-ignore comment
-                        label: company.Description,
+                        label: `${company.Company} - ${company.Description}`,
                     };
 
                     tempData.push(obj);
@@ -69,12 +81,14 @@ const ReportAveragePrecious = () => {
     const onStartDateChanged = (e: any) => {
         if (e != null && e != undefined && e != '') {
             setStartDate(e.getTime());
+            dispatch(setCurrentStartDatePrecious(e.getTime()));
         }
     };
 
     const onEndDateChanged = (e: any) => {
         if (e != null && e != undefined && e != '') {
             setEndDate(e.getTime());
+            dispatch(setCurrentEndDatePrecious(e.getTime()));
         }
     };
 
@@ -86,6 +100,10 @@ const ReportAveragePrecious = () => {
 
     const onTetHoliDayChanged = (e: any) => {
         setTetHoliday(e.getTime());
+    };
+
+    const onCompanyChanged = (e: any) => {
+        dispatch(setCurrentCompanyPrecious(e));
     };
 
     const onAddLocationClicked = () => {
@@ -120,11 +138,15 @@ const ReportAveragePrecious = () => {
                         label="Chọn công ty"
                         placeholder="Chọn công ty"
                         clearable
+                        searchable
+                        nothingFound="Không tìm thấy!!"
                         data={tempData}
+                        onChange={onCompanyChanged}
                     />
                 </Col>
                 <Col md={4} sm={12}>
-                    <DateInput
+                    <DateTimePicker
+                        clearable
                         placeholder="Ngày bắt đầu"
                         label="Ngày bắt đầu"
                         valueFormat="DD/MM/YYYY"
@@ -132,7 +154,8 @@ const ReportAveragePrecious = () => {
                     />
                 </Col>
                 <Col md={4} sm={12}>
-                    <DateInput
+                    <DateTimePicker
+                        clearable
                         placeholder="Ngày kết thúc"
                         label="Ngày kết thúc"
                         valueFormat="DD/MM/YYYY"

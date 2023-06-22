@@ -144,3 +144,15 @@ module.exports.GetAllSites = async () => {
 
     return result;
 };
+
+module.exports.GetSiteBySiteId = async (siteid) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection.find({ _id: siteid }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
