@@ -1,0 +1,26 @@
+query QuantityLoggerByTimeStamp(
+    $siteid: String!
+    $start: String!
+    $end: String!
+) {
+    QuantityLoggerByTimeStamp(siteid: $siteid, start: $start, end: $end) {
+        SiteId
+        Location
+        Marks
+        Size
+        MeterDirection
+        IstDistributionCompany
+        QndDistributionCompany
+        OldId
+        Company
+        Address
+        Display
+        IstDoNotCalculateReverse
+        QndDoNotCalculateReverse
+        ListQuantity {
+            TimeStamp
+            Value
+            IsEnoughData
+        }
+    }
+}

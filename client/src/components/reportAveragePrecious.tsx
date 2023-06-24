@@ -23,7 +23,7 @@ import AddWaterCustomer from './addWaterCustomer';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AddIndexState } from '../features/addIndex';
+import { AddIndexState, addIndex } from '../features/addIndex';
 import { AddLocationState, addLocation } from '../features/addLocation';
 import { AddLockValveState } from '../features/addLockValve';
 import { AddSubtractWaterB1State } from '../features/addSubtractWaterB1';
@@ -120,7 +120,15 @@ const ReportAveragePrecious = () => {
     };
 
     const onAddIndexClicked = () => {
-        console.log(22222);
+        let obj = {
+            SiteId: '',
+            Location: '',
+            PreviousPeriodIndex: '',
+            NextPeriodIndex: '',
+        };
+
+        //@ts-ignore
+        dispatch(addIndex(obj));
     };
 
     const onAddLockValveClicked = () => {
@@ -239,35 +247,46 @@ const ReportAveragePrecious = () => {
                     >
                         Nhập Chỉ Số
                     </Text>
-                    <Space h="md" />
-                    <div
-                        style={{
-                            padding: '10px',
-                            border: '1px solid #95a5a6',
-                            borderRadius: '10px',
-                        }}
-                    >
-                        <Grid>
-                            <Col span={5}>
-                                <Center>
-                                    <IconMapPinFilled size="1.125rem"></IconMapPinFilled>
-                                    <Text weight={500}>Vị trí</Text>
-                                </Center>
-                            </Col>
-                            <Col span={3}>
-                                <Center>
-                                    <Text weight={500}>C/s Kỳ trước</Text>
-                                </Center>
-                            </Col>
-                            <Col span={3}>
-                                <Center>
-                                    <Text weight={500}>C/s Kỳ sau</Text>
-                                </Center>
-                            </Col>
-                            <Col span={1}></Col>
-                        </Grid>
-                        {<AddIndex index={1} />}
-                    </div>
+                    {addIndexState.length > 0 ? (
+                        <>
+                            <Space h="md" />
+                            <div
+                                style={{
+                                    padding: '10px',
+                                    border: '1px solid #95a5a6',
+                                    borderRadius: '10px',
+                                }}
+                            >
+                                <Grid>
+                                    <Col span={5}>
+                                        <Center>
+                                            <IconMapPinFilled size="1.125rem"></IconMapPinFilled>
+                                            <Text weight={500}>Vị trí</Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={3}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                C/s Kỳ trước
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={3}>
+                                        <Center>
+                                            <Text weight={500}>C/s Kỳ sau</Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={1}></Col>
+                                </Grid>
+                                {addIndexState.map((el, index) => {
+                                    return (
+                                        <AddIndex key={index} index={index} />
+                                    );
+                                })}
+                            </div>
+                        </>
+                    ) : null}
+
                     <Space h="md" />
                     <Button
                         leftIcon={<IconPlus />}

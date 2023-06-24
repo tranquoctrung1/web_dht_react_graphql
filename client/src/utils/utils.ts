@@ -84,6 +84,28 @@ export const detectedDateRemainInPeriod = (
     return result;
 };
 
+export const detectedDateRemainInPeriodByMilisecond = (
+    dateRange: number[],
+    start: number,
+    end: number,
+) => {
+    let result = [];
+    if (start !== null && end !== null) {
+        let temp = start;
+
+        while (temp <= end) {
+            let find = dateRange.find((el) => el === temp);
+            if (find === undefined) {
+                result.push(temp);
+            }
+
+            temp += 86400000;
+        }
+    }
+
+    return result;
+};
+
 export const detectedDateRangeContinuous = (dateRange: number[]) => {
     let result = [];
 
@@ -103,4 +125,6 @@ export const detectedDateRangeContinuous = (dateRange: number[]) => {
             }
         }
     }
+
+    return result;
 };

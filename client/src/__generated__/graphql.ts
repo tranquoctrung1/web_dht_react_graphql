@@ -93,6 +93,24 @@ export type QuantityDayWaterSupply = {
   Size?: Maybe<Scalars['Int']>;
 };
 
+export type QuantityLoggerByTimeStamp = {
+  __typename?: 'QuantityLoggerByTimeStamp';
+  Address?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Display?: Maybe<Scalars['Boolean']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
+  IstDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  ListQuantity?: Maybe<Array<Maybe<Quantity>>>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  MeterDirection?: Maybe<Scalars['String']>;
+  OldId?: Maybe<Scalars['String']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  QndDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  SiteId: Scalars['String'];
+  Size?: Maybe<Scalars['Int']>;
+};
+
 export type QuantityLoggerDay = {
   __typename?: 'QuantityLoggerDay';
   Address?: Maybe<Scalars['String']>;
@@ -140,6 +158,7 @@ export type Query = {
   GetSiteByWaterSupply: Array<Site>;
   QuantityDayCompany: Array<QuantityDayCompany>;
   QuantityDayWaterSupply: Array<QuantityDayWaterSupply>;
+  QuantityLoggerByTimeStamp: Array<QuantityLoggerByTimeStamp>;
   QuantityLoggerDay: Scalars['Float'];
   QuantityLoggerDayWaterSupply: Array<QuantityLoggerDayWaterSupply>;
 };
@@ -177,6 +196,13 @@ export type QueryQuantityDayCompanyArgs = {
 export type QueryQuantityDayWaterSupplyArgs = {
   company: Scalars['String'];
   end: Scalars['String'];
+  start: Scalars['String'];
+};
+
+
+export type QueryQuantityLoggerByTimeStampArgs = {
+  end: Scalars['String'];
+  siteid: Scalars['String'];
   start: Scalars['String'];
 };
 
@@ -325,6 +351,15 @@ export type QuantityDayWaterSupplyQueryVariables = Exact<{
 
 
 export type QuantityDayWaterSupplyQuery = { __typename?: 'Query', QuantityDayWaterSupply: Array<{ __typename?: 'QuantityDayWaterSupply', Address?: string | null, Company?: string | null, IstDistributionCompany?: string | null, Display?: boolean | null, Location?: string | null, Marks?: string | null, OldId?: string | null, MeterDirection?: string | null, QndDistributionCompany?: string | null, SiteId: string, Size?: number | null, IstDoNotCalculateReverse?: number | null, QndDoNotCalculateReverse?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
+
+export type QuantityLoggerByTimeStampQueryVariables = Exact<{
+  siteid: Scalars['String'];
+  start: Scalars['String'];
+  end: Scalars['String'];
+}>;
+
+
+export type QuantityLoggerByTimeStampQuery = { __typename?: 'Query', QuantityLoggerByTimeStamp: Array<{ __typename?: 'QuantityLoggerByTimeStamp', SiteId: string, Location?: string | null, Marks?: string | null, Size?: number | null, MeterDirection?: string | null, IstDistributionCompany?: string | null, QndDistributionCompany?: string | null, OldId?: string | null, Company?: string | null, Address?: string | null, Display?: boolean | null, IstDoNotCalculateReverse?: number | null, QndDoNotCalculateReverse?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', TimeStamp?: any | null, Value?: number | null, IsEnoughData?: boolean | null } | null> | null }> };
 
 export type QuantityLoggerDayQueryVariables = Exact<{
   siteid: Scalars['String'];
@@ -834,6 +869,63 @@ export type QuantityDayWaterSupplyLazyQueryHookResult = ReturnType<typeof useQua
 export type QuantityDayWaterSupplyQueryResult = Apollo.QueryResult<QuantityDayWaterSupplyQuery, QuantityDayWaterSupplyQueryVariables>;
 export function refetchQuantityDayWaterSupplyQuery(variables: QuantityDayWaterSupplyQueryVariables) {
       return { query: QuantityDayWaterSupplyDocument, variables: variables }
+    }
+export const QuantityLoggerByTimeStampDocument = gql`
+    query QuantityLoggerByTimeStamp($siteid: String!, $start: String!, $end: String!) {
+  QuantityLoggerByTimeStamp(siteid: $siteid, start: $start, end: $end) {
+    SiteId
+    Location
+    Marks
+    Size
+    MeterDirection
+    IstDistributionCompany
+    QndDistributionCompany
+    OldId
+    Company
+    Address
+    Display
+    IstDoNotCalculateReverse
+    QndDoNotCalculateReverse
+    ListQuantity {
+      TimeStamp
+      Value
+      IsEnoughData
+    }
+  }
+}
+    `;
+
+/**
+ * __useQuantityLoggerByTimeStampQuery__
+ *
+ * To run a query within a React component, call `useQuantityLoggerByTimeStampQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuantityLoggerByTimeStampQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuantityLoggerByTimeStampQuery({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useQuantityLoggerByTimeStampQuery(baseOptions: Apollo.QueryHookOptions<QuantityLoggerByTimeStampQuery, QuantityLoggerByTimeStampQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QuantityLoggerByTimeStampQuery, QuantityLoggerByTimeStampQueryVariables>(QuantityLoggerByTimeStampDocument, options);
+      }
+export function useQuantityLoggerByTimeStampLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuantityLoggerByTimeStampQuery, QuantityLoggerByTimeStampQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QuantityLoggerByTimeStampQuery, QuantityLoggerByTimeStampQueryVariables>(QuantityLoggerByTimeStampDocument, options);
+        }
+export type QuantityLoggerByTimeStampQueryHookResult = ReturnType<typeof useQuantityLoggerByTimeStampQuery>;
+export type QuantityLoggerByTimeStampLazyQueryHookResult = ReturnType<typeof useQuantityLoggerByTimeStampLazyQuery>;
+export type QuantityLoggerByTimeStampQueryResult = Apollo.QueryResult<QuantityLoggerByTimeStampQuery, QuantityLoggerByTimeStampQueryVariables>;
+export function refetchQuantityLoggerByTimeStampQuery(variables: QuantityLoggerByTimeStampQueryVariables) {
+      return { query: QuantityLoggerByTimeStampDocument, variables: variables }
     }
 export const QuantityLoggerDayDocument = gql`
     query QuantityLoggerDay($siteid: String!, $start: String!, $end: String!) {
