@@ -61,3 +61,46 @@ export const quickSort = (arr: any) => {
 
     return [...quickSort(left), pivot, ...quickSort(right)];
 };
+
+export const detectedDateRemainInPeriod = (
+    dateRange: number[],
+    start: number,
+    end: number,
+) => {
+    let result = [];
+    if (start !== null && end !== null) {
+        let temp = start;
+
+        while (temp <= end) {
+            let find = dateRange.find((el) => el === temp);
+            if (find === undefined) {
+                result.push(new Date(temp));
+            }
+
+            temp += 86400000;
+        }
+    }
+
+    return result;
+};
+
+export const detectedDateRangeContinuous = (dateRange: number[]) => {
+    let result = [];
+
+    let temp = [dateRange[0]];
+
+    for (let i = 1; i < dateRange.length; i++) {
+        if (dateRange[i - 1] + 86400000 === dateRange[i]) {
+            temp.push(dateRange[i]);
+            if (i === dateRange.length - 1) {
+                result.push(temp);
+            }
+        } else {
+            result.push(temp);
+            temp = [dateRange[i]];
+            if (i === dateRange.length - 1) {
+                result.push(temp);
+            }
+        }
+    }
+};

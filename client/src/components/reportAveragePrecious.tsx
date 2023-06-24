@@ -107,7 +107,16 @@ const ReportAveragePrecious = () => {
     };
 
     const onAddLocationClicked = () => {
-        dispatch(addLocation({}));
+        let obj = {
+            SiteId: '',
+            Location: '',
+            Periods: [{}, {}, {}],
+            AverageDate: [],
+            DateCalclogger: [],
+            QuantityLogger: 0,
+        };
+        // @ts-ignore
+        dispatch(addLocation(obj));
     };
 
     const onAddIndexClicked = () => {

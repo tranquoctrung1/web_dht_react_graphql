@@ -21,16 +21,69 @@ export const AddLocationSilce = createSlice({
             //@ts-ignore
             state.value.push(action.payload);
         },
-        deleteLocation: (state, action: PayloadAction) => {
-            console.log(action.payload);
+        updateSite: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].SiteId = action.payload.SiteId;
+                    //@ts-ignore
+                    state.value[i].Location = action.payload.Location;
+                    break;
+                }
+            }
+        },
+        updateAverageDate: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].AverageDate = action.payload.AverageDate;
+                    break;
+                }
+            }
+        },
+        updatePeriods: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].Periods[action.payload.indexPeriod].Period =
+                        //@ts-ignore
+                        action.payload.Period;
+                    // @ts-ignore
+                    state.value[i].Periods[
+                        //@ts-ignore
+                        action.payload.indexPeriod
+                        //@ts-ignore
+                    ].Quantity = action.payload.Quantity;
+                    break;
+                }
+            }
+        },
+        deleteLocation: (state, action: PayloadAction<number>) => {
+            //@ts-ignore
+            let temp = [];
+
+            for (let i = 0; i < state.value.length; i++) {
+                if (i !== action.payload) {
+                    temp.push(state.value[i]);
+                }
+            }
             // @ts-ignore
-            state.value.slice(action.payload, 1);
+            state.value = [...temp];
         },
     },
 });
 
-export const { addLocations, addLocation, deleteLocation } =
-    AddLocationSilce.actions;
+export const {
+    addLocations,
+    addLocation,
+    deleteLocation,
+    updateSite,
+    updateAverageDate,
+    updatePeriods,
+} = AddLocationSilce.actions;
 
 export const AddLocationState = (state: RootState) => state.addLocation.value;
 
