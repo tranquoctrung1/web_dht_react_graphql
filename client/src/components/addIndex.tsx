@@ -1,4 +1,4 @@
-import { Button, Col, Grid, NumberInput, Select, Text } from '@mantine/core';
+import { Col, Grid, NumberInput, Select, Text } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 
 import { useState } from 'react';
@@ -126,10 +126,6 @@ const AddIndex = ({ index }: AddIndexInterface) => {
         dispatch(updateNextPeriodIndex(obj));
     };
 
-    const onTestClicked = () => {
-        console.log(addIndexState);
-    };
-
     return (
         <Grid>
             <Col span={5}>
@@ -165,9 +161,6 @@ const AddIndex = ({ index }: AddIndexInterface) => {
                     style={{ cursor: 'pointer' }}
                     onClick={onCloseAddIndexClicked}
                 ></IconX>
-            </Col>
-            <Col span={12}>
-                <Button onClick={onTestClicked}>test</Button>
             </Col>
         </Grid>
     );

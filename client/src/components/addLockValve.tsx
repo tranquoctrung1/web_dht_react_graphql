@@ -1,4 +1,4 @@
-import { Button, Col, Grid, Select } from '@mantine/core';
+import { Col, Grid, Select } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 
 import AddLockValveInterface from '../types/addLockValve.type';
@@ -91,10 +91,6 @@ const AddLockValve = ({ index }: AddLockValveInterface) => {
         }
     };
 
-    const onTestClicked = () => {
-        console.log(addLockValveState);
-    };
-
     return (
         <Grid>
             <Col span={11}>
@@ -116,9 +112,6 @@ const AddLockValve = ({ index }: AddLockValveInterface) => {
                     style={{ cursor: 'pointer' }}
                     onClick={onCloseAddLockValveClicked}
                 ></IconX>
-            </Col>
-            <Col span={12}>
-                <Button onClick={onTestClicked}>test</Button>
             </Col>
         </Grid>
     );

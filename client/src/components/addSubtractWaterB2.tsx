@@ -1,4 +1,4 @@
-import { Button, Col, Grid, Input, NumberInput } from '@mantine/core';
+import { Col, Grid, Input, NumberInput } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 
 import { useState } from 'react';
@@ -79,10 +79,6 @@ const AddSubtractWaterB2 = ({ index }: AddSubtractWaterB2Interface) => {
         dispatch(updateNote(obj));
     };
 
-    const onTestClicked = () => {
-        console.log(addSubtractWaterB2State);
-    };
-
     return (
         <Grid>
             <Col span={2}>
@@ -121,9 +117,6 @@ const AddSubtractWaterB2 = ({ index }: AddSubtractWaterB2Interface) => {
                     style={{ cursor: 'pointer' }}
                     onClick={onCloseAddSubtractWaterB2Clicked}
                 ></IconX>
-            </Col>
-            <Col span={12}>
-                <Button onClick={onTestClicked}> test</Button>
             </Col>
         </Grid>
     );

@@ -683,11 +683,13 @@ const ReportAveragePrecious = () => {
                     </Center>
                 </Col>
             </Grid>
-            <Grid>
-                <Col span={12}>
-                    <AveragePrecious />
-                </Col>
-            </Grid>
+            <template>
+                <Grid>
+                    <Col span={12}>
+                        <AveragePrecious />
+                    </Col>
+                </Grid>
+            </template>
         </>
     );
 };
