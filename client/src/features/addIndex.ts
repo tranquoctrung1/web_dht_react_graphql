@@ -24,7 +24,7 @@ export const AddIndexSlice = createSlice({
         updateIndex: (state, action: PayloadAction) => {
             for (let i = 0; i < state.value.length; i++) {
                 // @ts-ignore
-                if (i !== action.payload.index) {
+                if (i === action.payload.index) {
                     // @ts-ignore
                     state.value[i].SiteId = action.payload.SiteId;
                     // @ts-ignore
@@ -43,7 +43,7 @@ export const AddIndexSlice = createSlice({
         updateSite: (state, action: PayloadAction) => {
             for (let i = 0; i < state.value.length; i++) {
                 // @ts-ignore
-                if (i !== action.payload.index) {
+                if (i === action.payload.index) {
                     // @ts-ignore
                     state.value[i].SiteId = action.payload.SiteId;
                     // @ts-ignore
@@ -54,7 +54,7 @@ export const AddIndexSlice = createSlice({
         updatePreviousPeriodIndex: (state, action: PayloadAction) => {
             for (let i = 0; i < state.value.length; i++) {
                 // @ts-ignore
-                if (i !== action.payload.index) {
+                if (i === action.payload.index) {
                     // @ts-ignore
                     state.value[i].PreviousPeriodIndex =
                         // @ts-ignore
@@ -65,7 +65,7 @@ export const AddIndexSlice = createSlice({
         updateNextPeriodIndex: (state, action: PayloadAction) => {
             for (let i = 0; i < state.value.length; i++) {
                 // @ts-ignore
-                if (i !== action.payload.index) {
+                if (i === action.payload.index) {
                     // @ts-ignore
                     state.value[i].NextPeriodIndex =
                         // @ts-ignore

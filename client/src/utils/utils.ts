@@ -128,3 +128,40 @@ export const detectedDateRangeContinuous = (dateRange: number[]) => {
 
     return result;
 };
+
+export const calcSpace2Date = (start: number, end: number) => {
+    let differentInTime = end - start;
+    let differentInDay = differentInTime / (1000 * 3600 * 24);
+
+    return differentInDay + 1;
+};
+
+export const convertDateToPeriod = (date: number) => {
+    let time = new Date(date);
+
+    return `${time.getMonth() + 1}/${time.getFullYear()}`;
+};
+
+export const convertDatePeriodToMonth = (date: number) => {
+    if (date !== null && date !== undefined && date !== 0) {
+        let time = new Date(date);
+
+        return `${time.getMonth() + 1}`;
+    }
+    return '';
+};
+
+export const convertDatePeriodToYear = (date: number) => {
+    if (date !== null && date !== undefined && date !== 0) {
+        let time = new Date(date);
+
+        return `${time.getFullYear()}`;
+    }
+    return '';
+};
+
+export const convertDateToDayAndMonth = (date: number) => {
+    let time = new Date(date);
+
+    return `${time.getDate()}/${time.getMonth() + 1}`;
+};

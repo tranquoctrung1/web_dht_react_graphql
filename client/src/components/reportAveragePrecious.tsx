@@ -25,11 +25,20 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AddIndexState, addIndex } from '../features/addIndex';
 import { AddLocationState, addLocation } from '../features/addLocation';
-import { AddLockValveState } from '../features/addLockValve';
-import { AddSubtractWaterB1State } from '../features/addSubtractWaterB1';
-import { AddSubtractWaterB2State } from '../features/addSubtractWaterB2';
-import { AddWaterCustomerState } from '../features/addWaterCustomer';
+import { AddLockValveState, addLockValve } from '../features/addLockValve';
 import {
+    AddSubtractWaterB1State,
+    addSubtractWaterB1,
+} from '../features/addSubtractWaterB1';
+import {
+    AddSubtractWaterB2State,
+    addSubtractWaterB2,
+} from '../features/addSubtractWaterB2';
+import {
+    AddWaterCustomerState,
+    addWaterCustomer,
+} from '../features/addWaterCustomer';
+import currentCompanyPercious, {
     CurrentCompanyPreciousState,
     setCurrentCompanyPrecious,
 } from '../features/currentCompanyPercious';
@@ -41,6 +50,13 @@ import {
     CurrentStartDatePreciousState,
     setCurrentStartDatePrecious,
 } from '../features/currentStartDatePrecious';
+
+import AveragePrecious from './averagePrecious';
+
+import {
+    convertDatePeriodToMonth,
+    convertDatePeriodToYear,
+} from '../utils/utils';
 
 const ReportAveragePrecious = () => {
     const [startDate, setStartDate] = useState(null);
@@ -54,6 +70,12 @@ const ReportAveragePrecious = () => {
     const addSubtractWaterB1State = useSelector(AddSubtractWaterB1State);
     const addSubtractWaterB2State = useSelector(AddSubtractWaterB2State);
     const addWaterCustomerState = useSelector(AddWaterCustomerState);
+    const currentCompanyPreciousState = useSelector(
+        CurrentCompanyPreciousState,
+    );
+    const currentEndDatePreciousState = useSelector(
+        CurrentEndDatePreciousState,
+    );
 
     const dispatch = useDispatch();
 
@@ -114,6 +136,7 @@ const ReportAveragePrecious = () => {
             AverageDate: [],
             DateCalclogger: [],
             QuantityLogger: 0,
+            TotalQuantity: 0,
         };
         // @ts-ignore
         dispatch(addLocation(obj));
@@ -132,19 +155,80 @@ const ReportAveragePrecious = () => {
     };
 
     const onAddLockValveClicked = () => {
-        console.log(33333);
+        let obj = {
+            SiteId: '',
+            Location: '',
+        };
+
+        //@ts-ignore
+        dispatch(addLockValve(obj));
     };
 
     const onAddSubtractB1Clicked = () => {
-        console.log(4444);
+        let obj = {
+            NumberPrecious: '',
+            Content: '',
+            Provider: '',
+            AmountWater: 0,
+            Note: '',
+        };
+
+        //@ts-ignore
+        dispatch(addSubtractWaterB1(obj));
     };
 
     const onAddSubtractB2Clicked = () => {
-        console.log(55555);
+        let obj = {
+            NumberPrecious: '',
+            Content: '',
+            Provider: '',
+            AmountWater: 0,
+            Note: '',
+        };
+
+        //@ts-ignore
+        dispatch(addSubtractWaterB2(obj));
     };
 
     const onAddWaterCustomerClicked = () => {
-        console.log(666666);
+        let obj = {
+            NumberPrecious: '',
+            DatePublished: '',
+            AmountMeter: 0,
+            AmountWater: 0,
+            Note: '',
+        };
+
+        //@ts-ignore
+        dispatch(addWaterCustomer(obj));
+    };
+
+    const onExportAveragePreciousClicked = () => {
+        const header =
+            "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+            "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+            "xmlns='http://www.w3.org/TR/REC-html40'>" +
+            "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+        const footer = '</body></html>';
+        const sourceHTML =
+            header +
+            // @ts-ignore
+            document.getElementById('average-precious').innerHTML +
+            footer;
+
+        const source =
+            'data:application/vnd.ms-word;charset=utf-8,' +
+            encodeURIComponent(sourceHTML);
+        const fileDownload = document.createElement('a');
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = `_bien_ban_trung_binh_${currentCompanyPreciousState}_ky_${convertDatePeriodToMonth(
+            //@ts-ignore
+            currentEndDatePreciousState,
+            //@ts-ignore
+        )}_${convertDatePeriodToYear(currentEndDatePreciousState)}.doc`;
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
     };
 
     return (
@@ -305,25 +389,37 @@ const ReportAveragePrecious = () => {
                         Nhập Khóa Van
                     </Text>
                     <Space h="md" />
-                    <div
-                        style={{
-                            padding: '10px',
-                            border: '1px solid #95a5a6',
-                            borderRadius: '10px',
-                        }}
-                    >
-                        <Grid>
-                            <Col span={11}>
-                                <Center>
-                                    <IconMapPinFilled size="1.125rem"></IconMapPinFilled>
-                                    <Text weight={500}>Vị trí</Text>
-                                </Center>
-                            </Col>
+                    {addLockValveState.length > 0 ? (
+                        <>
+                            <div
+                                style={{
+                                    padding: '10px',
+                                    border: '1px solid #95a5a6',
+                                    borderRadius: '10px',
+                                }}
+                            >
+                                <Grid>
+                                    <Col span={11}>
+                                        <Center>
+                                            <IconMapPinFilled size="1.125rem"></IconMapPinFilled>
+                                            <Text weight={500}>Vị trí</Text>
+                                        </Center>
+                                    </Col>
 
-                            <Col span={1}></Col>
-                        </Grid>
-                        {<AddLockValve index={1} />}
-                    </div>
+                                    <Col span={1}></Col>
+                                </Grid>
+                                {addLockValveState.map((el, index) => {
+                                    return (
+                                        <AddLockValve
+                                            key={index}
+                                            index={index}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </>
+                    ) : null}
+
                     <Space h="md" />
                     <Button
                         leftIcon={<IconPlus />}
@@ -341,48 +437,64 @@ const ReportAveragePrecious = () => {
                     >
                         Lượng Nước Giảm Trừ (B1)
                     </Text>
-                    <Space h="md" />
-                    <div
-                        style={{
-                            padding: '10px',
-                            border: '1px solid #95a5a6',
-                            borderRadius: '10px',
-                        }}
-                    >
-                        <Grid>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>
-                                        Số biên bản/ Ngày phát hành
-                                    </Text>
-                                </Center>
-                            </Col>
-                            <Col span={3}>
-                                <Center>
-                                    <Text weight={500}>Nội dung giảm trừ</Text>
-                                </Center>
-                            </Col>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>Đơn vị thi công</Text>
-                                </Center>
-                            </Col>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>
-                                        Lượng nước giảm trừ (m3)
-                                    </Text>
-                                </Center>
-                            </Col>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>Ghi chú</Text>
-                                </Center>
-                            </Col>
-                            <Col span={1}></Col>
-                        </Grid>
-                        {<AddSubtractWaterB1 index={1} />}
-                    </div>
+                    {addSubtractWaterB1State.length > 0 ? (
+                        <>
+                            <Space h="md" />
+                            <div
+                                style={{
+                                    padding: '10px',
+                                    border: '1px solid #95a5a6',
+                                    borderRadius: '10px',
+                                }}
+                            >
+                                <Grid>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Số biên bản/ Ngày phát hành
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={3}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Nội dung giảm trừ
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Đơn vị thi công
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Lượng nước giảm trừ (m3)
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>Ghi chú</Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={1}></Col>
+                                </Grid>
+                                {addSubtractWaterB1State.map((el, index) => {
+                                    return (
+                                        <AddSubtractWaterB1
+                                            key={index}
+                                            index={index}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </>
+                    ) : null}
+
                     <Space h="md" />
                     <Button
                         leftIcon={<IconPlus />}
@@ -400,48 +512,63 @@ const ReportAveragePrecious = () => {
                     >
                         Lượng Nước Giảm Trừ (B2)
                     </Text>
-                    <Space h="md" />
-                    <div
-                        style={{
-                            padding: '10px',
-                            border: '1px solid #95a5a6',
-                            borderRadius: '10px',
-                        }}
-                    >
-                        <Grid>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>
-                                        Số biên bản/ Ngày phát hành
-                                    </Text>
-                                </Center>
-                            </Col>
-                            <Col span={3}>
-                                <Center>
-                                    <Text weight={500}>Nội dung giảm trừ</Text>
-                                </Center>
-                            </Col>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>Đơn vị thi công</Text>
-                                </Center>
-                            </Col>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>
-                                        Lượng nước giảm trừ (m3)
-                                    </Text>
-                                </Center>
-                            </Col>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>Ghi chú</Text>
-                                </Center>
-                            </Col>
-                            <Col span={1}></Col>
-                        </Grid>
-                        {<AddSubtractWaterB2 index={1} />}
-                    </div>
+                    {addSubtractWaterB2State.length > 0 ? (
+                        <>
+                            <Space h="md" />
+                            <div
+                                style={{
+                                    padding: '10px',
+                                    border: '1px solid #95a5a6',
+                                    borderRadius: '10px',
+                                }}
+                            >
+                                <Grid>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Số biên bản/ Ngày phát hành
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={3}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Nội dung giảm trừ
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Đơn vị thi công
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Lượng nước giảm trừ (m3)
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>Ghi chú</Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={1}></Col>
+                                </Grid>
+                                {addSubtractWaterB2State.map((el, index) => {
+                                    return (
+                                        <AddSubtractWaterB2
+                                            key={index}
+                                            index={index}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </>
+                    ) : null}
                     <Space h="md" />
                     <Button
                         leftIcon={<IconPlus />}
@@ -460,44 +587,62 @@ const ReportAveragePrecious = () => {
                         Lượng Nước Qua Đồng Hồ Khách Hàng Cũng Là Đồng Hồ Tổng
                         (A2)
                     </Text>
-                    <Space h="md" />
-                    <div
-                        style={{
-                            padding: '10px',
-                            border: '1px solid #95a5a6',
-                            borderRadius: '10px',
-                        }}
-                    >
-                        <Grid>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>Số biên bản</Text>
-                                </Center>
-                            </Col>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>Ngày phát hành</Text>
-                                </Center>
-                            </Col>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>Số lượng đồng hồ</Text>
-                                </Center>
-                            </Col>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>Lượng nước</Text>
-                                </Center>
-                            </Col>
-                            <Col span={2}>
-                                <Center>
-                                    <Text weight={500}>Ghi chú</Text>
-                                </Center>
-                            </Col>
-                            <Col span={1}></Col>
-                        </Grid>
-                        {<AddWaterCustomer index={1} />}
-                    </div>
+                    {addWaterCustomerState.length > 0 ? (
+                        <>
+                            <Space h="md" />
+                            <div
+                                style={{
+                                    padding: '10px',
+                                    border: '1px solid #95a5a6',
+                                    borderRadius: '10px',
+                                }}
+                            >
+                                <Grid>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Số biên bản
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Ngày phát hành
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Số lượng đồng hồ
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>Lượng nước</Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>Ghi chú</Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={1}></Col>
+                                </Grid>
+                                {addWaterCustomerState.map((el, index) => {
+                                    return (
+                                        <AddWaterCustomer
+                                            key={index}
+                                            index={index}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </>
+                    ) : null}
+
                     <Space h="md" />
                     <Button
                         leftIcon={<IconPlus />}
@@ -523,6 +668,7 @@ const ReportAveragePrecious = () => {
                             leftIcon={<IconFileX />}
                             variant="filled"
                             color="orange"
+                            onClick={onExportAveragePreciousClicked}
                         >
                             Biên bản TB
                         </Button>
@@ -535,6 +681,11 @@ const ReportAveragePrecious = () => {
                             Biên bản sản lượng
                         </Button>
                     </Center>
+                </Col>
+            </Grid>
+            <Grid>
+                <Col span={12}>
+                    <AveragePrecious />
                 </Col>
             </Grid>
         </>

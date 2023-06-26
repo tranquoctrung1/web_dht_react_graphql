@@ -1,6 +1,575 @@
+import { CurrentCompanyPreciousState } from '../features/currentCompanyPercious';
+import { CurrentEndDatePreciousState } from '../features/currentEndDatePrecious';
+import { CurrentStartDatePreciousState } from '../features/currentStartDatePrecious';
+
+import { AddLocationState, updateTotalQuantity } from '../features/addLocation';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+    calcSpace2Date,
+    convertDateToDayAndMonth,
+    convertDateToPeriod,
+} from '../utils/utils';
+
 const AveragePrecious = () => {
+    const currentCompanyPreciousState = useSelector(
+        CurrentCompanyPreciousState,
+    );
+    const currentStartDatePreciousState = useSelector(
+        CurrentStartDatePreciousState,
+    );
+    const currentEndDatePreciousState = useSelector(
+        CurrentEndDatePreciousState,
+    );
+    const addLocationState = useSelector(AddLocationState);
+
+    const dispatch = useDispatch();
+
+    const calcStartDateOfPeriod = (startDate: number, period: number) => {
+        let result = 0;
+        let dayOfStartDate = 1;
+
+        if (startDate !== 0) {
+            dayOfStartDate = new Date(startDate).getDate();
+        }
+
+        let tempDate = new Date(period);
+
+        let tempStartPeriod = new Date(
+            tempDate.getFullYear(),
+            tempDate.getMonth() - 1,
+            dayOfStartDate,
+            0,
+            0,
+            0,
+        );
+
+        return tempStartPeriod.getTime();
+    };
+
+    const calcEndDateOfPeriod = (endDate: number, period: number) => {
+        let result = 0;
+        let dayOfEndDate = 1;
+
+        if (endDate !== 0) {
+            dayOfEndDate = new Date(endDate).getDate();
+        }
+
+        let tempDate = new Date(period);
+
+        let tempOfEndPeriod = new Date(
+            tempDate.getFullYear(),
+            tempDate.getMonth(),
+            dayOfEndDate,
+            0,
+            0,
+            0,
+        );
+
+        return tempOfEndPeriod.getTime();
+    };
+
+    const checkCalcAveragePeriod = (data: any) => {
+        let check = false;
+
+        for (let item of data) {
+            if (item.Period !== null && item.Period !== undefined) {
+                check = true;
+                break;
+            }
+        }
+
+        return check;
+    };
+
+    const convertStringCalcAveragePeriod = (data: any) => {
+        let isFirst = true;
+
+        let content = '';
+
+        for (let item of data) {
+            if (item.Period !== null && item.Period !== undefined) {
+                if (isFirst) {
+                    content += `${
+                        item.Quantity ? item.Quantity.toFixed(0) : ''
+                    }`;
+                    isFirst = false;
+                } else {
+                    content += ` + ${
+                        item.Quantity ? item.Quantity.toFixed(0) : ''
+                    }`;
+                }
+            }
+        }
+
+        return content;
+    };
+
+    const calcSumPeriod = (data: any) => {
+        let sum = 0;
+
+        for (let item of data) {
+            if (item.Period !== null && item.Period !== undefined) {
+                if (
+                    item.Quantity !== null &&
+                    item.Quantity !== undefined &&
+                    item.Quantity !== ''
+                ) {
+                    sum += item.Quantity;
+                } else {
+                    sum += 0;
+                }
+            }
+        }
+
+        return sum;
+    };
+
+    const calcAveragePeriod = (sum: number, totalDay: number) => {
+        return sum / totalDay;
+    };
+
+    const renderAverageDay = (data: any, average: number) => {
+        let result = [];
+
+        if (data.length > 0) {
+            for (let item of data) {
+                if (item.length > 0) {
+                    let sum =
+                        average *
+                        calcSpace2Date(item[0], item[item.length - 1]);
+
+                    let content = (
+                        <>
+                            <br />
+                            <span>
+                                {' '}
+                                - Sản lượng từ ngày{' '}
+                                {convertDateToDayAndMonth(item[0])} đến{' '}
+                                {convertDateToDayAndMonth(
+                                    item[item.length - 1],
+                                )}
+                                : {average ? average.toFixed(0) : ''} x{' '}
+                                {calcSpace2Date(item[0], item[item.length - 1])}{' '}
+                                = {sum ? sum.toFixed(0) : ''} m3 (Tính TB)
+                            </span>
+                        </>
+                    );
+
+                    result.push(content);
+                }
+            }
+        }
+
+        return result;
+    };
+
+    const calcTotalQuantityAverage = (data: any, average: number) => {
+        let sum = 0;
+
+        if (data.length > 0) {
+            for (let item of data) {
+                if (item.length > 0) {
+                    sum +=
+                        average *
+                        calcSpace2Date(item[0], item[item.length - 1]);
+                }
+            }
+        }
+
+        return sum;
+    };
+
+    const renderQuantityLogger = (data: any) => {
+        let result = [];
+
+        if (data.length > 0) {
+            for (let item of data) {
+                let content = (
+                    <>
+                        <br />
+                        <span>
+                            {' '}
+                            - Sản lượng từ ngày{' '}
+                            {convertDateToDayAndMonth(item.From)} đến{' '}
+                            {convertDateToDayAndMonth(item.To)}:{' '}
+                            {item.Quantity ? item.Quantity.toFixed(0) : ''} m3 (
+                            {calcSpace2Date(item.From, item.To)} ngày - logger)
+                        </span>
+                    </>
+                );
+
+                result.push(content);
+            }
+        }
+
+        return result;
+    };
+
+    const convertStringCalcAverageQuantityLogger = (data: any) => {
+        let content = '';
+
+        if (data.length > 0) {
+            let isFirst = true;
+
+            for (let item of data) {
+                if (isFirst) {
+                    content += `${
+                        item.Quantity ? item.Quantity.toFixed(0) : '0'
+                    }`;
+                    isFirst = false;
+                } else {
+                    content += ` + ${
+                        item.Quantity ? item.Quantity.toFixed(0) : '0'
+                    }`;
+                }
+            }
+        }
+
+        return content;
+    };
+
+    const calcAmountDayOfLogger = (data: any) => {
+        let totalDay = 0;
+
+        if (data.length > 0) {
+            for (let item of data) {
+                if (item.DateRange != null && item.DateRange != undefined) {
+                    totalDay += item.DateRange.length;
+                }
+            }
+        }
+
+        return totalDay;
+    };
+
+    const convertStringTotalQuantityPeriod = (
+        dataAverage: any,
+        dataLogger: any,
+        averageNumber: number,
+    ) => {
+        let content = '';
+
+        let isFirst = true;
+        if (dataAverage.length > 0) {
+            for (let item of dataAverage) {
+                if (isFirst) {
+                    content += `${
+                        averageNumber *
+                        calcSpace2Date(item[0], item[item.length - 1])
+                    }`;
+                    isFirst = false;
+                } else {
+                    content += ` + ${
+                        averageNumber *
+                        calcSpace2Date(item[0], item[item.length - 1])
+                    }`;
+                }
+            }
+        }
+        if (dataLogger.length > 0) {
+            for (let item of dataLogger) {
+                if (isFirst) {
+                    content += `${
+                        item.Quantity ? item.Quantity.toFixed(0) : ''
+                    }`;
+                    isFirst = false;
+                } else {
+                    content += ` + ${
+                        item.Quantity ? item.Quantity.toFixed(0) : ''
+                    }`;
+                }
+            }
+        }
+
+        return content;
+    };
+
+    const calcTotalQuantityPeriod = (
+        dataAverage: any,
+        dataLogger: any,
+        averageNumber: number,
+    ) => {
+        let sum = 0;
+        if (dataAverage.length > 0) {
+            for (let item of dataAverage) {
+                let number =
+                    averageNumber *
+                    calcSpace2Date(item[0], item[item.length - 1]);
+                number = parseInt(number ? number.toFixed(2) : '0');
+
+                sum += number;
+            }
+        }
+        if (dataLogger.length > 0) {
+            for (let item of dataLogger) {
+                let number = parseInt(
+                    item.Quantity ? item.Quantity.toFixed(0) : '0',
+                );
+
+                sum += number;
+            }
+        }
+
+        return sum;
+    };
+
+    const calcAverageDayQuantityLogger = (data: any) => {
+        let average = 0;
+
+        if (data.length > 0) {
+            for (let item of data) {
+                if (item.DateRange.length > 0) {
+                    let number = parseInt(
+                        item.Quantity ? item.Quantity.toFixed(0) : '0',
+                    );
+
+                    average += number / item.DateRange.length;
+                }
+            }
+        }
+
+        return average;
+    };
+
+    const renderDataPrecious = (data: any) => {
+        let result = [];
+
+        let index = 0;
+
+        for (let item of data) {
+            let totalDayPeriod1 = calcSpace2Date(
+                calcStartDateOfPeriod(
+                    //@ts-ignore
+                    currentStartDatePreciousState,
+                    item.Periods[0].Period,
+                ),
+                calcEndDateOfPeriod(
+                    //@ts-ignore
+                    currentEndDatePreciousState,
+                    item.Periods[0].Period,
+                ),
+            );
+
+            let totalDayPeriod2 = calcSpace2Date(
+                calcStartDateOfPeriod(
+                    //@ts-ignore
+                    currentStartDatePreciousState,
+                    item.Periods[1].Period,
+                ),
+                calcEndDateOfPeriod(
+                    //@ts-ignore
+                    currentEndDatePreciousState,
+                    item.Periods[1].Period,
+                ),
+            );
+
+            let totalDayPeriod3 = calcSpace2Date(
+                calcStartDateOfPeriod(
+                    //@ts-ignore
+                    currentStartDatePreciousState,
+                    item.Periods[2].Period,
+                ),
+                calcEndDateOfPeriod(
+                    //@ts-ignore
+                    currentEndDatePreciousState,
+                    item.Periods[2].Period,
+                ),
+            );
+
+            let sumPeriod = calcSumPeriod(item.Periods);
+            let averagePeriod = calcAveragePeriod(
+                sumPeriod,
+                totalDayPeriod1 + totalDayPeriod2 + totalDayPeriod3,
+            );
+
+            averagePeriod = parseInt(
+                averagePeriod ? averagePeriod.toFixed(0) : '0',
+            );
+
+            let averageDayLogger = calcAverageDayQuantityLogger(
+                item.DateCalclogger,
+            );
+
+            averageDayLogger = parseInt(
+                averageDayLogger ? averageDayLogger.toFixed(0) : '0',
+            );
+
+            let sumQuantityPeriod = calcTotalQuantityPeriod(
+                item.AverageDate,
+                item.DateCalclogger,
+                averagePeriod,
+            );
+
+            sumQuantityPeriod = parseInt(
+                sumQuantityPeriod ? sumQuantityPeriod.toFixed(0) : '0',
+            );
+
+            let obj = {
+                index: index,
+                TotalQuantity: sumQuantityPeriod,
+            };
+
+            //@ts-ignore
+            dispatch(updateTotalQuantity(obj));
+
+            let content = (
+                <div
+                    style={{ marginLeft: '100px', marginTop: '20px' }}
+                    key={index + 1}
+                >
+                    <span style={{ fontWeight: 'bold' }}>
+                        {index + 1}. {item.Location} ({item.SiteId})
+                    </span>
+
+                    {checkCalcAveragePeriod(item.Periods) ? (
+                        <>
+                            {/* by period  */}
+                            {item.Periods[0].Period != null &&
+                            item.Periods[0].Period != undefined ? (
+                                <>
+                                    {' '}
+                                    <br />
+                                    <span>
+                                        {' '}
+                                        - Sản lượng kỳ{' '}
+                                        {convertDateToPeriod(
+                                            item.Periods[0].Period,
+                                        )}
+                                        :{' '}
+                                        {item.Periods[0].Quantity
+                                            ? item.Periods[0].Quantity.toFixed(
+                                                  0,
+                                              )
+                                            : ''}{' '}
+                                        ({totalDayPeriod1} ngày - logger)
+                                    </span>
+                                </>
+                            ) : null}
+                            {item.Periods[1].Period != null &&
+                            item.Periods[1].Period != undefined ? (
+                                <>
+                                    {' '}
+                                    <br />
+                                    <span>
+                                        {' '}
+                                        - Sản lượng kỳ{' '}
+                                        {convertDateToPeriod(
+                                            item.Periods[1].Period,
+                                        )}
+                                        :{' '}
+                                        {item.Periods[1].Quantity
+                                            ? item.Periods[1].Quantity.toFixed(
+                                                  0,
+                                              )
+                                            : ''}{' '}
+                                        ({totalDayPeriod2} ngày - logger)
+                                    </span>
+                                </>
+                            ) : null}
+                            {item.Periods[2].Period != null &&
+                            item.Periods[2].Period != undefined ? (
+                                <>
+                                    {' '}
+                                    <br />
+                                    <span>
+                                        {' '}
+                                        - Sản lượng kỳ{' '}
+                                        {convertDateToPeriod(
+                                            item.Periods[2].Period,
+                                        )}
+                                        :{' '}
+                                        {item.Periods[2].Quantity
+                                            ? item.Periods[2].Quantity.toFixed(
+                                                  0,
+                                              )
+                                            : ''}{' '}
+                                        ({totalDayPeriod3} ngày - logger)
+                                    </span>
+                                </>
+                            ) : null}
+                            <br />
+                            <span>
+                                {' '}
+                                =={'>'} TB 1 ngày = (
+                                {convertStringCalcAveragePeriod(item.Periods)})
+                                /{' '}
+                                {totalDayPeriod1 +
+                                    totalDayPeriod2 +
+                                    totalDayPeriod3}{' '}
+                                = {averagePeriod} m3
+                            </span>
+                            {renderAverageDay(item.AverageDate, averagePeriod)}
+                            {renderQuantityLogger(item.DateCalclogger)}
+                            <br />
+                            <span>
+                                {' '}
+                                =={'>'} Sản lượng Kỳ{' '}
+                                {convertDateToPeriod(
+                                    //@ts-ignore
+                                    currentEndDatePreciousState,
+                                )}
+                                :{' '}
+                                {convertStringTotalQuantityPeriod(
+                                    item.AverageDate,
+                                    item.DateCalclogger,
+                                    averagePeriod,
+                                )}{' '}
+                                ={'  '}
+                                {sumQuantityPeriod}
+                                {} m3
+                            </span>
+                        </>
+                    ) : (
+                        <>
+                            {/* by logger */}
+                            {renderQuantityLogger(item.DateCalclogger)}
+                            <br />
+                            <span>
+                                {' '}
+                                =={'>'} TB 1 ngày = (
+                                {convertStringCalcAverageQuantityLogger(
+                                    item.DateCalclogger,
+                                )}
+                                ) / {calcAmountDayOfLogger(item.DateCalclogger)}{' '}
+                                = {averageDayLogger} m3
+                            </span>
+                            {renderAverageDay(
+                                item.AverageDate,
+                                averageDayLogger,
+                            )}
+                            <br />
+                            <span>
+                                {' '}
+                                =={'>'} Sản lượng Kỳ{'  '}
+                                {convertDateToPeriod(
+                                    // @ts-ignore
+                                    currentEndDatePreciousState,
+                                )}
+                                :{' '}
+                                {convertStringTotalQuantityPeriod(
+                                    item.AverageDate,
+                                    item.DateCalclogger,
+                                    averageDayLogger,
+                                )}{' '}
+                                = {sumQuantityPeriod} m3
+                            </span>
+                        </>
+                    )}
+                </div>
+            );
+
+            result.push(content);
+
+            index += 1;
+        }
+
+        return result;
+    };
+
     return (
-        <div id="source-html" style={{ padding: '5px' }}>
+        <div id="average-precious" style={{ padding: '5px' }}>
             <table style={{ width: '100%' }}>
                 <tbody style={{ textAlign: 'center' }}>
                     <tr>
@@ -118,7 +687,8 @@ const AveragePrecious = () => {
             >
                 <i>
                     V/v: Thống nhất tính toán sản lượng các đồng hồ tổng tính
-                    trung bình trong kỳ 06/2022
+                    trung bình trong kỳ {/* @ts-ignore */}
+                    {convertDateToPeriod(currentEndDatePreciousState)}
                 </i>
             </div>
             <div style={{ marginTop: '20px' }}>
@@ -151,64 +721,10 @@ const AveragePrecious = () => {
             <div style={{ marginTop: '20px', fontWeight: 'bold' }}>
                 I. Nội dung:
             </div>
-            <div style={{ marginLeft: '100px', marginTop: '20px' }}>
-                <span style={{ fontWeight: 'bold' }}>
-                    1. Đồng hồ tổng Cu Xa Pham Phu Thu (cl1016)
-                </span>
-                <br />
-                <span> - Sản lượng kỳ 04/2022: 112.154 (31 ngày - logger)</span>
-                <br />
-                <span> - Sản lượng kỳ 03/2022: 112.154 (31 ngày - logger)</span>
-                <br />
-                <span> - Sản lượng kỳ 04/2022: 112.154 (31 ngày - logger)</span>
-                <br />
-                <span>
-                    {' '}
-                    =={'>'} TB 1 ngày = (112.154 + 103.597 + 120.737) / 90 ngày
-                    = 3.739 m3
-                </span>
-                <br />
-                <span>
-                    {' '}
-                    - Sản lượng từ ngày 21/05 đến 20/06: 3.739 x 31 = 115.909 m3
-                    (Tính TB)
-                </span>
-                <br />
-                <span> =={'>'} Sản lượng Kỳ 06/2022: 115.909 = 115.909 m3</span>
-            </div>
-            <div style={{ marginLeft: '100px', marginTop: '20px' }}>
-                <span style={{ fontWeight: 'bold' }}>
-                    2. Đồng hồ tổng Tran Hung Dao (cl1022)
-                </span>
-                <br />
-                <span>
-                    {' '}
-                    - Sản lượng từ ngày 21/05 đến 30/05: 55.829 m3 (10 ngày -
-                    logger)
-                </span>
-                <br />
-                <span>
-                    {' '}
-                    - Sản lượng từ ngày 10/06 đến 20/06: 59.323 m3 (11 ngày -
-                    logger)
-                </span>
-                <br />
-                <span> - Sản lượng kỳ 04/2022: 112.154 (31 ngày - logger)</span>
-                <br />
-                <span>
-                    {' '}
-                    =={'>'} TB 1 ngày = (112.154 + 103.597 + 120.737) / 90 ngày
-                    = 3.739 m3
-                </span>
-                <br />
-                <span>
-                    {' '}
-                    - Sản lượng từ ngày 21/05 đến 20/06: 3.739 x 31 = 115.909 m3
-                    (Tính TB)
-                </span>
-                <br />
-                <span> =={'>'} Sản lượng Kỳ 06/2022: 115.909 = 115.909 m3</span>
-            </div>
+            {addLocationState.length > 0 ? (
+                <>{renderDataPrecious(addLocationState)}</>
+            ) : null}
+
             <div style={{ marginTop: '20px', fontWeight: 'bold' }}>
                 II. Kết luận:
             </div>

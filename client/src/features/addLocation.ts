@@ -99,6 +99,18 @@ export const AddLocationSilce = createSlice({
                 }
             }
         },
+        updateTotalQuantity: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].TotalQuantity =
+                        //@ts-ignore
+                        action.payload.TotalQuantity;
+                    break;
+                }
+            }
+        },
         deleteLocation: (state, action: PayloadAction<number>) => {
             //@ts-ignore
             let temp = [];
@@ -124,6 +136,7 @@ export const {
     updateQuantityForPeriod,
     updateDateCalclogger,
     updateQuantityLogger,
+    updateTotalQuantity,
 } = AddLocationSilce.actions;
 
 export const AddLocationState = (state: RootState) => state.addLocation.value;

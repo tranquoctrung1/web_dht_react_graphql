@@ -1,22 +1,111 @@
-import { Col, Grid, Input, NumberInput } from '@mantine/core';
+import { Button, Col, Grid, Input, NumberInput } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 
 import { useState } from 'react';
 
 import AddWaterCustomerInterface from '../types/addWaterCustomer.type';
 
+import {
+    AddWaterCustomerState,
+    deleteAddWaterCustomer,
+    updateAmountMeter,
+    updateAmountWater,
+    updateDatePublished,
+    updateNote,
+    updateNumberPrecious,
+} from '../features/addWaterCustomer';
+
+import { useDispatch, useSelector } from 'react-redux';
+
 const AddWaterCustomer = ({ index }: AddWaterCustomerInterface) => {
+    const addWaterCustomerState = useSelector(AddWaterCustomerState);
+
+    const dispatch = useDispatch();
+
     const onCloseAddWaterCustomerClicked = () => {
-        console.log(1111111);
+        dispatch(deleteAddWaterCustomer(index));
+    };
+
+    const onNumberPreciousBlured = (e: any) => {
+        let obj = {
+            index: index,
+            NumberPrecious: e.target.value,
+        };
+
+        //@ts-ignore
+        dispatch(updateNumberPrecious(obj));
+    };
+    const onDatePublishedBlured = (e: any) => {
+        let obj = {
+            index: index,
+            DatePublished: e.target.value,
+        };
+
+        //@ts-ignore
+        dispatch(updateDatePublished(obj));
+    };
+
+    const onAmountMeterBlured = (e: any) => {
+        let number = 0;
+        if (e.target.value !== '') {
+            number = parseInt(e.target.value);
+        } else {
+            number = 0;
+        }
+
+        let obj = {
+            index: index,
+            AmountMeter: number,
+        };
+
+        //@ts-ignore
+        dispatch(updateAmountMeter(obj));
+    };
+
+    const onAmountWaterBlured = (e: any) => {
+        let number = 0;
+        if (e.target.value !== '') {
+            number = parseInt(e.target.value);
+        } else {
+            number = 0;
+        }
+
+        let obj = {
+            index: index,
+            AmountWater: number,
+        };
+
+        //@ts-ignore
+        dispatch(updateAmountWater(obj));
+    };
+
+    const onNoteBlured = (e: any) => {
+        let obj = {
+            index: index,
+            Note: e.target.value,
+        };
+
+        //@ts-ignore
+        dispatch(updateNote(obj));
+    };
+
+    const onTestClicked = () => {
+        console.log(addWaterCustomerState);
     };
 
     return (
         <Grid>
             <Col span={2}>
-                <Input placeholder="Số biên bản" />
+                <Input
+                    placeholder="Số biên bản"
+                    onBlur={onNumberPreciousBlured}
+                />
             </Col>
             <Col span={2}>
-                <Input placeholder="Ngày phát hành" />
+                <Input
+                    placeholder="Ngày phát hành"
+                    onBlur={onDatePublishedBlured}
+                />
             </Col>
             <Col span={2}>
                 <NumberInput
@@ -24,17 +113,18 @@ const AddWaterCustomer = ({ index }: AddWaterCustomerInterface) => {
                     thousandsSeparator="."
                     step={1}
                     min={0}
+                    onBlur={onAmountMeterBlured}
                 />
             </Col>
             <Col span={2}>
                 <NumberInput
                     decimalSeparator=","
                     thousandsSeparator="."
-                    precision={2}
+                    onBlur={onAmountWaterBlured}
                 />
             </Col>
             <Col span={3}>
-                <Input placeholder="Ghi chú" />
+                <Input placeholder="Ghi chú" onBlur={onNoteBlured} />
             </Col>
             <Col span={1}>
                 <IconX
@@ -43,6 +133,9 @@ const AddWaterCustomer = ({ index }: AddWaterCustomerInterface) => {
                     style={{ cursor: 'pointer' }}
                     onClick={onCloseAddWaterCustomerClicked}
                 ></IconX>
+            </Col>
+            <Col span={12}>
+                <Button onClick={onTestClicked}>test</Button>
             </Col>
         </Grid>
     );

@@ -1,18 +1,18 @@
 import {
-    Button,
-    Center,
-    Col,
-    Grid,
-    NumberInput,
-    Select,
-    Text,
+	Button,
+	Center,
+	Col,
+	Grid,
+	NumberInput,
+	Select,
+	Text,
 } from '@mantine/core';
 import { DateInput, DatePickerInput, DateTimePicker } from '@mantine/dates';
 import {
-    IconDeviceMobileX,
-    IconMapPinFilled,
-    IconTemplate,
-    IconX,
+	IconDeviceMobileX,
+	IconMapPinFilled,
+	IconTemplate,
+	IconX,
 } from '@tabler/icons-react';
 
 import { useEffect, useState } from 'react';
@@ -20,22 +20,22 @@ import AddLocationInterface from '../types/addLocation.type';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    AddLocationState,
-    deleteLocation,
-    updateAverageDate,
-    updateDateCalclogger,
-    updatePeriods,
-    updateQuantityForPeriod,
-    updateQuantityLogger,
-    updateSite,
+	AddLocationState,
+	deleteLocation,
+	updateAverageDate,
+	updateDateCalclogger,
+	updatePeriods,
+	updateQuantityForPeriod,
+	updateQuantityLogger,
+	updateSite,
 } from '../features/addLocation';
 
 import { CurrentCompanyPreciousState } from '../features/currentCompanyPercious';
 
 import {
-    useGetSiteByWaterSupplyQuery,
-    useQuantityLoggerByTimeStampLazyQuery,
-    useQuantityLoggerDayLazyQuery,
+	useGetSiteByWaterSupplyQuery,
+	useQuantityLoggerByTimeStampLazyQuery,
+	useQuantityLoggerDayLazyQuery,
 } from '../__generated__/graphql';
 
 import { CurrentEndDatePreciousState } from '../features/currentEndDatePrecious';
@@ -46,9 +46,9 @@ import Site from '../types/site.type';
 import Swal from 'sweetalert2';
 
 import {
-    detectedDateRangeContinuous,
-    detectedDateRemainInPeriod,
-    detectedDateRemainInPeriodByMilisecond,
+	detectedDateRangeContinuous,
+	detectedDateRemainInPeriod,
+	detectedDateRemainInPeriodByMilisecond,
 } from '../utils/utils';
 
 const AddLocation = ({ index }: AddLocationInterface) => {
@@ -452,120 +452,132 @@ const AddLocation = ({ index }: AddLocationInterface) => {
     };
 
     const onAverageDateBlured = (e: any) => {
-        let averageMiliSeconds = averageDate.map((el) => el.getTime());
+		if(averageDate.length > 0)
+		{
+			let averageMiliSeconds = averageDate.map((el) => el.getTime());
 
-        let obj = {
-            index: index,
-            AverageDate: detectedDateRangeContinuous(averageMiliSeconds),
-        };
-
-        setDateCalcLogger(
-            detectedDateRemainInPeriod(
-                averageMiliSeconds,
-                // @ts-ignore
-                currentStartDatePreciousState,
-                currentEndDatePreciousState,
-            ),
-        );
-
-        //@ts-ignore
-        dispatch(updateAverageDate(obj));
-
-        let resultDateRange = detectedDateRemainInPeriodByMilisecond(
-            averageMiliSeconds,
-            //@ts-ignore
-            currentStartDatePreciousState,
-            currentEndDatePreciousState,
-        );
-
-        let timeContinuous = detectedDateRangeContinuous(resultDateRange);
-
-        getQuantityLoggerByTimeStamp({
-            variables: {
-                siteid: siteid,
-                start: currentStartDatePreciousState.toString(),
-                end: currentEndDatePreciousState.toString(),
-            },
-        }).then((res) => {
-            if (res.data !== undefined) {
-                if (timeContinuous.length > 0) {
-                    let temp = [];
-
-                    let quantityLoggerLocal = 0;
-                    for (let date of timeContinuous) {
-                        let sumQuantity = 0;
-                        let timeRange = date;
-                        let from = date[0];
-                        let to = date[date.length - 1];
-
-                        if (
-                            res.data.QuantityLoggerByTimeStamp !== null &&
-                            res.data.QuantityLoggerByTimeStamp !== undefined &&
-                            res.data.QuantityLoggerByTimeStamp.length > 0
-                        ) {
-                            if (
-                                res.data.QuantityLoggerByTimeStamp[0]
-                                    .ListQuantity !== null &&
-                                res.data.QuantityLoggerByTimeStamp[0]
-                                    .ListQuantity !== undefined &&
-                                res.data.QuantityLoggerByTimeStamp[0]
-                                    .ListQuantity.length > 0
-                            ) {
-                                for (let i of date) {
-                                    let find =
-                                        res.data.QuantityLoggerByTimeStamp[0].ListQuantity.find(
-                                            (el) =>
-                                                new Date(
-                                                    //@ts-ignore
-                                                    el.TimeStamp,
-                                                ).getTime() ===
-                                                i + 25200000,
-                                        );
-                                    console.log(find);
-                                    if (find) {
-                                        if (
-                                            find.Value !== null &&
-                                            find.Value !== undefined
-                                        ) {
-                                            sumQuantity += find.Value;
-                                            quantityLoggerLocal += find.Value;
-                                        } else {
-                                            sumQuantity += 0;
-                                            quantityLoggerLocal += 0;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        let obj = {
-                            Quantity: sumQuantity,
-                            From: from,
-                            To: to,
-                            DateRange: timeRange,
-                        };
-
-                        temp.push(obj);
-                    }
-
-                    let obj = {
-                        index: index,
-                        DateCalclogger: temp,
-                    };
-
-                    // @ts-ignore
-                    dispatch(updateDateCalclogger(obj));
-
-                    let obj2 = {
-                        index: index,
-                        QuantityLogger: quantityLoggerLocal,
-                    };
-                    // @ts-ignore
-                    dispatch(updateQuantityLogger(obj2));
-                    setQuantityLogger(quantityLoggerLocal);
-                }
-            }
-        });
+			let obj = {
+				index: index,
+				AverageDate: detectedDateRangeContinuous(averageMiliSeconds),
+			};
+	
+			setDateCalcLogger(
+				detectedDateRemainInPeriod(
+					averageMiliSeconds,
+					// @ts-ignore
+					currentStartDatePreciousState,
+					currentEndDatePreciousState,
+				),
+			);
+	
+			//@ts-ignore
+			dispatch(updateAverageDate(obj));
+	
+			let resultDateRange = detectedDateRemainInPeriodByMilisecond(
+				averageMiliSeconds,
+				//@ts-ignore
+				currentStartDatePreciousState,
+				currentEndDatePreciousState,
+			);
+	
+			let timeContinuous = detectedDateRangeContinuous(resultDateRange);
+	
+			if (timeContinuous.length > 0) {
+				getQuantityLoggerByTimeStamp({
+					variables: {
+						siteid: siteid,
+						start: currentStartDatePreciousState.toString(),
+						end: currentEndDatePreciousState.toString(),
+					},
+				}).then((res) => {
+					if (res.data !== undefined) {
+						let temp = [];
+	
+						let quantityLoggerLocal = 0;
+						for (let date of timeContinuous) {
+							let sumQuantity = 0;
+							let timeRange = date;
+							let from = date[0];
+							let to = date[date.length - 1];
+	
+							if (
+								res.data.QuantityLoggerByTimeStamp !== null &&
+								res.data.QuantityLoggerByTimeStamp !== undefined &&
+								res.data.QuantityLoggerByTimeStamp.length > 0
+							) {
+								if (
+									res.data.QuantityLoggerByTimeStamp[0]
+										.ListQuantity !== null &&
+									res.data.QuantityLoggerByTimeStamp[0]
+										.ListQuantity !== undefined &&
+									res.data.QuantityLoggerByTimeStamp[0]
+										.ListQuantity.length > 0
+								) {
+									for (let i of date) {
+										let find =
+											res.data.QuantityLoggerByTimeStamp[0].ListQuantity.find(
+												(el) =>
+													new Date(
+														//@ts-ignore
+														el.TimeStamp,
+													).getTime() ===
+													i + 25200000,
+											);
+										if (find) {
+											if (
+												find.Value !== null &&
+												find.Value !== undefined
+											) {
+												sumQuantity += find.Value;
+												quantityLoggerLocal += find.Value;
+											} else {
+												sumQuantity += 0;
+												quantityLoggerLocal += 0;
+											}
+										}
+									}
+								}
+							}
+	
+							let obj = {
+								Quantity: sumQuantity,
+								From: from,
+								To: to,
+								DateRange: timeRange,
+							};
+	
+							temp.push(obj);
+						}
+	
+						let obj = {
+							index: index,
+							DateCalclogger: temp,
+						};
+	
+						// @ts-ignore
+						dispatch(updateDateCalclogger(obj));
+	
+						let obj2 = {
+							index: index,
+							QuantityLogger: quantityLoggerLocal,
+						};
+						// @ts-ignore
+						dispatch(updateQuantityLogger(obj2));
+						setQuantityLogger(quantityLoggerLocal);
+					}
+				});
+			} else {
+				let obj = {
+					index: index,
+					DateCalclogger: [],
+				};
+	
+				// @ts-ignore
+				dispatch(updateDateCalclogger(obj));
+				setQuantityLogger(0);
+			}
+		}
+        
     };
 
     const onQuantityPeriod1Blured = (e: any) => {
