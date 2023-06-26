@@ -6,10 +6,12 @@ import AddSubtractWaterB1Slice from './features/addSubtractWaterB1';
 import AddSubtractWaterB2Slice from './features/addSubtractWaterB2';
 import AddWaterCustomerSlice from './features/addWaterCustomer';
 import CounterSlice from './features/counter';
+import currentCompanyNamePreciousSlice from './features/currentCompanyNamePrecious';
 import CurrentCompanyPreciousSlice from './features/currentCompanyPercious';
 import CurrentEndDatePreciousSlice from './features/currentEndDatePrecious';
 import CurrentStartDatePreciousSlice from './features/currentStartDatePrecious';
 import OpenSidebarSlice from './features/openSidebar';
+import QuantityWaterSupplySlice from './features/quantityWaterSupply';
 
 export const store = configureStore({
     reducer: {
@@ -24,6 +26,8 @@ export const store = configureStore({
         currentCompanyPrecious: CurrentCompanyPreciousSlice,
         currentStartDatePrecious: CurrentStartDatePreciousSlice,
         currentEndDatePrecious: CurrentEndDatePreciousSlice,
+        quantityWaterSupply: QuantityWaterSupplySlice,
+        currentCompanyNamePrecious: currentCompanyNamePreciousSlice,
     },
 });
 

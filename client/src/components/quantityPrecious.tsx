@@ -1,7 +1,478 @@
+import { CurrentCompanyPreciousState } from '../features/currentCompanyPercious';
+import { CurrentEndDatePreciousState } from '../features/currentEndDatePrecious';
+import { CurrentStartDatePreciousState } from '../features/currentStartDatePrecious';
+
+import { AddIndexState } from '../features/addIndex';
+import { AddLocationState } from '../features/addLocation';
+import { AddLockValveState } from '../features/addLockValve';
+import { AddSubtractWaterB1State } from '../features/addSubtractWaterB1';
+import { AddSubtractWaterB2State } from '../features/addSubtractWaterB2';
+import { AddWaterCustomerState } from '../features/addWaterCustomer';
+import { CurrentCompanyNamePreciousState } from '../features/currentCompanyNamePrecious';
+
+import { QuantityWaterSupplyState } from '../features/quantityWaterSupply';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+    calcSpace2Date,
+    convertDatePeriodToMonth,
+    convertDatePeriodToYear,
+    convertMilisecondToStringDate,
+} from '../utils/utils';
+
 const QuantityPrecious = () => {
+    const currentCompanyPreciousState = useSelector(
+        CurrentCompanyPreciousState,
+    );
+    const currentStartDatePreciousState = useSelector(
+        CurrentStartDatePreciousState,
+    );
+    const currentEndDatePreciousState = useSelector(
+        CurrentEndDatePreciousState,
+    );
+    const addLocationState = useSelector(AddLocationState);
+    const addIndexState = useSelector(AddIndexState);
+    const addLockValveState = useSelector(AddLockValveState);
+    const addSubtractWaterB1State = useSelector(AddSubtractWaterB1State);
+    const addSubtractWaterB2State = useSelector(AddSubtractWaterB2State);
+    const addWaterCustomerState = useSelector(AddWaterCustomerState);
+    const quantityWaterSupplyState = useSelector(QuantityWaterSupplyState);
+    const currentCompanyNamePreciousState = useSelector(
+        CurrentCompanyNamePreciousState,
+    );
+
+    const dispatch = useDispatch();
+
+    const renderWaterMeter = (
+        data: any,
+        location: any,
+        addIndex: any,
+        lockValve: any,
+    ) => {
+        let result = [];
+
+        let dataToRender = [];
+
+        let tempSum = 0;
+
+        if (data.length > 0) {
+            let index = 1;
+
+            for (let item of data) {
+                let isChange = false;
+
+                let obj = {
+                    Stt: index++,
+                    SiteId: item.SiteId,
+                    Location: item.Location,
+                    Direction: '',
+                    PreviousPeriodIndex: '',
+                    NextPeriodIndex: '',
+                    AmountWater: '',
+                    Note: '',
+                };
+
+                if (
+                    item.QndDistributionCompany !== '' &&
+                    item.IstDistributionCompany
+                ) {
+                    obj.Direction = `${item.QndDistributionCompany} > ${item.IstDistributionCompany}`;
+                }
+
+                if (location.length > 0) {
+                    let findLocation = location.find(
+                        // @ts-ignore
+                        (el) => el.SiteId === item.SiteId,
+                    );
+                    if (findLocation !== undefined) {
+                        obj.AmountWater = findLocation.TotalQuantity;
+                        obj.Note = 'Tính TB';
+
+                        isChange = true;
+
+                        tempSum += findLocation.TotalQuantity;
+                    }
+                }
+                if (addIndex.length > 0) {
+                    let findIndex = addIndex.find(
+                        //@ts-ignore
+                        (el) => el.SiteId === item.SiteId,
+                    );
+
+                    if (findIndex !== undefined) {
+                        obj.PreviousPeriodIndex = findIndex.PreviousPeriodIndex;
+                        obj.NextPeriodIndex = findIndex.NextPeriodIndex;
+                        obj.Note = 'Chỉ số';
+
+                        let total = 0;
+
+                        if (
+                            findIndex.NextPeriodIndex !== null &&
+                            findIndex.NextPeriodIndex !== undefined
+                        ) {
+                            total += parseInt(findIndex.NextPeriodIndex);
+                        }
+
+                        if (
+                            findIndex.PreviousPeriodIndex !== null &&
+                            findIndex.PreviousPeriodIndex !== undefined
+                        ) {
+                            total -= parseInt(findIndex.PreviousPeriodIndex);
+                        }
+
+                        tempSum += parseInt(total ? total.toFixed(0) : '0');
+
+                        obj.AmountWater = total.toFixed(0);
+
+                        isChange = true;
+                    }
+                }
+                if (lockValve.length > 0) {
+                    let findLockValve = lockValve.find(
+                        //@ts-ignore
+                        (el) => el.SiteId === item.SiteId,
+                    );
+                    if (findLockValve !== undefined) {
+                        obj.AmountWater = '0';
+                        obj.Note = 'Khóa Van';
+                        isChange = true;
+
+                        tempSum += 0;
+                    }
+                }
+
+                if (isChange == false) {
+                    if (item.ListQuantity.length > 0) {
+                        let temp = 0;
+
+                        for (let d of item.ListQuantity) {
+                            if (d.Value !== null && d.Value !== undefined) {
+                                temp += d.Value;
+                            }
+                        }
+
+                        obj.AmountWater = temp.toFixed(0);
+                        obj.Note = 'Logger';
+
+                        tempSum += parseInt(temp ? temp.toFixed(0) : '0');
+                    } else {
+                        tempSum += 0;
+                    }
+                }
+
+                dataToRender.push(obj);
+            }
+        }
+
+        if (dataToRender.length > 0) {
+            for (let item of dataToRender) {
+                let content = (
+                    <tr key={item.Stt}>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.Stt}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.SiteId}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.Location}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.Direction}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.PreviousPeriodIndex}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.NextPeriodIndex}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.AmountWater}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.Note}
+                        </td>
+                    </tr>
+                );
+
+                result.push(content);
+            }
+        }
+
+        return [result, tempSum];
+    };
+
+    const renderSubtractWaterB1 = (waterB1: any) => {
+        let result = [];
+
+        let sum = 0;
+        if (waterB1.length > 0) {
+            let index = 1;
+
+            for (let item of waterB1) {
+                if (
+                    item.AmountWater !== null &&
+                    item.AmountWater !== undefined
+                ) {
+                    sum += item.AmountWater;
+                }
+
+                let content = (
+                    <tr>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {index++}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.NumberPrecious}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.Content}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.Provider}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.AmountWater}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.Note}
+                        </td>
+                    </tr>
+                );
+
+                result.push(content);
+            }
+        }
+
+        return [result, sum];
+    };
+
+    const renderSubtractWaterB2 = (waterB2: any) => {
+        let result = [];
+
+        let sum = 0;
+        if (waterB2.length > 0) {
+            let index = 1;
+
+            for (let item of waterB2) {
+                if (
+                    item.AmountWater !== null &&
+                    item.AmountWater !== undefined
+                ) {
+                    sum += item.AmountWater;
+                }
+
+                let content = (
+                    <tr>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {index++}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.NumberPrecious}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.Content}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.Provider}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.AmountWater}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.Note}
+                        </td>
+                    </tr>
+                );
+
+                result.push(content);
+            }
+        }
+
+        return [result, sum];
+    };
+
+    const renderWaterCustomer = (waterCustomer: any) => {
+        let result = [];
+
+        let sum = 0;
+
+        if (waterCustomer.length > 0) {
+            for (let item of waterCustomer) {
+                if (
+                    item.AmountWater !== null &&
+                    item.AmountWater !== undefined
+                ) {
+                    sum += item.AmountWater;
+                }
+
+                let content = (
+                    <tr>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.NumberPrecious}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.DatePublished}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.AmountMeter}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.AmountWater}
+                        </td>
+                        <td
+                            style={{
+                                border: '1px solid black',
+                                borderCollapse: 'collapse',
+                            }}
+                        >
+                            {item.Note}
+                        </td>
+                    </tr>
+                );
+
+                result.push(content);
+            }
+        }
+
+        return [result, sum];
+    };
+
+    let contentWater = renderWaterMeter(
+        quantityWaterSupplyState,
+        addLocationState,
+        addIndexState,
+        addLockValveState,
+    );
+
+    let contentSubtractWaterB1 = renderSubtractWaterB1(addSubtractWaterB1State);
+    let contentSubtractWaterB2 = renderSubtractWaterB2(addSubtractWaterB2State);
+    let contentWaterCustomer = renderWaterCustomer(addWaterCustomerState);
+
     return (
         <>
-            <div id="source-html" style={{ padding: '5px' }}>
+            <div id="quantity-precious" style={{ padding: '5px' }}>
                 <table style={{ width: '100%' }}>
                     <tbody style={{ textAlign: 'center' }}>
                         <tr>
@@ -118,8 +589,11 @@ const QuantityPrecious = () => {
                         fontSize: '20px',
                     }}
                 >
-                    Biên Bản Xác Định Sản Lượng Nước Mua Bán Sỉ Của TNHH MTV CN
-                    Trung An Kỳ 06/2022
+                    Biên Bản Xác Định Sản Lượng Nước Mua Bán Sỉ Của{' '}
+                    {currentCompanyNamePreciousState} Kỳ {/* @ts-ignore */}
+                    {convertDatePeriodToMonth(currentEndDatePreciousState)}/
+                    {/* @ts-ignore */}
+                    {convertDatePeriodToYear(currentEndDatePreciousState)}
                 </div>
                 <div style={{ marginTop: '20px' }}>
                     Hôm nay, ngày ... tháng ... năm ...... tại
@@ -146,7 +620,23 @@ const QuantityPrecious = () => {
                     Cùng xác nhận lượng nước mua bán sỉ của kỳ 06/2022 như sau:
                 </div>
                 <div style={{ marginTop: '5px', fontWeight: 'bold' }}>
-                    Từ ngày 21/05/2022 đến ngày 20/06/2022 (31 ngày)
+                    Từ ngày{' '}
+                    {convertMilisecondToStringDate(
+                        //@ts-ignore
+                        currentStartDatePreciousState,
+                    )}{' '}
+                    đến ngày{' '}
+                    {convertMilisecondToStringDate(
+                        //@ts-ignore
+                        currentEndDatePreciousState,
+                    )}{' '}
+                    (
+                    {calcSpace2Date(
+                        //@ts-ignore
+                        currentStartDatePreciousState,
+                        currentEndDatePreciousState,
+                    )}{' '}
+                    ngày)
                 </div>
                 <div
                     style={{
@@ -236,126 +726,7 @@ const QuantityPrecious = () => {
                             </tr>
                         </thead>
                         <tbody style={{ textAlign: 'center' }}>
-                            <tr>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    1
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    ta1001
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    Nguyen thai son - nguyen kiem
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    220.346
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    Logger
-                                </td>
-                            </tr>
-                            <tr>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    1
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    ta1001
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    Nguyen thai son - nguyen kiem
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    220.346
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    Khóa van
-                                </td>
-                            </tr>
+                            {contentWater[0]}
                         </tbody>
                         <tfoot
                             style={{ textAlign: 'center', fontWeight: 'bold' }}
@@ -379,7 +750,7 @@ const QuantityPrecious = () => {
                                     }}
                                 >
                                     <span style={{ fontSize: '18px' }}>
-                                        8.1123.456
+                                        {contentWater[1]}
                                     </span>
                                 </td>
                                 <td
@@ -468,55 +839,7 @@ const QuantityPrecious = () => {
                             </tr>
                         </thead>
                         <tbody style={{ textAlign: 'center' }}>
-                            <tr>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    1
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    Số: 1675/BB-TA-GNKDT Ngày 18/05/2022
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    Biên bản xác nhận lưu lượng súc xả tháng
-                                    6/2022 (từ 19/05/2022 đến 20/06/2022)
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    Công ty CPCN Trung An
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    208.088
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                            </tr>
+                            {contentSubtractWaterB1[0]}
                         </tbody>
                         <tfoot
                             style={{ textAlign: 'center', fontWeight: 'bold' }}
@@ -540,7 +863,7 @@ const QuantityPrecious = () => {
                                     }}
                                 >
                                     <span style={{ fontSize: '18px' }}>
-                                        208.008
+                                        {contentSubtractWaterB1[1]}
                                     </span>
                                 </td>
                                 <td
@@ -629,53 +952,7 @@ const QuantityPrecious = () => {
                             </tr>
                         </thead>
                         <tbody style={{ textAlign: 'center' }}>
-                            <tr>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    1
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    20/06/2022
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    Biên bản đọc chỉ số đồng hồ nước An Hạ –
-                                    Nguyễn Văn Bứa (bc2022)
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                >
-                                    21.396
-                                </td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                            </tr>
+                            {contentSubtractWaterB2[0]}
                         </tbody>
                         <tfoot
                             style={{ textAlign: 'center', fontWeight: 'bold' }}
@@ -699,7 +976,7 @@ const QuantityPrecious = () => {
                                     }}
                                 >
                                     <span style={{ fontSize: '18px' }}>
-                                        21.396
+                                        {contentSubtractWaterB2[1]}
                                     </span>
                                 </td>
                                 <td
@@ -848,38 +1125,7 @@ const QuantityPrecious = () => {
                             </tr>
                         </thead>
                         <tbody style={{ textAlign: 'center' }}>
-                            <tr>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                                <td
-                                    style={{
-                                        border: '1px solid black',
-                                        borderCollapse: 'collapse',
-                                    }}
-                                ></td>
-                            </tr>
+                            {contentWaterCustomer[0]}
                         </tbody>
                         <tfoot
                             style={{ textAlign: 'center', fontWeight: 'bold' }}
@@ -902,7 +1148,9 @@ const QuantityPrecious = () => {
                                         borderCollapse: 'collapse',
                                     }}
                                 >
-                                    <span style={{ fontSize: '18px' }}>0</span>
+                                    <span style={{ fontSize: '18px' }}>
+                                        {contentWaterCustomer[1]}
+                                    </span>
                                 </td>
                                 <td
                                     style={{
@@ -968,7 +1216,7 @@ const QuantityPrecious = () => {
                                         fontWeight: 'bold',
                                     }}
                                 >
-                                    7.123.454
+                                    {contentWater[1]}
                                 </td>
                                 <td
                                     style={{
@@ -1011,7 +1259,7 @@ const QuantityPrecious = () => {
                                         fontWeight: 'bold',
                                     }}
                                 >
-                                    0
+                                    {contentWaterCustomer[1]}
                                 </td>
                                 <td
                                     style={{
@@ -1054,7 +1302,9 @@ const QuantityPrecious = () => {
                                         fontWeight: 'bold',
                                     }}
                                 >
-                                    220.484
+                                    {/* @ts-ignore */}
+                                    {contentSubtractWaterB1[1] +
+                                        contentSubtractWaterB2[1]}
                                 </td>
                                 <td
                                     style={{
@@ -1093,7 +1343,12 @@ const QuantityPrecious = () => {
                                             fontWeight: 'bold',
                                         }}
                                     >
-                                        7.675.123
+                                        {/* @ts-ignore */}
+                                        {contentWater[1] +
+                                            contentWaterCustomer[1] -
+                                            //@ts-ignore
+                                            (contentSubtractWaterB1[1] +
+                                                contentSubtractWaterB2[1])}
                                     </span>
                                 </td>
                                 <td

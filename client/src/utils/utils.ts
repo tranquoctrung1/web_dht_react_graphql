@@ -165,3 +165,9 @@ export const convertDateToDayAndMonth = (date: number) => {
 
     return `${time.getDate()}/${time.getMonth() + 1}`;
 };
+
+export const convertMilisecondToStringDate = (date: number) => {
+    let time = new Date(date);
+
+    return convertDateToStringNotTime(time);
+};

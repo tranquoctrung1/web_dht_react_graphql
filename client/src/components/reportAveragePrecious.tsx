@@ -8,9 +8,12 @@ import {
     IconPlus,
 } from '@tabler/icons-react';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useGetCompaniesQuery } from '../__generated__/graphql';
+import {
+    useGetCompaniesQuery,
+    useQuantityLoggerDayWaterSupplyLazyQuery,
+} from '../__generated__/graphql';
 
 import Companies from '../types/companies.type';
 
@@ -38,10 +41,16 @@ import {
     AddWaterCustomerState,
     addWaterCustomer,
 } from '../features/addWaterCustomer';
-import currentCompanyPercious, {
+import {
     CurrentCompanyPreciousState,
     setCurrentCompanyPrecious,
 } from '../features/currentCompanyPercious';
+
+import {
+    CurrentCompanyNamePreciousState,
+    setCurrentCompanyNamePrecious,
+} from '../features/currentCompanyNamePrecious';
+
 import {
     CurrentEndDatePreciousState,
     setCurrentEndDatePrecious,
@@ -51,7 +60,13 @@ import {
     setCurrentStartDatePrecious,
 } from '../features/currentStartDatePrecious';
 
+import {
+    QuantityWaterSupplyState,
+    setQuantityWaterSupply,
+} from '../features/quantityWaterSupply';
+
 import AveragePrecious from './averagePrecious';
+import QuantityPrecious from './quantityPrecious';
 
 import {
     convertDatePeriodToMonth,
@@ -64,6 +79,8 @@ const ReportAveragePrecious = () => {
     const [tetHolidayPre, setTetHolidayPre] = useState(null);
     const [tetHoliday, setTetHoliday] = useState(null);
 
+    const [isLoadingQuantity, setIsLoadingQuantity] = useState(false);
+
     const addLocationState = useSelector(AddLocationState);
     const addIndexState = useSelector(AddIndexState);
     const addLockValveState = useSelector(AddLockValveState);
@@ -73,14 +90,25 @@ const ReportAveragePrecious = () => {
     const currentCompanyPreciousState = useSelector(
         CurrentCompanyPreciousState,
     );
+    const currentStartDatePreciousState = useSelector(
+        CurrentStartDatePreciousState,
+    );
     const currentEndDatePreciousState = useSelector(
         CurrentEndDatePreciousState,
+    );
+    const quantityWaterSupplyState = useSelector(QuantityWaterSupplyState);
+    const currentCompanyNamePreciousState = useSelector(
+        CurrentCompanyNamePreciousState,
     );
 
     const dispatch = useDispatch();
 
     const { data, error, loading } = useGetCompaniesQuery();
 
+    const [getQuantityDayLoggerWaterSupply, { data: dataQuantity }] =
+        useQuantityLoggerDayWaterSupplyLazyQuery();
+
+    //@ts-ignore
     let tempData = [];
 
     if (data != null && data != undefined) {
@@ -100,10 +128,54 @@ const ReportAveragePrecious = () => {
         }
     }
 
+    const getDataQuantity = (company: string, start: number, end: number) => {
+        if (
+            company !== '' &&
+            company !== undefined &&
+            company !== null &&
+            start != null &&
+            start !== undefined &&
+            start !== 0 &&
+            end != null &&
+            end !== undefined &&
+            end !== 0
+        ) {
+            setIsLoadingQuantity(true);
+            getQuantityDayLoggerWaterSupply({
+                variables: {
+                    company: company,
+                    start: start.toString(),
+                    end: end.toString(),
+                },
+            })
+                .then((res) => {
+                    if (res.data !== undefined) {
+                        dispatch(
+                            setQuantityWaterSupply(
+                                //@ts-ignore
+                                res.data.QuantityLoggerDayWaterSupply,
+                            ),
+                        );
+                    }
+
+                    setIsLoadingQuantity(false);
+                })
+                .catch((err) => console.log(err));
+        }
+    };
+
     const onStartDateChanged = (e: any) => {
         if (e != null && e != undefined && e != '') {
             setStartDate(e.getTime());
             dispatch(setCurrentStartDatePrecious(e.getTime()));
+
+            //@ts-ignore
+            getDataQuantity(
+                currentCompanyPreciousState,
+                e.getTime(),
+                //@ts-ignore
+                currentEndDatePreciousState,
+            );
         }
     };
 
@@ -111,6 +183,15 @@ const ReportAveragePrecious = () => {
         if (e != null && e != undefined && e != '') {
             setEndDate(e.getTime());
             dispatch(setCurrentEndDatePrecious(e.getTime()));
+
+            //@ts-ignore
+            getDataQuantity(
+                //@ts-ignore
+                currentCompanyPreciousState,
+                //@ts-ignore
+                currentStartDatePreciousState,
+                e.getTime(),
+            );
         }
     };
 
@@ -126,6 +207,24 @@ const ReportAveragePrecious = () => {
 
     const onCompanyChanged = (e: any) => {
         dispatch(setCurrentCompanyPrecious(e));
+
+        if (tempData.length > 0) {
+            //@ts-ignore
+            let find = tempData.find((el) => el.value === e);
+
+            if (find !== undefined) {
+                dispatch(setCurrentCompanyNamePrecious(find.label));
+            }
+        }
+
+        //@ts-ignore
+        getDataQuantity(
+            e,
+            //@ts-ignore
+            currentStartDatePreciousState,
+            //@ts-ignore
+            currentEndDatePreciousState,
+        );
     };
 
     const onAddLocationClicked = () => {
@@ -223,6 +322,34 @@ const ReportAveragePrecious = () => {
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
         fileDownload.download = `_bien_ban_trung_binh_${currentCompanyPreciousState}_ky_${convertDatePeriodToMonth(
+            //@ts-ignore
+            currentEndDatePreciousState,
+            //@ts-ignore
+        )}_${convertDatePeriodToYear(currentEndDatePreciousState)}.doc`;
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+    };
+
+    const onExportQuantityPreciousClicked = () => {
+        const header =
+            "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+            "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+            "xmlns='http://www.w3.org/TR/REC-html40'>" +
+            "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+        const footer = '</body></html>';
+        const sourceHTML =
+            header +
+            // @ts-ignore
+            document.getElementById('quantity-precious').innerHTML +
+            footer;
+
+        const source =
+            'data:application/vnd.ms-word;charset=utf-8,' +
+            encodeURIComponent(sourceHTML);
+        const fileDownload = document.createElement('a');
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = `_bien_ban_san_luong_${currentCompanyPreciousState}_ky_${convertDatePeriodToMonth(
             //@ts-ignore
             currentEndDatePreciousState,
             //@ts-ignore
@@ -362,6 +489,7 @@ const ReportAveragePrecious = () => {
                                     </Col>
                                     <Col span={1}></Col>
                                 </Grid>
+                                {/* @ts-ignore */}
                                 {addIndexState.map((el, index) => {
                                     return (
                                         <AddIndex key={index} index={index} />
@@ -677,6 +805,8 @@ const ReportAveragePrecious = () => {
                             leftIcon={<IconFileX />}
                             variant="filled"
                             color="orange"
+                            disabled={isLoadingQuantity}
+                            onClick={onExportQuantityPreciousClicked}
                         >
                             Biên bản sản lượng
                         </Button>
@@ -688,6 +818,11 @@ const ReportAveragePrecious = () => {
                     <Col span={12}>
                         <AveragePrecious />
                     </Col>
+                </Grid>
+            </template>
+            <template>
+                <Grid>
+                    <Col span={12}>{<QuantityPrecious />}</Col>
                 </Grid>
             </template>
         </>
