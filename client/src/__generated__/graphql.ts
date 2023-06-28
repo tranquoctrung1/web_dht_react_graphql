@@ -52,6 +52,157 @@ export type DataLogger = {
   Value?: Maybe<Scalars['Float']>;
 };
 
+export type DateCalclogger = {
+  __typename?: 'DateCalclogger';
+  DateRange?: Maybe<Array<Maybe<Scalars['String']>>>;
+  From?: Maybe<Scalars['String']>;
+  Quantity?: Maybe<Scalars['Float']>;
+  To?: Maybe<Scalars['String']>;
+};
+
+export type DateCalcloggerInput = {
+  DateRange?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  From?: InputMaybe<Scalars['String']>;
+  Quantity?: InputMaybe<Scalars['Float']>;
+  To?: InputMaybe<Scalars['String']>;
+};
+
+export type IdOutput = {
+  __typename?: 'IdOutput';
+  idReturn?: Maybe<Scalars['String']>;
+};
+
+export type Index = {
+  __typename?: 'Index';
+  Location?: Maybe<Scalars['String']>;
+  NextPeriodIndex?: Maybe<Scalars['Float']>;
+  PreviousPeriodIndex?: Maybe<Scalars['Float']>;
+  SiteId?: Maybe<Scalars['String']>;
+};
+
+export type IndexInput = {
+  Location?: InputMaybe<Scalars['String']>;
+  NextPeriodIndex?: InputMaybe<Scalars['Float']>;
+  PreviousPeriodIndex?: InputMaybe<Scalars['Float']>;
+  SiteId?: InputMaybe<Scalars['String']>;
+};
+
+export type Location = {
+  __typename?: 'Location';
+  AverageDate?: Maybe<Array<Maybe<Array<Maybe<Scalars['String']>>>>>;
+  DateCalclogger?: Maybe<Array<Maybe<DateCalclogger>>>;
+  Location?: Maybe<Scalars['String']>;
+  Periods?: Maybe<Array<Maybe<Periods>>>;
+  QuantityLogger?: Maybe<Scalars['Float']>;
+  SiteId?: Maybe<Scalars['String']>;
+  TotalQuantity?: Maybe<Scalars['Float']>;
+};
+
+export type LocationInput = {
+  AverageDate?: InputMaybe<Array<InputMaybe<Array<InputMaybe<Scalars['String']>>>>>;
+  DateCalclogger?: InputMaybe<Array<InputMaybe<DateCalcloggerInput>>>;
+  Location?: InputMaybe<Scalars['String']>;
+  Periods?: InputMaybe<Array<InputMaybe<PeriodsInput>>>;
+  QuantityLogger?: InputMaybe<Scalars['Float']>;
+  SiteId?: InputMaybe<Scalars['String']>;
+  TotalQuantity?: InputMaybe<Scalars['Float']>;
+};
+
+export type LockValve = {
+  __typename?: 'LockValve';
+  Location?: Maybe<Scalars['String']>;
+  SiteId?: Maybe<Scalars['String']>;
+};
+
+export type LockValveInput = {
+  Location?: InputMaybe<Scalars['String']>;
+  SiteId?: InputMaybe<Scalars['String']>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  DeletePrecious?: Maybe<RowModified>;
+  InsertPrecious?: Maybe<IdOutput>;
+  UpdatePrecious?: Maybe<IdOutput>;
+};
+
+
+export type MutationDeletePreciousArgs = {
+  precious?: InputMaybe<PreciousUpdateInput>;
+};
+
+
+export type MutationInsertPreciousArgs = {
+  precious?: InputMaybe<PreciousInput>;
+};
+
+
+export type MutationUpdatePreciousArgs = {
+  precious?: InputMaybe<PreciousUpdateInput>;
+};
+
+export type Periods = {
+  __typename?: 'Periods';
+  Period?: Maybe<Scalars['String']>;
+  Quantity?: Maybe<Scalars['Float']>;
+};
+
+export type PeriodsInput = {
+  Period?: InputMaybe<Scalars['String']>;
+  Quantity?: InputMaybe<Scalars['Float']>;
+};
+
+export type Precious = {
+  __typename?: 'Precious';
+  Company: Scalars['String'];
+  CompanyName?: Maybe<Scalars['String']>;
+  CreateAt?: Maybe<Scalars['String']>;
+  End?: Maybe<Scalars['String']>;
+  Index?: Maybe<Array<Maybe<Index>>>;
+  Location?: Maybe<Array<Maybe<Location>>>;
+  LockValve?: Maybe<Array<Maybe<LockValve>>>;
+  Period?: Maybe<Scalars['String']>;
+  Start?: Maybe<Scalars['String']>;
+  SubtractWaterB1?: Maybe<Array<Maybe<SubtractWaterB1>>>;
+  SubtractWaterB2?: Maybe<Array<Maybe<SubtractWaterB2>>>;
+  UsernameCreated?: Maybe<Scalars['String']>;
+  WaterCustomer?: Maybe<Array<Maybe<WaterCustomer>>>;
+  _id: Scalars['ID'];
+};
+
+export type PreciousInput = {
+  Company?: InputMaybe<Scalars['String']>;
+  CompanyName?: InputMaybe<Scalars['String']>;
+  CreateAt?: InputMaybe<Scalars['String']>;
+  End?: InputMaybe<Scalars['String']>;
+  Index?: InputMaybe<Array<InputMaybe<IndexInput>>>;
+  Location?: InputMaybe<Array<InputMaybe<LocationInput>>>;
+  LockValve?: InputMaybe<Array<InputMaybe<LockValveInput>>>;
+  Period?: InputMaybe<Scalars['String']>;
+  Start?: InputMaybe<Scalars['String']>;
+  SubtractWaterB1?: InputMaybe<Array<InputMaybe<SubtractWaterB1Input>>>;
+  SubtractWaterB2?: InputMaybe<Array<InputMaybe<SubtractWaterB2Input>>>;
+  UsernameCreated?: InputMaybe<Scalars['String']>;
+  WaterCustomer?: InputMaybe<Array<InputMaybe<WaterCustomerInput>>>;
+};
+
+export type PreciousUpdateInput = {
+  Company?: InputMaybe<Scalars['String']>;
+  CompanyName?: InputMaybe<Scalars['String']>;
+  CreateAt?: InputMaybe<Scalars['String']>;
+  End?: InputMaybe<Scalars['String']>;
+  Index?: InputMaybe<Array<InputMaybe<IndexInput>>>;
+  Location?: InputMaybe<Array<InputMaybe<LocationInput>>>;
+  LockValve?: InputMaybe<Array<InputMaybe<LockValveInput>>>;
+  Period?: InputMaybe<Scalars['String']>;
+  Start?: InputMaybe<Scalars['String']>;
+  SubtractWaterB1?: InputMaybe<Array<InputMaybe<SubtractWaterB1Input>>>;
+  SubtractWaterB2?: InputMaybe<Array<InputMaybe<SubtractWaterB2Input>>>;
+  UsernameCreated?: InputMaybe<Scalars['String']>;
+  WaterCustomer?: InputMaybe<Array<InputMaybe<WaterCustomerInput>>>;
+  _id?: InputMaybe<Scalars['ID']>;
+};
+
 export type Quantity = {
   __typename?: 'Quantity';
   IsEnoughData?: Maybe<Scalars['Boolean']>;
@@ -149,12 +300,14 @@ export type QuantityLoggerDayWaterSupply = {
 
 export type Query = {
   __typename?: 'Query';
+  GetAllPrecious?: Maybe<Array<Maybe<Precious>>>;
   GetAllSiteAndChannel?: Maybe<Array<SiteAndChannel>>;
   GetAllSites: Array<Maybe<Site>>;
   GetChannelByLoggerId?: Maybe<Array<Maybe<Channel>>>;
   GetCompanies?: Maybe<Array<Company>>;
   GetDataLoggerByLastRecord?: Maybe<Array<DataLogger>>;
   GetDataLoggerByTimeStamp?: Maybe<Array<DataLogger>>;
+  GetPreciousByCompany?: Maybe<Array<Maybe<Precious>>>;
   GetSiteByWaterSupply: Array<Site>;
   QuantityDayCompany: Array<QuantityDayCompany>;
   QuantityDayWaterSupply: Array<QuantityDayWaterSupply>;
@@ -178,6 +331,11 @@ export type QueryGetDataLoggerByTimeStampArgs = {
   channelid: Scalars['String'];
   end: Scalars['String'];
   start: Scalars['String'];
+};
+
+
+export type QueryGetPreciousByCompanyArgs = {
+  company?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -218,6 +376,11 @@ export type QueryQuantityLoggerDayWaterSupplyArgs = {
   company: Scalars['String'];
   end: Scalars['String'];
   start: Scalars['String'];
+};
+
+export type RowModified = {
+  __typename?: 'RowModified';
+  nRow?: Maybe<Scalars['Int']>;
 };
 
 export type Site = {
@@ -289,10 +452,68 @@ export type SiteAndChannel = {
   _id: Scalars['String'];
 };
 
+export type SubtractWaterB1 = {
+  __typename?: 'SubtractWaterB1';
+  AmountWater?: Maybe<Scalars['Float']>;
+  Content?: Maybe<Scalars['String']>;
+  Note?: Maybe<Scalars['String']>;
+  NumberPrecious?: Maybe<Scalars['String']>;
+  Provider?: Maybe<Scalars['String']>;
+};
+
+export type SubtractWaterB1Input = {
+  AmountWater?: InputMaybe<Scalars['Float']>;
+  Content?: InputMaybe<Scalars['String']>;
+  Note?: InputMaybe<Scalars['String']>;
+  NumberPrecious?: InputMaybe<Scalars['String']>;
+  Provider?: InputMaybe<Scalars['String']>;
+};
+
+export type SubtractWaterB2 = {
+  __typename?: 'SubtractWaterB2';
+  AmountWater?: Maybe<Scalars['Float']>;
+  Content?: Maybe<Scalars['String']>;
+  Note?: Maybe<Scalars['String']>;
+  NumberPrecious?: Maybe<Scalars['String']>;
+  Provider?: Maybe<Scalars['String']>;
+};
+
+export type SubtractWaterB2Input = {
+  AmountWater?: InputMaybe<Scalars['Float']>;
+  Content?: InputMaybe<Scalars['String']>;
+  Note?: InputMaybe<Scalars['String']>;
+  NumberPrecious?: InputMaybe<Scalars['String']>;
+  Provider?: InputMaybe<Scalars['String']>;
+};
+
+export type WaterCustomer = {
+  __typename?: 'WaterCustomer';
+  AmountMeter?: Maybe<Scalars['Float']>;
+  AmountWater?: Maybe<Scalars['Float']>;
+  DatePublished?: Maybe<Scalars['String']>;
+  Note?: Maybe<Scalars['String']>;
+  NumberPrecious?: Maybe<Scalars['String']>;
+};
+
+export type WaterCustomerInput = {
+  AmountMeter?: InputMaybe<Scalars['Float']>;
+  AmountWater?: InputMaybe<Scalars['Float']>;
+  DatePublished?: InputMaybe<Scalars['String']>;
+  Note?: InputMaybe<Scalars['String']>;
+  NumberPrecious?: InputMaybe<Scalars['String']>;
+};
+
 export type GetCompaniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCompaniesQuery = { __typename?: 'Query', GetCompanies?: Array<{ __typename?: 'Company', Company?: string | null, Description?: string | null, Production?: number | null }> | null };
+
+export type DeletePreciousMutationVariables = Exact<{
+  precious?: InputMaybe<PreciousUpdateInput>;
+}>;
+
+
+export type DeletePreciousMutation = { __typename?: 'Mutation', DeletePrecious?: { __typename?: 'RowModified', nRow?: number | null } | null };
 
 export type GetAllSitesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -327,12 +548,26 @@ export type GetDataLoggerByTimeStampQueryVariables = Exact<{
 
 export type GetDataLoggerByTimeStampQuery = { __typename?: 'Query', GetDataLoggerByTimeStamp?: Array<{ __typename?: 'DataLogger', TimeStamp?: any | null, Value?: number | null }> | null };
 
+export type GetPreciousByCompanyQueryVariables = Exact<{
+  company?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetPreciousByCompanyQuery = { __typename?: 'Query', GetPreciousByCompany?: Array<{ __typename?: 'Precious', _id: string, Company: string, Start?: string | null, CompanyName?: string | null, End?: string | null, Period?: string | null, CreateAt?: string | null, UsernameCreated?: string | null, Location?: Array<{ __typename?: 'Location', Location?: string | null, SiteId?: string | null, AverageDate?: Array<Array<string | null> | null> | null, QuantityLogger?: number | null, TotalQuantity?: number | null, Periods?: Array<{ __typename?: 'Periods', Period?: string | null, Quantity?: number | null } | null> | null, DateCalclogger?: Array<{ __typename?: 'DateCalclogger', Quantity?: number | null, From?: string | null, To?: string | null, DateRange?: Array<string | null> | null } | null> | null } | null> | null, Index?: Array<{ __typename?: 'Index', SiteId?: string | null, Location?: string | null, PreviousPeriodIndex?: number | null, NextPeriodIndex?: number | null } | null> | null, LockValve?: Array<{ __typename?: 'LockValve', SiteId?: string | null, Location?: string | null } | null> | null, SubtractWaterB1?: Array<{ __typename?: 'SubtractWaterB1', NumberPrecious?: string | null, Content?: string | null, Provider?: string | null, AmountWater?: number | null, Note?: string | null } | null> | null, SubtractWaterB2?: Array<{ __typename?: 'SubtractWaterB2', NumberPrecious?: string | null, Content?: string | null, AmountWater?: number | null, Provider?: string | null, Note?: string | null } | null> | null, WaterCustomer?: Array<{ __typename?: 'WaterCustomer', NumberPrecious?: string | null, DatePublished?: string | null, AmountMeter?: number | null, AmountWater?: number | null, Note?: string | null } | null> | null } | null> | null };
+
 export type GetSiteByWaterSupplyQueryVariables = Exact<{
   company: Scalars['String'];
 }>;
 
 
 export type GetSiteByWaterSupplyQuery = { __typename?: 'Query', GetSiteByWaterSupply: Array<{ __typename?: 'Site', _id: string, OldId?: string | null, Location?: string | null, Logger?: string | null, Company?: string | null, Description?: string | null, MeterDirection?: string | null, ProductionCompany?: string | null, IsDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, Address?: string | null }> };
+
+export type InsertPreciousMutationVariables = Exact<{
+  precious?: InputMaybe<PreciousInput>;
+}>;
+
+
+export type InsertPreciousMutation = { __typename?: 'Mutation', InsertPrecious?: { __typename?: 'IdOutput', idReturn?: string | null } | null };
 
 export type QuantityDayCompanyQueryVariables = Exact<{
   company: Scalars['String'];
@@ -379,6 +614,13 @@ export type QuantityLoggerDayWaterSupplyQueryVariables = Exact<{
 
 export type QuantityLoggerDayWaterSupplyQuery = { __typename?: 'Query', QuantityLoggerDayWaterSupply: Array<{ __typename?: 'QuantityLoggerDayWaterSupply', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, Size?: number | null, SiteId: string, OldId?: string | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
 
+export type UpdatePreciousMutationVariables = Exact<{
+  precious?: InputMaybe<PreciousUpdateInput>;
+}>;
+
+
+export type UpdatePreciousMutation = { __typename?: 'Mutation', UpdatePrecious?: { __typename?: 'IdOutput', idReturn?: string | null } | null };
+
 
 export const GetCompaniesDocument = gql`
     query GetCompanies {
@@ -419,6 +661,39 @@ export type GetCompaniesQueryResult = Apollo.QueryResult<GetCompaniesQuery, GetC
 export function refetchGetCompaniesQuery(variables?: GetCompaniesQueryVariables) {
       return { query: GetCompaniesDocument, variables: variables }
     }
+export const DeletePreciousDocument = gql`
+    mutation DeletePrecious($precious: PreciousUpdateInput) {
+  DeletePrecious(precious: $precious) {
+    nRow
+  }
+}
+    `;
+export type DeletePreciousMutationFn = Apollo.MutationFunction<DeletePreciousMutation, DeletePreciousMutationVariables>;
+
+/**
+ * __useDeletePreciousMutation__
+ *
+ * To run a mutation, you first call `useDeletePreciousMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePreciousMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePreciousMutation, { data, loading, error }] = useDeletePreciousMutation({
+ *   variables: {
+ *      precious: // value for 'precious'
+ *   },
+ * });
+ */
+export function useDeletePreciousMutation(baseOptions?: Apollo.MutationHookOptions<DeletePreciousMutation, DeletePreciousMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeletePreciousMutation, DeletePreciousMutationVariables>(DeletePreciousDocument, options);
+      }
+export type DeletePreciousMutationHookResult = ReturnType<typeof useDeletePreciousMutation>;
+export type DeletePreciousMutationResult = Apollo.MutationResult<DeletePreciousMutation>;
+export type DeletePreciousMutationOptions = Apollo.BaseMutationOptions<DeletePreciousMutation, DeletePreciousMutationVariables>;
 export const GetAllSitesDocument = gql`
     query GetAllSites {
   GetAllSites {
@@ -708,6 +983,99 @@ export type GetDataLoggerByTimeStampQueryResult = Apollo.QueryResult<GetDataLogg
 export function refetchGetDataLoggerByTimeStampQuery(variables: GetDataLoggerByTimeStampQueryVariables) {
       return { query: GetDataLoggerByTimeStampDocument, variables: variables }
     }
+export const GetPreciousByCompanyDocument = gql`
+    query GetPreciousByCompany($company: String) {
+  GetPreciousByCompany(company: $company) {
+    _id
+    Company
+    Start
+    CompanyName
+    End
+    Period
+    CreateAt
+    UsernameCreated
+    Location {
+      Location
+      Periods {
+        Period
+        Quantity
+      }
+      SiteId
+      AverageDate
+      DateCalclogger {
+        Quantity
+        From
+        To
+        DateRange
+      }
+      QuantityLogger
+      TotalQuantity
+    }
+    Index {
+      SiteId
+      Location
+      PreviousPeriodIndex
+      NextPeriodIndex
+    }
+    LockValve {
+      SiteId
+      Location
+    }
+    SubtractWaterB1 {
+      NumberPrecious
+      Content
+      Provider
+      AmountWater
+      Note
+    }
+    SubtractWaterB2 {
+      NumberPrecious
+      Content
+      AmountWater
+      Provider
+      Note
+    }
+    WaterCustomer {
+      NumberPrecious
+      DatePublished
+      AmountMeter
+      AmountWater
+      Note
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPreciousByCompanyQuery__
+ *
+ * To run a query within a React component, call `useGetPreciousByCompanyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPreciousByCompanyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPreciousByCompanyQuery({
+ *   variables: {
+ *      company: // value for 'company'
+ *   },
+ * });
+ */
+export function useGetPreciousByCompanyQuery(baseOptions?: Apollo.QueryHookOptions<GetPreciousByCompanyQuery, GetPreciousByCompanyQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPreciousByCompanyQuery, GetPreciousByCompanyQueryVariables>(GetPreciousByCompanyDocument, options);
+      }
+export function useGetPreciousByCompanyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPreciousByCompanyQuery, GetPreciousByCompanyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPreciousByCompanyQuery, GetPreciousByCompanyQueryVariables>(GetPreciousByCompanyDocument, options);
+        }
+export type GetPreciousByCompanyQueryHookResult = ReturnType<typeof useGetPreciousByCompanyQuery>;
+export type GetPreciousByCompanyLazyQueryHookResult = ReturnType<typeof useGetPreciousByCompanyLazyQuery>;
+export type GetPreciousByCompanyQueryResult = Apollo.QueryResult<GetPreciousByCompanyQuery, GetPreciousByCompanyQueryVariables>;
+export function refetchGetPreciousByCompanyQuery(variables?: GetPreciousByCompanyQueryVariables) {
+      return { query: GetPreciousByCompanyDocument, variables: variables }
+    }
 export const GetSiteByWaterSupplyDocument = gql`
     query GetSiteByWaterSupply($company: String!) {
   GetSiteByWaterSupply(company: $company) {
@@ -758,6 +1126,39 @@ export type GetSiteByWaterSupplyQueryResult = Apollo.QueryResult<GetSiteByWaterS
 export function refetchGetSiteByWaterSupplyQuery(variables: GetSiteByWaterSupplyQueryVariables) {
       return { query: GetSiteByWaterSupplyDocument, variables: variables }
     }
+export const InsertPreciousDocument = gql`
+    mutation InsertPrecious($precious: PreciousInput) {
+  InsertPrecious(precious: $precious) {
+    idReturn
+  }
+}
+    `;
+export type InsertPreciousMutationFn = Apollo.MutationFunction<InsertPreciousMutation, InsertPreciousMutationVariables>;
+
+/**
+ * __useInsertPreciousMutation__
+ *
+ * To run a mutation, you first call `useInsertPreciousMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertPreciousMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertPreciousMutation, { data, loading, error }] = useInsertPreciousMutation({
+ *   variables: {
+ *      precious: // value for 'precious'
+ *   },
+ * });
+ */
+export function useInsertPreciousMutation(baseOptions?: Apollo.MutationHookOptions<InsertPreciousMutation, InsertPreciousMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertPreciousMutation, InsertPreciousMutationVariables>(InsertPreciousDocument, options);
+      }
+export type InsertPreciousMutationHookResult = ReturnType<typeof useInsertPreciousMutation>;
+export type InsertPreciousMutationResult = Apollo.MutationResult<InsertPreciousMutation>;
+export type InsertPreciousMutationOptions = Apollo.BaseMutationOptions<InsertPreciousMutation, InsertPreciousMutationVariables>;
 export const QuantityDayCompanyDocument = gql`
     query QuantityDayCompany($company: String!, $start: String!, $end: String!) {
   QuantityDayCompany(company: $company, start: $start, end: $end) {
@@ -1022,3 +1423,36 @@ export type QuantityLoggerDayWaterSupplyQueryResult = Apollo.QueryResult<Quantit
 export function refetchQuantityLoggerDayWaterSupplyQuery(variables: QuantityLoggerDayWaterSupplyQueryVariables) {
       return { query: QuantityLoggerDayWaterSupplyDocument, variables: variables }
     }
+export const UpdatePreciousDocument = gql`
+    mutation UpdatePrecious($precious: PreciousUpdateInput) {
+  UpdatePrecious(precious: $precious) {
+    idReturn
+  }
+}
+    `;
+export type UpdatePreciousMutationFn = Apollo.MutationFunction<UpdatePreciousMutation, UpdatePreciousMutationVariables>;
+
+/**
+ * __useUpdatePreciousMutation__
+ *
+ * To run a mutation, you first call `useUpdatePreciousMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePreciousMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePreciousMutation, { data, loading, error }] = useUpdatePreciousMutation({
+ *   variables: {
+ *      precious: // value for 'precious'
+ *   },
+ * });
+ */
+export function useUpdatePreciousMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePreciousMutation, UpdatePreciousMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdatePreciousMutation, UpdatePreciousMutationVariables>(UpdatePreciousDocument, options);
+      }
+export type UpdatePreciousMutationHookResult = ReturnType<typeof useUpdatePreciousMutation>;
+export type UpdatePreciousMutationResult = Apollo.MutationResult<UpdatePreciousMutation>;
+export type UpdatePreciousMutationOptions = Apollo.BaseMutationOptions<UpdatePreciousMutation, UpdatePreciousMutationVariables>;

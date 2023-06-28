@@ -194,6 +194,181 @@ module.exports = gql`
         ListQuantity: [Quantity]
     }
 
+    type Periods {
+        Period: String
+        Quantity: Float
+    }
+
+    type DateCalclogger {
+        Quantity: Float
+        From: String
+        To: String
+        DateRange: [String]
+    }
+
+    type Location {
+        SiteId: String
+        Location: String
+        Periods: [Periods]
+        AverageDate: [[String]]
+        DateCalclogger: [DateCalclogger]
+        QuantityLogger: Float
+        TotalQuantity: Float
+    }
+
+    type Index {
+        SiteId: String
+        Location: String
+        PreviousPeriodIndex: Float
+        NextPeriodIndex: Float
+    }
+
+    type LockValve {
+        SiteId: String
+        Location: String
+    }
+
+    type SubtractWaterB1 {
+        NumberPrecious: String
+        Content: String
+        Provider: String
+        AmountWater: Float
+        Note: String
+    }
+
+    type SubtractWaterB2 {
+        NumberPrecious: String
+        Content: String
+        Provider: String
+        AmountWater: Float
+        Note: String
+    }
+
+    type WaterCustomer {
+        NumberPrecious: String
+        DatePublished: String
+        AmountMeter: Float
+        AmountWater: Float
+        Note: String
+    }
+
+    type Precious {
+        _id: ID!
+        Company: String!
+        CompanyName: String
+        Start: String
+        End: String
+        Period: String
+        CreateAt: String
+        UsernameCreated: String
+        Location: [Location]
+        Index: [Index]
+        LockValve: [LockValve]
+        SubtractWaterB1: [SubtractWaterB1]
+        SubtractWaterB2: [SubtractWaterB2]
+        WaterCustomer: [WaterCustomer]
+    }
+
+    type IdOutput {
+        idReturn: String
+    }
+
+    type RowModified {
+        nRow: Int
+    }
+
+    # type input
+    input PeriodsInput {
+        Period: String
+        Quantity: Float
+    }
+
+    input DateCalcloggerInput {
+        Quantity: Float
+        From: String
+        To: String
+        DateRange: [String]
+    }
+
+    input LocationInput {
+        SiteId: String
+        Location: String
+        Periods: [PeriodsInput]
+        AverageDate: [[String]]
+        DateCalclogger: [DateCalcloggerInput]
+        QuantityLogger: Float
+        TotalQuantity: Float
+    }
+
+    input IndexInput {
+        SiteId: String
+        Location: String
+        PreviousPeriodIndex: Float
+        NextPeriodIndex: Float
+    }
+
+    input LockValveInput {
+        SiteId: String
+        Location: String
+    }
+
+    input SubtractWaterB1Input {
+        NumberPrecious: String
+        Content: String
+        Provider: String
+        AmountWater: Float
+        Note: String
+    }
+
+    input SubtractWaterB2Input {
+        NumberPrecious: String
+        Content: String
+        Provider: String
+        AmountWater: Float
+        Note: String
+    }
+
+    input WaterCustomerInput {
+        NumberPrecious: String
+        DatePublished: String
+        AmountMeter: Float
+        AmountWater: Float
+        Note: String
+    }
+
+    input PreciousInput {
+        Company: String
+        CompanyName: String
+        Start: String
+        End: String
+        Period: String
+        CreateAt: String
+        UsernameCreated: String
+        Location: [LocationInput]
+        Index: [IndexInput]
+        LockValve: [LockValveInput]
+        SubtractWaterB1: [SubtractWaterB1Input]
+        SubtractWaterB2: [SubtractWaterB2Input]
+        WaterCustomer: [WaterCustomerInput]
+    }
+
+    input PreciousUpdateInput {
+        _id: ID
+        Company: String
+        CompanyName: String
+        Start: String
+        End: String
+        Period: String
+        CreateAt: String
+        UsernameCreated: String
+        Location: [LocationInput]
+        Index: [IndexInput]
+        LockValve: [LockValveInput]
+        SubtractWaterB1: [SubtractWaterB1Input]
+        SubtractWaterB2: [SubtractWaterB2Input]
+        WaterCustomer: [WaterCustomerInput]
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -239,7 +414,18 @@ module.exports = gql`
             start: String!
             end: String!
         ): [QuantityLoggerByTimeStamp!]!
+
+        GetAllPrecious: [Precious]
+
+        GetPreciousByCompany(company: String): [Precious]
     }
 
     # declare Mutation
+    type Mutation {
+        InsertPrecious(precious: PreciousInput): IdOutput
+
+        UpdatePrecious(precious: PreciousUpdateInput): IdOutput
+
+        DeletePrecious(precious: PreciousUpdateInput): RowModified
+    }
 `;

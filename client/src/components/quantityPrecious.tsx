@@ -207,7 +207,12 @@ const QuantityPrecious = () => {
                                 borderCollapse: 'collapse',
                             }}
                         >
-                            {item.PreviousPeriodIndex}
+                            {item.PreviousPeriodIndex
+                                ? new Intl.NumberFormat('de-DE').format(
+                                      //@ts-ignore
+                                      item.PreviousPeriodIndex,
+                                  )
+                                : ''}
                         </td>
                         <td
                             style={{
@@ -215,7 +220,12 @@ const QuantityPrecious = () => {
                                 borderCollapse: 'collapse',
                             }}
                         >
-                            {item.NextPeriodIndex}
+                            {item.NextPeriodIndex
+                                ? new Intl.NumberFormat('de-DE').format(
+                                      //@ts-ignore
+                                      item.NextPeriodIndex,
+                                  )
+                                : ''}
                         </td>
                         <td
                             style={{
@@ -223,7 +233,12 @@ const QuantityPrecious = () => {
                                 borderCollapse: 'collapse',
                             }}
                         >
-                            {item.AmountWater}
+                            {item.AmountWater
+                                ? new Intl.NumberFormat('de-DE').format(
+                                      //@ts-ignore
+                                      item.AmountWater,
+                                  )
+                                : ''}
                         </td>
                         <td
                             style={{
@@ -259,7 +274,7 @@ const QuantityPrecious = () => {
                 }
 
                 let content = (
-                    <tr>
+                    <tr key={`kk-${index}`}>
                         <td
                             style={{
                                 border: '1px solid black',
@@ -298,7 +313,12 @@ const QuantityPrecious = () => {
                                 borderCollapse: 'collapse',
                             }}
                         >
-                            {item.AmountWater}
+                            {item.AmountWater
+                                ? new Intl.NumberFormat('de-DE').format(
+                                      //@ts-ignore
+                                      item.AmountWater,
+                                  )
+                                : ''}
                         </td>
                         <td
                             style={{
@@ -334,7 +354,7 @@ const QuantityPrecious = () => {
                 }
 
                 let content = (
-                    <tr>
+                    <tr key={`kkk-${index}`}>
                         <td
                             style={{
                                 border: '1px solid black',
@@ -373,7 +393,12 @@ const QuantityPrecious = () => {
                                 borderCollapse: 'collapse',
                             }}
                         >
-                            {item.AmountWater}
+                            {item.AmountWater
+                                ? new Intl.NumberFormat('de-DE').format(
+                                      //@ts-ignore
+                                      item.AmountWater,
+                                  )
+                                : ''}
                         </td>
                         <td
                             style={{
@@ -408,7 +433,7 @@ const QuantityPrecious = () => {
                 }
 
                 let content = (
-                    <tr>
+                    <tr key={`kkkk-${item.NumberPrecious}`}>
                         <td
                             style={{
                                 border: '1px solid black',
@@ -431,7 +456,12 @@ const QuantityPrecious = () => {
                                 borderCollapse: 'collapse',
                             }}
                         >
-                            {item.AmountMeter}
+                            {item.AmountMeter
+                                ? new Intl.NumberFormat('de-DE').format(
+                                      //@ts-ignore
+                                      item.AmountMeter,
+                                  )
+                                : ''}
                         </td>
                         <td
                             style={{
@@ -439,7 +469,12 @@ const QuantityPrecious = () => {
                                 borderCollapse: 'collapse',
                             }}
                         >
-                            {item.AmountWater}
+                            {item.AmountWater
+                                ? new Intl.NumberFormat('de-DE').format(
+                                      //@ts-ignore
+                                      item.AmountWater,
+                                  )
+                                : ''}
                         </td>
                         <td
                             style={{
@@ -750,7 +785,14 @@ const QuantityPrecious = () => {
                                     }}
                                 >
                                     <span style={{ fontSize: '18px' }}>
-                                        {contentWater[1]}
+                                        {contentWater[1]
+                                            ? new Intl.NumberFormat(
+                                                  'de-DE',
+                                              ).format(
+                                                  //@ts-ignore
+                                                  contentWater[1],
+                                              )
+                                            : ''}
                                     </span>
                                 </td>
                                 <td
@@ -863,7 +905,14 @@ const QuantityPrecious = () => {
                                     }}
                                 >
                                     <span style={{ fontSize: '18px' }}>
-                                        {contentSubtractWaterB1[1]}
+                                        {contentSubtractWaterB1[1]
+                                            ? new Intl.NumberFormat(
+                                                  'de-DE',
+                                              ).format(
+                                                  //@ts-ignore
+                                                  contentSubtractWaterB1[1],
+                                              )
+                                            : ''}
                                     </span>
                                 </td>
                                 <td
@@ -976,7 +1025,14 @@ const QuantityPrecious = () => {
                                     }}
                                 >
                                     <span style={{ fontSize: '18px' }}>
-                                        {contentSubtractWaterB2[1]}
+                                        {contentSubtractWaterB2[1]
+                                            ? new Intl.NumberFormat(
+                                                  'de-DE',
+                                              ).format(
+                                                  //@ts-ignore
+                                                  contentSubtractWaterB2[1],
+                                              )
+                                            : ''}
                                     </span>
                                 </td>
                                 <td
@@ -1149,7 +1205,14 @@ const QuantityPrecious = () => {
                                     }}
                                 >
                                     <span style={{ fontSize: '18px' }}>
-                                        {contentWaterCustomer[1]}
+                                        {contentWaterCustomer[1]
+                                            ? new Intl.NumberFormat(
+                                                  'de-DE',
+                                              ).format(
+                                                  //@ts-ignore
+                                                  contentWaterCustomer[1],
+                                              )
+                                            : ''}
                                     </span>
                                 </td>
                                 <td
@@ -1216,7 +1279,12 @@ const QuantityPrecious = () => {
                                         fontWeight: 'bold',
                                     }}
                                 >
-                                    {contentWater[1]}
+                                    {contentWater[1]
+                                        ? new Intl.NumberFormat('de-DE').format(
+                                              //@ts-ignore
+                                              contentWater[1],
+                                          )
+                                        : ''}
                                 </td>
                                 <td
                                     style={{
@@ -1259,7 +1327,12 @@ const QuantityPrecious = () => {
                                         fontWeight: 'bold',
                                     }}
                                 >
-                                    {contentWaterCustomer[1]}
+                                    {contentWaterCustomer[1]
+                                        ? new Intl.NumberFormat('de-DE').format(
+                                              //@ts-ignore
+                                              contentWaterCustomer[1],
+                                          )
+                                        : ''}
                                 </td>
                                 <td
                                     style={{
@@ -1304,7 +1377,13 @@ const QuantityPrecious = () => {
                                 >
                                     {/* @ts-ignore */}
                                     {contentSubtractWaterB1[1] +
-                                        contentSubtractWaterB2[1]}
+                                    contentSubtractWaterB2[1]
+                                        ? new Intl.NumberFormat('de-DE').format(
+                                              //@ts-ignore
+                                              contentSubtractWaterB1[1] +
+                                                  contentSubtractWaterB2[1],
+                                          )
+                                        : ''}
                                 </td>
                                 <td
                                     style={{
@@ -1345,10 +1424,21 @@ const QuantityPrecious = () => {
                                     >
                                         {/* @ts-ignore */}
                                         {contentWater[1] +
-                                            contentWaterCustomer[1] -
-                                            //@ts-ignore
-                                            (contentSubtractWaterB1[1] +
-                                                contentSubtractWaterB2[1])}
+                                        contentWaterCustomer[1] -
+                                        //@ts-ignore
+                                        (contentSubtractWaterB1[1] +
+                                            contentSubtractWaterB2[1])
+                                            ? new Intl.NumberFormat(
+                                                  'de-DE',
+                                              ).format(
+                                                  //@ts-ignore
+                                                  contentWater[1] +
+                                                      contentWaterCustomer[1] -
+                                                      //@ts-ignore
+                                                      (contentSubtractWaterB1[1] +
+                                                          contentSubtractWaterB2[1]),
+                                              )
+                                            : ''}
                                     </span>
                                 </td>
                                 <td

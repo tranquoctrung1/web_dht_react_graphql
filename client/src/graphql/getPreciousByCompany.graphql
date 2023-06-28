@@ -1,0 +1,60 @@
+query GetPreciousByCompany($company: String) {
+    GetPreciousByCompany(company: $company) {
+        _id
+        Company
+        Start
+        CompanyName
+        End
+        Period
+        CreateAt
+        UsernameCreated
+        Location {
+            Location
+            Periods {
+                Period
+                Quantity
+            }
+            SiteId
+            AverageDate
+            DateCalclogger {
+                Quantity
+                From
+                To
+                DateRange
+            }
+            QuantityLogger
+            TotalQuantity
+        }
+        Index {
+            SiteId
+            Location
+            PreviousPeriodIndex
+            NextPeriodIndex
+        }
+        LockValve {
+            SiteId
+            Location
+        }
+        SubtractWaterB1 {
+            NumberPrecious
+            Content
+            Provider
+            AmountWater
+            Note
+        }
+        SubtractWaterB2 {
+            NumberPrecious
+            Content
+            AmountWater
+            Provider
+            Note
+        }
+        WaterCustomer {
+            NumberPrecious
+            DatePublished
+            AmountMeter
+            AmountWater
+            Note
+        }
+    }
+}

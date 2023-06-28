@@ -92,12 +92,20 @@ const AveragePrecious = () => {
             if (item.Period !== null && item.Period !== undefined) {
                 if (isFirst) {
                     content += `${
-                        item.Quantity ? item.Quantity.toFixed(0) : ''
+                        item.Quantity
+                            ? new Intl.NumberFormat('de-DE').format(
+                                  item.Quantity.toFixed(0),
+                              )
+                            : ''
                     }`;
                     isFirst = false;
                 } else {
                     content += ` + ${
-                        item.Quantity ? item.Quantity.toFixed(0) : ''
+                        item.Quantity
+                            ? new Intl.NumberFormat('de-DE').format(
+                                  item.Quantity.toFixed(0),
+                              )
+                            : ''
                     }`;
                 }
             }
@@ -141,7 +149,7 @@ const AveragePrecious = () => {
                         calcSpace2Date(item[0], item[item.length - 1]);
 
                     let content = (
-                        <>
+                        <span key={`key-${item[0]}`}>
                             <br />
                             <span>
                                 {' '}
@@ -150,11 +158,25 @@ const AveragePrecious = () => {
                                 {convertDateToDayAndMonth(
                                     item[item.length - 1],
                                 )}
-                                : {average ? average.toFixed(0) : ''} x{' '}
+                                :{' '}
+                                {average
+                                    ? new Intl.NumberFormat('de-DE').format(
+                                          //@ts-ignore
+                                          average.toFixed(0),
+                                      )
+                                    : ''}{' '}
+                                x{' '}
                                 {calcSpace2Date(item[0], item[item.length - 1])}{' '}
-                                = {sum ? sum.toFixed(0) : ''} m3 (Tính TB)
+                                ={' '}
+                                {sum
+                                    ? new Intl.NumberFormat('de-DE').format(
+                                          //@ts-ignore
+                                          sum.toFixed(0),
+                                      )
+                                    : ''}{' '}
+                                m3 (Tính TB)
                             </span>
-                        </>
+                        </span>
                     );
 
                     result.push(content);
@@ -187,17 +209,22 @@ const AveragePrecious = () => {
         if (data.length > 0) {
             for (let item of data) {
                 let content = (
-                    <>
+                    <span key={`k-${item.From}`}>
                         <br />
                         <span>
                             {' '}
                             - Sản lượng từ ngày{' '}
                             {convertDateToDayAndMonth(item.From)} đến{' '}
                             {convertDateToDayAndMonth(item.To)}:{' '}
-                            {item.Quantity ? item.Quantity.toFixed(0) : ''} m3 (
-                            {calcSpace2Date(item.From, item.To)} ngày - logger)
+                            {item.Quantity
+                                ? new Intl.NumberFormat('de-DE').format(
+                                      item.Quantity.toFixed(0),
+                                  )
+                                : ''}{' '}
+                            m3 ({calcSpace2Date(item.From, item.To)} ngày -
+                            logger)
                         </span>
-                    </>
+                    </span>
                 );
 
                 result.push(content);
@@ -216,12 +243,20 @@ const AveragePrecious = () => {
             for (let item of data) {
                 if (isFirst) {
                     content += `${
-                        item.Quantity ? item.Quantity.toFixed(0) : '0'
+                        item.Quantity
+                            ? new Intl.NumberFormat('de-DE').format(
+                                  item.Quantity.toFixed(0),
+                              )
+                            : '0'
                     }`;
                     isFirst = false;
                 } else {
                     content += ` + ${
-                        item.Quantity ? item.Quantity.toFixed(0) : '0'
+                        item.Quantity
+                            ? new Intl.NumberFormat('de-DE').format(
+                                  item.Quantity.toFixed(0),
+                              )
+                            : '0'
                     }`;
                 }
             }
@@ -255,16 +290,16 @@ const AveragePrecious = () => {
         if (dataAverage.length > 0) {
             for (let item of dataAverage) {
                 if (isFirst) {
-                    content += `${
+                    content += `${new Intl.NumberFormat('de-DE').format(
                         averageNumber *
-                        calcSpace2Date(item[0], item[item.length - 1])
-                    }`;
+                            calcSpace2Date(item[0], item[item.length - 1]),
+                    )}`;
                     isFirst = false;
                 } else {
-                    content += ` + ${
+                    content += ` + ${new Intl.NumberFormat('de-DE').format(
                         averageNumber *
-                        calcSpace2Date(item[0], item[item.length - 1])
-                    }`;
+                            calcSpace2Date(item[0], item[item.length - 1]),
+                    )}`;
                 }
             }
         }
@@ -272,12 +307,20 @@ const AveragePrecious = () => {
             for (let item of dataLogger) {
                 if (isFirst) {
                     content += `${
-                        item.Quantity ? item.Quantity.toFixed(0) : ''
+                        item.Quantity
+                            ? new Intl.NumberFormat('de-DE').format(
+                                  item.Quantity.toFixed(0),
+                              )
+                            : ''
                     }`;
                     isFirst = false;
                 } else {
                     content += ` + ${
-                        item.Quantity ? item.Quantity.toFixed(0) : ''
+                        item.Quantity
+                            ? new Intl.NumberFormat('de-DE').format(
+                                  item.Quantity.toFixed(0),
+                              )
+                            : ''
                     }`;
                 }
             }
@@ -439,8 +482,12 @@ const AveragePrecious = () => {
                                         )}
                                         :{' '}
                                         {item.Periods[0].Quantity
-                                            ? item.Periods[0].Quantity.toFixed(
-                                                  0,
+                                            ? new Intl.NumberFormat(
+                                                  'de-DE',
+                                              ).format(
+                                                  item.Periods[0].Quantity.toFixed(
+                                                      0,
+                                                  ),
                                               )
                                             : ''}{' '}
                                         ({totalDayPeriod1} ngày - logger)
@@ -460,8 +507,12 @@ const AveragePrecious = () => {
                                         )}
                                         :{' '}
                                         {item.Periods[1].Quantity
-                                            ? item.Periods[1].Quantity.toFixed(
-                                                  0,
+                                            ? new Intl.NumberFormat(
+                                                  'de-DE',
+                                              ).format(
+                                                  item.Periods[1].Quantity.toFixed(
+                                                      0,
+                                                  ),
                                               )
                                             : ''}{' '}
                                         ({totalDayPeriod2} ngày - logger)
@@ -481,8 +532,12 @@ const AveragePrecious = () => {
                                         )}
                                         :{' '}
                                         {item.Periods[2].Quantity
-                                            ? item.Periods[2].Quantity.toFixed(
-                                                  0,
+                                            ? new Intl.NumberFormat(
+                                                  'de-DE',
+                                              ).format(
+                                                  item.Periods[2].Quantity.toFixed(
+                                                      0,
+                                                  ),
                                               )
                                             : ''}{' '}
                                         ({totalDayPeriod3} ngày - logger)
@@ -498,7 +553,14 @@ const AveragePrecious = () => {
                                 {totalDayPeriod1 +
                                     totalDayPeriod2 +
                                     totalDayPeriod3}{' '}
-                                = {averagePeriod} m3
+                                ={' '}
+                                {averagePeriod
+                                    ? new Intl.NumberFormat('de-DE').format(
+                                          //@ts-ignore
+                                          averagePeriod.toFixed(0),
+                                      )
+                                    : ''}{' '}
+                                m3
                             </span>
                             {renderAverageDay(item.AverageDate, averagePeriod)}
                             {renderQuantityLogger(item.DateCalclogger)}
@@ -517,7 +579,9 @@ const AveragePrecious = () => {
                                     averagePeriod,
                                 )}{' '}
                                 ={'  '}
-                                {sumQuantityPeriod}
+                                {new Intl.NumberFormat('de-DE').format(
+                                    sumQuantityPeriod,
+                                )}
                                 {} m3
                             </span>
                         </>
@@ -533,7 +597,11 @@ const AveragePrecious = () => {
                                     item.DateCalclogger,
                                 )}
                                 ) / {calcAmountDayOfLogger(item.DateCalclogger)}{' '}
-                                = {averageDayLogger} m3
+                                ={' '}
+                                {new Intl.NumberFormat('de-DE').format(
+                                    averageDayLogger,
+                                )}{' '}
+                                m3
                             </span>
                             {renderAverageDay(
                                 item.AverageDate,
@@ -553,7 +621,11 @@ const AveragePrecious = () => {
                                     item.DateCalclogger,
                                     averageDayLogger,
                                 )}{' '}
-                                = {sumQuantityPeriod} m3
+                                ={' '}
+                                {new Intl.NumberFormat('de-DE').format(
+                                    sumQuantityPeriod,
+                                )}{' '}
+                                m3
                             </span>
                         </>
                     )}

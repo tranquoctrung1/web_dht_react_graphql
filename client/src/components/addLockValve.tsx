@@ -3,7 +3,7 @@ import { IconX } from '@tabler/icons-react';
 
 import AddLockValveInterface from '../types/addLockValve.type';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -37,6 +37,16 @@ const AddLockValve = ({ index }: AddLockValveInterface) => {
     const { data, error, loading } = useGetSiteByWaterSupplyQuery({
         variables: { company: currentCompanyPreciousState },
     });
+
+    useEffect(() => {
+        let lockValve = addLockValveState[index];
+        //@ts-ignore
+        onSearchChange(lockValve.Location);
+        //@ts-ignore
+        setSiteId(lockValve.SiteId);
+        //@ts-ignore
+        setSiteName(lockValve.Location);
+    }, [addLockValveState[index]]);
 
     //@ts-ignore
     let tempDataSite = [];
@@ -97,8 +107,7 @@ const AddLockValve = ({ index }: AddLockValveInterface) => {
                 <Select
                     placeholder="Chọn vị trí"
                     searchable
-                    onSearchChange={onSearchChange}
-                    searchValue={searchValue}
+                    value={siteid}
                     nothingFound="Không tìm thấy"
                     data={tempDataSite}
                     clearable

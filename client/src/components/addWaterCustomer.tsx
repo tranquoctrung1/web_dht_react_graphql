@@ -1,7 +1,7 @@
 import { Col, Grid, Input, NumberInput } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import AddWaterCustomerInterface from '../types/addWaterCustomer.type';
 
@@ -18,7 +18,28 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 const AddWaterCustomer = ({ index }: AddWaterCustomerInterface) => {
+    const [numberPrecious, setNumberPrecious] = useState('');
+    const [datePublished, setDatePublished] = useState('');
+    const [amountMeter, setAmountMeter] = useState(0);
+    const [amountWater, setAmountWater] = useState(0);
+    const [note, setNote] = useState('');
+
     const addWaterCustomerState = useSelector(AddWaterCustomerState);
+
+    useEffect(() => {
+        let waterCustomer = addWaterCustomerState[index];
+
+        //@ts-ignore
+        setNumberPrecious(waterCustomer.NumberPrecious);
+        //@ts-ignore
+        setDatePublished(waterCustomer.DatePublished);
+        //@ts-ignore
+        setAmountMeter(waterCustomer.AmountMeter);
+        //@ts-ignore
+        setAmountWater(waterCustomer.AmountWater);
+        //@ts-ignore
+        setNote(waterCustomer.Note);
+    }, [addWaterCustomerState[index]]);
 
     const dispatch = useDispatch();
 
@@ -94,12 +115,16 @@ const AddWaterCustomer = ({ index }: AddWaterCustomerInterface) => {
             <Col span={2}>
                 <Input
                     placeholder="Số biên bản"
+                    // value={numberPrecious}
+                    defaultValue={numberPrecious}
                     onBlur={onNumberPreciousBlured}
                 />
             </Col>
             <Col span={2}>
                 <Input
                     placeholder="Ngày phát hành"
+                    // value={datePublished}
+                    defaultValue={datePublished}
                     onBlur={onDatePublishedBlured}
                 />
             </Col>
@@ -109,6 +134,8 @@ const AddWaterCustomer = ({ index }: AddWaterCustomerInterface) => {
                     thousandsSeparator="."
                     step={1}
                     min={0}
+                    value={amountMeter}
+                    //defaultValue={amountMeter}
                     onBlur={onAmountMeterBlured}
                 />
             </Col>
@@ -116,11 +143,18 @@ const AddWaterCustomer = ({ index }: AddWaterCustomerInterface) => {
                 <NumberInput
                     decimalSeparator=","
                     thousandsSeparator="."
+                    value={amountWater}
+                    //defaultValue={amountWater}
                     onBlur={onAmountWaterBlured}
                 />
             </Col>
             <Col span={3}>
-                <Input placeholder="Ghi chú" onBlur={onNoteBlured} />
+                <Input
+                    placeholder="Ghi chú"
+                    // value={note}
+                    defaultValue={note}
+                    onBlur={onNoteBlured}
+                />
             </Col>
             <Col span={1}>
                 <IconX

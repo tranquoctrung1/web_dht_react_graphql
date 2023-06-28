@@ -2,17 +2,23 @@ import { Button, Center, Col, Grid, Select, Space, Text } from '@mantine/core';
 import { DateInput, DateTimePicker } from '@mantine/dates';
 
 import {
+    IconBookmarkEdit,
     IconDeviceFloppy,
     IconFileX,
     IconMapPinFilled,
     IconPlus,
+    IconTrash,
 } from '@tabler/icons-react';
 
 import { useEffect, useState } from 'react';
 
 import {
+    useDeletePreciousMutation,
     useGetCompaniesQuery,
+    useGetPreciousByCompanyLazyQuery,
+    useInsertPreciousMutation,
     useQuantityLoggerDayWaterSupplyLazyQuery,
+    useUpdatePreciousMutation,
 } from '../__generated__/graphql';
 
 import Companies from '../types/companies.type';
@@ -26,20 +32,31 @@ import AddWaterCustomer from './addWaterCustomer';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AddIndexState, addIndex } from '../features/addIndex';
-import { AddLocationState, addLocation } from '../features/addLocation';
-import { AddLockValveState, addLockValve } from '../features/addLockValve';
+import { AddIndexState, addIndex, addIndexs } from '../features/addIndex';
+import {
+    AddLocationState,
+    addLocation,
+    addLocations,
+} from '../features/addLocation';
+import {
+    AddLockValveState,
+    addLockValve,
+    addLockValves,
+} from '../features/addLockValve';
 import {
     AddSubtractWaterB1State,
     addSubtractWaterB1,
+    addSubtractWaterB1s,
 } from '../features/addSubtractWaterB1';
 import {
     AddSubtractWaterB2State,
     addSubtractWaterB2,
+    addSubtractWaterB2s,
 } from '../features/addSubtractWaterB2';
 import {
     AddWaterCustomerState,
     addWaterCustomer,
+    addWaterCustomers,
 } from '../features/addWaterCustomer';
 import {
     CurrentCompanyPreciousState,
@@ -65,13 +82,31 @@ import {
     setQuantityWaterSupply,
 } from '../features/quantityWaterSupply';
 
+import {
+    ListPreciousState,
+    addListPrecious,
+    deleteListPrecious,
+    insertListPrecious,
+    updateListPrecious,
+} from '../features/listPrecious';
+
+import currentPreciousId, {
+    CurrentPreciousIdState,
+    setCurrentPreciousId,
+} from '../features/currentPreciousId';
+
 import AveragePrecious from './averagePrecious';
 import QuantityPrecious from './quantityPrecious';
 
 import {
     convertDatePeriodToMonth,
     convertDatePeriodToYear,
+    convertDateToPeriod,
+    convertStringMilisecondToStringDate,
 } from '../utils/utils';
+
+import { getFontSizeValue } from '@mantine/core/lib/Box/style-system-props/value-getters/get-font-size-value';
+import Swal from 'sweetalert2';
 
 const ReportAveragePrecious = () => {
     const [startDate, setStartDate] = useState(null);
@@ -100,6 +135,8 @@ const ReportAveragePrecious = () => {
     const currentCompanyNamePreciousState = useSelector(
         CurrentCompanyNamePreciousState,
     );
+    const listPreciousState = useSelector(ListPreciousState);
+    const currentPreciousIdState = useSelector(CurrentPreciousIdState);
 
     const dispatch = useDispatch();
 
@@ -107,6 +144,18 @@ const ReportAveragePrecious = () => {
 
     const [getQuantityDayLoggerWaterSupply, { data: dataQuantity }] =
         useQuantityLoggerDayWaterSupplyLazyQuery();
+
+    const [getPreciousByCompany, { data: dataPrecious }] =
+        useGetPreciousByCompanyLazyQuery();
+
+    const [insertPrecious, { data: insertPreciousDataReturn }] =
+        useInsertPreciousMutation();
+
+    const [updatePrecious, { data: updatePreciousDataReturn }] =
+        useUpdatePreciousMutation();
+
+    const [deletePrecious, { data: deletePreciousDataReturn }] =
+        useDeletePreciousMutation();
 
     //@ts-ignore
     let tempData = [];
@@ -166,7 +215,7 @@ const ReportAveragePrecious = () => {
 
     const onStartDateChanged = (e: any) => {
         if (e != null && e != undefined && e != '') {
-            setStartDate(e.getTime());
+            setStartDate(e);
             dispatch(setCurrentStartDatePrecious(e.getTime()));
 
             //@ts-ignore
@@ -181,7 +230,7 @@ const ReportAveragePrecious = () => {
 
     const onEndDateChanged = (e: any) => {
         if (e != null && e != undefined && e != '') {
-            setEndDate(e.getTime());
+            setEndDate(e);
             dispatch(setCurrentEndDatePrecious(e.getTime()));
 
             //@ts-ignore
@@ -225,6 +274,31 @@ const ReportAveragePrecious = () => {
             //@ts-ignore
             currentEndDatePreciousState,
         );
+
+        getPreciousByCompany({
+            variables: {
+                company: e,
+            },
+        })
+            .then((res) => {
+                if (res.data !== undefined) {
+                    //@ts-ignore
+                    if (res.data.GetPreciousByCompany.length > 0) {
+                        let temp = [];
+                        //@ts-ignore
+                        for (let item of res.data.GetPreciousByCompany) {
+                            let i = JSON.parse(JSON.stringify(item));
+                            temp.push(i);
+                        }
+
+                        //@ts-ignore
+                        dispatch(addListPrecious(temp));
+                    } else {
+                        dispatch(addListPrecious([]));
+                    }
+                }
+            })
+            .catch((err) => console.log(err));
     };
 
     const onAddLocationClicked = () => {
@@ -358,6 +432,523 @@ const ReportAveragePrecious = () => {
         document.body.removeChild(fileDownload);
     };
 
+    const onInsertPreciousClicked = () => {
+        let isAllow = true;
+
+        if (
+            currentCompanyPreciousState === null ||
+            currentCompanyPreciousState === undefined ||
+            currentCompanyPreciousState === ''
+        ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa chọn công ty!!!',
+            });
+
+            isAllow = false;
+        }
+        if (
+            currentStartDatePreciousState === null ||
+            currentStartDatePreciousState === undefined ||
+            currentStartDatePreciousState === 0
+        ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa chọn ngày bắt đầu!!!',
+            });
+
+            isAllow = false;
+        }
+
+        if (
+            currentEndDatePreciousState === null ||
+            currentEndDatePreciousState === undefined ||
+            currentEndDatePreciousState === 0
+        ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa chọn ngày kết thúc!!!',
+            });
+
+            isAllow = false;
+        }
+
+        if (isAllow) {
+            let addLocationLocal = JSON.parse(JSON.stringify(addLocationState));
+
+            if (addLocationLocal.length > 0) {
+                for (let item of addLocationLocal) {
+                    //@ts-ignore
+                    if (item.Periods.length > 0) {
+                        //@ts-ignore
+                        for (let i of item.Periods) {
+                            if (i.Period !== undefined && i.Period !== null) {
+                                i.Period = i.Period.toString();
+                            }
+                        }
+                    }
+
+                    //@ts-ignore
+                    if (item.AverageDate.length > 0) {
+                        let tmp = [];
+                        //@ts-ignore
+                        for (let i of item.AverageDate) {
+                            let temp = [];
+                            for (let d of i) {
+                                d = d.toString();
+                                temp.push(d);
+                            }
+                            tmp.push(temp);
+                        }
+
+                        item.AverageDate = tmp;
+                    }
+                    //@ts-ignore
+                    if (item.DateCalclogger.length > 0) {
+                        //@ts-ignore
+                        for (let i of item.DateCalclogger) {
+                            i.From = i.From.toString();
+                            i.To = i.To.toString();
+
+                            if (i.DateRange.length > 0) {
+                                let temp = [];
+                                for (let d of i.DateRange) {
+                                    d = d.toString();
+                                    temp.push(d);
+                                }
+
+                                i.DateRange = temp;
+                            }
+                        }
+                    }
+                }
+            }
+
+            let obj = {
+                Company: currentCompanyPreciousState,
+                CompanyName: currentCompanyNamePreciousState,
+                Start: currentStartDatePreciousState.toString(),
+                End: currentEndDatePreciousState.toString(),
+                //@ts-ignore
+                Period: convertDateToPeriod(currentEndDatePreciousState),
+                CreateAt: new Date(Date.now()).getTime().toString(),
+                UsernameCreated: 'admin',
+                Location: addLocationLocal,
+                Index: addIndexState,
+                LockValve: addLockValveState,
+                SubtractWaterB1: addSubtractWaterB1State,
+                SubtractWaterB2: addSubtractWaterB2State,
+                WaterCustomer: addWaterCustomerState,
+            };
+
+            insertPrecious({
+                variables: {
+                    //@ts-ignore
+                    precious: obj,
+                },
+            })
+                .then((res) => {
+                    if (res.data !== undefined) {
+                        if (res.data?.InsertPrecious?.idReturn !== '') {
+                            dispatch(
+                                setCurrentPreciousId(
+                                    //@ts-ignore
+                                    res.data.InsertPrecious.idReturn,
+                                ),
+                            );
+                            //@ts-ignore
+                            obj._id = res.data.InsertPrecious.idReturn;
+                            //@ts-ignore
+                            dispatch(insertListPrecious(obj));
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Successfull',
+                                text: 'Thêm biên bản thành công',
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Thêm biên không thành công',
+                            });
+                        }
+                    }
+                })
+                .catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Thêm biên bản bị lỗi!!!',
+                    });
+                    console.log(err);
+                });
+        }
+    };
+
+    const onChoosePreciousClicked = (precious: any) => {
+        dispatch(setCurrentStartDatePrecious(parseInt(precious.Start)));
+        dispatch(setCurrentEndDatePrecious(parseInt(precious.End)));
+
+        getDataQuantity(
+            currentCompanyPreciousState,
+            parseInt(precious.Start),
+            parseInt(precious.End),
+        );
+
+        //@ts-ignore
+        setStartDate(new Date(parseInt(precious.Start)));
+        //@ts-ignore
+        setEndDate(new Date(parseInt(precious.End)));
+
+        dispatch(setCurrentPreciousId(precious._id));
+        let addLocationLocal = JSON.parse(JSON.stringify(precious.Location));
+
+        if (addLocationLocal.length > 0) {
+            for (let item of addLocationLocal) {
+                //@ts-ignore
+                if (item.Periods.length > 0) {
+                    //@ts-ignore
+                    for (let i of item.Periods) {
+                        if (i.Period !== undefined && i.Period !== null) {
+                            i.Period = parseInt(i.Period);
+                        }
+                    }
+                }
+                //@ts-ignore
+                if (item.AverageDate.length > 0) {
+                    let tmp = [];
+                    //@ts-ignore
+                    for (let i of item.AverageDate) {
+                        let temp = [];
+                        for (let d of i) {
+                            d = parseInt(d);
+                            temp.push(d);
+                        }
+                        tmp.push(temp);
+                    }
+                    item.AverageDate = tmp;
+                }
+
+                //@ts-ignore
+                if (item.DateCalclogger.length > 0) {
+                    //@ts-ignore
+                    for (let i of item.DateCalclogger) {
+                        i.From = parseInt(i.From);
+                        i.To = parseInt(i.To);
+
+                        if (i.DateRange.length > 0) {
+                            let temp = [];
+                            for (let d of i.DateRange) {
+                                d = parseInt(d);
+                                temp.push(d);
+                            }
+
+                            i.DateRange = temp;
+                        }
+                    }
+                }
+            }
+
+            dispatch(addLocations(addLocationLocal));
+        }
+        dispatch(addIndexs(precious.Index));
+        dispatch(addLockValves(precious.LockValve));
+        dispatch(addSubtractWaterB1s(precious.SubtractWaterB1));
+        dispatch(addSubtractWaterB2s(precious.SubtractWaterB2));
+        dispatch(addWaterCustomers(precious.WaterCustomer));
+    };
+
+    const onUpdatePreciousClicked = () => {
+        let isAllow = true;
+
+        if (
+            currentCompanyPreciousState === null ||
+            currentCompanyPreciousState === undefined ||
+            currentCompanyPreciousState === ''
+        ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa chọn công ty!!!',
+            });
+
+            isAllow = false;
+        }
+        if (
+            currentStartDatePreciousState === null ||
+            currentStartDatePreciousState === undefined ||
+            currentStartDatePreciousState === 0
+        ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa chọn ngày bắt đầu!!!',
+            });
+
+            isAllow = false;
+        }
+
+        if (
+            currentEndDatePreciousState === null ||
+            currentEndDatePreciousState === undefined ||
+            currentEndDatePreciousState === 0
+        ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa chọn ngày kết thúc!!!',
+            });
+
+            isAllow = false;
+        }
+
+        if (isAllow) {
+            let addLocationLocal = JSON.parse(JSON.stringify(addLocationState));
+
+            if (addLocationLocal.length > 0) {
+                for (let item of addLocationLocal) {
+                    //@ts-ignore
+                    if (item.Periods.length > 0) {
+                        //@ts-ignore
+                        for (let i of item.Periods) {
+                            if (i.Period !== undefined && i.Period !== null) {
+                                i.Period = i.Period.toString();
+                            }
+                        }
+                    }
+
+                    //@ts-ignore
+                    if (item.AverageDate.length > 0) {
+                        let tmp = [];
+                        //@ts-ignore
+                        for (let i of item.AverageDate) {
+                            let temp = [];
+                            for (let d of i) {
+                                d = d.toString();
+                                temp.push(d);
+                            }
+                            tmp.push(temp);
+                        }
+
+                        item.AverageDate = tmp;
+                    }
+                    //@ts-ignore
+                    if (item.DateCalclogger.length > 0) {
+                        //@ts-ignore
+                        for (let i of item.DateCalclogger) {
+                            i.From = i.From.toString();
+                            i.To = i.To.toString();
+
+                            if (i.DateRange.length > 0) {
+                                let temp = [];
+                                for (let d of i.DateRange) {
+                                    d = d.toString();
+                                    temp.push(d);
+                                }
+
+                                i.DateRange = temp;
+                            }
+                        }
+                    }
+                }
+            }
+
+            let obj = {
+                _id: currentPreciousIdState,
+                Company: currentCompanyPreciousState,
+                CompanyName: currentCompanyNamePreciousState,
+                Start: currentStartDatePreciousState.toString(),
+                End: currentEndDatePreciousState.toString(),
+                //@ts-ignore
+                Period: convertDateToPeriod(currentEndDatePreciousState),
+                CreateAt: new Date(Date.now()).getTime().toString(),
+                UsernameCreated: 'admin',
+                Location: addLocationLocal,
+                Index: addIndexState,
+                LockValve: addLockValveState,
+                SubtractWaterB1: addSubtractWaterB1State,
+                SubtractWaterB2: addSubtractWaterB2State,
+                WaterCustomer: addWaterCustomerState,
+            };
+
+            updatePrecious({
+                variables: {
+                    //@ts-ignore
+                    precious: obj,
+                },
+            })
+                .then((res) => {
+                    if (res.data !== undefined) {
+                        if (res.data?.UpdatePrecious?.idReturn !== '') {
+                            dispatch(
+                                setCurrentPreciousId(
+                                    //@ts-ignore
+                                    res.data.UpdatePrecious.idReturn,
+                                ),
+                            );
+
+                            //@ts-ignore
+                            dispatch(updateListPrecious(obj));
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Successfull',
+                                text: 'Sửa biên bản thành công',
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Sửa biên không thành công',
+                            });
+                        }
+                    }
+                })
+                .catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Sửa biên bản bị lỗi!!!',
+                    });
+                    console.log(err);
+                });
+        }
+    };
+
+    const onDeletePreciousClicked = () => {
+        Swal.fire({
+            title: 'Xóa biên bản?',
+            text: 'Xóa biên bản không thể nào hồi phục lại!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let addLocationLocal = JSON.parse(
+                    JSON.stringify(addLocationState),
+                );
+
+                if (addLocationLocal.length > 0) {
+                    for (let item of addLocationLocal) {
+                        //@ts-ignore
+                        if (item.Periods.length > 0) {
+                            //@ts-ignore
+                            for (let i of item.Periods) {
+                                if (
+                                    i.Period !== undefined &&
+                                    i.Period !== null
+                                ) {
+                                    i.Period = i.Period.toString();
+                                }
+                            }
+                        }
+
+                        //@ts-ignore
+                        if (item.AverageDate.length > 0) {
+                            let tmp = [];
+                            //@ts-ignore
+                            for (let i of item.AverageDate) {
+                                let temp = [];
+                                for (let d of i) {
+                                    d = d.toString();
+                                    temp.push(d);
+                                }
+                                tmp.push(temp);
+                            }
+
+                            item.AverageDate = tmp;
+                        }
+                        //@ts-ignore
+                        if (item.DateCalclogger.length > 0) {
+                            //@ts-ignore
+                            for (let i of item.DateCalclogger) {
+                                i.From = i.From.toString();
+                                i.To = i.To.toString();
+
+                                if (i.DateRange.length > 0) {
+                                    let temp = [];
+                                    for (let d of i.DateRange) {
+                                        d = d.toString();
+                                        temp.push(d);
+                                    }
+
+                                    i.DateRange = temp;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                let obj = {
+                    _id: currentPreciousIdState,
+                    Company: currentCompanyPreciousState,
+                    CompanyName: currentCompanyNamePreciousState,
+                    Start: currentStartDatePreciousState.toString(),
+                    End: currentEndDatePreciousState.toString(),
+                    //@ts-ignore
+                    Period: convertDateToPeriod(currentEndDatePreciousState),
+                    CreateAt: new Date(Date.now()).getTime().toString(),
+                    UsernameCreated: 'admin',
+                    Location: addLocationLocal,
+                    Index: addIndexState,
+                    LockValve: addLockValveState,
+                    SubtractWaterB1: addSubtractWaterB1State,
+                    SubtractWaterB2: addSubtractWaterB2State,
+                    WaterCustomer: addWaterCustomerState,
+                };
+
+                deletePrecious({
+                    variables: {
+                        //@ts-ignore
+                        precious: obj,
+                    },
+                })
+                    .then((res) => {
+                        if (res.data !== undefined) {
+                            if (res.data?.DeletePrecious?.nRow !== 0) {
+                                dispatch(setCurrentPreciousId(''));
+                                //@ts-ignore
+                                dispatch(deleteListPrecious(obj));
+                                dispatch(addLocations([]));
+                                dispatch(addIndexs([]));
+                                dispatch(addLockValves([]));
+                                dispatch(addSubtractWaterB1s([]));
+                                dispatch(addSubtractWaterB2s([]));
+                                dispatch(addWaterCustomers([]));
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Successfull',
+                                    text: 'Xóa biên bản thành công',
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Xóa biên không thành công',
+                                });
+                            }
+                        }
+                    })
+                    .catch((err) => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Xóa biên bản bị lỗi!!!',
+                        });
+                        console.log(err);
+                    });
+            }
+        });
+    };
+
     return (
         <>
             <Grid style={{ marginBottom: '20px' }}>
@@ -378,6 +969,7 @@ const ReportAveragePrecious = () => {
                         placeholder="Ngày bắt đầu"
                         label="Ngày bắt đầu"
                         valueFormat="DD/MM/YYYY"
+                        value={startDate}
                         onChange={onStartDateChanged}
                     />
                 </Col>
@@ -387,6 +979,7 @@ const ReportAveragePrecious = () => {
                         placeholder="Ngày kết thúc"
                         label="Ngày kết thúc"
                         valueFormat="DD/MM/YYYY"
+                        value={endDate}
                         onChange={onEndDateChanged}
                     />
                 </Col>
@@ -397,7 +990,45 @@ const ReportAveragePrecious = () => {
                     sm={12}
                     style={{ border: '1px solid #95a5a6', padding: '20px' }}
                 >
-                    Biên bản đã lưu
+                    <Grid>
+                        <Col span={12}>Biên bản đã lưu</Col>
+                        {listPreciousState.length > 0 && (
+                            <>
+                                {listPreciousState.map((el) => (
+                                    <Col
+                                        // @ts-ignore
+                                        key={el._id}
+                                        span={12}
+                                        style={{
+                                            display: 'flex',
+                                            justifyContent: 'space-around',
+                                            alignItems: 'center',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={() =>
+                                            //@ts-ignore
+                                            onChoosePreciousClicked(el)
+                                        }
+                                    >
+                                        {/* @ts-ignore */}
+                                        <Text weight={500} size="1.1rem">
+                                            {/* @ts-ignore */}
+                                            {/* @ts-ignore */}- Kỳ {el.Period} (
+                                            <span style={{ fontSize: '.8rem' }}>
+                                                {/* @ts-ignore */}
+                                                {el.UsernameCreated} -{' '}
+                                                {convertStringMilisecondToStringDate(
+                                                    //@ts-ignore
+                                                    el.CreateAt,
+                                                )}
+                                                )
+                                            </span>
+                                        </Text>{' '}
+                                    </Col>
+                                ))}
+                            </>
+                        )}
+                    </Grid>
                 </Col>
                 <Col
                     md={8}
@@ -788,8 +1419,27 @@ const ReportAveragePrecious = () => {
                             leftIcon={<IconDeviceFloppy />}
                             variant="filled"
                             color="green"
+                            onClick={onInsertPreciousClicked}
                         >
                             Lưu biên bản
+                        </Button>
+                        <Space w="md" />
+                        <Button
+                            leftIcon={<IconBookmarkEdit />}
+                            variant="filled"
+                            color="blue"
+                            onClick={onUpdatePreciousClicked}
+                        >
+                            Sửa biên bản
+                        </Button>
+                        <Space w="md" />
+                        <Button
+                            leftIcon={<IconTrash />}
+                            variant="filled"
+                            color="red"
+                            onClick={onDeletePreciousClicked}
+                        >
+                            Xóa biên bản
                         </Button>
                         <Space w="md" />
                         <Button
@@ -820,11 +1470,11 @@ const ReportAveragePrecious = () => {
                     </Col>
                 </Grid>
             </template>
-            <template>
-                <Grid>
-                    <Col span={12}>{<QuantityPrecious />}</Col>
-                </Grid>
-            </template>
+            {/* <template> */}
+            <Grid>
+                <Col span={12}>{<QuantityPrecious />}</Col>
+            </Grid>
+            {/* </template> */}
         </>
     );
 };

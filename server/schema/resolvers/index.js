@@ -7,6 +7,7 @@ const Channel = require('./Channel.resolver');
 const SiteAndChannel = require('./SiteAndChannel.resolver');
 const DataLogger = require('./DataLogger.resolver');
 const QuantityLoggerDay = require('./QuantityLoggerDay.resolver');
+const Precious = require('./Precious.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -21,6 +22,11 @@ module.exports = {
         ...SiteAndChannel.Query,
         ...DataLogger.Query,
         ...QuantityLoggerDay.Query,
+        ...Precious.Query,
+    },
+
+    Mutation: {
+        ...Precious.Mutation,
     },
 
     SiteAndChannel: {

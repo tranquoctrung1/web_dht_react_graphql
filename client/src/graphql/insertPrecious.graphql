@@ -1,0 +1,5 @@
+mutation InsertPrecious($precious: PreciousInput) {
+    InsertPrecious(precious: $precious) {
+        idReturn
+    }
+}

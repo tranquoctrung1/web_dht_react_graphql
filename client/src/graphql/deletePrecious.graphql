@@ -1,0 +1,5 @@
+mutation DeletePrecious($precious: PreciousUpdateInput) {
+    DeletePrecious(precious: $precious) {
+        nRow
+    }
+}

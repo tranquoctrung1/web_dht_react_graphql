@@ -1,0 +1,5 @@
+mutation UpdatePrecious($precious: PreciousUpdateInput) {
+    UpdatePrecious(precious: $precious) {
+        idReturn
+    }
+}

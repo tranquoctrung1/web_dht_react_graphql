@@ -9,7 +9,9 @@ import CounterSlice from './features/counter';
 import currentCompanyNamePreciousSlice from './features/currentCompanyNamePrecious';
 import CurrentCompanyPreciousSlice from './features/currentCompanyPercious';
 import CurrentEndDatePreciousSlice from './features/currentEndDatePrecious';
+import CurrentPreciousIdSlice from './features/currentPreciousId';
 import CurrentStartDatePreciousSlice from './features/currentStartDatePrecious';
+import ListPreciousSlice from './features/listPrecious';
 import OpenSidebarSlice from './features/openSidebar';
 import QuantityWaterSupplySlice from './features/quantityWaterSupply';
 
@@ -28,6 +30,8 @@ export const store = configureStore({
         currentEndDatePrecious: CurrentEndDatePreciousSlice,
         quantityWaterSupply: QuantityWaterSupplySlice,
         currentCompanyNamePrecious: currentCompanyNamePreciousSlice,
+        listPrecious: ListPreciousSlice,
+        currentPreciousId: CurrentPreciousIdSlice,
     },
 });
 

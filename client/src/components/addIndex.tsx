@@ -1,11 +1,11 @@
 import { Col, Grid, NumberInput, Select, Text } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import AddIndexInterface from '../types/addIndex.type';
 
-import {
+import addIndex, {
     AddIndexState,
     deleteIndex,
     updateNextPeriodIndex,
@@ -23,6 +23,8 @@ import Site from '../types/site.type';
 
 const AddIndex = ({ index }: AddIndexInterface) => {
     const [searchValue, onSearchChange] = useState('');
+    const [prevIndex, setPrevIndex] = useState(0);
+    const [nextIndex, setNextIndex] = useState(0);
     const [siteid, setSiteId] = useState('');
     const [sitename, setSiteName] = useState('');
 
@@ -32,6 +34,21 @@ const AddIndex = ({ index }: AddIndexInterface) => {
     );
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        let addIndex = addIndexState[index];
+
+        //@ts-ignore
+        onSearchChange(addIndex.Location);
+        //@ts-ignore
+        setSiteId(addIndex.SiteId);
+        //@ts-ignore
+        setSiteName(addIndex.Location);
+        //@ts-ignore
+        setPrevIndex(addIndex.PreviousPeriodIndex);
+        //@ts-ignore
+        setNextIndex(addIndex.NextPeriodIndex);
+    }, [addIndexState[index]]);
 
     const onCloseAddIndexClicked = () => {
         dispatch(deleteIndex(index));
@@ -106,6 +123,9 @@ const AddIndex = ({ index }: AddIndexInterface) => {
             index: index,
             PreviousPeriodIndex: number,
         };
+        //@ts-ignore
+        setPrevIndex(number);
+
         // @ts-ignore
         dispatch(updatePreviousPeriodIndex(obj));
     };
@@ -122,6 +142,8 @@ const AddIndex = ({ index }: AddIndexInterface) => {
             index: index,
             NextPeriodIndex: number,
         };
+        //@ts-ignore
+        setNextIndex(number);
         // @ts-ignore
         dispatch(updateNextPeriodIndex(obj));
     };
@@ -132,8 +154,7 @@ const AddIndex = ({ index }: AddIndexInterface) => {
                 <Select
                     placeholder="Chọn vị trí"
                     searchable
-                    onSearchChange={onSearchChange}
-                    searchValue={searchValue}
+                    value={siteid}
                     nothingFound="Không tìm thấy"
                     data={tempDataSite}
                     clearable
@@ -144,6 +165,8 @@ const AddIndex = ({ index }: AddIndexInterface) => {
                 <NumberInput
                     decimalSeparator=","
                     thousandsSeparator="."
+                    // @ts-ignore
+                    value={prevIndex}
                     onBlur={onPreviosIndexBlured}
                 />
             </Col>
@@ -151,6 +174,8 @@ const AddIndex = ({ index }: AddIndexInterface) => {
                 <NumberInput
                     decimalSeparator=","
                     thousandsSeparator="."
+                    // @ts-ignore
+                    value={nextIndex}
                     onBlur={onNextIndexBlured}
                 />
             </Col>

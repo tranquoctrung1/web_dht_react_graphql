@@ -72,6 +72,81 @@ const AddLocation = ({ index }: AddLocationInterface) => {
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        let location = addLocationState[index];
+
+        //@ts-ignore
+        onSearchChange(location.Location);
+        //@ts-ignore
+        setSiteId(location.SiteId);
+        //@ts-ignore
+        setSiteName(location.Location);
+        if (
+            //@ts-ignore
+            location.Periods[0].Period !== null &&
+            //@ts-ignore
+            location.Periods[0].Period !== undefined
+        ) {
+            //@ts-ignore
+            setPeriod1(new Date(location.Periods[0].Period));
+            //@ts-ignore
+            setQuantityPeriod1(location.Periods[0].Quantity);
+        }
+        if (
+            //@ts-ignore
+            location.Periods[1].Period !== null &&
+            //@ts-ignore
+            location.Periods[1].Period !== undefined
+        ) {
+            //@ts-ignore
+            setPeriod2(new Date(location.Periods[1].Period));
+            //@ts-ignore
+            setQuantityPeriod2(location.Periods[1].Quantity);
+        }
+        if (
+            //@ts-ignore
+            location.Periods[2].Period !== null &&
+            //@ts-ignore
+            location.Periods[2].Period !== undefined
+        ) {
+            //@ts-ignore
+            setPeriod3(new Date(location.Periods[2].Period));
+            //@ts-ignore
+            setQuantityPeriod3(location.Periods[2].Quantity);
+        }
+        //@ts-ignore
+        if (location.AverageDate.length > 0) {
+            let tempAverageDate = [];
+            //@ts-ignore
+            for (let item of location.AverageDate) {
+                for (let i of item) {
+                    tempAverageDate.push(new Date(i));
+                }
+            }
+            setAverageDate([...tempAverageDate]);
+        }
+        //@ts-ignore
+        if (location.DateCalclogger.length > 0) {
+            let tempDateCalclogger = [];
+            let sumLogger = 0;
+            //@ts-ignore
+            for (let item of location.DateCalclogger) {
+                if (item.Quantity !== null && item.Quantity !== undefined) {
+                    sumLogger += item.Quantity;
+                }
+
+                if (item.DateRange.length > 0) {
+                    for (let i of item.DateRange) {
+                        tempDateCalclogger.push(new Date(i));
+                    }
+                }
+            }
+
+            setDateCalcLogger([...tempDateCalclogger]);
+            setQuantityLogger(sumLogger);
+        }
+    }, [addLocationState[index]]);
+
     const { data, error, loading } = useGetSiteByWaterSupplyQuery({
         variables: { company: currentCompanyPreciousState },
     });
@@ -649,8 +724,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                     }
                     placeholder="Chọn vị trí"
                     searchable
-                    onSearchChange={onSearchChange}
-                    searchValue={searchValue}
+                    value={siteid}
                     nothingFound="Không tìm thấy"
                     data={tempDataSite}
                     clearable
