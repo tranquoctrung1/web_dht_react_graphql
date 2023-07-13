@@ -11,6 +11,7 @@ import {
     IconCalendarStats,
     IconChevronLeft,
     IconChevronRight,
+    //@ts-ignore
     TablerIcon,
 } from '@tabler/icons-react';
 import { useState } from 'react';

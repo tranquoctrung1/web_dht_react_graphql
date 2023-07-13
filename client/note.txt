@@ -1,0 +1,7 @@
+thêm dòng ghi chú lý do tính trung bình và thêm nó trong file word ở dưới dòng mã vị trí
+trong file biên bản sản lượng sắp xếp theo mã vị trí
+tính theo sản lượng không phải sản lượng logger 
+xem lại phần tính tổng của kỳ đó
+thêm phần ngày tết cho từng vị trí
+phần sản nhập chỉ số cần phải làm thêm phần dấu dựa theo chiều tách mạng
+làm lại 10 bản báo cáo

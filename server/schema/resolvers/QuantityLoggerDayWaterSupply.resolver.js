@@ -3,6 +3,7 @@ const SiteSiteModel = require('../../models/SiteSite.model');
 const DeviceSiteConfigModel = require('../../models/DeviceSiteConfig.model');
 const DeviceMeterModel = require('../../models/DeviceMeter.model');
 const SiteCompaniesModel = require('../../models/SiteCompanies.model');
+const DataManualModel = require('../../models/DataManual.model');
 const Utils = require('../../utils');
 
 module.exports = {
@@ -134,8 +135,56 @@ module.exports = {
                                     objQuantity.TimeStamp = null;
                                     objQuantity.Value = 0;
                                     objQuantity.IsEnoughData = true;
+                                    let tempStartDataManual = new Date(
+                                        startDate,
+                                    );
+                                    tempStartDataManual.setDate(
+                                        tempStartDataManual.getDate() + i,
+                                    );
 
-                                    {
+                                    let dataManual =
+                                        await DataManualModel.GetDataManualBySiteId(
+                                            site._id,
+                                            tempStartDataManual,
+                                        );
+                                    if (dataManual.length > 0) {
+                                        tempStartDataManual.setHours(
+                                            tempStartDataManual.getHours() + 7,
+                                        );
+
+                                        objQuantity.TimeStamp =
+                                            tempStartDataManual;
+                                        objQuantity.Value =
+                                            dataManual[0].Output;
+
+                                        if (
+                                            (obj.MeterDirection == 'N' &&
+                                                obj.IstDistributionCompany ==
+                                                    company) ||
+                                            (obj.MeterDirection == 'P' &&
+                                                obj.QndDistributionCompany ==
+                                                    company) ||
+                                            (objQuantity.Value < 0 &&
+                                                production == 1)
+                                        ) {
+                                            objQuantity.Value =
+                                                -objQuantity.Value;
+                                        }
+
+                                        if (
+                                            (objQuantity.Value < 0 &&
+                                                obj.IstDoNotCalculateReverse ==
+                                                    1 &&
+                                                obj.MeterDirection == 'P') ||
+                                            (objQuantity.Value > 0 &&
+                                                obj.QndDoNotCalculateReverse ==
+                                                    1 &&
+                                                obj.MeterDirection == 'N') ||
+                                            objQuantity.Value == null
+                                        ) {
+                                            objQuantity.Value = 0;
+                                        }
+                                    } else {
                                         let tempStart = new Date(startDate);
                                         let tempEnd = new Date(startDate);
 

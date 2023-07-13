@@ -1470,11 +1470,11 @@ const ReportAveragePrecious = () => {
                     </Col>
                 </Grid>
             </template>
-            {/* <template> */}
-            <Grid>
-                <Col span={12}>{<QuantityPrecious />}</Col>
-            </Grid>
-            {/* </template> */}
+            <template>
+                <Grid>
+                    <Col span={12}>{<QuantityPrecious />}</Col>
+                </Grid>
+            </template>
         </>
     );
 };

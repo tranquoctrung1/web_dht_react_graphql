@@ -366,6 +366,7 @@ export type QueryQuantityLoggerByTimeStampArgs = {
 
 
 export type QueryQuantityLoggerDayArgs = {
+  company: Scalars['String'];
   end: Scalars['String'];
   siteid: Scalars['String'];
   start: Scalars['String'];
@@ -598,6 +599,7 @@ export type QuantityLoggerByTimeStampQuery = { __typename?: 'Query', QuantityLog
 
 export type QuantityLoggerDayQueryVariables = Exact<{
   siteid: Scalars['String'];
+  company: Scalars['String'];
   start: Scalars['String'];
   end: Scalars['String'];
 }>;
@@ -1329,8 +1331,8 @@ export function refetchQuantityLoggerByTimeStampQuery(variables: QuantityLoggerB
       return { query: QuantityLoggerByTimeStampDocument, variables: variables }
     }
 export const QuantityLoggerDayDocument = gql`
-    query QuantityLoggerDay($siteid: String!, $start: String!, $end: String!) {
-  QuantityLoggerDay(siteid: $siteid, start: $start, end: $end)
+    query QuantityLoggerDay($siteid: String!, $company: String!, $start: String!, $end: String!) {
+  QuantityLoggerDay(siteid: $siteid, company: $company, start: $start, end: $end)
 }
     `;
 
@@ -1347,6 +1349,7 @@ export const QuantityLoggerDayDocument = gql`
  * const { data, loading, error } = useQuantityLoggerDayQuery({
  *   variables: {
  *      siteid: // value for 'siteid'
+ *      company: // value for 'company'
  *      start: // value for 'start'
  *      end: // value for 'end'
  *   },

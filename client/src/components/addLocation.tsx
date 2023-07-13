@@ -37,6 +37,7 @@ import Site from '../types/site.type';
 
 import Swal from 'sweetalert2';
 
+import { current } from '@reduxjs/toolkit';
 import {
     detectedDateRangeContinuous,
     detectedDateRemainInPeriod,
@@ -293,6 +294,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                 getQuantityLoggerDay({
                     variables: {
                         siteid: siteid,
+                        company: currentCompanyPreciousState,
                         start: totalMiliSecondStartDate.toString(),
                         end: totalMiliSecondEndDate.toString(),
                     },
@@ -371,6 +373,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                 getQuantityLoggerDay2({
                     variables: {
                         siteid: siteid,
+                        company: currentCompanyPreciousState,
                         start: totalMiliSecondStartDate.toString(),
                         end: totalMiliSecondEndDate.toString(),
                     },
@@ -449,6 +452,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                 getQuantityLoggerDay3({
                     variables: {
                         siteid: siteid,
+                        company: currentCompanyPreciousState,
                         start: totalMiliSecondStartDate.toString(),
                         end: totalMiliSecondEndDate.toString(),
                     },

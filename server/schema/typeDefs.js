@@ -405,12 +405,18 @@ module.exports = gql`
 
         GetDataLoggerByLastRecord(channelid: String!): [DataLogger!]
 
-        QuantityLoggerDay(siteid: String!, start: String!, end: String!): Float!
+        QuantityLoggerDay(
+            siteid: String!
+            company: String!
+            start: String!
+            end: String!
+        ): Float!
 
         GetSiteByWaterSupply(company: String!): [Site!]!
 
         QuantityLoggerByTimeStamp(
             siteid: String!
+            company: String!
             start: String!
             end: String!
         ): [QuantityLoggerByTimeStamp!]!
