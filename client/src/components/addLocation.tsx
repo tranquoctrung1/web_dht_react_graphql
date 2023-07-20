@@ -1,11 +1,6 @@
 import { Center, Col, Grid, NumberInput, Select, Text } from '@mantine/core';
-import { DateInput, DatePickerInput, DateTimePicker } from '@mantine/dates';
-import {
-    IconDeviceMobileX,
-    IconMapPinFilled,
-    IconTemplate,
-    IconX,
-} from '@tabler/icons-react';
+import { DatePickerInput, DateTimePicker } from '@mantine/dates';
+import { IconMapPinFilled, IconX } from '@tabler/icons-react';
 
 import { useEffect, useState } from 'react';
 import AddLocationInterface from '../types/addLocation.type';
@@ -37,7 +32,6 @@ import Site from '../types/site.type';
 
 import Swal from 'sweetalert2';
 
-import { current } from '@reduxjs/toolkit';
 import {
     detectedDateRangeContinuous,
     detectedDateRemainInPeriod,

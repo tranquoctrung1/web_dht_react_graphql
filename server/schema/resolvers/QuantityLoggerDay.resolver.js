@@ -150,7 +150,11 @@ module.exports = {
                                             site._id,
                                             tempStartDataManual,
                                         );
-                                    if (dataManual.length > 0) {
+                                    if (
+                                        dataManual.length > 0 &&
+                                        dataManual[0].Output !== null &&
+                                        dataManual[0].Output !== undefined
+                                    ) {
                                         tempStartDataManual.setHours(
                                             tempStartDataManual.getHours() + 7,
                                         );
@@ -530,7 +534,11 @@ module.exports = {
                                             site._id,
                                             tempStartDataManual,
                                         );
-                                    if (dataManual.length > 0) {
+                                    if (
+                                        dataManual.length > 0 &&
+                                        dataManual[0].Output !== null &&
+                                        dataManual[0].Output !== undefined
+                                    ) {
                                         tempStartDataManual.setHours(
                                             tempStartDataManual.getHours() + 7,
                                         );
