@@ -333,18 +333,27 @@ const AveragePrecious = () => {
         dataAverage: any,
         dataLogger: any,
         averageNumber: number,
+        averageLogger: number,
+        periods: any,
     ) => {
         let sum = 0;
+        let numberMutilply = averageNumber;
+
+        if (checkCalcAveragePeriod(periods) == false) {
+            numberMutilply = averageLogger;
+        }
+
         if (dataAverage.length > 0) {
             for (let item of dataAverage) {
                 let number =
-                    averageNumber *
+                    numberMutilply *
                     calcSpace2Date(item[0], item[item.length - 1]);
                 number = parseInt(number ? number.toFixed(2) : '0');
 
                 sum += number;
             }
         }
+
         if (dataLogger.length > 0) {
             for (let item of dataLogger) {
                 let number = parseInt(
@@ -359,7 +368,8 @@ const AveragePrecious = () => {
     };
 
     const calcAverageDayQuantityLogger = (data: any) => {
-        let average = 0;
+        let sum = 0;
+        let lenghtDate = 0;
 
         if (data.length > 0) {
             for (let item of data) {
@@ -367,13 +377,13 @@ const AveragePrecious = () => {
                     let number = parseInt(
                         item.Quantity ? item.Quantity.toFixed(0) : '0',
                     );
-
-                    average += number / item.DateRange.length;
+                    sum += number;
+                    lenghtDate += item.DateRange.length;
                 }
             }
         }
 
-        return average;
+        return sum / (lenghtDate != 0 ? lenghtDate : 1);
     };
 
     const renderDataPrecious = (data: any) => {
@@ -443,6 +453,8 @@ const AveragePrecious = () => {
                 item.AverageDate,
                 item.DateCalclogger,
                 averagePeriod,
+                averageDayLogger,
+                item.Periods,
             );
 
             sumQuantityPeriod = parseInt(
@@ -465,6 +477,12 @@ const AveragePrecious = () => {
                     <span style={{ fontWeight: 'bold' }}>
                         {index + 1}. {item.Location} ({item.SiteId})
                     </span>
+                    {item.Reason && (
+                        <>
+                            <br />
+                            <span>{item.Reason}</span>
+                        </>
+                    )}
 
                     {checkCalcAveragePeriod(item.Periods) ? (
                         <>

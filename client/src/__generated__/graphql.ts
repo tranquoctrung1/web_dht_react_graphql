@@ -94,6 +94,7 @@ export type Location = {
   Location?: Maybe<Scalars['String']>;
   Periods?: Maybe<Array<Maybe<Periods>>>;
   QuantityLogger?: Maybe<Scalars['Float']>;
+  Reason?: Maybe<Scalars['String']>;
   SiteId?: Maybe<Scalars['String']>;
   TotalQuantity?: Maybe<Scalars['Float']>;
 };
@@ -104,6 +105,7 @@ export type LocationInput = {
   Location?: InputMaybe<Scalars['String']>;
   Periods?: InputMaybe<Array<InputMaybe<PeriodsInput>>>;
   QuantityLogger?: InputMaybe<Scalars['Float']>;
+  Reason?: InputMaybe<Scalars['String']>;
   SiteId?: InputMaybe<Scalars['String']>;
   TotalQuantity?: InputMaybe<Scalars['Float']>;
 };
@@ -359,6 +361,7 @@ export type QueryQuantityDayWaterSupplyArgs = {
 
 
 export type QueryQuantityLoggerByTimeStampArgs = {
+  company: Scalars['String'];
   end: Scalars['String'];
   siteid: Scalars['String'];
   start: Scalars['String'];
@@ -554,7 +557,7 @@ export type GetPreciousByCompanyQueryVariables = Exact<{
 }>;
 
 
-export type GetPreciousByCompanyQuery = { __typename?: 'Query', GetPreciousByCompany?: Array<{ __typename?: 'Precious', _id: string, Company: string, Start?: string | null, CompanyName?: string | null, End?: string | null, Period?: string | null, CreateAt?: string | null, UsernameCreated?: string | null, Location?: Array<{ __typename?: 'Location', Location?: string | null, SiteId?: string | null, AverageDate?: Array<Array<string | null> | null> | null, QuantityLogger?: number | null, TotalQuantity?: number | null, Periods?: Array<{ __typename?: 'Periods', Period?: string | null, Quantity?: number | null } | null> | null, DateCalclogger?: Array<{ __typename?: 'DateCalclogger', Quantity?: number | null, From?: string | null, To?: string | null, DateRange?: Array<string | null> | null } | null> | null } | null> | null, Index?: Array<{ __typename?: 'Index', SiteId?: string | null, Location?: string | null, PreviousPeriodIndex?: number | null, NextPeriodIndex?: number | null } | null> | null, LockValve?: Array<{ __typename?: 'LockValve', SiteId?: string | null, Location?: string | null } | null> | null, SubtractWaterB1?: Array<{ __typename?: 'SubtractWaterB1', NumberPrecious?: string | null, Content?: string | null, Provider?: string | null, AmountWater?: number | null, Note?: string | null } | null> | null, SubtractWaterB2?: Array<{ __typename?: 'SubtractWaterB2', NumberPrecious?: string | null, Content?: string | null, AmountWater?: number | null, Provider?: string | null, Note?: string | null } | null> | null, WaterCustomer?: Array<{ __typename?: 'WaterCustomer', NumberPrecious?: string | null, DatePublished?: string | null, AmountMeter?: number | null, AmountWater?: number | null, Note?: string | null } | null> | null } | null> | null };
+export type GetPreciousByCompanyQuery = { __typename?: 'Query', GetPreciousByCompany?: Array<{ __typename?: 'Precious', _id: string, Company: string, Start?: string | null, CompanyName?: string | null, End?: string | null, Period?: string | null, CreateAt?: string | null, UsernameCreated?: string | null, Location?: Array<{ __typename?: 'Location', Location?: string | null, Reason?: string | null, SiteId?: string | null, AverageDate?: Array<Array<string | null> | null> | null, QuantityLogger?: number | null, TotalQuantity?: number | null, Periods?: Array<{ __typename?: 'Periods', Period?: string | null, Quantity?: number | null } | null> | null, DateCalclogger?: Array<{ __typename?: 'DateCalclogger', Quantity?: number | null, From?: string | null, To?: string | null, DateRange?: Array<string | null> | null } | null> | null } | null> | null, Index?: Array<{ __typename?: 'Index', SiteId?: string | null, Location?: string | null, PreviousPeriodIndex?: number | null, NextPeriodIndex?: number | null } | null> | null, LockValve?: Array<{ __typename?: 'LockValve', SiteId?: string | null, Location?: string | null } | null> | null, SubtractWaterB1?: Array<{ __typename?: 'SubtractWaterB1', NumberPrecious?: string | null, Content?: string | null, Provider?: string | null, AmountWater?: number | null, Note?: string | null } | null> | null, SubtractWaterB2?: Array<{ __typename?: 'SubtractWaterB2', NumberPrecious?: string | null, Content?: string | null, AmountWater?: number | null, Provider?: string | null, Note?: string | null } | null> | null, WaterCustomer?: Array<{ __typename?: 'WaterCustomer', NumberPrecious?: string | null, DatePublished?: string | null, AmountMeter?: number | null, AmountWater?: number | null, Note?: string | null } | null> | null } | null> | null };
 
 export type GetSiteByWaterSupplyQueryVariables = Exact<{
   company: Scalars['String'];
@@ -590,6 +593,7 @@ export type QuantityDayWaterSupplyQuery = { __typename?: 'Query', QuantityDayWat
 
 export type QuantityLoggerByTimeStampQueryVariables = Exact<{
   siteid: Scalars['String'];
+  company: Scalars['String'];
   start: Scalars['String'];
   end: Scalars['String'];
 }>;
@@ -998,6 +1002,7 @@ export const GetPreciousByCompanyDocument = gql`
     UsernameCreated
     Location {
       Location
+      Reason
       Periods {
         Period
         Quantity
@@ -1274,8 +1279,13 @@ export function refetchQuantityDayWaterSupplyQuery(variables: QuantityDayWaterSu
       return { query: QuantityDayWaterSupplyDocument, variables: variables }
     }
 export const QuantityLoggerByTimeStampDocument = gql`
-    query QuantityLoggerByTimeStamp($siteid: String!, $start: String!, $end: String!) {
-  QuantityLoggerByTimeStamp(siteid: $siteid, start: $start, end: $end) {
+    query QuantityLoggerByTimeStamp($siteid: String!, $company: String!, $start: String!, $end: String!) {
+  QuantityLoggerByTimeStamp(
+    siteid: $siteid
+    company: $company
+    start: $start
+    end: $end
+  ) {
     SiteId
     Location
     Marks
@@ -1311,6 +1321,7 @@ export const QuantityLoggerByTimeStampDocument = gql`
  * const { data, loading, error } = useQuantityLoggerByTimeStampQuery({
  *   variables: {
  *      siteid: // value for 'siteid'
+ *      company: // value for 'company'
  *      start: // value for 'start'
  *      end: // value for 'end'
  *   },

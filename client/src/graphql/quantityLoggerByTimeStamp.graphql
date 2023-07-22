@@ -1,9 +1,15 @@
 query QuantityLoggerByTimeStamp(
     $siteid: String!
+    $company: String!
     $start: String!
     $end: String!
 ) {
-    QuantityLoggerByTimeStamp(siteid: $siteid, start: $start, end: $end) {
+    QuantityLoggerByTimeStamp(
+        siteid: $siteid
+        company: $company
+        start: $start
+        end: $end
+    ) {
         SiteId
         Location
         Marks

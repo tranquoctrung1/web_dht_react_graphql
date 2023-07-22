@@ -40,7 +40,7 @@ module.exports.GetAllPrecious = async () => {
 
     let collection = await Connect.connect(PreciousCollection);
 
-    let result = await collection.find({}).toArray();
+    let result = await collection.find({}).sort({ End: -1 }).toArray();
 
     Connect.disconnect();
 
@@ -52,7 +52,10 @@ module.exports.GetPreciousByCompany = async (company) => {
 
     let collection = await Connect.connect(PreciousCollection);
 
-    let result = await collection.find({ Company: company }).toArray();
+    let result = await collection
+        .find({ Company: company })
+        .sort({ End: -1 })
+        .toArray();
 
     Connect.disconnect();
 

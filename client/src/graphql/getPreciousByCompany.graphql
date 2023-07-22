@@ -10,6 +10,7 @@ query GetPreciousByCompany($company: String) {
         UsernameCreated
         Location {
             Location
+            Reason
             Periods {
                 Period
                 Quantity

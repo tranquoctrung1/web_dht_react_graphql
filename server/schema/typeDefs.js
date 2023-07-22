@@ -208,6 +208,7 @@ module.exports = gql`
 
     type Location {
         SiteId: String
+        Reason: String
         Location: String
         Periods: [Periods]
         AverageDate: [[String]]
@@ -292,6 +293,7 @@ module.exports = gql`
 
     input LocationInput {
         SiteId: String
+        Reason: String
         Location: String
         Periods: [PeriodsInput]
         AverageDate: [[String]]

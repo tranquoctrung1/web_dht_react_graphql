@@ -304,6 +304,7 @@ const ReportAveragePrecious = () => {
     const onAddLocationClicked = () => {
         let obj = {
             SiteId: '',
+            Reason: '',
             Location: '',
             Periods: [{}, {}, {}],
             AverageDate: [],
@@ -1432,7 +1433,7 @@ const ReportAveragePrecious = () => {
                         >
                             Sửa biên bản
                         </Button>
-                        <Space w="md" />
+                        {/* <Space w="md" />
                         <Button
                             leftIcon={<IconTrash />}
                             variant="filled"
@@ -1440,7 +1441,7 @@ const ReportAveragePrecious = () => {
                             onClick={onDeletePreciousClicked}
                         >
                             Xóa biên bản
-                        </Button>
+                        </Button> */}
                         <Space w="md" />
                         <Button
                             leftIcon={<IconFileX />}

@@ -89,7 +89,7 @@ const QuantityWaterSupply = () => {
                         // @ts-ignore comment
                         value: company.Company,
                         // @ts-ignore comment
-                        label: company.Description,
+                        label: `${company.Company} - ${company.Description}`,
                     };
 
                     tempData.push(obj);
@@ -1023,6 +1023,9 @@ const QuantityWaterSupply = () => {
                             placeholder="Chọn công ty"
                             withAsterisk
                             data={tempData}
+                            clearable
+                            searchable
+                            nothingFound="Không tìm thấy!!"
                             onChange={onCompaniesChanged}
                         />
                     </Col>

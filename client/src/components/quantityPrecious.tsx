@@ -21,6 +21,8 @@ import {
     convertMilisecondToStringDate,
 } from '../utils/utils';
 
+import { quickSort } from '../utils/utils';
+
 const QuantityPrecious = () => {
     const currentCompanyPreciousState = useSelector(
         CurrentCompanyPreciousState,
@@ -56,10 +58,12 @@ const QuantityPrecious = () => {
 
         let tempSum = 0;
 
-        if (data.length > 0) {
+        let sortedData = quickSort(data);
+
+        if (sortedData.length > 0) {
             let index = 1;
 
-            for (let item of data) {
+            for (let item of sortedData) {
                 let isChange = false;
 
                 let obj = {
@@ -120,10 +124,18 @@ const QuantityPrecious = () => {
                         ) {
                             total -= parseInt(findIndex.PreviousPeriodIndex);
                         }
-
-                        tempSum += parseInt(total ? total.toFixed(0) : '0');
-
-                        obj.AmountWater = total.toFixed(0);
+                        if (
+                            item.IstDistributionCompany ===
+                                currentCompanyPreciousState ||
+                            item.IstDistributionCompany === '' ||
+                            item.IstDistributionCompany == null
+                        ) {
+                            tempSum += parseInt(total ? total.toFixed(0) : '0');
+                            obj.AmountWater = total.toFixed(0);
+                        } else {
+                            tempSum -= parseInt(total ? total.toFixed(0) : '0');
+                            obj.AmountWater = `-${total.toFixed(0)}`;
+                        }
 
                         isChange = true;
                     }

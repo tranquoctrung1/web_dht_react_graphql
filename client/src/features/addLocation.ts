@@ -33,6 +33,16 @@ export const AddLocationSilce = createSlice({
                 }
             }
         },
+        updateReason: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].Reason = action.payload.Reason;
+                    break;
+                }
+            }
+        },
         updateAverageDate: (state, action: PayloadAction) => {
             for (let i = 0; i < state.value.length; i++) {
                 //@ts-ignore
@@ -137,6 +147,7 @@ export const {
     updateDateCalclogger,
     updateQuantityLogger,
     updateTotalQuantity,
+    updateReason,
 } = AddLocationSilce.actions;
 
 export const AddLocationState = (state: RootState) => state.addLocation.value;

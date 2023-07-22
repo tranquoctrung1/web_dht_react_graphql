@@ -1,4 +1,12 @@
-import { Center, Col, Grid, NumberInput, Select, Text } from '@mantine/core';
+import {
+    Center,
+    Col,
+    Grid,
+    NumberInput,
+    Select,
+    Text,
+    TextInput,
+} from '@mantine/core';
 import { DatePickerInput, DateTimePicker } from '@mantine/dates';
 import { IconMapPinFilled, IconX } from '@tabler/icons-react';
 
@@ -14,6 +22,7 @@ import {
     updatePeriods,
     updateQuantityForPeriod,
     updateQuantityLogger,
+    updateReason,
     updateSite,
 } from '../features/addLocation';
 
@@ -40,6 +49,7 @@ import {
 
 const AddLocation = ({ index }: AddLocationInterface) => {
     const [searchValue, onSearchChange] = useState('');
+    const [reason, setReason] = useState('');
     const [averageDate, setAverageDate] = useState<Date[]>([]);
     const [dateCalcLogger, setDateCalcLogger] = useState<Date[]>([]);
     const [period1, setPeriod1] = useState(null);
@@ -74,6 +84,8 @@ const AddLocation = ({ index }: AddLocationInterface) => {
         onSearchChange(location.Location);
         //@ts-ignore
         setSiteId(location.SiteId);
+        //@ts-ignore
+        setReason(location.Reason);
         //@ts-ignore
         setSiteName(location.Location);
         if (
@@ -549,6 +561,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
             if (timeContinuous.length > 0) {
                 getQuantityLoggerByTimeStamp({
                     variables: {
+                        company: currentCompanyPreciousState,
                         siteid: siteid,
                         start: currentStartDatePreciousState.toString(),
                         end: currentEndDatePreciousState.toString(),
@@ -693,6 +706,16 @@ const AddLocation = ({ index }: AddLocationInterface) => {
         setQuantityPeriod3(number);
     };
 
+    const onReasonBlured = (e: any) => {
+        let obj = {
+            index: index,
+            Reason: reason,
+        };
+
+        //@ts-ignore
+        dispatch(updateReason(obj));
+    };
+
     return (
         <Grid>
             <Col
@@ -727,6 +750,16 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                     data={tempDataSite}
                     clearable
                     onChange={onSelectSiteChanged}
+                />
+            </Col>
+            <Col span={12}>
+                <TextInput
+                    placeholder="Lý do tính trung bình"
+                    label="Lý do tính trung bình"
+                    value={reason}
+                    onBlur={onReasonBlured}
+                    //@ts-ignore
+                    onChange={(e) => setReason(e.currentTarget.value)}
                 />
             </Col>
             <Col span={6}>
