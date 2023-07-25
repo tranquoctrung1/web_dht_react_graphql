@@ -86,20 +86,20 @@ module.exports = {
                             ) {
                                 let loggerId = channels[0].LoggerId;
                                 let channelFlow = channels[0].Forward;
-                                let channelReverse = channels[0].Reverse;
+                                //let channelReverse = channels[0].Reverse;
                                 let startHour = 0;
-                                let startMinute = 0;
+                                //let startMinute = 0;
 
                                 if (channels[0].BeginTime != null) {
                                     let beginTime = new Date(
                                         channels[0].BeginTime,
                                     );
                                     startHour = beginTime.getHours();
-                                    startMinute = beginTime.getMinutes();
+                                    //startMinute = beginTime.getMinutes();
                                 }
 
                                 let listIndexFoward = [];
-                                let listIndexReverse = [];
+                                //let listIndexReverse = [];
 
                                 if (
                                     channelFlow != null &&
@@ -115,20 +115,20 @@ module.exports = {
                                             end,
                                         );
                                 }
-                                if (
-                                    channelReverse != null &&
-                                    channelReverse != undefined &&
-                                    channelReverse != ''
-                                ) {
-                                    let channelIdRevers = `${loggerId}_0${channelReverse}`;
+                                // if (
+                                //     channelReverse != null &&
+                                //     channelReverse != undefined &&
+                                //     channelReverse != ''
+                                // ) {
+                                //     let channelIdRevers = `${loggerId}_0${channelReverse}`;
 
-                                    listIndexReverse =
-                                        await DataIndexLoggerModel.GetIndexLogger(
-                                            channelIdRevers,
-                                            start,
-                                            end,
-                                        );
-                                }
+                                //     listIndexReverse =
+                                //         await DataIndexLoggerModel.GetIndexLogger(
+                                //             channelIdRevers,
+                                //             start,
+                                //             end,
+                                //         );
+                                // }
 
                                 for (let i = 0; i < totalDay; i++) {
                                     let objQuantity = {};
@@ -190,33 +190,34 @@ module.exports = {
                                             objQuantity.Value = 0;
                                         }
                                     } else {
-                                        let tempStart = new Date(startDate);
-                                        let tempEnd = new Date(startDate);
+                                        // let tempStart = new Date(startDate);
+                                        // let tempEnd = new Date(startDate);
 
                                         let tempStart2 = new Date(startDate);
                                         let tempEnd2 = new Date(startDate);
 
-                                        tempStart.setDate(
-                                            tempStart.getDate() + i - 1,
-                                        );
-                                        tempStart.setHours(
-                                            tempStart.getHours() + startHour,
-                                        );
-                                        tempStart.setMinutes(
-                                            tempStart.getMinutes() +
-                                                startMinute,
-                                        );
+                                        // tempStart.setDate(
+                                        //     tempStart.getDate() + i - 1,
+                                        // );
+                                        // tempStart.setHours(
+                                        //     tempStart.getHours() + startHour,
+                                        // );
+                                        // tempStart.setMinutes(
+                                        //     tempStart.getMinutes(),
+                                        //     //+ startMinute,
+                                        // );
 
-                                        tempEnd.setDate(tempEnd.getDate() + i);
-                                        tempEnd.setHours(
-                                            tempEnd.getHours() + startHour,
-                                        );
-                                        tempEnd.setMinutes(
-                                            tempEnd.getMinutes() + startMinute,
-                                        );
-                                        tempEnd.setSeconds(
-                                            tempEnd.getSeconds() - 1,
-                                        );
+                                        // tempEnd.setDate(tempEnd.getDate() + i);
+                                        // tempEnd.setHours(
+                                        //     tempEnd.getHours() + startHour,
+                                        // );
+                                        // tempEnd.setMinutes(
+                                        //     tempEnd.getMinutes(),
+                                        //     //+ startMinute,
+                                        // );
+                                        // tempEnd.setSeconds(
+                                        //     tempEnd.getSeconds() - 1,
+                                        // );
 
                                         tempStart2.setDate(
                                             tempStart2.getDate() + i,
@@ -224,10 +225,10 @@ module.exports = {
                                         tempStart2.setHours(
                                             tempStart2.getHours() + startHour,
                                         );
-                                        tempStart2.setMinutes(
-                                            tempStart2.getMinutes() +
-                                                startMinute,
-                                        );
+                                        // tempStart2.setMinutes(
+                                        //     tempStart2.getMinutes(),
+                                        //     + startMinute,
+                                        // );
 
                                         tempEnd2.setDate(
                                             tempEnd2.getDate() + i + 1,
@@ -235,101 +236,104 @@ module.exports = {
                                         tempEnd2.setHours(
                                             tempEnd2.getHours() + startHour,
                                         );
-                                        tempEnd2.setMinutes(
-                                            tempEnd2.getMinutes() + startMinute,
-                                        );
+                                        // tempEnd2.setMinutes(
+                                        //     tempEnd2.getMinutes(),
+                                        //     + startMinute,
+                                        // );
                                         tempEnd2.setSeconds(
                                             tempEnd2.getSeconds() - 1,
                                         );
 
-                                        let indexForwardStart = null;
-                                        let indexForwardEnd = null;
-                                        let indexReverseStart = null;
-                                        let indexReverseEnd = null;
+                                        // let indexForwardStart = null;
+                                        // let indexForwardEnd = null;
+                                        // let indexReverseStart = null;
+                                        // let indexReverseEnd = null;
+
+                                        // let find = listIndexFoward.find(
+                                        //     (el) =>
+                                        //         el.TimeStamp >= tempStart &&
+                                        //         el.TimeStamp <= tempEnd,
+                                        // );
+
+                                        // if (find != undefined) {
+                                        //     indexForwardStart = find.Value;
+                                        // }
 
                                         let find = listIndexFoward.find(
                                             (el) =>
-                                                el.TimeStamp >= tempStart &&
-                                                el.TimeStamp <= tempEnd,
-                                        );
-
-                                        if (find != undefined) {
-                                            indexForwardStart = find.Value;
-                                        }
-
-                                        find = listIndexFoward.find(
-                                            (el) =>
                                                 el.TimeStamp >= tempStart2 &&
                                                 el.TimeStamp <= tempEnd2,
                                         );
                                         if (find != undefined) {
-                                            indexForwardEnd = find.Value;
+                                            objQuantity.Value = find.Value;
+                                            objQuantity.IsEnoughData =
+                                                find.IsEnoughData;
                                         }
 
-                                        find = listIndexReverse.find(
-                                            (el) =>
-                                                el.TimeStamp >= tempStart &&
-                                                el.TimeStamp <= tempEnd,
-                                        );
-                                        if (find != undefined) {
-                                            indexReverseStart = find.Value;
-                                        }
+                                        // find = listIndexReverse.find(
+                                        //     (el) =>
+                                        //         el.TimeStamp >= tempStart &&
+                                        //         el.TimeStamp <= tempEnd,
+                                        // );
+                                        // if (find != undefined) {
+                                        //     indexReverseStart = find.Value;
+                                        // }
 
-                                        find = listIndexReverse.find(
-                                            (el) =>
-                                                el.TimeStamp >= tempStart2 &&
-                                                el.TimeStamp <= tempEnd2,
-                                        );
-                                        if (find != undefined) {
-                                            indexReverseEnd = find.Value;
-                                        }
+                                        // find = listIndexReverse.find(
+                                        //     (el) =>
+                                        //         el.TimeStamp >= tempStart2 &&
+                                        //         el.TimeStamp <= tempEnd2,
+                                        // );
+                                        // if (find != undefined) {
+                                        //     indexReverseEnd = find.Value;
+                                        // }
 
-                                        let findEnoughData =
-                                            listIndexFoward.find(
-                                                (el) =>
-                                                    el.TimeStamp >= tempStart &&
-                                                    el.TimeStamp <= tempEnd &&
-                                                    el.IsEnoughData === false,
-                                            );
+                                        // let findEnoughData =
+                                        //     listIndexFoward.find(
+                                        //         (el) =>
+                                        //             el.TimeStamp >= tempStart &&
+                                        //             el.TimeStamp <= tempEnd &&
+                                        //             el.IsEnoughData === false,
+                                        //     );
 
-                                        if (findEnoughData != undefined) {
-                                            objQuantity.IsEnoughData = false;
-                                        } else {
-                                            findEnoughData =
-                                                listIndexReverse.find(
-                                                    (el) =>
-                                                        el.TimeStamp >=
-                                                            tempStart &&
-                                                        el.TimeStamp <=
-                                                            tempEnd &&
-                                                        el.IsEnoughData ===
-                                                            false,
-                                                );
+                                        // if (findEnoughData != undefined) {
+                                        //     objQuantity.IsEnoughData = false;
+                                        // } else {
+                                        //     findEnoughData =
+                                        //         listIndexReverse.find(
+                                        //             (el) =>
+                                        //                 el.TimeStamp >=
+                                        //                     tempStart &&
+                                        //                 el.TimeStamp <=
+                                        //                     tempEnd &&
+                                        //                 el.IsEnoughData ===
+                                        //                     false,
+                                        //         );
 
-                                            if (findEnoughData != undefined) {
-                                                objQuantity.IsEnoughData = false;
-                                            } else {
-                                                objQuantity.IsEnoughData = true;
-                                            }
-                                        }
+                                        //     if (findEnoughData != undefined) {
+                                        //         objQuantity.IsEnoughData = false;
+                                        //     } else {
+                                        //         objQuantity.IsEnoughData = true;
+                                        //     }
+                                        // }
 
                                         objQuantity.TimeStamp = tempStart2;
 
-                                        if (
-                                            (indexForwardEnd != null ||
-                                                indexReverseEnd != null) &&
-                                            (indexForwardStart != null ||
-                                                indexReverseStart != null)
-                                        ) {
-                                            objQuantity.Value =
-                                                indexForwardEnd -
-                                                indexReverseEnd -
-                                                (indexForwardStart -
-                                                    indexReverseStart);
-                                        } else {
-                                            objQuantity.Value = 0;
-                                            objQuantity.IsEnoughData = false;
-                                        }
+                                        // if (
+                                        //     (indexForwardEnd != null ||
+                                        //         indexReverseEnd != null) &&
+                                        //     (indexForwardStart != null ||
+                                        //         indexReverseStart != null)
+                                        // ) {
+                                        //     objQuantity.Value =
+                                        //         indexForwardEnd -
+                                        //         indexReverseEnd -
+                                        //         (indexForwardStart -
+                                        //             indexReverseStart);
+                                        // } else {
+                                        //     objQuantity.Value = 0;
+                                        //     objQuantity.IsEnoughData = false;
+                                        // }
 
                                         if (
                                             (obj.MeterDirection == 'N' &&
