@@ -655,6 +655,9 @@ const ReportAveragePrecious = () => {
             }
 
             dispatch(addLocations(addLocationLocal));
+        } else {
+            //@ts-ignore
+            dispatch(addLocations([]));
         }
         dispatch(addIndexs(precious.Index));
         dispatch(addLockValves(precious.LockValve));
