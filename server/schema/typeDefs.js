@@ -215,6 +215,12 @@ module.exports = gql`
         DateCalclogger: [DateCalclogger]
         QuantityLogger: Float
         TotalQuantity: Float
+        PrevTetHoliday: [String]
+        NextTetHoliday: [String]
+        TenDayPrevTetHoliday: [String]
+        KFactory: Float
+        AveragePrevTetHoliday: Float
+        AverageTenDayPrevTetHoliday: Float
     }
 
     type Index {
@@ -300,6 +306,12 @@ module.exports = gql`
         DateCalclogger: [DateCalcloggerInput]
         QuantityLogger: Float
         TotalQuantity: Float
+        PrevTetHoliday: [String]
+        NextTetHoliday: [String]
+        TenDayPrevTetHoliday: [String]
+        KFactory: Float
+        AveragePrevTetHoliday: Float
+        AverageTenDayPrevTetHoliday: Float
     }
 
     input IndexInput {
@@ -426,6 +438,8 @@ module.exports = gql`
         GetAllPrecious: [Precious]
 
         GetPreciousByCompany(company: String): [Precious]
+
+        GetSiteByWaterSubtractB2ForTA: [Site]
     }
 
     # declare Mutation

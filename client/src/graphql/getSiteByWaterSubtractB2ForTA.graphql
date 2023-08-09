@@ -1,0 +1,47 @@
+query GetSiteByWaterSubtractB2ForTA {
+    GetSiteByWaterSubtractB2ForTA {
+        _id
+        Location
+        OldId
+        Latitude
+        Longitude
+        ViewGroup
+        StaffId
+        Meter
+        Transmitter
+        Logger
+        DateOfMeterChange
+        DateOfLoggerChange
+        DateOfTransmitterChange
+        DateOfBatteyChange
+        DateOfTransmitterBatteryChgange
+        DateOfLoggerBatteryChange
+        DescriptionOfChange
+        ChangeIndex
+        Level
+        Group
+        Company
+        Takeovered
+        TakeoverDate
+        Availability
+        Display
+        Property
+        UsingLogger
+        MeterDirection
+        ProductionCompany
+        IsDistributionCompany
+        QndDistributionCompany
+        IstDoNotCalculateReverse
+        QndDoNotCalculateReverse
+        ChangeIndex1
+        Description
+        Group2
+        Address
+        CoverID
+        Group3
+        Group4
+        Group5
+        District
+        IsErrorBattery
+    }
+}

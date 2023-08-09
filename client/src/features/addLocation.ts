@@ -121,6 +121,78 @@ export const AddLocationSilce = createSlice({
                 }
             }
         },
+        updatePrevTetHoliday: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].PrevTetHoliday =
+                        //@ts-ignore
+                        action.payload.PrevTetHoliday;
+                    break;
+                }
+            }
+        },
+        updateNextTetHoliday: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].NextTetHoliday =
+                        //@ts-ignore
+                        action.payload.NextTetHoliday;
+                    break;
+                }
+            }
+        },
+        updateTenDayPrevTetHoliday: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].TenDayPrevTetHoliday =
+                        //@ts-ignore
+                        action.payload.TenDayPrevTetHoliday;
+                    break;
+                }
+            }
+        },
+        updateAveragePrevTetHoliday: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].AveragePrevTetHoliday =
+                        //@ts-ignore
+                        action.payload.AveragePrevTetHoliday;
+                    break;
+                }
+            }
+        },
+        updateAverageTenDayPrevTetHoliday: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].AverageTenDayPrevTetHoliday =
+                        //@ts-ignore
+                        action.payload.AverageTenDayPrevTetHoliday;
+                    break;
+                }
+            }
+        },
+        updateKFactory: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].KFactory =
+                        //@ts-ignore
+                        action.payload.KFactory;
+                    break;
+                }
+            }
+        },
         deleteLocation: (state, action: PayloadAction<number>) => {
             //@ts-ignore
             let temp = [];
@@ -148,6 +220,12 @@ export const {
     updateQuantityLogger,
     updateTotalQuantity,
     updateReason,
+    updatePrevTetHoliday,
+    updateNextTetHoliday,
+    updateTenDayPrevTetHoliday,
+    updateKFactory,
+    updateAveragePrevTetHoliday,
+    updateAverageTenDayPrevTetHoliday,
 } = AddLocationSilce.actions;
 
 export const AddLocationState = (state: RootState) => state.addLocation.value;

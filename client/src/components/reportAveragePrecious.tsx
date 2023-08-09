@@ -2,23 +2,23 @@ import { Button, Center, Col, Grid, Select, Space, Text } from '@mantine/core';
 import { DateInput, DateTimePicker } from '@mantine/dates';
 
 import {
-    IconBookmarkEdit,
-    IconDeviceFloppy,
-    IconFileX,
-    IconMapPinFilled,
-    IconPlus,
-    IconTrash,
+	IconBookmarkEdit,
+	IconDeviceFloppy,
+	IconFileX,
+	IconMapPinFilled,
+	IconPlus,
+	IconTrash,
 } from '@tabler/icons-react';
 
 import { useEffect, useState } from 'react';
 
 import {
-    useDeletePreciousMutation,
-    useGetCompaniesQuery,
-    useGetPreciousByCompanyLazyQuery,
-    useInsertPreciousMutation,
-    useQuantityLoggerDayWaterSupplyLazyQuery,
-    useUpdatePreciousMutation,
+	useDeletePreciousMutation,
+	useGetCompaniesQuery,
+	useGetPreciousByCompanyLazyQuery,
+	useInsertPreciousMutation,
+	useQuantityLoggerDayWaterSupplyLazyQuery,
+	useUpdatePreciousMutation,
 } from '../__generated__/graphql';
 
 import Companies from '../types/companies.type';
@@ -34,75 +34,75 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AddIndexState, addIndex, addIndexs } from '../features/addIndex';
 import {
-    AddLocationState,
-    addLocation,
-    addLocations,
+	AddLocationState,
+	addLocation,
+	addLocations,
 } from '../features/addLocation';
 import {
-    AddLockValveState,
-    addLockValve,
-    addLockValves,
+	AddLockValveState,
+	addLockValve,
+	addLockValves,
 } from '../features/addLockValve';
 import {
-    AddSubtractWaterB1State,
-    addSubtractWaterB1,
-    addSubtractWaterB1s,
+	AddSubtractWaterB1State,
+	addSubtractWaterB1,
+	addSubtractWaterB1s,
 } from '../features/addSubtractWaterB1';
 import {
-    AddSubtractWaterB2State,
-    addSubtractWaterB2,
-    addSubtractWaterB2s,
+	AddSubtractWaterB2State,
+	addSubtractWaterB2,
+	addSubtractWaterB2s,
 } from '../features/addSubtractWaterB2';
 import {
-    AddWaterCustomerState,
-    addWaterCustomer,
-    addWaterCustomers,
+	AddWaterCustomerState,
+	addWaterCustomer,
+	addWaterCustomers,
 } from '../features/addWaterCustomer';
 import {
-    CurrentCompanyPreciousState,
-    setCurrentCompanyPrecious,
+	CurrentCompanyPreciousState,
+	setCurrentCompanyPrecious,
 } from '../features/currentCompanyPercious';
 
 import {
-    CurrentCompanyNamePreciousState,
-    setCurrentCompanyNamePrecious,
+	CurrentCompanyNamePreciousState,
+	setCurrentCompanyNamePrecious,
 } from '../features/currentCompanyNamePrecious';
 
 import {
-    CurrentEndDatePreciousState,
-    setCurrentEndDatePrecious,
+	CurrentEndDatePreciousState,
+	setCurrentEndDatePrecious,
 } from '../features/currentEndDatePrecious';
 import {
-    CurrentStartDatePreciousState,
-    setCurrentStartDatePrecious,
+	CurrentStartDatePreciousState,
+	setCurrentStartDatePrecious,
 } from '../features/currentStartDatePrecious';
 
 import {
-    QuantityWaterSupplyState,
-    setQuantityWaterSupply,
+	QuantityWaterSupplyState,
+	setQuantityWaterSupply,
 } from '../features/quantityWaterSupply';
 
 import {
-    ListPreciousState,
-    addListPrecious,
-    deleteListPrecious,
-    insertListPrecious,
-    updateListPrecious,
+	ListPreciousState,
+	addListPrecious,
+	deleteListPrecious,
+	insertListPrecious,
+	updateListPrecious,
 } from '../features/listPrecious';
 
 import currentPreciousId, {
-    CurrentPreciousIdState,
-    setCurrentPreciousId,
+	CurrentPreciousIdState,
+	setCurrentPreciousId,
 } from '../features/currentPreciousId';
 
 import AveragePrecious from './averagePrecious';
 import QuantityPrecious from './quantityPrecious';
 
 import {
-    convertDatePeriodToMonth,
-    convertDatePeriodToYear,
-    convertDateToPeriod,
-    convertStringMilisecondToStringDate,
+	convertDatePeriodToMonth,
+	convertDatePeriodToYear,
+	convertDateToPeriod,
+	convertStringMilisecondToStringDate,
 } from '../utils/utils';
 
 import { getFontSizeValue } from '@mantine/core/lib/Box/style-system-props/value-getters/get-font-size-value';
@@ -111,8 +111,6 @@ import Swal from 'sweetalert2';
 const ReportAveragePrecious = () => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-    const [tetHolidayPre, setTetHolidayPre] = useState(null);
-    const [tetHoliday, setTetHoliday] = useState(null);
 
     const [isLoadingQuantity, setIsLoadingQuantity] = useState(false);
 
@@ -244,16 +242,6 @@ const ReportAveragePrecious = () => {
         }
     };
 
-    const onTetHoliDayPreChanged = (e: any) => {
-        if (e != null && e != undefined && e != '') {
-            setTetHolidayPre(e.getTime());
-        }
-    };
-
-    const onTetHoliDayChanged = (e: any) => {
-        setTetHoliday(e.getTime());
-    };
-
     const onCompanyChanged = (e: any) => {
         dispatch(setCurrentCompanyPrecious(e));
 
@@ -309,6 +297,12 @@ const ReportAveragePrecious = () => {
             Periods: [{}, {}, {}],
             AverageDate: [],
             DateCalclogger: [],
+            PrevTetHoliday: [],
+            NextTetHoliday: [],
+            TenDayPrevTetHoliday: [],
+            KFactory: 1,
+            AveragePrevTetHoliday: 0,
+            AverageTenDayPrevTetHoliday: 0,
             QuantityLogger: 0,
             TotalQuantity: 0,
         };
@@ -525,6 +519,46 @@ const ReportAveragePrecious = () => {
                             }
                         }
                     }
+                    if (
+                        item.PrevTetHoliday !== undefined &&
+                        item.PrevTetHoliday !== null
+                    ) {
+                        if (item.PrevTetHoliday.length > 0) {
+                            let temp = [];
+                            for (let i of item.PrevTetHoliday) {
+                                i = i.toString();
+                                temp.push(i);
+                            }
+                            item.PrevTetHoliday = temp;
+                        }
+                    }
+                    if (
+                        item.NextTetHoliday !== undefined &&
+                        item.NextTetHoliday !== null
+                    ) {
+                        if (item.NextTetHoliday.length > 0) {
+                            let temp = [];
+                            for (let i of item.NextTetHoliday) {
+                                i = i.toString();
+                                temp.push(i);
+                            }
+
+                            item.NextTetHoliday = temp;
+                        }
+                    }
+                    if (
+                        item.TenDayPrevTetHoliday !== undefined &&
+                        item.TenDayPrevTetHoliday !== null
+                    ) {
+                        if (item.TenDayPrevTetHoliday.length > 0) {
+                            let temp = [];
+                            for (let i of item.TenDayPrevTetHoliday) {
+                                i = i.toString();
+                                temp.push(i);
+                            }
+                            item.TenDayPrevTetHoliday = temp;
+                        }
+                    }
                 }
             }
 
@@ -652,6 +686,62 @@ const ReportAveragePrecious = () => {
                         }
                     }
                 }
+                if (
+                    item.PrevTetHoliday !== undefined &&
+                    item.PrevTetHoliday !== null
+                ) {
+                    if (item.PrevTetHoliday.length > 0) {
+                        let temp = [];
+                        for (let i of item.PrevTetHoliday) {
+                            i = parseInt(i);
+                            temp.push(i);
+                        }
+                        item.PrevTetHoliday = temp;
+                    } else {
+                        item.PrevTetHoliday = [];
+                    }
+                } else {
+                    item.PrevTetHoliday = [];
+                }
+                if (
+                    item.NextTetHoliday !== undefined &&
+                    item.NextTetHoliday !== null
+                ) {
+                    if (item.NextTetHoliday.length > 0) {
+                        let temp = [];
+                        for (let i of item.NextTetHoliday) {
+                            i = parseInt(i);
+                            temp.push(i);
+                        }
+                        item.NextTetHoliday = temp;
+                    } else {
+                        item.NextTetHoliday = [];
+                    }
+                } else {
+                    item.NextTetHoliday = [];
+                }
+
+                if (
+                    item.TenDayPrevTetHoliday !== undefined &&
+                    item.TenDayPrevTetHoliday !== null
+                ) {
+                    if (item.TenDayPrevTetHoliday.length > 0) {
+                        let temp = [];
+                        for (let i of item.TenDayPrevTetHoliday) {
+                            i = parseInt(i);
+                            temp.push(i);
+                        }
+                        item.TenDayPrevTetHoliday = temp;
+                    }
+					else 
+					{
+						item.TenDayPrevTetHoliday = [];
+					}
+                }
+				else 
+				{
+					item.TenDayPrevTetHoliday = [];
+				}
             }
 
             dispatch(addLocations(addLocationLocal));
@@ -756,6 +846,46 @@ const ReportAveragePrecious = () => {
 
                                 i.DateRange = temp;
                             }
+                        }
+                    }
+                    if (
+                        item.PrevTetHoliday !== undefined &&
+                        item.PrevTetHoliday !== null
+                    ) {
+                        if (item.PrevTetHoliday.length > 0) {
+                            let temp = [];
+                            for (let i of item.PrevTetHoliday) {
+                                i = i.toString();
+                                temp.push(i);
+                            }
+                            item.PrevTetHoliday = temp;
+                        }
+                    }
+                    if (
+                        item.NextTetHoliday !== undefined &&
+                        item.NextTetHoliday !== null
+                    ) {
+                        if (item.NextTetHoliday.length > 0) {
+                            let temp = [];
+                            for (let i of item.NextTetHoliday) {
+                                i = i.toString();
+                                temp.push(i);
+                            }
+
+                            item.NextTetHoliday = temp;
+                        }
+                    }
+                    if (
+                        item.TenDayPrevTetHoliday !== undefined &&
+                        item.TenDayPrevTetHoliday !== null
+                    ) {
+                        if (item.TenDayPrevTetHoliday.length > 0) {
+                            let temp = [];
+                            for (let i of item.TenDayPrevTetHoliday) {
+                                i = i.toString();
+                                temp.push(i);
+                            }
+                            item.TenDayPrevTetHoliday = temp;
                         }
                     }
                 }
@@ -885,6 +1015,47 @@ const ReportAveragePrecious = () => {
 
                                     i.DateRange = temp;
                                 }
+                            }
+                        }
+
+                        if (
+                            item.PrevTetHoliday !== undefined &&
+                            item.PrevTetHoliday !== null
+                        ) {
+                            if (item.PrevTetHoliday.length > 0) {
+                                let temp = [];
+                                for (let i of item.PrevTetHoliday) {
+                                    i = i.toString();
+                                    temp.push(i);
+                                }
+                                item.PrevTetHoliday = temp;
+                            }
+                        }
+                        if (
+                            item.NextTetHoliday !== undefined &&
+                            item.NextTetHoliday !== null
+                        ) {
+                            if (item.NextTetHoliday.length > 0) {
+                                let temp = [];
+                                for (let i of item.NextTetHoliday) {
+                                    i = i.toString();
+                                    temp.push(i);
+                                }
+
+                                item.NextTetHoliday = temp;
+                            }
+                        }
+                        if (
+                            item.TenDayPrevTetHoliday !== undefined &&
+                            item.TenDayPrevTetHoliday !== null
+                        ) {
+                            if (item.TenDayPrevTetHoliday.length > 0) {
+                                let temp = [];
+                                for (let i of item.TenDayPrevTetHoliday) {
+                                    i = i.toString();
+                                    temp.push(i);
+                                }
+                                item.TenDayPrevTetHoliday = temp;
                             }
                         }
                     }
@@ -1047,20 +1218,6 @@ const ReportAveragePrecious = () => {
                     >
                         Tính Trung Bình Kỳ Của Khu Vực
                     </Text>
-                    <DateInput
-                        placeholder="Ngày tết năm trước"
-                        label="Ngày tết năm trước"
-                        valueFormat="DD/MM/YYYY"
-                        onChange={onTetHoliDayPreChanged}
-                    />
-                    <Space h="md" />
-                    <DateInput
-                        placeholder="Ngày tết năm nay"
-                        label="Ngày tết năm nay"
-                        valueFormat="DD/MM/YYYY"
-                        onChange={onTetHoliDayChanged}
-                    />
-                    <Space h="md" />
                     {addLocationState.length > 0 ? (
                         <div
                             style={{
@@ -1151,7 +1308,6 @@ const ReportAveragePrecious = () => {
                     >
                         Nhập Khóa Van
                     </Text>
-                    <Space h="md" />
                     {addLockValveState.length > 0 ? (
                         <>
                             <div
@@ -1467,13 +1623,13 @@ const ReportAveragePrecious = () => {
                     </Center>
                 </Col>
             </Grid>
-            <template>
-                <Grid>
-                    <Col span={12}>
-                        <AveragePrecious />
-                    </Col>
-                </Grid>
-            </template>
+            {/* <template> */}
+            <Grid>
+                <Col span={12}>
+                    <AveragePrecious />
+                </Col>
+            </Grid>
+            {/* </template> */}
             <template>
                 <Grid>
                     <Col span={12}>{<QuantityPrecious />}</Col>

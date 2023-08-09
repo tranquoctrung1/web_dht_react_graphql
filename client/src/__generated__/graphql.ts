@@ -90,23 +90,35 @@ export type IndexInput = {
 export type Location = {
   __typename?: 'Location';
   AverageDate?: Maybe<Array<Maybe<Array<Maybe<Scalars['String']>>>>>;
+  AveragePrevTetHoliday?: Maybe<Scalars['Float']>;
+  AverageTenDayPrevTetHoliday?: Maybe<Scalars['Float']>;
   DateCalclogger?: Maybe<Array<Maybe<DateCalclogger>>>;
+  KFactory?: Maybe<Scalars['Float']>;
   Location?: Maybe<Scalars['String']>;
+  NextTetHoliday?: Maybe<Array<Maybe<Scalars['String']>>>;
   Periods?: Maybe<Array<Maybe<Periods>>>;
+  PrevTetHoliday?: Maybe<Array<Maybe<Scalars['String']>>>;
   QuantityLogger?: Maybe<Scalars['Float']>;
   Reason?: Maybe<Scalars['String']>;
   SiteId?: Maybe<Scalars['String']>;
+  TenDayPrevTetHoliday?: Maybe<Array<Maybe<Scalars['String']>>>;
   TotalQuantity?: Maybe<Scalars['Float']>;
 };
 
 export type LocationInput = {
   AverageDate?: InputMaybe<Array<InputMaybe<Array<InputMaybe<Scalars['String']>>>>>;
+  AveragePrevTetHoliday?: InputMaybe<Scalars['Float']>;
+  AverageTenDayPrevTetHoliday?: InputMaybe<Scalars['Float']>;
   DateCalclogger?: InputMaybe<Array<InputMaybe<DateCalcloggerInput>>>;
+  KFactory?: InputMaybe<Scalars['Float']>;
   Location?: InputMaybe<Scalars['String']>;
+  NextTetHoliday?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   Periods?: InputMaybe<Array<InputMaybe<PeriodsInput>>>;
+  PrevTetHoliday?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   QuantityLogger?: InputMaybe<Scalars['Float']>;
   Reason?: InputMaybe<Scalars['String']>;
   SiteId?: InputMaybe<Scalars['String']>;
+  TenDayPrevTetHoliday?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   TotalQuantity?: InputMaybe<Scalars['Float']>;
 };
 
@@ -310,6 +322,7 @@ export type Query = {
   GetDataLoggerByLastRecord?: Maybe<Array<DataLogger>>;
   GetDataLoggerByTimeStamp?: Maybe<Array<DataLogger>>;
   GetPreciousByCompany?: Maybe<Array<Maybe<Precious>>>;
+  GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
   QuantityDayCompany: Array<QuantityDayCompany>;
   QuantityDayWaterSupply: Array<QuantityDayWaterSupply>;
@@ -557,7 +570,12 @@ export type GetPreciousByCompanyQueryVariables = Exact<{
 }>;
 
 
-export type GetPreciousByCompanyQuery = { __typename?: 'Query', GetPreciousByCompany?: Array<{ __typename?: 'Precious', _id: string, Company: string, Start?: string | null, CompanyName?: string | null, End?: string | null, Period?: string | null, CreateAt?: string | null, UsernameCreated?: string | null, Location?: Array<{ __typename?: 'Location', Location?: string | null, Reason?: string | null, SiteId?: string | null, AverageDate?: Array<Array<string | null> | null> | null, QuantityLogger?: number | null, TotalQuantity?: number | null, Periods?: Array<{ __typename?: 'Periods', Period?: string | null, Quantity?: number | null } | null> | null, DateCalclogger?: Array<{ __typename?: 'DateCalclogger', Quantity?: number | null, From?: string | null, To?: string | null, DateRange?: Array<string | null> | null } | null> | null } | null> | null, Index?: Array<{ __typename?: 'Index', SiteId?: string | null, Location?: string | null, PreviousPeriodIndex?: number | null, NextPeriodIndex?: number | null } | null> | null, LockValve?: Array<{ __typename?: 'LockValve', SiteId?: string | null, Location?: string | null } | null> | null, SubtractWaterB1?: Array<{ __typename?: 'SubtractWaterB1', NumberPrecious?: string | null, Content?: string | null, Provider?: string | null, AmountWater?: number | null, Note?: string | null } | null> | null, SubtractWaterB2?: Array<{ __typename?: 'SubtractWaterB2', NumberPrecious?: string | null, Content?: string | null, AmountWater?: number | null, Provider?: string | null, Note?: string | null } | null> | null, WaterCustomer?: Array<{ __typename?: 'WaterCustomer', NumberPrecious?: string | null, DatePublished?: string | null, AmountMeter?: number | null, AmountWater?: number | null, Note?: string | null } | null> | null } | null> | null };
+export type GetPreciousByCompanyQuery = { __typename?: 'Query', GetPreciousByCompany?: Array<{ __typename?: 'Precious', _id: string, Company: string, Start?: string | null, CompanyName?: string | null, End?: string | null, Period?: string | null, CreateAt?: string | null, UsernameCreated?: string | null, Location?: Array<{ __typename?: 'Location', Location?: string | null, Reason?: string | null, SiteId?: string | null, AverageDate?: Array<Array<string | null> | null> | null, QuantityLogger?: number | null, TotalQuantity?: number | null, PrevTetHoliday?: Array<string | null> | null, NextTetHoliday?: Array<string | null> | null, TenDayPrevTetHoliday?: Array<string | null> | null, KFactory?: number | null, AveragePrevTetHoliday?: number | null, AverageTenDayPrevTetHoliday?: number | null, Periods?: Array<{ __typename?: 'Periods', Period?: string | null, Quantity?: number | null } | null> | null, DateCalclogger?: Array<{ __typename?: 'DateCalclogger', Quantity?: number | null, From?: string | null, To?: string | null, DateRange?: Array<string | null> | null } | null> | null } | null> | null, Index?: Array<{ __typename?: 'Index', SiteId?: string | null, Location?: string | null, PreviousPeriodIndex?: number | null, NextPeriodIndex?: number | null } | null> | null, LockValve?: Array<{ __typename?: 'LockValve', SiteId?: string | null, Location?: string | null } | null> | null, SubtractWaterB1?: Array<{ __typename?: 'SubtractWaterB1', NumberPrecious?: string | null, Content?: string | null, Provider?: string | null, AmountWater?: number | null, Note?: string | null } | null> | null, SubtractWaterB2?: Array<{ __typename?: 'SubtractWaterB2', NumberPrecious?: string | null, Content?: string | null, AmountWater?: number | null, Provider?: string | null, Note?: string | null } | null> | null, WaterCustomer?: Array<{ __typename?: 'WaterCustomer', NumberPrecious?: string | null, DatePublished?: string | null, AmountMeter?: number | null, AmountWater?: number | null, Note?: string | null } | null> | null } | null> | null };
+
+export type GetSiteByWaterSubtractB2ForTaQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSiteByWaterSubtractB2ForTaQuery = { __typename?: 'Query', GetSiteByWaterSubtractB2ForTA?: Array<{ __typename?: 'Site', _id: string, Location?: string | null, OldId?: string | null, Latitude?: number | null, Longitude?: number | null, ViewGroup?: string | null, StaffId?: string | null, Meter?: string | null, Transmitter?: string | null, Logger?: string | null, DateOfMeterChange?: any | null, DateOfLoggerChange?: any | null, DateOfTransmitterChange?: any | null, DateOfBatteyChange?: any | null, DateOfTransmitterBatteryChgange?: any | null, DateOfLoggerBatteryChange?: any | null, DescriptionOfChange?: string | null, ChangeIndex?: number | null, Level?: string | null, Group?: string | null, Company?: string | null, Takeovered?: boolean | null, TakeoverDate?: any | null, Availability?: string | null, Display?: boolean | null, Property?: boolean | null, UsingLogger?: boolean | null, MeterDirection?: string | null, ProductionCompany?: string | null, IsDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, ChangeIndex1?: number | null, Description?: string | null, Group2?: string | null, Address?: string | null, CoverID?: string | null, Group3?: string | null, Group4?: string | null, Group5?: string | null, District?: string | null, IsErrorBattery?: boolean | null } | null> | null };
 
 export type GetSiteByWaterSupplyQueryVariables = Exact<{
   company: Scalars['String'];
@@ -1017,6 +1035,12 @@ export const GetPreciousByCompanyDocument = gql`
       }
       QuantityLogger
       TotalQuantity
+      PrevTetHoliday
+      NextTetHoliday
+      TenDayPrevTetHoliday
+      KFactory
+      AveragePrevTetHoliday
+      AverageTenDayPrevTetHoliday
     }
     Index {
       SiteId
@@ -1082,6 +1106,85 @@ export type GetPreciousByCompanyLazyQueryHookResult = ReturnType<typeof useGetPr
 export type GetPreciousByCompanyQueryResult = Apollo.QueryResult<GetPreciousByCompanyQuery, GetPreciousByCompanyQueryVariables>;
 export function refetchGetPreciousByCompanyQuery(variables?: GetPreciousByCompanyQueryVariables) {
       return { query: GetPreciousByCompanyDocument, variables: variables }
+    }
+export const GetSiteByWaterSubtractB2ForTaDocument = gql`
+    query GetSiteByWaterSubtractB2ForTA {
+  GetSiteByWaterSubtractB2ForTA {
+    _id
+    Location
+    OldId
+    Latitude
+    Longitude
+    ViewGroup
+    StaffId
+    Meter
+    Transmitter
+    Logger
+    DateOfMeterChange
+    DateOfLoggerChange
+    DateOfTransmitterChange
+    DateOfBatteyChange
+    DateOfTransmitterBatteryChgange
+    DateOfLoggerBatteryChange
+    DescriptionOfChange
+    ChangeIndex
+    Level
+    Group
+    Company
+    Takeovered
+    TakeoverDate
+    Availability
+    Display
+    Property
+    UsingLogger
+    MeterDirection
+    ProductionCompany
+    IsDistributionCompany
+    QndDistributionCompany
+    IstDoNotCalculateReverse
+    QndDoNotCalculateReverse
+    ChangeIndex1
+    Description
+    Group2
+    Address
+    CoverID
+    Group3
+    Group4
+    Group5
+    District
+    IsErrorBattery
+  }
+}
+    `;
+
+/**
+ * __useGetSiteByWaterSubtractB2ForTaQuery__
+ *
+ * To run a query within a React component, call `useGetSiteByWaterSubtractB2ForTaQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSiteByWaterSubtractB2ForTaQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSiteByWaterSubtractB2ForTaQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSiteByWaterSubtractB2ForTaQuery(baseOptions?: Apollo.QueryHookOptions<GetSiteByWaterSubtractB2ForTaQuery, GetSiteByWaterSubtractB2ForTaQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSiteByWaterSubtractB2ForTaQuery, GetSiteByWaterSubtractB2ForTaQueryVariables>(GetSiteByWaterSubtractB2ForTaDocument, options);
+      }
+export function useGetSiteByWaterSubtractB2ForTaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSiteByWaterSubtractB2ForTaQuery, GetSiteByWaterSubtractB2ForTaQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSiteByWaterSubtractB2ForTaQuery, GetSiteByWaterSubtractB2ForTaQueryVariables>(GetSiteByWaterSubtractB2ForTaDocument, options);
+        }
+export type GetSiteByWaterSubtractB2ForTaQueryHookResult = ReturnType<typeof useGetSiteByWaterSubtractB2ForTaQuery>;
+export type GetSiteByWaterSubtractB2ForTaLazyQueryHookResult = ReturnType<typeof useGetSiteByWaterSubtractB2ForTaLazyQuery>;
+export type GetSiteByWaterSubtractB2ForTaQueryResult = Apollo.QueryResult<GetSiteByWaterSubtractB2ForTaQuery, GetSiteByWaterSubtractB2ForTaQueryVariables>;
+export function refetchGetSiteByWaterSubtractB2ForTaQuery(variables?: GetSiteByWaterSubtractB2ForTaQueryVariables) {
+      return { query: GetSiteByWaterSubtractB2ForTaDocument, variables: variables }
     }
 export const GetSiteByWaterSupplyDocument = gql`
     query GetSiteByWaterSupply($company: String!) {

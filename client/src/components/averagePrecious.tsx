@@ -7,9 +7,10 @@ import { AddLocationState, updateTotalQuantity } from '../features/addLocation';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    calcSpace2Date,
-    convertDateToDayAndMonth,
-    convertDateToPeriod,
+	calcSpace2Date,
+	convertDateToDayAndMonth,
+	convertDateToPeriod,
+	convertMilisecondToStringDate,
 } from '../utils/utils';
 
 const AveragePrecious = () => {
@@ -83,6 +84,25 @@ const AveragePrecious = () => {
         return check;
     };
 
+    const checkCalcKFactor = (data: any) => {
+        let check = false;
+        if (
+            data.PrevTetHoliday !== null &&
+            data.PrevTetHoliday !== undefined &&
+            data.NextTetHoliday !== null &&
+            data.NextTetHoliday !== undefined
+        ) {
+            if (
+                data.PrevTetHoliday.length > 0 &&
+                data.NextTetHoliday.length > 0
+            ) {
+                check = true;
+            }
+        }
+
+        return check;
+    };
+
     const convertStringCalcAveragePeriod = (data: any) => {
         let isFirst = true;
 
@@ -138,48 +158,99 @@ const AveragePrecious = () => {
         return sum / totalDay;
     };
 
-    const renderAverageDay = (data: any, average: number) => {
+    const renderAverageDay = (data: any, average: number, dataOrigin: any) => {
         let result = [];
+        if (checkCalcKFactor(dataOrigin) == true) {
+            if (data.length > 0) {
+                for (let item of data) {
+                    if (item.length > 0) {
+                        let sum =
+                            average *
+                            calcSpace2Date(item[0], item[item.length - 1]) *
+                            dataOrigin.KFactory;
 
-        if (data.length > 0) {
-            for (let item of data) {
-                if (item.length > 0) {
-                    let sum =
-                        average *
-                        calcSpace2Date(item[0], item[item.length - 1]);
-
-                    let content = (
-                        <span key={`key-${item[0]}`}>
-                            <br />
-                            <span>
-                                {' '}
-                                - Sản lượng từ ngày{' '}
-                                {convertDateToDayAndMonth(item[0])} đến{' '}
-                                {convertDateToDayAndMonth(
-                                    item[item.length - 1],
-                                )}
-                                :{' '}
-                                {average
-                                    ? new Intl.NumberFormat('de-DE').format(
-                                          //@ts-ignore
-                                          average.toFixed(0),
-                                      )
-                                    : ''}{' '}
-                                x{' '}
-                                {calcSpace2Date(item[0], item[item.length - 1])}{' '}
-                                ={' '}
-                                {sum
-                                    ? new Intl.NumberFormat('de-DE').format(
-                                          //@ts-ignore
-                                          sum.toFixed(0),
-                                      )
-                                    : ''}{' '}
-                                m3 (Tính TB)
+                        let content = (
+                            <span key={`key-${item[0]}`}>
+                                <br />
+                                <span>
+                                    {' '}
+                                    - Sản lượng từ ngày{' '}
+                                    {convertDateToDayAndMonth(item[0])} đến{' '}
+                                    {convertDateToDayAndMonth(
+                                        item[item.length - 1],
+                                    )}{' '}
+                                    tính theo hệ số K:{' '}
+                                    {average
+                                        ? new Intl.NumberFormat('de-DE').format(
+                                              //@ts-ignore
+                                              average.toFixed(0),
+                                          )
+                                        : ''}{' '}
+                                    x{' '}
+                                    {calcSpace2Date(
+                                        item[0],
+                                        item[item.length - 1],
+                                    )}{' '}
+                                    x {dataOrigin.KFactory}={' '}
+                                    {sum
+                                        ? new Intl.NumberFormat('de-DE').format(
+                                              //@ts-ignore
+                                              sum.toFixed(0),
+                                          )
+                                        : ''}{' '}
+                                    m3 (Tính TB)
+                                </span>
                             </span>
-                        </span>
-                    );
+                        );
 
-                    result.push(content);
+                        result.push(content);
+                    }
+                }
+            }
+        } else {
+            if (data.length > 0) {
+                for (let item of data) {
+                    if (item.length > 0) {
+                        let sum =
+                            average *
+                            calcSpace2Date(item[0], item[item.length - 1]);
+
+                        let content = (
+                            <span key={`key-${item[0]}`}>
+                                <br />
+                                <span>
+                                    {' '}
+                                    - Sản lượng từ ngày{' '}
+                                    {convertDateToDayAndMonth(item[0])} đến{' '}
+                                    {convertDateToDayAndMonth(
+                                        item[item.length - 1],
+                                    )}
+                                    :{' '}
+                                    {average
+                                        ? new Intl.NumberFormat('de-DE').format(
+                                              //@ts-ignore
+                                              average.toFixed(0),
+                                          )
+                                        : ''}{' '}
+                                    x{' '}
+                                    {calcSpace2Date(
+                                        item[0],
+                                        item[item.length - 1],
+                                    )}{' '}
+                                    ={' '}
+                                    {sum
+                                        ? new Intl.NumberFormat('de-DE').format(
+                                              //@ts-ignore
+                                              sum.toFixed(0),
+                                          )
+                                        : ''}{' '}
+                                    m3 (Tính TB)
+                                </span>
+                            </span>
+                        );
+
+                        result.push(content);
+                    }
                 }
             }
         }
@@ -283,21 +354,29 @@ const AveragePrecious = () => {
         dataAverage: any,
         dataLogger: any,
         averageNumber: number,
+        dataOrigin: any,
     ) => {
         let content = '';
+        let k = 1;
+
+        if (checkCalcKFactor(dataOrigin) == true) {
+            k = dataOrigin.KFactory;
+        }
 
         let isFirst = true;
         if (dataAverage.length > 0) {
             for (let item of dataAverage) {
                 if (isFirst) {
                     content += `${new Intl.NumberFormat('de-DE').format(
-                        averageNumber *
+                        k *
+                            averageNumber *
                             calcSpace2Date(item[0], item[item.length - 1]),
                     )}`;
                     isFirst = false;
                 } else {
                     content += ` + ${new Intl.NumberFormat('de-DE').format(
-                        averageNumber *
+                        k *
+                            averageNumber *
                             calcSpace2Date(item[0], item[item.length - 1]),
                     )}`;
                 }
@@ -335,17 +414,23 @@ const AveragePrecious = () => {
         averageNumber: number,
         averageLogger: number,
         periods: any,
+        dataOrigin: any,
     ) => {
         let sum = 0;
         let numberMutilply = averageNumber;
+        let k = 1;
 
         if (checkCalcAveragePeriod(periods) == false) {
             numberMutilply = averageLogger;
+        }
+        if (checkCalcKFactor(dataOrigin) == true) {
+            k = dataOrigin.KFactory;
         }
 
         if (dataAverage.length > 0) {
             for (let item of dataAverage) {
                 let number =
+                    k *
                     numberMutilply *
                     calcSpace2Date(item[0], item[item.length - 1]);
                 number = parseInt(number ? number.toFixed(2) : '0');
@@ -455,6 +540,7 @@ const AveragePrecious = () => {
                 averagePeriod,
                 averageDayLogger,
                 item.Periods,
+                item,
             );
 
             sumQuantityPeriod = parseInt(
@@ -562,6 +648,7 @@ const AveragePrecious = () => {
                                     </span>
                                 </>
                             ) : null}
+
                             <br />
                             <span>
                                 {' '}
@@ -580,7 +667,60 @@ const AveragePrecious = () => {
                                     : ''}{' '}
                                 m3
                             </span>
-                            {renderAverageDay(item.AverageDate, averagePeriod)}
+                            {checkCalcKFactor(item) == true && (
+                                <>
+                                    <br />
+                                    <span>
+                                        - Hệ số K tính TB cho thời gian nghỉ tết
+                                        từ{' '}
+                                        {convertDateToDayAndMonth(
+                                            item.NextTetHoliday[0],
+                                        )}{' '}
+                                        -{' '}
+                                        {convertDateToDayAndMonth(
+                                            item.NextTetHoliday[
+                                                item.NextTetHoliday.length - 1
+                                            ],
+                                        )}
+                                    </span>
+                                    <br />
+                                    <span>
+                                        - K = TB (
+                                        {convertMilisecondToStringDate(
+                                            item.PrevTetHoliday[0],
+                                        )}{' '}
+                                        -{' '}
+                                        {convertMilisecondToStringDate(
+                                            item.PrevTetHoliday[
+                                                item.PrevTetHoliday.length - 1
+                                            ],
+                                        )}
+                                        ) / TB (
+                                        {convertMilisecondToStringDate(
+                                            item.TenDayPrevTetHoliday[0],
+                                        )}{' '}
+                                        -{' '}
+                                        {convertMilisecondToStringDate(
+                                            item.TenDayPrevTetHoliday[
+                                                item.TenDayPrevTetHoliday
+                                                    .length - 1
+                                            ],
+                                        )}
+                                        )
+                                    </span>
+                                    <br />
+                                    <span>
+                                        - K = {item.AveragePrevTetHoliday} /{' '}
+                                        {item.AverageTenDayPrevTetHoliday} ={' '}
+                                        {item.KFactory}
+                                    </span>
+                                </>
+                            )}
+                            {renderAverageDay(
+                                item.AverageDate,
+                                averagePeriod,
+                                item,
+                            )}
                             {renderQuantityLogger(item.DateCalclogger)}
                             <br />
                             <span>
@@ -595,6 +735,7 @@ const AveragePrecious = () => {
                                     item.AverageDate,
                                     item.DateCalclogger,
                                     averagePeriod,
+                                    item,
                                 )}{' '}
                                 ={'  '}
                                 {new Intl.NumberFormat('de-DE').format(
@@ -606,6 +747,55 @@ const AveragePrecious = () => {
                     ) : (
                         <>
                             {/* by logger */}
+							{checkCalcKFactor(item) == true && (
+                                <>
+                                    <br />
+                                    <span>
+                                        - Hệ số K tính TB cho thời gian nghỉ tết
+                                        từ{' '}
+                                        {convertDateToDayAndMonth(
+                                            item.NextTetHoliday[0],
+                                        )}{' '}
+                                        -{' '}
+                                        {convertDateToDayAndMonth(
+                                            item.NextTetHoliday[
+                                                item.NextTetHoliday.length - 1
+                                            ],
+                                        )}
+                                    </span>
+                                    <br />
+                                    <span>
+                                        - K = TB (
+                                        {convertMilisecondToStringDate(
+                                            item.PrevTetHoliday[0],
+                                        )}{' '}
+                                        -{' '}
+                                        {convertMilisecondToStringDate(
+                                            item.PrevTetHoliday[
+                                                item.PrevTetHoliday.length - 1
+                                            ],
+                                        )}
+                                        ) / TB (
+                                        {convertMilisecondToStringDate(
+                                            item.TenDayPrevTetHoliday[0],
+                                        )}{' '}
+                                        -{' '}
+                                        {convertMilisecondToStringDate(
+                                            item.TenDayPrevTetHoliday[
+                                                item.TenDayPrevTetHoliday
+                                                    .length - 1
+                                            ],
+                                        )}
+                                        )
+                                    </span>
+                                    <br />
+                                    <span>
+                                        - K = {item.AveragePrevTetHoliday} /{' '}
+                                        {item.AverageTenDayPrevTetHoliday} ={' '}
+                                        {item.KFactory}
+                                    </span>
+                                </>
+                            )}
                             {renderQuantityLogger(item.DateCalclogger)}
                             <br />
                             <span>
@@ -624,6 +814,7 @@ const AveragePrecious = () => {
                             {renderAverageDay(
                                 item.AverageDate,
                                 averageDayLogger,
+                                item,
                             )}
                             <br />
                             <span>
@@ -638,6 +829,7 @@ const AveragePrecious = () => {
                                     item.AverageDate,
                                     item.DateCalclogger,
                                     averageDayLogger,
+                                    item,
                                 )}{' '}
                                 ={' '}
                                 {new Intl.NumberFormat('de-DE').format(

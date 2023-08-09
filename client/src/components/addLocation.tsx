@@ -18,12 +18,18 @@ import {
     AddLocationState,
     deleteLocation,
     updateAverageDate,
+    updateAveragePrevTetHoliday,
+    updateAverageTenDayPrevTetHoliday,
     updateDateCalclogger,
+    updateKFactory,
+    updateNextTetHoliday,
     updatePeriods,
+    updatePrevTetHoliday,
     updateQuantityForPeriod,
     updateQuantityLogger,
     updateReason,
     updateSite,
+    updateTenDayPrevTetHoliday,
 } from '../features/addLocation';
 
 import { CurrentCompanyPreciousState } from '../features/currentCompanyPercious';
@@ -61,6 +67,8 @@ const AddLocation = ({ index }: AddLocationInterface) => {
     const [siteid, setSiteId] = useState('');
     const [sitename, setSiteName] = useState('');
     const [quantityLogger, setQuantityLogger] = useState(0);
+    const [prevTetHoliday, setPrevTetHoliday] = useState<Date[]>([]);
+    const [nextTetHoliday, setNextTetHoliday] = useState<Date[]>([]);
 
     const addLocationState = useSelector(AddLocationState);
 
@@ -152,6 +160,50 @@ const AddLocation = ({ index }: AddLocationInterface) => {
             setDateCalcLogger([...tempDateCalclogger]);
             setQuantityLogger(sumLogger);
         }
+
+        if (
+            //@ts-ignore
+            location.PrevTetHoliday !== null &&
+            //@ts-ignore
+            location.PrevTetHoliday !== undefined
+        ) {
+            //@ts-ignore
+            if (location.PrevTetHoliday.length > 0) {
+                let temp = [];
+                //@ts-ignore
+                for (let item of location.PrevTetHoliday) {
+                    temp.push(new Date(item));
+                }
+
+                setPrevTetHoliday([...temp]);
+            } else {
+                setPrevTetHoliday([]);
+            }
+        } else {
+            setPrevTetHoliday([]);
+        }
+
+        if (
+            //@ts-ignore
+            location.NextTetHoliday !== null &&
+            //@ts-ignore
+            location.NextTetHoliday !== undefined
+        ) {
+            //@ts-ignore
+            if (location.NextTetHoliday.length > 0) {
+                let temp = [];
+                //@ts-ignore
+                for (let item of location.NextTetHoliday) {
+                    temp.push(new Date(item));
+                }
+
+                setNextTetHoliday([...temp]);
+            } else {
+                setNextTetHoliday([]);
+            }
+        } else {
+            setNextTetHoliday([]);
+        }
     }, [addLocationState[index]]);
 
     const { data, error, loading } = useGetSiteByWaterSupplyQuery({
@@ -180,6 +232,12 @@ const AddLocation = ({ index }: AddLocationInterface) => {
             data: dataQuantity3,
         },
     ] = useQuantityLoggerDayLazyQuery();
+
+    const [getQuantityLoggerPrevTet, { data: dataQuantityPrevTet }] =
+        useQuantityLoggerDayLazyQuery();
+
+    const [getQuantityLoggerTenDayTet, { data: dataQuantityTenDayTet }] =
+        useQuantityLoggerDayLazyQuery();
 
     const [
         getQuantityLoggerByTimeStamp,
@@ -716,6 +774,197 @@ const AddLocation = ({ index }: AddLocationInterface) => {
         dispatch(updateReason(obj));
     };
 
+    const onPreTetHolidayBlured = (e: any) => {
+        let prevTetHolidayMilisecond = prevTetHoliday.map((el) => el.getTime());
+
+        let obj = {
+            index: index,
+            PrevTetHoliday: prevTetHolidayMilisecond,
+        };
+
+        //@ts-ignore
+        dispatch(updatePrevTetHoliday(obj));
+
+        if (prevTetHoliday.length > 0) {
+            let tempMiliSecond = [];
+
+            for (let i = 10; i >= 1; i--) {
+                let temp = new Date(prevTetHoliday[0]);
+                tempMiliSecond.push(temp.setDate(temp.getDate() - i));
+            }
+
+            let objUpdateTenDay = {
+                index: index,
+                TenDayPrevTetHoliday: tempMiliSecond,
+            };
+
+            //@ts-ignore
+            dispatch(updateTenDayPrevTetHoliday(objUpdateTenDay));
+
+            const getQuantityLoggerPrevTetData = getQuantityLoggerPrevTet({
+                variables: {
+                    siteid: siteid,
+                    company: currentCompanyPreciousState,
+                    start: prevTetHolidayMilisecond[0].toString(),
+                    end: prevTetHolidayMilisecond[
+                        prevTetHolidayMilisecond.length - 1
+                    ].toString(),
+                },
+            });
+
+            const getQuantityLoggerTenDayTetData = getQuantityLoggerTenDayTet({
+                variables: {
+                    siteid: siteid,
+                    company: currentCompanyPreciousState,
+                    start: tempMiliSecond[0].toString(),
+                    end: tempMiliSecond[tempMiliSecond.length - 1].toString(),
+                },
+            });
+
+            Promise.all([
+                getQuantityLoggerPrevTetData,
+                getQuantityLoggerTenDayTetData,
+            ])
+                .then((res) => {
+                    if (res != null && res != undefined) {
+                        if (res[0].data !== null && res[0].data !== undefined) {
+                            if (
+                                res[0].data.QuantityLoggerDay !== null &&
+                                res[0].data.QuantityLoggerDay !== undefined
+                            ) {
+                                let averageTet =
+                                    res[0].data.QuantityLoggerDay /
+                                    prevTetHolidayMilisecond.length;
+
+                                averageTet = averageTet
+                                    ? parseFloat(averageTet.toFixed(2))
+                                    : 0;
+
+                                let objUpdateAverageTet = {
+                                    index: index,
+                                    AveragePrevTetHoliday: averageTet,
+                                };
+
+                                dispatch(
+                                    updateAveragePrevTetHoliday(
+                                        //@ts-ignore
+                                        objUpdateAverageTet,
+                                    ),
+                                );
+
+                                if (
+                                    res[1].data !== null &&
+                                    res[1].data !== undefined
+                                ) {
+                                    if (
+                                        res[1].data.QuantityLoggerDay !==
+                                            null &&
+                                        res[1].data.QuantityLoggerDay !==
+                                            undefined
+                                    ) {
+                                        let averageTenDayTet =
+                                            res[0].data.QuantityLoggerDay /
+                                            tempMiliSecond.length;
+
+                                        averageTenDayTet = averageTenDayTet
+                                            ? parseFloat(
+                                                  averageTenDayTet.toFixed(2),
+                                              )
+                                            : 0;
+
+                                        let objUpdateAverageTenDayTet = {
+                                            index: index,
+                                            AverageTenDayPrevTetHoliday:
+                                                averageTenDayTet,
+                                        };
+
+                                        dispatch(
+                                            updateAverageTenDayPrevTetHoliday(
+                                                //@ts-ignore
+                                                objUpdateAverageTenDayTet,
+                                            ),
+                                        );
+
+                                        let kFactory =
+                                            averageTet / averageTenDayTet;
+
+                                        kFactory = kFactory
+                                            ? parseFloat(kFactory.toFixed(2))
+                                            : 1;
+
+                                        let objUpdateKFactory = {
+                                            index: index,
+                                            KFactory: kFactory,
+                                        };
+
+                                        dispatch(
+                                            //@ts-ignore
+                                            updateKFactory(objUpdateKFactory),
+                                        );
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+                .catch((err) => console.log(err));
+        } else {
+            let objUpdateTenDay = {
+                index: index,
+                TenDayPrevTetHoliday: [],
+            };
+
+            //@ts-ignore
+            dispatch(updateTenDayPrevTetHoliday(objUpdateTenDay));
+
+            let objUpdateAverageTet = {
+                index: index,
+                AveragePrevTetHoliday: 0,
+            };
+
+            dispatch(
+                updateAveragePrevTetHoliday(
+                    //@ts-ignore
+                    objUpdateAverageTet,
+                ),
+            );
+
+            let objUpdateAverageTenDayTet = {
+                index: index,
+                AverageTenDayPrevTetHoliday: 0,
+            };
+
+            dispatch(
+                updateAveragePrevTetHoliday(
+                    //@ts-ignore
+                    objUpdateAverageTenDayTet,
+                ),
+            );
+
+            let objUpdateKFactory = {
+                index: index,
+                KFactory: 1,
+            };
+
+            dispatch(
+                //@ts-ignore
+                updateKFactory(objUpdateKFactory),
+            );
+        }
+    };
+
+    const onNextTetHolidayBlured = (e: any) => {
+        let nextTetHolidayMilisecond = nextTetHoliday.map((el) => el.getTime());
+
+        let obj = {
+            index: index,
+            NextTetHoliday: nextTetHolidayMilisecond,
+        };
+
+        //@ts-ignore
+        dispatch(updateNextTetHoliday(obj));
+    };
+
     return (
         <Grid>
             <Col
@@ -733,6 +982,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                     onClick={onCloseAddLocationClicked}
                 ></IconX>
             </Col>
+
             <Col span={12}>
                 <Select
                     label={
@@ -760,6 +1010,30 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                     onBlur={onReasonBlured}
                     //@ts-ignore
                     onChange={(e) => setReason(e.currentTarget.value)}
+                />
+            </Col>
+            <Col span={12}>
+                <DatePickerInput
+                    valueFormat="DD/MM/YYYY"
+                    type="multiple"
+                    label="Ngày tết năm trước"
+                    placeholder="Ngày tết năm trước"
+                    value={prevTetHoliday}
+                    onChange={setPrevTetHoliday}
+                    mx="auto"
+                    onBlur={onPreTetHolidayBlured}
+                />
+            </Col>
+            <Col span={12}>
+                <DatePickerInput
+                    valueFormat="DD/MM/YYYY"
+                    type="multiple"
+                    label="Ngày tết năm sau"
+                    placeholder="Ngày tết năm sau"
+                    value={nextTetHoliday}
+                    onChange={setNextTetHoliday}
+                    mx="auto"
+                    onBlur={onNextTetHolidayBlured}
                 />
             </Col>
             <Col span={6}>

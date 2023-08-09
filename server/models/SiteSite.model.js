@@ -156,3 +156,37 @@ module.exports.GetSiteBySiteId = async (siteid) => {
 
     return result;
 };
+
+module.exports.GetSiteByWaterSubtractB2ForTA = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let listSites = [
+        'ta2008',
+        'ta2004',
+        'ta2003',
+        'ta2006',
+        'ta2009',
+        'ta2007',
+        'ta2005',
+        'ta2014',
+        'ta2010',
+        'ta2015',
+        'ta2012',
+        'ta2011',
+        'ta2013',
+        'ta2016',
+        'ta2017',
+        'bc2022',
+    ];
+
+    let result = await collection
+        .find({ _id: { $in: listSites } })
+        .sort({ _id: 1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

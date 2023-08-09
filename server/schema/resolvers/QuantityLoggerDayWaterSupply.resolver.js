@@ -135,60 +135,61 @@ module.exports = {
                                     objQuantity.TimeStamp = null;
                                     objQuantity.Value = 0;
                                     objQuantity.IsEnoughData = true;
-                                    let tempStartDataManual = new Date(
-                                        startDate,
-                                    );
-                                    tempStartDataManual.setDate(
-                                        tempStartDataManual.getDate() + i,
-                                    );
+                                    // let tempStartDataManual = new Date(
+                                    //     startDate,
+                                    // );
+                                    // tempStartDataManual.setDate(
+                                    //     tempStartDataManual.getDate() + i,
+                                    // );
 
-                                    let dataManual =
-                                        await DataManualModel.GetDataManualBySiteId(
-                                            site._id,
-                                            tempStartDataManual,
-                                        );
-                                    if (
-                                        dataManual.length > 0 &&
-                                        dataManual[0].Output !== null &&
-                                        dataManual[0].Output !== undefined
-                                    ) {
-                                        tempStartDataManual.setHours(
-                                            tempStartDataManual.getHours() + 7,
-                                        );
+                                    // let dataManual =
+                                    //     await DataManualModel.GetDataManualBySiteId(
+                                    //         site._id,
+                                    //         tempStartDataManual,
+                                    //     );
+                                    // if (
+                                    //     dataManual.length > 0 &&
+                                    //     dataManual[0].Output !== null &&
+                                    //     dataManual[0].Output !== undefined
+                                    // ) {
+                                    //     tempStartDataManual.setHours(
+                                    //         tempStartDataManual.getHours() + 7,
+                                    //     );
 
-                                        objQuantity.TimeStamp =
-                                            tempStartDataManual;
-                                        objQuantity.Value =
-                                            dataManual[0].Output;
+                                    //     objQuantity.TimeStamp =
+                                    //         tempStartDataManual;
+                                    //     objQuantity.Value =
+                                    //         dataManual[0].Output;
 
-                                        if (
-                                            (obj.MeterDirection == 'N' &&
-                                                obj.IstDistributionCompany ==
-                                                    company) ||
-                                            (obj.MeterDirection == 'P' &&
-                                                obj.QndDistributionCompany ==
-                                                    company) ||
-                                            (objQuantity.Value < 0 &&
-                                                production == 1)
-                                        ) {
-                                            objQuantity.Value =
-                                                -objQuantity.Value;
-                                        }
+                                    //     if (
+                                    //         (obj.MeterDirection == 'N' &&
+                                    //             obj.IstDistributionCompany ==
+                                    //                 company) ||
+                                    //         (obj.MeterDirection == 'P' &&
+                                    //             obj.QndDistributionCompany ==
+                                    //                 company) ||
+                                    //         (objQuantity.Value < 0 &&
+                                    //             production == 1)
+                                    //     ) {
+                                    //         objQuantity.Value =
+                                    //             -objQuantity.Value;
+                                    //     }
 
-                                        if (
-                                            (objQuantity.Value < 0 &&
-                                                obj.IstDoNotCalculateReverse ==
-                                                    1 &&
-                                                obj.MeterDirection == 'P') ||
-                                            (objQuantity.Value > 0 &&
-                                                obj.QndDoNotCalculateReverse ==
-                                                    1 &&
-                                                obj.MeterDirection == 'N') ||
-                                            objQuantity.Value == null
-                                        ) {
-                                            objQuantity.Value = 0;
-                                        }
-                                    } else {
+                                    //     if (
+                                    //         (objQuantity.Value < 0 &&
+                                    //             obj.IstDoNotCalculateReverse ==
+                                    //                 1 &&
+                                    //             obj.MeterDirection == 'P') ||
+                                    //         (objQuantity.Value > 0 &&
+                                    //             obj.QndDoNotCalculateReverse ==
+                                    //                 1 &&
+                                    //             obj.MeterDirection == 'N') ||
+                                    //         objQuantity.Value == null
+                                    //     ) {
+                                    //         objQuantity.Value = 0;
+                                    //     }
+                                    // } else
+                                    {
                                         // let tempStart = new Date(startDate);
                                         // let tempEnd = new Date(startDate);
 

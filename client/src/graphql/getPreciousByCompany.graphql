@@ -25,6 +25,12 @@ query GetPreciousByCompany($company: String) {
             }
             QuantityLogger
             TotalQuantity
+            PrevTetHoliday
+            NextTetHoliday
+            TenDayPrevTetHoliday
+            KFactory
+            AveragePrevTetHoliday
+            AverageTenDayPrevTetHoliday
         }
         Index {
             SiteId
