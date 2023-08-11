@@ -2,23 +2,24 @@ import { Button, Center, Col, Grid, Select, Space, Text } from '@mantine/core';
 import { DateInput, DateTimePicker } from '@mantine/dates';
 
 import {
-	IconBookmarkEdit,
-	IconDeviceFloppy,
-	IconFileX,
-	IconMapPinFilled,
-	IconPlus,
-	IconTrash,
+    IconBookmarkEdit,
+    IconDeviceFloppy,
+    IconFileX,
+    IconMapPinFilled,
+    IconPlus,
+    IconTrash,
 } from '@tabler/icons-react';
 
 import { useEffect, useState } from 'react';
 
 import {
-	useDeletePreciousMutation,
-	useGetCompaniesQuery,
-	useGetPreciousByCompanyLazyQuery,
-	useInsertPreciousMutation,
-	useQuantityLoggerDayWaterSupplyLazyQuery,
-	useUpdatePreciousMutation,
+    useDeletePreciousMutation,
+    useGetCompaniesQuery,
+    useGetPreciousByCompanyLazyQuery,
+    useInsertPreciousMutation,
+    useQuantityDayWaterSupplyLazyQuery,
+    useQuantityLoggerDayWaterSupplyLazyQuery,
+    useUpdatePreciousMutation,
 } from '../__generated__/graphql';
 
 import Companies from '../types/companies.type';
@@ -34,75 +35,75 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AddIndexState, addIndex, addIndexs } from '../features/addIndex';
 import {
-	AddLocationState,
-	addLocation,
-	addLocations,
+    AddLocationState,
+    addLocation,
+    addLocations,
 } from '../features/addLocation';
 import {
-	AddLockValveState,
-	addLockValve,
-	addLockValves,
+    AddLockValveState,
+    addLockValve,
+    addLockValves,
 } from '../features/addLockValve';
 import {
-	AddSubtractWaterB1State,
-	addSubtractWaterB1,
-	addSubtractWaterB1s,
+    AddSubtractWaterB1State,
+    addSubtractWaterB1,
+    addSubtractWaterB1s,
 } from '../features/addSubtractWaterB1';
 import {
-	AddSubtractWaterB2State,
-	addSubtractWaterB2,
-	addSubtractWaterB2s,
+    AddSubtractWaterB2State,
+    addSubtractWaterB2,
+    addSubtractWaterB2s,
 } from '../features/addSubtractWaterB2';
 import {
-	AddWaterCustomerState,
-	addWaterCustomer,
-	addWaterCustomers,
+    AddWaterCustomerState,
+    addWaterCustomer,
+    addWaterCustomers,
 } from '../features/addWaterCustomer';
 import {
-	CurrentCompanyPreciousState,
-	setCurrentCompanyPrecious,
+    CurrentCompanyPreciousState,
+    setCurrentCompanyPrecious,
 } from '../features/currentCompanyPercious';
 
 import {
-	CurrentCompanyNamePreciousState,
-	setCurrentCompanyNamePrecious,
+    CurrentCompanyNamePreciousState,
+    setCurrentCompanyNamePrecious,
 } from '../features/currentCompanyNamePrecious';
 
 import {
-	CurrentEndDatePreciousState,
-	setCurrentEndDatePrecious,
+    CurrentEndDatePreciousState,
+    setCurrentEndDatePrecious,
 } from '../features/currentEndDatePrecious';
 import {
-	CurrentStartDatePreciousState,
-	setCurrentStartDatePrecious,
+    CurrentStartDatePreciousState,
+    setCurrentStartDatePrecious,
 } from '../features/currentStartDatePrecious';
 
 import {
-	QuantityWaterSupplyState,
-	setQuantityWaterSupply,
+    QuantityWaterSupplyState,
+    setQuantityWaterSupply,
 } from '../features/quantityWaterSupply';
 
 import {
-	ListPreciousState,
-	addListPrecious,
-	deleteListPrecious,
-	insertListPrecious,
-	updateListPrecious,
+    ListPreciousState,
+    addListPrecious,
+    deleteListPrecious,
+    insertListPrecious,
+    updateListPrecious,
 } from '../features/listPrecious';
 
 import currentPreciousId, {
-	CurrentPreciousIdState,
-	setCurrentPreciousId,
+    CurrentPreciousIdState,
+    setCurrentPreciousId,
 } from '../features/currentPreciousId';
 
 import AveragePrecious from './averagePrecious';
 import QuantityPrecious from './quantityPrecious';
 
 import {
-	convertDatePeriodToMonth,
-	convertDatePeriodToYear,
-	convertDateToPeriod,
-	convertStringMilisecondToStringDate,
+    convertDatePeriodToMonth,
+    convertDatePeriodToYear,
+    convertDateToPeriod,
+    convertStringMilisecondToStringDate,
 } from '../utils/utils';
 
 import { getFontSizeValue } from '@mantine/core/lib/Box/style-system-props/value-getters/get-font-size-value';
@@ -141,7 +142,7 @@ const ReportAveragePrecious = () => {
     const { data, error, loading } = useGetCompaniesQuery();
 
     const [getQuantityDayLoggerWaterSupply, { data: dataQuantity }] =
-        useQuantityLoggerDayWaterSupplyLazyQuery();
+        useQuantityDayWaterSupplyLazyQuery();
 
     const [getPreciousByCompany, { data: dataPrecious }] =
         useGetPreciousByCompanyLazyQuery();
@@ -200,7 +201,7 @@ const ReportAveragePrecious = () => {
                         dispatch(
                             setQuantityWaterSupply(
                                 //@ts-ignore
-                                res.data.QuantityLoggerDayWaterSupply,
+                                res.data.QuantityDayWaterSupply,
                             ),
                         );
                     }
@@ -732,16 +733,12 @@ const ReportAveragePrecious = () => {
                             temp.push(i);
                         }
                         item.TenDayPrevTetHoliday = temp;
+                    } else {
+                        item.TenDayPrevTetHoliday = [];
                     }
-					else 
-					{
-						item.TenDayPrevTetHoliday = [];
-					}
+                } else {
+                    item.TenDayPrevTetHoliday = [];
                 }
-				else 
-				{
-					item.TenDayPrevTetHoliday = [];
-				}
             }
 
             dispatch(addLocations(addLocationLocal));
@@ -1623,13 +1620,13 @@ const ReportAveragePrecious = () => {
                     </Center>
                 </Col>
             </Grid>
-            {/* <template> */}
-            <Grid>
-                <Col span={12}>
-                    <AveragePrecious />
-                </Col>
-            </Grid>
-            {/* </template> */}
+            <template>
+                <Grid>
+                    <Col span={12}>
+                        <AveragePrecious />
+                    </Col>
+                </Grid>
+            </template>
             <template>
                 <Grid>
                     <Col span={12}>{<QuantityPrecious />}</Col>
