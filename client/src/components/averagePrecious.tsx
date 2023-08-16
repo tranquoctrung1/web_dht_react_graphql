@@ -7,10 +7,10 @@ import { AddLocationState, updateTotalQuantity } from '../features/addLocation';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-	calcSpace2Date,
-	convertDateToDayAndMonth,
-	convertDateToPeriod,
-	convertMilisecondToStringDate,
+    calcSpace2Date,
+    convertDateToDayAndMonth,
+    convertDateToPeriod,
+    convertMilisecondToStringDate,
 } from '../utils/utils';
 
 const AveragePrecious = () => {
@@ -747,7 +747,7 @@ const AveragePrecious = () => {
                     ) : (
                         <>
                             {/* by logger */}
-							{checkCalcKFactor(item) == true && (
+                            {checkCalcKFactor(item) == true && (
                                 <>
                                     <br />
                                     <span>

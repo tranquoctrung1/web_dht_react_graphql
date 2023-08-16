@@ -110,22 +110,25 @@ export const detectedDateRemainInPeriodByMilisecond = (
 
 export const detectedDateRangeContinuous = (dateRange: number[]) => {
     let result = [];
+    if (dateRange.length > 1) {
+        let temp = [dateRange[0]];
 
-    let temp = [dateRange[0]];
-
-    for (let i = 1; i < dateRange.length; i++) {
-        if (dateRange[i - 1] + 86400000 === dateRange[i]) {
-            temp.push(dateRange[i]);
-            if (i === dateRange.length - 1) {
+        for (let i = 1; i < dateRange.length; i++) {
+            if (dateRange[i - 1] + 86400000 === dateRange[i]) {
+                temp.push(dateRange[i]);
+                if (i === dateRange.length - 1) {
+                    result.push(temp);
+                }
+            } else {
                 result.push(temp);
-            }
-        } else {
-            result.push(temp);
-            temp = [dateRange[i]];
-            if (i === dateRange.length - 1) {
-                result.push(temp);
+                temp = [dateRange[i]];
+                if (i === dateRange.length - 1) {
+                    result.push(temp);
+                }
             }
         }
+    } else if (dateRange.length == 1) {
+        result.push([dateRange[0]]);
     }
 
     return result;

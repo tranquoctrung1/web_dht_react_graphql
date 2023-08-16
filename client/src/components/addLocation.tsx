@@ -7,7 +7,7 @@ import {
     Text,
     TextInput,
 } from '@mantine/core';
-import { DatePickerInput, DateTimePicker } from '@mantine/dates';
+import { DatePickerInput, DateTimePicker, TimeInput } from '@mantine/dates';
 import { IconMapPinFilled, IconX } from '@tabler/icons-react';
 
 import { useEffect, useState } from 'react';
@@ -595,14 +595,14 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                 AverageDate: detectedDateRangeContinuous(averageMiliSeconds),
             };
 
-            setDateCalcLogger(
-                detectedDateRemainInPeriod(
+            setDateCalcLogger([
+                ...detectedDateRemainInPeriod(
                     averageMiliSeconds,
                     // @ts-ignore
                     currentStartDatePreciousState,
                     currentEndDatePreciousState,
                 ),
-            );
+            ]);
 
             //@ts-ignore
             dispatch(updateAverageDate(obj));

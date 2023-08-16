@@ -10,6 +10,7 @@ import LoginPage from './pages/login';
 import MapPage from './pages/map';
 import QuantityCompanyPage from './pages/quantityCompany';
 import QuantityWaterSupplyPage from './pages/quantityWaterSupply';
+import SiteConfigPage from './pages/siteConfig';
 
 function App() {
     const router = createBrowserRouter([
@@ -20,6 +21,10 @@ function App() {
                 {
                     path: '',
                     element: <HomePage />,
+                },
+                {
+                    path: '/siteConfig',
+                    element: <SiteConfigPage />,
                 },
                 {
                     path: '/map',
