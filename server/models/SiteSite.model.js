@@ -28,6 +28,7 @@ module.exports.SiteSite = class SiteSite {
         Takeovered,
         TakeoverDate,
         Availability,
+        Status,
         Display,
         Property,
         UsingLogger,
@@ -71,6 +72,7 @@ module.exports.SiteSite = class SiteSite {
         this.TakeoverDate = TakeoverDate;
         this.Takeovered = Takeovered;
         this.Availability = Availability;
+        this.Status = Status;
         this.Display = Display;
         this.Property = Property;
         this.UsingLogger = UsingLogger;
@@ -145,12 +147,60 @@ module.exports.GetAllSites = async () => {
     return result;
 };
 
+module.exports.GetAllOldSiteId = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = [];
+
+    let data = await collection.find({}).toArray();
+
+    if (data.length > 0) {
+        for (const site of data) {
+            let find = result.find((el) => el === site.OldId);
+
+            if (find === undefined) {
+                result.push(site.OldId);
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.GetSiteBySiteId = async (siteid) => {
     let Connect = new ConnectDB.Connect();
 
     let collection = await Connect.connect(SiteSiteCollection);
 
     let result = await collection.find({ _id: siteid }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetAllViewGroups = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = [];
+
+    let data = await collection.find({}).toArray();
+
+    if (data.length > 0) {
+        for (const site of data) {
+            let find = result.find((el) => el === site.ViewGroup);
+
+            if (find === undefined) {
+                result.push(site.ViewGroup);
+            }
+        }
+    }
 
     Connect.disconnect();
 

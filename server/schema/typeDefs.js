@@ -284,6 +284,12 @@ module.exports = gql`
         nRow: Int
     }
 
+    type UserStaff {
+        _id: String
+        FirstName: String
+        LastName: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -440,6 +446,12 @@ module.exports = gql`
         GetPreciousByCompany(company: String): [Precious]
 
         GetSiteByWaterSubtractB2ForTA: [Site]
+
+        GetAllViewGroups: [String]
+
+        GetAllStaffs: [UserStaff]
+
+        GetAllOldSiteId: [String]
     }
 
     # declare Mutation

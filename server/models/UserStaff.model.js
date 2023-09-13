@@ -9,3 +9,15 @@ module.exports.UserStaff = class UserStaff {
         this.LastName = LastName;
     }
 };
+
+module.exports.GetAllStaffs = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(UserStaffCollection);
+
+    let result = await collection.find({}).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

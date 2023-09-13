@@ -314,9 +314,12 @@ export type QuantityLoggerDayWaterSupply = {
 
 export type Query = {
   __typename?: 'Query';
+  GetAllOldSiteId?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllPrecious?: Maybe<Array<Maybe<Precious>>>;
   GetAllSiteAndChannel?: Maybe<Array<SiteAndChannel>>;
   GetAllSites: Array<Maybe<Site>>;
+  GetAllStaffs?: Maybe<Array<Maybe<UserStaff>>>;
+  GetAllViewGroups?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetChannelByLoggerId?: Maybe<Array<Maybe<Channel>>>;
   GetCompanies?: Maybe<Array<Company>>;
   GetDataLoggerByLastRecord?: Maybe<Array<DataLogger>>;
@@ -503,6 +506,13 @@ export type SubtractWaterB2Input = {
   Provider?: InputMaybe<Scalars['String']>;
 };
 
+export type UserStaff = {
+  __typename?: 'UserStaff';
+  FirstName?: Maybe<Scalars['String']>;
+  LastName?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['String']>;
+};
+
 export type WaterCustomer = {
   __typename?: 'WaterCustomer';
   AmountMeter?: Maybe<Scalars['Float']>;
@@ -532,6 +542,11 @@ export type DeletePreciousMutationVariables = Exact<{
 
 export type DeletePreciousMutation = { __typename?: 'Mutation', DeletePrecious?: { __typename?: 'RowModified', nRow?: number | null } | null };
 
+export type GetAllOldSiteIdQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllOldSiteIdQuery = { __typename?: 'Query', GetAllOldSiteId?: Array<string | null> | null };
+
 export type GetAllSitesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -541,6 +556,16 @@ export type GetAllSiteAndChannelQueryVariables = Exact<{ [key: string]: never; }
 
 
 export type GetAllSiteAndChannelQuery = { __typename?: 'Query', GetAllSiteAndChannel?: Array<{ __typename?: 'SiteAndChannel', Address?: string | null, Company?: string | null, Description?: string | null, District?: string | null, Group?: string | null, Group2?: string | null, Group3?: string | null, Group4?: string | null, Group5?: string | null, IsErrorBattery?: boolean | null, Latitude?: number | null, Level?: string | null, Location?: string | null, LoggerId?: string | null, Longitude?: number | null, OldId?: string | null, _id: string, Channels?: Array<{ __typename?: 'Channel', BaseMin?: number | null, BaseLine?: number | null, BaseMax?: number | null, Description?: string | null, DisplayOnGraph?: boolean | null, ForwardFlow?: boolean | null, GroupChannel?: string | null, IndexTimeStamp?: any | null, LastIndex?: number | null, LastTimeStamp?: any | null, LastValue?: number | null, LoggerId?: string | null, Name?: string | null, Pressure1?: boolean | null, Pressure2?: boolean | null, ReverseFlow?: boolean | null, StatusViewAlarm?: boolean | null, Unit?: string | null, _id?: string | null }> | null }> | null };
+
+export type GetAllStaffsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllStaffsQuery = { __typename?: 'Query', GetAllStaffs?: Array<{ __typename?: 'UserStaff', FirstName?: string | null, LastName?: string | null, _id?: string | null } | null> | null };
+
+export type GetAllViewGroupsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllViewGroupsQuery = { __typename?: 'Query', GetAllViewGroups?: Array<string | null> | null };
 
 export type QueryQueryVariables = Exact<{
   loggerid: Scalars['String'];
@@ -718,6 +743,41 @@ export function useDeletePreciousMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeletePreciousMutationHookResult = ReturnType<typeof useDeletePreciousMutation>;
 export type DeletePreciousMutationResult = Apollo.MutationResult<DeletePreciousMutation>;
 export type DeletePreciousMutationOptions = Apollo.BaseMutationOptions<DeletePreciousMutation, DeletePreciousMutationVariables>;
+export const GetAllOldSiteIdDocument = gql`
+    query GetAllOldSiteId {
+  GetAllOldSiteId
+}
+    `;
+
+/**
+ * __useGetAllOldSiteIdQuery__
+ *
+ * To run a query within a React component, call `useGetAllOldSiteIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllOldSiteIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllOldSiteIdQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllOldSiteIdQuery(baseOptions?: Apollo.QueryHookOptions<GetAllOldSiteIdQuery, GetAllOldSiteIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllOldSiteIdQuery, GetAllOldSiteIdQueryVariables>(GetAllOldSiteIdDocument, options);
+      }
+export function useGetAllOldSiteIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllOldSiteIdQuery, GetAllOldSiteIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllOldSiteIdQuery, GetAllOldSiteIdQueryVariables>(GetAllOldSiteIdDocument, options);
+        }
+export type GetAllOldSiteIdQueryHookResult = ReturnType<typeof useGetAllOldSiteIdQuery>;
+export type GetAllOldSiteIdLazyQueryHookResult = ReturnType<typeof useGetAllOldSiteIdLazyQuery>;
+export type GetAllOldSiteIdQueryResult = Apollo.QueryResult<GetAllOldSiteIdQuery, GetAllOldSiteIdQueryVariables>;
+export function refetchGetAllOldSiteIdQuery(variables?: GetAllOldSiteIdQueryVariables) {
+      return { query: GetAllOldSiteIdDocument, variables: variables }
+    }
 export const GetAllSitesDocument = gql`
     query GetAllSites {
   GetAllSites {
@@ -870,6 +930,80 @@ export type GetAllSiteAndChannelLazyQueryHookResult = ReturnType<typeof useGetAl
 export type GetAllSiteAndChannelQueryResult = Apollo.QueryResult<GetAllSiteAndChannelQuery, GetAllSiteAndChannelQueryVariables>;
 export function refetchGetAllSiteAndChannelQuery(variables?: GetAllSiteAndChannelQueryVariables) {
       return { query: GetAllSiteAndChannelDocument, variables: variables }
+    }
+export const GetAllStaffsDocument = gql`
+    query GetAllStaffs {
+  GetAllStaffs {
+    FirstName
+    LastName
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllStaffsQuery__
+ *
+ * To run a query within a React component, call `useGetAllStaffsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllStaffsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllStaffsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllStaffsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllStaffsQuery, GetAllStaffsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllStaffsQuery, GetAllStaffsQueryVariables>(GetAllStaffsDocument, options);
+      }
+export function useGetAllStaffsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllStaffsQuery, GetAllStaffsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllStaffsQuery, GetAllStaffsQueryVariables>(GetAllStaffsDocument, options);
+        }
+export type GetAllStaffsQueryHookResult = ReturnType<typeof useGetAllStaffsQuery>;
+export type GetAllStaffsLazyQueryHookResult = ReturnType<typeof useGetAllStaffsLazyQuery>;
+export type GetAllStaffsQueryResult = Apollo.QueryResult<GetAllStaffsQuery, GetAllStaffsQueryVariables>;
+export function refetchGetAllStaffsQuery(variables?: GetAllStaffsQueryVariables) {
+      return { query: GetAllStaffsDocument, variables: variables }
+    }
+export const GetAllViewGroupsDocument = gql`
+    query GetAllViewGroups {
+  GetAllViewGroups
+}
+    `;
+
+/**
+ * __useGetAllViewGroupsQuery__
+ *
+ * To run a query within a React component, call `useGetAllViewGroupsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllViewGroupsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllViewGroupsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllViewGroupsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllViewGroupsQuery, GetAllViewGroupsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllViewGroupsQuery, GetAllViewGroupsQueryVariables>(GetAllViewGroupsDocument, options);
+      }
+export function useGetAllViewGroupsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllViewGroupsQuery, GetAllViewGroupsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllViewGroupsQuery, GetAllViewGroupsQueryVariables>(GetAllViewGroupsDocument, options);
+        }
+export type GetAllViewGroupsQueryHookResult = ReturnType<typeof useGetAllViewGroupsQuery>;
+export type GetAllViewGroupsLazyQueryHookResult = ReturnType<typeof useGetAllViewGroupsLazyQuery>;
+export type GetAllViewGroupsQueryResult = Apollo.QueryResult<GetAllViewGroupsQuery, GetAllViewGroupsQueryVariables>;
+export function refetchGetAllViewGroupsQuery(variables?: GetAllViewGroupsQueryVariables) {
+      return { query: GetAllViewGroupsDocument, variables: variables }
     }
 export const QueryDocument = gql`
     query Query($loggerid: String!) {
