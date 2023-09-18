@@ -10,19 +10,21 @@ import {
     NumberInput,
     TextInput,
     Text,
+    Center,
+    Space,
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 
 import { IconMapPin, IconUpload } from '@tabler/icons-react';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
     useGetAllViewGroupsQuery,
     useGetAllStaffsQuery,
-    useGetAllSitesQuery,
-    useGetAllOldSiteIdQuery,
+    useGetAllSitesLazyQuery,
+    useGetAllOldSiteIdLazyQuery,
     useGetAllDistrictQuery,
     useQueGetAllMeterNotInstallryQuery,
     useGetAllTransmitterNotInstallQuery,
@@ -40,10 +42,16 @@ import {
     useGetCompaniesQuery,
     useGetAllSiteCoverQuery,
 } from '../__generated__/graphql';
+import { getStoreKeyName } from '@apollo/client/utilities';
 
 const SiteConfigPage = () => {
-    const { data: sites, error: siteError } = useGetAllSitesQuery();
-    const { data: oldIds, error: oldIdError } = useGetAllOldSiteIdQuery();
+    const [listSite, setListSite] = useState([]);
+    const [siteDataState, setSiteDataState] = useState([]);
+    const [listOldId, setListOldId] = useState([]);
+    const [oldIdData, setOldIdData] = useState([]);
+
+    const [getSites, {}] = useGetAllSitesLazyQuery();
+    const [getOldId, {}] = useGetAllOldSiteIdLazyQuery();
     const { data: viewGroups, error: viewGroupError } =
         useGetAllViewGroupsQuery();
     const { data: staffs, error: staffError } = useGetAllStaffsQuery();
@@ -78,11 +86,71 @@ const SiteConfigPage = () => {
     const { data: siteCover, error: siteCoverError } =
         useGetAllSiteCoverQuery();
 
+    useEffect(() => {
+        getSites()
+            .then((res) => {
+                if (res !== null && res !== undefined) {
+                    if (res.data !== null && res.data !== undefined) {
+                        if (
+                            res.data.GetAllSites !== null &&
+                            res.data.GetAllSites !== undefined
+                        ) {
+                            const temp = [];
+
+                            for (const site of res.data.GetAllSites) {
+                                const obj = {
+                                    value: site?._id,
+                                    label: site?._id,
+                                };
+
+                                temp.push(obj);
+                            }
+
+                            //@ts-ignore
+                            setSiteDataState([...temp]);
+
+                            //@ts-ignore
+                            setListSite([...res.data.GetAllSites]);
+                        }
+                    }
+                }
+            })
+            .catch((err) => console.log(err));
+
+        getOldId()
+            .then((res) => {
+                if (res !== null && res !== undefined) {
+                    if (res.data !== null && res.data !== undefined) {
+                        if (
+                            res.data.GetAllOldSiteId !== null &&
+                            res.data.GetAllOldSiteId !== undefined
+                        ) {
+                            const temp = [];
+
+                            for (const id of res.data.GetAllOldSiteId) {
+                                const obj = {
+                                    value: id,
+                                    label: id,
+                                };
+
+                                temp.push(obj);
+                            }
+
+                            //@ts-ignore
+                            setOldIdData([...temp]);
+
+                            //@ts-ignore
+                            setListOldId([...res.data.GetAllOldSiteId]);
+                        }
+                    }
+                }
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
     if (
         viewGroupError ||
         staffError ||
-        siteError ||
-        oldIdError ||
         districtError ||
         metersError ||
         transmitterError ||
@@ -105,24 +173,6 @@ const SiteConfigPage = () => {
                 Lỗi khi tải dữ liệu
             </Text>
         );
-    }
-
-    //@ts-ignore
-    const sitesData = [];
-
-    if (sites != null && sites != undefined) {
-        if (sites.GetAllSites != null && sites.GetAllSites != undefined) {
-            if (sites.GetAllSites.length > 0) {
-                for (const site of sites.GetAllSites) {
-                    const obj = {
-                        label: `${site?._id} | ${site?.Location}`,
-                        value: site?._id,
-                    };
-
-                    sitesData.push(obj);
-                }
-            }
-        }
     }
 
     //@ts-ignore
@@ -518,11 +568,152 @@ const SiteConfigPage = () => {
     });
 
     const onChooseSiteBlured = (e: any) => {
-        console.log(e.target.value);
-    };
+        //@ts-ignore
+        const find = listSite.find((el) => el._id === e.target.value);
 
-    const takeovered = () => {
-        console.log('this is console.log for takeovered line');
+        console.log(find);
+        if (find !== undefined) {
+            //@ts-ignore
+            setValue('_id', find._id);
+            //@ts-ignore
+            setValue('OldId', find.OldId);
+            //@ts-ignore
+            setValue('Address', find.Address);
+            //@ts-ignore
+            setValue('Availability', find.Availability);
+            //@ts-ignore
+            setValue(
+                'ChangeIndex',
+                //@ts-ignore
+                find.ChangeIndex == null ? '' : find.ChangeIndex,
+            );
+            //@ts-ignore
+            setValue(
+                'ChangeIndex1',
+                //@ts-ignore
+                find.ChangeIndex1 == null ? '' : find.ChangeIndex1,
+            );
+            //@ts-ignore
+            setValue('Company', find.Company);
+            //@ts-ignore
+            setValue('CoverID', find.CoverID);
+            //@ts-ignore
+            setValue(
+                'DateOfBatteryChange',
+                //@ts-ignore
+                find.DateOfBatteryChange !== null
+                    ? //@ts-ignore
+                      new Date(find.DateOfBatteryChange)
+                    : '',
+            );
+            //@ts-ignore
+            setValue(
+                'DateOfLoggerBatteryChange',
+                //@ts-ignore
+                find.DateOfLoggerBatteryChange !== null
+                    ? //@ts-ignore
+                      new Date(find.DateOfLoggerBatteryChange)
+                    : '',
+            );
+            //@ts-ignore
+            setValue(
+                'DateOfLoggerChange',
+                //@ts-ignore
+                find.DateOfLoggerChange !== null
+                    ? //@ts-ignore
+                      new Date(find.DateOfLoggerChange)
+                    : '',
+            );
+            //@ts-ignore
+            setValue(
+                'DateOfMeterChange',
+                //@ts-ignore
+                find.DateOfMeterChange !== null
+                    ? //@ts-ignore
+                      new Date(find.DateOfMeterChange)
+                    : '',
+            );
+            //@ts-ignore
+            setValue(
+                'DateOfTransmitterBatteryChange',
+                //@ts-ignore
+                find.DateOfTransmitterBatteryChange !== null
+                    ? //@ts-ignore
+                      new Date(find.DateOfTransmitterBatteryChange)
+                    : '',
+            );
+            //@ts-ignore
+            setValue(
+                'DateOfTransmitterChange',
+                //@ts-ignore
+                find.DateOfTransmitterChange !== null
+                    ? //@ts-ignore
+                      new Date(find.DateOfTransmitterChange)
+                    : '',
+            );
+            //@ts-ignore
+            setValue('Description', find.Description);
+            //@ts-ignore
+            setValue('DescriptionOfChange', find.DescriptionOfChange);
+            //@ts-ignore
+            setValue('Display', find.Display);
+            //@ts-ignore
+            setValue('District', find.District);
+            //@ts-ignore
+            setValue('Group', find.Group);
+            //@ts-ignore
+            setValue('Group2', find.Group2);
+            //@ts-ignore
+            setValue('Group3', find.Group3);
+            //@ts-ignore
+            setValue('Group4', find.Group4);
+            //@ts-ignore
+            setValue('Group5', find.Group5);
+            //@ts-ignore
+            setValue('IstDistributionCompany', find.IstDistributionCompany);
+            //@ts-ignore
+            setValue('IstDoNotCalculateReverse', find.IstDoNotCalculateReverse);
+            //@ts-ignore
+            setValue('Latitude', find.Latitude == null ? '' : find.Latitude);
+            //@ts-ignore
+            setValue('Longitude', find.Longitude == null ? '' : find.Longitude);
+            //@ts-ignore
+            setValue('Level', find.Level);
+            //@ts-ignore
+            setValue('Location', find.Location);
+            //@ts-ignore
+            setValue('Logger', find.Logger);
+            //@ts-ignore
+            setValue('Meter', find.Meter);
+            //@ts-ignore
+            setValue('MeterDirection', find.MeterDirection);
+            //@ts-ignore
+            setValue('ProductionCompany', find.ProductionCompany);
+            //@ts-ignore
+            setValue('Property', find.Property);
+            //@ts-ignore
+            setValue('QndDistributionCompany', find.QndDistributionCompany);
+            //@ts-ignore
+            setValue('QndDoNotCalculateReverse', find.QndDoNotCalculateReverse);
+            //@ts-ignore
+            setValue('StaffId', find.StaffId);
+            //@ts-ignore
+            setValue(
+                'TakeoverDate',
+                //@ts-ignore
+                find.TakeoverDate !== null ? new Date(find.TakeoverDate) : '',
+            );
+            //@ts-ignore
+            setValue('Takeovered', find.Takeovered);
+            //@ts-ignore
+            setValue('Transmitter', find.Transmitter);
+            //@ts-ignore
+            setValue('UsingLogger', find.UsingLogger);
+            //@ts-ignore
+            setValue('ViewGroup', find.ViewGroup);
+            //@ts-ignore
+            setValue('Status', find.Status);
+        }
     };
 
     return (
@@ -533,7 +724,7 @@ const SiteConfigPage = () => {
         >
             <Grid>
                 <Col md={4}>
-                    {sites != undefined ? (
+                    {siteDataState != undefined ? (
                         <Controller
                             name="_id"
                             control={control}
@@ -541,7 +732,7 @@ const SiteConfigPage = () => {
                                 <Select
                                     label="Mã vị trí"
                                     //@ts-ignore
-                                    data={sitesData}
+                                    data={siteDataState}
                                     placeholder="Chọn điểm"
                                     nothingFound="Không tìm thấy"
                                     searchable
@@ -556,7 +747,7 @@ const SiteConfigPage = () => {
                                             label: query,
                                         };
                                         //@ts-ignore
-                                        setSiteData((current) => [
+                                        setSiteDataState((current) => [
                                             ...current,
                                             item,
                                         ]);
@@ -576,6 +767,7 @@ const SiteConfigPage = () => {
                             <NumberInput
                                 placeholder="Vĩ độ"
                                 label="Vĩ độ"
+                                precision={8}
                                 icon={<IconMapPin size="1.125rem" />}
                                 {...field}
                             />
@@ -591,7 +783,7 @@ const SiteConfigPage = () => {
                     />
                 </Col>
                 <Col md={4}>
-                    {oldIds !== undefined ? (
+                    {oldIdData !== undefined ? (
                         <Controller
                             name="OldId"
                             control={control}
@@ -599,7 +791,7 @@ const SiteConfigPage = () => {
                                 <Select
                                     label="Mã vị trí cũ"
                                     //@ts-ignore
-                                    data={oldIds.GetAllOldSiteId}
+                                    data={oldIdData}
                                     placeholder="Chọn mã vị trí cũ"
                                     nothingFound="Không tìm thấy"
                                     searchable
@@ -614,7 +806,7 @@ const SiteConfigPage = () => {
                                             label: query,
                                         };
                                         //@ts-ignore
-                                        setSiteData((current) => [
+                                        setOldIdData((current) => [
                                             ...current,
                                             item,
                                         ]);
@@ -633,6 +825,7 @@ const SiteConfigPage = () => {
                             <NumberInput
                                 placeholder="Kinh độ"
                                 label="Kinh độ"
+                                precision={8}
                                 icon={<IconMapPin size="1.125rem" />}
                                 {...field}
                             />
@@ -1134,6 +1327,8 @@ const SiteConfigPage = () => {
                             <Checkbox
                                 labelPosition="left"
                                 label="Hiển thị"
+                                //@ts-ignore
+                                checked={getValues('Display')}
                                 {...field}
                             />
                         )}
@@ -1171,6 +1366,10 @@ const SiteConfigPage = () => {
                                 render={({ field }) => (
                                     <Checkbox
                                         style={{ marginTop: '1.5rem' }}
+                                        //@ts-ignore
+                                        checked={getValues(
+                                            'IstDoNotCalculateReverse',
+                                        )}
                                         {...field}
                                     />
                                 )}
@@ -1214,6 +1413,8 @@ const SiteConfigPage = () => {
                             <Checkbox
                                 labelPosition="left"
                                 label="Tài sản"
+                                //@ts-ignore
+                                checked={getValues('Property')}
                                 {...field}
                             />
                         )}
@@ -1251,6 +1452,10 @@ const SiteConfigPage = () => {
                                 render={({ field }) => (
                                     <Checkbox
                                         style={{ marginTop: '1.5rem' }}
+                                        //@ts-ignore
+                                        checked={getValues(
+                                            'QndDoNotCalculateReverse',
+                                        )}
                                         {...field}
                                     />
                                 )}
@@ -1294,6 +1499,8 @@ const SiteConfigPage = () => {
                             <Checkbox
                                 labelPosition="left"
                                 label="Sử dụng logger"
+                                //@ts-ignore
+                                checked={getValues('UsingLogger')}
                                 {...field}
                             />
                         )}
@@ -1348,6 +1555,8 @@ const SiteConfigPage = () => {
                             <Checkbox
                                 labelPosition="left"
                                 label="Bàn giao"
+                                //@ts-ignore
+                                checked={getValues('Takeovered')}
                                 {...field}
                             />
                         )}
@@ -1471,6 +1680,21 @@ const SiteConfigPage = () => {
                             />
                         )}
                     ></Controller>
+                </Col>
+                <Col span={12}>
+                    <Center>
+                        <Button variant="filled" color="green">
+                            Thêm
+                        </Button>
+                        <Space w="md"></Space>
+                        <Button variant="filled" color="blue">
+                            Sửa
+                        </Button>
+                        <Space w="md"></Space>
+                        <Button variant="filled" color="red">
+                            Xóa
+                        </Button>
+                    </Center>
                 </Col>
             </Grid>
         </motion.div>

@@ -13,8 +13,8 @@ query GetSiteByWaterSubtractB2ForTA {
         DateOfMeterChange
         DateOfLoggerChange
         DateOfTransmitterChange
-        DateOfBatteyChange
-        DateOfTransmitterBatteryChgange
+        DateOfBatteryChange
+        DateOfTransmitterBatteryChange
         DateOfLoggerBatteryChange
         DescriptionOfChange
         ChangeIndex
@@ -24,12 +24,13 @@ query GetSiteByWaterSubtractB2ForTA {
         Takeovered
         TakeoverDate
         Availability
+        Status
         Display
         Property
         UsingLogger
         MeterDirection
         ProductionCompany
-        IsDistributionCompany
+        IstDistributionCompany
         QndDistributionCompany
         IstDoNotCalculateReverse
         QndDoNotCalculateReverse

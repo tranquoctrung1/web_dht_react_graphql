@@ -2,16 +2,17 @@ query GetAllSites {
     GetAllSites {
         Address
         Availability
+        Status
         ChangeIndex1
         ChangeIndex
         Company
         CoverID
-        DateOfBatteyChange
+        DateOfBatteryChange
         DateOfLoggerChange
         DateOfLoggerBatteryChange
         DateOfMeterChange
         DateOfTransmitterChange
-        DateOfTransmitterBatteryChgange
+        DateOfTransmitterBatteryChange
         Description
         DescriptionOfChange
         Display
@@ -20,7 +21,7 @@ query GetAllSites {
         Group2
         Group3
         Group4
-        IsDistributionCompany
+        IstDistributionCompany
         Group5
         IsErrorBattery
         Latitude

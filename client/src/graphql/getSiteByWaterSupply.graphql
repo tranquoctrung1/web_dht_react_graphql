@@ -8,7 +8,7 @@ query GetSiteByWaterSupply($company: String!) {
         Description
         MeterDirection
         ProductionCompany
-        IsDistributionCompany
+        IstDistributionCompany
         QndDistributionCompany
         IstDoNotCalculateReverse
         QndDoNotCalculateReverse

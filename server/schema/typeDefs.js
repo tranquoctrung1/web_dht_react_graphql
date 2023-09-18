@@ -46,8 +46,8 @@ module.exports = gql`
         DateOfMeterChange: Date
         DateOfLoggerChange: Date
         DateOfTransmitterChange: Date
-        DateOfBatteyChange: Date
-        DateOfTransmitterBatteryChgange: Date
+        DateOfBatteryChange: Date
+        DateOfTransmitterBatteryChange: Date
         DateOfLoggerBatteryChange: Date
         DescriptionOfChange: String
         ChangeIndex: Float
@@ -57,12 +57,13 @@ module.exports = gql`
         Takeovered: Boolean
         TakeoverDate: Date
         Availability: String
+        Status: String
         Display: Boolean
         Property: Boolean
         UsingLogger: Boolean
         MeterDirection: String
         ProductionCompany: String
-        IsDistributionCompany: String
+        IstDistributionCompany: String
         QndDistributionCompany: String
         IstDoNotCalculateReverse: Boolean
         QndDoNotCalculateReverse: Boolean

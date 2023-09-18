@@ -499,11 +499,11 @@ export type Site = {
   ChangeIndex1?: Maybe<Scalars['Float']>;
   Company?: Maybe<Scalars['String']>;
   CoverID?: Maybe<Scalars['String']>;
-  DateOfBatteyChange?: Maybe<Scalars['Date']>;
+  DateOfBatteryChange?: Maybe<Scalars['Date']>;
   DateOfLoggerBatteryChange?: Maybe<Scalars['Date']>;
   DateOfLoggerChange?: Maybe<Scalars['Date']>;
   DateOfMeterChange?: Maybe<Scalars['Date']>;
-  DateOfTransmitterBatteryChgange?: Maybe<Scalars['Date']>;
+  DateOfTransmitterBatteryChange?: Maybe<Scalars['Date']>;
   DateOfTransmitterChange?: Maybe<Scalars['Date']>;
   Description?: Maybe<Scalars['String']>;
   DescriptionOfChange?: Maybe<Scalars['String']>;
@@ -514,8 +514,8 @@ export type Site = {
   Group3?: Maybe<Scalars['String']>;
   Group4?: Maybe<Scalars['String']>;
   Group5?: Maybe<Scalars['String']>;
-  IsDistributionCompany?: Maybe<Scalars['String']>;
   IsErrorBattery?: Maybe<Scalars['Boolean']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
   IstDoNotCalculateReverse?: Maybe<Scalars['Boolean']>;
   Latitude?: Maybe<Scalars['Float']>;
   Level?: Maybe<Scalars['String']>;
@@ -530,6 +530,7 @@ export type Site = {
   QndDistributionCompany?: Maybe<Scalars['String']>;
   QndDoNotCalculateReverse?: Maybe<Scalars['Boolean']>;
   StaffId?: Maybe<Scalars['String']>;
+  Status?: Maybe<Scalars['String']>;
   TakeoverDate?: Maybe<Scalars['Date']>;
   Takeovered?: Maybe<Scalars['Boolean']>;
   Transmitter?: Maybe<Scalars['String']>;
@@ -727,7 +728,7 @@ export type GetAllOldSiteIdQuery = { __typename?: 'Query', GetAllOldSiteId?: Arr
 export type GetAllSitesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllSitesQuery = { __typename?: 'Query', GetAllSites: Array<{ __typename?: 'Site', Address?: string | null, Availability?: string | null, ChangeIndex1?: number | null, ChangeIndex?: number | null, Company?: string | null, CoverID?: string | null, DateOfBatteyChange?: any | null, DateOfLoggerChange?: any | null, DateOfLoggerBatteryChange?: any | null, DateOfMeterChange?: any | null, DateOfTransmitterChange?: any | null, DateOfTransmitterBatteryChgange?: any | null, Description?: string | null, DescriptionOfChange?: string | null, Display?: boolean | null, District?: string | null, Group?: string | null, Group2?: string | null, Group3?: string | null, Group4?: string | null, IsDistributionCompany?: string | null, Group5?: string | null, IsErrorBattery?: boolean | null, Latitude?: number | null, Level?: string | null, IstDoNotCalculateReverse?: boolean | null, Location?: string | null, Logger?: string | null, Longitude?: number | null, Meter?: string | null, MeterDirection?: string | null, OldId?: string | null, ProductionCompany?: string | null, Property?: boolean | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: boolean | null, StaffId?: string | null, Takeovered?: boolean | null, TakeoverDate?: any | null, Transmitter?: string | null, UsingLogger?: boolean | null, ViewGroup?: string | null, _id: string } | null> };
+export type GetAllSitesQuery = { __typename?: 'Query', GetAllSites: Array<{ __typename?: 'Site', Address?: string | null, Availability?: string | null, Status?: string | null, ChangeIndex1?: number | null, ChangeIndex?: number | null, Company?: string | null, CoverID?: string | null, DateOfBatteryChange?: any | null, DateOfLoggerChange?: any | null, DateOfLoggerBatteryChange?: any | null, DateOfMeterChange?: any | null, DateOfTransmitterChange?: any | null, DateOfTransmitterBatteryChange?: any | null, Description?: string | null, DescriptionOfChange?: string | null, Display?: boolean | null, District?: string | null, Group?: string | null, Group2?: string | null, Group3?: string | null, Group4?: string | null, IstDistributionCompany?: string | null, Group5?: string | null, IsErrorBattery?: boolean | null, Latitude?: number | null, Level?: string | null, IstDoNotCalculateReverse?: boolean | null, Location?: string | null, Logger?: string | null, Longitude?: number | null, Meter?: string | null, MeterDirection?: string | null, OldId?: string | null, ProductionCompany?: string | null, Property?: boolean | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: boolean | null, StaffId?: string | null, Takeovered?: boolean | null, TakeoverDate?: any | null, Transmitter?: string | null, UsingLogger?: boolean | null, ViewGroup?: string | null, _id: string } | null> };
 
 export type GetAllSiteAndChannelQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -837,14 +838,14 @@ export type GetPreciousByCompanyQuery = { __typename?: 'Query', GetPreciousByCom
 export type GetSiteByWaterSubtractB2ForTaQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSiteByWaterSubtractB2ForTaQuery = { __typename?: 'Query', GetSiteByWaterSubtractB2ForTA?: Array<{ __typename?: 'Site', _id: string, Location?: string | null, OldId?: string | null, Latitude?: number | null, Longitude?: number | null, ViewGroup?: string | null, StaffId?: string | null, Meter?: string | null, Transmitter?: string | null, Logger?: string | null, DateOfMeterChange?: any | null, DateOfLoggerChange?: any | null, DateOfTransmitterChange?: any | null, DateOfBatteyChange?: any | null, DateOfTransmitterBatteryChgange?: any | null, DateOfLoggerBatteryChange?: any | null, DescriptionOfChange?: string | null, ChangeIndex?: number | null, Level?: string | null, Group?: string | null, Company?: string | null, Takeovered?: boolean | null, TakeoverDate?: any | null, Availability?: string | null, Display?: boolean | null, Property?: boolean | null, UsingLogger?: boolean | null, MeterDirection?: string | null, ProductionCompany?: string | null, IsDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, ChangeIndex1?: number | null, Description?: string | null, Group2?: string | null, Address?: string | null, CoverID?: string | null, Group3?: string | null, Group4?: string | null, Group5?: string | null, District?: string | null, IsErrorBattery?: boolean | null } | null> | null };
+export type GetSiteByWaterSubtractB2ForTaQuery = { __typename?: 'Query', GetSiteByWaterSubtractB2ForTA?: Array<{ __typename?: 'Site', _id: string, Location?: string | null, OldId?: string | null, Latitude?: number | null, Longitude?: number | null, ViewGroup?: string | null, StaffId?: string | null, Meter?: string | null, Transmitter?: string | null, Logger?: string | null, DateOfMeterChange?: any | null, DateOfLoggerChange?: any | null, DateOfTransmitterChange?: any | null, DateOfBatteryChange?: any | null, DateOfTransmitterBatteryChange?: any | null, DateOfLoggerBatteryChange?: any | null, DescriptionOfChange?: string | null, ChangeIndex?: number | null, Level?: string | null, Group?: string | null, Company?: string | null, Takeovered?: boolean | null, TakeoverDate?: any | null, Availability?: string | null, Status?: string | null, Display?: boolean | null, Property?: boolean | null, UsingLogger?: boolean | null, MeterDirection?: string | null, ProductionCompany?: string | null, IstDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, ChangeIndex1?: number | null, Description?: string | null, Group2?: string | null, Address?: string | null, CoverID?: string | null, Group3?: string | null, Group4?: string | null, Group5?: string | null, District?: string | null, IsErrorBattery?: boolean | null } | null> | null };
 
 export type GetSiteByWaterSupplyQueryVariables = Exact<{
   company: Scalars['String'];
 }>;
 
 
-export type GetSiteByWaterSupplyQuery = { __typename?: 'Query', GetSiteByWaterSupply: Array<{ __typename?: 'Site', _id: string, OldId?: string | null, Location?: string | null, Logger?: string | null, Company?: string | null, Description?: string | null, MeterDirection?: string | null, ProductionCompany?: string | null, IsDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, Address?: string | null }> };
+export type GetSiteByWaterSupplyQuery = { __typename?: 'Query', GetSiteByWaterSupply: Array<{ __typename?: 'Site', _id: string, OldId?: string | null, Location?: string | null, Logger?: string | null, Company?: string | null, Description?: string | null, MeterDirection?: string | null, ProductionCompany?: string | null, IstDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, Address?: string | null }> };
 
 export type InsertPreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousInput>;
@@ -1155,16 +1156,17 @@ export const GetAllSitesDocument = gql`
   GetAllSites {
     Address
     Availability
+    Status
     ChangeIndex1
     ChangeIndex
     Company
     CoverID
-    DateOfBatteyChange
+    DateOfBatteryChange
     DateOfLoggerChange
     DateOfLoggerBatteryChange
     DateOfMeterChange
     DateOfTransmitterChange
-    DateOfTransmitterBatteryChgange
+    DateOfTransmitterBatteryChange
     Description
     DescriptionOfChange
     Display
@@ -1173,7 +1175,7 @@ export const GetAllSitesDocument = gql`
     Group2
     Group3
     Group4
-    IsDistributionCompany
+    IstDistributionCompany
     Group5
     IsErrorBattery
     Latitude
@@ -2117,8 +2119,8 @@ export const GetSiteByWaterSubtractB2ForTaDocument = gql`
     DateOfMeterChange
     DateOfLoggerChange
     DateOfTransmitterChange
-    DateOfBatteyChange
-    DateOfTransmitterBatteryChgange
+    DateOfBatteryChange
+    DateOfTransmitterBatteryChange
     DateOfLoggerBatteryChange
     DescriptionOfChange
     ChangeIndex
@@ -2128,12 +2130,13 @@ export const GetSiteByWaterSubtractB2ForTaDocument = gql`
     Takeovered
     TakeoverDate
     Availability
+    Status
     Display
     Property
     UsingLogger
     MeterDirection
     ProductionCompany
-    IsDistributionCompany
+    IstDistributionCompany
     QndDistributionCompany
     IstDoNotCalculateReverse
     QndDoNotCalculateReverse
@@ -2191,7 +2194,7 @@ export const GetSiteByWaterSupplyDocument = gql`
     Description
     MeterDirection
     ProductionCompany
-    IsDistributionCompany
+    IstDistributionCompany
     QndDistributionCompany
     IstDoNotCalculateReverse
     QndDoNotCalculateReverse
