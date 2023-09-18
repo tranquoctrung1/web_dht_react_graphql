@@ -26,9 +26,10 @@ import {
     useGetAllSitesLazyQuery,
     useGetAllOldSiteIdLazyQuery,
     useGetAllDistrictQuery,
-    useQueGetAllMeterNotInstallryQuery,
-    useGetAllTransmitterNotInstallQuery,
-    useGetAllLoggerNotInstallQuery,
+    useGetAllMeterQuery,
+    useGetAllMeterLazyQuery,
+    useGetAllTransmitterQuery,
+    useGetAllLoggerQuery,
     useGetAllMeterAccreditationTypeQuery,
     useGetAllSiteLevelQuery,
     useGetAllSiteStatusQuery,
@@ -49,19 +50,19 @@ const SiteConfigPage = () => {
     const [siteDataState, setSiteDataState] = useState([]);
     const [listOldId, setListOldId] = useState([]);
     const [oldIdData, setOldIdData] = useState([]);
+    const [listMeter, setListMeter] = useState([]);
 
     const [getSites, {}] = useGetAllSitesLazyQuery();
     const [getOldId, {}] = useGetAllOldSiteIdLazyQuery();
+    const [getMeter, {}] = useGetAllMeterLazyQuery();
     const { data: viewGroups, error: viewGroupError } =
         useGetAllViewGroupsQuery();
     const { data: staffs, error: staffError } = useGetAllStaffsQuery();
     const { data: districts, error: districtError } = useGetAllDistrictQuery();
-    const { data: meters, error: metersError } =
-        useQueGetAllMeterNotInstallryQuery();
+    const { data: meters, error: metersError } = useGetAllMeterQuery();
     const { data: transmitters, error: transmitterError } =
-        useGetAllTransmitterNotInstallQuery();
-    const { data: loggers, error: loggerError } =
-        useGetAllLoggerNotInstallQuery();
+        useGetAllTransmitterQuery();
+    const { data: loggers, error: loggerError } = useGetAllLoggerQuery();
     const { data: metersAccrediationType, error: meterAccrediationTypeError } =
         useGetAllMeterAccreditationTypeQuery();
     const { data: siteLevels, error: siteLevelsError } =
@@ -146,6 +147,22 @@ const SiteConfigPage = () => {
                 }
             })
             .catch((err) => console.log(err));
+
+        getMeter()
+            .then((res) => {
+                if (res !== null && res !== undefined) {
+                    if (res.data !== null && res.data !== undefined) {
+                        if (
+                            res.data.GetAllMeter !== null &&
+                            res.data.GetAllMeter !== undefined
+                        ) {
+                            //@ts-ignore
+                            setListMeter([...res.data.GetAllMeter]);
+                        }
+                    }
+                }
+            })
+            .catch((err) => console.log(err));
     }, []);
 
     if (
@@ -197,12 +214,9 @@ const SiteConfigPage = () => {
     const metersData = [];
 
     if (meters != undefined && meters != null) {
-        if (
-            meters.GetAllMeterNotInstall != null &&
-            meters.GetAllMeterNotInstall != undefined
-        ) {
-            if (meters.GetAllMeterNotInstall.length > 0) {
-                for (const meter of meters.GetAllMeterNotInstall) {
+        if (meters.GetAllMeter != null && meters.GetAllMeter != undefined) {
+            if (meters.GetAllMeter.length > 0) {
+                for (const meter of meters.GetAllMeter) {
                     const obj = {
                         label: `${meter?.Serial} | ${meter?.Marks} | ${meter?.Size}`,
                         value: meter?.Serial,
@@ -219,11 +233,11 @@ const SiteConfigPage = () => {
 
     if (transmitters != undefined && transmitters != null) {
         if (
-            transmitters.GetAllTransmitterNotInstall != null &&
-            transmitters.GetAllTransmitterNotInstall != undefined
+            transmitters.GetAllTransmitter != null &&
+            transmitters.GetAllTransmitter != undefined
         ) {
-            if (transmitters.GetAllTransmitterNotInstall.length > 0) {
-                for (const transmitter of transmitters.GetAllTransmitterNotInstall) {
+            if (transmitters.GetAllTransmitter.length > 0) {
+                for (const transmitter of transmitters.GetAllTransmitter) {
                     const obj = {
                         label: `${transmitter?.Serial} | ${transmitter?.Marks} | ${transmitter?.Size}`,
                         value: transmitter?.Serial,
@@ -239,12 +253,9 @@ const SiteConfigPage = () => {
     const loggersData = [];
 
     if (loggers != undefined && loggers != null) {
-        if (
-            loggers.GetAllLoggerNotInstall != null &&
-            loggers.GetAllLoggerNotInstall != undefined
-        ) {
-            if (loggers.GetAllLoggerNotInstall.length > 0) {
-                for (const logger of loggers.GetAllLoggerNotInstall) {
+        if (loggers.GetAllLogger != null && loggers.GetAllLogger != undefined) {
+            if (loggers.GetAllLogger.length > 0) {
+                for (const logger of loggers.GetAllLogger) {
                     const obj = {
                         label: `${logger?.Serial} | ${logger?.Marks} | ${logger?.Model}`,
                         value: logger?.Serial,
@@ -571,7 +582,6 @@ const SiteConfigPage = () => {
         //@ts-ignore
         const find = listSite.find((el) => el._id === e.target.value);
 
-        console.log(find);
         if (find !== undefined) {
             //@ts-ignore
             setValue('_id', find._id);
@@ -713,8 +723,63 @@ const SiteConfigPage = () => {
             setValue('ViewGroup', find.ViewGroup);
             //@ts-ignore
             setValue('Status', find.Status);
+
+            //@ts-ignore
+            if (
+                //@ts-ignore
+                find.Meter !== null &&
+                //@ts-ignore
+                find.Meter !== undefined &&
+                //@ts-ignore
+                find.Meter !== ''
+            ) {
+                //@ts-ignore
+                const findMeter = listMeter.find(
+                    //@ts-ignore
+                    (el) => el.Serial === find.Meter,
+                );
+
+                if (findMeter !== undefined) {
+                    //@ts-ignore
+                    setValue(
+                        'AccreditationDocument',
+                        //@ts-ignore
+                        findMeter.AccreditationDocument,
+                    );
+                    //@ts-ignore
+                    setValue('AccreditationType', findMeter.AccreditationType);
+                    //@ts-ignore
+                    setValue(
+                        'AccreditationExpireDate',
+                        //@ts-ignore
+                        findMeter.ExpiryDate === null
+                            ? ''
+                            : //@ts-ignore
+                              new Date(findMeter.ExpiryDate),
+                    );
+                    //@ts-ignore
+                    setValue(
+                        'AccreditationDate',
+                        //@ts-ignore
+                        findMeter.AccreditatedDate === null
+                            ? ''
+                            : //@ts-ignore
+                              new Date(findMeter.AccreditationDate),
+                    );
+                }
+            }
         }
     };
+
+    const onInsertClicked = () => {
+        const formValues = getValues();
+
+        console.log(formValues);
+    };
+
+    const onUpdateClicked = () => {};
+
+    const onDeleteClicked = () => {};
 
     return (
         <motion.div
@@ -1683,15 +1748,27 @@ const SiteConfigPage = () => {
                 </Col>
                 <Col span={12}>
                     <Center>
-                        <Button variant="filled" color="green">
+                        <Button
+                            variant="filled"
+                            color="green"
+                            onClick={onInsertClicked}
+                        >
                             Thêm
                         </Button>
                         <Space w="md"></Space>
-                        <Button variant="filled" color="blue">
+                        <Button
+                            variant="filled"
+                            color="blue"
+                            onClick={onUpdateClicked}
+                        >
                             Sửa
                         </Button>
                         <Space w="md"></Space>
-                        <Button variant="filled" color="red">
+                        <Button
+                            variant="filled"
+                            color="red"
+                            onClick={onDeleteClicked}
+                        >
                             Xóa
                         </Button>
                     </Center>

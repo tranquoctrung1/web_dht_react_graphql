@@ -5,5 +5,9 @@ module.exports = {
         GetAllTransmitterNotInstall: async (parent, {}, context, info) => {
             return await DeviceTransmitterModel.GetAllTransmitterNotInstall();
         },
+
+        GetAllTransmitter: async (parent, {}, context, info) => {
+            return await DeviceTransmitterModel.GetAll();
+        },
     },
 };

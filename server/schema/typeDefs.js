@@ -602,6 +602,12 @@ module.exports = gql`
 
         GetAllLoggerNotInstall: [DeviceLogger]
 
+        GetAllMeter: [DeviceMeter]
+
+        GetAllTransmitter: [DeviceTransmitter]
+
+        GetAllLogger: [DeviceLogger]
+
         GetAllMeterAccreditationType: [DeviceMeterAccreditationType]
 
         GetAllSiteLevel: [SiteLevel]

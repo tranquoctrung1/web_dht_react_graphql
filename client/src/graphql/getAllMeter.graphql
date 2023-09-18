@@ -1,5 +1,5 @@
-query GetAllMeterNotInstall {
-    GetAllMeterNotInstall {
+query GetAllMeter {
+    GetAllMeter {
         AccreditatedDate
         AccreditationDocument
         AccreditationType

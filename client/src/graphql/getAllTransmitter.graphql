@@ -1,23 +1,23 @@
-query GetAllMeterNotInstall {
-    GetAllMeterNotInstall {
+query GetAllTransmitter {
+    GetAllTransmitter {
         AccreditatedDate
-        AccreditationDocument
         AccreditationType
+        AccreditationDocument
         AppovalDate
         AppovalDecision
         Approvaled
         Description
-        ExpiryDate
         InstallIndex
+        ExpiryDate
         Installed
         Marks
-        Model
-        Nationality
-        Provider
+        MeterSerial
         ReceipDate
         Serial
-        SerialTransmitter
         Size
+        Status
         _id
+        Provider
+        Model
     }
 }

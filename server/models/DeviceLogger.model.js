@@ -38,3 +38,15 @@ module.exports.GetAllLoggerNotInstall = async () => {
 
     return result;
 };
+
+module.exports.GetAll = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DeviceLoggerCollection);
+
+    let result = await collection.find().sort({ Serial: 1 }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

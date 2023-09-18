@@ -5,5 +5,9 @@ module.exports = {
         GetAllLoggerNotInstall: async (parent, {}, context, info) => {
             return await DeviceLoggerModel.GetAllLoggerNotInstall();
         },
+
+        GetAllLogger: async (parent, {}, context, info) => {
+            return await DeviceLoggerModel.GetAll();
+        },
     },
 };

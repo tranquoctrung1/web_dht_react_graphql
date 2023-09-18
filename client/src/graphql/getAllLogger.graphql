@@ -1,0 +1,13 @@
+query GetAllLogger {
+    GetAllLogger {
+        Description
+        Installed
+        Marks
+        Model
+        Provider
+        ReceipDate
+        Serial
+        Status
+        _id
+    }
+}
