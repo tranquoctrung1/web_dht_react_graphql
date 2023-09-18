@@ -8,3 +8,15 @@ module.exports.SiteGroup2S = class SiteGroup2S {
         this.Description = Description;
     }
 };
+
+module.exports.GetAll = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteGroup2SCollection);
+
+    let result = await collection.find({}).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

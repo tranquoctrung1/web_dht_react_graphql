@@ -1,0 +1,7 @@
+query GetAllSiteGroup2S {
+    GetAllSiteGroup2S {
+        Description
+        Group
+        _id
+    }
+}

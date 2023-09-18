@@ -55,3 +55,18 @@ module.exports.GetMeterBySerial = async (serial) => {
 
     return result;
 };
+
+module.exports.GetAllMeterNotInstall = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DeviceMeterCollection);
+
+    let result = await collection
+        .find({ Installed: false })
+        .sort({ Serial: 1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

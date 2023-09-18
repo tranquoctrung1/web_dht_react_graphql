@@ -9,6 +9,20 @@ const DataLogger = require('./DataLogger.resolver');
 const QuantityLoggerDay = require('./QuantityLoggerDay.resolver');
 const Precious = require('./Precious.resolver');
 const UserStaff = require('./UserStaff.resolver');
+const DeviceMeter = require('./DeviceMeter.resolver');
+const DeviceTransmitter = require('./DeviceTransmitter.resolver');
+const DeviceLogger = require('./DeviceLogger.resolver');
+const DeviceMeterAccreditationType = require('./DeviceMeterAccreditationType.resolver');
+const SiteLevel = require('./SiteLevel.resolver');
+const SiteStatus = require('./SiteStatus.resolver');
+const SiteMeterDirection = require('./SiteMeterDirection.resolver');
+const SiteGroup = require('./SiteGroup.resolver');
+const SiteGroup2S = require('./SiteGroup2S.resolver');
+const SiteGroup3S = require('./SiteGroup3S.resolver');
+const SiteGroup4S = require('./SiteGroup4S.resolver');
+const SiteGroup5S = require('./SiteGroup5S.resolver');
+const SiteAvailabilities = require('./SiteAvailabilities.resolver');
+const SiteCover = require('./SiteCover.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -25,6 +39,20 @@ module.exports = {
         ...QuantityLoggerDay.Query,
         ...Precious.Query,
         ...UserStaff.Query,
+        ...DeviceMeter.Query,
+        ...DeviceTransmitter.Query,
+        ...DeviceLogger.Query,
+        ...DeviceMeterAccreditationType.Query,
+        ...SiteLevel.Query,
+        ...SiteStatus.Query,
+        ...SiteMeterDirection.Query,
+        ...SiteGroup.Query,
+        ...SiteGroup2S.Query,
+        ...SiteGroup3S.Query,
+        ...SiteGroup4S.Query,
+        ...SiteGroup5S.Query,
+        ...SiteAvailabilities.Query,
+        ...SiteCover.Query,
     },
 
     Mutation: {

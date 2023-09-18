@@ -67,6 +67,72 @@ export type DateCalcloggerInput = {
   To?: InputMaybe<Scalars['String']>;
 };
 
+export type DeviceLogger = {
+  __typename?: 'DeviceLogger';
+  Description?: Maybe<Scalars['String']>;
+  Installed?: Maybe<Scalars['Boolean']>;
+  Marks?: Maybe<Scalars['String']>;
+  Model?: Maybe<Scalars['String']>;
+  Provider?: Maybe<Scalars['String']>;
+  ReceipDate?: Maybe<Scalars['Date']>;
+  Serial?: Maybe<Scalars['String']>;
+  Status?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type DeviceMeter = {
+  __typename?: 'DeviceMeter';
+  AccreditatedDate?: Maybe<Scalars['Date']>;
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  AccreditationType?: Maybe<Scalars['String']>;
+  AppovalDate?: Maybe<Scalars['Date']>;
+  AppovalDecision?: Maybe<Scalars['String']>;
+  Approvaled?: Maybe<Scalars['Date']>;
+  Description?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  InstallIndex?: Maybe<Scalars['Float']>;
+  Installed?: Maybe<Scalars['Boolean']>;
+  Marks?: Maybe<Scalars['String']>;
+  Model?: Maybe<Scalars['String']>;
+  Nationality?: Maybe<Scalars['String']>;
+  Provider?: Maybe<Scalars['String']>;
+  ReceipDate?: Maybe<Scalars['Date']>;
+  Serial?: Maybe<Scalars['String']>;
+  SerialTransmitter?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  _id: Scalars['ID'];
+};
+
+export type DeviceMeterAccreditationType = {
+  __typename?: 'DeviceMeterAccreditationType';
+  AccreditationType?: Maybe<Scalars['String']>;
+  Description?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type DeviceTransmitter = {
+  __typename?: 'DeviceTransmitter';
+  AccreditatedDate?: Maybe<Scalars['Date']>;
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  AccreditationType?: Maybe<Scalars['String']>;
+  AppovalDate?: Maybe<Scalars['Date']>;
+  AppovalDecision?: Maybe<Scalars['String']>;
+  Approvaled?: Maybe<Scalars['Date']>;
+  Description?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  InstallIndex?: Maybe<Scalars['Float']>;
+  Installed?: Maybe<Scalars['Boolean']>;
+  Marks?: Maybe<Scalars['String']>;
+  MeterSerial?: Maybe<Scalars['String']>;
+  Model?: Maybe<Scalars['String']>;
+  Provider?: Maybe<Scalars['String']>;
+  ReceipDate?: Maybe<Scalars['Date']>;
+  Serial?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
 export type IdOutput = {
   __typename?: 'IdOutput';
   idReturn?: Maybe<Scalars['String']>;
@@ -314,11 +380,33 @@ export type QuantityLoggerDayWaterSupply = {
 
 export type Query = {
   __typename?: 'Query';
+  GetAllCoverID?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllDistrict?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllGroup?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllGroup2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllGroup3?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllGroup4?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllGroup5?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllLevel?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllLoggerNotInstall?: Maybe<Array<Maybe<DeviceLogger>>>;
+  GetAllMeterAccreditationType?: Maybe<Array<Maybe<DeviceMeterAccreditationType>>>;
+  GetAllMeterNotInstall?: Maybe<Array<Maybe<DeviceMeter>>>;
   GetAllOldSiteId?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllPrecious?: Maybe<Array<Maybe<Precious>>>;
   GetAllSiteAndChannel?: Maybe<Array<SiteAndChannel>>;
+  GetAllSiteAvailabilities?: Maybe<Array<Maybe<SiteAvailabilities>>>;
+  GetAllSiteCover?: Maybe<Array<Maybe<SiteCover>>>;
+  GetAllSiteGroup?: Maybe<Array<Maybe<SiteGroup>>>;
+  GetAllSiteGroup2S?: Maybe<Array<Maybe<SiteGroup2S>>>;
+  GetAllSiteGroup3S?: Maybe<Array<Maybe<SiteGroup3S>>>;
+  GetAllSiteGroup4S?: Maybe<Array<Maybe<SiteGroup4S>>>;
+  GetAllSiteGroup5S?: Maybe<Array<Maybe<SiteGroup5S>>>;
+  GetAllSiteLevel?: Maybe<Array<Maybe<SiteLevel>>>;
+  GetAllSiteMeterDirection?: Maybe<Array<Maybe<SiteMeterDirection>>>;
+  GetAllSiteStatus?: Maybe<Array<Maybe<SiteStatus>>>;
   GetAllSites: Array<Maybe<Site>>;
   GetAllStaffs?: Maybe<Array<Maybe<UserStaff>>>;
+  GetAllTransmitterNotInstall?: Maybe<Array<Maybe<DeviceTransmitter>>>;
   GetAllViewGroups?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetChannelByLoggerId?: Maybe<Array<Maybe<Channel>>>;
   GetCompanies?: Maybe<Array<Company>>;
@@ -472,6 +560,80 @@ export type SiteAndChannel = {
   _id: Scalars['String'];
 };
 
+export type SiteAvailabilities = {
+  __typename?: 'SiteAvailabilities';
+  Availability?: Maybe<Scalars['String']>;
+  Description?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteCover = {
+  __typename?: 'SiteCover';
+  CoverH?: Maybe<Scalars['Int']>;
+  CoverID?: Maybe<Scalars['String']>;
+  CoverL?: Maybe<Scalars['Int']>;
+  CoverMeterial?: Maybe<Scalars['Int']>;
+  CoverNL?: Maybe<Scalars['Int']>;
+  CoverW?: Maybe<Scalars['Int']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteGroup = {
+  __typename?: 'SiteGroup';
+  Description?: Maybe<Scalars['String']>;
+  Group?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteGroup2S = {
+  __typename?: 'SiteGroup2S';
+  Description?: Maybe<Scalars['String']>;
+  Group?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteGroup3S = {
+  __typename?: 'SiteGroup3S';
+  Description?: Maybe<Scalars['String']>;
+  Group?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteGroup4S = {
+  __typename?: 'SiteGroup4S';
+  Description?: Maybe<Scalars['String']>;
+  Group?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteGroup5S = {
+  __typename?: 'SiteGroup5S';
+  Description?: Maybe<Scalars['String']>;
+  Group?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteLevel = {
+  __typename?: 'SiteLevel';
+  Description?: Maybe<Scalars['String']>;
+  Level?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteMeterDirection = {
+  __typename?: 'SiteMeterDirection';
+  Description?: Maybe<Scalars['String']>;
+  Direction?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteStatus = {
+  __typename?: 'SiteStatus';
+  Description?: Maybe<Scalars['String']>;
+  Status?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
 export type SubtractWaterB1 = {
   __typename?: 'SubtractWaterB1';
   AmountWater?: Maybe<Scalars['Float']>;
@@ -542,6 +704,21 @@ export type DeletePreciousMutationVariables = Exact<{
 
 export type DeletePreciousMutation = { __typename?: 'Mutation', DeletePrecious?: { __typename?: 'RowModified', nRow?: number | null } | null };
 
+export type GetAllDistrictQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllDistrictQuery = { __typename?: 'Query', GetAllDistrict?: Array<string | null> | null };
+
+export type GetAllLoggerNotInstallQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllLoggerNotInstallQuery = { __typename?: 'Query', GetAllLoggerNotInstall?: Array<{ __typename?: 'DeviceLogger', Description?: string | null, Installed?: boolean | null, Marks?: string | null, Model?: string | null, Provider?: string | null, ReceipDate?: any | null, Serial?: string | null, Status?: string | null, _id: string } | null> | null };
+
+export type QueGetAllMeterNotInstallryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type QueGetAllMeterNotInstallryQuery = { __typename?: 'Query', GetAllMeterNotInstall?: Array<{ __typename?: 'DeviceMeter', AccreditatedDate?: any | null, AccreditationDocument?: string | null, AccreditationType?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, ExpiryDate?: any | null, InstallIndex?: number | null, Installed?: boolean | null, Marks?: string | null, Model?: string | null, Nationality?: string | null, Provider?: string | null, ReceipDate?: any | null, Serial?: string | null, SerialTransmitter?: string | null, Size?: number | null, _id: string } | null> | null };
+
 export type GetAllOldSiteIdQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -557,10 +734,65 @@ export type GetAllSiteAndChannelQueryVariables = Exact<{ [key: string]: never; }
 
 export type GetAllSiteAndChannelQuery = { __typename?: 'Query', GetAllSiteAndChannel?: Array<{ __typename?: 'SiteAndChannel', Address?: string | null, Company?: string | null, Description?: string | null, District?: string | null, Group?: string | null, Group2?: string | null, Group3?: string | null, Group4?: string | null, Group5?: string | null, IsErrorBattery?: boolean | null, Latitude?: number | null, Level?: string | null, Location?: string | null, LoggerId?: string | null, Longitude?: number | null, OldId?: string | null, _id: string, Channels?: Array<{ __typename?: 'Channel', BaseMin?: number | null, BaseLine?: number | null, BaseMax?: number | null, Description?: string | null, DisplayOnGraph?: boolean | null, ForwardFlow?: boolean | null, GroupChannel?: string | null, IndexTimeStamp?: any | null, LastIndex?: number | null, LastTimeStamp?: any | null, LastValue?: number | null, LoggerId?: string | null, Name?: string | null, Pressure1?: boolean | null, Pressure2?: boolean | null, ReverseFlow?: boolean | null, StatusViewAlarm?: boolean | null, Unit?: string | null, _id?: string | null }> | null }> | null };
 
+export type GetAllSiteAvailabilitiesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteAvailabilitiesQuery = { __typename?: 'Query', GetAllSiteAvailabilities?: Array<{ __typename?: 'SiteAvailabilities', Availability?: string | null, Description?: string | null, _id: string } | null> | null };
+
+export type GetAllSiteCoverQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteCoverQuery = { __typename?: 'Query', GetAllSiteCover?: Array<{ __typename?: 'SiteCover', CoverH?: number | null, CoverID?: string | null, CoverL?: number | null, CoverMeterial?: number | null, CoverNL?: number | null, CoverW?: number | null, _id: string } | null> | null };
+
+export type GetAllSiteGroupQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteGroupQuery = { __typename?: 'Query', GetAllSiteGroup?: Array<{ __typename?: 'SiteGroup', Description?: string | null, Group?: string | null, _id: string } | null> | null };
+
+export type GetAllSiteGroup2SQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteGroup2SQuery = { __typename?: 'Query', GetAllSiteGroup2S?: Array<{ __typename?: 'SiteGroup2S', Description?: string | null, Group?: string | null, _id: string } | null> | null };
+
+export type GetAllSiteGroup3SQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteGroup3SQuery = { __typename?: 'Query', GetAllSiteGroup3S?: Array<{ __typename?: 'SiteGroup3S', Description?: string | null, Group?: string | null, _id: string } | null> | null };
+
+export type GetAllSiteGroup4SQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteGroup4SQuery = { __typename?: 'Query', GetAllSiteGroup4S?: Array<{ __typename?: 'SiteGroup4S', Description?: string | null, Group?: string | null, _id: string } | null> | null };
+
+export type GetAllSiteGroup5SQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteGroup5SQuery = { __typename?: 'Query', GetAllSiteGroup5S?: Array<{ __typename?: 'SiteGroup5S', Description?: string | null, Group?: string | null, _id: string } | null> | null };
+
+export type GetAllSiteLevelQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteLevelQuery = { __typename?: 'Query', GetAllSiteLevel?: Array<{ __typename?: 'SiteLevel', Description?: string | null, Level?: string | null, _id: string } | null> | null };
+
+export type GetAllSiteMeterDirectionQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteMeterDirectionQuery = { __typename?: 'Query', GetAllSiteMeterDirection?: Array<{ __typename?: 'SiteMeterDirection', Description?: string | null, Direction?: string | null, _id: string } | null> | null };
+
+export type GetAllSiteStatusQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteStatusQuery = { __typename?: 'Query', GetAllSiteStatus?: Array<{ __typename?: 'SiteStatus', Description?: string | null, Status?: string | null, _id: string } | null> | null };
+
 export type GetAllStaffsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllStaffsQuery = { __typename?: 'Query', GetAllStaffs?: Array<{ __typename?: 'UserStaff', FirstName?: string | null, LastName?: string | null, _id?: string | null } | null> | null };
+
+export type GetAllTransmitterNotInstallQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllTransmitterNotInstallQuery = { __typename?: 'Query', GetAllTransmitterNotInstall?: Array<{ __typename?: 'DeviceTransmitter', AccreditatedDate?: any | null, AccreditationType?: string | null, AccreditationDocument?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, InstallIndex?: number | null, ExpiryDate?: any | null, Installed?: boolean | null, Marks?: string | null, MeterSerial?: string | null, ReceipDate?: any | null, Serial?: string | null, Size?: number | null, Status?: string | null, _id: string, Provider?: string | null, Model?: string | null } | null> | null };
 
 export type GetAllViewGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -589,6 +821,11 @@ export type GetDataLoggerByTimeStampQueryVariables = Exact<{
 
 
 export type GetDataLoggerByTimeStampQuery = { __typename?: 'Query', GetDataLoggerByTimeStamp?: Array<{ __typename?: 'DataLogger', TimeStamp?: any | null, Value?: number | null }> | null };
+
+export type GetAllMeterAccreditationTypeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllMeterAccreditationTypeQuery = { __typename?: 'Query', GetAllMeterAccreditationType?: Array<{ __typename?: 'DeviceMeterAccreditationType', AccreditationType?: string | null, Description?: string | null, _id: string } | null> | null };
 
 export type GetPreciousByCompanyQueryVariables = Exact<{
   company?: InputMaybe<Scalars['String']>;
@@ -743,6 +980,141 @@ export function useDeletePreciousMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeletePreciousMutationHookResult = ReturnType<typeof useDeletePreciousMutation>;
 export type DeletePreciousMutationResult = Apollo.MutationResult<DeletePreciousMutation>;
 export type DeletePreciousMutationOptions = Apollo.BaseMutationOptions<DeletePreciousMutation, DeletePreciousMutationVariables>;
+export const GetAllDistrictDocument = gql`
+    query GetAllDistrict {
+  GetAllDistrict
+}
+    `;
+
+/**
+ * __useGetAllDistrictQuery__
+ *
+ * To run a query within a React component, call `useGetAllDistrictQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllDistrictQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllDistrictQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllDistrictQuery(baseOptions?: Apollo.QueryHookOptions<GetAllDistrictQuery, GetAllDistrictQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllDistrictQuery, GetAllDistrictQueryVariables>(GetAllDistrictDocument, options);
+      }
+export function useGetAllDistrictLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllDistrictQuery, GetAllDistrictQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllDistrictQuery, GetAllDistrictQueryVariables>(GetAllDistrictDocument, options);
+        }
+export type GetAllDistrictQueryHookResult = ReturnType<typeof useGetAllDistrictQuery>;
+export type GetAllDistrictLazyQueryHookResult = ReturnType<typeof useGetAllDistrictLazyQuery>;
+export type GetAllDistrictQueryResult = Apollo.QueryResult<GetAllDistrictQuery, GetAllDistrictQueryVariables>;
+export function refetchGetAllDistrictQuery(variables?: GetAllDistrictQueryVariables) {
+      return { query: GetAllDistrictDocument, variables: variables }
+    }
+export const GetAllLoggerNotInstallDocument = gql`
+    query GetAllLoggerNotInstall {
+  GetAllLoggerNotInstall {
+    Description
+    Installed
+    Marks
+    Model
+    Provider
+    ReceipDate
+    Serial
+    Status
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllLoggerNotInstallQuery__
+ *
+ * To run a query within a React component, call `useGetAllLoggerNotInstallQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllLoggerNotInstallQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllLoggerNotInstallQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllLoggerNotInstallQuery(baseOptions?: Apollo.QueryHookOptions<GetAllLoggerNotInstallQuery, GetAllLoggerNotInstallQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllLoggerNotInstallQuery, GetAllLoggerNotInstallQueryVariables>(GetAllLoggerNotInstallDocument, options);
+      }
+export function useGetAllLoggerNotInstallLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllLoggerNotInstallQuery, GetAllLoggerNotInstallQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllLoggerNotInstallQuery, GetAllLoggerNotInstallQueryVariables>(GetAllLoggerNotInstallDocument, options);
+        }
+export type GetAllLoggerNotInstallQueryHookResult = ReturnType<typeof useGetAllLoggerNotInstallQuery>;
+export type GetAllLoggerNotInstallLazyQueryHookResult = ReturnType<typeof useGetAllLoggerNotInstallLazyQuery>;
+export type GetAllLoggerNotInstallQueryResult = Apollo.QueryResult<GetAllLoggerNotInstallQuery, GetAllLoggerNotInstallQueryVariables>;
+export function refetchGetAllLoggerNotInstallQuery(variables?: GetAllLoggerNotInstallQueryVariables) {
+      return { query: GetAllLoggerNotInstallDocument, variables: variables }
+    }
+export const QueGetAllMeterNotInstallryDocument = gql`
+    query QueGetAllMeterNotInstallry {
+  GetAllMeterNotInstall {
+    AccreditatedDate
+    AccreditationDocument
+    AccreditationType
+    AppovalDate
+    AppovalDecision
+    Approvaled
+    Description
+    ExpiryDate
+    InstallIndex
+    Installed
+    Marks
+    Model
+    Nationality
+    Provider
+    ReceipDate
+    Serial
+    SerialTransmitter
+    Size
+    _id
+  }
+}
+    `;
+
+/**
+ * __useQueGetAllMeterNotInstallryQuery__
+ *
+ * To run a query within a React component, call `useQueGetAllMeterNotInstallryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueGetAllMeterNotInstallryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueGetAllMeterNotInstallryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useQueGetAllMeterNotInstallryQuery(baseOptions?: Apollo.QueryHookOptions<QueGetAllMeterNotInstallryQuery, QueGetAllMeterNotInstallryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueGetAllMeterNotInstallryQuery, QueGetAllMeterNotInstallryQueryVariables>(QueGetAllMeterNotInstallryDocument, options);
+      }
+export function useQueGetAllMeterNotInstallryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueGetAllMeterNotInstallryQuery, QueGetAllMeterNotInstallryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueGetAllMeterNotInstallryQuery, QueGetAllMeterNotInstallryQueryVariables>(QueGetAllMeterNotInstallryDocument, options);
+        }
+export type QueGetAllMeterNotInstallryQueryHookResult = ReturnType<typeof useQueGetAllMeterNotInstallryQuery>;
+export type QueGetAllMeterNotInstallryLazyQueryHookResult = ReturnType<typeof useQueGetAllMeterNotInstallryLazyQuery>;
+export type QueGetAllMeterNotInstallryQueryResult = Apollo.QueryResult<QueGetAllMeterNotInstallryQuery, QueGetAllMeterNotInstallryQueryVariables>;
+export function refetchQueGetAllMeterNotInstallryQuery(variables?: QueGetAllMeterNotInstallryQueryVariables) {
+      return { query: QueGetAllMeterNotInstallryDocument, variables: variables }
+    }
 export const GetAllOldSiteIdDocument = gql`
     query GetAllOldSiteId {
   GetAllOldSiteId
@@ -931,6 +1303,400 @@ export type GetAllSiteAndChannelQueryResult = Apollo.QueryResult<GetAllSiteAndCh
 export function refetchGetAllSiteAndChannelQuery(variables?: GetAllSiteAndChannelQueryVariables) {
       return { query: GetAllSiteAndChannelDocument, variables: variables }
     }
+export const GetAllSiteAvailabilitiesDocument = gql`
+    query GetAllSiteAvailabilities {
+  GetAllSiteAvailabilities {
+    Availability
+    Description
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSiteAvailabilitiesQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteAvailabilitiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteAvailabilitiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteAvailabilitiesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteAvailabilitiesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteAvailabilitiesQuery, GetAllSiteAvailabilitiesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteAvailabilitiesQuery, GetAllSiteAvailabilitiesQueryVariables>(GetAllSiteAvailabilitiesDocument, options);
+      }
+export function useGetAllSiteAvailabilitiesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteAvailabilitiesQuery, GetAllSiteAvailabilitiesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteAvailabilitiesQuery, GetAllSiteAvailabilitiesQueryVariables>(GetAllSiteAvailabilitiesDocument, options);
+        }
+export type GetAllSiteAvailabilitiesQueryHookResult = ReturnType<typeof useGetAllSiteAvailabilitiesQuery>;
+export type GetAllSiteAvailabilitiesLazyQueryHookResult = ReturnType<typeof useGetAllSiteAvailabilitiesLazyQuery>;
+export type GetAllSiteAvailabilitiesQueryResult = Apollo.QueryResult<GetAllSiteAvailabilitiesQuery, GetAllSiteAvailabilitiesQueryVariables>;
+export function refetchGetAllSiteAvailabilitiesQuery(variables?: GetAllSiteAvailabilitiesQueryVariables) {
+      return { query: GetAllSiteAvailabilitiesDocument, variables: variables }
+    }
+export const GetAllSiteCoverDocument = gql`
+    query GetAllSiteCover {
+  GetAllSiteCover {
+    CoverH
+    CoverID
+    CoverL
+    CoverMeterial
+    CoverNL
+    CoverW
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSiteCoverQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteCoverQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteCoverQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteCoverQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteCoverQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteCoverQuery, GetAllSiteCoverQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteCoverQuery, GetAllSiteCoverQueryVariables>(GetAllSiteCoverDocument, options);
+      }
+export function useGetAllSiteCoverLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteCoverQuery, GetAllSiteCoverQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteCoverQuery, GetAllSiteCoverQueryVariables>(GetAllSiteCoverDocument, options);
+        }
+export type GetAllSiteCoverQueryHookResult = ReturnType<typeof useGetAllSiteCoverQuery>;
+export type GetAllSiteCoverLazyQueryHookResult = ReturnType<typeof useGetAllSiteCoverLazyQuery>;
+export type GetAllSiteCoverQueryResult = Apollo.QueryResult<GetAllSiteCoverQuery, GetAllSiteCoverQueryVariables>;
+export function refetchGetAllSiteCoverQuery(variables?: GetAllSiteCoverQueryVariables) {
+      return { query: GetAllSiteCoverDocument, variables: variables }
+    }
+export const GetAllSiteGroupDocument = gql`
+    query GetAllSiteGroup {
+  GetAllSiteGroup {
+    Description
+    Group
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSiteGroupQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteGroupQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteGroupQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteGroupQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteGroupQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteGroupQuery, GetAllSiteGroupQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteGroupQuery, GetAllSiteGroupQueryVariables>(GetAllSiteGroupDocument, options);
+      }
+export function useGetAllSiteGroupLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteGroupQuery, GetAllSiteGroupQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteGroupQuery, GetAllSiteGroupQueryVariables>(GetAllSiteGroupDocument, options);
+        }
+export type GetAllSiteGroupQueryHookResult = ReturnType<typeof useGetAllSiteGroupQuery>;
+export type GetAllSiteGroupLazyQueryHookResult = ReturnType<typeof useGetAllSiteGroupLazyQuery>;
+export type GetAllSiteGroupQueryResult = Apollo.QueryResult<GetAllSiteGroupQuery, GetAllSiteGroupQueryVariables>;
+export function refetchGetAllSiteGroupQuery(variables?: GetAllSiteGroupQueryVariables) {
+      return { query: GetAllSiteGroupDocument, variables: variables }
+    }
+export const GetAllSiteGroup2SDocument = gql`
+    query GetAllSiteGroup2S {
+  GetAllSiteGroup2S {
+    Description
+    Group
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSiteGroup2SQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteGroup2SQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteGroup2SQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteGroup2SQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteGroup2SQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteGroup2SQuery, GetAllSiteGroup2SQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteGroup2SQuery, GetAllSiteGroup2SQueryVariables>(GetAllSiteGroup2SDocument, options);
+      }
+export function useGetAllSiteGroup2SLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteGroup2SQuery, GetAllSiteGroup2SQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteGroup2SQuery, GetAllSiteGroup2SQueryVariables>(GetAllSiteGroup2SDocument, options);
+        }
+export type GetAllSiteGroup2SQueryHookResult = ReturnType<typeof useGetAllSiteGroup2SQuery>;
+export type GetAllSiteGroup2SLazyQueryHookResult = ReturnType<typeof useGetAllSiteGroup2SLazyQuery>;
+export type GetAllSiteGroup2SQueryResult = Apollo.QueryResult<GetAllSiteGroup2SQuery, GetAllSiteGroup2SQueryVariables>;
+export function refetchGetAllSiteGroup2SQuery(variables?: GetAllSiteGroup2SQueryVariables) {
+      return { query: GetAllSiteGroup2SDocument, variables: variables }
+    }
+export const GetAllSiteGroup3SDocument = gql`
+    query GetAllSiteGroup3S {
+  GetAllSiteGroup3S {
+    Description
+    Group
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSiteGroup3SQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteGroup3SQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteGroup3SQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteGroup3SQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteGroup3SQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteGroup3SQuery, GetAllSiteGroup3SQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteGroup3SQuery, GetAllSiteGroup3SQueryVariables>(GetAllSiteGroup3SDocument, options);
+      }
+export function useGetAllSiteGroup3SLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteGroup3SQuery, GetAllSiteGroup3SQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteGroup3SQuery, GetAllSiteGroup3SQueryVariables>(GetAllSiteGroup3SDocument, options);
+        }
+export type GetAllSiteGroup3SQueryHookResult = ReturnType<typeof useGetAllSiteGroup3SQuery>;
+export type GetAllSiteGroup3SLazyQueryHookResult = ReturnType<typeof useGetAllSiteGroup3SLazyQuery>;
+export type GetAllSiteGroup3SQueryResult = Apollo.QueryResult<GetAllSiteGroup3SQuery, GetAllSiteGroup3SQueryVariables>;
+export function refetchGetAllSiteGroup3SQuery(variables?: GetAllSiteGroup3SQueryVariables) {
+      return { query: GetAllSiteGroup3SDocument, variables: variables }
+    }
+export const GetAllSiteGroup4SDocument = gql`
+    query GetAllSiteGroup4S {
+  GetAllSiteGroup4S {
+    Description
+    Group
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSiteGroup4SQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteGroup4SQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteGroup4SQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteGroup4SQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteGroup4SQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteGroup4SQuery, GetAllSiteGroup4SQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteGroup4SQuery, GetAllSiteGroup4SQueryVariables>(GetAllSiteGroup4SDocument, options);
+      }
+export function useGetAllSiteGroup4SLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteGroup4SQuery, GetAllSiteGroup4SQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteGroup4SQuery, GetAllSiteGroup4SQueryVariables>(GetAllSiteGroup4SDocument, options);
+        }
+export type GetAllSiteGroup4SQueryHookResult = ReturnType<typeof useGetAllSiteGroup4SQuery>;
+export type GetAllSiteGroup4SLazyQueryHookResult = ReturnType<typeof useGetAllSiteGroup4SLazyQuery>;
+export type GetAllSiteGroup4SQueryResult = Apollo.QueryResult<GetAllSiteGroup4SQuery, GetAllSiteGroup4SQueryVariables>;
+export function refetchGetAllSiteGroup4SQuery(variables?: GetAllSiteGroup4SQueryVariables) {
+      return { query: GetAllSiteGroup4SDocument, variables: variables }
+    }
+export const GetAllSiteGroup5SDocument = gql`
+    query GetAllSiteGroup5S {
+  GetAllSiteGroup5S {
+    Description
+    Group
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSiteGroup5SQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteGroup5SQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteGroup5SQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteGroup5SQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteGroup5SQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteGroup5SQuery, GetAllSiteGroup5SQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteGroup5SQuery, GetAllSiteGroup5SQueryVariables>(GetAllSiteGroup5SDocument, options);
+      }
+export function useGetAllSiteGroup5SLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteGroup5SQuery, GetAllSiteGroup5SQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteGroup5SQuery, GetAllSiteGroup5SQueryVariables>(GetAllSiteGroup5SDocument, options);
+        }
+export type GetAllSiteGroup5SQueryHookResult = ReturnType<typeof useGetAllSiteGroup5SQuery>;
+export type GetAllSiteGroup5SLazyQueryHookResult = ReturnType<typeof useGetAllSiteGroup5SLazyQuery>;
+export type GetAllSiteGroup5SQueryResult = Apollo.QueryResult<GetAllSiteGroup5SQuery, GetAllSiteGroup5SQueryVariables>;
+export function refetchGetAllSiteGroup5SQuery(variables?: GetAllSiteGroup5SQueryVariables) {
+      return { query: GetAllSiteGroup5SDocument, variables: variables }
+    }
+export const GetAllSiteLevelDocument = gql`
+    query GetAllSiteLevel {
+  GetAllSiteLevel {
+    Description
+    Level
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSiteLevelQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteLevelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteLevelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteLevelQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteLevelQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteLevelQuery, GetAllSiteLevelQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteLevelQuery, GetAllSiteLevelQueryVariables>(GetAllSiteLevelDocument, options);
+      }
+export function useGetAllSiteLevelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteLevelQuery, GetAllSiteLevelQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteLevelQuery, GetAllSiteLevelQueryVariables>(GetAllSiteLevelDocument, options);
+        }
+export type GetAllSiteLevelQueryHookResult = ReturnType<typeof useGetAllSiteLevelQuery>;
+export type GetAllSiteLevelLazyQueryHookResult = ReturnType<typeof useGetAllSiteLevelLazyQuery>;
+export type GetAllSiteLevelQueryResult = Apollo.QueryResult<GetAllSiteLevelQuery, GetAllSiteLevelQueryVariables>;
+export function refetchGetAllSiteLevelQuery(variables?: GetAllSiteLevelQueryVariables) {
+      return { query: GetAllSiteLevelDocument, variables: variables }
+    }
+export const GetAllSiteMeterDirectionDocument = gql`
+    query GetAllSiteMeterDirection {
+  GetAllSiteMeterDirection {
+    Description
+    Direction
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSiteMeterDirectionQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteMeterDirectionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteMeterDirectionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteMeterDirectionQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteMeterDirectionQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteMeterDirectionQuery, GetAllSiteMeterDirectionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteMeterDirectionQuery, GetAllSiteMeterDirectionQueryVariables>(GetAllSiteMeterDirectionDocument, options);
+      }
+export function useGetAllSiteMeterDirectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteMeterDirectionQuery, GetAllSiteMeterDirectionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteMeterDirectionQuery, GetAllSiteMeterDirectionQueryVariables>(GetAllSiteMeterDirectionDocument, options);
+        }
+export type GetAllSiteMeterDirectionQueryHookResult = ReturnType<typeof useGetAllSiteMeterDirectionQuery>;
+export type GetAllSiteMeterDirectionLazyQueryHookResult = ReturnType<typeof useGetAllSiteMeterDirectionLazyQuery>;
+export type GetAllSiteMeterDirectionQueryResult = Apollo.QueryResult<GetAllSiteMeterDirectionQuery, GetAllSiteMeterDirectionQueryVariables>;
+export function refetchGetAllSiteMeterDirectionQuery(variables?: GetAllSiteMeterDirectionQueryVariables) {
+      return { query: GetAllSiteMeterDirectionDocument, variables: variables }
+    }
+export const GetAllSiteStatusDocument = gql`
+    query GetAllSiteStatus {
+  GetAllSiteStatus {
+    Description
+    Status
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllSiteStatusQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteStatusQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteStatusQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteStatusQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteStatusQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteStatusQuery, GetAllSiteStatusQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteStatusQuery, GetAllSiteStatusQueryVariables>(GetAllSiteStatusDocument, options);
+      }
+export function useGetAllSiteStatusLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteStatusQuery, GetAllSiteStatusQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteStatusQuery, GetAllSiteStatusQueryVariables>(GetAllSiteStatusDocument, options);
+        }
+export type GetAllSiteStatusQueryHookResult = ReturnType<typeof useGetAllSiteStatusQuery>;
+export type GetAllSiteStatusLazyQueryHookResult = ReturnType<typeof useGetAllSiteStatusLazyQuery>;
+export type GetAllSiteStatusQueryResult = Apollo.QueryResult<GetAllSiteStatusQuery, GetAllSiteStatusQueryVariables>;
+export function refetchGetAllSiteStatusQuery(variables?: GetAllSiteStatusQueryVariables) {
+      return { query: GetAllSiteStatusDocument, variables: variables }
+    }
 export const GetAllStaffsDocument = gql`
     query GetAllStaffs {
   GetAllStaffs {
@@ -969,6 +1735,61 @@ export type GetAllStaffsLazyQueryHookResult = ReturnType<typeof useGetAllStaffsL
 export type GetAllStaffsQueryResult = Apollo.QueryResult<GetAllStaffsQuery, GetAllStaffsQueryVariables>;
 export function refetchGetAllStaffsQuery(variables?: GetAllStaffsQueryVariables) {
       return { query: GetAllStaffsDocument, variables: variables }
+    }
+export const GetAllTransmitterNotInstallDocument = gql`
+    query GetAllTransmitterNotInstall {
+  GetAllTransmitterNotInstall {
+    AccreditatedDate
+    AccreditationType
+    AccreditationDocument
+    AppovalDate
+    AppovalDecision
+    Approvaled
+    Description
+    InstallIndex
+    ExpiryDate
+    Installed
+    Marks
+    MeterSerial
+    ReceipDate
+    Serial
+    Size
+    Status
+    _id
+    Provider
+    Model
+  }
+}
+    `;
+
+/**
+ * __useGetAllTransmitterNotInstallQuery__
+ *
+ * To run a query within a React component, call `useGetAllTransmitterNotInstallQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllTransmitterNotInstallQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllTransmitterNotInstallQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllTransmitterNotInstallQuery(baseOptions?: Apollo.QueryHookOptions<GetAllTransmitterNotInstallQuery, GetAllTransmitterNotInstallQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllTransmitterNotInstallQuery, GetAllTransmitterNotInstallQueryVariables>(GetAllTransmitterNotInstallDocument, options);
+      }
+export function useGetAllTransmitterNotInstallLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllTransmitterNotInstallQuery, GetAllTransmitterNotInstallQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllTransmitterNotInstallQuery, GetAllTransmitterNotInstallQueryVariables>(GetAllTransmitterNotInstallDocument, options);
+        }
+export type GetAllTransmitterNotInstallQueryHookResult = ReturnType<typeof useGetAllTransmitterNotInstallQuery>;
+export type GetAllTransmitterNotInstallLazyQueryHookResult = ReturnType<typeof useGetAllTransmitterNotInstallLazyQuery>;
+export type GetAllTransmitterNotInstallQueryResult = Apollo.QueryResult<GetAllTransmitterNotInstallQuery, GetAllTransmitterNotInstallQueryVariables>;
+export function refetchGetAllTransmitterNotInstallQuery(variables?: GetAllTransmitterNotInstallQueryVariables) {
+      return { query: GetAllTransmitterNotInstallDocument, variables: variables }
     }
 export const GetAllViewGroupsDocument = gql`
     query GetAllViewGroups {
@@ -1140,6 +1961,45 @@ export type GetDataLoggerByTimeStampLazyQueryHookResult = ReturnType<typeof useG
 export type GetDataLoggerByTimeStampQueryResult = Apollo.QueryResult<GetDataLoggerByTimeStampQuery, GetDataLoggerByTimeStampQueryVariables>;
 export function refetchGetDataLoggerByTimeStampQuery(variables: GetDataLoggerByTimeStampQueryVariables) {
       return { query: GetDataLoggerByTimeStampDocument, variables: variables }
+    }
+export const GetAllMeterAccreditationTypeDocument = gql`
+    query GetAllMeterAccreditationType {
+  GetAllMeterAccreditationType {
+    AccreditationType
+    Description
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllMeterAccreditationTypeQuery__
+ *
+ * To run a query within a React component, call `useGetAllMeterAccreditationTypeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllMeterAccreditationTypeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllMeterAccreditationTypeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllMeterAccreditationTypeQuery(baseOptions?: Apollo.QueryHookOptions<GetAllMeterAccreditationTypeQuery, GetAllMeterAccreditationTypeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllMeterAccreditationTypeQuery, GetAllMeterAccreditationTypeQueryVariables>(GetAllMeterAccreditationTypeDocument, options);
+      }
+export function useGetAllMeterAccreditationTypeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllMeterAccreditationTypeQuery, GetAllMeterAccreditationTypeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllMeterAccreditationTypeQuery, GetAllMeterAccreditationTypeQueryVariables>(GetAllMeterAccreditationTypeDocument, options);
+        }
+export type GetAllMeterAccreditationTypeQueryHookResult = ReturnType<typeof useGetAllMeterAccreditationTypeQuery>;
+export type GetAllMeterAccreditationTypeLazyQueryHookResult = ReturnType<typeof useGetAllMeterAccreditationTypeLazyQuery>;
+export type GetAllMeterAccreditationTypeQueryResult = Apollo.QueryResult<GetAllMeterAccreditationTypeQuery, GetAllMeterAccreditationTypeQueryVariables>;
+export function refetchGetAllMeterAccreditationTypeQuery(variables?: GetAllMeterAccreditationTypeQueryVariables) {
+      return { query: GetAllMeterAccreditationTypeDocument, variables: variables }
     }
 export const GetPreciousByCompanyDocument = gql`
     query GetPreciousByCompany($company: String) {

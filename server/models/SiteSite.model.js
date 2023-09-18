@@ -240,3 +240,195 @@ module.exports.GetSiteByWaterSubtractB2ForTA = async () => {
 
     return result;
 };
+
+module.exports.GetAllDistrict = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = [];
+
+    let data = await collection.find({}).toArray();
+
+    if (data.length > 0) {
+        for (const site of data) {
+            let find = result.find((el) => el === site.District);
+
+            if (find === undefined) {
+                result.push(site.District);
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetAllLevel = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = [];
+
+    let data = await collection.find({}).toArray();
+
+    if (data.length > 0) {
+        for (const site of data) {
+            let find = result.find((el) => el === site.Level);
+
+            if (find === undefined) {
+                result.push(site.Level);
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetAllGroup = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = [];
+
+    let data = await collection.find({}).toArray();
+
+    if (data.length > 0) {
+        for (const site of data) {
+            let find = result.find((el) => el === site.Group);
+
+            if (find === undefined) {
+                result.push(site.Group);
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetAllGroup2 = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = [];
+
+    let data = await collection.find({}).toArray();
+
+    if (data.length > 0) {
+        for (const site of data) {
+            let find = result.find((el) => el === site.Group2);
+
+            if (find === undefined) {
+                result.push(site.Group2);
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetAllGroup3 = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = [];
+
+    let data = await collection.find({}).toArray();
+
+    if (data.length > 0) {
+        for (const site of data) {
+            let find = result.find((el) => el === site.Group3);
+
+            if (find === undefined) {
+                result.push(site.Group3);
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetAllGroup4 = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = [];
+
+    let data = await collection.find({}).toArray();
+
+    if (data.length > 0) {
+        for (const site of data) {
+            let find = result.find((el) => el === site.Group4);
+
+            if (find === undefined) {
+                result.push(site.Group4);
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetAllGroup5 = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = [];
+
+    let data = await collection.find({}).toArray();
+
+    if (data.length > 0) {
+        for (const site of data) {
+            let find = result.find((el) => el === site.Group5);
+
+            if (find === undefined) {
+                result.push(site.Group5);
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetAllCoverID = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = [];
+
+    let data = await collection.find({}).toArray();
+
+    if (data.length > 0) {
+        for (const site of data) {
+            let find = result.find((el) => el === site.CoverID);
+
+            if (find === undefined) {
+                result.push(site.CoverID);
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return result;
+};

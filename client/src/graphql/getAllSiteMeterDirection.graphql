@@ -1,0 +1,7 @@
+query GetAllSiteMeterDirection {
+    GetAllSiteMeterDirection {
+        Description
+        Direction
+        _id
+    }
+}

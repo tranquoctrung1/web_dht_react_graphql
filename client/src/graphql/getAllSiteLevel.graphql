@@ -1,0 +1,7 @@
+query GetAllSiteLevel {
+    GetAllSiteLevel {
+        Description
+        Level
+        _id
+    }
+}

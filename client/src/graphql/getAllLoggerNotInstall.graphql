@@ -1,0 +1,13 @@
+query GetAllLoggerNotInstall {
+    GetAllLoggerNotInstall {
+        Description
+        Installed
+        Marks
+        Model
+        Provider
+        ReceipDate
+        Serial
+        Status
+        _id
+    }
+}

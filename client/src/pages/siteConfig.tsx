@@ -23,6 +23,22 @@ import {
     useGetAllStaffsQuery,
     useGetAllSitesQuery,
     useGetAllOldSiteIdQuery,
+    useGetAllDistrictQuery,
+    useQueGetAllMeterNotInstallryQuery,
+    useGetAllTransmitterNotInstallQuery,
+    useGetAllLoggerNotInstallQuery,
+    useGetAllMeterAccreditationTypeQuery,
+    useGetAllSiteLevelQuery,
+    useGetAllSiteStatusQuery,
+    useGetAllSiteMeterDirectionQuery,
+    useGetAllSiteGroupQuery,
+    useGetAllSiteGroup2SQuery,
+    useGetAllSiteGroup3SQuery,
+    useGetAllSiteGroup4SQuery,
+    useGetAllSiteGroup5SQuery,
+    useGetAllSiteAvailabilitiesQuery,
+    useGetCompaniesQuery,
+    useGetAllSiteCoverQuery,
 } from '../__generated__/graphql';
 
 const SiteConfigPage = () => {
@@ -31,8 +47,59 @@ const SiteConfigPage = () => {
     const { data: viewGroups, error: viewGroupError } =
         useGetAllViewGroupsQuery();
     const { data: staffs, error: staffError } = useGetAllStaffsQuery();
+    const { data: districts, error: districtError } = useGetAllDistrictQuery();
+    const { data: meters, error: metersError } =
+        useQueGetAllMeterNotInstallryQuery();
+    const { data: transmitters, error: transmitterError } =
+        useGetAllTransmitterNotInstallQuery();
+    const { data: loggers, error: loggerError } =
+        useGetAllLoggerNotInstallQuery();
+    const { data: metersAccrediationType, error: meterAccrediationTypeError } =
+        useGetAllMeterAccreditationTypeQuery();
+    const { data: siteLevels, error: siteLevelsError } =
+        useGetAllSiteLevelQuery();
+    const { data: siteStatus, error: siteStatusError } =
+        useGetAllSiteStatusQuery();
+    const { data: siteMeterDirection, error: siteDirectionError } =
+        useGetAllSiteMeterDirectionQuery();
+    const { data: siteGroup, error: siteGroupError } =
+        useGetAllSiteGroupQuery();
+    const { data: siteGroup2S, error: siteGroup2SError } =
+        useGetAllSiteGroup2SQuery();
+    const { data: siteGroup3S, error: siteGroup3SError } =
+        useGetAllSiteGroup3SQuery();
+    const { data: siteGroup4S, error: siteGroup4SError } =
+        useGetAllSiteGroup4SQuery();
+    const { data: siteGroup5S, error: siteGroup5SError } =
+        useGetAllSiteGroup5SQuery();
+    const { data: siteAvailabilities, error: siteAvailabilitiesError } =
+        useGetAllSiteAvailabilitiesQuery();
+    const { data: companies, error: companiesError } = useGetCompaniesQuery();
+    const { data: siteCover, error: siteCoverError } =
+        useGetAllSiteCoverQuery();
 
-    if (viewGroupError || staffError || siteError || oldIdError) {
+    if (
+        viewGroupError ||
+        staffError ||
+        siteError ||
+        oldIdError ||
+        districtError ||
+        metersError ||
+        transmitterError ||
+        loggerError ||
+        meterAccrediationTypeError ||
+        siteLevelsError ||
+        siteStatusError ||
+        siteDirectionError ||
+        siteGroupError ||
+        siteGroup2SError ||
+        siteGroup3SError ||
+        siteGroup4SError ||
+        siteGroup5SError ||
+        siteAvailabilitiesError ||
+        companiesError ||
+        siteCoverError
+    ) {
         return (
             <Text color="red" weight={500}>
                 Lỗi khi tải dữ liệu
@@ -71,6 +138,323 @@ const SiteConfigPage = () => {
                     };
 
                     staffsData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const metersData = [];
+
+    if (meters != undefined && meters != null) {
+        if (
+            meters.GetAllMeterNotInstall != null &&
+            meters.GetAllMeterNotInstall != undefined
+        ) {
+            if (meters.GetAllMeterNotInstall.length > 0) {
+                for (const meter of meters.GetAllMeterNotInstall) {
+                    const obj = {
+                        label: `${meter?.Serial} | ${meter?.Marks} | ${meter?.Size}`,
+                        value: meter?.Serial,
+                    };
+
+                    metersData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const transmittersData = [];
+
+    if (transmitters != undefined && transmitters != null) {
+        if (
+            transmitters.GetAllTransmitterNotInstall != null &&
+            transmitters.GetAllTransmitterNotInstall != undefined
+        ) {
+            if (transmitters.GetAllTransmitterNotInstall.length > 0) {
+                for (const transmitter of transmitters.GetAllTransmitterNotInstall) {
+                    const obj = {
+                        label: `${transmitter?.Serial} | ${transmitter?.Marks} | ${transmitter?.Size}`,
+                        value: transmitter?.Serial,
+                    };
+
+                    transmittersData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const loggersData = [];
+
+    if (loggers != undefined && loggers != null) {
+        if (
+            loggers.GetAllLoggerNotInstall != null &&
+            loggers.GetAllLoggerNotInstall != undefined
+        ) {
+            if (loggers.GetAllLoggerNotInstall.length > 0) {
+                for (const logger of loggers.GetAllLoggerNotInstall) {
+                    const obj = {
+                        label: `${logger?.Serial} | ${logger?.Marks} | ${logger?.Model}`,
+                        value: logger?.Serial,
+                    };
+
+                    loggersData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const metersAccreditationTypeData = [];
+
+    if (metersAccrediationType != undefined && metersAccrediationType != null) {
+        if (
+            metersAccrediationType.GetAllMeterAccreditationType != null &&
+            metersAccrediationType.GetAllMeterAccreditationType != undefined
+        ) {
+            if (
+                metersAccrediationType.GetAllMeterAccreditationType.length > 0
+            ) {
+                for (const meterAccrediationType of metersAccrediationType?.GetAllMeterAccreditationType) {
+                    const obj = {
+                        label: `${meterAccrediationType?.AccreditationType} | ${meterAccrediationType?.Description}`,
+                        value: meterAccrediationType?.AccreditationType,
+                    };
+
+                    metersAccreditationTypeData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const siteLevelsData = [];
+
+    if (siteLevels != undefined && siteLevels != null) {
+        if (
+            siteLevels.GetAllSiteLevel != null &&
+            siteLevels.GetAllSiteLevel != undefined
+        ) {
+            if (siteLevels.GetAllSiteLevel.length > 0) {
+                for (const siteLevel of siteLevels?.GetAllSiteLevel) {
+                    const obj = {
+                        label: `${siteLevel?.Level} | ${siteLevel?.Description}`,
+                        value: siteLevel?.Level,
+                    };
+
+                    siteLevelsData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const siteStatusData = [];
+
+    if (siteStatus != undefined && siteStatus != null) {
+        if (
+            siteStatus.GetAllSiteStatus != null &&
+            siteStatus.GetAllSiteStatus != undefined
+        ) {
+            if (siteStatus.GetAllSiteStatus.length > 0) {
+                for (const siteStat of siteStatus?.GetAllSiteStatus) {
+                    const obj = {
+                        label: `${siteStat?.Status} | ${siteStat?.Description}`,
+                        value: siteStat?.Status,
+                    };
+
+                    siteStatusData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const siteMeterDirectionsData = [];
+
+    if (siteMeterDirection != undefined && siteMeterDirection != null) {
+        if (
+            siteMeterDirection.GetAllSiteMeterDirection != null &&
+            siteMeterDirection.GetAllSiteMeterDirection != undefined
+        ) {
+            if (siteMeterDirection.GetAllSiteMeterDirection.length > 0) {
+                for (const siteDirec of siteMeterDirection?.GetAllSiteMeterDirection) {
+                    const obj = {
+                        label: `${siteDirec?.Direction} | ${siteDirec?.Description}`,
+                        value: siteDirec?.Direction,
+                    };
+
+                    siteMeterDirectionsData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const siteGroupsData = [];
+
+    if (siteGroup != undefined && siteGroup != null) {
+        if (
+            siteGroup.GetAllSiteGroup != null &&
+            siteGroup.GetAllSiteGroup != undefined
+        ) {
+            if (siteGroup.GetAllSiteGroup.length > 0) {
+                for (const site of siteGroup?.GetAllSiteGroup) {
+                    const obj = {
+                        label: `${site?.Group} | ${site?.Description}`,
+                        value: site?.Group,
+                    };
+
+                    siteGroupsData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const siteGroups2SData = [];
+
+    if (siteGroup2S != undefined && siteGroup2S != null) {
+        if (
+            siteGroup2S.GetAllSiteGroup2S != null &&
+            siteGroup2S.GetAllSiteGroup2S != undefined
+        ) {
+            if (siteGroup2S.GetAllSiteGroup2S.length > 0) {
+                for (const site of siteGroup2S?.GetAllSiteGroup2S) {
+                    const obj = {
+                        label: `${site?.Group} | ${site?.Description}`,
+                        value: site?.Group,
+                    };
+
+                    siteGroups2SData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const siteGroups3SData = [];
+
+    if (siteGroup3S != undefined && siteGroup3S != null) {
+        if (
+            siteGroup3S.GetAllSiteGroup3S != null &&
+            siteGroup3S.GetAllSiteGroup3S != undefined
+        ) {
+            if (siteGroup3S.GetAllSiteGroup3S.length > 0) {
+                for (const site of siteGroup3S?.GetAllSiteGroup3S) {
+                    const obj = {
+                        label: `${site?.Group} | ${site?.Description}`,
+                        value: site?.Group,
+                    };
+
+                    siteGroups3SData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const siteGroups4SData = [];
+
+    if (siteGroup4S != undefined && siteGroup4S != null) {
+        if (
+            siteGroup4S.GetAllSiteGroup4S != null &&
+            siteGroup4S.GetAllSiteGroup4S != undefined
+        ) {
+            if (siteGroup4S.GetAllSiteGroup4S.length > 0) {
+                for (const site of siteGroup4S?.GetAllSiteGroup4S) {
+                    const obj = {
+                        label: `${site?.Group} | ${site?.Description}`,
+                        value: site?.Group,
+                    };
+
+                    siteGroups4SData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const siteGroups5SData = [];
+
+    if (siteGroup5S != undefined && siteGroup5S != null) {
+        if (
+            siteGroup5S.GetAllSiteGroup5S != null &&
+            siteGroup5S.GetAllSiteGroup5S != undefined
+        ) {
+            if (siteGroup5S.GetAllSiteGroup5S.length > 0) {
+                for (const site of siteGroup5S?.GetAllSiteGroup5S) {
+                    const obj = {
+                        label: `${site?.Group} | ${site?.Description}`,
+                        value: site?.Group,
+                    };
+
+                    siteGroups5SData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const siteAvailabilitiesData = [];
+
+    if (siteAvailabilities != undefined && siteAvailabilities != null) {
+        if (
+            siteAvailabilities.GetAllSiteAvailabilities != null &&
+            siteAvailabilities.GetAllSiteAvailabilities != undefined
+        ) {
+            if (siteAvailabilities.GetAllSiteAvailabilities.length > 0) {
+                for (const site of siteAvailabilities?.GetAllSiteAvailabilities) {
+                    const obj = {
+                        label: `${site?.Availability} | ${site?.Description}`,
+                        value: site?.Availability,
+                    };
+
+                    siteAvailabilitiesData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const companiesData = [];
+
+    if (companies != undefined && companies != null) {
+        if (
+            companies.GetCompanies != null &&
+            companies.GetCompanies != undefined
+        ) {
+            if (companies.GetCompanies.length > 0) {
+                for (const company of companies?.GetCompanies) {
+                    const obj = {
+                        label: `${company?.Company} | ${company?.Description}`,
+                        value: company?.Company,
+                    };
+
+                    companiesData.push(obj);
+                }
+            }
+        }
+    }
+
+    //@ts-ignore
+    const siteCoversData = [];
+
+    if (siteCover != undefined && siteCover != null) {
+        if (
+            siteCover.GetAllSiteCover != null &&
+            siteCover.GetAllSiteCover != undefined
+        ) {
+            if (siteCover.GetAllSiteCover.length > 0) {
+                for (const site of siteCover?.GetAllSiteCover) {
+                    const obj = {
+                        label: `${site?.CoverID} `,
+                        value: site?.CoverID,
+                    };
+
+                    siteCoversData.push(obj);
                 }
             }
         }
@@ -332,69 +716,81 @@ const SiteConfigPage = () => {
                     ></Controller>
                 </Col>
                 <Col md={4}>
-                    <Controller
-                        name="District"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Quận"
-                                placeholder="Quận"
-                                searchable
-                                nothingFound="Không tìm thấy quận"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {districts !== undefined ? (
+                        <Controller
+                            name="District"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Quận"
+                                    placeholder="Quận"
+                                    searchable
+                                    nothingFound="Không tìm thấy quận"
+                                    //@ts-ignore
+                                    data={districts.GetAllDistrict}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={4}></Col>
                 <Col md={4}>
-                    <Controller
-                        name="Meter"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Dồng hồ"
-                                placeholder="Đồng hồ"
-                                searchable
-                                nothingFound="Không tìm thấy đồng hồ"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {meters !== undefined ? (
+                        <Controller
+                            name="Meter"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Dồng hồ"
+                                    placeholder="Đồng hồ"
+                                    searchable
+                                    nothingFound="Không tìm thấy đồng hồ"
+                                    //@ts-ignore
+                                    data={metersData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={4}>
-                    <Controller
-                        name="Transmitter"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Bộ hiển thị"
-                                placeholder="Bộ hiển thị"
-                                searchable
-                                nothingFound="Không tìm thấy bộ hiển thị"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {transmitters !== undefined ? (
+                        <Controller
+                            name="Transmitter"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Bộ hiển thị"
+                                    placeholder="Bộ hiển thị"
+                                    searchable
+                                    nothingFound="Không tìm thấy bộ hiển thị"
+                                    //@ts-ignore
+                                    data={transmittersData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={4}>
-                    <Controller
-                        name="Logger"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Logger"
-                                placeholder="Logger"
-                                searchable
-                                nothingFound="Không tìm thấy Logger"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {loggers !== undefined ? (
+                        <Controller
+                            name="Logger"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Logger"
+                                    placeholder="Logger"
+                                    searchable
+                                    nothingFound="Không tìm thấy Logger"
+                                    //@ts-ignore
+                                    data={loggersData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={3}>
                     <Controller
@@ -410,20 +806,23 @@ const SiteConfigPage = () => {
                     ></Controller>
                 </Col>
                 <Col md={3}>
-                    <Controller
-                        name="AccreditationType"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Loại kiểm định"
-                                placeholder="Loại kiểm định"
-                                searchable
-                                nothingFound="Không tìm thấy loại kiểm định"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {metersAccrediationType !== undefined ? (
+                        <Controller
+                            name="AccreditationType"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Loại kiểm định"
+                                    placeholder="Loại kiểm định"
+                                    searchable
+                                    nothingFound="Không tìm thấy loại kiểm định"
+                                    //@ts-ignore
+                                    data={metersAccreditationTypeData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={3}>
                     <Controller
@@ -586,117 +985,138 @@ const SiteConfigPage = () => {
                     ></Controller>
                 </Col>
                 <Col md={4}>
-                    <Controller
-                        name="Level"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Cấp đồng hồ"
-                                placeholder="Cấp đồng hồ"
-                                searchable
-                                nothingFound="Không tìm thấy cấp đồng hồ"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {siteLevels !== undefined ? (
+                        <Controller
+                            name="Level"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Cấp đồng hồ"
+                                    placeholder="Cấp đồng hồ"
+                                    searchable
+                                    nothingFound="Không tìm thấy cấp đồng hồ"
+                                    //@ts-ignore
+                                    data={siteLevelsData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={4}>
-                    <Controller
-                        name="Status"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Trạng thái"
-                                placeholder="Trạng thái"
-                                searchable
-                                nothingFound="Không tìm thấy trạng thái"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {siteStatus != undefined ? (
+                        <Controller
+                            name="Status"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Trạng thái"
+                                    placeholder="Trạng thái"
+                                    searchable
+                                    nothingFound="Không tìm thấy trạng thái"
+                                    //@ts-ignore
+                                    data={siteStatusData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={4}>
-                    <Controller
-                        name="MeterDirection"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Chiều đồng hồ"
-                                placeholder="Chiều đồng hồ"
-                                searchable
-                                nothingFound="Không tìm thấy chiều đồng hồ"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {siteMeterDirection !== undefined ? (
+                        <Controller
+                            name="MeterDirection"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Chiều đồng hồ"
+                                    placeholder="Chiều đồng hồ"
+                                    searchable
+                                    nothingFound="Không tìm thấy chiều đồng hồ"
+                                    //@ts-ignore
+                                    data={siteMeterDirectionsData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
 
                 <Col md={4}>
-                    <Controller
-                        name="Group"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Nhóm đồng hồ 1"
-                                placeholder="Nhóm đồng hồ 1"
-                                searchable
-                                nothingFound="Không tìm thấy nhóm đồng hồ 1"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {siteGroup !== undefined ? (
+                        <Controller
+                            name="Group"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Nhóm đồng hồ 1"
+                                    placeholder="Nhóm đồng hồ 1"
+                                    searchable
+                                    nothingFound="Không tìm thấy nhóm đồng hồ 1"
+                                    //@ts-ignore
+                                    data={siteGroupsData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={4}>
-                    <Controller
-                        name="Availability"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Tình trạng"
-                                placeholder="Tình trạng"
-                                searchable
-                                nothingFound="Không tìm thấy tình trạng"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {siteAvailabilities !== undefined ? (
+                        <Controller
+                            name="Availability"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Tình trạng"
+                                    placeholder="Tình trạng"
+                                    searchable
+                                    nothingFound="Không tìm thấy tình trạng"
+                                    //@ts-ignore
+                                    data={siteAvailabilitiesData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={4}>
-                    <Controller
-                        name="ProductionCompany"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Công ty sản xuất"
-                                placeholder="Công ty sản xuất"
-                                searchable
-                                nothingFound="Không tìm thấy công ty sản xuất"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {companies !== undefined ? (
+                        <Controller
+                            name="ProductionCompany"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Công ty sản xuất"
+                                    placeholder="Công ty sản xuất"
+                                    searchable
+                                    nothingFound="Không tìm thấy công ty sản xuất"
+                                    //@ts-ignore
+                                    data={companiesData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={4}>
-                    <Controller
-                        name="Group2"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Nhóm đồng hồ 2"
-                                placeholder="Nhóm đồng hồ 2"
-                                searchable
-                                nothingFound="Không tìm thấy nhóm đồng hồ 2"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {siteGroup2S !== undefined ? (
+                        <Controller
+                            name="Group2"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Nhóm đồng hồ 2"
+                                    placeholder="Nhóm đồng hồ 2"
+                                    searchable
+                                    nothingFound="Không tìm thấy nhóm đồng hồ 2"
+                                    // @ts-ignore
+                                    data={siteGroups2SData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col
                     md={4}
@@ -727,48 +1147,56 @@ const SiteConfigPage = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Controller
-                        name="IstDistributionCompany"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Công ty cung cấp 1"
-                                placeholder="Công ty cung cấp 1"
-                                searchable
-                                nothingFound="Không tìm thấy công ty cung cấp 1"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                                style={{ flex: 1 }}
-                            />
-                        )}
-                    ></Controller>
-                    <Controller
-                        name="IstDoNotCalculateReverse"
-                        control={control}
-                        render={({ field }) => (
-                            <Checkbox
-                                style={{ marginTop: '1.5rem' }}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {companies !== undefined ? (
+                        <>
+                            <Controller
+                                name="IstDistributionCompany"
+                                control={control}
+                                render={({ field }) => (
+                                    <Select
+                                        label="Công ty cung cấp 1"
+                                        placeholder="Công ty cung cấp 1"
+                                        searchable
+                                        nothingFound="Không tìm thấy công ty cung cấp 1"
+                                        //@ts-ignore
+                                        data={companiesData}
+                                        {...field}
+                                        style={{ flex: 1 }}
+                                    />
+                                )}
+                            ></Controller>
+                            <Controller
+                                name="IstDoNotCalculateReverse"
+                                control={control}
+                                render={({ field }) => (
+                                    <Checkbox
+                                        style={{ marginTop: '1.5rem' }}
+                                        {...field}
+                                    />
+                                )}
+                            ></Controller>
+                        </>
+                    ) : null}
                 </Col>
 
                 <Col md={4}>
-                    <Controller
-                        name="Group3"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Nhóm đồng hồ 3"
-                                placeholder="Nhóm đồng hồ 3"
-                                searchable
-                                nothingFound="Không tìm thấy nhóm đồng hồ 3"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {siteGroup3S !== undefined ? (
+                        <Controller
+                            name="Group3"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Nhóm đồng hồ 3"
+                                    placeholder="Nhóm đồng hồ 3"
+                                    searchable
+                                    nothingFound="Không tìm thấy nhóm đồng hồ 3"
+                                    //@ts-ignore
+                                    data={siteGroups3SData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col
                     md={4}
@@ -799,48 +1227,56 @@ const SiteConfigPage = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Controller
-                        name="QndDistributionCompany"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Công ty cung cấp 2"
-                                placeholder="Công ty cung cấp 2"
-                                searchable
-                                nothingFound="Không tìm thấy công ty cung cấp 2"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                                style={{ flex: 1 }}
-                            />
-                        )}
-                    ></Controller>
-                    <Controller
-                        name="QndDoNotCalculateReverse"
-                        control={control}
-                        render={({ field }) => (
-                            <Checkbox
-                                style={{ marginTop: '1.5rem' }}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {companies !== undefined ? (
+                        <>
+                            <Controller
+                                name="QndDistributionCompany"
+                                control={control}
+                                render={({ field }) => (
+                                    <Select
+                                        label="Công ty cung cấp 2"
+                                        placeholder="Công ty cung cấp 2"
+                                        searchable
+                                        nothingFound="Không tìm thấy công ty cung cấp 2"
+                                        //@ts-ignore
+                                        data={companiesData}
+                                        {...field}
+                                        style={{ flex: 1 }}
+                                    />
+                                )}
+                            ></Controller>
+                            <Controller
+                                name="QndDoNotCalculateReverse"
+                                control={control}
+                                render={({ field }) => (
+                                    <Checkbox
+                                        style={{ marginTop: '1.5rem' }}
+                                        {...field}
+                                    />
+                                )}
+                            ></Controller>
+                        </>
+                    ) : null}
                 </Col>
 
                 <Col md={4}>
-                    <Controller
-                        name="Group4"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Nhóm đồng hồ 4"
-                                placeholder="Nhóm đồng hồ 4"
-                                searchable
-                                nothingFound="Không tìm thấy nhóm đồng hồ 4"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {siteGroup4S !== undefined ? (
+                        <Controller
+                            name="Group4"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Nhóm đồng hồ 4"
+                                    placeholder="Nhóm đồng hồ 4"
+                                    searchable
+                                    nothingFound="Không tìm thấy nhóm đồng hồ 4"
+                                    //@ts-ignore
+                                    data={siteGroups4SData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col
                     md={4}
@@ -878,20 +1314,23 @@ const SiteConfigPage = () => {
                 </Col>
 
                 <Col md={3}>
-                    <Controller
-                        name="Group5"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Nhóm đồng hồ 5"
-                                placeholder="Nhóm đồng hồ 5"
-                                searchable
-                                nothingFound="Không tìm thấy nhóm đồng hồ 5"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {siteGroup5S !== undefined ? (
+                        <Controller
+                            name="Group5"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Nhóm đồng hồ 5"
+                                    placeholder="Nhóm đồng hồ 5"
+                                    searchable
+                                    nothingFound="Không tìm thấy nhóm đồng hồ 5"
+                                    //@ts-ignore
+                                    data={siteGroups5SData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col
                     md={3}
@@ -915,20 +1354,23 @@ const SiteConfigPage = () => {
                     ></Controller>
                 </Col>
                 <Col md={3}>
-                    <Controller
-                        name="Company"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Quản lý"
-                                placeholder="Quản lý"
-                                searchable
-                                nothingFound="Không tìm thấy quản lý"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {companies !== undefined ? (
+                        <Controller
+                            name="Company"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Quản lý"
+                                    placeholder="Quản lý"
+                                    searchable
+                                    nothingFound="Không tìm thấy quản lý"
+                                    //@ts-ignore
+                                    data={companiesData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={3}>
                     <Controller
@@ -947,20 +1389,23 @@ const SiteConfigPage = () => {
                 </Col>
 
                 <Col md={4}>
-                    <Controller
-                        name="CoverID"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Mã nấp hầm"
-                                placeholder="Mã nấp hầm"
-                                searchable
-                                nothingFound="Không tìm thấy Mã nấp hầm"
-                                data={['React', 'Angular', 'Svelte', 'Vue']}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
+                    {siteCover !== undefined ? (
+                        <Controller
+                            name="CoverID"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Mã nấp hầm"
+                                    placeholder="Mã nấp hầm"
+                                    searchable
+                                    nothingFound="Không tìm thấy Mã nấp hầm"
+                                    //@ts-ignore
+                                    data={siteCoversData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
                 <Col md={4}>
                     <Controller

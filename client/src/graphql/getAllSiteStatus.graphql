@@ -1,0 +1,7 @@
+query GetAllSiteStatus {
+    GetAllSiteStatus {
+        Description
+        Status
+        _id
+    }
+}

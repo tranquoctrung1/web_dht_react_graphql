@@ -1,0 +1,7 @@
+query GetAllSiteAvailabilities {
+    GetAllSiteAvailabilities {
+        Availability
+        Description
+        _id
+    }
+}

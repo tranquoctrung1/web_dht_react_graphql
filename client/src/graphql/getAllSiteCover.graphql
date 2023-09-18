@@ -1,0 +1,11 @@
+query GetAllSiteCover {
+    GetAllSiteCover {
+        CoverH
+        CoverID
+        CoverL
+        CoverMeterial
+        CoverNL
+        CoverW
+        _id
+    }
+}

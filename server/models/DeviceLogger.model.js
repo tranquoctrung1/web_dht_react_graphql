@@ -23,3 +23,18 @@ module.exports.DeviceLogger = class DeviceLogger {
         this.Description = Description;
     }
 };
+
+module.exports.GetAllLoggerNotInstall = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DeviceLoggerCollection);
+
+    let result = await collection
+        .find({ Installed: false })
+        .sort({ Serial: 1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

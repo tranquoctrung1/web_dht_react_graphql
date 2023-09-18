@@ -1,0 +1,23 @@
+query QueGetAllMeterNotInstallry {
+    GetAllMeterNotInstall {
+        AccreditatedDate
+        AccreditationDocument
+        AccreditationType
+        AppovalDate
+        AppovalDecision
+        Approvaled
+        Description
+        ExpiryDate
+        InstallIndex
+        Installed
+        Marks
+        Model
+        Nationality
+        Provider
+        ReceipDate
+        Serial
+        SerialTransmitter
+        Size
+        _id
+    }
+}

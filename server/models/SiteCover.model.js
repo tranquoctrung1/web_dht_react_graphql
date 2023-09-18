@@ -12,3 +12,15 @@ module.exports.SiteCover = class SiteCover {
         this.CoverNL = CoverNL;
     }
 };
+
+module.exports.GetAll = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteCoverCollection);
+
+    let result = await collection.find({}).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

@@ -10,7 +10,7 @@ module.exports.SiteCompanies = class SiteCompanies {
     }
 };
 
-module.exports.GetSiteCompanies = async () => {
+module.exports.GetAllSiteCompanies = async () => {
     let Connect = new ConnectDB.Connect();
 
     let collection = await Connect.connect(SiteCompaniesCollection);

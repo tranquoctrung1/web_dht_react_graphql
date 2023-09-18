@@ -8,3 +8,15 @@ module.exports.SiteStatus = class SiteStatus {
         this.Description = Description;
     }
 };
+
+module.exports.GetAll = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteStatusCollection);
+
+    let result = await collection.find({}).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

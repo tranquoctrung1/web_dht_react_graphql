@@ -290,6 +290,132 @@ module.exports = gql`
         LastName: String
     }
 
+    type DeviceMeter {
+        _id: ID!
+        Serial: String
+        ReceipDate: Date
+        AccreditatedDate: Date
+        ExpiryDate: Date
+        AccreditationDocument: String
+        AccreditationType: String
+        Provider: String
+        Marks: String
+        Size: Int
+        Model: String
+        Installed: Boolean
+        InstallIndex: Float
+        Description: String
+        AppovalDate: Date
+        Approvaled: Date
+        AppovalDecision: String
+        SerialTransmitter: String
+        Nationality: String
+    }
+
+    type DeviceTransmitter {
+        _id: ID!
+        Serial: String
+        ReceipDate: Date
+        AccreditatedDate: Date
+        ExpiryDate: Date
+        AccreditationDocument: String
+        AccreditationType: String
+        Provider: String
+        Marks: String
+        Size: Int
+        Model: String
+        Installed: Boolean
+        InstallIndex: Float
+        Description: String
+        AppovalDate: Date
+        Approvaled: Date
+        AppovalDecision: String
+        MeterSerial: String
+        Status: String
+    }
+
+    type DeviceLogger {
+        _id: ID!
+        Serial: String
+        ReceipDate: Date
+        Provider: String
+        Marks: String
+        Model: String
+        Installed: Boolean
+        Description: String
+        Status: String
+    }
+
+    type DeviceMeterAccreditationType {
+        _id: ID!
+        AccreditationType: String
+        Description: String
+    }
+
+    type SiteLevel {
+        _id: ID!
+        Level: String
+        Description: String
+    }
+
+    type SiteStatus {
+        _id: ID!
+        Status: String
+        Description: String
+    }
+
+    type SiteMeterDirection {
+        _id: ID!
+        Direction: String
+        Description: String
+    }
+
+    type SiteGroup {
+        _id: ID!
+        Group: String
+        Description: String
+    }
+
+    type SiteGroup2S {
+        _id: ID!
+        Group: String
+        Description: String
+    }
+
+    type SiteGroup3S {
+        _id: ID!
+        Group: String
+        Description: String
+    }
+
+    type SiteGroup4S {
+        _id: ID!
+        Group: String
+        Description: String
+    }
+
+    type SiteGroup5S {
+        _id: ID!
+        Group: String
+        Description: String
+    }
+
+    type SiteAvailabilities {
+        _id: ID!
+        Availability: String
+        Description: String
+    }
+
+    type SiteCover {
+        _id: ID!
+        CoverID: String
+        CoverL: Int
+        CoverW: Int
+        CoverH: Int
+        CoverMeterial: Int
+        CoverNL: Int
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -452,6 +578,50 @@ module.exports = gql`
         GetAllStaffs: [UserStaff]
 
         GetAllOldSiteId: [String]
+
+        GetAllLevel: [String]
+
+        GetAllDistrict: [String]
+
+        GetAllGroup: [String]
+
+        GetAllGroup2: [String]
+
+        GetAllGroup3: [String]
+
+        GetAllGroup4: [String]
+
+        GetAllGroup5: [String]
+
+        GetAllCoverID: [String]
+
+        GetAllMeterNotInstall: [DeviceMeter]
+
+        GetAllTransmitterNotInstall: [DeviceTransmitter]
+
+        GetAllLoggerNotInstall: [DeviceLogger]
+
+        GetAllMeterAccreditationType: [DeviceMeterAccreditationType]
+
+        GetAllSiteLevel: [SiteLevel]
+
+        GetAllSiteStatus: [SiteStatus]
+
+        GetAllSiteMeterDirection: [SiteMeterDirection]
+
+        GetAllSiteGroup: [SiteGroup]
+
+        GetAllSiteGroup2S: [SiteGroup2S]
+
+        GetAllSiteGroup3S: [SiteGroup3S]
+
+        GetAllSiteGroup4S: [SiteGroup4S]
+
+        GetAllSiteGroup5S: [SiteGroup5S]
+
+        GetAllSiteAvailabilities: [SiteAvailabilities]
+
+        GetAllSiteCover: [SiteCover]
     }
 
     # declare Mutation

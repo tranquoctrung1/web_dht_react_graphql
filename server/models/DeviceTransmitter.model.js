@@ -20,8 +20,8 @@ module.exports.DeviceTransmitter = class DeviceTransmitter {
         AppovalDate,
         Approvaled,
         AppovalDecision,
-        SerialTransmitter,
-        Nationality,
+        MeterSerial,
+        Status,
     ) {
         this.Serial = Serial;
         this.ReceiptDate = ReceiptDate;
@@ -39,7 +39,22 @@ module.exports.DeviceTransmitter = class DeviceTransmitter {
         this.AppovalDate = AppovalDate;
         this.Approvaled = Approvaled;
         this.AppovalDecision = AppovalDecision;
-        this.SerialTransmitter = SerialTransmitter;
-        this.Nationality = Nationality;
+        this.MeterSerial = MeterSerial;
+        this.Status = Status;
     }
+};
+
+module.exports.GetAllTransmitterNotInstall = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DeviceTransmitterCollection);
+
+    let result = await collection
+        .find({ Installed: false })
+        .sort({ Serial: 1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
 };

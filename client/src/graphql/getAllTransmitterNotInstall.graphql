@@ -1,0 +1,23 @@
+query GetAllTransmitterNotInstall {
+    GetAllTransmitterNotInstall {
+        AccreditatedDate
+        AccreditationType
+        AccreditationDocument
+        AppovalDate
+        AppovalDecision
+        Approvaled
+        Description
+        InstallIndex
+        ExpiryDate
+        Installed
+        Marks
+        MeterSerial
+        ReceipDate
+        Serial
+        Size
+        Status
+        _id
+        Provider
+        Model
+    }
+}

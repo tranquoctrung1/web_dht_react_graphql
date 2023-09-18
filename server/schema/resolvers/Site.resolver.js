@@ -17,5 +17,29 @@ module.exports = {
         GetSiteByWaterSubtractB2ForTA: async (parent, {}, context, infor) => {
             return await SiteModel.GetSiteByWaterSubtractB2ForTA();
         },
+        GetAllLevel: async (parent, {}, context, info) => {
+            return await SiteModel.GetAllLevel();
+        },
+        GetAllDistrict: async (parent, {}, context, info) => {
+            return await SiteModel.GetAllDistrict();
+        },
+        GetAllGroup: async (parent, {}, context, info) => {
+            return await SiteModel.GetAllGroup();
+        },
+        GetAllGroup2: async (parent, {}, context, info) => {
+            return await SiteModel.GetAllGroup2();
+        },
+        GetAllGroup3: async (parent, {}, context, info) => {
+            return await SiteModel.GetAllGroup3();
+        },
+        GetAllGroup4: async (parent, {}, context, info) => {
+            return await SiteModel.GetAllGroup4();
+        },
+        GetAllGroup5: async (parent, {}, context, info) => {
+            return await SiteModel.GetAllGroup5();
+        },
+        GetAllCoverID: async (parent, {}, context, info) => {
+            return await SiteModel.GetAllCoverID();
+        },
     },
 };
