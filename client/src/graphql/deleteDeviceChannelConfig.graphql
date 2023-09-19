@@ -1,0 +1,3 @@
+mutation DeleteDeviceChannelConifg($channel: ChannelInput) {
+    DeleteDeviceChannelConifg(channel: $channel)
+}

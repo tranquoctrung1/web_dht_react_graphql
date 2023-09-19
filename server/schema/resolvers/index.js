@@ -23,6 +23,9 @@ const SiteGroup4S = require('./SiteGroup4S.resolver');
 const SiteGroup5S = require('./SiteGroup5S.resolver');
 const SiteAvailabilities = require('./SiteAvailabilities.resolver');
 const SiteCover = require('./SiteCover.resolver');
+const DeviceUnit = require('./DeviceUnit.resolver');
+const DeviceSiteConfig = require('./DeviceSiteConfig.resolver');
+const DeviceChannelConfig = require('./DeviceChannelConfig.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -53,11 +56,16 @@ module.exports = {
         ...SiteGroup5S.Query,
         ...SiteAvailabilities.Query,
         ...SiteCover.Query,
+        ...DeviceUnit.Query,
+        ...DeviceSiteConfig.Query,
+        ...DeviceChannelConfig.Query,
     },
 
     Mutation: {
         ...Precious.Mutation,
         ...Site.Mutation,
+        ...DeviceSiteConfig.Mutation,
+        ...DeviceChannelConfig.Mutation,
     },
 
     SiteAndChannel: {

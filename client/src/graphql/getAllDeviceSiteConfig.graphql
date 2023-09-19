@@ -1,0 +1,15 @@
+query GetAllDeviceSiteConfig {
+    GetAllDeviceSiteConfig {
+        BeginTime
+        Forward
+        LoggerId
+        Pressure
+        Pressure1
+        Reverse
+        SiteId
+        Tel
+        ZoomInit
+        ZoomOn
+        _id
+    }
+}

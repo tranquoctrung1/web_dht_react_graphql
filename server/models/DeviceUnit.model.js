@@ -8,3 +8,15 @@ module.exports.DeviceUnit = class DeviceUnit {
         this.Unit = Unit;
     }
 };
+
+module.exports.GetAll = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DeviceUnitCollection);
+
+    let result = await collection.find({}).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

@@ -1,0 +1,3 @@
+mutation DeleteDeviceSiteConfig($siteConfig: DeviceSiteConfigUpdateInput) {
+    DeleteDeviceSiteConfig(siteConfig: $siteConfig)
+}

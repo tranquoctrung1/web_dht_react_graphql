@@ -1147,6 +1147,16 @@ const SiteConfigPage = () => {
         });
     };
 
+    const onDocumentUploadClicked = () => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Successfull',
+            text: 'Upload tài liệu điểm lắp đặt thành công',
+        });
+    };
+
+    const onDocumentDownloadClicked = () => {};
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -1268,10 +1278,15 @@ const SiteConfigPage = () => {
                         variant="filled"
                         color="blue"
                         style={{ marginRight: '5px' }}
+                        onClick={onDocumentUploadClicked}
                     >
                         Upload
                     </Button>
-                    <Button variant="filled" color="green">
+                    <Button
+                        variant="filled"
+                        color="green"
+                        onClick={onDocumentDownloadClicked}
+                    >
                         Download
                     </Button>
                 </Col>

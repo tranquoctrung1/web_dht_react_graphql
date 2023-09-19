@@ -1,0 +1,3 @@
+mutation InsertDeviceSiteConfig($siteConfig: DeviceSiteConfigInsertInput) {
+    InsertDeviceSiteConfig(siteConfig: $siteConfig)
+}

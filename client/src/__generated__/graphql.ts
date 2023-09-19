@@ -39,6 +39,28 @@ export type Channel = {
   _id?: Maybe<Scalars['String']>;
 };
 
+export type ChannelInput = {
+  BaseLine?: InputMaybe<Scalars['Float']>;
+  BaseMax?: InputMaybe<Scalars['Float']>;
+  BaseMin?: InputMaybe<Scalars['Float']>;
+  Description?: InputMaybe<Scalars['String']>;
+  DisplayOnGraph?: InputMaybe<Scalars['Boolean']>;
+  ForwardFlow?: InputMaybe<Scalars['Boolean']>;
+  GroupChannel?: InputMaybe<Scalars['String']>;
+  IndexTimeStamp?: InputMaybe<Scalars['Date']>;
+  LastIndex?: InputMaybe<Scalars['Float']>;
+  LastTimeStamp?: InputMaybe<Scalars['Date']>;
+  LastValue?: InputMaybe<Scalars['Float']>;
+  LoggerId?: InputMaybe<Scalars['String']>;
+  Name?: InputMaybe<Scalars['String']>;
+  Pressure1?: InputMaybe<Scalars['Boolean']>;
+  Pressure2?: InputMaybe<Scalars['Boolean']>;
+  ReverseFlow?: InputMaybe<Scalars['Boolean']>;
+  StatusViewAlarm?: InputMaybe<Scalars['Boolean']>;
+  Unit?: InputMaybe<Scalars['String']>;
+  _id?: InputMaybe<Scalars['String']>;
+};
+
 export type Company = {
   __typename?: 'Company';
   Company?: Maybe<Scalars['String']>;
@@ -107,6 +129,51 @@ export type DeviceMeterAccreditationType = {
   __typename?: 'DeviceMeterAccreditationType';
   AccreditationType?: Maybe<Scalars['String']>;
   Description?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type DeviceSiteConfig = {
+  __typename?: 'DeviceSiteConfig';
+  BeginTime?: Maybe<Scalars['Date']>;
+  Forward?: Maybe<Scalars['Int']>;
+  Interval?: Maybe<Scalars['Int']>;
+  LoggerId?: Maybe<Scalars['String']>;
+  Pressure?: Maybe<Scalars['Int']>;
+  Pressure1?: Maybe<Scalars['Int']>;
+  Reverse?: Maybe<Scalars['Int']>;
+  SiteId?: Maybe<Scalars['String']>;
+  Tel?: Maybe<Scalars['String']>;
+  ZoomInit?: Maybe<Scalars['Int']>;
+  ZoomOn?: Maybe<Scalars['Int']>;
+  _id: Scalars['ID'];
+};
+
+export type DeviceSiteConfigInsertInput = {
+  BeginTime?: InputMaybe<Scalars['Date']>;
+  Forward?: InputMaybe<Scalars['Int']>;
+  Interval?: InputMaybe<Scalars['Int']>;
+  LoggerId?: InputMaybe<Scalars['String']>;
+  Pressure?: InputMaybe<Scalars['Int']>;
+  Pressure1?: InputMaybe<Scalars['Int']>;
+  Reverse?: InputMaybe<Scalars['Int']>;
+  SiteId?: InputMaybe<Scalars['String']>;
+  Tel?: InputMaybe<Scalars['String']>;
+  ZoomInit?: InputMaybe<Scalars['Int']>;
+  ZoomOn?: InputMaybe<Scalars['Int']>;
+};
+
+export type DeviceSiteConfigUpdateInput = {
+  BeginTime?: InputMaybe<Scalars['Date']>;
+  Forward?: InputMaybe<Scalars['Int']>;
+  Interval?: InputMaybe<Scalars['Int']>;
+  LoggerId?: InputMaybe<Scalars['String']>;
+  Pressure?: InputMaybe<Scalars['Int']>;
+  Pressure1?: InputMaybe<Scalars['Int']>;
+  Reverse?: InputMaybe<Scalars['Int']>;
+  SiteId?: InputMaybe<Scalars['String']>;
+  Tel?: InputMaybe<Scalars['String']>;
+  ZoomInit?: InputMaybe<Scalars['Int']>;
+  ZoomOn?: InputMaybe<Scalars['Int']>;
   _id: Scalars['ID'];
 };
 
@@ -201,12 +268,27 @@ export type LockValveInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  DeleteDeviceChannelConifg?: Maybe<Scalars['Int']>;
+  DeleteDeviceSiteConfig?: Maybe<Scalars['Int']>;
   DeletePrecious?: Maybe<RowModified>;
   DeleteSite?: Maybe<Scalars['Int']>;
+  InsertDeviceSiteConfig?: Maybe<Scalars['String']>;
   InsertPrecious?: Maybe<IdOutput>;
   InsertSite?: Maybe<Scalars['String']>;
+  UpdateDeviceChannelConfig?: Maybe<Scalars['String']>;
+  UpdateDeviceSiteConfig?: Maybe<Scalars['String']>;
   UpdatePrecious?: Maybe<IdOutput>;
   UpdateSite?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationDeleteDeviceChannelConifgArgs = {
+  channel?: InputMaybe<ChannelInput>;
+};
+
+
+export type MutationDeleteDeviceSiteConfigArgs = {
+  siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
 };
 
 
@@ -220,6 +302,11 @@ export type MutationDeleteSiteArgs = {
 };
 
 
+export type MutationInsertDeviceSiteConfigArgs = {
+  siteConfig?: InputMaybe<DeviceSiteConfigInsertInput>;
+};
+
+
 export type MutationInsertPreciousArgs = {
   precious?: InputMaybe<PreciousInput>;
 };
@@ -227,6 +314,16 @@ export type MutationInsertPreciousArgs = {
 
 export type MutationInsertSiteArgs = {
   site?: InputMaybe<SiteInput>;
+};
+
+
+export type MutationUpdateDeviceChannelConfigArgs = {
+  channel?: InputMaybe<ChannelInput>;
+};
+
+
+export type MutationUpdateDeviceSiteConfigArgs = {
+  siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
 };
 
 
@@ -399,6 +496,8 @@ export type QuantityLoggerDayWaterSupply = {
 export type Query = {
   __typename?: 'Query';
   GetAllCoverID?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllDeviceChannelConifg?: Maybe<Array<Maybe<Channel>>>;
+  GetAllDeviceSiteConfig?: Maybe<Array<Maybe<DeviceSiteConfig>>>;
   GetAllDistrict?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllGroup?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllGroup2?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -428,6 +527,7 @@ export type Query = {
   GetAllStaffs?: Maybe<Array<Maybe<UserStaff>>>;
   GetAllTransmitter?: Maybe<Array<Maybe<DeviceTransmitter>>>;
   GetAllTransmitterNotInstall?: Maybe<Array<Maybe<DeviceTransmitter>>>;
+  GetAllUnit?: Maybe<Array<Maybe<Unit>>>;
   GetAllViewGroups?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetChannelByLoggerId?: Maybe<Array<Maybe<Channel>>>;
   GetCompanies?: Maybe<Array<Company>>;
@@ -736,6 +836,13 @@ export type SubtractWaterB2Input = {
   Provider?: InputMaybe<Scalars['String']>;
 };
 
+export type Unit = {
+  __typename?: 'Unit';
+  Description?: Maybe<Scalars['String']>;
+  Unit?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
 export type UserStaff = {
   __typename?: 'UserStaff';
   FirstName?: Maybe<Scalars['String']>;
@@ -765,6 +872,20 @@ export type GetCompaniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCompaniesQuery = { __typename?: 'Query', GetCompanies?: Array<{ __typename?: 'Company', Company?: string | null, Description?: string | null, Production?: number | null }> | null };
 
+export type DeleteDeviceChannelConifgMutationVariables = Exact<{
+  channel?: InputMaybe<ChannelInput>;
+}>;
+
+
+export type DeleteDeviceChannelConifgMutation = { __typename?: 'Mutation', DeleteDeviceChannelConifg?: number | null };
+
+export type DeleteDeviceSiteConfigMutationVariables = Exact<{
+  siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
+}>;
+
+
+export type DeleteDeviceSiteConfigMutation = { __typename?: 'Mutation', DeleteDeviceSiteConfig?: number | null };
+
 export type DeletePreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousUpdateInput>;
 }>;
@@ -778,6 +899,16 @@ export type DeleteSiteMutationVariables = Exact<{
 
 
 export type DeleteSiteMutation = { __typename?: 'Mutation', DeleteSite?: number | null };
+
+export type GetAllDeviceChannelConifgQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllDeviceChannelConifgQuery = { __typename?: 'Query', GetAllDeviceChannelConifg?: Array<{ __typename?: 'Channel', BaseLine?: number | null, BaseMax?: number | null, BaseMin?: number | null, Description?: string | null, DisplayOnGraph?: boolean | null, ForwardFlow?: boolean | null, GroupChannel?: string | null, IndexTimeStamp?: any | null, LastIndex?: number | null, LastTimeStamp?: any | null, LastValue?: number | null, LoggerId?: string | null, Name?: string | null, Pressure1?: boolean | null, Pressure2?: boolean | null, ReverseFlow?: boolean | null, StatusViewAlarm?: boolean | null, Unit?: string | null, _id?: string | null } | null> | null };
+
+export type GetAllDeviceSiteConfigQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllDeviceSiteConfigQuery = { __typename?: 'Query', GetAllDeviceSiteConfig?: Array<{ __typename?: 'DeviceSiteConfig', BeginTime?: any | null, Forward?: number | null, LoggerId?: string | null, Pressure?: number | null, Pressure1?: number | null, Reverse?: number | null, SiteId?: string | null, Tel?: string | null, ZoomInit?: number | null, ZoomOn?: number | null, _id: string } | null> | null };
 
 export type GetAllDistrictQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -884,6 +1015,11 @@ export type GetAllTransmitterNotInstallQueryVariables = Exact<{ [key: string]: n
 
 export type GetAllTransmitterNotInstallQuery = { __typename?: 'Query', GetAllTransmitterNotInstall?: Array<{ __typename?: 'DeviceTransmitter', AccreditatedDate?: any | null, AccreditationType?: string | null, AccreditationDocument?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, InstallIndex?: number | null, ExpiryDate?: any | null, Installed?: boolean | null, Marks?: string | null, MeterSerial?: string | null, ReceipDate?: any | null, Serial?: string | null, Size?: number | null, Status?: string | null, _id: string, Provider?: string | null, Model?: string | null } | null> | null };
 
+export type GetAllUnitQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllUnitQuery = { __typename?: 'Query', GetAllUnit?: Array<{ __typename?: 'Unit', Description?: string | null, Unit?: string | null, _id: string } | null> | null };
+
 export type GetAllViewGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -935,6 +1071,13 @@ export type GetSiteByWaterSupplyQueryVariables = Exact<{
 
 
 export type GetSiteByWaterSupplyQuery = { __typename?: 'Query', GetSiteByWaterSupply: Array<{ __typename?: 'Site', _id: string, OldId?: string | null, Location?: string | null, Logger?: string | null, Company?: string | null, Description?: string | null, MeterDirection?: string | null, ProductionCompany?: string | null, IstDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, Address?: string | null }> };
+
+export type InsertDeviceSiteConfigMutationVariables = Exact<{
+  siteConfig?: InputMaybe<DeviceSiteConfigInsertInput>;
+}>;
+
+
+export type InsertDeviceSiteConfigMutation = { __typename?: 'Mutation', InsertDeviceSiteConfig?: string | null };
 
 export type InsertPreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousInput>;
@@ -997,6 +1140,20 @@ export type QuantityLoggerDayWaterSupplyQueryVariables = Exact<{
 
 export type QuantityLoggerDayWaterSupplyQuery = { __typename?: 'Query', QuantityLoggerDayWaterSupply: Array<{ __typename?: 'QuantityLoggerDayWaterSupply', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, Size?: number | null, SiteId: string, OldId?: string | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
 
+export type UpdateDeviceChannelConfigMutationVariables = Exact<{
+  channel?: InputMaybe<ChannelInput>;
+}>;
+
+
+export type UpdateDeviceChannelConfigMutation = { __typename?: 'Mutation', UpdateDeviceChannelConfig?: string | null };
+
+export type UpdateDeviceSiteConfigMutationVariables = Exact<{
+  siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
+}>;
+
+
+export type UpdateDeviceSiteConfigMutation = { __typename?: 'Mutation', UpdateDeviceSiteConfig?: string | null };
+
 export type UpdatePreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousUpdateInput>;
 }>;
@@ -1051,6 +1208,68 @@ export type GetCompaniesQueryResult = Apollo.QueryResult<GetCompaniesQuery, GetC
 export function refetchGetCompaniesQuery(variables?: GetCompaniesQueryVariables) {
       return { query: GetCompaniesDocument, variables: variables }
     }
+export const DeleteDeviceChannelConifgDocument = gql`
+    mutation DeleteDeviceChannelConifg($channel: ChannelInput) {
+  DeleteDeviceChannelConifg(channel: $channel)
+}
+    `;
+export type DeleteDeviceChannelConifgMutationFn = Apollo.MutationFunction<DeleteDeviceChannelConifgMutation, DeleteDeviceChannelConifgMutationVariables>;
+
+/**
+ * __useDeleteDeviceChannelConifgMutation__
+ *
+ * To run a mutation, you first call `useDeleteDeviceChannelConifgMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteDeviceChannelConifgMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteDeviceChannelConifgMutation, { data, loading, error }] = useDeleteDeviceChannelConifgMutation({
+ *   variables: {
+ *      channel: // value for 'channel'
+ *   },
+ * });
+ */
+export function useDeleteDeviceChannelConifgMutation(baseOptions?: Apollo.MutationHookOptions<DeleteDeviceChannelConifgMutation, DeleteDeviceChannelConifgMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteDeviceChannelConifgMutation, DeleteDeviceChannelConifgMutationVariables>(DeleteDeviceChannelConifgDocument, options);
+      }
+export type DeleteDeviceChannelConifgMutationHookResult = ReturnType<typeof useDeleteDeviceChannelConifgMutation>;
+export type DeleteDeviceChannelConifgMutationResult = Apollo.MutationResult<DeleteDeviceChannelConifgMutation>;
+export type DeleteDeviceChannelConifgMutationOptions = Apollo.BaseMutationOptions<DeleteDeviceChannelConifgMutation, DeleteDeviceChannelConifgMutationVariables>;
+export const DeleteDeviceSiteConfigDocument = gql`
+    mutation DeleteDeviceSiteConfig($siteConfig: DeviceSiteConfigUpdateInput) {
+  DeleteDeviceSiteConfig(siteConfig: $siteConfig)
+}
+    `;
+export type DeleteDeviceSiteConfigMutationFn = Apollo.MutationFunction<DeleteDeviceSiteConfigMutation, DeleteDeviceSiteConfigMutationVariables>;
+
+/**
+ * __useDeleteDeviceSiteConfigMutation__
+ *
+ * To run a mutation, you first call `useDeleteDeviceSiteConfigMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteDeviceSiteConfigMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteDeviceSiteConfigMutation, { data, loading, error }] = useDeleteDeviceSiteConfigMutation({
+ *   variables: {
+ *      siteConfig: // value for 'siteConfig'
+ *   },
+ * });
+ */
+export function useDeleteDeviceSiteConfigMutation(baseOptions?: Apollo.MutationHookOptions<DeleteDeviceSiteConfigMutation, DeleteDeviceSiteConfigMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteDeviceSiteConfigMutation, DeleteDeviceSiteConfigMutationVariables>(DeleteDeviceSiteConfigDocument, options);
+      }
+export type DeleteDeviceSiteConfigMutationHookResult = ReturnType<typeof useDeleteDeviceSiteConfigMutation>;
+export type DeleteDeviceSiteConfigMutationResult = Apollo.MutationResult<DeleteDeviceSiteConfigMutation>;
+export type DeleteDeviceSiteConfigMutationOptions = Apollo.BaseMutationOptions<DeleteDeviceSiteConfigMutation, DeleteDeviceSiteConfigMutationVariables>;
 export const DeletePreciousDocument = gql`
     mutation DeletePrecious($precious: PreciousUpdateInput) {
   DeletePrecious(precious: $precious) {
@@ -1115,6 +1334,108 @@ export function useDeleteSiteMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteSiteMutationHookResult = ReturnType<typeof useDeleteSiteMutation>;
 export type DeleteSiteMutationResult = Apollo.MutationResult<DeleteSiteMutation>;
 export type DeleteSiteMutationOptions = Apollo.BaseMutationOptions<DeleteSiteMutation, DeleteSiteMutationVariables>;
+export const GetAllDeviceChannelConifgDocument = gql`
+    query GetAllDeviceChannelConifg {
+  GetAllDeviceChannelConifg {
+    BaseLine
+    BaseMax
+    BaseMin
+    Description
+    DisplayOnGraph
+    ForwardFlow
+    GroupChannel
+    IndexTimeStamp
+    LastIndex
+    LastTimeStamp
+    LastValue
+    LoggerId
+    Name
+    Pressure1
+    Pressure2
+    ReverseFlow
+    StatusViewAlarm
+    Unit
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllDeviceChannelConifgQuery__
+ *
+ * To run a query within a React component, call `useGetAllDeviceChannelConifgQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllDeviceChannelConifgQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllDeviceChannelConifgQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllDeviceChannelConifgQuery(baseOptions?: Apollo.QueryHookOptions<GetAllDeviceChannelConifgQuery, GetAllDeviceChannelConifgQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllDeviceChannelConifgQuery, GetAllDeviceChannelConifgQueryVariables>(GetAllDeviceChannelConifgDocument, options);
+      }
+export function useGetAllDeviceChannelConifgLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllDeviceChannelConifgQuery, GetAllDeviceChannelConifgQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllDeviceChannelConifgQuery, GetAllDeviceChannelConifgQueryVariables>(GetAllDeviceChannelConifgDocument, options);
+        }
+export type GetAllDeviceChannelConifgQueryHookResult = ReturnType<typeof useGetAllDeviceChannelConifgQuery>;
+export type GetAllDeviceChannelConifgLazyQueryHookResult = ReturnType<typeof useGetAllDeviceChannelConifgLazyQuery>;
+export type GetAllDeviceChannelConifgQueryResult = Apollo.QueryResult<GetAllDeviceChannelConifgQuery, GetAllDeviceChannelConifgQueryVariables>;
+export function refetchGetAllDeviceChannelConifgQuery(variables?: GetAllDeviceChannelConifgQueryVariables) {
+      return { query: GetAllDeviceChannelConifgDocument, variables: variables }
+    }
+export const GetAllDeviceSiteConfigDocument = gql`
+    query GetAllDeviceSiteConfig {
+  GetAllDeviceSiteConfig {
+    BeginTime
+    Forward
+    LoggerId
+    Pressure
+    Pressure1
+    Reverse
+    SiteId
+    Tel
+    ZoomInit
+    ZoomOn
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllDeviceSiteConfigQuery__
+ *
+ * To run a query within a React component, call `useGetAllDeviceSiteConfigQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllDeviceSiteConfigQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllDeviceSiteConfigQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllDeviceSiteConfigQuery(baseOptions?: Apollo.QueryHookOptions<GetAllDeviceSiteConfigQuery, GetAllDeviceSiteConfigQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllDeviceSiteConfigQuery, GetAllDeviceSiteConfigQueryVariables>(GetAllDeviceSiteConfigDocument, options);
+      }
+export function useGetAllDeviceSiteConfigLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllDeviceSiteConfigQuery, GetAllDeviceSiteConfigQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllDeviceSiteConfigQuery, GetAllDeviceSiteConfigQueryVariables>(GetAllDeviceSiteConfigDocument, options);
+        }
+export type GetAllDeviceSiteConfigQueryHookResult = ReturnType<typeof useGetAllDeviceSiteConfigQuery>;
+export type GetAllDeviceSiteConfigLazyQueryHookResult = ReturnType<typeof useGetAllDeviceSiteConfigLazyQuery>;
+export type GetAllDeviceSiteConfigQueryResult = Apollo.QueryResult<GetAllDeviceSiteConfigQuery, GetAllDeviceSiteConfigQueryVariables>;
+export function refetchGetAllDeviceSiteConfigQuery(variables?: GetAllDeviceSiteConfigQueryVariables) {
+      return { query: GetAllDeviceSiteConfigDocument, variables: variables }
+    }
 export const GetAllDistrictDocument = gql`
     query GetAllDistrict {
   GetAllDistrict
@@ -2082,6 +2403,45 @@ export type GetAllTransmitterNotInstallQueryResult = Apollo.QueryResult<GetAllTr
 export function refetchGetAllTransmitterNotInstallQuery(variables?: GetAllTransmitterNotInstallQueryVariables) {
       return { query: GetAllTransmitterNotInstallDocument, variables: variables }
     }
+export const GetAllUnitDocument = gql`
+    query GetAllUnit {
+  GetAllUnit {
+    Description
+    Unit
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllUnitQuery__
+ *
+ * To run a query within a React component, call `useGetAllUnitQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllUnitQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllUnitQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllUnitQuery(baseOptions?: Apollo.QueryHookOptions<GetAllUnitQuery, GetAllUnitQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllUnitQuery, GetAllUnitQueryVariables>(GetAllUnitDocument, options);
+      }
+export function useGetAllUnitLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllUnitQuery, GetAllUnitQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllUnitQuery, GetAllUnitQueryVariables>(GetAllUnitDocument, options);
+        }
+export type GetAllUnitQueryHookResult = ReturnType<typeof useGetAllUnitQuery>;
+export type GetAllUnitLazyQueryHookResult = ReturnType<typeof useGetAllUnitLazyQuery>;
+export type GetAllUnitQueryResult = Apollo.QueryResult<GetAllUnitQuery, GetAllUnitQueryVariables>;
+export function refetchGetAllUnitQuery(variables?: GetAllUnitQueryVariables) {
+      return { query: GetAllUnitDocument, variables: variables }
+    }
 export const GetAllViewGroupsDocument = gql`
     query GetAllViewGroups {
   GetAllViewGroups
@@ -2522,6 +2882,37 @@ export type GetSiteByWaterSupplyQueryResult = Apollo.QueryResult<GetSiteByWaterS
 export function refetchGetSiteByWaterSupplyQuery(variables: GetSiteByWaterSupplyQueryVariables) {
       return { query: GetSiteByWaterSupplyDocument, variables: variables }
     }
+export const InsertDeviceSiteConfigDocument = gql`
+    mutation InsertDeviceSiteConfig($siteConfig: DeviceSiteConfigInsertInput) {
+  InsertDeviceSiteConfig(siteConfig: $siteConfig)
+}
+    `;
+export type InsertDeviceSiteConfigMutationFn = Apollo.MutationFunction<InsertDeviceSiteConfigMutation, InsertDeviceSiteConfigMutationVariables>;
+
+/**
+ * __useInsertDeviceSiteConfigMutation__
+ *
+ * To run a mutation, you first call `useInsertDeviceSiteConfigMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertDeviceSiteConfigMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertDeviceSiteConfigMutation, { data, loading, error }] = useInsertDeviceSiteConfigMutation({
+ *   variables: {
+ *      siteConfig: // value for 'siteConfig'
+ *   },
+ * });
+ */
+export function useInsertDeviceSiteConfigMutation(baseOptions?: Apollo.MutationHookOptions<InsertDeviceSiteConfigMutation, InsertDeviceSiteConfigMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertDeviceSiteConfigMutation, InsertDeviceSiteConfigMutationVariables>(InsertDeviceSiteConfigDocument, options);
+      }
+export type InsertDeviceSiteConfigMutationHookResult = ReturnType<typeof useInsertDeviceSiteConfigMutation>;
+export type InsertDeviceSiteConfigMutationResult = Apollo.MutationResult<InsertDeviceSiteConfigMutation>;
+export type InsertDeviceSiteConfigMutationOptions = Apollo.BaseMutationOptions<InsertDeviceSiteConfigMutation, InsertDeviceSiteConfigMutationVariables>;
 export const InsertPreciousDocument = gql`
     mutation InsertPrecious($precious: PreciousInput) {
   InsertPrecious(precious: $precious) {
@@ -2857,6 +3248,68 @@ export type QuantityLoggerDayWaterSupplyQueryResult = Apollo.QueryResult<Quantit
 export function refetchQuantityLoggerDayWaterSupplyQuery(variables: QuantityLoggerDayWaterSupplyQueryVariables) {
       return { query: QuantityLoggerDayWaterSupplyDocument, variables: variables }
     }
+export const UpdateDeviceChannelConfigDocument = gql`
+    mutation UpdateDeviceChannelConfig($channel: ChannelInput) {
+  UpdateDeviceChannelConfig(channel: $channel)
+}
+    `;
+export type UpdateDeviceChannelConfigMutationFn = Apollo.MutationFunction<UpdateDeviceChannelConfigMutation, UpdateDeviceChannelConfigMutationVariables>;
+
+/**
+ * __useUpdateDeviceChannelConfigMutation__
+ *
+ * To run a mutation, you first call `useUpdateDeviceChannelConfigMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateDeviceChannelConfigMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateDeviceChannelConfigMutation, { data, loading, error }] = useUpdateDeviceChannelConfigMutation({
+ *   variables: {
+ *      channel: // value for 'channel'
+ *   },
+ * });
+ */
+export function useUpdateDeviceChannelConfigMutation(baseOptions?: Apollo.MutationHookOptions<UpdateDeviceChannelConfigMutation, UpdateDeviceChannelConfigMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateDeviceChannelConfigMutation, UpdateDeviceChannelConfigMutationVariables>(UpdateDeviceChannelConfigDocument, options);
+      }
+export type UpdateDeviceChannelConfigMutationHookResult = ReturnType<typeof useUpdateDeviceChannelConfigMutation>;
+export type UpdateDeviceChannelConfigMutationResult = Apollo.MutationResult<UpdateDeviceChannelConfigMutation>;
+export type UpdateDeviceChannelConfigMutationOptions = Apollo.BaseMutationOptions<UpdateDeviceChannelConfigMutation, UpdateDeviceChannelConfigMutationVariables>;
+export const UpdateDeviceSiteConfigDocument = gql`
+    mutation UpdateDeviceSiteConfig($siteConfig: DeviceSiteConfigUpdateInput) {
+  UpdateDeviceSiteConfig(siteConfig: $siteConfig)
+}
+    `;
+export type UpdateDeviceSiteConfigMutationFn = Apollo.MutationFunction<UpdateDeviceSiteConfigMutation, UpdateDeviceSiteConfigMutationVariables>;
+
+/**
+ * __useUpdateDeviceSiteConfigMutation__
+ *
+ * To run a mutation, you first call `useUpdateDeviceSiteConfigMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateDeviceSiteConfigMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateDeviceSiteConfigMutation, { data, loading, error }] = useUpdateDeviceSiteConfigMutation({
+ *   variables: {
+ *      siteConfig: // value for 'siteConfig'
+ *   },
+ * });
+ */
+export function useUpdateDeviceSiteConfigMutation(baseOptions?: Apollo.MutationHookOptions<UpdateDeviceSiteConfigMutation, UpdateDeviceSiteConfigMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateDeviceSiteConfigMutation, UpdateDeviceSiteConfigMutationVariables>(UpdateDeviceSiteConfigDocument, options);
+      }
+export type UpdateDeviceSiteConfigMutationHookResult = ReturnType<typeof useUpdateDeviceSiteConfigMutation>;
+export type UpdateDeviceSiteConfigMutationResult = Apollo.MutationResult<UpdateDeviceSiteConfigMutation>;
+export type UpdateDeviceSiteConfigMutationOptions = Apollo.BaseMutationOptions<UpdateDeviceSiteConfigMutation, UpdateDeviceSiteConfigMutationVariables>;
 export const UpdatePreciousDocument = gql`
     mutation UpdatePrecious($precious: PreciousUpdateInput) {
   UpdatePrecious(precious: $precious) {

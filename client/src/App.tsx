@@ -11,6 +11,7 @@ import MapPage from './pages/map';
 import QuantityCompanyPage from './pages/quantityCompany';
 import QuantityWaterSupplyPage from './pages/quantityWaterSupply';
 import SiteConfigPage from './pages/siteConfig';
+import LoggerConfigPage from './pages/loggerConfig';
 
 function App() {
     const router = createBrowserRouter([
@@ -37,6 +38,10 @@ function App() {
                 {
                     path: '/quantityCompanyWaterSupply',
                     element: <QuantityWaterSupplyPage />,
+                },
+                {
+                    path: '/loggerConfig',
+                    element: <LoggerConfigPage />,
                 },
             ],
         },

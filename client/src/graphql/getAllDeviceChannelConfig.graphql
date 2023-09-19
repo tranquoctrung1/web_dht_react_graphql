@@ -1,0 +1,23 @@
+query GetAllDeviceChannelConifg {
+    GetAllDeviceChannelConifg {
+        BaseLine
+        BaseMax
+        BaseMin
+        Description
+        DisplayOnGraph
+        ForwardFlow
+        GroupChannel
+        IndexTimeStamp
+        LastIndex
+        LastTimeStamp
+        LastValue
+        LoggerId
+        Name
+        Pressure1
+        Pressure2
+        ReverseFlow
+        StatusViewAlarm
+        Unit
+        _id
+    }
+}

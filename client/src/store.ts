@@ -14,6 +14,8 @@ import CurrentStartDatePreciousSlice from './features/currentStartDatePrecious';
 import ListPreciousSlice from './features/listPrecious';
 import OpenSidebarSlice from './features/openSidebar';
 import QuantityWaterSupplySlice from './features/quantityWaterSupply';
+import ListChannelSlice from './features/listChannel';
+import CurrentDeviceSiteConfigSlice from './features/currentDeviceSiteConfig';
 
 export const store = configureStore({
     reducer: {
@@ -32,6 +34,8 @@ export const store = configureStore({
         currentCompanyNamePrecious: currentCompanyNamePreciousSlice,
         listPrecious: ListPreciousSlice,
         currentPreciousId: CurrentPreciousIdSlice,
+        listChannel: ListChannelSlice,
+        currentDeviceSiteConfig: CurrentDeviceSiteConfigSlice,
     },
 });
 

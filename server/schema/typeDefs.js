@@ -417,6 +417,27 @@ module.exports = gql`
         CoverNL: Int
     }
 
+    type Unit {
+        _id: ID!
+        Unit: String
+        Description: String
+    }
+
+    type DeviceSiteConfig {
+        _id: ID!
+        LoggerId: String
+        SiteId: String
+        Tel: String
+        Pressure: Int
+        Forward: Int
+        Reverse: Int
+        Interval: Int
+        BeginTime: Date
+        ZoomInit: Int
+        ZoomOn: Int
+        Pressure1: Int
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -562,6 +583,57 @@ module.exports = gql`
         District: String
     }
 
+    input DeviceSiteConfigInsertInput {
+        LoggerId: String
+        SiteId: String
+        Tel: String
+        Pressure: Int
+        Forward: Int
+        Reverse: Int
+        BeginTime: Date
+        Interval: Int
+        ZoomInit: Int
+        ZoomOn: Int
+        Pressure1: Int
+    }
+
+    input DeviceSiteConfigUpdateInput {
+        _id: ID!
+        LoggerId: String
+        SiteId: String
+        Tel: String
+        Pressure: Int
+        Forward: Int
+        Reverse: Int
+        BeginTime: Date
+        Interval: Int
+        ZoomInit: Int
+        ZoomOn: Int
+        Pressure1: Int
+    }
+
+    input ChannelInput {
+        _id: String
+        LoggerId: String
+        Name: String
+        Unit: String
+        LastTimeStamp: Date
+        LastValue: Float
+        Description: String
+        BaseMin: Float
+        BaseMax: Float
+        BaseLine: Float
+        GroupChannel: String
+        Pressure1: Boolean
+        Pressure2: Boolean
+        ForwardFlow: Boolean
+        ReverseFlow: Boolean
+        DisplayOnGraph: Boolean
+        IndexTimeStamp: Date
+        LastIndex: Float
+        StatusViewAlarm: Boolean
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -675,6 +747,12 @@ module.exports = gql`
         GetAllSiteAvailabilities: [SiteAvailabilities]
 
         GetAllSiteCover: [SiteCover]
+
+        GetAllUnit: [Unit]
+
+        GetAllDeviceSiteConfig: [DeviceSiteConfig]
+
+        GetAllDeviceChannelConifg: [Channel]
     }
 
     # declare Mutation
@@ -690,5 +768,15 @@ module.exports = gql`
         UpdateSite(site: SiteInput): String
 
         DeleteSite(site: SiteInput): Int
+
+        InsertDeviceSiteConfig(siteConfig: DeviceSiteConfigInsertInput): String
+
+        UpdateDeviceSiteConfig(siteConfig: DeviceSiteConfigUpdateInput): String
+
+        DeleteDeviceSiteConfig(siteConfig: DeviceSiteConfigUpdateInput): Int
+
+        UpdateDeviceChannelConfig(channel: ChannelInput): String
+
+        DeleteDeviceChannelConifg(channel: ChannelInput): Int
     }
 `;
