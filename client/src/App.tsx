@@ -13,6 +13,7 @@ import QuantityWaterSupplyPage from './pages/quantityWaterSupply';
 import SiteConfigPage from './pages/siteConfig';
 import LoggerConfigPage from './pages/loggerConfig';
 import ManualIndexPage from './pages/manualndex';
+import ManualQuantityPage from './pages/manualQuantity';
 
 function App() {
     const router = createBrowserRouter([
@@ -47,6 +48,10 @@ function App() {
                 {
                     path: '/indexManual',
                     element: <ManualIndexPage />,
+                },
+                {
+                    path: '/quantityManual',
+                    element: <ManualQuantityPage />,
                 },
             ],
         },

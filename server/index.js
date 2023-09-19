@@ -26,7 +26,7 @@ const startServer = async () => {
         plugins: [
             ApolloServerPluginDrainHttpServer({ httpServer }),
             ApolloServerPluginCacheControl({
-                defaultMaxAge: 60,
+                defaultMaxAge: 5,
                 calculateHttpHeaders: false,
             }),
         ],
