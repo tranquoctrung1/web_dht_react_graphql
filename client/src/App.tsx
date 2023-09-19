@@ -14,6 +14,8 @@ import SiteConfigPage from './pages/siteConfig';
 import LoggerConfigPage from './pages/loggerConfig';
 import ManualIndexPage from './pages/manualndex';
 import ManualQuantityPage from './pages/manualQuantity';
+import ChangeDataManualPage from './pages/changeDataManual';
+import StatisticSiteXNManager from './pages/statisticSiteXNManager';
 
 function App() {
     const router = createBrowserRouter([
@@ -52,6 +54,14 @@ function App() {
                 {
                     path: '/quantityManual',
                     element: <ManualQuantityPage />,
+                },
+                {
+                    path: '/dataManualChanged',
+                    element: <ChangeDataManualPage />,
+                },
+                {
+                    path: '/statisticSite',
+                    element: <StatisticSiteXNManager />,
                 },
             ],
         },

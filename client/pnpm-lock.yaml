@@ -53,6 +53,9 @@ dependencies:
   react-data-table-component:
     specifier: ^7.5.3
     version: 7.5.3(react@18.2.0)(styled-components@5.3.6)
+  react-data-table-component-extensions:
+    specifier: ^1.6.0
+    version: 1.6.0
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
@@ -4023,6 +4026,12 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
+  /react-data-table-component-extensions@1.6.0:
+    resolution: {integrity: sha512-AfaZj21Hx7VCwGugGVInrGgxa5PmBfhgQFSe55piYmgM05tJcegZfm6RjbnMT96CM0dWrC2ky5Mh7n0RZun6DQ==}
+    dependencies:
+      react: 16.14.0
+    dev: false
+
   /react-data-table-component@7.5.3(react@18.2.0)(styled-components@5.3.6):
     resolution: {integrity: sha512-JhatRTgThAAa1HobPaPmkNPsjLT6+fnMIdtcXRCy+0bSYN7XJnTgob9Qyi4bjHh/8tMPTHtxZCV/TKiPwRvFMA==}
     peerDependencies:
@@ -4220,6 +4229,15 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react@16.14.0:
+    resolution: {integrity: sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      prop-types: 15.8.1
     dev: false
 
   /react@18.2.0:

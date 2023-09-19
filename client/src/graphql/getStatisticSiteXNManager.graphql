@@ -1,0 +1,15 @@
+query GetStatisticSiteXNManager {
+    GetStatisticSiteXNManager {
+        Availability
+        Company
+        Description
+        Level
+        Location
+        Marks
+        STT
+        SiteId
+        Size
+        Status
+        UsingLogger
+    }
+}

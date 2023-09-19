@@ -1,0 +1,19 @@
+query GetDataManualBySiteIdAndTimeStamp(
+    $siteid: String
+    $start: String
+    $end: String
+) {
+    GetDataManualBySiteIdAndTimeStamp(
+        siteid: $siteid
+        start: $start
+        end: $end
+    ) {
+        Description
+        Index
+        Output
+        SiteId
+        Stt
+        TimeStamp
+        _id
+    }
+}

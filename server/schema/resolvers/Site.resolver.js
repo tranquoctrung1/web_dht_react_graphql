@@ -1,4 +1,5 @@
 const SiteModel = require('../../models/SiteSite.model');
+const DeviceMeterModel = require('../../models/DeviceMeter.model');
 
 module.exports = {
     Query: {
@@ -40,6 +41,42 @@ module.exports = {
         },
         GetAllCoverID: async (parent, {}, context, info) => {
             return await SiteModel.GetAllCoverID();
+        },
+        GetStatisticSiteXNManager: async (parent, {}, context, info) => {
+            const result = [];
+
+            const listSites = await SiteModel.GetStatisticXNManager();
+
+            const listMeter = await DeviceMeterModel.GetAll();
+
+            let count = 1;
+            for (const site of listSites) {
+                const obj = {
+                    STT: count,
+                    SiteId: site._id,
+                    Marks: '',
+                    Size: 0,
+                    Location: site.Location,
+                    Level: site.Level,
+                    Company: site.Company,
+                    Availability: site.Availability,
+                    Status: site.Status,
+                    UsingLogger: site.UsingLogger,
+                    Description: site.Description,
+                };
+
+                const find = listMeter.find((el) => el.Serial === site.Meter);
+                if (find !== undefined) {
+                    obj.Marks = find.Marks;
+                    obj.Size = find.Size;
+                }
+
+                count++;
+
+                result.push(obj);
+            }
+
+            return result;
         },
     },
 

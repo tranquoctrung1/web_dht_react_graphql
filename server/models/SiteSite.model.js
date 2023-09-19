@@ -482,3 +482,17 @@ module.exports.Delete = async (site) => {
 
     return result.deletedCount;
 };
+
+module.exports.GetStatisticXNManager = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({ Status: 'DSD', $or: [{ Company: 'XN' }, { Company: 'DA' }] })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

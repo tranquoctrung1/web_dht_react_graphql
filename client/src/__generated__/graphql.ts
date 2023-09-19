@@ -583,9 +583,11 @@ export type Query = {
   GetDataLoggerByLastRecord?: Maybe<Array<DataLogger>>;
   GetDataLoggerByTimeStamp?: Maybe<Array<DataLogger>>;
   GetDataManualBySiteId?: Maybe<Array<Maybe<DataManual>>>;
+  GetDataManualBySiteIdAndTimeStamp?: Maybe<Array<Maybe<DataManual>>>;
   GetPreciousByCompany?: Maybe<Array<Maybe<Precious>>>;
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
+  GetStatisticSiteXNManager?: Maybe<Array<Maybe<StatisticSiteXnManager>>>;
   QuantityDayCompany: Array<QuantityDayCompany>;
   QuantityDayWaterSupply: Array<QuantityDayWaterSupply>;
   QuantityLoggerByTimeStamp: Array<QuantityLoggerByTimeStamp>;
@@ -613,6 +615,13 @@ export type QueryGetDataLoggerByTimeStampArgs = {
 
 export type QueryGetDataManualBySiteIdArgs = {
   siteid?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryGetDataManualBySiteIdAndTimeStampArgs = {
+  end?: InputMaybe<Scalars['String']>;
+  siteid?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -855,6 +864,21 @@ export type SiteStatus = {
   Description?: Maybe<Scalars['String']>;
   Status?: Maybe<Scalars['String']>;
   _id: Scalars['ID'];
+};
+
+export type StatisticSiteXnManager = {
+  __typename?: 'StatisticSiteXNManager';
+  Availability?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Description?: Maybe<Scalars['String']>;
+  Level?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  STT?: Maybe<Scalars['Int']>;
+  SiteId?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
+  UsingLogger?: Maybe<Scalars['Boolean']>;
 };
 
 export type SubtractWaterB1 = {
@@ -1117,6 +1141,15 @@ export type GetDataManualBySiteIdQueryVariables = Exact<{
 
 export type GetDataManualBySiteIdQuery = { __typename?: 'Query', GetDataManualBySiteId?: Array<{ __typename?: 'DataManual', Description?: string | null, Index?: number | null, Output?: number | null, Stt?: number | null, TimeStamp?: any | null, SiteId?: string | null, _id: string } | null> | null };
 
+export type GetDataManualBySiteIdAndTimeStampQueryVariables = Exact<{
+  siteid?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['String']>;
+  end?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetDataManualBySiteIdAndTimeStampQuery = { __typename?: 'Query', GetDataManualBySiteIdAndTimeStamp?: Array<{ __typename?: 'DataManual', Description?: string | null, Index?: number | null, Output?: number | null, SiteId?: string | null, Stt?: number | null, TimeStamp?: any | null, _id: string } | null> | null };
+
 export type GetAllMeterAccreditationTypeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1140,6 +1173,11 @@ export type GetSiteByWaterSupplyQueryVariables = Exact<{
 
 
 export type GetSiteByWaterSupplyQuery = { __typename?: 'Query', GetSiteByWaterSupply: Array<{ __typename?: 'Site', _id: string, OldId?: string | null, Location?: string | null, Logger?: string | null, Company?: string | null, Description?: string | null, MeterDirection?: string | null, ProductionCompany?: string | null, IstDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, Address?: string | null }> };
+
+export type GetStatisticSiteXnManagerQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStatisticSiteXnManagerQuery = { __typename?: 'Query', GetStatisticSiteXNManager?: Array<{ __typename?: 'StatisticSiteXNManager', Availability?: string | null, Company?: string | null, Description?: string | null, Level?: string | null, Location?: string | null, Marks?: string | null, STT?: number | null, SiteId?: string | null, Size?: number | null, Status?: string | null, UsingLogger?: boolean | null } | null> | null };
 
 export type InsertDataManualMutationVariables = Exact<{
   dataManual?: InputMaybe<DataManualInsertInput>;
@@ -2771,6 +2809,52 @@ export type GetDataManualBySiteIdQueryResult = Apollo.QueryResult<GetDataManualB
 export function refetchGetDataManualBySiteIdQuery(variables?: GetDataManualBySiteIdQueryVariables) {
       return { query: GetDataManualBySiteIdDocument, variables: variables }
     }
+export const GetDataManualBySiteIdAndTimeStampDocument = gql`
+    query GetDataManualBySiteIdAndTimeStamp($siteid: String, $start: String, $end: String) {
+  GetDataManualBySiteIdAndTimeStamp(siteid: $siteid, start: $start, end: $end) {
+    Description
+    Index
+    Output
+    SiteId
+    Stt
+    TimeStamp
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetDataManualBySiteIdAndTimeStampQuery__
+ *
+ * To run a query within a React component, call `useGetDataManualBySiteIdAndTimeStampQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataManualBySiteIdAndTimeStampQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDataManualBySiteIdAndTimeStampQuery({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useGetDataManualBySiteIdAndTimeStampQuery(baseOptions?: Apollo.QueryHookOptions<GetDataManualBySiteIdAndTimeStampQuery, GetDataManualBySiteIdAndTimeStampQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetDataManualBySiteIdAndTimeStampQuery, GetDataManualBySiteIdAndTimeStampQueryVariables>(GetDataManualBySiteIdAndTimeStampDocument, options);
+      }
+export function useGetDataManualBySiteIdAndTimeStampLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDataManualBySiteIdAndTimeStampQuery, GetDataManualBySiteIdAndTimeStampQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetDataManualBySiteIdAndTimeStampQuery, GetDataManualBySiteIdAndTimeStampQueryVariables>(GetDataManualBySiteIdAndTimeStampDocument, options);
+        }
+export type GetDataManualBySiteIdAndTimeStampQueryHookResult = ReturnType<typeof useGetDataManualBySiteIdAndTimeStampQuery>;
+export type GetDataManualBySiteIdAndTimeStampLazyQueryHookResult = ReturnType<typeof useGetDataManualBySiteIdAndTimeStampLazyQuery>;
+export type GetDataManualBySiteIdAndTimeStampQueryResult = Apollo.QueryResult<GetDataManualBySiteIdAndTimeStampQuery, GetDataManualBySiteIdAndTimeStampQueryVariables>;
+export function refetchGetDataManualBySiteIdAndTimeStampQuery(variables?: GetDataManualBySiteIdAndTimeStampQueryVariables) {
+      return { query: GetDataManualBySiteIdAndTimeStampDocument, variables: variables }
+    }
 export const GetAllMeterAccreditationTypeDocument = gql`
     query GetAllMeterAccreditationType {
   GetAllMeterAccreditationType {
@@ -3039,6 +3123,53 @@ export type GetSiteByWaterSupplyLazyQueryHookResult = ReturnType<typeof useGetSi
 export type GetSiteByWaterSupplyQueryResult = Apollo.QueryResult<GetSiteByWaterSupplyQuery, GetSiteByWaterSupplyQueryVariables>;
 export function refetchGetSiteByWaterSupplyQuery(variables: GetSiteByWaterSupplyQueryVariables) {
       return { query: GetSiteByWaterSupplyDocument, variables: variables }
+    }
+export const GetStatisticSiteXnManagerDocument = gql`
+    query GetStatisticSiteXNManager {
+  GetStatisticSiteXNManager {
+    Availability
+    Company
+    Description
+    Level
+    Location
+    Marks
+    STT
+    SiteId
+    Size
+    Status
+    UsingLogger
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticSiteXnManagerQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticSiteXnManagerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticSiteXnManagerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticSiteXnManagerQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStatisticSiteXnManagerQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticSiteXnManagerQuery, GetStatisticSiteXnManagerQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticSiteXnManagerQuery, GetStatisticSiteXnManagerQueryVariables>(GetStatisticSiteXnManagerDocument, options);
+      }
+export function useGetStatisticSiteXnManagerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticSiteXnManagerQuery, GetStatisticSiteXnManagerQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticSiteXnManagerQuery, GetStatisticSiteXnManagerQueryVariables>(GetStatisticSiteXnManagerDocument, options);
+        }
+export type GetStatisticSiteXnManagerQueryHookResult = ReturnType<typeof useGetStatisticSiteXnManagerQuery>;
+export type GetStatisticSiteXnManagerLazyQueryHookResult = ReturnType<typeof useGetStatisticSiteXnManagerLazyQuery>;
+export type GetStatisticSiteXnManagerQueryResult = Apollo.QueryResult<GetStatisticSiteXnManagerQuery, GetStatisticSiteXnManagerQueryVariables>;
+export function refetchGetStatisticSiteXnManagerQuery(variables?: GetStatisticSiteXnManagerQueryVariables) {
+      return { query: GetStatisticSiteXnManagerDocument, variables: variables }
     }
 export const InsertDataManualDocument = gql`
     mutation InsertDataManual($dataManual: DataManualInsertInput) {

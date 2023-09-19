@@ -448,6 +448,20 @@ module.exports = gql`
         Description: String
     }
 
+    type StatisticSiteXNManager {
+        STT: Int
+        SiteId: String
+        Marks: String
+        Size: Int
+        Location: String
+        Level: String
+        Company: String
+        Availability: String
+        Status: String
+        UsingLogger: Boolean
+        Description: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -792,6 +806,8 @@ module.exports = gql`
             start: String
             end: String
         ): [DataManual]
+
+        GetStatisticSiteXNManager: [StatisticSiteXNManager]
     }
 
     # declare Mutation
