@@ -202,8 +202,11 @@ export type LockValveInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   DeletePrecious?: Maybe<RowModified>;
+  DeleteSite?: Maybe<Scalars['Int']>;
   InsertPrecious?: Maybe<IdOutput>;
+  InsertSite?: Maybe<Scalars['String']>;
   UpdatePrecious?: Maybe<IdOutput>;
+  UpdateSite?: Maybe<Scalars['String']>;
 };
 
 
@@ -212,13 +215,28 @@ export type MutationDeletePreciousArgs = {
 };
 
 
+export type MutationDeleteSiteArgs = {
+  site?: InputMaybe<SiteInput>;
+};
+
+
 export type MutationInsertPreciousArgs = {
   precious?: InputMaybe<PreciousInput>;
 };
 
 
+export type MutationInsertSiteArgs = {
+  site?: InputMaybe<SiteInput>;
+};
+
+
 export type MutationUpdatePreciousArgs = {
   precious?: InputMaybe<PreciousUpdateInput>;
+};
+
+
+export type MutationUpdateSiteArgs = {
+  site?: InputMaybe<SiteInput>;
 };
 
 export type Periods = {
@@ -617,6 +635,52 @@ export type SiteGroup5S = {
   _id: Scalars['ID'];
 };
 
+export type SiteInput = {
+  Address?: InputMaybe<Scalars['String']>;
+  Availability?: InputMaybe<Scalars['String']>;
+  ChangeIndex?: InputMaybe<Scalars['Float']>;
+  ChangeIndex1?: InputMaybe<Scalars['Float']>;
+  Company?: InputMaybe<Scalars['String']>;
+  CoverID?: InputMaybe<Scalars['String']>;
+  DateOfBatteryChange?: InputMaybe<Scalars['Date']>;
+  DateOfLoggerBatteryChange?: InputMaybe<Scalars['Date']>;
+  DateOfLoggerChange?: InputMaybe<Scalars['Date']>;
+  DateOfMeterChange?: InputMaybe<Scalars['Date']>;
+  DateOfTransmitterBatteryChange?: InputMaybe<Scalars['Date']>;
+  DateOfTransmitterChange?: InputMaybe<Scalars['Date']>;
+  Description?: InputMaybe<Scalars['String']>;
+  DescriptionOfChange?: InputMaybe<Scalars['String']>;
+  Display?: InputMaybe<Scalars['Boolean']>;
+  District?: InputMaybe<Scalars['String']>;
+  Group?: InputMaybe<Scalars['String']>;
+  Group2?: InputMaybe<Scalars['String']>;
+  Group3?: InputMaybe<Scalars['String']>;
+  Group4?: InputMaybe<Scalars['String']>;
+  Group5?: InputMaybe<Scalars['String']>;
+  IstDistributionCompany?: InputMaybe<Scalars['String']>;
+  IstDoNotCalculateReverse?: InputMaybe<Scalars['Boolean']>;
+  Latitude?: InputMaybe<Scalars['Float']>;
+  Level?: InputMaybe<Scalars['String']>;
+  Location?: InputMaybe<Scalars['String']>;
+  Logger?: InputMaybe<Scalars['String']>;
+  Longitude?: InputMaybe<Scalars['Float']>;
+  Meter?: InputMaybe<Scalars['String']>;
+  MeterDirection?: InputMaybe<Scalars['String']>;
+  OldId?: InputMaybe<Scalars['String']>;
+  ProductionCompany?: InputMaybe<Scalars['String']>;
+  Property?: InputMaybe<Scalars['Boolean']>;
+  QndDistributionCompany?: InputMaybe<Scalars['String']>;
+  QndDoNotCalculateReverse?: InputMaybe<Scalars['Boolean']>;
+  StaffId?: InputMaybe<Scalars['String']>;
+  Status?: InputMaybe<Scalars['String']>;
+  TakeoverDate?: InputMaybe<Scalars['Date']>;
+  Takeovered?: InputMaybe<Scalars['Boolean']>;
+  Transmitter?: InputMaybe<Scalars['String']>;
+  UsingLogger?: InputMaybe<Scalars['Boolean']>;
+  ViewGroup?: InputMaybe<Scalars['String']>;
+  _id: Scalars['String'];
+};
+
 export type SiteLevel = {
   __typename?: 'SiteLevel';
   Description?: Maybe<Scalars['String']>;
@@ -707,6 +771,13 @@ export type DeletePreciousMutationVariables = Exact<{
 
 
 export type DeletePreciousMutation = { __typename?: 'Mutation', DeletePrecious?: { __typename?: 'RowModified', nRow?: number | null } | null };
+
+export type DeleteSiteMutationVariables = Exact<{
+  site?: InputMaybe<SiteInput>;
+}>;
+
+
+export type DeleteSiteMutation = { __typename?: 'Mutation', DeleteSite?: number | null };
 
 export type GetAllDistrictQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -872,6 +943,13 @@ export type InsertPreciousMutationVariables = Exact<{
 
 export type InsertPreciousMutation = { __typename?: 'Mutation', InsertPrecious?: { __typename?: 'IdOutput', idReturn?: string | null } | null };
 
+export type InsertSiteMutationVariables = Exact<{
+  site?: InputMaybe<SiteInput>;
+}>;
+
+
+export type InsertSiteMutation = { __typename?: 'Mutation', InsertSite?: string | null };
+
 export type QuantityDayCompanyQueryVariables = Exact<{
   company: Scalars['String'];
   start: Scalars['String'];
@@ -925,6 +1003,13 @@ export type UpdatePreciousMutationVariables = Exact<{
 
 
 export type UpdatePreciousMutation = { __typename?: 'Mutation', UpdatePrecious?: { __typename?: 'IdOutput', idReturn?: string | null } | null };
+
+export type UpdateSiteMutationVariables = Exact<{
+  site?: InputMaybe<SiteInput>;
+}>;
+
+
+export type UpdateSiteMutation = { __typename?: 'Mutation', UpdateSite?: string | null };
 
 
 export const GetCompaniesDocument = gql`
@@ -999,6 +1084,37 @@ export function useDeletePreciousMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeletePreciousMutationHookResult = ReturnType<typeof useDeletePreciousMutation>;
 export type DeletePreciousMutationResult = Apollo.MutationResult<DeletePreciousMutation>;
 export type DeletePreciousMutationOptions = Apollo.BaseMutationOptions<DeletePreciousMutation, DeletePreciousMutationVariables>;
+export const DeleteSiteDocument = gql`
+    mutation DeleteSite($site: SiteInput) {
+  DeleteSite(site: $site)
+}
+    `;
+export type DeleteSiteMutationFn = Apollo.MutationFunction<DeleteSiteMutation, DeleteSiteMutationVariables>;
+
+/**
+ * __useDeleteSiteMutation__
+ *
+ * To run a mutation, you first call `useDeleteSiteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSiteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSiteMutation, { data, loading, error }] = useDeleteSiteMutation({
+ *   variables: {
+ *      site: // value for 'site'
+ *   },
+ * });
+ */
+export function useDeleteSiteMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSiteMutation, DeleteSiteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSiteMutation, DeleteSiteMutationVariables>(DeleteSiteDocument, options);
+      }
+export type DeleteSiteMutationHookResult = ReturnType<typeof useDeleteSiteMutation>;
+export type DeleteSiteMutationResult = Apollo.MutationResult<DeleteSiteMutation>;
+export type DeleteSiteMutationOptions = Apollo.BaseMutationOptions<DeleteSiteMutation, DeleteSiteMutationVariables>;
 export const GetAllDistrictDocument = gql`
     query GetAllDistrict {
   GetAllDistrict
@@ -2439,6 +2555,37 @@ export function useInsertPreciousMutation(baseOptions?: Apollo.MutationHookOptio
 export type InsertPreciousMutationHookResult = ReturnType<typeof useInsertPreciousMutation>;
 export type InsertPreciousMutationResult = Apollo.MutationResult<InsertPreciousMutation>;
 export type InsertPreciousMutationOptions = Apollo.BaseMutationOptions<InsertPreciousMutation, InsertPreciousMutationVariables>;
+export const InsertSiteDocument = gql`
+    mutation InsertSite($site: SiteInput) {
+  InsertSite(site: $site)
+}
+    `;
+export type InsertSiteMutationFn = Apollo.MutationFunction<InsertSiteMutation, InsertSiteMutationVariables>;
+
+/**
+ * __useInsertSiteMutation__
+ *
+ * To run a mutation, you first call `useInsertSiteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertSiteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertSiteMutation, { data, loading, error }] = useInsertSiteMutation({
+ *   variables: {
+ *      site: // value for 'site'
+ *   },
+ * });
+ */
+export function useInsertSiteMutation(baseOptions?: Apollo.MutationHookOptions<InsertSiteMutation, InsertSiteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertSiteMutation, InsertSiteMutationVariables>(InsertSiteDocument, options);
+      }
+export type InsertSiteMutationHookResult = ReturnType<typeof useInsertSiteMutation>;
+export type InsertSiteMutationResult = Apollo.MutationResult<InsertSiteMutation>;
+export type InsertSiteMutationOptions = Apollo.BaseMutationOptions<InsertSiteMutation, InsertSiteMutationVariables>;
 export const QuantityDayCompanyDocument = gql`
     query QuantityDayCompany($company: String!, $start: String!, $end: String!) {
   QuantityDayCompany(company: $company, start: $start, end: $end) {
@@ -2743,3 +2890,34 @@ export function useUpdatePreciousMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdatePreciousMutationHookResult = ReturnType<typeof useUpdatePreciousMutation>;
 export type UpdatePreciousMutationResult = Apollo.MutationResult<UpdatePreciousMutation>;
 export type UpdatePreciousMutationOptions = Apollo.BaseMutationOptions<UpdatePreciousMutation, UpdatePreciousMutationVariables>;
+export const UpdateSiteDocument = gql`
+    mutation UpdateSite($site: SiteInput) {
+  UpdateSite(site: $site)
+}
+    `;
+export type UpdateSiteMutationFn = Apollo.MutationFunction<UpdateSiteMutation, UpdateSiteMutationVariables>;
+
+/**
+ * __useUpdateSiteMutation__
+ *
+ * To run a mutation, you first call `useUpdateSiteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSiteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSiteMutation, { data, loading, error }] = useUpdateSiteMutation({
+ *   variables: {
+ *      site: // value for 'site'
+ *   },
+ * });
+ */
+export function useUpdateSiteMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSiteMutation, UpdateSiteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSiteMutation, UpdateSiteMutationVariables>(UpdateSiteDocument, options);
+      }
+export type UpdateSiteMutationHookResult = ReturnType<typeof useUpdateSiteMutation>;
+export type UpdateSiteMutationResult = Apollo.MutationResult<UpdateSiteMutation>;
+export type UpdateSiteMutationOptions = Apollo.BaseMutationOptions<UpdateSiteMutation, UpdateSiteMutationVariables>;

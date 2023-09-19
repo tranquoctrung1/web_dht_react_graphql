@@ -1,0 +1,3 @@
+mutation UpdateSite($site: SiteInput) {
+    UpdateSite(site: $site)
+}

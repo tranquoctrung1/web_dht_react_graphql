@@ -42,4 +42,16 @@ module.exports = {
             return await SiteModel.GetAllCoverID();
         },
     },
+
+    Mutation: {
+        InsertSite: async (parent, { site }, context, info) => {
+            return await SiteModel.Insert(site);
+        },
+        UpdateSite: async (parent, { site }, context, info) => {
+            return await SiteModel.Update(site);
+        },
+        DeleteSite: async (parent, { site }, context, info) => {
+            return await SiteModel.Delete(site);
+        },
+    },
 };

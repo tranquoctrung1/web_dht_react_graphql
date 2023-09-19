@@ -1,0 +1,3 @@
+mutation DeleteSite($site: SiteInput) {
+    DeleteSite(site: $site)
+}

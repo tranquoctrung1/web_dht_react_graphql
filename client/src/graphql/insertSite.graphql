@@ -1,0 +1,3 @@
+mutation InsertSite($site: SiteInput) {
+    InsertSite(site: $site)
+}

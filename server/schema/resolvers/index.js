@@ -57,6 +57,7 @@ module.exports = {
 
     Mutation: {
         ...Precious.Mutation,
+        ...Site.Mutation,
     },
 
     SiteAndChannel: {

@@ -516,6 +516,52 @@ module.exports = gql`
         WaterCustomer: [WaterCustomerInput]
     }
 
+    input SiteInput {
+        _id: String!
+        OldId: String
+        Location: String
+        Latitude: Float
+        Longitude: Float
+        ViewGroup: String
+        StaffId: String
+        Meter: String
+        Transmitter: String
+        Logger: String
+        DateOfMeterChange: Date
+        DateOfLoggerChange: Date
+        DateOfTransmitterChange: Date
+        DateOfBatteryChange: Date
+        DateOfTransmitterBatteryChange: Date
+        DateOfLoggerBatteryChange: Date
+        DescriptionOfChange: String
+        ChangeIndex: Float
+        Level: String
+        Group: String
+        Company: String
+        Takeovered: Boolean
+        TakeoverDate: Date
+        Availability: String
+        Status: String
+        Display: Boolean
+        Property: Boolean
+        UsingLogger: Boolean
+        MeterDirection: String
+        ProductionCompany: String
+        IstDistributionCompany: String
+        QndDistributionCompany: String
+        IstDoNotCalculateReverse: Boolean
+        QndDoNotCalculateReverse: Boolean
+        Description: String
+        ChangeIndex1: Float
+        Group2: String
+        Address: String
+        CoverID: String
+        Group3: String
+        Group4: String
+        Group5: String
+        District: String
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -638,5 +684,11 @@ module.exports = gql`
         UpdatePrecious(precious: PreciousUpdateInput): IdOutput
 
         DeletePrecious(precious: PreciousUpdateInput): RowModified
+
+        InsertSite(site: SiteInput): String
+
+        UpdateSite(site: SiteInput): String
+
+        DeleteSite(site: SiteInput): Int
     }
 `;

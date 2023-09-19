@@ -41,9 +41,13 @@ import {
     useGetAllSiteGroup5SQuery,
     useGetAllSiteAvailabilitiesQuery,
     useGetCompaniesQuery,
-    useGetAllSiteCoverQuery,
+    useGetAllSiteCoverLazyQuery,
+    useInsertSiteMutation,
+    useUpdateSiteMutation,
+    useDeleteSiteMutation,
 } from '../__generated__/graphql';
-import { getStoreKeyName } from '@apollo/client/utilities';
+
+import Swal from 'sweetalert2';
 
 const SiteConfigPage = () => {
     const [listSite, setListSite] = useState([]);
@@ -51,10 +55,14 @@ const SiteConfigPage = () => {
     const [listOldId, setListOldId] = useState([]);
     const [oldIdData, setOldIdData] = useState([]);
     const [listMeter, setListMeter] = useState([]);
+    const [siteCover, setSiteCover] = useState([]);
+    const [listSiteCover, setListSiteCover] = useState([]);
 
     const [getSites, {}] = useGetAllSitesLazyQuery();
     const [getOldId, {}] = useGetAllOldSiteIdLazyQuery();
     const [getMeter, {}] = useGetAllMeterLazyQuery();
+    const [getSiteCover, {}] = useGetAllSiteCoverLazyQuery();
+
     const { data: viewGroups, error: viewGroupError } =
         useGetAllViewGroupsQuery();
     const { data: staffs, error: staffError } = useGetAllStaffsQuery();
@@ -84,8 +92,10 @@ const SiteConfigPage = () => {
     const { data: siteAvailabilities, error: siteAvailabilitiesError } =
         useGetAllSiteAvailabilitiesQuery();
     const { data: companies, error: companiesError } = useGetCompaniesQuery();
-    const { data: siteCover, error: siteCoverError } =
-        useGetAllSiteCoverQuery();
+
+    const [insertSite, {}] = useInsertSiteMutation();
+    const [updateSite, {}] = useUpdateSiteMutation();
+    const [deleteSite, {}] = useDeleteSiteMutation();
 
     useEffect(() => {
         getSites()
@@ -163,6 +173,38 @@ const SiteConfigPage = () => {
                 }
             })
             .catch((err) => console.log(err));
+
+        getSiteCover()
+            .then((res) => {
+                if (res !== null && res !== undefined) {
+                    if (res.data !== null && res.data !== undefined) {
+                        if (
+                            res.data.GetAllSiteCover !== null &&
+                            res.data.GetAllSiteCover !== undefined
+                        ) {
+                            const temp = [];
+
+                            for (const cover of res.data.GetAllSiteCover) {
+                                const obj = {
+                                    value: cover?.CoverID,
+                                    label: cover?.CoverID,
+                                };
+
+                                temp.push(obj);
+                            }
+
+                            //@ts-ignore
+                            setSiteCover([...temp]);
+
+                            //@ts-ignore
+                            setListSiteCover([...res.data.GetAllSiteCover]);
+                        }
+                    }
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, []);
 
     if (
@@ -182,8 +224,7 @@ const SiteConfigPage = () => {
         siteGroup4SError ||
         siteGroup5SError ||
         siteAvailabilitiesError ||
-        companiesError ||
-        siteCoverError
+        companiesError
     ) {
         return (
             <Text color="red" weight={500}>
@@ -500,27 +541,6 @@ const SiteConfigPage = () => {
         }
     }
 
-    //@ts-ignore
-    const siteCoversData = [];
-
-    if (siteCover != undefined && siteCover != null) {
-        if (
-            siteCover.GetAllSiteCover != null &&
-            siteCover.GetAllSiteCover != undefined
-        ) {
-            if (siteCover.GetAllSiteCover.length > 0) {
-                for (const site of siteCover?.GetAllSiteCover) {
-                    const obj = {
-                        label: `${site?.CoverID} `,
-                        value: site?.CoverID,
-                    };
-
-                    siteCoversData.push(obj);
-                }
-            }
-        }
-    }
-
     const { control, getValues, setValue, reset, register } = useForm({
         defaultValues: {
             _id: '',
@@ -611,7 +631,9 @@ const SiteConfigPage = () => {
             setValue(
                 'DateOfBatteryChange',
                 //@ts-ignore
-                find.DateOfBatteryChange !== null
+                find.DateOfBatteryChange !== null &&
+                    //@ts-ignore
+                    find.DateOfBatteryChange != ''
                     ? //@ts-ignore
                       new Date(find.DateOfBatteryChange)
                     : '',
@@ -620,7 +642,9 @@ const SiteConfigPage = () => {
             setValue(
                 'DateOfLoggerBatteryChange',
                 //@ts-ignore
-                find.DateOfLoggerBatteryChange !== null
+                find.DateOfLoggerBatteryChange !== null &&
+                    //@ts-ignore
+                    find.DateOfLoggerBatteryChange !== ''
                     ? //@ts-ignore
                       new Date(find.DateOfLoggerBatteryChange)
                     : '',
@@ -629,7 +653,9 @@ const SiteConfigPage = () => {
             setValue(
                 'DateOfLoggerChange',
                 //@ts-ignore
-                find.DateOfLoggerChange !== null
+                find.DateOfLoggerChange !== null &&
+                    //@ts-ignore
+                    find.DateOfLoggerChange !== ''
                     ? //@ts-ignore
                       new Date(find.DateOfLoggerChange)
                     : '',
@@ -638,7 +664,7 @@ const SiteConfigPage = () => {
             setValue(
                 'DateOfMeterChange',
                 //@ts-ignore
-                find.DateOfMeterChange !== null
+                find.DateOfMeterChange !== null && find.DateOfMeterChange !== ''
                     ? //@ts-ignore
                       new Date(find.DateOfMeterChange)
                     : '',
@@ -647,7 +673,9 @@ const SiteConfigPage = () => {
             setValue(
                 'DateOfTransmitterBatteryChange',
                 //@ts-ignore
-                find.DateOfTransmitterBatteryChange !== null
+                find.DateOfTransmitterBatteryChange !== null &&
+                    //@ts-ignore
+                    find.DateOfTransmitterBatteryChange !== ''
                     ? //@ts-ignore
                       new Date(find.DateOfTransmitterBatteryChange)
                     : '',
@@ -656,7 +684,9 @@ const SiteConfigPage = () => {
             setValue(
                 'DateOfTransmitterChange',
                 //@ts-ignore
-                find.DateOfTransmitterChange !== null
+                find.DateOfTransmitterChange !== null &&
+                    //@ts-ignore
+                    find.DateOfTransmitterChange !== ''
                     ? //@ts-ignore
                       new Date(find.DateOfTransmitterChange)
                     : '',
@@ -711,7 +741,10 @@ const SiteConfigPage = () => {
             setValue(
                 'TakeoverDate',
                 //@ts-ignore
-                find.TakeoverDate !== null ? new Date(find.TakeoverDate) : '',
+                find.TakeoverDate !== null && find.TakeoverDate !== ''
+                    ? //@ts-ignore
+                      new Date(find.TakeoverDate)
+                    : '',
             );
             //@ts-ignore
             setValue('Takeovered', find.Takeovered);
@@ -768,18 +801,351 @@ const SiteConfigPage = () => {
                     );
                 }
             }
+
+            if (
+                //@ts-ignore
+                find.CoverID !== null &&
+                //@ts-ignore
+                find.CoverID !== undefined &&
+                //@ts-ignore
+                find.CoverID !== ''
+            ) {
+                //@ts-ignore
+                const findCover = listSiteCover.find((el) => el.CoverID === e);
+
+                if (findCover !== undefined) {
+                    setSiteCoverValue(findCover);
+                }
+            }
         }
+    };
+
+    const setSiteCoverValue = (cover: any) => {
+        setValue('CoverID', cover.CoverID);
+        setValue('CoverH', cover.CoverH);
+        setValue('CoverL', cover.CoverL);
+        setValue('CoverMaterial', cover.CoverMaterial);
+        setValue('CoverNL', cover.CoverNL);
+        setValue('CoverW', cover.CoverW);
+    };
+
+    const onCoverIDChanged = (e: any) => {
+        //@ts-ignore
+        const find = listSiteCover.find((el) => el.CoverID === e);
+
+        if (find !== undefined) {
+            setSiteCoverValue(find);
+        }
+    };
+
+    const createSiteObj = () => {
+        const obj = {
+            _id: getValues('_id'),
+            OldId: getValues('OldId'),
+            Location: getValues('Location'),
+            Latitude:
+                //@ts-ignore
+                getValues('Latitude') == '' ? null : getValues('Latitude'),
+            Longitude:
+                //@ts-ignore
+                getValues('Longitude') == '' ? null : getValues('Longitude'),
+            ViewGroup: getValues('ViewGroup'),
+            StaffId: getValues('StaffId'),
+            Meter: getValues('Meter'),
+            Transmitter: getValues('Transmitter'),
+            Logger: getValues('Logger'),
+            DateOfMeterChange: getValues('DateOfMeterChange'),
+            DateOfLoggerChange: getValues('DateOfLoggerChange'),
+            DateOfTransmitterChange: getValues('DateOfTransmitterChange'),
+            DateOfBatteryChange: getValues('DateOfBatteryChange'),
+            DateOfTransmitterBatteryChange: getValues(
+                'DateOfTransmitterBatteryChange',
+            ),
+            DateOfLoggerBatteryChange: getValues('DateOfLoggerBatteryChange'),
+            DescriptionOfChange: getValues('Description'),
+            ChangeIndex:
+                //@ts-ignore
+                getValues('ChangeIndex') == ''
+                    ? null
+                    : getValues('ChangeIndex'),
+            Level: getValues('Level'),
+            Group: getValues('Group'),
+            Company: getValues('Company'),
+            TakeoverDate: getValues('TakeoverDate'),
+            Takeovered: getValues('Takeovered'),
+            Status: getValues('Status'),
+            Availability: getValues('Availability'),
+            Display: getValues('Display'),
+            Property: getValues('Property'),
+            UsingLogger: getValues('UsingLogger'),
+            MeterDirection: getValues('MeterDirection'),
+            ProductionCompany: getValues('ProductionCompany'),
+            IstDistributionCompany: getValues('IstDistributionCompany'),
+            QndDistributionCompany: getValues('QndDistributionCompany'),
+            IstDoNotCalculateReverse: getValues('IstDoNotCalculateReverse'),
+            QndDoNotCalculateReverse: getValues('QndDoNotCalculateReverse'),
+            Description: getValues('Description'),
+            ChangeIndex1:
+                //@ts-ignore
+                getValues('ChangeIndex1') == ''
+                    ? null
+                    : getValues('ChangeIndex1'),
+            Group2: getValues('Group2'),
+            Address: getValues('Address'),
+            CoverID: getValues('CoverID'),
+            Group3: getValues('Group3'),
+            Group4: getValues('Group4'),
+            Group5: getValues('Group5'),
+            District: getValues('District'),
+        };
+
+        return obj;
     };
 
     const onInsertClicked = () => {
         const formValues = getValues();
 
-        console.log(formValues);
+        let isAllow = true;
+
+        if (
+            formValues._id === null ||
+            formValues._id === undefined ||
+            formValues._id === ''
+        ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa có mã vị trí!!!',
+            });
+
+            isAllow = false;
+        }
+
+        if (isAllow == true) {
+            insertSite({
+                variables: {
+                    //@ts-ignore
+                    site: createSiteObj(),
+                },
+            })
+                .then((res) => {
+                    if (res.data !== null && res.data !== undefined) {
+                        if (res.data.InsertSite !== '') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Successfull',
+                                text: 'Thêm điểm lắp đặt thành công',
+                            });
+                            //@ts-ignore
+                            setListSite((current) => [...current, formValues]);
+                            // //@ts-ignore
+                            // setSiteDataState((current) => [
+                            //     ...current,
+                            //     formValues._id,
+                            // ]);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Thêm điểm lắp đặt không thành công',
+                            });
+                        }
+                    }
+                })
+                .catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Thêm điểm lắp đặt không thành công',
+                    });
+                    console.log(err);
+                });
+        }
     };
 
-    const onUpdateClicked = () => {};
+    const handelUpdateSite = () => {
+        const temp = [];
 
-    const onDeleteClicked = () => {};
+        for (const site of listSite) {
+            //@ts-ignore
+            if (site._id === getValues('_id')) {
+                temp.push(getValues());
+            } else {
+                temp.push(site);
+            }
+        }
+
+        return temp;
+    };
+
+    const onUpdateClicked = () => {
+        const formValues = getValues();
+
+        let isAllow = true;
+
+        if (
+            formValues._id === null ||
+            formValues._id === undefined ||
+            formValues._id === ''
+        ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa có mã vị trí!!!',
+            });
+
+            isAllow = false;
+        }
+
+        if (isAllow == true) {
+            updateSite({
+                variables: {
+                    //@ts-ignore
+                    site: createSiteObj(),
+                },
+            })
+                .then((res) => {
+                    if (res.data !== null && res.data !== undefined) {
+                        if (res.data.UpdateSite !== '') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Successfull',
+                                text: 'Cập nhật điểm lắp đặt thành công',
+                            });
+                            //@ts-ignore
+                            setListSite([...handelUpdateSite()]);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Cập nhật điểm lắp đặt không thành công',
+                            });
+                        }
+                    }
+                })
+                .catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Cập nhật điểm lắp đặt không thành công',
+                    });
+                    console.log(err);
+                });
+        }
+    };
+
+    const handelDeleteSite = () => {
+        //@ts-ignore
+        const temp = [];
+
+        for (const site of listSite) {
+            //@ts-ignore
+            if (site._id !== getValues('_id')) {
+                temp.push(site);
+            }
+        }
+
+        //@ts-ignore
+        return temp;
+    };
+
+    const handelDeleteSiteDataState = () => {
+        //@ts-ignore
+        const temp = [];
+
+        for (const site of listSite) {
+            //@ts-ignore
+            if (site._id !== getValues('_id')) {
+                //@ts-ignore
+                temp.push(site._id);
+            }
+        }
+
+        //@ts-ignore
+        return temp;
+    };
+
+    const onDeleteClicked = () => {
+        Swal.fire({
+            title: 'Xóa điểm lắp đặt?',
+            text: 'Xóa điểm lắp đặt không thể nào hồi phục lại!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const formValues = getValues();
+
+                let isAllow = true;
+
+                if (
+                    formValues._id === null ||
+                    formValues._id === undefined ||
+                    formValues._id === ''
+                ) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Chưa có mã vị trí!!!',
+                    });
+
+                    isAllow = false;
+                }
+
+                if (isAllow == true) {
+                    deleteSite({
+                        variables: {
+                            //@ts-ignore
+                            site: createSiteObj(),
+                        },
+                    })
+                        .then((res) => {
+                            if (res.data !== null && res.data !== undefined) {
+                                if (
+                                    res.data.DeleteSite !== null &&
+                                    res.data.DeleteSite !== undefined
+                                ) {
+                                    if (res.data.DeleteSite > 0) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Successfull',
+                                            text: 'Xóa điểm lắp đặt thành công',
+                                        });
+
+                                        //@ts-ignore
+                                        setListSite([...handelDeleteSite()]);
+
+                                        //@ts-ignore
+                                        setSiteDataState([
+                                            ...handelDeleteSiteDataState(),
+                                        ]);
+
+                                        reset();
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: 'Xóa điểm lắp đặt không thành công',
+                                        });
+                                    }
+                                }
+                            }
+                        })
+                        .catch((err) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Xóa điểm lắp đặt không thành công',
+                            });
+                            console.log(err);
+                        });
+                }
+            }
+        });
+    };
 
     return (
         <motion.div
@@ -1674,8 +2040,9 @@ const SiteConfigPage = () => {
                                     searchable
                                     nothingFound="Không tìm thấy Mã nấp hầm"
                                     //@ts-ignore
-                                    data={siteCoversData}
+                                    data={siteCover}
                                     {...field}
+                                    onChange={onCoverIDChanged}
                                 />
                             )}
                         ></Controller>

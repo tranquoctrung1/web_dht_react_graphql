@@ -432,3 +432,53 @@ module.exports.GetAllCoverID = async () => {
 
     return result;
 };
+
+module.exports.Insert = async (site) => {
+    let Connect = new ConnectDB.Connect();
+
+    let result = '';
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    result = await collection.insertOne(site);
+
+    result = result.insertedId;
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.Update = async (site) => {
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(SiteSiteCollection);
+
+        let result = await collection.deleteMany({
+            _id: site._id,
+        });
+
+        result = await collection.insertOne(site);
+
+        Connect.disconnect();
+
+        return result.insertedId;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+module.exports.Delete = async (site) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection.deleteMany({
+        _id: site._id,
+    });
+
+    Connect.disconnect();
+
+    return result.deletedCount;
+};
