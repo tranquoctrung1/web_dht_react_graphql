@@ -786,6 +786,12 @@ module.exports = gql`
         GetAllDataManual: [DataManual]
 
         GetDataManualBySiteId(siteid: String): [DataManual]
+
+        GetDataManualBySiteIdAndTimeStamp(
+            siteid: String
+            start: String
+            end: String
+        ): [DataManual]
     }
 
     # declare Mutation

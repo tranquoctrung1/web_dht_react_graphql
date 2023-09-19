@@ -55,6 +55,28 @@ module.exports.GetAll = async () => {
     return result;
 };
 
+module.exports.GetDataManualBySiteIdAndTimeStamp = async (
+    siteid,
+    start,
+    end,
+) => {
+    let startDate = new Date(parseInt(start));
+    let endDate = new Date(parseInt(end));
+
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DataManualCollection);
+
+    let result = await collection
+        .find({ SiteId: siteid, TimeStamp: { $gte: startDate, $lte: endDate } })
+        .sort({ TimeStamp: -1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.Insert = async (dataManual) => {
     let Connect = new ConnectDB.Connect();
 

@@ -9,6 +9,18 @@ module.exports = {
         GetDataManualBySiteId: async (parent, { siteid }, context, info) => {
             return await DataManualModel.GetDataManualBySiteId(siteid);
         },
+        GetDataManualBySiteIdAndTimeStamp: async (
+            parent,
+            { siteid, start, end },
+            context,
+            info,
+        ) => {
+            return await DataManualModel.GetDataManualBySiteIdAndTimeStamp(
+                siteid,
+                start,
+                end,
+            );
+        },
     },
 
     Mutation: {
