@@ -1,0 +1,11 @@
+query GetDataManualBySiteId($siteid: String) {
+    GetDataManualBySiteId(siteid: $siteid) {
+        Description
+        Index
+        Output
+        Stt
+        TimeStamp
+        SiteId
+        _id
+    }
+}

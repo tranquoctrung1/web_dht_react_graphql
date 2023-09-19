@@ -1,0 +1,3 @@
+mutation InsertDataManual($dataManual: DataManualInsertInput) {
+    InsertDataManual(dataManual: $dataManual)
+}

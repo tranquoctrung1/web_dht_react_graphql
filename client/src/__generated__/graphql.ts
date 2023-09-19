@@ -74,6 +74,36 @@ export type DataLogger = {
   Value?: Maybe<Scalars['Float']>;
 };
 
+export type DataManual = {
+  __typename?: 'DataManual';
+  Description?: Maybe<Scalars['String']>;
+  Index?: Maybe<Scalars['Float']>;
+  Output?: Maybe<Scalars['Float']>;
+  SiteId?: Maybe<Scalars['String']>;
+  Stt?: Maybe<Scalars['Int']>;
+  TimeStamp?: Maybe<Scalars['Date']>;
+  _id: Scalars['ID'];
+};
+
+export type DataManualInsertInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Index?: InputMaybe<Scalars['Float']>;
+  Output?: InputMaybe<Scalars['Float']>;
+  SiteId?: InputMaybe<Scalars['String']>;
+  Stt?: InputMaybe<Scalars['Int']>;
+  TimeStamp?: InputMaybe<Scalars['Date']>;
+};
+
+export type DataManualUpdateInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Index?: InputMaybe<Scalars['Float']>;
+  Output?: InputMaybe<Scalars['Float']>;
+  SiteId?: InputMaybe<Scalars['String']>;
+  Stt?: InputMaybe<Scalars['Int']>;
+  TimeStamp?: InputMaybe<Scalars['Date']>;
+  _id: Scalars['ID'];
+};
+
 export type DateCalclogger = {
   __typename?: 'DateCalclogger';
   DateRange?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -268,17 +298,25 @@ export type LockValveInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  DeleteDataManual?: Maybe<Scalars['Int']>;
   DeleteDeviceChannelConifg?: Maybe<Scalars['Int']>;
   DeleteDeviceSiteConfig?: Maybe<Scalars['Int']>;
   DeletePrecious?: Maybe<RowModified>;
   DeleteSite?: Maybe<Scalars['Int']>;
+  InsertDataManual?: Maybe<Scalars['String']>;
   InsertDeviceSiteConfig?: Maybe<Scalars['String']>;
   InsertPrecious?: Maybe<IdOutput>;
   InsertSite?: Maybe<Scalars['String']>;
+  UpdateDataManual?: Maybe<Scalars['Int']>;
   UpdateDeviceChannelConfig?: Maybe<Scalars['String']>;
   UpdateDeviceSiteConfig?: Maybe<Scalars['String']>;
   UpdatePrecious?: Maybe<IdOutput>;
   UpdateSite?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationDeleteDataManualArgs = {
+  dataManual?: InputMaybe<DataManualUpdateInput>;
 };
 
 
@@ -302,6 +340,11 @@ export type MutationDeleteSiteArgs = {
 };
 
 
+export type MutationInsertDataManualArgs = {
+  dataManual?: InputMaybe<DataManualInsertInput>;
+};
+
+
 export type MutationInsertDeviceSiteConfigArgs = {
   siteConfig?: InputMaybe<DeviceSiteConfigInsertInput>;
 };
@@ -314,6 +357,11 @@ export type MutationInsertPreciousArgs = {
 
 export type MutationInsertSiteArgs = {
   site?: InputMaybe<SiteInput>;
+};
+
+
+export type MutationUpdateDataManualArgs = {
+  dataManual?: InputMaybe<DataManualUpdateInput>;
 };
 
 
@@ -496,6 +544,7 @@ export type QuantityLoggerDayWaterSupply = {
 export type Query = {
   __typename?: 'Query';
   GetAllCoverID?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllDataManual?: Maybe<Array<Maybe<DataManual>>>;
   GetAllDeviceChannelConifg?: Maybe<Array<Maybe<Channel>>>;
   GetAllDeviceSiteConfig?: Maybe<Array<Maybe<DeviceSiteConfig>>>;
   GetAllDistrict?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -533,6 +582,7 @@ export type Query = {
   GetCompanies?: Maybe<Array<Company>>;
   GetDataLoggerByLastRecord?: Maybe<Array<DataLogger>>;
   GetDataLoggerByTimeStamp?: Maybe<Array<DataLogger>>;
+  GetDataManualBySiteId?: Maybe<Array<Maybe<DataManual>>>;
   GetPreciousByCompany?: Maybe<Array<Maybe<Precious>>>;
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
@@ -558,6 +608,11 @@ export type QueryGetDataLoggerByTimeStampArgs = {
   channelid: Scalars['String'];
   end: Scalars['String'];
   start: Scalars['String'];
+};
+
+
+export type QueryGetDataManualBySiteIdArgs = {
+  siteid?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -872,6 +927,13 @@ export type GetCompaniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCompaniesQuery = { __typename?: 'Query', GetCompanies?: Array<{ __typename?: 'Company', Company?: string | null, Description?: string | null, Production?: number | null }> | null };
 
+export type DeleteDataManualMutationVariables = Exact<{
+  dataManual?: InputMaybe<DataManualUpdateInput>;
+}>;
+
+
+export type DeleteDataManualMutation = { __typename?: 'Mutation', DeleteDataManual?: number | null };
+
 export type DeleteDeviceChannelConifgMutationVariables = Exact<{
   channel?: InputMaybe<ChannelInput>;
 }>;
@@ -1048,6 +1110,13 @@ export type GetDataLoggerByTimeStampQueryVariables = Exact<{
 
 export type GetDataLoggerByTimeStampQuery = { __typename?: 'Query', GetDataLoggerByTimeStamp?: Array<{ __typename?: 'DataLogger', TimeStamp?: any | null, Value?: number | null }> | null };
 
+export type GetDataManualBySiteIdQueryVariables = Exact<{
+  siteid?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetDataManualBySiteIdQuery = { __typename?: 'Query', GetDataManualBySiteId?: Array<{ __typename?: 'DataManual', Description?: string | null, Index?: number | null, Output?: number | null, Stt?: number | null, TimeStamp?: any | null, SiteId?: string | null, _id: string } | null> | null };
+
 export type GetAllMeterAccreditationTypeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1071,6 +1140,13 @@ export type GetSiteByWaterSupplyQueryVariables = Exact<{
 
 
 export type GetSiteByWaterSupplyQuery = { __typename?: 'Query', GetSiteByWaterSupply: Array<{ __typename?: 'Site', _id: string, OldId?: string | null, Location?: string | null, Logger?: string | null, Company?: string | null, Description?: string | null, MeterDirection?: string | null, ProductionCompany?: string | null, IstDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, Address?: string | null }> };
+
+export type InsertDataManualMutationVariables = Exact<{
+  dataManual?: InputMaybe<DataManualInsertInput>;
+}>;
+
+
+export type InsertDataManualMutation = { __typename?: 'Mutation', InsertDataManual?: string | null };
 
 export type InsertDeviceSiteConfigMutationVariables = Exact<{
   siteConfig?: InputMaybe<DeviceSiteConfigInsertInput>;
@@ -1140,6 +1216,13 @@ export type QuantityLoggerDayWaterSupplyQueryVariables = Exact<{
 
 export type QuantityLoggerDayWaterSupplyQuery = { __typename?: 'Query', QuantityLoggerDayWaterSupply: Array<{ __typename?: 'QuantityLoggerDayWaterSupply', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, Size?: number | null, SiteId: string, OldId?: string | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
 
+export type UpdateDataManualMutationVariables = Exact<{
+  dataManual?: InputMaybe<DataManualUpdateInput>;
+}>;
+
+
+export type UpdateDataManualMutation = { __typename?: 'Mutation', UpdateDataManual?: number | null };
+
 export type UpdateDeviceChannelConfigMutationVariables = Exact<{
   channel?: InputMaybe<ChannelInput>;
 }>;
@@ -1208,6 +1291,37 @@ export type GetCompaniesQueryResult = Apollo.QueryResult<GetCompaniesQuery, GetC
 export function refetchGetCompaniesQuery(variables?: GetCompaniesQueryVariables) {
       return { query: GetCompaniesDocument, variables: variables }
     }
+export const DeleteDataManualDocument = gql`
+    mutation DeleteDataManual($dataManual: DataManualUpdateInput) {
+  DeleteDataManual(dataManual: $dataManual)
+}
+    `;
+export type DeleteDataManualMutationFn = Apollo.MutationFunction<DeleteDataManualMutation, DeleteDataManualMutationVariables>;
+
+/**
+ * __useDeleteDataManualMutation__
+ *
+ * To run a mutation, you first call `useDeleteDataManualMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteDataManualMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteDataManualMutation, { data, loading, error }] = useDeleteDataManualMutation({
+ *   variables: {
+ *      dataManual: // value for 'dataManual'
+ *   },
+ * });
+ */
+export function useDeleteDataManualMutation(baseOptions?: Apollo.MutationHookOptions<DeleteDataManualMutation, DeleteDataManualMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteDataManualMutation, DeleteDataManualMutationVariables>(DeleteDataManualDocument, options);
+      }
+export type DeleteDataManualMutationHookResult = ReturnType<typeof useDeleteDataManualMutation>;
+export type DeleteDataManualMutationResult = Apollo.MutationResult<DeleteDataManualMutation>;
+export type DeleteDataManualMutationOptions = Apollo.BaseMutationOptions<DeleteDataManualMutation, DeleteDataManualMutationVariables>;
 export const DeleteDeviceChannelConifgDocument = gql`
     mutation DeleteDeviceChannelConifg($channel: ChannelInput) {
   DeleteDeviceChannelConifg(channel: $channel)
@@ -2613,6 +2727,50 @@ export type GetDataLoggerByTimeStampQueryResult = Apollo.QueryResult<GetDataLogg
 export function refetchGetDataLoggerByTimeStampQuery(variables: GetDataLoggerByTimeStampQueryVariables) {
       return { query: GetDataLoggerByTimeStampDocument, variables: variables }
     }
+export const GetDataManualBySiteIdDocument = gql`
+    query GetDataManualBySiteId($siteid: String) {
+  GetDataManualBySiteId(siteid: $siteid) {
+    Description
+    Index
+    Output
+    Stt
+    TimeStamp
+    SiteId
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetDataManualBySiteIdQuery__
+ *
+ * To run a query within a React component, call `useGetDataManualBySiteIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataManualBySiteIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDataManualBySiteIdQuery({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *   },
+ * });
+ */
+export function useGetDataManualBySiteIdQuery(baseOptions?: Apollo.QueryHookOptions<GetDataManualBySiteIdQuery, GetDataManualBySiteIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetDataManualBySiteIdQuery, GetDataManualBySiteIdQueryVariables>(GetDataManualBySiteIdDocument, options);
+      }
+export function useGetDataManualBySiteIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDataManualBySiteIdQuery, GetDataManualBySiteIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetDataManualBySiteIdQuery, GetDataManualBySiteIdQueryVariables>(GetDataManualBySiteIdDocument, options);
+        }
+export type GetDataManualBySiteIdQueryHookResult = ReturnType<typeof useGetDataManualBySiteIdQuery>;
+export type GetDataManualBySiteIdLazyQueryHookResult = ReturnType<typeof useGetDataManualBySiteIdLazyQuery>;
+export type GetDataManualBySiteIdQueryResult = Apollo.QueryResult<GetDataManualBySiteIdQuery, GetDataManualBySiteIdQueryVariables>;
+export function refetchGetDataManualBySiteIdQuery(variables?: GetDataManualBySiteIdQueryVariables) {
+      return { query: GetDataManualBySiteIdDocument, variables: variables }
+    }
 export const GetAllMeterAccreditationTypeDocument = gql`
     query GetAllMeterAccreditationType {
   GetAllMeterAccreditationType {
@@ -2882,6 +3040,37 @@ export type GetSiteByWaterSupplyQueryResult = Apollo.QueryResult<GetSiteByWaterS
 export function refetchGetSiteByWaterSupplyQuery(variables: GetSiteByWaterSupplyQueryVariables) {
       return { query: GetSiteByWaterSupplyDocument, variables: variables }
     }
+export const InsertDataManualDocument = gql`
+    mutation InsertDataManual($dataManual: DataManualInsertInput) {
+  InsertDataManual(dataManual: $dataManual)
+}
+    `;
+export type InsertDataManualMutationFn = Apollo.MutationFunction<InsertDataManualMutation, InsertDataManualMutationVariables>;
+
+/**
+ * __useInsertDataManualMutation__
+ *
+ * To run a mutation, you first call `useInsertDataManualMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertDataManualMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertDataManualMutation, { data, loading, error }] = useInsertDataManualMutation({
+ *   variables: {
+ *      dataManual: // value for 'dataManual'
+ *   },
+ * });
+ */
+export function useInsertDataManualMutation(baseOptions?: Apollo.MutationHookOptions<InsertDataManualMutation, InsertDataManualMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertDataManualMutation, InsertDataManualMutationVariables>(InsertDataManualDocument, options);
+      }
+export type InsertDataManualMutationHookResult = ReturnType<typeof useInsertDataManualMutation>;
+export type InsertDataManualMutationResult = Apollo.MutationResult<InsertDataManualMutation>;
+export type InsertDataManualMutationOptions = Apollo.BaseMutationOptions<InsertDataManualMutation, InsertDataManualMutationVariables>;
 export const InsertDeviceSiteConfigDocument = gql`
     mutation InsertDeviceSiteConfig($siteConfig: DeviceSiteConfigInsertInput) {
   InsertDeviceSiteConfig(siteConfig: $siteConfig)
@@ -3248,6 +3437,37 @@ export type QuantityLoggerDayWaterSupplyQueryResult = Apollo.QueryResult<Quantit
 export function refetchQuantityLoggerDayWaterSupplyQuery(variables: QuantityLoggerDayWaterSupplyQueryVariables) {
       return { query: QuantityLoggerDayWaterSupplyDocument, variables: variables }
     }
+export const UpdateDataManualDocument = gql`
+    mutation UpdateDataManual($dataManual: DataManualUpdateInput) {
+  UpdateDataManual(dataManual: $dataManual)
+}
+    `;
+export type UpdateDataManualMutationFn = Apollo.MutationFunction<UpdateDataManualMutation, UpdateDataManualMutationVariables>;
+
+/**
+ * __useUpdateDataManualMutation__
+ *
+ * To run a mutation, you first call `useUpdateDataManualMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateDataManualMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateDataManualMutation, { data, loading, error }] = useUpdateDataManualMutation({
+ *   variables: {
+ *      dataManual: // value for 'dataManual'
+ *   },
+ * });
+ */
+export function useUpdateDataManualMutation(baseOptions?: Apollo.MutationHookOptions<UpdateDataManualMutation, UpdateDataManualMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateDataManualMutation, UpdateDataManualMutationVariables>(UpdateDataManualDocument, options);
+      }
+export type UpdateDataManualMutationHookResult = ReturnType<typeof useUpdateDataManualMutation>;
+export type UpdateDataManualMutationResult = Apollo.MutationResult<UpdateDataManualMutation>;
+export type UpdateDataManualMutationOptions = Apollo.BaseMutationOptions<UpdateDataManualMutation, UpdateDataManualMutationVariables>;
 export const UpdateDeviceChannelConfigDocument = gql`
     mutation UpdateDeviceChannelConfig($channel: ChannelInput) {
   UpdateDeviceChannelConfig(channel: $channel)

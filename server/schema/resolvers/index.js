@@ -26,6 +26,7 @@ const SiteCover = require('./SiteCover.resolver');
 const DeviceUnit = require('./DeviceUnit.resolver');
 const DeviceSiteConfig = require('./DeviceSiteConfig.resolver');
 const DeviceChannelConfig = require('./DeviceChannelConfig.resolver');
+const DataManual = require('./DataManual.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -59,6 +60,7 @@ module.exports = {
         ...DeviceUnit.Query,
         ...DeviceSiteConfig.Query,
         ...DeviceChannelConfig.Query,
+        ...DataManual.Query,
     },
 
     Mutation: {
@@ -66,6 +68,7 @@ module.exports = {
         ...Site.Mutation,
         ...DeviceSiteConfig.Mutation,
         ...DeviceChannelConfig.Mutation,
+        ...DataManual.Mutation,
     },
 
     SiteAndChannel: {

@@ -1,0 +1,3 @@
+mutation UpdateDataManual($dataManual: DataManualUpdateInput) {
+    UpdateDataManual(dataManual: $dataManual)
+}

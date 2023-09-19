@@ -438,6 +438,16 @@ module.exports = gql`
         Pressure1: Int
     }
 
+    type DataManual {
+        _id: ID!
+        Stt: Int
+        SiteId: String
+        TimeStamp: Date
+        Index: Float
+        Output: Float
+        Description: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -634,6 +644,25 @@ module.exports = gql`
         StatusViewAlarm: Boolean
     }
 
+    input DataManualInsertInput {
+        Stt: Int
+        SiteId: String
+        TimeStamp: Date
+        Index: Float
+        Output: Float
+        Description: String
+    }
+
+    input DataManualUpdateInput {
+        _id: ID!
+        Stt: Int
+        SiteId: String
+        TimeStamp: Date
+        Index: Float
+        Output: Float
+        Description: String
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -753,6 +782,10 @@ module.exports = gql`
         GetAllDeviceSiteConfig: [DeviceSiteConfig]
 
         GetAllDeviceChannelConifg: [Channel]
+
+        GetAllDataManual: [DataManual]
+
+        GetDataManualBySiteId(siteid: String): [DataManual]
     }
 
     # declare Mutation
@@ -778,5 +811,11 @@ module.exports = gql`
         UpdateDeviceChannelConfig(channel: ChannelInput): String
 
         DeleteDeviceChannelConifg(channel: ChannelInput): Int
+
+        InsertDataManual(dataManual: DataManualInsertInput): String
+
+        UpdateDataManual(dataManual: DataManualUpdateInput): Int
+
+        DeleteDataManual(dataManual: DataManualUpdateInput): Int
     }
 `;

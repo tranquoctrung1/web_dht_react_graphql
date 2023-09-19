@@ -229,6 +229,33 @@ export const getHourAndMinute = (time: string) => {
     return '';
 };
 
+export const convertTimeStampToDate = (time: string) => {
+    if (time != '' && time !== null && time !== undefined) {
+        let date = new Date(time);
+
+        let year = date.getFullYear();
+
+        let month =
+            date.getMonth() + 1 >= 10
+                ? date.getMonth() + 1
+                : `0${date.getMonth() + 1}`;
+        let day = date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`;
+        let hour =
+            date.getHours() >= 10 ? date.getHours() : `0${date.getHours()}`;
+        let minute =
+            date.getMinutes() >= 10
+                ? date.getMinutes()
+                : `0${date.getMinutes()}`;
+        let second =
+            date.getSeconds() >= 10
+                ? date.getSeconds()
+                : `0${date.getSeconds()}`;
+
+        return `${day}/${month}/${year}`;
+    }
+    return '';
+};
+
 export const isEmptyObject = (data: object | null | undefined) => {
     if (data == null || data == undefined) {
         return true;
