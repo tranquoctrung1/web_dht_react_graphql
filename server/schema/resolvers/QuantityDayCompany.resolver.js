@@ -123,7 +123,7 @@ module.exports = {
                                     );
 
                                     let dataManual =
-                                        await DataManualModel.GetDataManualBySiteId(
+                                        await DataManualModel.GetDataManualBySiteIdReport(
                                             site._id,
                                             tempStartDataManual,
                                         );

@@ -37,6 +37,8 @@ import ReportAveragePrecious from '../components/reportAveragePrecious';
 
 import Companies from '../types/companies.type';
 
+import { checkAdminViewerRole, checkCustomerRole } from '../utils/utils';
+
 const QuantityWaterSupply = () => {
     const [selectedCompany, setSelectedCompany] = useState(null);
     const [isDisableSelectCompany, setIsDisableSelectCompany] = useState(false);
@@ -50,6 +52,7 @@ const QuantityWaterSupply = () => {
         renderQuantityLoggerDayWaterSupply,
         setRenderQuantityLoggerDayWaterSupply,
     ] = useState(false);
+    const [isAdminViewer, setIsAdminViewer] = useState(false);
 
     const { data, error, loading } = useGetCompaniesQuery();
     const [
@@ -67,19 +70,16 @@ const QuantityWaterSupply = () => {
     ] = useQuantityLoggerDayWaterSupplyLazyQuery();
 
     useEffect(() => {
-        const role = localStorage.getItem('Role');
         const company = localStorage.getItem('Company');
 
-        if (role !== null && role !== undefined && role !== '') {
-            if (role == 'customer') {
-                setIsDisableSelectCompany(true);
-            }
-        }
+        setIsDisableSelectCompany(checkCustomerRole());
 
         if (company !== null && company !== undefined && company !== '') {
             //@ts-ignore
             setSelectedCompany(company);
         }
+
+        setIsAdminViewer(checkAdminViewerRole());
     }, []);
 
     if (loading) {
@@ -1069,7 +1069,8 @@ const QuantityWaterSupply = () => {
                     </Col>
                     <Col span={12}>
                         <Center>
-                            {isDisableSelectCompany == false ? (
+                            {isDisableSelectCompany == false &&
+                            isAdminViewer == false ? (
                                 <>
                                     {' '}
                                     <Button

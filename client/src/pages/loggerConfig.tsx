@@ -39,16 +39,14 @@ import {
 
 import { setCurrentDeviceSiteConfig } from '../features/currentDeviceSiteConfig';
 
-import {
-    convertStringMilisecondToStringDate,
-    getHourAndMinute,
-} from '../utils/utils';
+import { getHourAndMinute, checkAdminViewerRole } from '../utils/utils';
 
 import Swal from 'sweetalert2';
 
 const LoggerConfigPage = () => {
     const [listDevieSiteConfig, setListDeviceSiteConfig] = useState([]);
     const [listChannelData, setListChannelData] = useState([]);
+    const [isAdminViewer, setIsAdminViewer] = useState(false);
 
     const listChannel = useSelector(ListChannelState);
 
@@ -100,6 +98,8 @@ const LoggerConfigPage = () => {
     };
 
     useEffect(() => {
+        setIsAdminViewer(checkAdminViewerRole());
+
         getDeviceSiteConfig()
             .then((res) => {
                 if (res !== null && res !== undefined) {
@@ -1019,34 +1019,35 @@ const LoggerConfigPage = () => {
                 <Col span={12}>
                     <ConfigChannel index={3} LoggerId={getValues('LoggerId')} />
                 </Col>
-
-                <Col span={12}>
-                    <Center>
-                        <Button
-                            variant="filled"
-                            color="green"
-                            onClick={onInsertClicked}
-                        >
-                            Thêm
-                        </Button>
-                        <Space w="md"></Space>
-                        <Button
-                            variant="filled"
-                            color="blue"
-                            onClick={onUpdateClicked}
-                        >
-                            Sửa
-                        </Button>
-                        <Space w="md"></Space>
-                        <Button
-                            variant="filled"
-                            color="red"
-                            onClick={onDeleteClicked}
-                        >
-                            Xóa
-                        </Button>
-                    </Center>
-                </Col>
+                {isAdminViewer == false ? (
+                    <Col span={12}>
+                        <Center>
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onInsertClicked}
+                            >
+                                Thêm
+                            </Button>
+                            <Space w="md"></Space>
+                            <Button
+                                variant="filled"
+                                color="blue"
+                                onClick={onUpdateClicked}
+                            >
+                                Sửa
+                            </Button>
+                            <Space w="md"></Space>
+                            <Button
+                                variant="filled"
+                                color="red"
+                                onClick={onDeleteClicked}
+                            >
+                                Xóa
+                            </Button>
+                        </Center>
+                    </Col>
+                ) : null}
             </Grid>
         </>
     );

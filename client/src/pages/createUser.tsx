@@ -22,6 +22,8 @@ import {
 } from '../__generated__/graphql';
 import { useEffect, useState } from 'react';
 
+import { checkAdminViewerRole } from '../utils/utils';
+
 import Swal from 'sweetalert2';
 
 const CreateUserPage = () => {
@@ -32,6 +34,8 @@ const CreateUserPage = () => {
     const { data: staffs, error: staffErrror } = useGetAllStaffsQuery();
     const { data: company, error: companyError } = useGetCompaniesQuery();
     const { data: role, error: roleError } = useGetAllRoleQuery();
+
+    const [isAdminViewer, setIsAdminViewer] = useState(false);
 
     const [insertUser, {}] = useInsertUserMutation();
     const [updateUser, {}] = useUpdateUserMutation();
@@ -46,6 +50,8 @@ const CreateUserPage = () => {
     }
 
     useEffect(() => {
+        setIsAdminViewer(checkAdminViewerRole());
+
         getUser().then((res) => {
             if (res.data !== null && res.data !== undefined) {
                 if (
@@ -567,33 +573,35 @@ const CreateUserPage = () => {
                     ></Controller>
                 ) : null}
             </Col>
-            <Col span={12}>
-                <Center>
-                    <Button
-                        variant="filled"
-                        color="green"
-                        onClick={onInsertClicked}
-                    >
-                        Thêm
-                    </Button>
-                    <Space w="md"></Space>
-                    <Button
-                        variant="filled"
-                        color="blue"
-                        onClick={onUpdateClicked}
-                    >
-                        Sửa
-                    </Button>
-                    <Space w="md"></Space>
-                    <Button
-                        variant="filled"
-                        color="red"
-                        onClick={onDeleteClicked}
-                    >
-                        Xóa
-                    </Button>
-                </Center>
-            </Col>
+            {isAdminViewer == false ? (
+                <Col span={12}>
+                    <Center>
+                        <Button
+                            variant="filled"
+                            color="green"
+                            onClick={onInsertClicked}
+                        >
+                            Thêm
+                        </Button>
+                        <Space w="md"></Space>
+                        <Button
+                            variant="filled"
+                            color="blue"
+                            onClick={onUpdateClicked}
+                        >
+                            Sửa
+                        </Button>
+                        <Space w="md"></Space>
+                        <Button
+                            variant="filled"
+                            color="red"
+                            onClick={onDeleteClicked}
+                        >
+                            Xóa
+                        </Button>
+                    </Center>
+                </Col>
+            ) : null}
         </Grid>
     );
 };

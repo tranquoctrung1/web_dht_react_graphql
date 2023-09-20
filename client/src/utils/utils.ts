@@ -1,3 +1,5 @@
+import { TypeOrFieldNameRegExp } from '@apollo/client/cache/inmemory/helpers';
+
 export const convertDateToStringNotTime = (date: any) => {
     if (
         date != null &&
@@ -261,4 +263,40 @@ export const isEmptyObject = (data: object | null | undefined) => {
         return true;
     }
     return Object.keys(data).length === 0 && data.constructor === Object;
+};
+
+export const checkCustomerRole = () => {
+    const role = localStorage.getItem('Role');
+
+    let check = false;
+
+    if (role != undefined && role !== null && role !== '') {
+        if (role === 'customer') {
+            check = true;
+        } else {
+            check = false;
+        }
+    } else {
+        check = false;
+    }
+
+    return check;
+};
+
+export const checkAdminViewerRole = () => {
+    const role = localStorage.getItem('Role');
+
+    let check = false;
+
+    if (role != undefined && role !== null && role !== '') {
+        if (role === 'adminviewer') {
+            check = true;
+        } else {
+            check = false;
+        }
+    } else {
+        check = false;
+    }
+
+    return check;
 };

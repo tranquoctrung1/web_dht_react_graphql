@@ -24,6 +24,32 @@ import {
 } from '@tabler/icons-react';
 import { LinksGroup } from './navbarLinkGroup';
 
+const mockdataCustomer = [
+    {
+        label: 'Sản Lượng',
+        icon: IconReceipt2,
+        initiallyOpened: false,
+        links: [
+            {
+                label: 'Sản Lượng Các Công Ty Cấp Nước',
+                link: '/quantityCompanyWaterSupply',
+            },
+        ],
+    },
+
+    {
+        label: 'Tài Khoản',
+        icon: IconKey,
+        initiallyOpened: false,
+        links: [
+            {
+                label: 'Đổi Mật Khẩu',
+                link: '/changePassword',
+            },
+        ],
+    },
+];
+
 const mockdata = [
     {
         label: 'Thiết Bị',
@@ -260,9 +286,25 @@ const useStyles = createStyles((theme) => ({
 
 export function NavbarNested() {
     const { classes } = useStyles();
-    const links = mockdata.map((item) => (
-        <LinksGroup {...item} key={item.label} />
-    ));
+
+    const role = localStorage.getItem('Role');
+    let links;
+
+    if (role !== undefined && role !== null) {
+        if (role == 'customer') {
+            links = mockdataCustomer.map((item) => (
+                <LinksGroup {...item} key={item.label} />
+            ));
+        } else {
+            links = mockdata.map((item) => (
+                <LinksGroup {...item} key={item.label} />
+            ));
+        }
+    } else {
+        links = mockdata.map((item) => (
+            <LinksGroup {...item} key={item.label} />
+        ));
+    }
 
     return (
         <Navbar width={{ sm: 300 }} p="md" className={classes.navbar}>

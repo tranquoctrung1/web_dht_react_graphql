@@ -49,6 +49,8 @@ import {
 
 import Swal from 'sweetalert2';
 
+import { checkAdminViewerRole } from '../utils/utils';
+
 const SiteConfigPage = () => {
     const [listSite, setListSite] = useState([]);
     const [siteDataState, setSiteDataState] = useState([]);
@@ -57,6 +59,7 @@ const SiteConfigPage = () => {
     const [listMeter, setListMeter] = useState([]);
     const [siteCover, setSiteCover] = useState([]);
     const [listSiteCover, setListSiteCover] = useState([]);
+    const [isAdminViewer, setIsAdminViewer] = useState(false);
 
     const [getSites, {}] = useGetAllSitesLazyQuery();
     const [getOldId, {}] = useGetAllOldSiteIdLazyQuery();
@@ -98,6 +101,8 @@ const SiteConfigPage = () => {
     const [deleteSite, {}] = useDeleteSiteMutation();
 
     useEffect(() => {
+        setIsAdminViewer(checkAdminViewerRole());
+
         getSites()
             .then((res) => {
                 if (res !== null && res !== undefined) {
@@ -1274,21 +1279,25 @@ const SiteConfigPage = () => {
                     ></Controller>
                 </Col>
                 <Col md={4}>
-                    <Button
-                        variant="filled"
-                        color="blue"
-                        style={{ marginRight: '5px' }}
-                        onClick={onDocumentUploadClicked}
-                    >
-                        Upload
-                    </Button>
-                    <Button
-                        variant="filled"
-                        color="green"
-                        onClick={onDocumentDownloadClicked}
-                    >
-                        Download
-                    </Button>
+                    {isAdminViewer == false ? (
+                        <>
+                            <Button
+                                variant="filled"
+                                color="blue"
+                                style={{ marginRight: '5px' }}
+                                onClick={onDocumentUploadClicked}
+                            >
+                                Upload
+                            </Button>
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onDocumentDownloadClicked}
+                            >
+                                Download
+                            </Button>
+                        </>
+                    ) : null}
                 </Col>
                 <Col md={4}>
                     <Controller
@@ -2128,33 +2137,35 @@ const SiteConfigPage = () => {
                         )}
                     ></Controller>
                 </Col>
-                <Col span={12}>
-                    <Center>
-                        <Button
-                            variant="filled"
-                            color="green"
-                            onClick={onInsertClicked}
-                        >
-                            Thêm
-                        </Button>
-                        <Space w="md"></Space>
-                        <Button
-                            variant="filled"
-                            color="blue"
-                            onClick={onUpdateClicked}
-                        >
-                            Sửa
-                        </Button>
-                        <Space w="md"></Space>
-                        <Button
-                            variant="filled"
-                            color="red"
-                            onClick={onDeleteClicked}
-                        >
-                            Xóa
-                        </Button>
-                    </Center>
-                </Col>
+                {isAdminViewer == false ? (
+                    <Col span={12}>
+                        <Center>
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onInsertClicked}
+                            >
+                                Thêm
+                            </Button>
+                            <Space w="md"></Space>
+                            <Button
+                                variant="filled"
+                                color="blue"
+                                onClick={onUpdateClicked}
+                            >
+                                Sửa
+                            </Button>
+                            <Space w="md"></Space>
+                            <Button
+                                variant="filled"
+                                color="red"
+                                onClick={onDeleteClicked}
+                            >
+                                Xóa
+                            </Button>
+                        </Center>
+                    </Col>
+                ) : null}
             </Grid>
         </motion.div>
     );

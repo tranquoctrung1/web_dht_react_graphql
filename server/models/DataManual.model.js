@@ -14,7 +14,7 @@ module.exports.DataManual = class DataManual {
     }
 };
 
-module.exports.GetDataManualBySiteId = async (siteid, time) => {
+module.exports.GetDataManualBySiteIdReport = async (siteid, time) => {
     let Connect = new ConnectDB.Connect();
 
     let collection = await Connect.connect(DataManualCollection);

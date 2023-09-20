@@ -21,11 +21,11 @@ import {
     useUpdateDataManualMutation,
     useDeleteDataManualMutation,
 } from '../__generated__/graphql';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import DataTable from 'react-data-table-component';
 
-import { convertTimeStampToDate } from '../utils/utils';
+import { convertTimeStampToDate, checkAdminViewerRole } from '../utils/utils';
 
 import Swal from 'sweetalert2';
 
@@ -43,6 +43,8 @@ const ManualQuantityPage = () => {
     const [column, setColumn] = useState([]);
     const [dataTable, setDataTable] = useState([]);
 
+    const [isAdminViewer, setIsAdminViewer] = useState(false);
+
     const { data: sites, error: siteError } = useGetAllSitesQuery();
     const { data: meters, error: metersError } = useGetAllMeterQuery();
     const { data: staffs, error: staffsError } = useGetAllStaffsQuery();
@@ -52,6 +54,10 @@ const ManualQuantityPage = () => {
     const [insertDataManual, {}] = useInsertDataManualMutation();
     const [updateDataManual, {}] = useUpdateDataManualMutation();
     const [deleteDataManual, {}] = useDeleteDataManualMutation();
+
+    useEffect(() => {
+        setIsAdminViewer(checkAdminViewerRole());
+    }, []);
 
     if (siteError || metersError || staffsError) {
         return (
@@ -602,33 +608,35 @@ const ManualQuantityPage = () => {
                     onChange={onOutputChanged}
                 />
             </Col>
-            <Col span={12}>
-                <Center>
-                    <Button
-                        variant="filled"
-                        color="green"
-                        onClick={onInsertClicked}
-                    >
-                        Thêm
-                    </Button>
-                    <Space w="md"></Space>
-                    <Button
-                        variant="filled"
-                        color="blue"
-                        onClick={onUpdateClicked}
-                    >
-                        Sửa
-                    </Button>
-                    <Space w="md"></Space>
-                    <Button
-                        variant="filled"
-                        color="red"
-                        onClick={onDeleteClicked}
-                    >
-                        Xóa
-                    </Button>
-                </Center>
-            </Col>
+            {isAdminViewer == false ? (
+                <Col span={12}>
+                    <Center>
+                        <Button
+                            variant="filled"
+                            color="green"
+                            onClick={onInsertClicked}
+                        >
+                            Thêm
+                        </Button>
+                        <Space w="md"></Space>
+                        <Button
+                            variant="filled"
+                            color="blue"
+                            onClick={onUpdateClicked}
+                        >
+                            Sửa
+                        </Button>
+                        <Space w="md"></Space>
+                        <Button
+                            variant="filled"
+                            color="red"
+                            onClick={onDeleteClicked}
+                        >
+                            Xóa
+                        </Button>
+                    </Center>
+                </Col>
+            ) : null}
             <Col span={12}>
                 {dataTable.length > 0 ? (
                     <DataTable
