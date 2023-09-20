@@ -20,13 +20,14 @@ import {
     useQuantityLoggerDayWaterSupplyLazyQuery,
 } from '../__generated__/graphql';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Swal from 'sweetalert2';
 
 import {
     convertDateToStringNotTime,
     convertDateToStringNotTimeForTitle,
+    convertMilisecondToStringDate,
     quickSort,
 } from '../utils/utils';
 // @ts-ignore comment
@@ -38,6 +39,7 @@ import Companies from '../types/companies.type';
 
 const QuantityWaterSupply = () => {
     const [selectedCompany, setSelectedCompany] = useState(null);
+    const [isDisableSelectCompany, setIsDisableSelectCompany] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [opened, { open, close }] = useDisclosure(false);
@@ -63,6 +65,22 @@ const QuantityWaterSupply = () => {
             data: dataLoggerDayWaterSupply,
         },
     ] = useQuantityLoggerDayWaterSupplyLazyQuery();
+
+    useEffect(() => {
+        const role = localStorage.getItem('Role');
+        const company = localStorage.getItem('Company');
+
+        if (role !== null && role !== undefined && role !== '') {
+            if (role == 'customer') {
+                setIsDisableSelectCompany(true);
+            }
+        }
+
+        if (company !== null && company !== undefined && company !== '') {
+            //@ts-ignore
+            setSelectedCompany(company);
+        }
+    }, []);
 
     if (loading) {
         return (
@@ -1025,8 +1043,10 @@ const QuantityWaterSupply = () => {
                             data={tempData}
                             clearable
                             searchable
+                            disabled={isDisableSelectCompany}
                             nothingFound="Không tìm thấy!!"
                             onChange={onCompaniesChanged}
+                            value={selectedCompany}
                         />
                     </Col>
                     <Col md={4} sm={12}>
@@ -1049,14 +1069,20 @@ const QuantityWaterSupply = () => {
                     </Col>
                     <Col span={12}>
                         <Center>
-                            <Button
-                                variant="filled"
-                                color="blue"
-                                onClick={() => open()}
-                            >
-                                Biên bản
-                            </Button>
-                            <Space w="md" />
+                            {isDisableSelectCompany == false ? (
+                                <>
+                                    {' '}
+                                    <Button
+                                        variant="filled"
+                                        color="blue"
+                                        onClick={() => open()}
+                                    >
+                                        Biên bản
+                                    </Button>
+                                    <Space w="md" />
+                                </>
+                            ) : null}
+
                             <Button
                                 variant="filled"
                                 color="green"

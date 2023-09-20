@@ -153,7 +153,7 @@ const Layout = () => {
                                             weight={500}
                                             transform="uppercase"
                                         >
-                                            {localStorage.getItem('username')}
+                                            {localStorage.getItem('Uid')}
                                         </Text>
                                         <Space w="md" />
                                         <ActionIcon
@@ -172,8 +172,7 @@ const Layout = () => {
                     >
                         <AnimatePresence>
                             <div id="detail">
-                                {localStorage.getItem('username') &&
-                                localStorage.getItem('username') === 'admin' ? (
+                                {localStorage.getItem('Uid') ? (
                                     <Outlet />
                                 ) : (
                                     <Navigate to="/login" />

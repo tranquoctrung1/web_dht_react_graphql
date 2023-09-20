@@ -296,6 +296,14 @@ export type LockValveInput = {
   SiteId?: InputMaybe<Scalars['String']>;
 };
 
+export type Login = {
+  __typename?: 'Login';
+  Company?: Maybe<Scalars['String']>;
+  Role?: Maybe<Scalars['String']>;
+  Uid?: Maybe<Scalars['String']>;
+  token?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   DeleteDataManual?: Maybe<Scalars['Int']>;
@@ -608,6 +616,7 @@ export type Query = {
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
   GetStatisticSiteXNManager?: Maybe<Array<Maybe<StatisticSiteXnManager>>>;
+  LoginAction?: Maybe<Login>;
   QuantityDayCompany: Array<QuantityDayCompany>;
   QuantityDayWaterSupply: Array<QuantityDayWaterSupply>;
   QuantityLoggerByTimeStamp: Array<QuantityLoggerByTimeStamp>;
@@ -652,6 +661,12 @@ export type QueryGetPreciousByCompanyArgs = {
 
 export type QueryGetSiteByWaterSupplyArgs = {
   company: Scalars['String'];
+};
+
+
+export type QueryLoginActionArgs = {
+  password?: InputMaybe<Scalars['String']>;
+  username?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1020,6 +1035,14 @@ export type WaterCustomerInput = {
   Note?: InputMaybe<Scalars['String']>;
   NumberPrecious?: InputMaybe<Scalars['String']>;
 };
+
+export type LoginActionQueryVariables = Exact<{
+  username?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type LoginActionQuery = { __typename?: 'Query', LoginAction?: { __typename?: 'Login', Role?: string | null, Uid?: string | null, token?: string | null, Company?: string | null } | null };
 
 export type GetCompaniesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1396,6 +1419,48 @@ export type UpdateUserMutationVariables = Exact<{
 export type UpdateUserMutation = { __typename?: 'Mutation', UpdateUser?: number | null };
 
 
+export const LoginActionDocument = gql`
+    query LoginAction($username: String, $password: String) {
+  LoginAction(username: $username, password: $password) {
+    Role
+    Uid
+    token
+    Company
+  }
+}
+    `;
+
+/**
+ * __useLoginActionQuery__
+ *
+ * To run a query within a React component, call `useLoginActionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLoginActionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLoginActionQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginActionQuery(baseOptions?: Apollo.QueryHookOptions<LoginActionQuery, LoginActionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LoginActionQuery, LoginActionQueryVariables>(LoginActionDocument, options);
+      }
+export function useLoginActionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LoginActionQuery, LoginActionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LoginActionQuery, LoginActionQueryVariables>(LoginActionDocument, options);
+        }
+export type LoginActionQueryHookResult = ReturnType<typeof useLoginActionQuery>;
+export type LoginActionLazyQueryHookResult = ReturnType<typeof useLoginActionLazyQuery>;
+export type LoginActionQueryResult = Apollo.QueryResult<LoginActionQuery, LoginActionQueryVariables>;
+export function refetchLoginActionQuery(variables?: LoginActionQueryVariables) {
+      return { query: LoginActionDocument, variables: variables }
+    }
 export const GetCompaniesDocument = gql`
     query GetCompanies {
   GetCompanies {

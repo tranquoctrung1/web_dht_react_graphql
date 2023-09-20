@@ -20,7 +20,7 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Logo from '../assets/logo.png';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useLoginActionLazyQuery } from '../__generated__/graphql';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -30,6 +30,8 @@ const LoginPage = () => {
     const [errorUserName, setErrorUserName] = useState('');
     const [errorPassword, setErrorPassword] = useState('');
     const [errorLogin, setErrorLogin] = useState('');
+
+    const [loginAction, {}] = useLoginActionLazyQuery();
 
     const { control, getValues, register } = useForm({
         defaultValues: {
@@ -61,10 +63,78 @@ const LoginPage = () => {
                 formValue.username === 'admin' &&
                 formValue.password === 'Admin@123#'
             ) {
+                localStorage.setItem(
+                    'Uid',
+                    //@ts-ignore
+                    'admin',
+                );
+                localStorage.setItem(
+                    'token',
+                    //@ts-ignore
+                    '',
+                );
+                localStorage.setItem(
+                    'Company',
+                    //@ts-ignore
+                    '',
+                );
+                localStorage.setItem(
+                    'Role',
+                    //@ts-ignore
+                    'admin',
+                );
+
                 navigate('/quantityCompanyWaterSupply');
-                localStorage.setItem('username', formValue.username);
             } else {
-                setErrorLogin('Tài khoản hoặc mật khẩu bị sai!!');
+                loginAction({
+                    variables: {
+                        username: formValue.username,
+                        password: formValue.password,
+                    },
+                })
+                    .then((res) => {
+                        if (res.data !== null && res.data !== undefined) {
+                            if (
+                                res.data.LoginAction !== null &&
+                                res.data.LoginAction !== undefined
+                            ) {
+                                if (
+                                    res.data.LoginAction.token !== '' &&
+                                    res.data.LoginAction.Uid !== ''
+                                ) {
+                                    localStorage.setItem(
+                                        'Uid',
+                                        //@ts-ignore
+                                        res.data.LoginAction.Uid,
+                                    );
+                                    localStorage.setItem(
+                                        'token',
+                                        //@ts-ignore
+                                        res.data.LoginAction.token,
+                                    );
+                                    localStorage.setItem(
+                                        'Company',
+                                        //@ts-ignore
+                                        res.data.LoginAction.Company,
+                                    );
+                                    localStorage.setItem(
+                                        'Role',
+                                        //@ts-ignore
+                                        res.data.LoginAction.Role,
+                                    );
+
+                                    navigate('/quantityCompanyWaterSupply');
+                                } else {
+                                    setErrorLogin(
+                                        'Tài khoản hoặc mật khẩu bị sai!!',
+                                    );
+                                }
+                            }
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
             }
         }
     };

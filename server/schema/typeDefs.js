@@ -484,6 +484,13 @@ module.exports = gql`
         Description: String
     }
 
+    type Login {
+        token: String
+        Role: String
+        Uid: String
+        Company: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -865,6 +872,8 @@ module.exports = gql`
         GetAllUser: [User]
 
         GetAllRole: [Role]
+
+        LoginAction(username: String, password: String): Login
     }
 
     # declare Mutation

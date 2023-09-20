@@ -1,0 +1,8 @@
+query LoginAction($username: String, $password: String) {
+    LoginAction(username: $username, password: $password) {
+        Role
+        Uid
+        token
+        Company
+    }
+}
