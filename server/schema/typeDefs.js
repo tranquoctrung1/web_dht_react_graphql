@@ -462,6 +462,28 @@ module.exports = gql`
         Description: String
     }
 
+    type User {
+        _id: ID!
+        Uid: String
+        StaffId: String
+        Pwd: String
+        Salt: String
+        Role: String
+        Active: Boolean
+        TimeStamp: Date
+        Ip: String
+        LogCount: Int
+        Zoom: Int
+        Company: String
+        Language: String
+    }
+
+    type Role {
+        _id: ID!
+        Role: String
+        Description: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -677,6 +699,37 @@ module.exports = gql`
         Description: String
     }
 
+    input UserInsertInput {
+        Uid: String
+        StaffId: String
+        Pwd: String
+        Salt: String
+        Role: String
+        Active: Boolean
+        TimeStamp: Date
+        Ip: String
+        LogCount: Int
+        Zoom: Int
+        Company: String
+        Language: String
+    }
+
+    input UserUpdateInput {
+        _id: ID!
+        Uid: String
+        StaffId: String
+        Pwd: String
+        Salt: String
+        Role: String
+        Active: Boolean
+        TimeStamp: Date
+        Ip: String
+        LogCount: Int
+        Zoom: Int
+        Company: String
+        Language: String
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -808,6 +861,10 @@ module.exports = gql`
         ): [DataManual]
 
         GetStatisticSiteXNManager: [StatisticSiteXNManager]
+
+        GetAllUser: [User]
+
+        GetAllRole: [Role]
     }
 
     # declare Mutation
@@ -839,5 +896,11 @@ module.exports = gql`
         UpdateDataManual(dataManual: DataManualUpdateInput): Int
 
         DeleteDataManual(dataManual: DataManualUpdateInput): Int
+
+        InsertUser(user: UserInsertInput): String
+
+        UpdateUser(user: UserUpdateInput): Int
+
+        DeleteUser(user: UserUpdateInput): Int
     }
 `;

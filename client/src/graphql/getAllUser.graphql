@@ -1,0 +1,17 @@
+query GetAllUser {
+    GetAllUser {
+        Active
+        Company
+        Ip
+        Language
+        LogCount
+        Pwd
+        Role
+        Salt
+        StaffId
+        TimeStamp
+        Uid
+        Zoom
+        _id
+    }
+}

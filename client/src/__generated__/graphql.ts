@@ -303,15 +303,18 @@ export type Mutation = {
   DeleteDeviceSiteConfig?: Maybe<Scalars['Int']>;
   DeletePrecious?: Maybe<RowModified>;
   DeleteSite?: Maybe<Scalars['Int']>;
+  DeleteUser?: Maybe<Scalars['Int']>;
   InsertDataManual?: Maybe<Scalars['String']>;
   InsertDeviceSiteConfig?: Maybe<Scalars['String']>;
   InsertPrecious?: Maybe<IdOutput>;
   InsertSite?: Maybe<Scalars['String']>;
+  InsertUser?: Maybe<Scalars['String']>;
   UpdateDataManual?: Maybe<Scalars['Int']>;
   UpdateDeviceChannelConfig?: Maybe<Scalars['String']>;
   UpdateDeviceSiteConfig?: Maybe<Scalars['String']>;
   UpdatePrecious?: Maybe<IdOutput>;
   UpdateSite?: Maybe<Scalars['String']>;
+  UpdateUser?: Maybe<Scalars['Int']>;
 };
 
 
@@ -340,6 +343,11 @@ export type MutationDeleteSiteArgs = {
 };
 
 
+export type MutationDeleteUserArgs = {
+  user?: InputMaybe<UserUpdateInput>;
+};
+
+
 export type MutationInsertDataManualArgs = {
   dataManual?: InputMaybe<DataManualInsertInput>;
 };
@@ -357,6 +365,11 @@ export type MutationInsertPreciousArgs = {
 
 export type MutationInsertSiteArgs = {
   site?: InputMaybe<SiteInput>;
+};
+
+
+export type MutationInsertUserArgs = {
+  user?: InputMaybe<UserInsertInput>;
 };
 
 
@@ -382,6 +395,11 @@ export type MutationUpdatePreciousArgs = {
 
 export type MutationUpdateSiteArgs = {
   site?: InputMaybe<SiteInput>;
+};
+
+
+export type MutationUpdateUserArgs = {
+  user?: InputMaybe<UserUpdateInput>;
 };
 
 export type Periods = {
@@ -561,6 +579,7 @@ export type Query = {
   GetAllMeterNotInstall?: Maybe<Array<Maybe<DeviceMeter>>>;
   GetAllOldSiteId?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllPrecious?: Maybe<Array<Maybe<Precious>>>;
+  GetAllRole?: Maybe<Array<Maybe<Role>>>;
   GetAllSiteAndChannel?: Maybe<Array<SiteAndChannel>>;
   GetAllSiteAvailabilities?: Maybe<Array<Maybe<SiteAvailabilities>>>;
   GetAllSiteCover?: Maybe<Array<Maybe<SiteCover>>>;
@@ -577,6 +596,7 @@ export type Query = {
   GetAllTransmitter?: Maybe<Array<Maybe<DeviceTransmitter>>>;
   GetAllTransmitterNotInstall?: Maybe<Array<Maybe<DeviceTransmitter>>>;
   GetAllUnit?: Maybe<Array<Maybe<Unit>>>;
+  GetAllUser?: Maybe<Array<Maybe<User>>>;
   GetAllViewGroups?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetChannelByLoggerId?: Maybe<Array<Maybe<Channel>>>;
   GetCompanies?: Maybe<Array<Company>>;
@@ -669,6 +689,13 @@ export type QueryQuantityLoggerDayWaterSupplyArgs = {
   company: Scalars['String'];
   end: Scalars['String'];
   start: Scalars['String'];
+};
+
+export type Role = {
+  __typename?: 'Role';
+  Description?: Maybe<Scalars['String']>;
+  Role?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
 };
 
 export type RowModified = {
@@ -922,11 +949,59 @@ export type Unit = {
   _id: Scalars['ID'];
 };
 
+export type User = {
+  __typename?: 'User';
+  Active?: Maybe<Scalars['Boolean']>;
+  Company?: Maybe<Scalars['String']>;
+  Ip?: Maybe<Scalars['String']>;
+  Language?: Maybe<Scalars['String']>;
+  LogCount?: Maybe<Scalars['Int']>;
+  Pwd?: Maybe<Scalars['String']>;
+  Role?: Maybe<Scalars['String']>;
+  Salt?: Maybe<Scalars['String']>;
+  StaffId?: Maybe<Scalars['String']>;
+  TimeStamp?: Maybe<Scalars['Date']>;
+  Uid?: Maybe<Scalars['String']>;
+  Zoom?: Maybe<Scalars['Int']>;
+  _id: Scalars['ID'];
+};
+
+export type UserInsertInput = {
+  Active?: InputMaybe<Scalars['Boolean']>;
+  Company?: InputMaybe<Scalars['String']>;
+  Ip?: InputMaybe<Scalars['String']>;
+  Language?: InputMaybe<Scalars['String']>;
+  LogCount?: InputMaybe<Scalars['Int']>;
+  Pwd?: InputMaybe<Scalars['String']>;
+  Role?: InputMaybe<Scalars['String']>;
+  Salt?: InputMaybe<Scalars['String']>;
+  StaffId?: InputMaybe<Scalars['String']>;
+  TimeStamp?: InputMaybe<Scalars['Date']>;
+  Uid?: InputMaybe<Scalars['String']>;
+  Zoom?: InputMaybe<Scalars['Int']>;
+};
+
 export type UserStaff = {
   __typename?: 'UserStaff';
   FirstName?: Maybe<Scalars['String']>;
   LastName?: Maybe<Scalars['String']>;
   _id?: Maybe<Scalars['String']>;
+};
+
+export type UserUpdateInput = {
+  Active?: InputMaybe<Scalars['Boolean']>;
+  Company?: InputMaybe<Scalars['String']>;
+  Ip?: InputMaybe<Scalars['String']>;
+  Language?: InputMaybe<Scalars['String']>;
+  LogCount?: InputMaybe<Scalars['Int']>;
+  Pwd?: InputMaybe<Scalars['String']>;
+  Role?: InputMaybe<Scalars['String']>;
+  Salt?: InputMaybe<Scalars['String']>;
+  StaffId?: InputMaybe<Scalars['String']>;
+  TimeStamp?: InputMaybe<Scalars['Date']>;
+  Uid?: InputMaybe<Scalars['String']>;
+  Zoom?: InputMaybe<Scalars['Int']>;
+  _id: Scalars['ID'];
 };
 
 export type WaterCustomer = {
@@ -986,6 +1061,13 @@ export type DeleteSiteMutationVariables = Exact<{
 
 export type DeleteSiteMutation = { __typename?: 'Mutation', DeleteSite?: number | null };
 
+export type DeleteUserMutationVariables = Exact<{
+  user?: InputMaybe<UserUpdateInput>;
+}>;
+
+
+export type DeleteUserMutation = { __typename?: 'Mutation', DeleteUser?: number | null };
+
 export type GetAllDeviceChannelConifgQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1025,6 +1107,11 @@ export type GetAllOldSiteIdQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllOldSiteIdQuery = { __typename?: 'Query', GetAllOldSiteId?: Array<string | null> | null };
+
+export type GetAllRoleQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllRoleQuery = { __typename?: 'Query', GetAllRole?: Array<{ __typename?: 'Role', Description?: string | null, Role?: string | null, _id: string } | null> | null };
 
 export type GetAllSitesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1105,6 +1192,11 @@ export type GetAllUnitQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllUnitQuery = { __typename?: 'Query', GetAllUnit?: Array<{ __typename?: 'Unit', Description?: string | null, Unit?: string | null, _id: string } | null> | null };
+
+export type GetAllUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllUserQuery = { __typename?: 'Query', GetAllUser?: Array<{ __typename?: 'User', Active?: boolean | null, Company?: string | null, Ip?: string | null, Language?: string | null, LogCount?: number | null, Pwd?: string | null, Role?: string | null, Salt?: string | null, StaffId?: string | null, TimeStamp?: any | null, Uid?: string | null, Zoom?: number | null, _id: string } | null> | null };
 
 export type GetAllViewGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1207,6 +1299,13 @@ export type InsertSiteMutationVariables = Exact<{
 
 export type InsertSiteMutation = { __typename?: 'Mutation', InsertSite?: string | null };
 
+export type InsertUserMutationVariables = Exact<{
+  user?: InputMaybe<UserInsertInput>;
+}>;
+
+
+export type InsertUserMutation = { __typename?: 'Mutation', InsertUser?: string | null };
+
 export type QuantityDayCompanyQueryVariables = Exact<{
   company: Scalars['String'];
   start: Scalars['String'];
@@ -1288,6 +1387,13 @@ export type UpdateSiteMutationVariables = Exact<{
 
 
 export type UpdateSiteMutation = { __typename?: 'Mutation', UpdateSite?: string | null };
+
+export type UpdateUserMutationVariables = Exact<{
+  user?: InputMaybe<UserUpdateInput>;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', UpdateUser?: number | null };
 
 
 export const GetCompaniesDocument = gql`
@@ -1486,6 +1592,37 @@ export function useDeleteSiteMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteSiteMutationHookResult = ReturnType<typeof useDeleteSiteMutation>;
 export type DeleteSiteMutationResult = Apollo.MutationResult<DeleteSiteMutation>;
 export type DeleteSiteMutationOptions = Apollo.BaseMutationOptions<DeleteSiteMutation, DeleteSiteMutationVariables>;
+export const DeleteUserDocument = gql`
+    mutation DeleteUser($user: UserUpdateInput) {
+  DeleteUser(user: $user)
+}
+    `;
+export type DeleteUserMutationFn = Apollo.MutationFunction<DeleteUserMutation, DeleteUserMutationVariables>;
+
+/**
+ * __useDeleteUserMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserMutation, { data, loading, error }] = useDeleteUserMutation({
+ *   variables: {
+ *      user: // value for 'user'
+ *   },
+ * });
+ */
+export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<DeleteUserMutation, DeleteUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument, options);
+      }
+export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
+export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
+export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
 export const GetAllDeviceChannelConifgDocument = gql`
     query GetAllDeviceChannelConifg {
   GetAllDeviceChannelConifg {
@@ -1857,6 +1994,45 @@ export type GetAllOldSiteIdLazyQueryHookResult = ReturnType<typeof useGetAllOldS
 export type GetAllOldSiteIdQueryResult = Apollo.QueryResult<GetAllOldSiteIdQuery, GetAllOldSiteIdQueryVariables>;
 export function refetchGetAllOldSiteIdQuery(variables?: GetAllOldSiteIdQueryVariables) {
       return { query: GetAllOldSiteIdDocument, variables: variables }
+    }
+export const GetAllRoleDocument = gql`
+    query GetAllRole {
+  GetAllRole {
+    Description
+    Role
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllRoleQuery__
+ *
+ * To run a query within a React component, call `useGetAllRoleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllRoleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllRoleQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllRoleQuery(baseOptions?: Apollo.QueryHookOptions<GetAllRoleQuery, GetAllRoleQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllRoleQuery, GetAllRoleQueryVariables>(GetAllRoleDocument, options);
+      }
+export function useGetAllRoleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllRoleQuery, GetAllRoleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllRoleQuery, GetAllRoleQueryVariables>(GetAllRoleDocument, options);
+        }
+export type GetAllRoleQueryHookResult = ReturnType<typeof useGetAllRoleQuery>;
+export type GetAllRoleLazyQueryHookResult = ReturnType<typeof useGetAllRoleLazyQuery>;
+export type GetAllRoleQueryResult = Apollo.QueryResult<GetAllRoleQuery, GetAllRoleQueryVariables>;
+export function refetchGetAllRoleQuery(variables?: GetAllRoleQueryVariables) {
+      return { query: GetAllRoleDocument, variables: variables }
     }
 export const GetAllSitesDocument = gql`
     query GetAllSites {
@@ -2594,6 +2770,55 @@ export type GetAllUnitQueryResult = Apollo.QueryResult<GetAllUnitQuery, GetAllUn
 export function refetchGetAllUnitQuery(variables?: GetAllUnitQueryVariables) {
       return { query: GetAllUnitDocument, variables: variables }
     }
+export const GetAllUserDocument = gql`
+    query GetAllUser {
+  GetAllUser {
+    Active
+    Company
+    Ip
+    Language
+    LogCount
+    Pwd
+    Role
+    Salt
+    StaffId
+    TimeStamp
+    Uid
+    Zoom
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllUserQuery__
+ *
+ * To run a query within a React component, call `useGetAllUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllUserQuery(baseOptions?: Apollo.QueryHookOptions<GetAllUserQuery, GetAllUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllUserQuery, GetAllUserQueryVariables>(GetAllUserDocument, options);
+      }
+export function useGetAllUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllUserQuery, GetAllUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllUserQuery, GetAllUserQueryVariables>(GetAllUserDocument, options);
+        }
+export type GetAllUserQueryHookResult = ReturnType<typeof useGetAllUserQuery>;
+export type GetAllUserLazyQueryHookResult = ReturnType<typeof useGetAllUserLazyQuery>;
+export type GetAllUserQueryResult = Apollo.QueryResult<GetAllUserQuery, GetAllUserQueryVariables>;
+export function refetchGetAllUserQuery(variables?: GetAllUserQueryVariables) {
+      return { query: GetAllUserDocument, variables: variables }
+    }
 export const GetAllViewGroupsDocument = gql`
     query GetAllViewGroups {
   GetAllViewGroups
@@ -3297,6 +3522,37 @@ export function useInsertSiteMutation(baseOptions?: Apollo.MutationHookOptions<I
 export type InsertSiteMutationHookResult = ReturnType<typeof useInsertSiteMutation>;
 export type InsertSiteMutationResult = Apollo.MutationResult<InsertSiteMutation>;
 export type InsertSiteMutationOptions = Apollo.BaseMutationOptions<InsertSiteMutation, InsertSiteMutationVariables>;
+export const InsertUserDocument = gql`
+    mutation InsertUser($user: UserInsertInput) {
+  InsertUser(user: $user)
+}
+    `;
+export type InsertUserMutationFn = Apollo.MutationFunction<InsertUserMutation, InsertUserMutationVariables>;
+
+/**
+ * __useInsertUserMutation__
+ *
+ * To run a mutation, you first call `useInsertUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertUserMutation, { data, loading, error }] = useInsertUserMutation({
+ *   variables: {
+ *      user: // value for 'user'
+ *   },
+ * });
+ */
+export function useInsertUserMutation(baseOptions?: Apollo.MutationHookOptions<InsertUserMutation, InsertUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertUserMutation, InsertUserMutationVariables>(InsertUserDocument, options);
+      }
+export type InsertUserMutationHookResult = ReturnType<typeof useInsertUserMutation>;
+export type InsertUserMutationResult = Apollo.MutationResult<InsertUserMutation>;
+export type InsertUserMutationOptions = Apollo.BaseMutationOptions<InsertUserMutation, InsertUserMutationVariables>;
 export const QuantityDayCompanyDocument = gql`
     query QuantityDayCompany($company: String!, $start: String!, $end: String!) {
   QuantityDayCompany(company: $company, start: $start, end: $end) {
@@ -3725,3 +3981,34 @@ export function useUpdateSiteMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateSiteMutationHookResult = ReturnType<typeof useUpdateSiteMutation>;
 export type UpdateSiteMutationResult = Apollo.MutationResult<UpdateSiteMutation>;
 export type UpdateSiteMutationOptions = Apollo.BaseMutationOptions<UpdateSiteMutation, UpdateSiteMutationVariables>;
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($user: UserUpdateInput) {
+  UpdateUser(user: $user)
+}
+    `;
+export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      user: // value for 'user'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
+      }
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;

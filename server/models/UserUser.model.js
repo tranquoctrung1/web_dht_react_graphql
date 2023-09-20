@@ -1,4 +1,6 @@
 const ConnectDB = require('../db/connect');
+const bcrypt = require('bcryptjs');
+const { ObjectId } = require('mongodb');
 
 const UserUserCollection = 't_User_Users';
 
@@ -30,4 +32,95 @@ module.exports.UserUser = class UserUser {
         this.Company = Company;
         this.Language = Language;
     }
+};
+
+module.exports.GetAll = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(UserUserCollection);
+
+    let result = await collection.find({}).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.Insert = async (user) => {
+    let Connect = new ConnectDB.Connect();
+
+    let result = '';
+
+    let collection = await Connect.connect(UserUserCollection);
+
+    user.TimeStamp = new Date(user.TimeStamp);
+
+    let find = await collection.find({ Uid: user.Uid }).toArray();
+
+    if (find.length <= 0) {
+        let salt = bcrypt.genSaltSync(parseInt(process.env.GEN_SALT || 10));
+        let password = bcrypt.hashSync(user.Pwd, salt);
+
+        user.Pwd = password;
+
+        result = await collection.insertOne(user);
+
+        result = result.insertedId;
+    }
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.Delete = async (user) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(UserUserCollection);
+
+    let result = await collection.deleteMany({
+        _id: new ObjectId(user._id),
+    });
+
+    Connect.disconnect();
+
+    return result.deletedCount;
+};
+
+module.exports.Update = async (user) => {
+    let result = 0;
+
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(UserUserCollection);
+
+        user.TimeStamp = new Date(user.TimeStamp);
+
+        let salt = bcrypt.genSaltSync(parseInt(process.env.GEN_SALT || 10));
+        let password = bcrypt.hashSync(user.Pwd, salt);
+
+        user.Pwd = password;
+
+        result = await collection.updateMany(
+            {
+                _id: new ObjectId(user._id),
+            },
+            {
+                $set: {
+                    Pwd: user.Pwd,
+                    Role: user.Role,
+                    Company: user.Company,
+                },
+            },
+        );
+
+        result = result.modifiedCount;
+
+        Connect.disconnect();
+    } catch (err) {
+        console.log(err);
+    }
+
+    return result;
 };

@@ -27,6 +27,8 @@ const DeviceUnit = require('./DeviceUnit.resolver');
 const DeviceSiteConfig = require('./DeviceSiteConfig.resolver');
 const DeviceChannelConfig = require('./DeviceChannelConfig.resolver');
 const DataManual = require('./DataManual.resolver');
+const UserUser = require('./UserUser.resolver');
+const UserRole = require('./UserRole.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -61,6 +63,8 @@ module.exports = {
         ...DeviceSiteConfig.Query,
         ...DeviceChannelConfig.Query,
         ...DataManual.Query,
+        ...UserUser.Query,
+        ...UserRole.Query,
     },
 
     Mutation: {
@@ -69,6 +73,7 @@ module.exports = {
         ...DeviceSiteConfig.Mutation,
         ...DeviceChannelConfig.Mutation,
         ...DataManual.Mutation,
+        ...UserUser.Mutation,
     },
 
     SiteAndChannel: {

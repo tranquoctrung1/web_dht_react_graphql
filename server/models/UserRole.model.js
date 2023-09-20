@@ -8,3 +8,15 @@ module.exports.UserRole = class UserRole {
         this.Description = Description;
     }
 };
+
+module.exports.GetAll = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(UserRoleCollection);
+
+    let result = await collection.find({}).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};

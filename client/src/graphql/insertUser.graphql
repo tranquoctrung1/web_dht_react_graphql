@@ -1,0 +1,3 @@
+mutation InsertUser($user: UserInsertInput) {
+    InsertUser(user: $user)
+}
