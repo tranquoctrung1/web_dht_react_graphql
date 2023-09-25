@@ -320,6 +320,7 @@ export type Mutation = {
   UpdateDataManual?: Maybe<Scalars['Int']>;
   UpdateDeviceChannelConfig?: Maybe<Scalars['String']>;
   UpdateDeviceSiteConfig?: Maybe<Scalars['String']>;
+  UpdatePassword?: Maybe<Scalars['Int']>;
   UpdatePrecious?: Maybe<IdOutput>;
   UpdateSite?: Maybe<Scalars['String']>;
   UpdateUser?: Maybe<Scalars['Int']>;
@@ -393,6 +394,11 @@ export type MutationUpdateDeviceChannelConfigArgs = {
 
 export type MutationUpdateDeviceSiteConfigArgs = {
   siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
+};
+
+
+export type MutationUpdatePasswordArgs = {
+  user?: InputMaybe<UserUpdatePasswordInput>;
 };
 
 
@@ -622,6 +628,7 @@ export type Query = {
   QuantityLoggerByTimeStamp: Array<QuantityLoggerByTimeStamp>;
   QuantityLoggerDay: Scalars['Float'];
   QuantityLoggerDayWaterSupply: Array<QuantityLoggerDayWaterSupply>;
+  VerifyPassword?: Maybe<Scalars['Int']>;
 };
 
 
@@ -704,6 +711,12 @@ export type QueryQuantityLoggerDayWaterSupplyArgs = {
   company: Scalars['String'];
   end: Scalars['String'];
   start: Scalars['String'];
+};
+
+
+export type QueryVerifyPasswordArgs = {
+  Pwd?: InputMaybe<Scalars['String']>;
+  Uid?: InputMaybe<Scalars['String']>;
 };
 
 export type Role = {
@@ -1017,6 +1030,13 @@ export type UserUpdateInput = {
   Uid?: InputMaybe<Scalars['String']>;
   Zoom?: InputMaybe<Scalars['Int']>;
   _id: Scalars['ID'];
+};
+
+export type UserUpdatePasswordInput = {
+  NewPwd?: InputMaybe<Scalars['String']>;
+  Pwd?: InputMaybe<Scalars['String']>;
+  RepeatNewPwd?: InputMaybe<Scalars['String']>;
+  UId?: InputMaybe<Scalars['String']>;
 };
 
 export type WaterCustomer = {
@@ -1397,6 +1417,13 @@ export type UpdateDeviceSiteConfigMutationVariables = Exact<{
 
 export type UpdateDeviceSiteConfigMutation = { __typename?: 'Mutation', UpdateDeviceSiteConfig?: string | null };
 
+export type UpdatePasswordMutationVariables = Exact<{
+  user?: InputMaybe<UserUpdatePasswordInput>;
+}>;
+
+
+export type UpdatePasswordMutation = { __typename?: 'Mutation', UpdatePassword?: number | null };
+
 export type UpdatePreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousUpdateInput>;
 }>;
@@ -1417,6 +1444,14 @@ export type UpdateUserMutationVariables = Exact<{
 
 
 export type UpdateUserMutation = { __typename?: 'Mutation', UpdateUser?: number | null };
+
+export type VerifyPasswordQueryVariables = Exact<{
+  uid?: InputMaybe<Scalars['String']>;
+  pwd?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type VerifyPasswordQuery = { __typename?: 'Query', VerifyPassword?: number | null };
 
 
 export const LoginActionDocument = gql`
@@ -3982,6 +4017,37 @@ export function useUpdateDeviceSiteConfigMutation(baseOptions?: Apollo.MutationH
 export type UpdateDeviceSiteConfigMutationHookResult = ReturnType<typeof useUpdateDeviceSiteConfigMutation>;
 export type UpdateDeviceSiteConfigMutationResult = Apollo.MutationResult<UpdateDeviceSiteConfigMutation>;
 export type UpdateDeviceSiteConfigMutationOptions = Apollo.BaseMutationOptions<UpdateDeviceSiteConfigMutation, UpdateDeviceSiteConfigMutationVariables>;
+export const UpdatePasswordDocument = gql`
+    mutation UpdatePassword($user: UserUpdatePasswordInput) {
+  UpdatePassword(user: $user)
+}
+    `;
+export type UpdatePasswordMutationFn = Apollo.MutationFunction<UpdatePasswordMutation, UpdatePasswordMutationVariables>;
+
+/**
+ * __useUpdatePasswordMutation__
+ *
+ * To run a mutation, you first call `useUpdatePasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePasswordMutation, { data, loading, error }] = useUpdatePasswordMutation({
+ *   variables: {
+ *      user: // value for 'user'
+ *   },
+ * });
+ */
+export function useUpdatePasswordMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePasswordMutation, UpdatePasswordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdatePasswordMutation, UpdatePasswordMutationVariables>(UpdatePasswordDocument, options);
+      }
+export type UpdatePasswordMutationHookResult = ReturnType<typeof useUpdatePasswordMutation>;
+export type UpdatePasswordMutationResult = Apollo.MutationResult<UpdatePasswordMutation>;
+export type UpdatePasswordMutationOptions = Apollo.BaseMutationOptions<UpdatePasswordMutation, UpdatePasswordMutationVariables>;
 export const UpdatePreciousDocument = gql`
     mutation UpdatePrecious($precious: PreciousUpdateInput) {
   UpdatePrecious(precious: $precious) {
@@ -4077,3 +4143,40 @@ export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
+export const VerifyPasswordDocument = gql`
+    query VerifyPassword($uid: String, $pwd: String) {
+  VerifyPassword(Uid: $uid, Pwd: $pwd)
+}
+    `;
+
+/**
+ * __useVerifyPasswordQuery__
+ *
+ * To run a query within a React component, call `useVerifyPasswordQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVerifyPasswordQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVerifyPasswordQuery({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *      pwd: // value for 'pwd'
+ *   },
+ * });
+ */
+export function useVerifyPasswordQuery(baseOptions?: Apollo.QueryHookOptions<VerifyPasswordQuery, VerifyPasswordQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VerifyPasswordQuery, VerifyPasswordQueryVariables>(VerifyPasswordDocument, options);
+      }
+export function useVerifyPasswordLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VerifyPasswordQuery, VerifyPasswordQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VerifyPasswordQuery, VerifyPasswordQueryVariables>(VerifyPasswordDocument, options);
+        }
+export type VerifyPasswordQueryHookResult = ReturnType<typeof useVerifyPasswordQuery>;
+export type VerifyPasswordLazyQueryHookResult = ReturnType<typeof useVerifyPasswordLazyQuery>;
+export type VerifyPasswordQueryResult = Apollo.QueryResult<VerifyPasswordQuery, VerifyPasswordQueryVariables>;
+export function refetchVerifyPasswordQuery(variables?: VerifyPasswordQueryVariables) {
+      return { query: VerifyPasswordDocument, variables: variables }
+    }

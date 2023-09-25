@@ -1,6 +1,7 @@
 const ConnectDB = require('../db/connect');
 const bcrypt = require('bcryptjs');
 const { ObjectId } = require('mongodb');
+const jwt = require('jsonwebtoken');
 
 const UserUserCollection = 't_User_Users';
 
@@ -135,4 +136,57 @@ module.exports.Update = async (user) => {
     }
 
     return result;
+};
+
+module.exports.UpdatePassword = async (user) => {
+    let result = 0;
+
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(UserUserCollection);
+
+        let salt = bcrypt.genSaltSync(parseInt(process.env.GEN_SALT || 10));
+        let password = bcrypt.hashSync(user.NewPwd, salt);
+
+        result = await collection.updateMany(
+            {
+                Uid: user.Uid,
+            },
+            {
+                $set: {
+                    Pwd: password,
+                },
+            },
+        );
+
+        result = result.modifiedCount;
+
+        Connect.disconnect();
+    } catch (err) {
+        console.log(err);
+    }
+
+    return result;
+};
+
+module.exports.VerifyPassword = async (Uid, Pwd) => {
+    let check = 0;
+
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(UserUserCollection);
+
+    let result = await collection.find({ Uid: Uid }).toArray();
+
+    if (result.length > 0) {
+        let dbPassword = result[0].Pwd;
+        if (bcrypt.compareSync(Pwd, dbPassword)) {
+            check = 1;
+        }
+    }
+
+    Connect.disconnect();
+
+    return check;
 };

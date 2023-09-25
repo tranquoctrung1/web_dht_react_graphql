@@ -737,6 +737,13 @@ module.exports = gql`
         Language: String
     }
 
+    input UserUpdatePasswordInput {
+        Uid: String
+        Pwd: String
+        NewPwd: String
+        RepeatNewPwd: String
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -874,6 +881,8 @@ module.exports = gql`
         GetAllRole: [Role]
 
         LoginAction(username: String, password: String): Login
+
+        VerifyPassword(Uid: String, Pwd: String): Int
     }
 
     # declare Mutation
@@ -911,5 +920,7 @@ module.exports = gql`
         UpdateUser(user: UserUpdateInput): Int
 
         DeleteUser(user: UserUpdateInput): Int
+
+        UpdatePassword(user: UserUpdatePasswordInput): Int
     }
 `;

@@ -237,8 +237,6 @@ const CreateUserPage = () => {
         if (isAllow == true) {
             const obj = createObjInsertUser();
 
-            console.log(obj);
-
             insertUser({ variables: { user: obj } })
                 .then((res) => {
                     if (res.data !== null && res.data != undefined) {
@@ -317,8 +315,6 @@ const CreateUserPage = () => {
         }
 
         if (isAllow == true) {
-            console.log(formValue);
-
             updateUser({
                 variables: {
                     user: formValue,

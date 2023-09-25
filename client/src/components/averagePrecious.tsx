@@ -155,6 +155,9 @@ const AveragePrecious = () => {
     };
 
     const calcAveragePeriod = (sum: number, totalDay: number) => {
+        if (totalDay == 0) {
+            return sum;
+        }
         return sum / totalDay;
     };
 
@@ -490,6 +493,12 @@ const AveragePrecious = () => {
                 ),
             );
 
+            if (Number.isNaN(totalDayPeriod1) || totalDayPeriod1 == null) {
+                totalDayPeriod1 = 0;
+            }
+
+            console.log(totalDayPeriod1);
+
             let totalDayPeriod2 = calcSpace2Date(
                 calcStartDateOfPeriod(
                     //@ts-ignore
@@ -503,6 +512,10 @@ const AveragePrecious = () => {
                 ),
             );
 
+            if (Number.isNaN(totalDayPeriod2) || totalDayPeriod2 == null) {
+                totalDayPeriod2 = 0;
+            }
+
             let totalDayPeriod3 = calcSpace2Date(
                 calcStartDateOfPeriod(
                     //@ts-ignore
@@ -515,6 +528,10 @@ const AveragePrecious = () => {
                     item.Periods[2].Period,
                 ),
             );
+
+            if (Number.isNaN(totalDayPeriod3) || totalDayPeriod3 == null) {
+                totalDayPeriod3 = 0;
+            }
 
             let sumPeriod = calcSumPeriod(item.Periods);
             let averagePeriod = calcAveragePeriod(

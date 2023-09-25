@@ -5,6 +5,9 @@ module.exports = {
         GetAllUser: async (parent, {}, context, info) => {
             return await UserUserModel.GetAll();
         },
+        VerifyPassword: async (parent, { Uid, Pwd }, context, info) => {
+            return await UserUserModel.VerifyPassword(Uid, Pwd);
+        },
     },
 
     Mutation: {
@@ -20,6 +23,9 @@ module.exports = {
         },
         DeleteUser: async (parent, { user }, context, info) => {
             return await UserUserModel.Delete(user);
+        },
+        UpdatePassword: async (parent, { user }, context, info) => {
+            return await UserUserModel.UpdatePassword(user);
         },
     },
 };
