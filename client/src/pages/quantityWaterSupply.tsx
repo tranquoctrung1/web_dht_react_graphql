@@ -990,7 +990,7 @@ const QuantityWaterSupply = () => {
                             <th>Hiệu</th>
                             <th>Cở</th>
                             <th>Mã vị trí</th>
-                            <th>Vị trí</th>
+                            <th style={{ width: '600px' }}>Vị trí</th>
                             <th>Tổng</th>
                             <th>Trung bình</th>
                             {timestampHeader}
@@ -1004,6 +1004,9 @@ const QuantityWaterSupply = () => {
                             withBorder
                             withColumnBorders
                             id="tableQuantity"
+                            verticalSpacing="xs"
+                            fontSize="xs"
+                            style={{ tableLayout: 'auto', width: '200%' }}
                         >
                             <caption>
                                 Sản Lượng {isLogger == false ? 'logger' : ''}{' '}
