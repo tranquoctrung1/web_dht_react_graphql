@@ -30,6 +30,7 @@ import {
     updateReason,
     updateSite,
     updateTenDayPrevTetHoliday,
+    updateNumberLockPeriod,
 } from '../features/addLocation';
 
 import { CurrentCompanyPreciousState } from '../features/currentCompanyPercious';
@@ -69,6 +70,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
     const [quantityLogger, setQuantityLogger] = useState(0);
     const [prevTetHoliday, setPrevTetHoliday] = useState<Date[]>([]);
     const [nextTetHoliday, setNextTetHoliday] = useState<Date[]>([]);
+    const [numberLockPeriod, setNumberLockPeriod] = useState(0);
 
     const addLocationState = useSelector(AddLocationState);
 
@@ -204,6 +206,9 @@ const AddLocation = ({ index }: AddLocationInterface) => {
         } else {
             setNextTetHoliday([]);
         }
+
+        // //@ts-ignore
+        // setNumberLockPeriod(location.NumberLockPeriod);
     }, [addLocationState[index]]);
 
     const { data, error, loading } = useGetSiteByWaterSupplyQuery({
@@ -965,6 +970,20 @@ const AddLocation = ({ index }: AddLocationInterface) => {
         dispatch(updateNextTetHoliday(obj));
     };
 
+    const onNumberLockPeriodBlured = (e: any) => {
+        let number = 0;
+        if (e.target.value !== '') {
+            number = parseFloat(e.target.value);
+        }
+
+        let obj = {
+            index: index,
+            NumberLockPeriod: number,
+        };
+        // @ts-ignore
+        dispatch(updateNumberLockPeriod(obj));
+    };
+
     return (
         <Grid>
             <Col
@@ -1128,6 +1147,15 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                     disabled
                 />
             </Col>
+            {/* <Col span={12}>
+                <NumberInput
+                    decimalSeparator=","
+                    thousandsSeparator="."
+                    label="Số chốt kỳ"
+                    value={numberLockPeriod}
+                    onBlur={onNumberLockPeriodBlured}
+                />
+            </Col> */}
         </Grid>
     );
 };

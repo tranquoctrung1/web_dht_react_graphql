@@ -440,6 +440,32 @@ module.exports.Insert = async (site) => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
+    site.DateOfMeterChange =
+        site.DateOfMeterChange === '' ? null : new Date(site.DateOfMeterChange);
+    site.DateOfLoggerChange =
+        site.DateOfLoggerChange === ''
+            ? null
+            : new Date(site.DateOfLoggerChange);
+    site.DateOfTransmitterChange =
+        site.DateOfTransmitterChange === ''
+            ? null
+            : new Date(site.DateOfTransmitterChange);
+    site.DateOfBatteryChange =
+        site.DateOfBatteryChange === ''
+            ? null
+            : new Date(site.DateOfBatteryChange);
+    site.DateOfTransmitterBatteryChange =
+        site.DateOfTransmitterBatteryChange === ''
+            ? null
+            : new Date(site.DateOfTransmitterBatteryChange);
+    site.DateOfLoggerBatteryChange =
+        site.DateOfLoggerBatteryChange === ''
+            ? null
+            : new Date(site.DateOfLoggerBatteryChange);
+
+    site.TakeoverDate =
+        site.TakeoverDate === '' ? null : new Date(site.TakeoverDate);
+
     result = await collection.insertOne(site);
 
     result = result.insertedId;
@@ -458,6 +484,34 @@ module.exports.Update = async (site) => {
         let result = await collection.deleteMany({
             _id: site._id,
         });
+
+        site.DateOfMeterChange =
+            site.DateOfMeterChange === ''
+                ? null
+                : new Date(site.DateOfMeterChange);
+        site.DateOfLoggerChange =
+            site.DateOfLoggerChange === ''
+                ? null
+                : new Date(site.DateOfLoggerChange);
+        site.DateOfTransmitterChange =
+            site.DateOfTransmitterChange === ''
+                ? null
+                : new Date(site.DateOfTransmitterChange);
+        site.DateOfBatteryChange =
+            site.DateOfBatteryChange === ''
+                ? null
+                : new Date(site.DateOfBatteryChange);
+        site.DateOfTransmitterBatteryChange =
+            site.DateOfTransmitterBatteryChange === ''
+                ? null
+                : new Date(site.DateOfTransmitterBatteryChange);
+        site.DateOfLoggerBatteryChange =
+            site.DateOfLoggerBatteryChange === ''
+                ? null
+                : new Date(site.DateOfLoggerBatteryChange);
+
+        site.TakeoverDate =
+            site.TakeoverDate === '' ? null : new Date(site.TakeoverDate);
 
         result = await collection.insertOne(site);
 

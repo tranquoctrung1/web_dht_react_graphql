@@ -193,6 +193,18 @@ export const AddLocationSilce = createSlice({
                 }
             }
         },
+        updateNumberLockPeriod: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                //@ts-ignore
+                if (i === action.payload.index) {
+                    //@ts-ignore
+                    state.value[i].NumberLockPeriod =
+                        //@ts-ignore
+                        action.payload.NumberLockPeriod;
+                    break;
+                }
+            }
+        },
         deleteLocation: (state, action: PayloadAction<number>) => {
             //@ts-ignore
             let temp = [];
@@ -226,6 +238,7 @@ export const {
     updateKFactory,
     updateAveragePrevTetHoliday,
     updateAverageTenDayPrevTetHoliday,
+    updateNumberLockPeriod,
 } = AddLocationSilce.actions;
 
 export const AddLocationState = (state: RootState) => state.addLocation.value;

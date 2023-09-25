@@ -222,6 +222,7 @@ module.exports = gql`
         KFactory: Float
         AveragePrevTetHoliday: Float
         AverageTenDayPrevTetHoliday: Float
+        NumberLockPeriod: Float
     }
 
     type Index {
@@ -519,6 +520,7 @@ module.exports = gql`
         KFactory: Float
         AveragePrevTetHoliday: Float
         AverageTenDayPrevTetHoliday: Float
+        NumberLockPeriod: Float
     }
 
     input IndexInput {

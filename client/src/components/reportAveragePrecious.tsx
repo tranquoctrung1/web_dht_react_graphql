@@ -306,6 +306,7 @@ const ReportAveragePrecious = () => {
             AverageTenDayPrevTetHoliday: 0,
             QuantityLogger: 0,
             TotalQuantity: 0,
+            NumberLockPeriod: 0,
         };
         // @ts-ignore
         dispatch(addLocation(obj));

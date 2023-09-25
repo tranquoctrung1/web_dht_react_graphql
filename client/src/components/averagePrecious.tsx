@@ -12,6 +12,7 @@ import {
     convertDateToPeriod,
     convertMilisecondToStringDate,
 } from '../utils/utils';
+import { useEffect } from 'react';
 
 const AveragePrecious = () => {
     const currentCompanyPreciousState = useSelector(
@@ -496,9 +497,6 @@ const AveragePrecious = () => {
             if (Number.isNaN(totalDayPeriod1) || totalDayPeriod1 == null) {
                 totalDayPeriod1 = 0;
             }
-
-            console.log(totalDayPeriod1);
-
             let totalDayPeriod2 = calcSpace2Date(
                 calcStartDateOfPeriod(
                     //@ts-ignore
@@ -859,6 +857,14 @@ const AveragePrecious = () => {
                 </div>
             );
 
+            // if (
+            //     item.NumberLockPeriod === null ||
+            //     item.numberLockPeriod === undefined ||
+            //     item.NumberLockPeriod === 0
+            // ) {
+            //     result.push(content);
+            // }
+
             result.push(content);
 
             index += 1;
@@ -1020,8 +1026,13 @@ const AveragePrecious = () => {
             <div style={{ marginTop: '20px', fontWeight: 'bold' }}>
                 I. Nội dung:
             </div>
+
             {addLocationState.length > 0 ? (
-                <>{renderDataPrecious(addLocationState)}</>
+                <>
+                    {renderDataPrecious(addLocationState).length > 0
+                        ? renderDataPrecious(addLocationState)
+                        : null}
+                </>
             ) : null}
 
             <div style={{ marginTop: '20px', fontWeight: 'bold' }}>
