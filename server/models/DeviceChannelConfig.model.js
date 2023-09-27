@@ -1,6 +1,9 @@
 const ConnectDB = require('../db/connect');
 const { ObjectId } = require('mongodb');
 
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
+
 const DeviceChannelConfigCollection = 't_Devices_ChannelsConfigs';
 
 module.exports.DeviceChannelConfig = class DeviceChannelConfig {
@@ -99,6 +102,24 @@ module.exports.Delete = async (channel) => {
         _id: channel._id,
     });
 
+    MongoClient.connect(process.env.MONGO_URL, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db(process.env.DB);
+        dbo.dropCollection(`t_Data_${channel._id}`, function (err, res) {
+            if (err) throw err;
+            db.close();
+        });
+    });
+
+    MongoClient.connect(process.env.MONGO_URL, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db(process.env.DB);
+        dbo.dropCollection(`t_Index_${channel._id}`, function (err, res) {
+            if (err) throw err;
+            db.close();
+        });
+    });
+
     Connect.disconnect();
 
     return result.deletedCount;
@@ -132,6 +153,38 @@ module.exports.Update = async (channel) => {
         } else {
             // insert channel
             let insert = await collection.insertOne(channel);
+
+            MongoClient.connect(process.env.MONGO_URL, function (err, db) {
+                if (err) throw err;
+                var dbo = db.db(process.env.DB);
+                dbo.createCollection(
+                    `t_Data_${channel._id}`,
+                    function (err, res) {
+                        if (err) throw err;
+                        db.close();
+                    },
+                );
+            });
+
+            MongoClient.connect(process.env.MONGO_URL, function (err, db) {
+                if (err) throw err;
+                var dbo = db.db(process.env.DB);
+                dbo.createCollection(
+                    `t_Index_${channel._id}`,
+                    function (err, res) {
+                        if (err) throw err;
+                        db.close();
+                    },
+                );
+            });
+
+            MongoClient.connect(process.env.MONGO_URL, function (err, db) {
+                if (err) throw err;
+                var dbo = db.db(process.env.DB);
+                dbo.collection(`t_Index_${channel._id}`).createIndex({
+                    TimeStamp: 1,
+                });
+            });
 
             result = insert.insertedId;
         }

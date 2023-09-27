@@ -6,6 +6,7 @@ query GetAllDeviceSiteConfig {
         Pressure
         Pressure1
         Reverse
+        Interval
         SiteId
         Tel
         ZoomInit

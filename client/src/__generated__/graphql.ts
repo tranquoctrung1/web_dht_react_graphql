@@ -1121,7 +1121,7 @@ export type GetAllDeviceChannelConifgQuery = { __typename?: 'Query', GetAllDevic
 export type GetAllDeviceSiteConfigQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllDeviceSiteConfigQuery = { __typename?: 'Query', GetAllDeviceSiteConfig?: Array<{ __typename?: 'DeviceSiteConfig', BeginTime?: any | null, Forward?: number | null, LoggerId?: string | null, Pressure?: number | null, Pressure1?: number | null, Reverse?: number | null, SiteId?: string | null, Tel?: string | null, ZoomInit?: number | null, ZoomOn?: number | null, _id: string } | null> | null };
+export type GetAllDeviceSiteConfigQuery = { __typename?: 'Query', GetAllDeviceSiteConfig?: Array<{ __typename?: 'DeviceSiteConfig', BeginTime?: any | null, Forward?: number | null, LoggerId?: string | null, Pressure?: number | null, Pressure1?: number | null, Reverse?: number | null, Interval?: number | null, SiteId?: string | null, Tel?: string | null, ZoomInit?: number | null, ZoomOn?: number | null, _id: string } | null> | null };
 
 export type GetAllDistrictQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1789,6 +1789,7 @@ export const GetAllDeviceSiteConfigDocument = gql`
     Pressure
     Pressure1
     Reverse
+    Interval
     SiteId
     Tel
     ZoomInit
