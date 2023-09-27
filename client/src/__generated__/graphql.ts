@@ -259,6 +259,7 @@ export type Location = {
   KFactory?: Maybe<Scalars['Float']>;
   Location?: Maybe<Scalars['String']>;
   NextTetHoliday?: Maybe<Array<Maybe<Scalars['String']>>>;
+  NumberLockPeriod?: Maybe<Scalars['Float']>;
   Periods?: Maybe<Array<Maybe<Periods>>>;
   PrevTetHoliday?: Maybe<Array<Maybe<Scalars['String']>>>;
   QuantityLogger?: Maybe<Scalars['Float']>;
@@ -276,6 +277,7 @@ export type LocationInput = {
   KFactory?: InputMaybe<Scalars['Float']>;
   Location?: InputMaybe<Scalars['String']>;
   NextTetHoliday?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  NumberLockPeriod?: InputMaybe<Scalars['Float']>;
   Periods?: InputMaybe<Array<InputMaybe<PeriodsInput>>>;
   PrevTetHoliday?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   QuantityLogger?: InputMaybe<Scalars['Float']>;
@@ -1036,7 +1038,7 @@ export type UserUpdatePasswordInput = {
   NewPwd?: InputMaybe<Scalars['String']>;
   Pwd?: InputMaybe<Scalars['String']>;
   RepeatNewPwd?: InputMaybe<Scalars['String']>;
-  UId?: InputMaybe<Scalars['String']>;
+  Uid?: InputMaybe<Scalars['String']>;
 };
 
 export type WaterCustomer = {

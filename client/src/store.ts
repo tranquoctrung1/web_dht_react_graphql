@@ -16,6 +16,7 @@ import OpenSidebarSlice from './features/openSidebar';
 import QuantityWaterSupplySlice from './features/quantityWaterSupply';
 import ListChannelSlice from './features/listChannel';
 import CurrentDeviceSiteConfigSlice from './features/currentDeviceSiteConfig';
+import HostnameSlice from './features/hostname';
 
 export const store = configureStore({
     reducer: {
@@ -36,6 +37,7 @@ export const store = configureStore({
         currentPreciousId: CurrentPreciousIdSlice,
         listChannel: ListChannelSlice,
         currentDeviceSiteConfig: CurrentDeviceSiteConfigSlice,
+        hostname: HostnameSlice,
     },
 });
 

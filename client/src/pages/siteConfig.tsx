@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useElementScroll } from 'framer-motion';
 
 import {
     Button,
@@ -51,6 +51,11 @@ import Swal from 'sweetalert2';
 
 import { checkAdminViewerRole } from '../utils/utils';
 
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+
+import { HostnameState } from '../features/hostname';
+
 const SiteConfigPage = () => {
     const [listSite, setListSite] = useState([]);
     const [siteDataState, setSiteDataState] = useState([]);
@@ -60,6 +65,7 @@ const SiteConfigPage = () => {
     const [siteCover, setSiteCover] = useState([]);
     const [listSiteCover, setListSiteCover] = useState([]);
     const [isAdminViewer, setIsAdminViewer] = useState(false);
+    const [listFile, setListFile] = useState<File[]>([]);
 
     const [getSites, {}] = useGetAllSitesLazyQuery();
     const [getOldId, {}] = useGetAllOldSiteIdLazyQuery();
@@ -99,6 +105,8 @@ const SiteConfigPage = () => {
     const [insertSite, {}] = useInsertSiteMutation();
     const [updateSite, {}] = useUpdateSiteMutation();
     const [deleteSite, {}] = useDeleteSiteMutation();
+
+    const hostname = useSelector(HostnameState);
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
@@ -1153,11 +1161,50 @@ const SiteConfigPage = () => {
     };
 
     const onDocumentUploadClicked = () => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Successfull',
-            text: 'Upload tài liệu điểm lắp đặt thành công',
-        });
+        const siteId = getValues('_id');
+
+        let isAllow = true;
+
+        if (siteId === null || siteId === undefined || siteId === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chưa có mã vị trí',
+            });
+
+            isAllow = false;
+        }
+        if (isAllow == true) {
+            if (listFile.length > 0) {
+                let check = true;
+
+                for (const file of listFile) {
+                    const formData = new FormData();
+
+                    formData.append('siteId', siteId);
+                    formData.append('file', file);
+
+                    axios
+                        .post(`${hostname}/siteFile/upload`, formData)
+                        .then((res) => {
+                            if (res?.status === 200) {
+                                check = true;
+                            } else {
+                                check = false;
+                            }
+                        })
+                        .catch((err) => console.log(err));
+                }
+
+                if (check == true) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successfull',
+                        text: 'Upload tài liệu điểm lắp đặt thành công',
+                    });
+                }
+            }
+        }
     };
 
     const onDocumentDownloadClicked = () => {};
@@ -1226,6 +1273,8 @@ const SiteConfigPage = () => {
                         placeholder="Upload files"
                         multiple
                         icon={<IconUpload size="1.125rem" />}
+                        value={listFile}
+                        onChange={(e) => setListFile(e)}
                     />
                 </Col>
                 <Col md={4}>

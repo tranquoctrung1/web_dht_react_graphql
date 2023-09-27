@@ -30,6 +30,7 @@ const DataManual = require('./DataManual.resolver');
 const UserUser = require('./UserUser.resolver');
 const UserRole = require('./UserRole.resolver');
 const Login = require('./Login.resolver');
+const SiteFile = require('./SiteFile.resolver');
 
 const Nested = require('./Nested.resolver');
 
