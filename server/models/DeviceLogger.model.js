@@ -131,6 +131,11 @@ module.exports.Insert = async (logger) => {
 
     let collection = await Connect.connect(DeviceLoggerCollection);
 
+    logger.ReceiptDate =
+        logger.ReceiptDate !== null && logger.ReceiptDate !== ''
+            ? new Date(logger.ReceiptDate)
+            : null;
+
     result = await collection.insertOne(logger);
 
     result = result.insertedId;

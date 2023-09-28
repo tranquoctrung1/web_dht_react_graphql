@@ -326,9 +326,6 @@ const LoggerPage = () => {
 
         if (isAllow == true) {
             const obj = createObjUpdateLogger();
-
-            console.log(obj);
-
             updateLogger({
                 variables: {
                     //@ts-ignore
@@ -402,8 +399,8 @@ const LoggerPage = () => {
 
     const onDeleteClicked = () => {
         Swal.fire({
-            title: 'Xóa điểm lắp đặt?',
-            text: 'Xóa điểm lắp đặt không thể nào hồi phục lại!',
+            title: 'Xóa logger?',
+            text: 'Xóa logger không thể nào hồi phục lại!',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -636,7 +633,7 @@ const LoggerPage = () => {
                 ) : null}
             </Col>
             <Col md={3}>
-                {status != undefined ? (
+                {statusData != undefined ? (
                     <Controller
                         name="Status"
                         control={control}

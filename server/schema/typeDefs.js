@@ -295,7 +295,7 @@ module.exports = gql`
     type DeviceMeter {
         _id: ID!
         Serial: String
-        ReceipDate: Date
+        ReceiptDate: Date
         AccreditatedDate: Date
         ExpiryDate: Date
         AccreditationDocument: String
@@ -304,6 +304,7 @@ module.exports = gql`
         Marks: String
         Size: Int
         Model: String
+        Status: String
         Installed: Boolean
         InstallIndex: Float
         Description: String
@@ -317,7 +318,7 @@ module.exports = gql`
     type DeviceTransmitter {
         _id: ID!
         Serial: String
-        ReceipDate: Date
+        ReceiptDate: Date
         AccreditatedDate: Date
         ExpiryDate: Date
         AccreditationDocument: String
@@ -774,6 +775,51 @@ module.exports = gql`
         Status: String
     }
 
+    input DeviceMeterInsertInput {
+        Serial: String
+        ReceiptDate: Date
+        AccreditatedDate: Date
+        ExpiryDate: Date
+        AccreditationDocument: String
+        AccreditationType: String
+        Provider: String
+        Marks: String
+        Size: Int
+        Model: String
+        Status: String
+        Installed: Boolean
+        InstallIndex: Float
+        Description: String
+        AppovalDate: Date
+        Approvaled: Date
+        AppovalDecision: String
+        SerialTransmitter: String
+        Nationality: String
+    }
+
+    input DeviceMeterUpdateInput {
+        _id: ID!
+        Serial: String
+        ReceiptDate: Date
+        AccreditatedDate: Date
+        ExpiryDate: Date
+        AccreditationDocument: String
+        AccreditationType: String
+        Provider: String
+        Marks: String
+        Size: Int
+        Model: String
+        Status: String
+        Installed: Boolean
+        InstallIndex: Float
+        Description: String
+        AppovalDate: Date
+        Approvaled: Date
+        AppovalDecision: String
+        SerialTransmitter: String
+        Nationality: String
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -921,6 +967,16 @@ module.exports = gql`
         GetLoggerModel: [String]
 
         GetAllDeviceStatus: [DeviceStatus]
+
+        GetMeterNationalities: [String]
+
+        GetMeterProvider: [String]
+
+        GetMeterModel: [String]
+
+        GetMeterMarks: [String]
+
+        GetMeterSize: [Int]
     }
 
     # declare Mutation
@@ -966,5 +1022,11 @@ module.exports = gql`
         UpdateLogger(logger: DeviceLoggerUpdateInput): Int
 
         DeleteLogger(logger: DeviceLoggerUpdateInput): Int
+
+        InsertMeter(meter: DeviceMeterInsertInput): String
+
+        UpdateMeter(meter: DeviceMeterUpdateInput): Int
+
+        DeleteMeter(meter: DeviceMeterUpdateInput): Int
     }
 `;

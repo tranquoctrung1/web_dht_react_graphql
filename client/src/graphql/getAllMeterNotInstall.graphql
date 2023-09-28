@@ -12,9 +12,10 @@ query GetAllMeterNotInstall {
         Installed
         Marks
         Model
+        Status
         Nationality
         Provider
-        ReceipDate
+        ReceiptDate
         Serial
         SerialTransmitter
         Size

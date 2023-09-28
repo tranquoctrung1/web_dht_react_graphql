@@ -1,0 +1,3 @@
+mutation UpdateMeter($meter: DeviceMeterUpdateInput) {
+    UpdateMeter(meter: $meter)
+}

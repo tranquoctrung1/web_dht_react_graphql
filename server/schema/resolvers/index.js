@@ -80,6 +80,7 @@ module.exports = {
         ...DataManual.Mutation,
         ...UserUser.Mutation,
         ...DeviceLogger.Mutation,
+        ...DeviceMeter.Mutation,
     },
 
     SiteAndChannel: {

@@ -9,6 +9,7 @@ require('express-async-errors');
 const cors = require('./middlewares/cors');
 
 const UploadSiteFileRouter = require('./routers/uploadSiteFile.router');
+const UploadMeterFileRouter = require('./routers/uploadMeterFile.router');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(cors);
 
 // use api
 app.use('/api/siteFile/upload', UploadSiteFileRouter);
+app.use('/api/meterFile/upload', UploadMeterFileRouter);
 
 // other error
 app.use(function (err, req, res, next) {

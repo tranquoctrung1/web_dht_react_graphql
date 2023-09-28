@@ -12,7 +12,7 @@ query GetAllTransmitter {
         Installed
         Marks
         MeterSerial
-        ReceipDate
+        ReceiptDate
         Serial
         Size
         Status

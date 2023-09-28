@@ -19,6 +19,7 @@ import StatisticSiteXNManager from './pages/statisticSiteXNManager';
 import CreateUserPage from './pages/createUser';
 import ChangePasswordPage from './pages/changePassword';
 import LoggerPage from './pages/logger';
+import MeterPage from './pages/meter';
 
 function App() {
     const router = createBrowserRouter([
@@ -77,6 +78,10 @@ function App() {
                 {
                     path: '/logger',
                     element: <LoggerPage />,
+                },
+                {
+                    path: '/meter',
+                    element: <MeterPage />,
                 },
             ],
         },

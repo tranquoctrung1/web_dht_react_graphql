@@ -1,0 +1,3 @@
+mutation InsertMeter($meter: DeviceMeterInsertInput) {
+    InsertMeter(meter: $meter)
+}

@@ -171,10 +171,11 @@ export type DeviceMeter = {
   Model?: Maybe<Scalars['String']>;
   Nationality?: Maybe<Scalars['String']>;
   Provider?: Maybe<Scalars['String']>;
-  ReceipDate?: Maybe<Scalars['Date']>;
+  ReceiptDate?: Maybe<Scalars['Date']>;
   Serial?: Maybe<Scalars['String']>;
   SerialTransmitter?: Maybe<Scalars['String']>;
   Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
   _id: Scalars['ID'];
 };
 
@@ -182,6 +183,51 @@ export type DeviceMeterAccreditationType = {
   __typename?: 'DeviceMeterAccreditationType';
   AccreditationType?: Maybe<Scalars['String']>;
   Description?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type DeviceMeterInsertInput = {
+  AccreditatedDate?: InputMaybe<Scalars['Date']>;
+  AccreditationDocument?: InputMaybe<Scalars['String']>;
+  AccreditationType?: InputMaybe<Scalars['String']>;
+  AppovalDate?: InputMaybe<Scalars['Date']>;
+  AppovalDecision?: InputMaybe<Scalars['String']>;
+  Approvaled?: InputMaybe<Scalars['Date']>;
+  Description?: InputMaybe<Scalars['String']>;
+  ExpiryDate?: InputMaybe<Scalars['Date']>;
+  InstallIndex?: InputMaybe<Scalars['Float']>;
+  Installed?: InputMaybe<Scalars['Boolean']>;
+  Marks?: InputMaybe<Scalars['String']>;
+  Model?: InputMaybe<Scalars['String']>;
+  Nationality?: InputMaybe<Scalars['String']>;
+  Provider?: InputMaybe<Scalars['String']>;
+  ReceiptDate?: InputMaybe<Scalars['Date']>;
+  Serial?: InputMaybe<Scalars['String']>;
+  SerialTransmitter?: InputMaybe<Scalars['String']>;
+  Size?: InputMaybe<Scalars['Int']>;
+  Status?: InputMaybe<Scalars['String']>;
+};
+
+export type DeviceMeterUpdateInput = {
+  AccreditatedDate?: InputMaybe<Scalars['Date']>;
+  AccreditationDocument?: InputMaybe<Scalars['String']>;
+  AccreditationType?: InputMaybe<Scalars['String']>;
+  AppovalDate?: InputMaybe<Scalars['Date']>;
+  AppovalDecision?: InputMaybe<Scalars['String']>;
+  Approvaled?: InputMaybe<Scalars['Date']>;
+  Description?: InputMaybe<Scalars['String']>;
+  ExpiryDate?: InputMaybe<Scalars['Date']>;
+  InstallIndex?: InputMaybe<Scalars['Float']>;
+  Installed?: InputMaybe<Scalars['Boolean']>;
+  Marks?: InputMaybe<Scalars['String']>;
+  Model?: InputMaybe<Scalars['String']>;
+  Nationality?: InputMaybe<Scalars['String']>;
+  Provider?: InputMaybe<Scalars['String']>;
+  ReceiptDate?: InputMaybe<Scalars['Date']>;
+  Serial?: InputMaybe<Scalars['String']>;
+  SerialTransmitter?: InputMaybe<Scalars['String']>;
+  Size?: InputMaybe<Scalars['Int']>;
+  Status?: InputMaybe<Scalars['String']>;
   _id: Scalars['ID'];
 };
 
@@ -252,7 +298,7 @@ export type DeviceTransmitter = {
   MeterSerial?: Maybe<Scalars['String']>;
   Model?: Maybe<Scalars['String']>;
   Provider?: Maybe<Scalars['String']>;
-  ReceipDate?: Maybe<Scalars['Date']>;
+  ReceiptDate?: Maybe<Scalars['Date']>;
   Serial?: Maybe<Scalars['String']>;
   Size?: Maybe<Scalars['Int']>;
   Status?: Maybe<Scalars['String']>;
@@ -341,12 +387,14 @@ export type Mutation = {
   DeleteDeviceChannelConifg?: Maybe<Scalars['Int']>;
   DeleteDeviceSiteConfig?: Maybe<Scalars['Int']>;
   DeleteLogger?: Maybe<Scalars['Int']>;
+  DeleteMeter?: Maybe<Scalars['Int']>;
   DeletePrecious?: Maybe<RowModified>;
   DeleteSite?: Maybe<Scalars['Int']>;
   DeleteUser?: Maybe<Scalars['Int']>;
   InsertDataManual?: Maybe<Scalars['String']>;
   InsertDeviceSiteConfig?: Maybe<Scalars['String']>;
   InsertLogger?: Maybe<Scalars['String']>;
+  InsertMeter?: Maybe<Scalars['String']>;
   InsertPrecious?: Maybe<IdOutput>;
   InsertSite?: Maybe<Scalars['String']>;
   InsertUser?: Maybe<Scalars['String']>;
@@ -354,6 +402,7 @@ export type Mutation = {
   UpdateDeviceChannelConfig?: Maybe<Scalars['String']>;
   UpdateDeviceSiteConfig?: Maybe<Scalars['String']>;
   UpdateLogger?: Maybe<Scalars['Int']>;
+  UpdateMeter?: Maybe<Scalars['Int']>;
   UpdatePassword?: Maybe<Scalars['Int']>;
   UpdatePrecious?: Maybe<IdOutput>;
   UpdateSite?: Maybe<Scalars['String']>;
@@ -378,6 +427,11 @@ export type MutationDeleteDeviceSiteConfigArgs = {
 
 export type MutationDeleteLoggerArgs = {
   logger?: InputMaybe<DeviceLoggerUpdateInput>;
+};
+
+
+export type MutationDeleteMeterArgs = {
+  meter?: InputMaybe<DeviceMeterUpdateInput>;
 };
 
 
@@ -408,6 +462,11 @@ export type MutationInsertDeviceSiteConfigArgs = {
 
 export type MutationInsertLoggerArgs = {
   logger?: InputMaybe<DeviceLoggerInsertInput>;
+};
+
+
+export type MutationInsertMeterArgs = {
+  meter?: InputMaybe<DeviceMeterInsertInput>;
 };
 
 
@@ -443,6 +502,11 @@ export type MutationUpdateDeviceSiteConfigArgs = {
 
 export type MutationUpdateLoggerArgs = {
   logger?: InputMaybe<DeviceLoggerUpdateInput>;
+};
+
+
+export type MutationUpdateMeterArgs = {
+  meter?: InputMaybe<DeviceMeterUpdateInput>;
 };
 
 
@@ -671,6 +735,11 @@ export type Query = {
   GetLoggerMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetLoggerModel?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetLoggerProvider?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetMeterMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetMeterModel?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetMeterNationalities?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetMeterProvider?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetMeterSize?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetPreciousByCompany?: Maybe<Array<Maybe<Precious>>>;
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
@@ -1143,6 +1212,13 @@ export type DeleteLoggerMutationVariables = Exact<{
 
 export type DeleteLoggerMutation = { __typename?: 'Mutation', DeleteLogger?: number | null };
 
+export type DeleteMeterMutationVariables = Exact<{
+  meter?: InputMaybe<DeviceMeterUpdateInput>;
+}>;
+
+
+export type DeleteMeterMutation = { __typename?: 'Mutation', DeleteMeter?: number | null };
+
 export type DeleteDeviceSiteConfigMutationVariables = Exact<{
   siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
 }>;
@@ -1219,12 +1295,37 @@ export type GetLoggerProviderQuery = { __typename?: 'Query', GetLoggerProvider?:
 export type GetAllMeterQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllMeterQuery = { __typename?: 'Query', GetAllMeter?: Array<{ __typename?: 'DeviceMeter', AccreditatedDate?: any | null, AccreditationDocument?: string | null, AccreditationType?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, ExpiryDate?: any | null, InstallIndex?: number | null, Installed?: boolean | null, Marks?: string | null, Model?: string | null, Nationality?: string | null, Provider?: string | null, ReceipDate?: any | null, Serial?: string | null, SerialTransmitter?: string | null, Size?: number | null, _id: string } | null> | null };
+export type GetAllMeterQuery = { __typename?: 'Query', GetAllMeter?: Array<{ __typename?: 'DeviceMeter', AccreditatedDate?: any | null, AccreditationDocument?: string | null, AccreditationType?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, ExpiryDate?: any | null, InstallIndex?: number | null, Installed?: boolean | null, Marks?: string | null, Model?: string | null, Status?: string | null, Nationality?: string | null, Provider?: string | null, ReceiptDate?: any | null, Serial?: string | null, SerialTransmitter?: string | null, Size?: number | null, _id: string } | null> | null };
+
+export type GetMeterMarksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMeterMarksQuery = { __typename?: 'Query', GetMeterMarks?: Array<string | null> | null };
+
+export type GetMeterModelQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMeterModelQuery = { __typename?: 'Query', GetMeterModel?: Array<string | null> | null };
+
+export type GetMeterNationalitiesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMeterNationalitiesQuery = { __typename?: 'Query', GetMeterNationalities?: Array<string | null> | null };
 
 export type GetAllMeterNotInstallQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllMeterNotInstallQuery = { __typename?: 'Query', GetAllMeterNotInstall?: Array<{ __typename?: 'DeviceMeter', AccreditatedDate?: any | null, AccreditationDocument?: string | null, AccreditationType?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, ExpiryDate?: any | null, InstallIndex?: number | null, Installed?: boolean | null, Marks?: string | null, Model?: string | null, Nationality?: string | null, Provider?: string | null, ReceipDate?: any | null, Serial?: string | null, SerialTransmitter?: string | null, Size?: number | null, _id: string } | null> | null };
+export type GetAllMeterNotInstallQuery = { __typename?: 'Query', GetAllMeterNotInstall?: Array<{ __typename?: 'DeviceMeter', AccreditatedDate?: any | null, AccreditationDocument?: string | null, AccreditationType?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, ExpiryDate?: any | null, InstallIndex?: number | null, Installed?: boolean | null, Marks?: string | null, Model?: string | null, Status?: string | null, Nationality?: string | null, Provider?: string | null, ReceiptDate?: any | null, Serial?: string | null, SerialTransmitter?: string | null, Size?: number | null, _id: string } | null> | null };
+
+export type GetMeterProviderQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMeterProviderQuery = { __typename?: 'Query', GetMeterProvider?: Array<string | null> | null };
+
+export type GetMeterSizeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMeterSizeQuery = { __typename?: 'Query', GetMeterSize?: Array<string | null> | null };
 
 export type GetAllOldSiteIdQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1304,12 +1405,12 @@ export type GetAllStaffsQuery = { __typename?: 'Query', GetAllStaffs?: Array<{ _
 export type GetAllTransmitterQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllTransmitterQuery = { __typename?: 'Query', GetAllTransmitter?: Array<{ __typename?: 'DeviceTransmitter', AccreditatedDate?: any | null, AccreditationType?: string | null, AccreditationDocument?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, InstallIndex?: number | null, ExpiryDate?: any | null, Installed?: boolean | null, Marks?: string | null, MeterSerial?: string | null, ReceipDate?: any | null, Serial?: string | null, Size?: number | null, Status?: string | null, _id: string, Provider?: string | null, Model?: string | null } | null> | null };
+export type GetAllTransmitterQuery = { __typename?: 'Query', GetAllTransmitter?: Array<{ __typename?: 'DeviceTransmitter', AccreditatedDate?: any | null, AccreditationType?: string | null, AccreditationDocument?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, InstallIndex?: number | null, ExpiryDate?: any | null, Installed?: boolean | null, Marks?: string | null, MeterSerial?: string | null, ReceiptDate?: any | null, Serial?: string | null, Size?: number | null, Status?: string | null, _id: string, Provider?: string | null, Model?: string | null } | null> | null };
 
 export type GetAllTransmitterNotInstallQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllTransmitterNotInstallQuery = { __typename?: 'Query', GetAllTransmitterNotInstall?: Array<{ __typename?: 'DeviceTransmitter', AccreditatedDate?: any | null, AccreditationType?: string | null, AccreditationDocument?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, InstallIndex?: number | null, ExpiryDate?: any | null, Installed?: boolean | null, Marks?: string | null, MeterSerial?: string | null, ReceipDate?: any | null, Serial?: string | null, Size?: number | null, Status?: string | null, _id: string, Provider?: string | null, Model?: string | null } | null> | null };
+export type GetAllTransmitterNotInstallQuery = { __typename?: 'Query', GetAllTransmitterNotInstall?: Array<{ __typename?: 'DeviceTransmitter', AccreditatedDate?: any | null, AccreditationType?: string | null, AccreditationDocument?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, InstallIndex?: number | null, ExpiryDate?: any | null, Installed?: boolean | null, Marks?: string | null, MeterSerial?: string | null, ReceiptDate?: any | null, Serial?: string | null, Size?: number | null, Status?: string | null, _id: string, Provider?: string | null, Model?: string | null } | null> | null };
 
 export type GetAllUnitQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1408,6 +1509,13 @@ export type InsertLoggerMutationVariables = Exact<{
 
 export type InsertLoggerMutation = { __typename?: 'Mutation', InsertLogger?: string | null };
 
+export type InsertMeterMutationVariables = Exact<{
+  meter?: InputMaybe<DeviceMeterInsertInput>;
+}>;
+
+
+export type InsertMeterMutation = { __typename?: 'Mutation', InsertMeter?: string | null };
+
 export type InsertDeviceSiteConfigMutationVariables = Exact<{
   siteConfig?: InputMaybe<DeviceSiteConfigInsertInput>;
 }>;
@@ -1503,6 +1611,13 @@ export type UpdateLoggerMutationVariables = Exact<{
 
 
 export type UpdateLoggerMutation = { __typename?: 'Mutation', UpdateLogger?: number | null };
+
+export type UpdateMeterMutationVariables = Exact<{
+  meter?: InputMaybe<DeviceMeterUpdateInput>;
+}>;
+
+
+export type UpdateMeterMutation = { __typename?: 'Mutation', UpdateMeter?: number | null };
 
 export type UpdateDeviceSiteConfigMutationVariables = Exact<{
   siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
@@ -1722,6 +1837,37 @@ export function useDeleteLoggerMutation(baseOptions?: Apollo.MutationHookOptions
 export type DeleteLoggerMutationHookResult = ReturnType<typeof useDeleteLoggerMutation>;
 export type DeleteLoggerMutationResult = Apollo.MutationResult<DeleteLoggerMutation>;
 export type DeleteLoggerMutationOptions = Apollo.BaseMutationOptions<DeleteLoggerMutation, DeleteLoggerMutationVariables>;
+export const DeleteMeterDocument = gql`
+    mutation DeleteMeter($meter: DeviceMeterUpdateInput) {
+  DeleteMeter(meter: $meter)
+}
+    `;
+export type DeleteMeterMutationFn = Apollo.MutationFunction<DeleteMeterMutation, DeleteMeterMutationVariables>;
+
+/**
+ * __useDeleteMeterMutation__
+ *
+ * To run a mutation, you first call `useDeleteMeterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteMeterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteMeterMutation, { data, loading, error }] = useDeleteMeterMutation({
+ *   variables: {
+ *      meter: // value for 'meter'
+ *   },
+ * });
+ */
+export function useDeleteMeterMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMeterMutation, DeleteMeterMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteMeterMutation, DeleteMeterMutationVariables>(DeleteMeterDocument, options);
+      }
+export type DeleteMeterMutationHookResult = ReturnType<typeof useDeleteMeterMutation>;
+export type DeleteMeterMutationResult = Apollo.MutationResult<DeleteMeterMutation>;
+export type DeleteMeterMutationOptions = Apollo.BaseMutationOptions<DeleteMeterMutation, DeleteMeterMutationVariables>;
 export const DeleteDeviceSiteConfigDocument = gql`
     mutation DeleteDeviceSiteConfig($siteConfig: DeviceSiteConfigUpdateInput) {
   DeleteDeviceSiteConfig(siteConfig: $siteConfig)
@@ -2234,9 +2380,10 @@ export const GetAllMeterDocument = gql`
     Installed
     Marks
     Model
+    Status
     Nationality
     Provider
-    ReceipDate
+    ReceiptDate
     Serial
     SerialTransmitter
     Size
@@ -2274,6 +2421,111 @@ export type GetAllMeterQueryResult = Apollo.QueryResult<GetAllMeterQuery, GetAll
 export function refetchGetAllMeterQuery(variables?: GetAllMeterQueryVariables) {
       return { query: GetAllMeterDocument, variables: variables }
     }
+export const GetMeterMarksDocument = gql`
+    query GetMeterMarks {
+  GetMeterMarks
+}
+    `;
+
+/**
+ * __useGetMeterMarksQuery__
+ *
+ * To run a query within a React component, call `useGetMeterMarksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMeterMarksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMeterMarksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMeterMarksQuery(baseOptions?: Apollo.QueryHookOptions<GetMeterMarksQuery, GetMeterMarksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMeterMarksQuery, GetMeterMarksQueryVariables>(GetMeterMarksDocument, options);
+      }
+export function useGetMeterMarksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMeterMarksQuery, GetMeterMarksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMeterMarksQuery, GetMeterMarksQueryVariables>(GetMeterMarksDocument, options);
+        }
+export type GetMeterMarksQueryHookResult = ReturnType<typeof useGetMeterMarksQuery>;
+export type GetMeterMarksLazyQueryHookResult = ReturnType<typeof useGetMeterMarksLazyQuery>;
+export type GetMeterMarksQueryResult = Apollo.QueryResult<GetMeterMarksQuery, GetMeterMarksQueryVariables>;
+export function refetchGetMeterMarksQuery(variables?: GetMeterMarksQueryVariables) {
+      return { query: GetMeterMarksDocument, variables: variables }
+    }
+export const GetMeterModelDocument = gql`
+    query GetMeterModel {
+  GetMeterModel
+}
+    `;
+
+/**
+ * __useGetMeterModelQuery__
+ *
+ * To run a query within a React component, call `useGetMeterModelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMeterModelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMeterModelQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMeterModelQuery(baseOptions?: Apollo.QueryHookOptions<GetMeterModelQuery, GetMeterModelQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMeterModelQuery, GetMeterModelQueryVariables>(GetMeterModelDocument, options);
+      }
+export function useGetMeterModelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMeterModelQuery, GetMeterModelQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMeterModelQuery, GetMeterModelQueryVariables>(GetMeterModelDocument, options);
+        }
+export type GetMeterModelQueryHookResult = ReturnType<typeof useGetMeterModelQuery>;
+export type GetMeterModelLazyQueryHookResult = ReturnType<typeof useGetMeterModelLazyQuery>;
+export type GetMeterModelQueryResult = Apollo.QueryResult<GetMeterModelQuery, GetMeterModelQueryVariables>;
+export function refetchGetMeterModelQuery(variables?: GetMeterModelQueryVariables) {
+      return { query: GetMeterModelDocument, variables: variables }
+    }
+export const GetMeterNationalitiesDocument = gql`
+    query GetMeterNationalities {
+  GetMeterNationalities
+}
+    `;
+
+/**
+ * __useGetMeterNationalitiesQuery__
+ *
+ * To run a query within a React component, call `useGetMeterNationalitiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMeterNationalitiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMeterNationalitiesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMeterNationalitiesQuery(baseOptions?: Apollo.QueryHookOptions<GetMeterNationalitiesQuery, GetMeterNationalitiesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMeterNationalitiesQuery, GetMeterNationalitiesQueryVariables>(GetMeterNationalitiesDocument, options);
+      }
+export function useGetMeterNationalitiesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMeterNationalitiesQuery, GetMeterNationalitiesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMeterNationalitiesQuery, GetMeterNationalitiesQueryVariables>(GetMeterNationalitiesDocument, options);
+        }
+export type GetMeterNationalitiesQueryHookResult = ReturnType<typeof useGetMeterNationalitiesQuery>;
+export type GetMeterNationalitiesLazyQueryHookResult = ReturnType<typeof useGetMeterNationalitiesLazyQuery>;
+export type GetMeterNationalitiesQueryResult = Apollo.QueryResult<GetMeterNationalitiesQuery, GetMeterNationalitiesQueryVariables>;
+export function refetchGetMeterNationalitiesQuery(variables?: GetMeterNationalitiesQueryVariables) {
+      return { query: GetMeterNationalitiesDocument, variables: variables }
+    }
 export const GetAllMeterNotInstallDocument = gql`
     query GetAllMeterNotInstall {
   GetAllMeterNotInstall {
@@ -2289,9 +2541,10 @@ export const GetAllMeterNotInstallDocument = gql`
     Installed
     Marks
     Model
+    Status
     Nationality
     Provider
-    ReceipDate
+    ReceiptDate
     Serial
     SerialTransmitter
     Size
@@ -2328,6 +2581,76 @@ export type GetAllMeterNotInstallLazyQueryHookResult = ReturnType<typeof useGetA
 export type GetAllMeterNotInstallQueryResult = Apollo.QueryResult<GetAllMeterNotInstallQuery, GetAllMeterNotInstallQueryVariables>;
 export function refetchGetAllMeterNotInstallQuery(variables?: GetAllMeterNotInstallQueryVariables) {
       return { query: GetAllMeterNotInstallDocument, variables: variables }
+    }
+export const GetMeterProviderDocument = gql`
+    query GetMeterProvider {
+  GetMeterProvider
+}
+    `;
+
+/**
+ * __useGetMeterProviderQuery__
+ *
+ * To run a query within a React component, call `useGetMeterProviderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMeterProviderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMeterProviderQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMeterProviderQuery(baseOptions?: Apollo.QueryHookOptions<GetMeterProviderQuery, GetMeterProviderQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMeterProviderQuery, GetMeterProviderQueryVariables>(GetMeterProviderDocument, options);
+      }
+export function useGetMeterProviderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMeterProviderQuery, GetMeterProviderQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMeterProviderQuery, GetMeterProviderQueryVariables>(GetMeterProviderDocument, options);
+        }
+export type GetMeterProviderQueryHookResult = ReturnType<typeof useGetMeterProviderQuery>;
+export type GetMeterProviderLazyQueryHookResult = ReturnType<typeof useGetMeterProviderLazyQuery>;
+export type GetMeterProviderQueryResult = Apollo.QueryResult<GetMeterProviderQuery, GetMeterProviderQueryVariables>;
+export function refetchGetMeterProviderQuery(variables?: GetMeterProviderQueryVariables) {
+      return { query: GetMeterProviderDocument, variables: variables }
+    }
+export const GetMeterSizeDocument = gql`
+    query GetMeterSize {
+  GetMeterSize
+}
+    `;
+
+/**
+ * __useGetMeterSizeQuery__
+ *
+ * To run a query within a React component, call `useGetMeterSizeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMeterSizeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMeterSizeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMeterSizeQuery(baseOptions?: Apollo.QueryHookOptions<GetMeterSizeQuery, GetMeterSizeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMeterSizeQuery, GetMeterSizeQueryVariables>(GetMeterSizeDocument, options);
+      }
+export function useGetMeterSizeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMeterSizeQuery, GetMeterSizeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMeterSizeQuery, GetMeterSizeQueryVariables>(GetMeterSizeDocument, options);
+        }
+export type GetMeterSizeQueryHookResult = ReturnType<typeof useGetMeterSizeQuery>;
+export type GetMeterSizeLazyQueryHookResult = ReturnType<typeof useGetMeterSizeLazyQuery>;
+export type GetMeterSizeQueryResult = Apollo.QueryResult<GetMeterSizeQuery, GetMeterSizeQueryVariables>;
+export function refetchGetMeterSizeQuery(variables?: GetMeterSizeQueryVariables) {
+      return { query: GetMeterSizeDocument, variables: variables }
     }
 export const GetAllOldSiteIdDocument = gql`
     query GetAllOldSiteId {
@@ -3005,7 +3328,7 @@ export const GetAllTransmitterDocument = gql`
     Installed
     Marks
     MeterSerial
-    ReceipDate
+    ReceiptDate
     Serial
     Size
     Status
@@ -3060,7 +3383,7 @@ export const GetAllTransmitterNotInstallDocument = gql`
     Installed
     Marks
     MeterSerial
-    ReceipDate
+    ReceiptDate
     Serial
     Size
     Status
@@ -3827,6 +4150,37 @@ export function useInsertLoggerMutation(baseOptions?: Apollo.MutationHookOptions
 export type InsertLoggerMutationHookResult = ReturnType<typeof useInsertLoggerMutation>;
 export type InsertLoggerMutationResult = Apollo.MutationResult<InsertLoggerMutation>;
 export type InsertLoggerMutationOptions = Apollo.BaseMutationOptions<InsertLoggerMutation, InsertLoggerMutationVariables>;
+export const InsertMeterDocument = gql`
+    mutation InsertMeter($meter: DeviceMeterInsertInput) {
+  InsertMeter(meter: $meter)
+}
+    `;
+export type InsertMeterMutationFn = Apollo.MutationFunction<InsertMeterMutation, InsertMeterMutationVariables>;
+
+/**
+ * __useInsertMeterMutation__
+ *
+ * To run a mutation, you first call `useInsertMeterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertMeterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertMeterMutation, { data, loading, error }] = useInsertMeterMutation({
+ *   variables: {
+ *      meter: // value for 'meter'
+ *   },
+ * });
+ */
+export function useInsertMeterMutation(baseOptions?: Apollo.MutationHookOptions<InsertMeterMutation, InsertMeterMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertMeterMutation, InsertMeterMutationVariables>(InsertMeterDocument, options);
+      }
+export type InsertMeterMutationHookResult = ReturnType<typeof useInsertMeterMutation>;
+export type InsertMeterMutationResult = Apollo.MutationResult<InsertMeterMutation>;
+export type InsertMeterMutationOptions = Apollo.BaseMutationOptions<InsertMeterMutation, InsertMeterMutationVariables>;
 export const InsertDeviceSiteConfigDocument = gql`
     mutation InsertDeviceSiteConfig($siteConfig: DeviceSiteConfigInsertInput) {
   InsertDeviceSiteConfig(siteConfig: $siteConfig)
@@ -4317,6 +4671,37 @@ export function useUpdateLoggerMutation(baseOptions?: Apollo.MutationHookOptions
 export type UpdateLoggerMutationHookResult = ReturnType<typeof useUpdateLoggerMutation>;
 export type UpdateLoggerMutationResult = Apollo.MutationResult<UpdateLoggerMutation>;
 export type UpdateLoggerMutationOptions = Apollo.BaseMutationOptions<UpdateLoggerMutation, UpdateLoggerMutationVariables>;
+export const UpdateMeterDocument = gql`
+    mutation UpdateMeter($meter: DeviceMeterUpdateInput) {
+  UpdateMeter(meter: $meter)
+}
+    `;
+export type UpdateMeterMutationFn = Apollo.MutationFunction<UpdateMeterMutation, UpdateMeterMutationVariables>;
+
+/**
+ * __useUpdateMeterMutation__
+ *
+ * To run a mutation, you first call `useUpdateMeterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateMeterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateMeterMutation, { data, loading, error }] = useUpdateMeterMutation({
+ *   variables: {
+ *      meter: // value for 'meter'
+ *   },
+ * });
+ */
+export function useUpdateMeterMutation(baseOptions?: Apollo.MutationHookOptions<UpdateMeterMutation, UpdateMeterMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateMeterMutation, UpdateMeterMutationVariables>(UpdateMeterDocument, options);
+      }
+export type UpdateMeterMutationHookResult = ReturnType<typeof useUpdateMeterMutation>;
+export type UpdateMeterMutationResult = Apollo.MutationResult<UpdateMeterMutation>;
+export type UpdateMeterMutationOptions = Apollo.BaseMutationOptions<UpdateMeterMutation, UpdateMeterMutationVariables>;
 export const UpdateDeviceSiteConfigDocument = gql`
     mutation UpdateDeviceSiteConfig($siteConfig: DeviceSiteConfigUpdateInput) {
   UpdateDeviceSiteConfig(siteConfig: $siteConfig)
