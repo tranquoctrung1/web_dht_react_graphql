@@ -5,7 +5,7 @@ query GetAllLoggerNotInstall {
         Marks
         Model
         Provider
-        ReceipDate
+        ReceiptDate
         Serial
         Status
         _id

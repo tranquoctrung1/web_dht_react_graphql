@@ -1,0 +1,6 @@
+query GetAllDeviceStatus {
+    GetAllDeviceStatus {
+        Description
+        Status
+    }
+}

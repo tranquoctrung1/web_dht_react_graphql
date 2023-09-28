@@ -339,7 +339,7 @@ module.exports = gql`
     type DeviceLogger {
         _id: ID!
         Serial: String
-        ReceipDate: Date
+        ReceiptDate: Date
         Provider: String
         Marks: String
         Model: String
@@ -490,6 +490,11 @@ module.exports = gql`
         Role: String
         Uid: String
         Company: String
+    }
+
+    type DeviceStatus {
+        Status: String
+        Description: String
     }
 
     # type input
@@ -746,6 +751,29 @@ module.exports = gql`
         RepeatNewPwd: String
     }
 
+    input DeviceLoggerInsertInput {
+        Serial: String
+        ReceiptDate: Date
+        Provider: String
+        Marks: String
+        Model: String
+        Installed: Boolean
+        Description: String
+        Status: String
+    }
+
+    input DeviceLoggerUpdateInput {
+        _id: ID!
+        Serial: String
+        ReceiptDate: Date
+        Provider: String
+        Marks: String
+        Model: String
+        Installed: Boolean
+        Description: String
+        Status: String
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -885,6 +913,14 @@ module.exports = gql`
         LoginAction(username: String, password: String): Login
 
         VerifyPassword(Uid: String, Pwd: String): Int
+
+        GetLoggerProvider: [String]
+
+        GetLoggerMarks: [String]
+
+        GetLoggerModel: [String]
+
+        GetAllDeviceStatus: [DeviceStatus]
     }
 
     # declare Mutation
@@ -924,5 +960,11 @@ module.exports = gql`
         DeleteUser(user: UserUpdateInput): Int
 
         UpdatePassword(user: UserUpdatePasswordInput): Int
+
+        InsertLogger(logger: DeviceLoggerInsertInput): String
+
+        UpdateLogger(logger: DeviceLoggerUpdateInput): Int
+
+        DeleteLogger(logger: DeviceLoggerUpdateInput): Int
     }
 `;

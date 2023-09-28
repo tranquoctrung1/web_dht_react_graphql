@@ -126,9 +126,32 @@ export type DeviceLogger = {
   Marks?: Maybe<Scalars['String']>;
   Model?: Maybe<Scalars['String']>;
   Provider?: Maybe<Scalars['String']>;
-  ReceipDate?: Maybe<Scalars['Date']>;
+  ReceiptDate?: Maybe<Scalars['Date']>;
   Serial?: Maybe<Scalars['String']>;
   Status?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type DeviceLoggerInsertInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Installed?: InputMaybe<Scalars['Boolean']>;
+  Marks?: InputMaybe<Scalars['String']>;
+  Model?: InputMaybe<Scalars['String']>;
+  Provider?: InputMaybe<Scalars['String']>;
+  ReceiptDate?: InputMaybe<Scalars['Date']>;
+  Serial?: InputMaybe<Scalars['String']>;
+  Status?: InputMaybe<Scalars['String']>;
+};
+
+export type DeviceLoggerUpdateInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Installed?: InputMaybe<Scalars['Boolean']>;
+  Marks?: InputMaybe<Scalars['String']>;
+  Model?: InputMaybe<Scalars['String']>;
+  Provider?: InputMaybe<Scalars['String']>;
+  ReceiptDate?: InputMaybe<Scalars['Date']>;
+  Serial?: InputMaybe<Scalars['String']>;
+  Status?: InputMaybe<Scalars['String']>;
   _id: Scalars['ID'];
 };
 
@@ -205,6 +228,12 @@ export type DeviceSiteConfigUpdateInput = {
   ZoomInit?: InputMaybe<Scalars['Int']>;
   ZoomOn?: InputMaybe<Scalars['Int']>;
   _id: Scalars['ID'];
+};
+
+export type DeviceStatus = {
+  __typename?: 'DeviceStatus';
+  Description?: Maybe<Scalars['String']>;
+  Status?: Maybe<Scalars['String']>;
 };
 
 export type DeviceTransmitter = {
@@ -311,17 +340,20 @@ export type Mutation = {
   DeleteDataManual?: Maybe<Scalars['Int']>;
   DeleteDeviceChannelConifg?: Maybe<Scalars['Int']>;
   DeleteDeviceSiteConfig?: Maybe<Scalars['Int']>;
+  DeleteLogger?: Maybe<Scalars['Int']>;
   DeletePrecious?: Maybe<RowModified>;
   DeleteSite?: Maybe<Scalars['Int']>;
   DeleteUser?: Maybe<Scalars['Int']>;
   InsertDataManual?: Maybe<Scalars['String']>;
   InsertDeviceSiteConfig?: Maybe<Scalars['String']>;
+  InsertLogger?: Maybe<Scalars['String']>;
   InsertPrecious?: Maybe<IdOutput>;
   InsertSite?: Maybe<Scalars['String']>;
   InsertUser?: Maybe<Scalars['String']>;
   UpdateDataManual?: Maybe<Scalars['Int']>;
   UpdateDeviceChannelConfig?: Maybe<Scalars['String']>;
   UpdateDeviceSiteConfig?: Maybe<Scalars['String']>;
+  UpdateLogger?: Maybe<Scalars['Int']>;
   UpdatePassword?: Maybe<Scalars['Int']>;
   UpdatePrecious?: Maybe<IdOutput>;
   UpdateSite?: Maybe<Scalars['String']>;
@@ -341,6 +373,11 @@ export type MutationDeleteDeviceChannelConifgArgs = {
 
 export type MutationDeleteDeviceSiteConfigArgs = {
   siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
+};
+
+
+export type MutationDeleteLoggerArgs = {
+  logger?: InputMaybe<DeviceLoggerUpdateInput>;
 };
 
 
@@ -366,6 +403,11 @@ export type MutationInsertDataManualArgs = {
 
 export type MutationInsertDeviceSiteConfigArgs = {
   siteConfig?: InputMaybe<DeviceSiteConfigInsertInput>;
+};
+
+
+export type MutationInsertLoggerArgs = {
+  logger?: InputMaybe<DeviceLoggerInsertInput>;
 };
 
 
@@ -396,6 +438,11 @@ export type MutationUpdateDeviceChannelConfigArgs = {
 
 export type MutationUpdateDeviceSiteConfigArgs = {
   siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
+};
+
+
+export type MutationUpdateLoggerArgs = {
+  logger?: InputMaybe<DeviceLoggerUpdateInput>;
 };
 
 
@@ -581,6 +628,7 @@ export type Query = {
   GetAllDataManual?: Maybe<Array<Maybe<DataManual>>>;
   GetAllDeviceChannelConifg?: Maybe<Array<Maybe<Channel>>>;
   GetAllDeviceSiteConfig?: Maybe<Array<Maybe<DeviceSiteConfig>>>;
+  GetAllDeviceStatus?: Maybe<Array<Maybe<DeviceStatus>>>;
   GetAllDistrict?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllGroup?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllGroup2?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -620,6 +668,9 @@ export type Query = {
   GetDataLoggerByTimeStamp?: Maybe<Array<DataLogger>>;
   GetDataManualBySiteId?: Maybe<Array<Maybe<DataManual>>>;
   GetDataManualBySiteIdAndTimeStamp?: Maybe<Array<Maybe<DataManual>>>;
+  GetLoggerMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetLoggerModel?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetLoggerProvider?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetPreciousByCompany?: Maybe<Array<Maybe<Precious>>>;
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
@@ -1085,6 +1136,13 @@ export type DeleteDeviceChannelConifgMutationVariables = Exact<{
 
 export type DeleteDeviceChannelConifgMutation = { __typename?: 'Mutation', DeleteDeviceChannelConifg?: number | null };
 
+export type DeleteLoggerMutationVariables = Exact<{
+  logger?: InputMaybe<DeviceLoggerUpdateInput>;
+}>;
+
+
+export type DeleteLoggerMutation = { __typename?: 'Mutation', DeleteLogger?: number | null };
+
 export type DeleteDeviceSiteConfigMutationVariables = Exact<{
   siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
 }>;
@@ -1123,6 +1181,11 @@ export type GetAllDeviceSiteConfigQueryVariables = Exact<{ [key: string]: never;
 
 export type GetAllDeviceSiteConfigQuery = { __typename?: 'Query', GetAllDeviceSiteConfig?: Array<{ __typename?: 'DeviceSiteConfig', BeginTime?: any | null, Forward?: number | null, LoggerId?: string | null, Pressure?: number | null, Pressure1?: number | null, Reverse?: number | null, Interval?: number | null, SiteId?: string | null, Tel?: string | null, ZoomInit?: number | null, ZoomOn?: number | null, _id: string } | null> | null };
 
+export type GetAllDeviceStatusQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllDeviceStatusQuery = { __typename?: 'Query', GetAllDeviceStatus?: Array<{ __typename?: 'DeviceStatus', Description?: string | null, Status?: string | null } | null> | null };
+
 export type GetAllDistrictQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1131,12 +1194,27 @@ export type GetAllDistrictQuery = { __typename?: 'Query', GetAllDistrict?: Array
 export type GetAllLoggerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllLoggerQuery = { __typename?: 'Query', GetAllLogger?: Array<{ __typename?: 'DeviceLogger', Description?: string | null, Installed?: boolean | null, Marks?: string | null, Model?: string | null, Provider?: string | null, ReceipDate?: any | null, Serial?: string | null, Status?: string | null, _id: string } | null> | null };
+export type GetAllLoggerQuery = { __typename?: 'Query', GetAllLogger?: Array<{ __typename?: 'DeviceLogger', Description?: string | null, Installed?: boolean | null, Marks?: string | null, Model?: string | null, Provider?: string | null, ReceiptDate?: any | null, Serial?: string | null, Status?: string | null, _id: string } | null> | null };
+
+export type GetLoggerMarksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLoggerMarksQuery = { __typename?: 'Query', GetLoggerMarks?: Array<string | null> | null };
+
+export type GetLoggerModelQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLoggerModelQuery = { __typename?: 'Query', GetLoggerModel?: Array<string | null> | null };
 
 export type GetAllLoggerNotInstallQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllLoggerNotInstallQuery = { __typename?: 'Query', GetAllLoggerNotInstall?: Array<{ __typename?: 'DeviceLogger', Description?: string | null, Installed?: boolean | null, Marks?: string | null, Model?: string | null, Provider?: string | null, ReceipDate?: any | null, Serial?: string | null, Status?: string | null, _id: string } | null> | null };
+export type GetAllLoggerNotInstallQuery = { __typename?: 'Query', GetAllLoggerNotInstall?: Array<{ __typename?: 'DeviceLogger', Description?: string | null, Installed?: boolean | null, Marks?: string | null, Model?: string | null, Provider?: string | null, ReceiptDate?: any | null, Serial?: string | null, Status?: string | null, _id: string } | null> | null };
+
+export type GetLoggerProviderQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLoggerProviderQuery = { __typename?: 'Query', GetLoggerProvider?: Array<string | null> | null };
 
 export type GetAllMeterQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1323,6 +1401,13 @@ export type InsertDataManualMutationVariables = Exact<{
 
 export type InsertDataManualMutation = { __typename?: 'Mutation', InsertDataManual?: string | null };
 
+export type InsertLoggerMutationVariables = Exact<{
+  logger?: InputMaybe<DeviceLoggerInsertInput>;
+}>;
+
+
+export type InsertLoggerMutation = { __typename?: 'Mutation', InsertLogger?: string | null };
+
 export type InsertDeviceSiteConfigMutationVariables = Exact<{
   siteConfig?: InputMaybe<DeviceSiteConfigInsertInput>;
 }>;
@@ -1411,6 +1496,13 @@ export type UpdateDeviceChannelConfigMutationVariables = Exact<{
 
 
 export type UpdateDeviceChannelConfigMutation = { __typename?: 'Mutation', UpdateDeviceChannelConfig?: string | null };
+
+export type UpdateLoggerMutationVariables = Exact<{
+  logger?: InputMaybe<DeviceLoggerUpdateInput>;
+}>;
+
+
+export type UpdateLoggerMutation = { __typename?: 'Mutation', UpdateLogger?: number | null };
 
 export type UpdateDeviceSiteConfigMutationVariables = Exact<{
   siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
@@ -1599,6 +1691,37 @@ export function useDeleteDeviceChannelConifgMutation(baseOptions?: Apollo.Mutati
 export type DeleteDeviceChannelConifgMutationHookResult = ReturnType<typeof useDeleteDeviceChannelConifgMutation>;
 export type DeleteDeviceChannelConifgMutationResult = Apollo.MutationResult<DeleteDeviceChannelConifgMutation>;
 export type DeleteDeviceChannelConifgMutationOptions = Apollo.BaseMutationOptions<DeleteDeviceChannelConifgMutation, DeleteDeviceChannelConifgMutationVariables>;
+export const DeleteLoggerDocument = gql`
+    mutation DeleteLogger($logger: DeviceLoggerUpdateInput) {
+  DeleteLogger(logger: $logger)
+}
+    `;
+export type DeleteLoggerMutationFn = Apollo.MutationFunction<DeleteLoggerMutation, DeleteLoggerMutationVariables>;
+
+/**
+ * __useDeleteLoggerMutation__
+ *
+ * To run a mutation, you first call `useDeleteLoggerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteLoggerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteLoggerMutation, { data, loading, error }] = useDeleteLoggerMutation({
+ *   variables: {
+ *      logger: // value for 'logger'
+ *   },
+ * });
+ */
+export function useDeleteLoggerMutation(baseOptions?: Apollo.MutationHookOptions<DeleteLoggerMutation, DeleteLoggerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteLoggerMutation, DeleteLoggerMutationVariables>(DeleteLoggerDocument, options);
+      }
+export type DeleteLoggerMutationHookResult = ReturnType<typeof useDeleteLoggerMutation>;
+export type DeleteLoggerMutationResult = Apollo.MutationResult<DeleteLoggerMutation>;
+export type DeleteLoggerMutationOptions = Apollo.BaseMutationOptions<DeleteLoggerMutation, DeleteLoggerMutationVariables>;
 export const DeleteDeviceSiteConfigDocument = gql`
     mutation DeleteDeviceSiteConfig($siteConfig: DeviceSiteConfigUpdateInput) {
   DeleteDeviceSiteConfig(siteConfig: $siteConfig)
@@ -1828,6 +1951,44 @@ export type GetAllDeviceSiteConfigQueryResult = Apollo.QueryResult<GetAllDeviceS
 export function refetchGetAllDeviceSiteConfigQuery(variables?: GetAllDeviceSiteConfigQueryVariables) {
       return { query: GetAllDeviceSiteConfigDocument, variables: variables }
     }
+export const GetAllDeviceStatusDocument = gql`
+    query GetAllDeviceStatus {
+  GetAllDeviceStatus {
+    Description
+    Status
+  }
+}
+    `;
+
+/**
+ * __useGetAllDeviceStatusQuery__
+ *
+ * To run a query within a React component, call `useGetAllDeviceStatusQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllDeviceStatusQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllDeviceStatusQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllDeviceStatusQuery(baseOptions?: Apollo.QueryHookOptions<GetAllDeviceStatusQuery, GetAllDeviceStatusQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllDeviceStatusQuery, GetAllDeviceStatusQueryVariables>(GetAllDeviceStatusDocument, options);
+      }
+export function useGetAllDeviceStatusLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllDeviceStatusQuery, GetAllDeviceStatusQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllDeviceStatusQuery, GetAllDeviceStatusQueryVariables>(GetAllDeviceStatusDocument, options);
+        }
+export type GetAllDeviceStatusQueryHookResult = ReturnType<typeof useGetAllDeviceStatusQuery>;
+export type GetAllDeviceStatusLazyQueryHookResult = ReturnType<typeof useGetAllDeviceStatusLazyQuery>;
+export type GetAllDeviceStatusQueryResult = Apollo.QueryResult<GetAllDeviceStatusQuery, GetAllDeviceStatusQueryVariables>;
+export function refetchGetAllDeviceStatusQuery(variables?: GetAllDeviceStatusQueryVariables) {
+      return { query: GetAllDeviceStatusDocument, variables: variables }
+    }
 export const GetAllDistrictDocument = gql`
     query GetAllDistrict {
   GetAllDistrict
@@ -1871,7 +2032,7 @@ export const GetAllLoggerDocument = gql`
     Marks
     Model
     Provider
-    ReceipDate
+    ReceiptDate
     Serial
     Status
     _id
@@ -1908,6 +2069,76 @@ export type GetAllLoggerQueryResult = Apollo.QueryResult<GetAllLoggerQuery, GetA
 export function refetchGetAllLoggerQuery(variables?: GetAllLoggerQueryVariables) {
       return { query: GetAllLoggerDocument, variables: variables }
     }
+export const GetLoggerMarksDocument = gql`
+    query GetLoggerMarks {
+  GetLoggerMarks
+}
+    `;
+
+/**
+ * __useGetLoggerMarksQuery__
+ *
+ * To run a query within a React component, call `useGetLoggerMarksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLoggerMarksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLoggerMarksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLoggerMarksQuery(baseOptions?: Apollo.QueryHookOptions<GetLoggerMarksQuery, GetLoggerMarksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLoggerMarksQuery, GetLoggerMarksQueryVariables>(GetLoggerMarksDocument, options);
+      }
+export function useGetLoggerMarksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLoggerMarksQuery, GetLoggerMarksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLoggerMarksQuery, GetLoggerMarksQueryVariables>(GetLoggerMarksDocument, options);
+        }
+export type GetLoggerMarksQueryHookResult = ReturnType<typeof useGetLoggerMarksQuery>;
+export type GetLoggerMarksLazyQueryHookResult = ReturnType<typeof useGetLoggerMarksLazyQuery>;
+export type GetLoggerMarksQueryResult = Apollo.QueryResult<GetLoggerMarksQuery, GetLoggerMarksQueryVariables>;
+export function refetchGetLoggerMarksQuery(variables?: GetLoggerMarksQueryVariables) {
+      return { query: GetLoggerMarksDocument, variables: variables }
+    }
+export const GetLoggerModelDocument = gql`
+    query GetLoggerModel {
+  GetLoggerModel
+}
+    `;
+
+/**
+ * __useGetLoggerModelQuery__
+ *
+ * To run a query within a React component, call `useGetLoggerModelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLoggerModelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLoggerModelQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLoggerModelQuery(baseOptions?: Apollo.QueryHookOptions<GetLoggerModelQuery, GetLoggerModelQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLoggerModelQuery, GetLoggerModelQueryVariables>(GetLoggerModelDocument, options);
+      }
+export function useGetLoggerModelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLoggerModelQuery, GetLoggerModelQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLoggerModelQuery, GetLoggerModelQueryVariables>(GetLoggerModelDocument, options);
+        }
+export type GetLoggerModelQueryHookResult = ReturnType<typeof useGetLoggerModelQuery>;
+export type GetLoggerModelLazyQueryHookResult = ReturnType<typeof useGetLoggerModelLazyQuery>;
+export type GetLoggerModelQueryResult = Apollo.QueryResult<GetLoggerModelQuery, GetLoggerModelQueryVariables>;
+export function refetchGetLoggerModelQuery(variables?: GetLoggerModelQueryVariables) {
+      return { query: GetLoggerModelDocument, variables: variables }
+    }
 export const GetAllLoggerNotInstallDocument = gql`
     query GetAllLoggerNotInstall {
   GetAllLoggerNotInstall {
@@ -1916,7 +2147,7 @@ export const GetAllLoggerNotInstallDocument = gql`
     Marks
     Model
     Provider
-    ReceipDate
+    ReceiptDate
     Serial
     Status
     _id
@@ -1952,6 +2183,41 @@ export type GetAllLoggerNotInstallLazyQueryHookResult = ReturnType<typeof useGet
 export type GetAllLoggerNotInstallQueryResult = Apollo.QueryResult<GetAllLoggerNotInstallQuery, GetAllLoggerNotInstallQueryVariables>;
 export function refetchGetAllLoggerNotInstallQuery(variables?: GetAllLoggerNotInstallQueryVariables) {
       return { query: GetAllLoggerNotInstallDocument, variables: variables }
+    }
+export const GetLoggerProviderDocument = gql`
+    query GetLoggerProvider {
+  GetLoggerProvider
+}
+    `;
+
+/**
+ * __useGetLoggerProviderQuery__
+ *
+ * To run a query within a React component, call `useGetLoggerProviderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLoggerProviderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLoggerProviderQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLoggerProviderQuery(baseOptions?: Apollo.QueryHookOptions<GetLoggerProviderQuery, GetLoggerProviderQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLoggerProviderQuery, GetLoggerProviderQueryVariables>(GetLoggerProviderDocument, options);
+      }
+export function useGetLoggerProviderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLoggerProviderQuery, GetLoggerProviderQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLoggerProviderQuery, GetLoggerProviderQueryVariables>(GetLoggerProviderDocument, options);
+        }
+export type GetLoggerProviderQueryHookResult = ReturnType<typeof useGetLoggerProviderQuery>;
+export type GetLoggerProviderLazyQueryHookResult = ReturnType<typeof useGetLoggerProviderLazyQuery>;
+export type GetLoggerProviderQueryResult = Apollo.QueryResult<GetLoggerProviderQuery, GetLoggerProviderQueryVariables>;
+export function refetchGetLoggerProviderQuery(variables?: GetLoggerProviderQueryVariables) {
+      return { query: GetLoggerProviderDocument, variables: variables }
     }
 export const GetAllMeterDocument = gql`
     query GetAllMeter {
@@ -3530,6 +3796,37 @@ export function useInsertDataManualMutation(baseOptions?: Apollo.MutationHookOpt
 export type InsertDataManualMutationHookResult = ReturnType<typeof useInsertDataManualMutation>;
 export type InsertDataManualMutationResult = Apollo.MutationResult<InsertDataManualMutation>;
 export type InsertDataManualMutationOptions = Apollo.BaseMutationOptions<InsertDataManualMutation, InsertDataManualMutationVariables>;
+export const InsertLoggerDocument = gql`
+    mutation InsertLogger($logger: DeviceLoggerInsertInput) {
+  InsertLogger(logger: $logger)
+}
+    `;
+export type InsertLoggerMutationFn = Apollo.MutationFunction<InsertLoggerMutation, InsertLoggerMutationVariables>;
+
+/**
+ * __useInsertLoggerMutation__
+ *
+ * To run a mutation, you first call `useInsertLoggerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertLoggerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertLoggerMutation, { data, loading, error }] = useInsertLoggerMutation({
+ *   variables: {
+ *      logger: // value for 'logger'
+ *   },
+ * });
+ */
+export function useInsertLoggerMutation(baseOptions?: Apollo.MutationHookOptions<InsertLoggerMutation, InsertLoggerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertLoggerMutation, InsertLoggerMutationVariables>(InsertLoggerDocument, options);
+      }
+export type InsertLoggerMutationHookResult = ReturnType<typeof useInsertLoggerMutation>;
+export type InsertLoggerMutationResult = Apollo.MutationResult<InsertLoggerMutation>;
+export type InsertLoggerMutationOptions = Apollo.BaseMutationOptions<InsertLoggerMutation, InsertLoggerMutationVariables>;
 export const InsertDeviceSiteConfigDocument = gql`
     mutation InsertDeviceSiteConfig($siteConfig: DeviceSiteConfigInsertInput) {
   InsertDeviceSiteConfig(siteConfig: $siteConfig)
@@ -3989,6 +4286,37 @@ export function useUpdateDeviceChannelConfigMutation(baseOptions?: Apollo.Mutati
 export type UpdateDeviceChannelConfigMutationHookResult = ReturnType<typeof useUpdateDeviceChannelConfigMutation>;
 export type UpdateDeviceChannelConfigMutationResult = Apollo.MutationResult<UpdateDeviceChannelConfigMutation>;
 export type UpdateDeviceChannelConfigMutationOptions = Apollo.BaseMutationOptions<UpdateDeviceChannelConfigMutation, UpdateDeviceChannelConfigMutationVariables>;
+export const UpdateLoggerDocument = gql`
+    mutation UpdateLogger($logger: DeviceLoggerUpdateInput) {
+  UpdateLogger(logger: $logger)
+}
+    `;
+export type UpdateLoggerMutationFn = Apollo.MutationFunction<UpdateLoggerMutation, UpdateLoggerMutationVariables>;
+
+/**
+ * __useUpdateLoggerMutation__
+ *
+ * To run a mutation, you first call `useUpdateLoggerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLoggerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLoggerMutation, { data, loading, error }] = useUpdateLoggerMutation({
+ *   variables: {
+ *      logger: // value for 'logger'
+ *   },
+ * });
+ */
+export function useUpdateLoggerMutation(baseOptions?: Apollo.MutationHookOptions<UpdateLoggerMutation, UpdateLoggerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateLoggerMutation, UpdateLoggerMutationVariables>(UpdateLoggerDocument, options);
+      }
+export type UpdateLoggerMutationHookResult = ReturnType<typeof useUpdateLoggerMutation>;
+export type UpdateLoggerMutationResult = Apollo.MutationResult<UpdateLoggerMutation>;
+export type UpdateLoggerMutationOptions = Apollo.BaseMutationOptions<UpdateLoggerMutation, UpdateLoggerMutationVariables>;
 export const UpdateDeviceSiteConfigDocument = gql`
     mutation UpdateDeviceSiteConfig($siteConfig: DeviceSiteConfigUpdateInput) {
   UpdateDeviceSiteConfig(siteConfig: $siteConfig)

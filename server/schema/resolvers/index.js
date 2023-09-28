@@ -31,6 +31,7 @@ const UserUser = require('./UserUser.resolver');
 const UserRole = require('./UserRole.resolver');
 const Login = require('./Login.resolver');
 const SiteFile = require('./SiteFile.resolver');
+const DeviceStatus = require('./DeviceStatus.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -68,6 +69,7 @@ module.exports = {
         ...UserUser.Query,
         ...UserRole.Query,
         ...Login.Query,
+        ...DeviceStatus.Query,
     },
 
     Mutation: {
@@ -77,6 +79,7 @@ module.exports = {
         ...DeviceChannelConfig.Mutation,
         ...DataManual.Mutation,
         ...UserUser.Mutation,
+        ...DeviceLogger.Mutation,
     },
 
     SiteAndChannel: {

@@ -18,6 +18,7 @@ import ChangeDataManualPage from './pages/changeDataManual';
 import StatisticSiteXNManager from './pages/statisticSiteXNManager';
 import CreateUserPage from './pages/createUser';
 import ChangePasswordPage from './pages/changePassword';
+import LoggerPage from './pages/logger';
 
 function App() {
     const router = createBrowserRouter([
@@ -72,6 +73,10 @@ function App() {
                 {
                     path: '/changePassword',
                     element: <ChangePasswordPage />,
+                },
+                {
+                    path: '/logger',
+                    element: <LoggerPage />,
                 },
             ],
         },

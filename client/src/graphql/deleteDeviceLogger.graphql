@@ -1,0 +1,3 @@
+mutation DeleteLogger($logger: DeviceLoggerUpdateInput) {
+    DeleteLogger(logger: $logger)
+}

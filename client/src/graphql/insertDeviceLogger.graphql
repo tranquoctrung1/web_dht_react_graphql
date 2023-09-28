@@ -1,0 +1,3 @@
+mutation InsertLogger($logger: DeviceLoggerInsertInput) {
+    InsertLogger(logger: $logger)
+}

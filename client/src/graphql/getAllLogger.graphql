@@ -5,7 +5,7 @@ query GetAllLogger {
         Marks
         Model
         Provider
-        ReceipDate
+        ReceiptDate
         Serial
         Status
         _id
