@@ -20,6 +20,7 @@ import CreateUserPage from './pages/createUser';
 import ChangePasswordPage from './pages/changePassword';
 import LoggerPage from './pages/logger';
 import MeterPage from './pages/meter';
+import TransmitterPage from './pages/transmiiter';
 
 function App() {
     const router = createBrowserRouter([
@@ -82,6 +83,10 @@ function App() {
                 {
                     path: '/meter',
                     element: <MeterPage />,
+                },
+                {
+                    path: '/transmitter',
+                    element: <TransmitterPage />,
                 },
             ],
         },

@@ -1,0 +1,3 @@
+mutation UpdateTransmitter($transmitter: DeviceTransmitterUpdateInput) {
+    UpdateTransmitter(transmitter: $transmitter)
+}

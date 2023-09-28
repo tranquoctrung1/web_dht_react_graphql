@@ -81,6 +81,7 @@ module.exports = {
         ...UserUser.Mutation,
         ...DeviceLogger.Mutation,
         ...DeviceMeter.Mutation,
+        ...DeviceTransmitter.Mutation,
     },
 
     SiteAndChannel: {

@@ -305,6 +305,49 @@ export type DeviceTransmitter = {
   _id: Scalars['ID'];
 };
 
+export type DeviceTransmitterInsertInput = {
+  AccreditatedDate?: InputMaybe<Scalars['Date']>;
+  AccreditationDocument?: InputMaybe<Scalars['String']>;
+  AccreditationType?: InputMaybe<Scalars['String']>;
+  AppovalDate?: InputMaybe<Scalars['Date']>;
+  AppovalDecision?: InputMaybe<Scalars['String']>;
+  Approvaled?: InputMaybe<Scalars['Date']>;
+  Description?: InputMaybe<Scalars['String']>;
+  ExpiryDate?: InputMaybe<Scalars['Date']>;
+  InstallIndex?: InputMaybe<Scalars['Float']>;
+  Installed?: InputMaybe<Scalars['Boolean']>;
+  Marks?: InputMaybe<Scalars['String']>;
+  MeterSerial?: InputMaybe<Scalars['String']>;
+  Model?: InputMaybe<Scalars['String']>;
+  Provider?: InputMaybe<Scalars['String']>;
+  ReceiptDate?: InputMaybe<Scalars['Date']>;
+  Serial?: InputMaybe<Scalars['String']>;
+  Size?: InputMaybe<Scalars['Int']>;
+  Status?: InputMaybe<Scalars['String']>;
+};
+
+export type DeviceTransmitterUpdateInput = {
+  AccreditatedDate?: InputMaybe<Scalars['Date']>;
+  AccreditationDocument?: InputMaybe<Scalars['String']>;
+  AccreditationType?: InputMaybe<Scalars['String']>;
+  AppovalDate?: InputMaybe<Scalars['Date']>;
+  AppovalDecision?: InputMaybe<Scalars['String']>;
+  Approvaled?: InputMaybe<Scalars['Date']>;
+  Description?: InputMaybe<Scalars['String']>;
+  ExpiryDate?: InputMaybe<Scalars['Date']>;
+  InstallIndex?: InputMaybe<Scalars['Float']>;
+  Installed?: InputMaybe<Scalars['Boolean']>;
+  Marks?: InputMaybe<Scalars['String']>;
+  MeterSerial?: InputMaybe<Scalars['String']>;
+  Model?: InputMaybe<Scalars['String']>;
+  Provider?: InputMaybe<Scalars['String']>;
+  ReceiptDate?: InputMaybe<Scalars['Date']>;
+  Serial?: InputMaybe<Scalars['String']>;
+  Size?: InputMaybe<Scalars['Int']>;
+  Status?: InputMaybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
 export type IdOutput = {
   __typename?: 'IdOutput';
   idReturn?: Maybe<Scalars['String']>;
@@ -390,6 +433,7 @@ export type Mutation = {
   DeleteMeter?: Maybe<Scalars['Int']>;
   DeletePrecious?: Maybe<RowModified>;
   DeleteSite?: Maybe<Scalars['Int']>;
+  DeleteTransmitter?: Maybe<Scalars['Int']>;
   DeleteUser?: Maybe<Scalars['Int']>;
   InsertDataManual?: Maybe<Scalars['String']>;
   InsertDeviceSiteConfig?: Maybe<Scalars['String']>;
@@ -397,6 +441,7 @@ export type Mutation = {
   InsertMeter?: Maybe<Scalars['String']>;
   InsertPrecious?: Maybe<IdOutput>;
   InsertSite?: Maybe<Scalars['String']>;
+  InsertTransmitter?: Maybe<Scalars['String']>;
   InsertUser?: Maybe<Scalars['String']>;
   UpdateDataManual?: Maybe<Scalars['Int']>;
   UpdateDeviceChannelConfig?: Maybe<Scalars['String']>;
@@ -406,6 +451,7 @@ export type Mutation = {
   UpdatePassword?: Maybe<Scalars['Int']>;
   UpdatePrecious?: Maybe<IdOutput>;
   UpdateSite?: Maybe<Scalars['String']>;
+  UpdateTransmitter?: Maybe<Scalars['Int']>;
   UpdateUser?: Maybe<Scalars['Int']>;
 };
 
@@ -445,6 +491,11 @@ export type MutationDeleteSiteArgs = {
 };
 
 
+export type MutationDeleteTransmitterArgs = {
+  transmitter?: InputMaybe<DeviceTransmitterUpdateInput>;
+};
+
+
 export type MutationDeleteUserArgs = {
   user?: InputMaybe<UserUpdateInput>;
 };
@@ -477,6 +528,11 @@ export type MutationInsertPreciousArgs = {
 
 export type MutationInsertSiteArgs = {
   site?: InputMaybe<SiteInput>;
+};
+
+
+export type MutationInsertTransmitterArgs = {
+  transmitter?: InputMaybe<DeviceTransmitterInsertInput>;
 };
 
 
@@ -522,6 +578,11 @@ export type MutationUpdatePreciousArgs = {
 
 export type MutationUpdateSiteArgs = {
   site?: InputMaybe<SiteInput>;
+};
+
+
+export type MutationUpdateTransmitterArgs = {
+  transmitter?: InputMaybe<DeviceTransmitterUpdateInput>;
 };
 
 
@@ -739,11 +800,15 @@ export type Query = {
   GetMeterModel?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetMeterNationalities?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetMeterProvider?: Maybe<Array<Maybe<Scalars['String']>>>;
-  GetMeterSize?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetMeterSize?: Maybe<Array<Maybe<Scalars['Int']>>>;
   GetPreciousByCompany?: Maybe<Array<Maybe<Precious>>>;
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
   GetStatisticSiteXNManager?: Maybe<Array<Maybe<StatisticSiteXnManager>>>;
+  GetTransmitterMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetTransmitterModel?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetTransmitterProvider?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetTransmitterSize?: Maybe<Array<Maybe<Scalars['Int']>>>;
   LoginAction?: Maybe<Login>;
   QuantityDayCompany: Array<QuantityDayCompany>;
   QuantityDayWaterSupply: Array<QuantityDayWaterSupply>;
@@ -1226,6 +1291,13 @@ export type DeleteDeviceSiteConfigMutationVariables = Exact<{
 
 export type DeleteDeviceSiteConfigMutation = { __typename?: 'Mutation', DeleteDeviceSiteConfig?: number | null };
 
+export type DeleteTransmitterMutationVariables = Exact<{
+  transmitter?: InputMaybe<DeviceTransmitterUpdateInput>;
+}>;
+
+
+export type DeleteTransmitterMutation = { __typename?: 'Mutation', DeleteTransmitter?: number | null };
+
 export type DeletePreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousUpdateInput>;
 }>;
@@ -1325,7 +1397,7 @@ export type GetMeterProviderQuery = { __typename?: 'Query', GetMeterProvider?: A
 export type GetMeterSizeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMeterSizeQuery = { __typename?: 'Query', GetMeterSize?: Array<string | null> | null };
+export type GetMeterSizeQuery = { __typename?: 'Query', GetMeterSize?: Array<number | null> | null };
 
 export type GetAllOldSiteIdQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1407,10 +1479,30 @@ export type GetAllTransmitterQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllTransmitterQuery = { __typename?: 'Query', GetAllTransmitter?: Array<{ __typename?: 'DeviceTransmitter', AccreditatedDate?: any | null, AccreditationType?: string | null, AccreditationDocument?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, InstallIndex?: number | null, ExpiryDate?: any | null, Installed?: boolean | null, Marks?: string | null, MeterSerial?: string | null, ReceiptDate?: any | null, Serial?: string | null, Size?: number | null, Status?: string | null, _id: string, Provider?: string | null, Model?: string | null } | null> | null };
 
+export type GetTransmitterMarksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTransmitterMarksQuery = { __typename?: 'Query', GetTransmitterMarks?: Array<string | null> | null };
+
+export type GetTransmitterModelQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTransmitterModelQuery = { __typename?: 'Query', GetTransmitterModel?: Array<string | null> | null };
+
 export type GetAllTransmitterNotInstallQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllTransmitterNotInstallQuery = { __typename?: 'Query', GetAllTransmitterNotInstall?: Array<{ __typename?: 'DeviceTransmitter', AccreditatedDate?: any | null, AccreditationType?: string | null, AccreditationDocument?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, InstallIndex?: number | null, ExpiryDate?: any | null, Installed?: boolean | null, Marks?: string | null, MeterSerial?: string | null, ReceiptDate?: any | null, Serial?: string | null, Size?: number | null, Status?: string | null, _id: string, Provider?: string | null, Model?: string | null } | null> | null };
+
+export type GetTransmitterProviderQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTransmitterProviderQuery = { __typename?: 'Query', GetTransmitterProvider?: Array<string | null> | null };
+
+export type GetTransmitterSizeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTransmitterSizeQuery = { __typename?: 'Query', GetTransmitterSize?: Array<number | null> | null };
 
 export type GetAllUnitQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1523,6 +1615,13 @@ export type InsertDeviceSiteConfigMutationVariables = Exact<{
 
 export type InsertDeviceSiteConfigMutation = { __typename?: 'Mutation', InsertDeviceSiteConfig?: string | null };
 
+export type InsertTransmitterMutationVariables = Exact<{
+  transmitter?: InputMaybe<DeviceTransmitterInsertInput>;
+}>;
+
+
+export type InsertTransmitterMutation = { __typename?: 'Mutation', InsertTransmitter?: string | null };
+
 export type InsertPreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousInput>;
 }>;
@@ -1625,6 +1724,13 @@ export type UpdateDeviceSiteConfigMutationVariables = Exact<{
 
 
 export type UpdateDeviceSiteConfigMutation = { __typename?: 'Mutation', UpdateDeviceSiteConfig?: string | null };
+
+export type UpdateTransmitterMutationVariables = Exact<{
+  transmitter?: InputMaybe<DeviceTransmitterUpdateInput>;
+}>;
+
+
+export type UpdateTransmitterMutation = { __typename?: 'Mutation', UpdateTransmitter?: number | null };
 
 export type UpdatePasswordMutationVariables = Exact<{
   user?: InputMaybe<UserUpdatePasswordInput>;
@@ -1899,6 +2005,37 @@ export function useDeleteDeviceSiteConfigMutation(baseOptions?: Apollo.MutationH
 export type DeleteDeviceSiteConfigMutationHookResult = ReturnType<typeof useDeleteDeviceSiteConfigMutation>;
 export type DeleteDeviceSiteConfigMutationResult = Apollo.MutationResult<DeleteDeviceSiteConfigMutation>;
 export type DeleteDeviceSiteConfigMutationOptions = Apollo.BaseMutationOptions<DeleteDeviceSiteConfigMutation, DeleteDeviceSiteConfigMutationVariables>;
+export const DeleteTransmitterDocument = gql`
+    mutation DeleteTransmitter($transmitter: DeviceTransmitterUpdateInput) {
+  DeleteTransmitter(transmitter: $transmitter)
+}
+    `;
+export type DeleteTransmitterMutationFn = Apollo.MutationFunction<DeleteTransmitterMutation, DeleteTransmitterMutationVariables>;
+
+/**
+ * __useDeleteTransmitterMutation__
+ *
+ * To run a mutation, you first call `useDeleteTransmitterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTransmitterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTransmitterMutation, { data, loading, error }] = useDeleteTransmitterMutation({
+ *   variables: {
+ *      transmitter: // value for 'transmitter'
+ *   },
+ * });
+ */
+export function useDeleteTransmitterMutation(baseOptions?: Apollo.MutationHookOptions<DeleteTransmitterMutation, DeleteTransmitterMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteTransmitterMutation, DeleteTransmitterMutationVariables>(DeleteTransmitterDocument, options);
+      }
+export type DeleteTransmitterMutationHookResult = ReturnType<typeof useDeleteTransmitterMutation>;
+export type DeleteTransmitterMutationResult = Apollo.MutationResult<DeleteTransmitterMutation>;
+export type DeleteTransmitterMutationOptions = Apollo.BaseMutationOptions<DeleteTransmitterMutation, DeleteTransmitterMutationVariables>;
 export const DeletePreciousDocument = gql`
     mutation DeletePrecious($precious: PreciousUpdateInput) {
   DeletePrecious(precious: $precious) {
@@ -3368,6 +3505,76 @@ export type GetAllTransmitterQueryResult = Apollo.QueryResult<GetAllTransmitterQ
 export function refetchGetAllTransmitterQuery(variables?: GetAllTransmitterQueryVariables) {
       return { query: GetAllTransmitterDocument, variables: variables }
     }
+export const GetTransmitterMarksDocument = gql`
+    query GetTransmitterMarks {
+  GetTransmitterMarks
+}
+    `;
+
+/**
+ * __useGetTransmitterMarksQuery__
+ *
+ * To run a query within a React component, call `useGetTransmitterMarksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTransmitterMarksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTransmitterMarksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTransmitterMarksQuery(baseOptions?: Apollo.QueryHookOptions<GetTransmitterMarksQuery, GetTransmitterMarksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTransmitterMarksQuery, GetTransmitterMarksQueryVariables>(GetTransmitterMarksDocument, options);
+      }
+export function useGetTransmitterMarksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTransmitterMarksQuery, GetTransmitterMarksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTransmitterMarksQuery, GetTransmitterMarksQueryVariables>(GetTransmitterMarksDocument, options);
+        }
+export type GetTransmitterMarksQueryHookResult = ReturnType<typeof useGetTransmitterMarksQuery>;
+export type GetTransmitterMarksLazyQueryHookResult = ReturnType<typeof useGetTransmitterMarksLazyQuery>;
+export type GetTransmitterMarksQueryResult = Apollo.QueryResult<GetTransmitterMarksQuery, GetTransmitterMarksQueryVariables>;
+export function refetchGetTransmitterMarksQuery(variables?: GetTransmitterMarksQueryVariables) {
+      return { query: GetTransmitterMarksDocument, variables: variables }
+    }
+export const GetTransmitterModelDocument = gql`
+    query GetTransmitterModel {
+  GetTransmitterModel
+}
+    `;
+
+/**
+ * __useGetTransmitterModelQuery__
+ *
+ * To run a query within a React component, call `useGetTransmitterModelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTransmitterModelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTransmitterModelQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTransmitterModelQuery(baseOptions?: Apollo.QueryHookOptions<GetTransmitterModelQuery, GetTransmitterModelQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTransmitterModelQuery, GetTransmitterModelQueryVariables>(GetTransmitterModelDocument, options);
+      }
+export function useGetTransmitterModelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTransmitterModelQuery, GetTransmitterModelQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTransmitterModelQuery, GetTransmitterModelQueryVariables>(GetTransmitterModelDocument, options);
+        }
+export type GetTransmitterModelQueryHookResult = ReturnType<typeof useGetTransmitterModelQuery>;
+export type GetTransmitterModelLazyQueryHookResult = ReturnType<typeof useGetTransmitterModelLazyQuery>;
+export type GetTransmitterModelQueryResult = Apollo.QueryResult<GetTransmitterModelQuery, GetTransmitterModelQueryVariables>;
+export function refetchGetTransmitterModelQuery(variables?: GetTransmitterModelQueryVariables) {
+      return { query: GetTransmitterModelDocument, variables: variables }
+    }
 export const GetAllTransmitterNotInstallDocument = gql`
     query GetAllTransmitterNotInstall {
   GetAllTransmitterNotInstall {
@@ -3422,6 +3629,76 @@ export type GetAllTransmitterNotInstallLazyQueryHookResult = ReturnType<typeof u
 export type GetAllTransmitterNotInstallQueryResult = Apollo.QueryResult<GetAllTransmitterNotInstallQuery, GetAllTransmitterNotInstallQueryVariables>;
 export function refetchGetAllTransmitterNotInstallQuery(variables?: GetAllTransmitterNotInstallQueryVariables) {
       return { query: GetAllTransmitterNotInstallDocument, variables: variables }
+    }
+export const GetTransmitterProviderDocument = gql`
+    query GetTransmitterProvider {
+  GetTransmitterProvider
+}
+    `;
+
+/**
+ * __useGetTransmitterProviderQuery__
+ *
+ * To run a query within a React component, call `useGetTransmitterProviderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTransmitterProviderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTransmitterProviderQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTransmitterProviderQuery(baseOptions?: Apollo.QueryHookOptions<GetTransmitterProviderQuery, GetTransmitterProviderQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTransmitterProviderQuery, GetTransmitterProviderQueryVariables>(GetTransmitterProviderDocument, options);
+      }
+export function useGetTransmitterProviderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTransmitterProviderQuery, GetTransmitterProviderQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTransmitterProviderQuery, GetTransmitterProviderQueryVariables>(GetTransmitterProviderDocument, options);
+        }
+export type GetTransmitterProviderQueryHookResult = ReturnType<typeof useGetTransmitterProviderQuery>;
+export type GetTransmitterProviderLazyQueryHookResult = ReturnType<typeof useGetTransmitterProviderLazyQuery>;
+export type GetTransmitterProviderQueryResult = Apollo.QueryResult<GetTransmitterProviderQuery, GetTransmitterProviderQueryVariables>;
+export function refetchGetTransmitterProviderQuery(variables?: GetTransmitterProviderQueryVariables) {
+      return { query: GetTransmitterProviderDocument, variables: variables }
+    }
+export const GetTransmitterSizeDocument = gql`
+    query GetTransmitterSize {
+  GetTransmitterSize
+}
+    `;
+
+/**
+ * __useGetTransmitterSizeQuery__
+ *
+ * To run a query within a React component, call `useGetTransmitterSizeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTransmitterSizeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTransmitterSizeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTransmitterSizeQuery(baseOptions?: Apollo.QueryHookOptions<GetTransmitterSizeQuery, GetTransmitterSizeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTransmitterSizeQuery, GetTransmitterSizeQueryVariables>(GetTransmitterSizeDocument, options);
+      }
+export function useGetTransmitterSizeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTransmitterSizeQuery, GetTransmitterSizeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTransmitterSizeQuery, GetTransmitterSizeQueryVariables>(GetTransmitterSizeDocument, options);
+        }
+export type GetTransmitterSizeQueryHookResult = ReturnType<typeof useGetTransmitterSizeQuery>;
+export type GetTransmitterSizeLazyQueryHookResult = ReturnType<typeof useGetTransmitterSizeLazyQuery>;
+export type GetTransmitterSizeQueryResult = Apollo.QueryResult<GetTransmitterSizeQuery, GetTransmitterSizeQueryVariables>;
+export function refetchGetTransmitterSizeQuery(variables?: GetTransmitterSizeQueryVariables) {
+      return { query: GetTransmitterSizeDocument, variables: variables }
     }
 export const GetAllUnitDocument = gql`
     query GetAllUnit {
@@ -4212,6 +4489,37 @@ export function useInsertDeviceSiteConfigMutation(baseOptions?: Apollo.MutationH
 export type InsertDeviceSiteConfigMutationHookResult = ReturnType<typeof useInsertDeviceSiteConfigMutation>;
 export type InsertDeviceSiteConfigMutationResult = Apollo.MutationResult<InsertDeviceSiteConfigMutation>;
 export type InsertDeviceSiteConfigMutationOptions = Apollo.BaseMutationOptions<InsertDeviceSiteConfigMutation, InsertDeviceSiteConfigMutationVariables>;
+export const InsertTransmitterDocument = gql`
+    mutation InsertTransmitter($transmitter: DeviceTransmitterInsertInput) {
+  InsertTransmitter(transmitter: $transmitter)
+}
+    `;
+export type InsertTransmitterMutationFn = Apollo.MutationFunction<InsertTransmitterMutation, InsertTransmitterMutationVariables>;
+
+/**
+ * __useInsertTransmitterMutation__
+ *
+ * To run a mutation, you first call `useInsertTransmitterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertTransmitterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertTransmitterMutation, { data, loading, error }] = useInsertTransmitterMutation({
+ *   variables: {
+ *      transmitter: // value for 'transmitter'
+ *   },
+ * });
+ */
+export function useInsertTransmitterMutation(baseOptions?: Apollo.MutationHookOptions<InsertTransmitterMutation, InsertTransmitterMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertTransmitterMutation, InsertTransmitterMutationVariables>(InsertTransmitterDocument, options);
+      }
+export type InsertTransmitterMutationHookResult = ReturnType<typeof useInsertTransmitterMutation>;
+export type InsertTransmitterMutationResult = Apollo.MutationResult<InsertTransmitterMutation>;
+export type InsertTransmitterMutationOptions = Apollo.BaseMutationOptions<InsertTransmitterMutation, InsertTransmitterMutationVariables>;
 export const InsertPreciousDocument = gql`
     mutation InsertPrecious($precious: PreciousInput) {
   InsertPrecious(precious: $precious) {
@@ -4733,6 +5041,37 @@ export function useUpdateDeviceSiteConfigMutation(baseOptions?: Apollo.MutationH
 export type UpdateDeviceSiteConfigMutationHookResult = ReturnType<typeof useUpdateDeviceSiteConfigMutation>;
 export type UpdateDeviceSiteConfigMutationResult = Apollo.MutationResult<UpdateDeviceSiteConfigMutation>;
 export type UpdateDeviceSiteConfigMutationOptions = Apollo.BaseMutationOptions<UpdateDeviceSiteConfigMutation, UpdateDeviceSiteConfigMutationVariables>;
+export const UpdateTransmitterDocument = gql`
+    mutation UpdateTransmitter($transmitter: DeviceTransmitterUpdateInput) {
+  UpdateTransmitter(transmitter: $transmitter)
+}
+    `;
+export type UpdateTransmitterMutationFn = Apollo.MutationFunction<UpdateTransmitterMutation, UpdateTransmitterMutationVariables>;
+
+/**
+ * __useUpdateTransmitterMutation__
+ *
+ * To run a mutation, you first call `useUpdateTransmitterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTransmitterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTransmitterMutation, { data, loading, error }] = useUpdateTransmitterMutation({
+ *   variables: {
+ *      transmitter: // value for 'transmitter'
+ *   },
+ * });
+ */
+export function useUpdateTransmitterMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTransmitterMutation, UpdateTransmitterMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTransmitterMutation, UpdateTransmitterMutationVariables>(UpdateTransmitterDocument, options);
+      }
+export type UpdateTransmitterMutationHookResult = ReturnType<typeof useUpdateTransmitterMutation>;
+export type UpdateTransmitterMutationResult = Apollo.MutationResult<UpdateTransmitterMutation>;
+export type UpdateTransmitterMutationOptions = Apollo.BaseMutationOptions<UpdateTransmitterMutation, UpdateTransmitterMutationVariables>;
 export const UpdatePasswordDocument = gql`
     mutation UpdatePassword($user: UserUpdatePasswordInput) {
   UpdatePassword(user: $user)

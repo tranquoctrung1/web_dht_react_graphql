@@ -1,0 +1,3 @@
+mutation DeleteTransmitter($transmitter: DeviceTransmitterUpdateInput) {
+    DeleteTransmitter(transmitter: $transmitter)
+}

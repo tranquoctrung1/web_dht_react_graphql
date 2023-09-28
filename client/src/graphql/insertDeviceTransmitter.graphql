@@ -1,0 +1,3 @@
+mutation InsertTransmitter($transmitter: DeviceTransmitterInsertInput) {
+    InsertTransmitter(transmitter: $transmitter)
+}

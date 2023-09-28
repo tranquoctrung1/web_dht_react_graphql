@@ -57,7 +57,7 @@ const mockdata = [
         initiallyOpened: false,
         links: [
             { label: 'Đồng Hồ ', link: '/meter' },
-            { label: 'Bộ Hiển Thị', link: '/trasmitter' },
+            { label: 'Bộ Hiển Thị', link: '/transmitter' },
             { label: 'Logger', link: '/logger' },
             { label: 'Nắp Hầm', link: '/cover' },
             { label: 'Tải File Đồng Hồ', link: '/downloadFileMeter' },

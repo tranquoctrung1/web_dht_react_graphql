@@ -820,6 +820,49 @@ module.exports = gql`
         Nationality: String
     }
 
+    input DeviceTransmitterInsertInput {
+        Serial: String
+        ReceiptDate: Date
+        AccreditatedDate: Date
+        ExpiryDate: Date
+        AccreditationDocument: String
+        AccreditationType: String
+        Provider: String
+        Marks: String
+        Size: Int
+        Model: String
+        Installed: Boolean
+        InstallIndex: Float
+        Description: String
+        AppovalDate: Date
+        Approvaled: Date
+        AppovalDecision: String
+        MeterSerial: String
+        Status: String
+    }
+
+    input DeviceTransmitterUpdateInput {
+        _id: ID!
+        Serial: String
+        ReceiptDate: Date
+        AccreditatedDate: Date
+        ExpiryDate: Date
+        AccreditationDocument: String
+        AccreditationType: String
+        Provider: String
+        Marks: String
+        Size: Int
+        Model: String
+        Installed: Boolean
+        InstallIndex: Float
+        Description: String
+        AppovalDate: Date
+        Approvaled: Date
+        AppovalDecision: String
+        MeterSerial: String
+        Status: String
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -977,6 +1020,14 @@ module.exports = gql`
         GetMeterMarks: [String]
 
         GetMeterSize: [Int]
+
+        GetTransmitterProvider: [String]
+
+        GetTransmitterModel: [String]
+
+        GetTransmitterMarks: [String]
+
+        GetTransmitterSize: [Int]
     }
 
     # declare Mutation
@@ -1028,5 +1079,11 @@ module.exports = gql`
         UpdateMeter(meter: DeviceMeterUpdateInput): Int
 
         DeleteMeter(meter: DeviceMeterUpdateInput): Int
+
+        InsertTransmitter(transmitter: DeviceTransmitterInsertInput): String
+
+        UpdateTransmitter(transmitter: DeviceTransmitterUpdateInput): Int
+
+        DeleteTransmitter(transmitter: DeviceTransmitterUpdateInput): Int
     }
 `;
