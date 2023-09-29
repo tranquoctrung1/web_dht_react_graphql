@@ -1,0 +1,12 @@
+query GetAllHistorySiteTransmitter {
+    GetAllHistorySiteTransmitter {
+        DateChanged
+        NewMeterIndex
+        Description
+        NewMeterSerial
+        OldMeterIndex
+        OldMeterSerial
+        SiteId
+        _id
+    }
+}

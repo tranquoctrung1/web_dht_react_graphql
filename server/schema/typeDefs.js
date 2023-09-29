@@ -509,6 +509,17 @@ module.exports = gql`
         Description: String
     }
 
+    type HistorySiteTransmitter {
+        _id: ID!
+        DateChanged: Date
+        SiteId: String
+        OldMeterSerial: String
+        NewMeterSerial: String
+        OldMeterIndex: Float
+        NewMeterIndex: Float
+        Description: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -906,6 +917,38 @@ module.exports = gql`
         Installed: Boolean
     }
 
+    input HistorySiteTransmitterInsertInput {
+        DateChanged: Date
+        SiteId: String
+        OldMeterSerial: String
+        NewMeterSerial: String
+        OldMeterIndex: Float
+        NewMeterIndex: Float
+        Description: String
+    }
+
+    input HistorySiteTransmitterUpdateInput {
+        _id: ID!
+        DateChanged: Date
+        SiteId: String
+        OldMeterSerial: String
+        NewMeterSerial: String
+        OldMeterIndex: Float
+        NewMeterIndex: Float
+        Description: String
+    }
+
+    input SiteTransmitterDateChangeUpdateInput {
+        _id: String
+        Transmitter: String
+        DateOfTransmitterBatteryChange: Date
+    }
+
+    input DeviceTransmitterInstallUpdateInput {
+        Serial: String
+        Installed: Boolean
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -1073,6 +1116,8 @@ module.exports = gql`
         GetTransmitterSize: [Int]
 
         GetAllHistorySiteMeter: [HistorySiteMeter]
+
+        GetAllHistorySiteTransmitter: [HistorySiteTransmitter]
     }
 
     # declare Mutation
@@ -1140,5 +1185,25 @@ module.exports = gql`
         UpdateSiteMeterDateChange(site: SiteMeterDateChangeUpdateInput): Int
 
         UpdateMeterInstall(meter: DeviceMeterInstallUpdateInput): Int
+
+        InsertHistorySiteTransmitter(
+            history: HistorySiteTransmitterInsertInput
+        ): String
+
+        UpdateHistorySiteTransmitter(
+            history: HistorySiteTransmitterUpdateInput
+        ): Int
+
+        DeleteHistorySiteTransmitter(
+            history: HistorySiteTransmitterUpdateInput
+        ): Int
+
+        UpdateSiteTransmitterDateChange(
+            site: SiteTransmitterDateChangeUpdateInput
+        ): Int
+
+        UpdateTransmitterInstall(
+            transmitter: DeviceTransmitterInstallUpdateInput
+        ): Int
     }
 `;

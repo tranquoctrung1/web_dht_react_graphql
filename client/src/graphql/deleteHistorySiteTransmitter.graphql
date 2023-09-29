@@ -1,0 +1,5 @@
+mutation DeleteHistorySiteTransmitter(
+    $history: HistorySiteTransmitterUpdateInput
+) {
+    DeleteHistorySiteTransmitter(history: $history)
+}

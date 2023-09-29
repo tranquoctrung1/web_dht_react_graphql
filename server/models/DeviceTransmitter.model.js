@@ -281,3 +281,37 @@ module.exports.Update = async (transmitter) => {
     }
     return result;
 };
+
+module.exports.UpdateInstall = async (transmitter) => {
+    let result = 0;
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(DeviceTransmitterCollection);
+
+        let find = await collection
+            .find({ Serial: transmitter.Serial })
+            .toArray();
+
+        if (find.length > 0) {
+            // update channel
+            let update = await collection.updateMany(
+                {
+                    Serial: transmitter.Serial,
+                },
+                {
+                    $set: {
+                        Installed: transmitter.Installed,
+                    },
+                },
+            );
+
+            result = update.modifiedCount;
+        }
+
+        Connect.disconnect();
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
+};

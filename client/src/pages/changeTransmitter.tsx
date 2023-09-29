@@ -13,13 +13,13 @@ import { DateInput } from '@mantine/dates';
 
 import {
     useGetAllSitesLazyQuery,
-    useGetAllMeterLazyQuery,
-    useGetAllHistorySiteMeterLazyQuery,
-    useInsertHistorySiteMeterMutation,
-    useUpdateHistorySiteMeterMutation,
-    useDeleteHistorySiteMeterMutation,
-    useUpdateSiteMeterDateChangeMutation,
-    useUpdateMeterInstallMutation,
+    useGetAllTransmitterLazyQuery,
+    useGetAllHistorySiteTransmitterLazyQuery,
+    useInsertHistorySiteTransmitterMutation,
+    useUpdateHistorySiteTransmitterMutation,
+    useDeleteHistorySiteTransmitterMutation,
+    useUpdateSiteTransmitterDateChangeMutation,
+    useUpdateTransmitterInstallMutation,
 } from '../__generated__/graphql';
 
 import Swal from 'sweetalert2';
@@ -30,23 +30,28 @@ import { useEffect, useState } from 'react';
 
 import { checkAdminViewerRole } from '../utils/utils';
 
-const ChangeMeterPage = () => {
+const ChangeTransmitterPage = () => {
     const [siteData, setSiteData] = useState([]);
-    const [meterData, setMeterData] = useState([]);
-    const [listHistorySiteMeter, setListHistorySiteMeter] = useState([]);
+    const [transmitterData, setTransmitterData] = useState([]);
+    const [listHistoryTransmitter, setListHistoryTransmitter] = useState([]);
 
     const [getSite, {}] = useGetAllSitesLazyQuery();
-    const [getMeter, {}] = useGetAllMeterLazyQuery();
-    const [getHistorySiteMeter, {}] = useGetAllHistorySiteMeterLazyQuery();
+    const [getTransmitter, {}] = useGetAllTransmitterLazyQuery();
+    const [getHistorySiteTransmitter, {}] =
+        useGetAllHistorySiteTransmitterLazyQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 
-    const [insertHisotrySiteMeter, {}] = useInsertHistorySiteMeterMutation();
-    const [updateHistorySiteMeter, {}] = useUpdateHistorySiteMeterMutation();
-    const [deleteHistorySiteMeter, {}] = useDeleteHistorySiteMeterMutation();
-    const [updateSiteMeterDateChange, {}] =
-        useUpdateSiteMeterDateChangeMutation();
-    const [updateMeterInstall, {}] = useUpdateMeterInstallMutation();
+    const [insertHisotrySiteTransmitter, {}] =
+        useInsertHistorySiteTransmitterMutation();
+    const [updateHistorySiteTransmitter, {}] =
+        useUpdateHistorySiteTransmitterMutation();
+    const [deleteHistorySiteTransmitter, {}] =
+        useDeleteHistorySiteTransmitterMutation();
+    const [updateSiteTransmitterDateChange, {}] =
+        useUpdateSiteTransmitterDateChangeMutation();
+    const [updateTransmitterInstall, {}] =
+        useUpdateTransmitterInstallMutation();
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
@@ -72,14 +77,14 @@ const ChangeMeterPage = () => {
             }
         });
 
-        getMeter().then((res) => {
+        getTransmitter().then((res) => {
             if (
-                res?.data?.GetAllMeter !== null &&
-                res?.data?.GetAllMeter !== undefined
+                res?.data?.GetAllTransmitter !== null &&
+                res?.data?.GetAllTransmitter !== undefined
             ) {
                 const temp = [];
 
-                for (const item of res.data?.GetAllMeter) {
+                for (const item of res.data?.GetAllTransmitter) {
                     const obj = {
                         value: item?.Serial,
                         label: item?.Serial,
@@ -89,17 +94,19 @@ const ChangeMeterPage = () => {
                 }
 
                 //@ts-ignore
-                setMeterData([...temp]);
+                setTransmitterData([...temp]);
             }
         });
 
-        getHistorySiteMeter().then((res) => {
+        getHistorySiteTransmitter().then((res) => {
             if (
-                res?.data?.GetAllHistorySiteMeter !== null &&
-                res?.data?.GetAllHistorySiteMeter !== undefined
+                res?.data?.GetAllHistorySiteTransmitter !== null &&
+                res?.data?.GetAllHistorySiteTransmitter !== undefined
             ) {
                 //@ts-ignore
-                setListHistorySiteMeter([...res.data.GetAllHistorySiteMeter]);
+                setListHistoryTransmitter([
+                    ...res.data.GetAllHistorySiteTransmitter,
+                ]);
             }
         });
     }, []);
@@ -119,7 +126,7 @@ const ChangeMeterPage = () => {
 
     const onSiteChanged = (e: any) => {
         //@ts-ignore
-        const find = listHistorySiteMeter.find(
+        const find = listHistoryTransmitter.find(
             //@ts-ignore
             (el) => el.SiteId === e,
         );
@@ -153,7 +160,7 @@ const ChangeMeterPage = () => {
         }
     };
 
-    const onCreateObjHistorySiteMeterInsert = () => {
+    const onCreateObjHistorySiteTransmitterInsert = () => {
         const formValue = getValues();
 
         const obj = {
@@ -169,7 +176,7 @@ const ChangeMeterPage = () => {
         return obj;
     };
 
-    const onCreateObjHistorySiteMeterUpdate = () => {
+    const onCreateObjHistorySiteTransmitterUpdate = () => {
         const formValue = getValues();
 
         const obj = {
@@ -186,7 +193,7 @@ const ChangeMeterPage = () => {
         return obj;
     };
 
-    const createObjNewMeterIntall = () => {
+    const createObjNewTransmitterIntall = () => {
         const formValue = getValues();
 
         const obj = {
@@ -197,7 +204,7 @@ const ChangeMeterPage = () => {
         return obj;
     };
 
-    const createObjOldMeterInstall = () => {
+    const createObjOldTransmitterInstall = () => {
         const formValue = getValues();
 
         const obj = {
@@ -208,19 +215,19 @@ const ChangeMeterPage = () => {
         return obj;
     };
 
-    const createObjSiteMeterDateChange = () => {
+    const createObjSiteTransmitterDateChange = () => {
         const formValue = getValues();
 
         const obj = {
             _id: formValue.SiteId,
-            Meter: formValue.NewMeterSerial,
-            DateOfMeterChange: formValue.DateChanged,
+            Transmitter: formValue.NewMeterSerial,
+            DateOfTransmitterBatteryChange: formValue.DateChanged,
         };
 
         return obj;
     };
 
-    const updateMeterInstallAction = () => {
+    const updateTransmitterInstallAction = () => {
         const formValue = getValues();
         let isAllow = true;
         let isAllow2 = true;
@@ -234,18 +241,18 @@ const ChangeMeterPage = () => {
         }
 
         if (isAllow == true) {
-            updateMeterInstall({
+            updateTransmitterInstall({
                 variables: {
                     //@ts-ignore
-                    meter: createObjOldMeterInstall(),
+                    transmitter: createObjOldTransmitterInstall(),
                 },
             })
                 .then((res) => {
                     if (
-                        res?.data?.UpdateMeterInstall !== null &&
-                        res?.data?.UpdateMeterInstall !== undefined
+                        res?.data?.UpdateTransmitterInstall !== null &&
+                        res?.data?.UpdateTransmitterInstall !== undefined
                     ) {
-                        if (res.data.UpdateMeterInstall > 0) {
+                        if (res.data?.UpdateTransmitterInstall > 0) {
                             console.log('success');
                         } else {
                             console.log('failed');
@@ -266,18 +273,18 @@ const ChangeMeterPage = () => {
         }
 
         if (isAllow2 == true) {
-            updateMeterInstall({
+            updateTransmitterInstall({
                 variables: {
                     //@ts-ignore
-                    meter: createObjNewMeterIntall(),
+                    transmitter: createObjNewTransmitterIntall(),
                 },
             })
                 .then((res) => {
                     if (
-                        res?.data?.UpdateMeterInstall !== null &&
-                        res?.data?.UpdateMeterInstall !== undefined
+                        res?.data?.UpdateTransmitterInstall !== null &&
+                        res?.data?.UpdateTransmitterInstall !== undefined
                     ) {
-                        if (res.data.UpdateMeterInstall > 0) {
+                        if (res.data?.UpdateTransmitterInstall > 0) {
                             console.log('success');
                         } else {
                             console.log('failed');
@@ -290,7 +297,7 @@ const ChangeMeterPage = () => {
         }
     };
 
-    const updateSiteMeterDateChangeAction = () => {
+    const updateSiteTransmitterDateChangeAction = () => {
         const formValue = getValues();
         let isAllow = true;
 
@@ -302,17 +309,17 @@ const ChangeMeterPage = () => {
             isAllow = false;
         }
         if (isAllow == true) {
-            updateSiteMeterDateChange({
+            updateSiteTransmitterDateChange({
                 variables: {
-                    site: createObjSiteMeterDateChange(),
+                    site: createObjSiteTransmitterDateChange(),
                 },
             })
                 .then((res) => {
                     if (
-                        res?.data?.UpdateSiteMeterDateChange !== null &&
-                        res?.data?.UpdateSiteMeterDateChange !== undefined
+                        res?.data?.UpdateSiteTransmitterDateChange !== null &&
+                        res?.data?.UpdateSiteTransmitterDateChange !== undefined
                     ) {
-                        if (res.data?.UpdateSiteMeterDateChange > 0) {
+                        if (res.data?.UpdateSiteTransmitterDateChange > 0) {
                             console.log('success');
                         } else {
                             console.log('failed');
@@ -323,9 +330,9 @@ const ChangeMeterPage = () => {
         }
     };
 
-    const handelInsertHistorySiteMeter = (history: any) => {
+    const handelInsertHistorySiteTransmitter = (history: any) => {
         //@ts-ignore
-        setListHistorySiteMeter((current) => [...current, history]);
+        setListHistoryTransmitter((current) => [...current, history]);
     };
 
     const onInsertClicked = () => {
@@ -347,35 +354,35 @@ const ChangeMeterPage = () => {
         }
 
         if (isAllow == true) {
-            insertHisotrySiteMeter({
+            insertHisotrySiteTransmitter({
                 variables: {
-                    history: onCreateObjHistorySiteMeterInsert(),
+                    history: onCreateObjHistorySiteTransmitterInsert(),
                 },
             })
                 .then((res) => {
                     if (
-                        res?.data?.InsertHistorySiteMeter !== null &&
-                        res?.data?.InsertHistorySiteMeter !== undefined
+                        res?.data?.InsertHistorySiteTransmitter !== null &&
+                        res?.data?.InsertHistorySiteTransmitter !== undefined
                     ) {
-                        if (res.data.InsertHistorySiteMeter !== '') {
+                        if (res.data?.InsertHistorySiteTransmitter !== '') {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Successfull',
-                                text: 'Thêm lịch sử thay đồng hồ thành công',
+                                text: 'Thêm lịch sử thay bộ hiển thị thành công',
                             });
 
-                            updateMeterInstallAction();
+                            updateTransmitterInstallAction();
 
-                            updateSiteMeterDateChangeAction();
+                            updateSiteTransmitterDateChangeAction();
 
-                            handelInsertHistorySiteMeter(
-                                onCreateObjHistorySiteMeterUpdate(),
+                            handelInsertHistorySiteTransmitter(
+                                onCreateObjHistorySiteTransmitterUpdate(),
                             );
                         } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Thêm lịch sử thay đồng hồ không thành công',
+                                text: 'Thêm lịch sử thay bộ hiển thị không thành công',
                             });
                         }
                     }
@@ -384,17 +391,17 @@ const ChangeMeterPage = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Thêm lịch sử thay đồng hồ không thành công',
+                        text: 'Thêm lịch sử thay bộ hiển thị không thành công',
                     });
                     console.log(err);
                 });
         }
     };
 
-    const handleUpdateHistorySiteMeter = (history: any) => {
+    const handleUpdateHistorySiteTransmitter = (history: any) => {
         const temp = [];
 
-        for (const item of listHistorySiteMeter) {
+        for (const item of listHistoryTransmitter) {
             //@ts-ignore
             if (item._id !== history._id) {
                 temp.push(item);
@@ -404,7 +411,7 @@ const ChangeMeterPage = () => {
         }
 
         //@ts-ignore
-        setListHistorySiteMeter([...temp]);
+        setListHistoryTransmitter([...temp]);
     };
 
     const onUpdateClicked = () => {
@@ -426,35 +433,35 @@ const ChangeMeterPage = () => {
         }
 
         if (isAllow == true) {
-            const obj = onCreateObjHistorySiteMeterUpdate();
+            const obj = onCreateObjHistorySiteTransmitterUpdate();
 
-            updateHistorySiteMeter({
+            updateHistorySiteTransmitter({
                 variables: {
                     history: obj,
                 },
             })
                 .then((res) => {
                     if (
-                        res?.data?.UpdateHistorySiteMeter !== null &&
-                        res?.data?.UpdateHistorySiteMeter !== undefined
+                        res?.data?.UpdateHistorySiteTransmitter !== null &&
+                        res?.data?.UpdateHistorySiteTransmitter !== undefined
                     ) {
-                        if (res.data?.UpdateHistorySiteMeter > 0) {
+                        if (res.data?.UpdateHistorySiteTransmitter > 0) {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Successfull',
-                                text: 'Cập nhật lịch sử thay đồng hồ thành công',
+                                text: 'Cập nhật lịch sử thay bộ hiển thị thành công',
                             });
 
-                            updateMeterInstallAction();
+                            updateTransmitterInstallAction();
 
-                            updateSiteMeterDateChangeAction();
+                            updateSiteTransmitterDateChangeAction();
 
-                            handleUpdateHistorySiteMeter(obj);
+                            handleUpdateHistorySiteTransmitter(obj);
                         } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Cập nhật lịch sử thay đồng hồ không thành công',
+                                text: 'Cập nhật lịch sử thay bộ hiển thị không thành công',
                             });
                         }
                     }
@@ -463,18 +470,18 @@ const ChangeMeterPage = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Cập nhật lịch sử thay đồng hồ không thành công',
+                        text: 'Cập nhật lịch sử thay bộ hiển thị không thành công',
                     });
                     console.log(err);
                 });
         }
     };
 
-    const handleDeleteHistorySiteMeter = (history: any) => {
+    const handleDeleteHistorySiteTransmitter = (history: any) => {
         //@ts-ignore
         const temp = [];
 
-        for (const item of listHistorySiteMeter) {
+        for (const item of listHistoryTransmitter) {
             //@ts-ignore
             if (item._id !== history._id) {
                 temp.push(item);
@@ -482,7 +489,7 @@ const ChangeMeterPage = () => {
         }
 
         //@ts-ignore
-        setListHistorySiteMeter([...temp]);
+        setListHistoryTransmitter([...temp]);
     };
 
     const onDeleteClicked = () => {
@@ -515,33 +522,37 @@ const ChangeMeterPage = () => {
                 }
 
                 if (isAllow == true) {
-                    const obj = onCreateObjHistorySiteMeterUpdate();
+                    const obj = onCreateObjHistorySiteTransmitterUpdate();
 
-                    deleteHistorySiteMeter({
+                    deleteHistorySiteTransmitter({
                         variables: {
                             history: obj,
                         },
                     })
                         .then((res) => {
                             if (
-                                res?.data?.DeleteHistorySiteMeter !== null &&
-                                res?.data?.DeleteHistorySiteMeter !== undefined
+                                res?.data?.DeleteHistorySiteTransmitter !==
+                                    null &&
+                                res?.data?.DeleteHistorySiteTransmitter !==
+                                    undefined
                             ) {
-                                if (res.data?.DeleteHistorySiteMeter > 0) {
+                                if (
+                                    res.data?.DeleteHistorySiteTransmitter > 0
+                                ) {
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'Successfull',
-                                        text: 'Xóa lịch sử thay đồng hồ thành công',
+                                        text: 'Xóa lịch sử thay bộ hiển thị thành công',
                                     });
 
                                     reset();
 
-                                    handleDeleteHistorySiteMeter(obj);
+                                    handleDeleteHistorySiteTransmitter(obj);
                                 } else {
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Oops...',
-                                        text: 'Xóa lịch sử thay đồng hồ không thành công',
+                                        text: 'Xóa lịch sử thay bộ hiển thị không thành công',
                                     });
                                 }
                             }
@@ -550,7 +561,7 @@ const ChangeMeterPage = () => {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Xóa lịch sử thay đồng hồ không thành công',
+                                text: 'Xóa lịch sử thay bộ hiển thị không thành công',
                             });
                             console.log(err);
                         });
@@ -597,7 +608,7 @@ const ChangeMeterPage = () => {
                 ></Controller>
             </Col>
             <Col md={4}>
-                {meterData !== undefined ? (
+                {transmitterData !== undefined ? (
                     <Controller
                         name="OldMeterSerial"
                         control={control}
@@ -608,7 +619,7 @@ const ChangeMeterPage = () => {
                                 searchable
                                 nothingFound="Không tìm thấy serial củ"
                                 //@ts-ignore
-                                data={meterData}
+                                data={transmitterData}
                                 {...field}
                             />
                         )}
@@ -616,7 +627,7 @@ const ChangeMeterPage = () => {
                 ) : null}
             </Col>
             <Col md={4}>
-                {meterData !== undefined ? (
+                {transmitterData !== undefined ? (
                     <Controller
                         name="NewMeterSerial"
                         control={control}
@@ -627,7 +638,7 @@ const ChangeMeterPage = () => {
                                 searchable
                                 nothingFound="Không tìm thấy serial mới"
                                 //@ts-ignore
-                                data={meterData}
+                                data={transmitterData}
                                 {...field}
                             />
                         )}
@@ -708,4 +719,4 @@ const ChangeMeterPage = () => {
     );
 };
 
-export default ChangeMeterPage;
+export default ChangeTransmitterPage;

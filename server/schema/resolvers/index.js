@@ -33,6 +33,7 @@ const Login = require('./Login.resolver');
 const SiteFile = require('./SiteFile.resolver');
 const DeviceStatus = require('./DeviceStatus.resolver');
 const HistorySiteMeter = require('./HistorySiteMeterChange.resolver');
+const HistorySiteTransmitter = require('./HistorySiteTransmitterChange.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -72,6 +73,7 @@ module.exports = {
         ...Login.Query,
         ...DeviceStatus.Query,
         ...HistorySiteMeter.Query,
+        ...HistorySiteTransmitter.Query,
     },
 
     Mutation: {
@@ -85,6 +87,7 @@ module.exports = {
         ...DeviceMeter.Mutation,
         ...DeviceTransmitter.Mutation,
         ...HistorySiteMeter.Mutation,
+        ...HistorySiteTransmitter.Mutation,
     },
 
     SiteAndChannel: {

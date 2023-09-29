@@ -1,0 +1,5 @@
+mutation UpdateTransmitterInstall(
+    $transmitter: DeviceTransmitterInstallUpdateInput
+) {
+    UpdateTransmitterInstall(transmitter: $transmitter)
+}

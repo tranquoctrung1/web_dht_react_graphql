@@ -22,6 +22,7 @@ import LoggerPage from './pages/logger';
 import MeterPage from './pages/meter';
 import TransmitterPage from './pages/transmiiter';
 import ChangeMeterPage from './pages/changeMeter';
+import ChangeTransmitterPage from './pages/changeTransmitter';
 
 function App() {
     const router = createBrowserRouter([
@@ -92,6 +93,10 @@ function App() {
                 {
                     path: '/meterChanged',
                     element: <ChangeMeterPage />,
+                },
+                {
+                    path: '/transmitterChanged',
+                    element: <ChangeTransmitterPage />,
                 },
             ],
         },

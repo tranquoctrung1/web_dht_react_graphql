@@ -1,0 +1,5 @@
+mutation InsertHistorySiteTransmitter(
+    $history: HistorySiteTransmitterInsertInput
+) {
+    InsertHistorySiteTransmitter(history: $history)
+}

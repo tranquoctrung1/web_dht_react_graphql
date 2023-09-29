@@ -586,3 +586,39 @@ module.exports.UpdateMeterDateChange = async (site) => {
     }
     return result;
 };
+
+module.exports.UpdateTransmitterDateChange = async (site) => {
+    let result = 0;
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(SiteSiteCollection);
+
+        let find = await collection.find({ _id: site._id }).toArray();
+
+        if (find.length > 0) {
+            // update channel
+            let update = await collection.updateMany(
+                {
+                    _id: site._id,
+                },
+                {
+                    $set: {
+                        Transmitter: site.Transmitter,
+                        DateOfTransmitterBatteryChange:
+                            site.DateOfTransmitterBatteryChange === ''
+                                ? null
+                                : new Date(site.DateOfTransmitterBatteryChange),
+                    },
+                },
+            );
+
+            result = update.modifiedCount;
+        }
+
+        Connect.disconnect();
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
+};

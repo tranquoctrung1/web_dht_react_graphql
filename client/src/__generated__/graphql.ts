@@ -210,7 +210,7 @@ export type DeviceMeterInsertInput = {
 
 export type DeviceMeterInstallUpdateInput = {
   Installed?: InputMaybe<Scalars['Boolean']>;
-  _id: Scalars['ID'];
+  Serial?: InputMaybe<Scalars['String']>;
 };
 
 export type DeviceMeterUpdateInput = {
@@ -331,6 +331,11 @@ export type DeviceTransmitterInsertInput = {
   Status?: InputMaybe<Scalars['String']>;
 };
 
+export type DeviceTransmitterInstallUpdateInput = {
+  Installed?: InputMaybe<Scalars['Boolean']>;
+  Serial?: InputMaybe<Scalars['String']>;
+};
+
 export type DeviceTransmitterUpdateInput = {
   AccreditatedDate?: InputMaybe<Scalars['Date']>;
   AccreditationDocument?: InputMaybe<Scalars['String']>;
@@ -376,6 +381,39 @@ export type HistorySiteMeterInsertInput = {
 };
 
 export type HistorySiteMeterUpdateInput = {
+  DateChanged?: InputMaybe<Scalars['Date']>;
+  Description?: InputMaybe<Scalars['String']>;
+  NewMeterIndex?: InputMaybe<Scalars['Float']>;
+  NewMeterSerial?: InputMaybe<Scalars['String']>;
+  OldMeterIndex?: InputMaybe<Scalars['Float']>;
+  OldMeterSerial?: InputMaybe<Scalars['String']>;
+  SiteId?: InputMaybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type HistorySiteTransmitter = {
+  __typename?: 'HistorySiteTransmitter';
+  DateChanged?: Maybe<Scalars['Date']>;
+  Description?: Maybe<Scalars['String']>;
+  NewMeterIndex?: Maybe<Scalars['Float']>;
+  NewMeterSerial?: Maybe<Scalars['String']>;
+  OldMeterIndex?: Maybe<Scalars['Float']>;
+  OldMeterSerial?: Maybe<Scalars['String']>;
+  SiteId?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type HistorySiteTransmitterInsertInput = {
+  DateChanged?: InputMaybe<Scalars['Date']>;
+  Description?: InputMaybe<Scalars['String']>;
+  NewMeterIndex?: InputMaybe<Scalars['Float']>;
+  NewMeterSerial?: InputMaybe<Scalars['String']>;
+  OldMeterIndex?: InputMaybe<Scalars['Float']>;
+  OldMeterSerial?: InputMaybe<Scalars['String']>;
+  SiteId?: InputMaybe<Scalars['String']>;
+};
+
+export type HistorySiteTransmitterUpdateInput = {
   DateChanged?: InputMaybe<Scalars['Date']>;
   Description?: InputMaybe<Scalars['String']>;
   NewMeterIndex?: InputMaybe<Scalars['Float']>;
@@ -468,6 +506,7 @@ export type Mutation = {
   DeleteDeviceChannelConifg?: Maybe<Scalars['Int']>;
   DeleteDeviceSiteConfig?: Maybe<Scalars['Int']>;
   DeleteHistorySiteMeter?: Maybe<Scalars['Int']>;
+  DeleteHistorySiteTransmitter?: Maybe<Scalars['Int']>;
   DeleteLogger?: Maybe<Scalars['Int']>;
   DeleteMeter?: Maybe<Scalars['Int']>;
   DeletePrecious?: Maybe<RowModified>;
@@ -477,6 +516,7 @@ export type Mutation = {
   InsertDataManual?: Maybe<Scalars['String']>;
   InsertDeviceSiteConfig?: Maybe<Scalars['String']>;
   InsertHistorySiteMeter?: Maybe<Scalars['String']>;
+  InsertHistorySiteTransmitter?: Maybe<Scalars['String']>;
   InsertLogger?: Maybe<Scalars['String']>;
   InsertMeter?: Maybe<Scalars['String']>;
   InsertPrecious?: Maybe<IdOutput>;
@@ -487,6 +527,7 @@ export type Mutation = {
   UpdateDeviceChannelConfig?: Maybe<Scalars['String']>;
   UpdateDeviceSiteConfig?: Maybe<Scalars['String']>;
   UpdateHistorySiteMeter?: Maybe<Scalars['Int']>;
+  UpdateHistorySiteTransmitter?: Maybe<Scalars['Int']>;
   UpdateLogger?: Maybe<Scalars['Int']>;
   UpdateMeter?: Maybe<Scalars['Int']>;
   UpdateMeterInstall?: Maybe<Scalars['Int']>;
@@ -494,7 +535,9 @@ export type Mutation = {
   UpdatePrecious?: Maybe<IdOutput>;
   UpdateSite?: Maybe<Scalars['String']>;
   UpdateSiteMeterDateChange?: Maybe<Scalars['Int']>;
+  UpdateSiteTransmitterDateChange?: Maybe<Scalars['Int']>;
   UpdateTransmitter?: Maybe<Scalars['Int']>;
+  UpdateTransmitterInstall?: Maybe<Scalars['Int']>;
   UpdateUser?: Maybe<Scalars['Int']>;
 };
 
@@ -516,6 +559,11 @@ export type MutationDeleteDeviceSiteConfigArgs = {
 
 export type MutationDeleteHistorySiteMeterArgs = {
   history?: InputMaybe<HistorySiteMeterUpdateInput>;
+};
+
+
+export type MutationDeleteHistorySiteTransmitterArgs = {
+  history?: InputMaybe<HistorySiteTransmitterUpdateInput>;
 };
 
 
@@ -561,6 +609,11 @@ export type MutationInsertDeviceSiteConfigArgs = {
 
 export type MutationInsertHistorySiteMeterArgs = {
   history?: InputMaybe<HistorySiteMeterInsertInput>;
+};
+
+
+export type MutationInsertHistorySiteTransmitterArgs = {
+  history?: InputMaybe<HistorySiteTransmitterInsertInput>;
 };
 
 
@@ -614,6 +667,11 @@ export type MutationUpdateHistorySiteMeterArgs = {
 };
 
 
+export type MutationUpdateHistorySiteTransmitterArgs = {
+  history?: InputMaybe<HistorySiteTransmitterUpdateInput>;
+};
+
+
 export type MutationUpdateLoggerArgs = {
   logger?: InputMaybe<DeviceLoggerUpdateInput>;
 };
@@ -649,8 +707,18 @@ export type MutationUpdateSiteMeterDateChangeArgs = {
 };
 
 
+export type MutationUpdateSiteTransmitterDateChangeArgs = {
+  site?: InputMaybe<SiteTransmitterDateChangeUpdateInput>;
+};
+
+
 export type MutationUpdateTransmitterArgs = {
   transmitter?: InputMaybe<DeviceTransmitterUpdateInput>;
+};
+
+
+export type MutationUpdateTransmitterInstallArgs = {
+  transmitter?: InputMaybe<DeviceTransmitterInstallUpdateInput>;
 };
 
 
@@ -829,6 +897,7 @@ export type Query = {
   GetAllGroup4?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllGroup5?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllHistorySiteMeter?: Maybe<Array<Maybe<HistorySiteMeter>>>;
+  GetAllHistorySiteTransmitter?: Maybe<Array<Maybe<HistorySiteTransmitter>>>;
   GetAllLevel?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllLogger?: Maybe<Array<Maybe<DeviceLogger>>>;
   GetAllLoggerNotInstall?: Maybe<Array<Maybe<DeviceLogger>>>;
@@ -1165,6 +1234,7 @@ export type SiteLevel = {
 
 export type SiteMeterDateChangeUpdateInput = {
   DateOfMeterChange?: InputMaybe<Scalars['Date']>;
+  Meter?: InputMaybe<Scalars['String']>;
   _id?: InputMaybe<Scalars['String']>;
 };
 
@@ -1180,6 +1250,12 @@ export type SiteStatus = {
   Description?: Maybe<Scalars['String']>;
   Status?: Maybe<Scalars['String']>;
   _id: Scalars['ID'];
+};
+
+export type SiteTransmitterDateChangeUpdateInput = {
+  DateOfTransmitterBatteryChange?: InputMaybe<Scalars['Date']>;
+  Transmitter?: InputMaybe<Scalars['String']>;
+  _id?: InputMaybe<Scalars['String']>;
 };
 
 export type StatisticSiteXnManager = {
@@ -1379,6 +1455,13 @@ export type DeleteHistorySiteMeterMutationVariables = Exact<{
 
 export type DeleteHistorySiteMeterMutation = { __typename?: 'Mutation', DeleteHistorySiteMeter?: number | null };
 
+export type DeleteHistorySiteTransmitterMutationVariables = Exact<{
+  history?: InputMaybe<HistorySiteTransmitterUpdateInput>;
+}>;
+
+
+export type DeleteHistorySiteTransmitterMutation = { __typename?: 'Mutation', DeleteHistorySiteTransmitter?: number | null };
+
 export type DeletePreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousUpdateInput>;
 }>;
@@ -1424,6 +1507,11 @@ export type GetAllHistorySiteMeterQueryVariables = Exact<{ [key: string]: never;
 
 
 export type GetAllHistorySiteMeterQuery = { __typename?: 'Query', GetAllHistorySiteMeter?: Array<{ __typename?: 'HistorySiteMeter', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
+
+export type GetAllHistorySiteTransmitterQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllHistorySiteTransmitterQuery = { __typename?: 'Query', GetAllHistorySiteTransmitter?: Array<{ __typename?: 'HistorySiteTransmitter', DateChanged?: any | null, NewMeterIndex?: number | null, Description?: string | null, NewMeterSerial?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
 
 export type GetAllLoggerQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1715,6 +1803,13 @@ export type InsertHistorySiteMeterMutationVariables = Exact<{
 
 export type InsertHistorySiteMeterMutation = { __typename?: 'Mutation', InsertHistorySiteMeter?: string | null };
 
+export type InsertHistorySiteTransmitterMutationVariables = Exact<{
+  history?: InputMaybe<HistorySiteTransmitterInsertInput>;
+}>;
+
+
+export type InsertHistorySiteTransmitterMutation = { __typename?: 'Mutation', InsertHistorySiteTransmitter?: string | null };
+
 export type InsertPreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousInput>;
 }>;
@@ -1832,6 +1927,13 @@ export type UpdateHistorySiteMeterMutationVariables = Exact<{
 
 export type UpdateHistorySiteMeterMutation = { __typename?: 'Mutation', UpdateHistorySiteMeter?: number | null };
 
+export type UpdateHistorySiteTransmitterMutationVariables = Exact<{
+  history?: InputMaybe<HistorySiteTransmitterUpdateInput>;
+}>;
+
+
+export type UpdateHistorySiteTransmitterMutation = { __typename?: 'Mutation', UpdateHistorySiteTransmitter?: number | null };
+
 export type UpdateMeterInstallMutationVariables = Exact<{
   meter?: InputMaybe<DeviceMeterInstallUpdateInput>;
 }>;
@@ -1866,6 +1968,20 @@ export type UpdateSiteMeterDateChangeMutationVariables = Exact<{
 
 
 export type UpdateSiteMeterDateChangeMutation = { __typename?: 'Mutation', UpdateSiteMeterDateChange?: number | null };
+
+export type UpdateSiteTransmitterDateChangeMutationVariables = Exact<{
+  site?: InputMaybe<SiteTransmitterDateChangeUpdateInput>;
+}>;
+
+
+export type UpdateSiteTransmitterDateChangeMutation = { __typename?: 'Mutation', UpdateSiteTransmitterDateChange?: number | null };
+
+export type UpdateTransmitterInstallMutationVariables = Exact<{
+  transmitter?: InputMaybe<DeviceTransmitterInstallUpdateInput>;
+}>;
+
+
+export type UpdateTransmitterInstallMutation = { __typename?: 'Mutation', UpdateTransmitterInstall?: number | null };
 
 export type UpdateUserMutationVariables = Exact<{
   user?: InputMaybe<UserUpdateInput>;
@@ -2181,6 +2297,37 @@ export function useDeleteHistorySiteMeterMutation(baseOptions?: Apollo.MutationH
 export type DeleteHistorySiteMeterMutationHookResult = ReturnType<typeof useDeleteHistorySiteMeterMutation>;
 export type DeleteHistorySiteMeterMutationResult = Apollo.MutationResult<DeleteHistorySiteMeterMutation>;
 export type DeleteHistorySiteMeterMutationOptions = Apollo.BaseMutationOptions<DeleteHistorySiteMeterMutation, DeleteHistorySiteMeterMutationVariables>;
+export const DeleteHistorySiteTransmitterDocument = gql`
+    mutation DeleteHistorySiteTransmitter($history: HistorySiteTransmitterUpdateInput) {
+  DeleteHistorySiteTransmitter(history: $history)
+}
+    `;
+export type DeleteHistorySiteTransmitterMutationFn = Apollo.MutationFunction<DeleteHistorySiteTransmitterMutation, DeleteHistorySiteTransmitterMutationVariables>;
+
+/**
+ * __useDeleteHistorySiteTransmitterMutation__
+ *
+ * To run a mutation, you first call `useDeleteHistorySiteTransmitterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteHistorySiteTransmitterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteHistorySiteTransmitterMutation, { data, loading, error }] = useDeleteHistorySiteTransmitterMutation({
+ *   variables: {
+ *      history: // value for 'history'
+ *   },
+ * });
+ */
+export function useDeleteHistorySiteTransmitterMutation(baseOptions?: Apollo.MutationHookOptions<DeleteHistorySiteTransmitterMutation, DeleteHistorySiteTransmitterMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteHistorySiteTransmitterMutation, DeleteHistorySiteTransmitterMutationVariables>(DeleteHistorySiteTransmitterDocument, options);
+      }
+export type DeleteHistorySiteTransmitterMutationHookResult = ReturnType<typeof useDeleteHistorySiteTransmitterMutation>;
+export type DeleteHistorySiteTransmitterMutationResult = Apollo.MutationResult<DeleteHistorySiteTransmitterMutation>;
+export type DeleteHistorySiteTransmitterMutationOptions = Apollo.BaseMutationOptions<DeleteHistorySiteTransmitterMutation, DeleteHistorySiteTransmitterMutationVariables>;
 export const DeletePreciousDocument = gql`
     mutation DeletePrecious($precious: PreciousUpdateInput) {
   DeletePrecious(precious: $precious) {
@@ -2495,6 +2642,50 @@ export type GetAllHistorySiteMeterLazyQueryHookResult = ReturnType<typeof useGet
 export type GetAllHistorySiteMeterQueryResult = Apollo.QueryResult<GetAllHistorySiteMeterQuery, GetAllHistorySiteMeterQueryVariables>;
 export function refetchGetAllHistorySiteMeterQuery(variables?: GetAllHistorySiteMeterQueryVariables) {
       return { query: GetAllHistorySiteMeterDocument, variables: variables }
+    }
+export const GetAllHistorySiteTransmitterDocument = gql`
+    query GetAllHistorySiteTransmitter {
+  GetAllHistorySiteTransmitter {
+    DateChanged
+    NewMeterIndex
+    Description
+    NewMeterSerial
+    OldMeterIndex
+    OldMeterSerial
+    SiteId
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllHistorySiteTransmitterQuery__
+ *
+ * To run a query within a React component, call `useGetAllHistorySiteTransmitterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllHistorySiteTransmitterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllHistorySiteTransmitterQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllHistorySiteTransmitterQuery(baseOptions?: Apollo.QueryHookOptions<GetAllHistorySiteTransmitterQuery, GetAllHistorySiteTransmitterQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllHistorySiteTransmitterQuery, GetAllHistorySiteTransmitterQueryVariables>(GetAllHistorySiteTransmitterDocument, options);
+      }
+export function useGetAllHistorySiteTransmitterLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllHistorySiteTransmitterQuery, GetAllHistorySiteTransmitterQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllHistorySiteTransmitterQuery, GetAllHistorySiteTransmitterQueryVariables>(GetAllHistorySiteTransmitterDocument, options);
+        }
+export type GetAllHistorySiteTransmitterQueryHookResult = ReturnType<typeof useGetAllHistorySiteTransmitterQuery>;
+export type GetAllHistorySiteTransmitterLazyQueryHookResult = ReturnType<typeof useGetAllHistorySiteTransmitterLazyQuery>;
+export type GetAllHistorySiteTransmitterQueryResult = Apollo.QueryResult<GetAllHistorySiteTransmitterQuery, GetAllHistorySiteTransmitterQueryVariables>;
+export function refetchGetAllHistorySiteTransmitterQuery(variables?: GetAllHistorySiteTransmitterQueryVariables) {
+      return { query: GetAllHistorySiteTransmitterDocument, variables: variables }
     }
 export const GetAllLoggerDocument = gql`
     query GetAllLogger {
@@ -4740,6 +4931,37 @@ export function useInsertHistorySiteMeterMutation(baseOptions?: Apollo.MutationH
 export type InsertHistorySiteMeterMutationHookResult = ReturnType<typeof useInsertHistorySiteMeterMutation>;
 export type InsertHistorySiteMeterMutationResult = Apollo.MutationResult<InsertHistorySiteMeterMutation>;
 export type InsertHistorySiteMeterMutationOptions = Apollo.BaseMutationOptions<InsertHistorySiteMeterMutation, InsertHistorySiteMeterMutationVariables>;
+export const InsertHistorySiteTransmitterDocument = gql`
+    mutation InsertHistorySiteTransmitter($history: HistorySiteTransmitterInsertInput) {
+  InsertHistorySiteTransmitter(history: $history)
+}
+    `;
+export type InsertHistorySiteTransmitterMutationFn = Apollo.MutationFunction<InsertHistorySiteTransmitterMutation, InsertHistorySiteTransmitterMutationVariables>;
+
+/**
+ * __useInsertHistorySiteTransmitterMutation__
+ *
+ * To run a mutation, you first call `useInsertHistorySiteTransmitterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertHistorySiteTransmitterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertHistorySiteTransmitterMutation, { data, loading, error }] = useInsertHistorySiteTransmitterMutation({
+ *   variables: {
+ *      history: // value for 'history'
+ *   },
+ * });
+ */
+export function useInsertHistorySiteTransmitterMutation(baseOptions?: Apollo.MutationHookOptions<InsertHistorySiteTransmitterMutation, InsertHistorySiteTransmitterMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertHistorySiteTransmitterMutation, InsertHistorySiteTransmitterMutationVariables>(InsertHistorySiteTransmitterDocument, options);
+      }
+export type InsertHistorySiteTransmitterMutationHookResult = ReturnType<typeof useInsertHistorySiteTransmitterMutation>;
+export type InsertHistorySiteTransmitterMutationResult = Apollo.MutationResult<InsertHistorySiteTransmitterMutation>;
+export type InsertHistorySiteTransmitterMutationOptions = Apollo.BaseMutationOptions<InsertHistorySiteTransmitterMutation, InsertHistorySiteTransmitterMutationVariables>;
 export const InsertPreciousDocument = gql`
     mutation InsertPrecious($precious: PreciousInput) {
   InsertPrecious(precious: $precious) {
@@ -5323,6 +5545,37 @@ export function useUpdateHistorySiteMeterMutation(baseOptions?: Apollo.MutationH
 export type UpdateHistorySiteMeterMutationHookResult = ReturnType<typeof useUpdateHistorySiteMeterMutation>;
 export type UpdateHistorySiteMeterMutationResult = Apollo.MutationResult<UpdateHistorySiteMeterMutation>;
 export type UpdateHistorySiteMeterMutationOptions = Apollo.BaseMutationOptions<UpdateHistorySiteMeterMutation, UpdateHistorySiteMeterMutationVariables>;
+export const UpdateHistorySiteTransmitterDocument = gql`
+    mutation UpdateHistorySiteTransmitter($history: HistorySiteTransmitterUpdateInput) {
+  UpdateHistorySiteTransmitter(history: $history)
+}
+    `;
+export type UpdateHistorySiteTransmitterMutationFn = Apollo.MutationFunction<UpdateHistorySiteTransmitterMutation, UpdateHistorySiteTransmitterMutationVariables>;
+
+/**
+ * __useUpdateHistorySiteTransmitterMutation__
+ *
+ * To run a mutation, you first call `useUpdateHistorySiteTransmitterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateHistorySiteTransmitterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateHistorySiteTransmitterMutation, { data, loading, error }] = useUpdateHistorySiteTransmitterMutation({
+ *   variables: {
+ *      history: // value for 'history'
+ *   },
+ * });
+ */
+export function useUpdateHistorySiteTransmitterMutation(baseOptions?: Apollo.MutationHookOptions<UpdateHistorySiteTransmitterMutation, UpdateHistorySiteTransmitterMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateHistorySiteTransmitterMutation, UpdateHistorySiteTransmitterMutationVariables>(UpdateHistorySiteTransmitterDocument, options);
+      }
+export type UpdateHistorySiteTransmitterMutationHookResult = ReturnType<typeof useUpdateHistorySiteTransmitterMutation>;
+export type UpdateHistorySiteTransmitterMutationResult = Apollo.MutationResult<UpdateHistorySiteTransmitterMutation>;
+export type UpdateHistorySiteTransmitterMutationOptions = Apollo.BaseMutationOptions<UpdateHistorySiteTransmitterMutation, UpdateHistorySiteTransmitterMutationVariables>;
 export const UpdateMeterInstallDocument = gql`
     mutation UpdateMeterInstall($meter: DeviceMeterInstallUpdateInput) {
   UpdateMeterInstall(meter: $meter)
@@ -5480,6 +5733,68 @@ export function useUpdateSiteMeterDateChangeMutation(baseOptions?: Apollo.Mutati
 export type UpdateSiteMeterDateChangeMutationHookResult = ReturnType<typeof useUpdateSiteMeterDateChangeMutation>;
 export type UpdateSiteMeterDateChangeMutationResult = Apollo.MutationResult<UpdateSiteMeterDateChangeMutation>;
 export type UpdateSiteMeterDateChangeMutationOptions = Apollo.BaseMutationOptions<UpdateSiteMeterDateChangeMutation, UpdateSiteMeterDateChangeMutationVariables>;
+export const UpdateSiteTransmitterDateChangeDocument = gql`
+    mutation UpdateSiteTransmitterDateChange($site: SiteTransmitterDateChangeUpdateInput) {
+  UpdateSiteTransmitterDateChange(site: $site)
+}
+    `;
+export type UpdateSiteTransmitterDateChangeMutationFn = Apollo.MutationFunction<UpdateSiteTransmitterDateChangeMutation, UpdateSiteTransmitterDateChangeMutationVariables>;
+
+/**
+ * __useUpdateSiteTransmitterDateChangeMutation__
+ *
+ * To run a mutation, you first call `useUpdateSiteTransmitterDateChangeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSiteTransmitterDateChangeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSiteTransmitterDateChangeMutation, { data, loading, error }] = useUpdateSiteTransmitterDateChangeMutation({
+ *   variables: {
+ *      site: // value for 'site'
+ *   },
+ * });
+ */
+export function useUpdateSiteTransmitterDateChangeMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSiteTransmitterDateChangeMutation, UpdateSiteTransmitterDateChangeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSiteTransmitterDateChangeMutation, UpdateSiteTransmitterDateChangeMutationVariables>(UpdateSiteTransmitterDateChangeDocument, options);
+      }
+export type UpdateSiteTransmitterDateChangeMutationHookResult = ReturnType<typeof useUpdateSiteTransmitterDateChangeMutation>;
+export type UpdateSiteTransmitterDateChangeMutationResult = Apollo.MutationResult<UpdateSiteTransmitterDateChangeMutation>;
+export type UpdateSiteTransmitterDateChangeMutationOptions = Apollo.BaseMutationOptions<UpdateSiteTransmitterDateChangeMutation, UpdateSiteTransmitterDateChangeMutationVariables>;
+export const UpdateTransmitterInstallDocument = gql`
+    mutation UpdateTransmitterInstall($transmitter: DeviceTransmitterInstallUpdateInput) {
+  UpdateTransmitterInstall(transmitter: $transmitter)
+}
+    `;
+export type UpdateTransmitterInstallMutationFn = Apollo.MutationFunction<UpdateTransmitterInstallMutation, UpdateTransmitterInstallMutationVariables>;
+
+/**
+ * __useUpdateTransmitterInstallMutation__
+ *
+ * To run a mutation, you first call `useUpdateTransmitterInstallMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTransmitterInstallMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTransmitterInstallMutation, { data, loading, error }] = useUpdateTransmitterInstallMutation({
+ *   variables: {
+ *      transmitter: // value for 'transmitter'
+ *   },
+ * });
+ */
+export function useUpdateTransmitterInstallMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTransmitterInstallMutation, UpdateTransmitterInstallMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTransmitterInstallMutation, UpdateTransmitterInstallMutationVariables>(UpdateTransmitterInstallDocument, options);
+      }
+export type UpdateTransmitterInstallMutationHookResult = ReturnType<typeof useUpdateTransmitterInstallMutation>;
+export type UpdateTransmitterInstallMutationResult = Apollo.MutationResult<UpdateTransmitterInstallMutation>;
+export type UpdateTransmitterInstallMutationOptions = Apollo.BaseMutationOptions<UpdateTransmitterInstallMutation, UpdateTransmitterInstallMutationVariables>;
 export const UpdateUserDocument = gql`
     mutation UpdateUser($user: UserUpdateInput) {
   UpdateUser(user: $user)

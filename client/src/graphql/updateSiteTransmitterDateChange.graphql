@@ -1,0 +1,5 @@
+mutation UpdateSiteTransmitterDateChange(
+    $site: SiteTransmitterDateChangeUpdateInput
+) {
+    UpdateSiteTransmitterDateChange(site: $site)
+}

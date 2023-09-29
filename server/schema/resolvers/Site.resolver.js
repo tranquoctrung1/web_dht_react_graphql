@@ -93,5 +93,13 @@ module.exports = {
         UpdateSiteMeterDateChange: async (parent, { site }, context, info) => {
             return await SiteModel.UpdateMeterDateChange(site);
         },
+        UpdateSiteTransmitterDateChange: async (
+            parent,
+            { site },
+            context,
+            info,
+        ) => {
+            return await SiteModel.UpdateTransmitterDateChange(site);
+        },
     },
 };
