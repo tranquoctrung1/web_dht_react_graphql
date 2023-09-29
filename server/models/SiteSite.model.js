@@ -550,3 +550,39 @@ module.exports.GetStatisticXNManager = async () => {
 
     return result;
 };
+
+module.exports.UpdateMeterDateChange = async (site) => {
+    let result = 0;
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(SiteSiteCollection);
+
+        let find = await collection.find({ _id: site._id }).toArray();
+
+        if (find.length > 0) {
+            // update channel
+            let update = await collection.updateMany(
+                {
+                    _id: site._id,
+                },
+                {
+                    $set: {
+                        Meter: site.Meter,
+                        DateOfMeterChange:
+                            site.DateOfMeterChange === ''
+                                ? null
+                                : new Date(site.DateOfMeterChange),
+                    },
+                },
+            );
+
+            result = update.modifiedCount;
+        }
+
+        Connect.disconnect();
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
+};

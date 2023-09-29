@@ -167,7 +167,7 @@ module.exports.Update = async (logger) => {
         let collection = await Connect.connect(DeviceLoggerCollection);
 
         let find = await collection
-            .find({ _id: ObjectId(logger._id) })
+            .find({ _id: new ObjectId(logger._id) })
             .toArray();
 
         if (find.length > 0) {

@@ -498,6 +498,17 @@ module.exports = gql`
         Description: String
     }
 
+    type HistorySiteMeter {
+        _id: ID!
+        DateChanged: Date
+        SiteId: String
+        OldMeterSerial: String
+        NewMeterSerial: String
+        OldMeterIndex: Float
+        NewMeterIndex: Float
+        Description: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -863,6 +874,38 @@ module.exports = gql`
         Status: String
     }
 
+    input HistorySiteMeterInsertInput {
+        DateChanged: Date
+        SiteId: String
+        OldMeterSerial: String
+        NewMeterSerial: String
+        OldMeterIndex: Float
+        NewMeterIndex: Float
+        Description: String
+    }
+
+    input HistorySiteMeterUpdateInput {
+        _id: ID!
+        DateChanged: Date
+        SiteId: String
+        OldMeterSerial: String
+        NewMeterSerial: String
+        OldMeterIndex: Float
+        NewMeterIndex: Float
+        Description: String
+    }
+
+    input SiteMeterDateChangeUpdateInput {
+        _id: String
+        Meter: String
+        DateOfMeterChange: Date
+    }
+
+    input DeviceMeterInstallUpdateInput {
+        Serial: String
+        Installed: Boolean
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -1028,6 +1071,8 @@ module.exports = gql`
         GetTransmitterMarks: [String]
 
         GetTransmitterSize: [Int]
+
+        GetAllHistorySiteMeter: [HistorySiteMeter]
     }
 
     # declare Mutation
@@ -1085,5 +1130,15 @@ module.exports = gql`
         UpdateTransmitter(transmitter: DeviceTransmitterUpdateInput): Int
 
         DeleteTransmitter(transmitter: DeviceTransmitterUpdateInput): Int
+
+        InsertHistorySiteMeter(history: HistorySiteMeterInsertInput): String
+
+        UpdateHistorySiteMeter(history: HistorySiteMeterUpdateInput): Int
+
+        DeleteHistorySiteMeter(history: HistorySiteMeterUpdateInput): Int
+
+        UpdateSiteMeterDateChange(site: SiteMeterDateChangeUpdateInput): Int
+
+        UpdateMeterInstall(meter: DeviceMeterInstallUpdateInput): Int
     }
 `;

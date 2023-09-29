@@ -260,7 +260,7 @@ module.exports.Update = async (meter) => {
         let collection = await Connect.connect(DeviceMeterCollection);
 
         let find = await collection
-            .find({ _id: ObjectId(meter._id) })
+            .find({ _id: new ObjectId(meter._id) })
             .toArray();
 
         if (find.length > 0) {
@@ -304,6 +304,38 @@ module.exports.Update = async (meter) => {
                         AppovalDecision: meter.AppovalDecision,
                         SerialTransmitter: meter.SerialTransmitter,
                         Nationality: meter.Nationality,
+                    },
+                },
+            );
+
+            result = update.modifiedCount;
+        }
+
+        Connect.disconnect();
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
+};
+
+module.exports.UpdateInstall = async (meter) => {
+    let result = 0;
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(DeviceMeterCollection);
+
+        let find = await collection.find({ Serial: meter.Serial }).toArray();
+
+        if (find.length > 0) {
+            // update channel
+            let update = await collection.updateMany(
+                {
+                    Serial: meter.Serial,
+                },
+                {
+                    $set: {
+                        Installed: meter.Installed,
                     },
                 },
             );

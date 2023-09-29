@@ -223,7 +223,7 @@ module.exports.Update = async (transmitter) => {
         let collection = await Connect.connect(DeviceTransmitterCollection);
 
         let find = await collection
-            .find({ _id: ObjectId(transmitter._id) })
+            .find({ _id: new ObjectId(transmitter._id) })
             .toArray();
 
         if (find.length > 0) {

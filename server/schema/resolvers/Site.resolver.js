@@ -90,5 +90,8 @@ module.exports = {
         DeleteSite: async (parent, { site }, context, info) => {
             return await SiteModel.Delete(site);
         },
+        UpdateSiteMeterDateChange: async (parent, { site }, context, info) => {
+            return await SiteModel.UpdateMeterDateChange(site);
+        },
     },
 };

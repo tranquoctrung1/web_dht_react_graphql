@@ -30,6 +30,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 
 import { checkAdminViewerRole } from '../utils/utils';
+import { isApolloError } from '@apollo/client';
 
 const ChangeMeterPage = () => {
     const [siteData, setSiteData] = useState([]);
@@ -214,6 +215,7 @@ const ChangeMeterPage = () => {
 
         const obj = {
             _id: formValue.SiteId,
+            Meter: formValue.NewMeterSerial,
             DateOfMeterChange: formValue.DateChanged,
         };
 
@@ -291,24 +293,36 @@ const ChangeMeterPage = () => {
     };
 
     const updateSiteMeterDateChangeAction = () => {
-        updateSiteMeterDateChange({
-            variables: {
-                site: createObjSiteMeterDateChange(),
-            },
-        })
-            .then((res) => {
-                if (
-                    res?.data?.UpdateSiteMeterDateChange !== null &&
-                    res?.data?.UpdateSiteMeterDateChange !== undefined
-                ) {
-                    if (res.data?.UpdateSiteMeterDateChange > 0) {
-                        console.log('success');
-                    } else {
-                        console.log('failed');
-                    }
-                }
+        const formValue = getValues();
+        let isAllow = true;
+
+        if (
+            formValue.NewMeterSerial === null ||
+            formValue.NewMeterSerial === undefined ||
+            formValue.NewMeterSerial === ''
+        ) {
+            isAllow = false;
+        }
+        if (isAllow == true) {
+            updateSiteMeterDateChange({
+                variables: {
+                    site: createObjSiteMeterDateChange(),
+                },
             })
-            .catch((err) => console.log(err));
+                .then((res) => {
+                    if (
+                        res?.data?.UpdateSiteMeterDateChange !== null &&
+                        res?.data?.UpdateSiteMeterDateChange !== undefined
+                    ) {
+                        if (res.data?.UpdateSiteMeterDateChange > 0) {
+                            console.log('success');
+                        } else {
+                            console.log('failed');
+                        }
+                    }
+                })
+                .catch((err) => console.log(err));
+        }
     };
 
     const handelInsertHistorySiteMeter = (history: any) => {

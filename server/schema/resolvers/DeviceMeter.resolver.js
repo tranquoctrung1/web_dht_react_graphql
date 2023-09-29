@@ -35,5 +35,8 @@ module.exports = {
         DeleteMeter: async (parent, { meter }, context, info) => {
             return await DeviceMeterModel.Delete(meter);
         },
+        UpdateMeterInstall: async (parent, { meter }, context, info) => {
+            return await DeviceMeterModel.UpdateInstall(meter);
+        },
     },
 };

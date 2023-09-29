@@ -32,6 +32,7 @@ const UserRole = require('./UserRole.resolver');
 const Login = require('./Login.resolver');
 const SiteFile = require('./SiteFile.resolver');
 const DeviceStatus = require('./DeviceStatus.resolver');
+const HistorySiteMeter = require('./HistorySiteMeterChange.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -70,6 +71,7 @@ module.exports = {
         ...UserRole.Query,
         ...Login.Query,
         ...DeviceStatus.Query,
+        ...HistorySiteMeter.Query,
     },
 
     Mutation: {
@@ -82,6 +84,7 @@ module.exports = {
         ...DeviceLogger.Mutation,
         ...DeviceMeter.Mutation,
         ...DeviceTransmitter.Mutation,
+        ...HistorySiteMeter.Mutation,
     },
 
     SiteAndChannel: {
