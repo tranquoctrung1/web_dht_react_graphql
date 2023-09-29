@@ -1,0 +1,3 @@
+mutation UpdateSiteLoggerDateChange($site: SiteLoggerDateChangeUpdateInput) {
+    UpdateSiteLoggerDateChange(site: $site)
+}

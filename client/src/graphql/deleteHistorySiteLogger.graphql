@@ -1,0 +1,3 @@
+mutation DeleteHistorySiteLogger($history: HistorySiteLoggerUpdateInput) {
+    DeleteHistorySiteLogger(history: $history)
+}

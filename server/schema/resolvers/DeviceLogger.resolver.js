@@ -29,5 +29,8 @@ module.exports = {
         DeleteLogger: async (parent, { logger }, context, info) => {
             return await DeviceLoggerModel.Delete(logger);
         },
+        UpdateLoggerInstall: async (parent, { logger }, context, info) => {
+            return await DeviceLoggerModel.UpdateInstall(logger);
+        },
     },
 };

@@ -520,6 +520,17 @@ module.exports = gql`
         Description: String
     }
 
+    type HistorySiteLogger {
+        _id: ID!
+        DateChanged: Date
+        SiteId: String
+        OldMeterSerial: String
+        NewMeterSerial: String
+        OldMeterIndex: Float
+        NewMeterIndex: Float
+        Description: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -941,10 +952,42 @@ module.exports = gql`
     input SiteTransmitterDateChangeUpdateInput {
         _id: String
         Transmitter: String
-        DateOfTransmitterBatteryChange: Date
+        DateOfTransmitterChange: Date
     }
 
     input DeviceTransmitterInstallUpdateInput {
+        Serial: String
+        Installed: Boolean
+    }
+
+    input HistorySiteLoggerInsertInput {
+        DateChanged: Date
+        SiteId: String
+        OldMeterSerial: String
+        NewMeterSerial: String
+        OldMeterIndex: Float
+        NewMeterIndex: Float
+        Description: String
+    }
+
+    input HistorySiteLoggerUpdateInput {
+        _id: ID!
+        DateChanged: Date
+        SiteId: String
+        OldMeterSerial: String
+        NewMeterSerial: String
+        OldMeterIndex: Float
+        NewMeterIndex: Float
+        Description: String
+    }
+
+    input SiteLoggerDateChangeUpdateInput {
+        _id: String
+        Logger: String
+        DateOfLoggerChange: Date
+    }
+
+    input DeviceLoggerInstallUpdateInput {
         Serial: String
         Installed: Boolean
     }
@@ -1118,6 +1161,8 @@ module.exports = gql`
         GetAllHistorySiteMeter: [HistorySiteMeter]
 
         GetAllHistorySiteTransmitter: [HistorySiteTransmitter]
+
+        GetAllHistorySiteLogger: [HistorySiteLogger]
     }
 
     # declare Mutation
@@ -1205,5 +1250,15 @@ module.exports = gql`
         UpdateTransmitterInstall(
             transmitter: DeviceTransmitterInstallUpdateInput
         ): Int
+
+        InsertHistorySiteLogger(history: HistorySiteLoggerInsertInput): String
+
+        UpdateHistorySiteLogger(history: HistorySiteLoggerUpdateInput): Int
+
+        DeleteHistorySiteLogger(history: HistorySiteLoggerUpdateInput): Int
+
+        UpdateSiteLoggerDateChange(site: SiteLoggerDateChangeUpdateInput): Int
+
+        UpdateLoggerInstall(logger: DeviceLoggerInstallUpdateInput): Int
     }
 `;

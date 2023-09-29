@@ -23,6 +23,7 @@ import MeterPage from './pages/meter';
 import TransmitterPage from './pages/transmiiter';
 import ChangeMeterPage from './pages/changeMeter';
 import ChangeTransmitterPage from './pages/changeTransmitter';
+import ChangeLoggerPage from './pages/changeLogger';
 
 function App() {
     const router = createBrowserRouter([
@@ -97,6 +98,10 @@ function App() {
                 {
                     path: '/transmitterChanged',
                     element: <ChangeTransmitterPage />,
+                },
+                {
+                    path: '/loggerChanged',
+                    element: <ChangeLoggerPage />,
                 },
             ],
         },

@@ -605,10 +605,46 @@ module.exports.UpdateTransmitterDateChange = async (site) => {
                 {
                     $set: {
                         Transmitter: site.Transmitter,
-                        DateOfTransmitterBatteryChange:
-                            site.DateOfTransmitterBatteryChange === ''
+                        DateOfTransmitterChange:
+                            site.DateOfTransmitterChange === ''
                                 ? null
-                                : new Date(site.DateOfTransmitterBatteryChange),
+                                : new Date(site.DateOfTransmitterChange),
+                    },
+                },
+            );
+
+            result = update.modifiedCount;
+        }
+
+        Connect.disconnect();
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
+};
+
+module.exports.UpdateLoggerDateChange = async (site) => {
+    let result = 0;
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(SiteSiteCollection);
+
+        let find = await collection.find({ _id: site._id }).toArray();
+
+        if (find.length > 0) {
+            // update channel
+            let update = await collection.updateMany(
+                {
+                    _id: site._id,
+                },
+                {
+                    $set: {
+                        Logger: site.Logger,
+                        DateOfLoggerChange:
+                            site.DateOfLoggerChange === ''
+                                ? null
+                                : new Date(site.DateOfLoggerChange),
                     },
                 },
             );

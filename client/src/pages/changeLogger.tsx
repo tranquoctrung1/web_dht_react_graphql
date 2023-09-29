@@ -13,13 +13,13 @@ import { DateInput } from '@mantine/dates';
 
 import {
     useGetAllSitesLazyQuery,
-    useGetAllTransmitterLazyQuery,
-    useGetAllHistorySiteTransmitterLazyQuery,
-    useInsertHistorySiteTransmitterMutation,
-    useUpdateHistorySiteTransmitterMutation,
-    useDeleteHistorySiteTransmitterMutation,
-    useUpdateSiteTransmitterDateChangeMutation,
-    useUpdateTransmitterInstallMutation,
+    useGetAllLoggerLazyQuery,
+    useGetAllHistorySiteLoggerLazyQuery,
+    useInsertHistorySiteLoggerMutation,
+    useUpdateHistorySiteLoggerMutation,
+    useDeleteHistorySiteLoggerMutation,
+    useUpdateSiteLoggerDateChangeMutation,
+    useUpdateLoggerInstallMutation,
 } from '../__generated__/graphql';
 
 import Swal from 'sweetalert2';
@@ -30,28 +30,23 @@ import { useEffect, useState } from 'react';
 
 import { checkAdminViewerRole } from '../utils/utils';
 
-const ChangeTransmitterPage = () => {
+const ChangeLoggerPage = () => {
     const [siteData, setSiteData] = useState([]);
-    const [transmitterData, setTransmitterData] = useState([]);
-    const [listHistoryTransmitter, setListHistoryTransmitter] = useState([]);
+    const [LoggerData, setLoggerData] = useState([]);
+    const [listHistoryLogger, setListHistoryLogger] = useState([]);
 
     const [getSite, {}] = useGetAllSitesLazyQuery();
-    const [getTransmitter, {}] = useGetAllTransmitterLazyQuery();
-    const [getHistorySiteTransmitter, {}] =
-        useGetAllHistorySiteTransmitterLazyQuery();
+    const [getLogger, {}] = useGetAllLoggerLazyQuery();
+    const [getHistorySiteLogger, {}] = useGetAllHistorySiteLoggerLazyQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 
-    const [insertHisotrySiteTransmitter, {}] =
-        useInsertHistorySiteTransmitterMutation();
-    const [updateHistorySiteTransmitter, {}] =
-        useUpdateHistorySiteTransmitterMutation();
-    const [deleteHistorySiteTransmitter, {}] =
-        useDeleteHistorySiteTransmitterMutation();
-    const [updateSiteTransmitterDateChange, {}] =
-        useUpdateSiteTransmitterDateChangeMutation();
-    const [updateTransmitterInstall, {}] =
-        useUpdateTransmitterInstallMutation();
+    const [insertHisotrySiteLogger, {}] = useInsertHistorySiteLoggerMutation();
+    const [updateHistorySiteLogger, {}] = useUpdateHistorySiteLoggerMutation();
+    const [deleteHistorySiteLogger, {}] = useDeleteHistorySiteLoggerMutation();
+    const [updateSiteLoggerDateChange, {}] =
+        useUpdateSiteLoggerDateChangeMutation();
+    const [updateLoggerInstall, {}] = useUpdateLoggerInstallMutation();
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
@@ -77,14 +72,14 @@ const ChangeTransmitterPage = () => {
             }
         });
 
-        getTransmitter().then((res) => {
+        getLogger().then((res) => {
             if (
-                res?.data?.GetAllTransmitter !== null &&
-                res?.data?.GetAllTransmitter !== undefined
+                res?.data?.GetAllLogger !== null &&
+                res?.data?.GetAllLogger !== undefined
             ) {
                 const temp = [];
 
-                for (const item of res.data?.GetAllTransmitter) {
+                for (const item of res.data?.GetAllLogger) {
                     const obj = {
                         value: item?.Serial,
                         label: item?.Serial,
@@ -94,19 +89,17 @@ const ChangeTransmitterPage = () => {
                 }
 
                 //@ts-ignore
-                setTransmitterData([...temp]);
+                setLoggerData([...temp]);
             }
         });
 
-        getHistorySiteTransmitter().then((res) => {
+        getHistorySiteLogger().then((res) => {
             if (
-                res?.data?.GetAllHistorySiteTransmitter !== null &&
-                res?.data?.GetAllHistorySiteTransmitter !== undefined
+                res?.data?.GetAllHistorySiteLogger !== null &&
+                res?.data?.GetAllHistorySiteLogger !== undefined
             ) {
                 //@ts-ignore
-                setListHistoryTransmitter([
-                    ...res.data.GetAllHistorySiteTransmitter,
-                ]);
+                setListHistoryLogger([...res.data.GetAllHistorySiteLogger]);
             }
         });
     }, []);
@@ -126,7 +119,7 @@ const ChangeTransmitterPage = () => {
 
     const onSiteChanged = (e: any) => {
         //@ts-ignore
-        const find = listHistoryTransmitter.find(
+        const find = listHistoryLogger.find(
             //@ts-ignore
             (el) => el.SiteId === e,
         );
@@ -160,7 +153,7 @@ const ChangeTransmitterPage = () => {
         }
     };
 
-    const onCreateObjHistorySiteTransmitterInsert = () => {
+    const onCreateObjHistorySiteLoggerInsert = () => {
         const formValue = getValues();
 
         const obj = {
@@ -176,7 +169,7 @@ const ChangeTransmitterPage = () => {
         return obj;
     };
 
-    const onCreateObjHistorySiteTransmitterUpdate = () => {
+    const onCreateObjHistorySiteLoggerUpdate = () => {
         const formValue = getValues();
 
         const obj = {
@@ -193,7 +186,7 @@ const ChangeTransmitterPage = () => {
         return obj;
     };
 
-    const createObjNewTransmitterIntall = () => {
+    const createObjNewLoggerIntall = () => {
         const formValue = getValues();
 
         const obj = {
@@ -204,7 +197,7 @@ const ChangeTransmitterPage = () => {
         return obj;
     };
 
-    const createObjOldTransmitterInstall = () => {
+    const createObjOldLoggerInstall = () => {
         const formValue = getValues();
 
         const obj = {
@@ -215,19 +208,19 @@ const ChangeTransmitterPage = () => {
         return obj;
     };
 
-    const createObjSiteTransmitterDateChange = () => {
+    const createObjSiteLoggerDateChange = () => {
         const formValue = getValues();
 
         const obj = {
             _id: formValue.SiteId,
-            Transmitter: formValue.NewMeterSerial,
-            DateOfTransmitterChange: formValue.DateChanged,
+            Logger: formValue.NewMeterSerial,
+            DateOfLoggerChange: formValue.DateChanged,
         };
 
         return obj;
     };
 
-    const updateTransmitterInstallAction = () => {
+    const updateLoggerInstallAction = () => {
         const formValue = getValues();
         let isAllow = true;
         let isAllow2 = true;
@@ -241,18 +234,18 @@ const ChangeTransmitterPage = () => {
         }
 
         if (isAllow == true) {
-            updateTransmitterInstall({
+            updateLoggerInstall({
                 variables: {
                     //@ts-ignore
-                    transmitter: createObjOldTransmitterInstall(),
+                    logger: createObjOldLoggerInstall(),
                 },
             })
                 .then((res) => {
                     if (
-                        res?.data?.UpdateTransmitterInstall !== null &&
-                        res?.data?.UpdateTransmitterInstall !== undefined
+                        res?.data?.UpdateLoggerInstall !== null &&
+                        res?.data?.UpdateLoggerInstall !== undefined
                     ) {
-                        if (res.data?.UpdateTransmitterInstall > 0) {
+                        if (res.data?.UpdateLoggerInstall > 0) {
                             console.log('success');
                         } else {
                             console.log('failed');
@@ -273,18 +266,18 @@ const ChangeTransmitterPage = () => {
         }
 
         if (isAllow2 == true) {
-            updateTransmitterInstall({
+            updateLoggerInstall({
                 variables: {
                     //@ts-ignore
-                    transmitter: createObjNewTransmitterIntall(),
+                    logger: createObjNewLoggerIntall(),
                 },
             })
                 .then((res) => {
                     if (
-                        res?.data?.UpdateTransmitterInstall !== null &&
-                        res?.data?.UpdateTransmitterInstall !== undefined
+                        res?.data?.UpdateLoggerInstall !== null &&
+                        res?.data?.UpdateLoggerInstall !== undefined
                     ) {
-                        if (res.data?.UpdateTransmitterInstall > 0) {
+                        if (res.data?.UpdateLoggerInstall > 0) {
                             console.log('success');
                         } else {
                             console.log('failed');
@@ -297,7 +290,7 @@ const ChangeTransmitterPage = () => {
         }
     };
 
-    const updateSiteTransmitterDateChangeAction = () => {
+    const updateSiteLoggerDateChangeAction = () => {
         const formValue = getValues();
         let isAllow = true;
 
@@ -309,17 +302,17 @@ const ChangeTransmitterPage = () => {
             isAllow = false;
         }
         if (isAllow == true) {
-            updateSiteTransmitterDateChange({
+            updateSiteLoggerDateChange({
                 variables: {
-                    site: createObjSiteTransmitterDateChange(),
+                    site: createObjSiteLoggerDateChange(),
                 },
             })
                 .then((res) => {
                     if (
-                        res?.data?.UpdateSiteTransmitterDateChange !== null &&
-                        res?.data?.UpdateSiteTransmitterDateChange !== undefined
+                        res?.data?.UpdateSiteLoggerDateChange !== null &&
+                        res?.data?.UpdateSiteLoggerDateChange !== undefined
                     ) {
-                        if (res.data?.UpdateSiteTransmitterDateChange > 0) {
+                        if (res.data?.UpdateSiteLoggerDateChange > 0) {
                             console.log('success');
                         } else {
                             console.log('failed');
@@ -330,9 +323,9 @@ const ChangeTransmitterPage = () => {
         }
     };
 
-    const handelInsertHistorySiteTransmitter = (history: any) => {
+    const handelInsertHistorySiteLogger = (history: any) => {
         //@ts-ignore
-        setListHistoryTransmitter((current) => [...current, history]);
+        setListHistoryLogger((current) => [...current, history]);
     };
 
     const onInsertClicked = () => {
@@ -354,35 +347,35 @@ const ChangeTransmitterPage = () => {
         }
 
         if (isAllow == true) {
-            insertHisotrySiteTransmitter({
+            insertHisotrySiteLogger({
                 variables: {
-                    history: onCreateObjHistorySiteTransmitterInsert(),
+                    history: onCreateObjHistorySiteLoggerInsert(),
                 },
             })
                 .then((res) => {
                     if (
-                        res?.data?.InsertHistorySiteTransmitter !== null &&
-                        res?.data?.InsertHistorySiteTransmitter !== undefined
+                        res?.data?.InsertHistorySiteLogger !== null &&
+                        res?.data?.InsertHistorySiteLogger !== undefined
                     ) {
-                        if (res.data?.InsertHistorySiteTransmitter !== '') {
+                        if (res.data?.InsertHistorySiteLogger !== '') {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Successfull',
-                                text: 'Thêm lịch sử thay bộ hiển thị thành công',
+                                text: 'Thêm lịch sử thay logger thành công',
                             });
 
-                            updateTransmitterInstallAction();
+                            updateLoggerInstallAction();
 
-                            updateSiteTransmitterDateChangeAction();
+                            updateSiteLoggerDateChangeAction();
 
-                            handelInsertHistorySiteTransmitter(
-                                onCreateObjHistorySiteTransmitterUpdate(),
+                            handelInsertHistorySiteLogger(
+                                onCreateObjHistorySiteLoggerUpdate(),
                             );
                         } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Thêm lịch sử thay bộ hiển thị không thành công',
+                                text: 'Thêm lịch sử thay logger không thành công',
                             });
                         }
                     }
@@ -391,17 +384,17 @@ const ChangeTransmitterPage = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Thêm lịch sử thay bộ hiển thị không thành công',
+                        text: 'Thêm lịch sử thay logger không thành công',
                     });
                     console.log(err);
                 });
         }
     };
 
-    const handleUpdateHistorySiteTransmitter = (history: any) => {
+    const handleUpdateHistorySiteLogger = (history: any) => {
         const temp = [];
 
-        for (const item of listHistoryTransmitter) {
+        for (const item of listHistoryLogger) {
             //@ts-ignore
             if (item._id !== history._id) {
                 temp.push(item);
@@ -411,7 +404,7 @@ const ChangeTransmitterPage = () => {
         }
 
         //@ts-ignore
-        setListHistoryTransmitter([...temp]);
+        setListHistoryLogger([...temp]);
     };
 
     const onUpdateClicked = () => {
@@ -433,35 +426,35 @@ const ChangeTransmitterPage = () => {
         }
 
         if (isAllow == true) {
-            const obj = onCreateObjHistorySiteTransmitterUpdate();
+            const obj = onCreateObjHistorySiteLoggerUpdate();
 
-            updateHistorySiteTransmitter({
+            updateHistorySiteLogger({
                 variables: {
                     history: obj,
                 },
             })
                 .then((res) => {
                     if (
-                        res?.data?.UpdateHistorySiteTransmitter !== null &&
-                        res?.data?.UpdateHistorySiteTransmitter !== undefined
+                        res?.data?.UpdateHistorySiteLogger !== null &&
+                        res?.data?.UpdateHistorySiteLogger !== undefined
                     ) {
-                        if (res.data?.UpdateHistorySiteTransmitter > 0) {
+                        if (res.data?.UpdateHistorySiteLogger > 0) {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Successfull',
-                                text: 'Cập nhật lịch sử thay bộ hiển thị thành công',
+                                text: 'Cập nhật lịch sử thay logger thành công',
                             });
 
-                            updateTransmitterInstallAction();
+                            updateLoggerInstallAction();
 
-                            updateSiteTransmitterDateChangeAction();
+                            updateSiteLoggerDateChangeAction();
 
-                            handleUpdateHistorySiteTransmitter(obj);
+                            handleUpdateHistorySiteLogger(obj);
                         } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Cập nhật lịch sử thay bộ hiển thị không thành công',
+                                text: 'Cập nhật lịch sử thay logger không thành công',
                             });
                         }
                     }
@@ -470,18 +463,18 @@ const ChangeTransmitterPage = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Cập nhật lịch sử thay bộ hiển thị không thành công',
+                        text: 'Cập nhật lịch sử thay logger không thành công',
                     });
                     console.log(err);
                 });
         }
     };
 
-    const handleDeleteHistorySiteTransmitter = (history: any) => {
+    const handleDeleteHistorySiteLogger = (history: any) => {
         //@ts-ignore
         const temp = [];
 
-        for (const item of listHistoryTransmitter) {
+        for (const item of listHistoryLogger) {
             //@ts-ignore
             if (item._id !== history._id) {
                 temp.push(item);
@@ -489,13 +482,13 @@ const ChangeTransmitterPage = () => {
         }
 
         //@ts-ignore
-        setListHistoryTransmitter([...temp]);
+        setListHistoryLogger([...temp]);
     };
 
     const onDeleteClicked = () => {
         Swal.fire({
-            title: 'Xóa bộ hiển thị?',
-            text: 'Xóa bộ hiển thị không thể nào hồi phục lại!',
+            title: 'Xóa logger?',
+            text: 'Xóa logger không thể nào hồi phục lại!',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -522,37 +515,33 @@ const ChangeTransmitterPage = () => {
                 }
 
                 if (isAllow == true) {
-                    const obj = onCreateObjHistorySiteTransmitterUpdate();
+                    const obj = onCreateObjHistorySiteLoggerUpdate();
 
-                    deleteHistorySiteTransmitter({
+                    deleteHistorySiteLogger({
                         variables: {
                             history: obj,
                         },
                     })
                         .then((res) => {
                             if (
-                                res?.data?.DeleteHistorySiteTransmitter !==
-                                    null &&
-                                res?.data?.DeleteHistorySiteTransmitter !==
-                                    undefined
+                                res?.data?.DeleteHistorySiteLogger !== null &&
+                                res?.data?.DeleteHistorySiteLogger !== undefined
                             ) {
-                                if (
-                                    res.data?.DeleteHistorySiteTransmitter > 0
-                                ) {
+                                if (res.data?.DeleteHistorySiteLogger > 0) {
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'Successfull',
-                                        text: 'Xóa lịch sử thay bộ hiển thị thành công',
+                                        text: 'Xóa lịch sử thay logger thành công',
                                     });
 
                                     reset();
 
-                                    handleDeleteHistorySiteTransmitter(obj);
+                                    handleDeleteHistorySiteLogger(obj);
                                 } else {
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Oops...',
-                                        text: 'Xóa lịch sử thay bộ hiển thị không thành công',
+                                        text: 'Xóa lịch sử thay logger không thành công',
                                     });
                                 }
                             }
@@ -561,7 +550,7 @@ const ChangeTransmitterPage = () => {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Xóa lịch sử thay bộ hiển thị không thành công',
+                                text: 'Xóa lịch sử thay logger không thành công',
                             });
                             console.log(err);
                         });
@@ -608,7 +597,7 @@ const ChangeTransmitterPage = () => {
                 ></Controller>
             </Col>
             <Col md={4}>
-                {transmitterData !== undefined ? (
+                {LoggerData !== undefined ? (
                     <Controller
                         name="OldMeterSerial"
                         control={control}
@@ -619,7 +608,7 @@ const ChangeTransmitterPage = () => {
                                 searchable
                                 nothingFound="Không tìm thấy serial củ"
                                 //@ts-ignore
-                                data={transmitterData}
+                                data={LoggerData}
                                 {...field}
                             />
                         )}
@@ -627,7 +616,7 @@ const ChangeTransmitterPage = () => {
                 ) : null}
             </Col>
             <Col md={4}>
-                {transmitterData !== undefined ? (
+                {LoggerData !== undefined ? (
                     <Controller
                         name="NewMeterSerial"
                         control={control}
@@ -638,7 +627,7 @@ const ChangeTransmitterPage = () => {
                                 searchable
                                 nothingFound="Không tìm thấy serial mới"
                                 //@ts-ignore
-                                data={transmitterData}
+                                data={LoggerData}
                                 {...field}
                             />
                         )}
@@ -719,4 +708,4 @@ const ChangeTransmitterPage = () => {
     );
 };
 
-export default ChangeTransmitterPage;
+export default ChangeLoggerPage;

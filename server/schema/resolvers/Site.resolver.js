@@ -101,5 +101,8 @@ module.exports = {
         ) => {
             return await SiteModel.UpdateTransmitterDateChange(site);
         },
+        UpdateSiteLoggerDateChange: async (parent, { site }, context, info) => {
+            return await SiteModel.UpdateLoggerDateChange(site);
+        },
     },
 };

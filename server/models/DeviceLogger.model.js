@@ -201,3 +201,35 @@ module.exports.Update = async (logger) => {
     }
     return result;
 };
+
+module.exports.UpdateInstall = async (logger) => {
+    let result = 0;
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(DeviceLoggerCollection);
+
+        let find = await collection.find({ Serial: logger.Serial }).toArray();
+
+        if (find.length > 0) {
+            // update channel
+            let update = await collection.updateMany(
+                {
+                    Serial: logger.Serial,
+                },
+                {
+                    $set: {
+                        Installed: logger.Installed,
+                    },
+                },
+            );
+
+            result = update.modifiedCount;
+        }
+
+        Connect.disconnect();
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
+};
