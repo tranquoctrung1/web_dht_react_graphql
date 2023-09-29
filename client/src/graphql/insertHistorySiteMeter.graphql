@@ -1,0 +1,3 @@
+mutation InsertHistorySiteMeter($history: HistorySiteMeterInsertInput) {
+    InsertHistorySiteMeter(history: $history)
+}

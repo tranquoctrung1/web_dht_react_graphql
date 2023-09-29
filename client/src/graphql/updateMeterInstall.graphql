@@ -1,0 +1,3 @@
+mutation UpdateMeterInstall($meter: DeviceMeterInstallUpdateInput) {
+    UpdateMeterInstall(meter: $meter)
+}

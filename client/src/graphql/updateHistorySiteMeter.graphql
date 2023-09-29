@@ -1,0 +1,3 @@
+mutation UpdateHistorySiteMeter($history: HistorySiteMeterUpdateInput) {
+    UpdateHistorySiteMeter(history: $history)
+}

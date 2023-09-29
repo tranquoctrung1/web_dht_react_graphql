@@ -1,0 +1,3 @@
+mutation DeleteHistorySiteMeter($history: HistorySiteMeterUpdateInput) {
+    DeleteHistorySiteMeter(history: $history)
+}

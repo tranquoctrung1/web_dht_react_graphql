@@ -1,0 +1,12 @@
+query GetAllHistorySiteMeter {
+    GetAllHistorySiteMeter {
+        DateChanged
+        Description
+        NewMeterIndex
+        NewMeterSerial
+        OldMeterIndex
+        OldMeterSerial
+        SiteId
+        _id
+    }
+}
