@@ -10,12 +10,18 @@ import { useEffect, useState } from 'react';
 
 import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 
+import { checkAdminViewerRole } from '../utils/utils';
+
 const StatisticSiteXNManager = () => {
     const [getStatisticSite, {}] = useGetStatisticSiteXnManagerLazyQuery();
+
+    const [isAdminViewer, setIsAdminViewer] = useState(false);
 
     const [data, setData] = useState([]);
 
     useEffect(() => {
+        setIsAdminViewer(checkAdminViewerRole());
+
         getData();
     }, []);
 
@@ -128,17 +134,19 @@ const StatisticSiteXNManager = () => {
 
     return (
         <Grid>
-            <Col span={12}>
-                <Center>
-                    <Button
-                        variant="filled"
-                        color="green"
-                        onClick={onViewClicked}
-                    >
-                        Xem
-                    </Button>
-                </Center>
-            </Col>
+            {isAdminViewer === false ? (
+                <Col span={12}>
+                    <Center>
+                        <Button
+                            variant="filled"
+                            color="green"
+                            onClick={onViewClicked}
+                        >
+                            Xem
+                        </Button>
+                    </Center>
+                </Col>
+            ) : null}
             <Col span={12} style={{ maxWidth: '99%' }}>
                 <DataTableExtensions {...tableData}>
                     <DataTable

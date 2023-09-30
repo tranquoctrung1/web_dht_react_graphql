@@ -100,11 +100,11 @@ const mockdata = [
             { label: 'Điểm Lắp Đặt Xí Nghiệp Quản Lý', link: '/statisticSite' },
             {
                 label: 'Theo Hiệu Cở (Xí Nghiệp Quản Lý)',
-                link: '/statisticModel',
+                link: '/statisticMarkSize',
             },
             {
                 label: 'Thống Kê Tùy Chọn Điểm Lắp Đặt',
-                link: '/statisticChooseSite',
+                link: '/statisticCustomChoiceSite',
             },
             {
                 label: 'Thống Kê Tùy Chọn Hiệu Cỡ',

@@ -531,6 +531,39 @@ module.exports = gql`
         Description: String
     }
 
+    type StatisticCustomChoiceSite {
+        _id: String
+        Provider: String
+        Marks: String
+        Size: Int
+        ApprovalDecision: String
+        Model: String
+        Location: String
+        Level: String
+        Group: String
+        Group2: String
+        Company: String
+        Status: String
+        Availability: String
+        IstDistributionCompany: String
+        QndDistributionCompany: String
+        ProductionCompany: String
+        Property: Boolean
+        Takeovered: Boolean
+        UsingLogger: Boolean
+        Description: String
+        LoggerModel: String
+        Meter: String
+        Transmitter: String
+        Logger: String
+        AccreditationDocument: String
+        AccreditedDate: Date
+        ExpiryDate: Date
+        DateOfMeterChange: Date
+        AccreditationType: String
+        Approved: Boolean
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1106,6 +1139,8 @@ module.exports = gql`
 
         GetAllSiteCover: [SiteCover]
 
+        GetAllSiteCompanies: [String]
+
         GetAllUnit: [Unit]
 
         GetAllDeviceSiteConfig: [DeviceSiteConfig]
@@ -1163,6 +1198,8 @@ module.exports = gql`
         GetAllHistorySiteTransmitter: [HistorySiteTransmitter]
 
         GetAllHistorySiteLogger: [HistorySiteLogger]
+
+        GetStatisticCustomChoiceSite: [StatisticCustomChoiceSite]
     }
 
     # declare Mutation

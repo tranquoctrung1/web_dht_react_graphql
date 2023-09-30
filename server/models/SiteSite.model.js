@@ -433,6 +433,30 @@ module.exports.GetAllCoverID = async () => {
     return result;
 };
 
+module.exports.GetAllSiteCompanies = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = [];
+
+    let data = await collection.find({}).toArray();
+
+    if (data.length > 0) {
+        for (const site of data) {
+            let find = result.find((el) => el === site.Company);
+
+            if (find === undefined) {
+                result.push(site.Company);
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.Insert = async (site) => {
     let Connect = new ConnectDB.Connect();
 

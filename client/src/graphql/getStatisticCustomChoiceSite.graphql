@@ -1,0 +1,34 @@
+query GetStatisticCustomChoiceSite {
+    GetStatisticCustomChoiceSite {
+        AccreditationDocument
+        AccreditedDate
+        ApprovalDecision
+        Company
+        Availability
+        DateOfMeterChange
+        Description
+        ExpiryDate
+        Group
+        Group2
+        IstDistributionCompany
+        Level
+        Location
+        Logger
+        LoggerModel
+        Marks
+        Meter
+        Model
+        ProductionCompany
+        Property
+        Provider
+        QndDistributionCompany
+        Size
+        Status
+        Takeovered
+        Transmitter
+        UsingLogger
+        _id
+        AccreditationType
+        Approved
+    }
+}

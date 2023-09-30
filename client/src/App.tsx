@@ -24,6 +24,8 @@ import TransmitterPage from './pages/transmiiter';
 import ChangeMeterPage from './pages/changeMeter';
 import ChangeTransmitterPage from './pages/changeTransmitter';
 import ChangeLoggerPage from './pages/changeLogger';
+import StatisticMarkSizePage from './pages/statictisMarkSize';
+import StatisticCustomChoiceSitePage from './pages/statisticCustomChoiceSite';
 
 function App() {
     const router = createBrowserRouter([
@@ -102,6 +104,14 @@ function App() {
                 {
                     path: '/loggerChanged',
                     element: <ChangeLoggerPage />,
+                },
+                {
+                    path: '/statisticMarkSize',
+                    element: <StatisticMarkSizePage />,
+                },
+                {
+                    path: '/statisticCustomChoiceSite',
+                    element: <StatisticCustomChoiceSitePage />,
                 },
             ],
         },

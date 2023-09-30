@@ -978,6 +978,7 @@ export type Query = {
   GetAllRole?: Maybe<Array<Maybe<Role>>>;
   GetAllSiteAndChannel?: Maybe<Array<SiteAndChannel>>;
   GetAllSiteAvailabilities?: Maybe<Array<Maybe<SiteAvailabilities>>>;
+  GetAllSiteCompanies?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllSiteCover?: Maybe<Array<Maybe<SiteCover>>>;
   GetAllSiteGroup?: Maybe<Array<Maybe<SiteGroup>>>;
   GetAllSiteGroup2S?: Maybe<Array<Maybe<SiteGroup2S>>>;
@@ -1011,6 +1012,7 @@ export type Query = {
   GetPreciousByCompany?: Maybe<Array<Maybe<Precious>>>;
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
+  GetStatisticCustomChoiceSite?: Maybe<Array<Maybe<StatisticCustomChoiceSite>>>;
   GetStatisticSiteXNManager?: Maybe<Array<Maybe<StatisticSiteXnManager>>>;
   GetTransmitterMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetTransmitterModel?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1331,6 +1333,40 @@ export type SiteTransmitterDateChangeUpdateInput = {
   DateOfTransmitterChange?: InputMaybe<Scalars['Date']>;
   Transmitter?: InputMaybe<Scalars['String']>;
   _id?: InputMaybe<Scalars['String']>;
+};
+
+export type StatisticCustomChoiceSite = {
+  __typename?: 'StatisticCustomChoiceSite';
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  AccreditationType?: Maybe<Scalars['String']>;
+  AccreditedDate?: Maybe<Scalars['Date']>;
+  ApprovalDecision?: Maybe<Scalars['String']>;
+  Approved?: Maybe<Scalars['Boolean']>;
+  Availability?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  DateOfMeterChange?: Maybe<Scalars['Date']>;
+  Description?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  Group?: Maybe<Scalars['String']>;
+  Group2?: Maybe<Scalars['String']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
+  Level?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Logger?: Maybe<Scalars['String']>;
+  LoggerModel?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Meter?: Maybe<Scalars['String']>;
+  Model?: Maybe<Scalars['String']>;
+  ProductionCompany?: Maybe<Scalars['String']>;
+  Property?: Maybe<Scalars['Boolean']>;
+  Provider?: Maybe<Scalars['String']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
+  Takeovered?: Maybe<Scalars['Boolean']>;
+  Transmitter?: Maybe<Scalars['String']>;
+  UsingLogger?: Maybe<Scalars['Boolean']>;
+  _id?: Maybe<Scalars['String']>;
 };
 
 export type StatisticSiteXnManager = {
@@ -1685,6 +1721,11 @@ export type GetAllSiteAvailabilitiesQueryVariables = Exact<{ [key: string]: neve
 
 export type GetAllSiteAvailabilitiesQuery = { __typename?: 'Query', GetAllSiteAvailabilities?: Array<{ __typename?: 'SiteAvailabilities', Availability?: string | null, Description?: string | null, _id: string } | null> | null };
 
+export type GetAllSiteCompaniesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSiteCompaniesQuery = { __typename?: 'Query', GetAllSiteCompanies?: Array<string | null> | null };
+
 export type GetAllSiteCoverQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1842,6 +1883,11 @@ export type GetSiteByWaterSupplyQueryVariables = Exact<{
 
 
 export type GetSiteByWaterSupplyQuery = { __typename?: 'Query', GetSiteByWaterSupply: Array<{ __typename?: 'Site', _id: string, OldId?: string | null, Location?: string | null, Logger?: string | null, Company?: string | null, Description?: string | null, MeterDirection?: string | null, ProductionCompany?: string | null, IstDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, Address?: string | null }> };
+
+export type GetStatisticCustomChoiceSiteQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStatisticCustomChoiceSiteQuery = { __typename?: 'Query', GetStatisticCustomChoiceSite?: Array<{ __typename?: 'StatisticCustomChoiceSite', AccreditationDocument?: string | null, AccreditedDate?: any | null, ApprovalDecision?: string | null, Company?: string | null, Availability?: string | null, DateOfMeterChange?: any | null, Description?: string | null, ExpiryDate?: any | null, Group?: string | null, Group2?: string | null, IstDistributionCompany?: string | null, Level?: string | null, Location?: string | null, Logger?: string | null, LoggerModel?: string | null, Marks?: string | null, Meter?: string | null, Model?: string | null, ProductionCompany?: string | null, Property?: boolean | null, Provider?: string | null, QndDistributionCompany?: string | null, Size?: number | null, Status?: string | null, Takeovered?: boolean | null, Transmitter?: string | null, UsingLogger?: boolean | null, _id?: string | null, AccreditationType?: string | null, Approved?: boolean | null } | null> | null };
 
 export type GetStatisticSiteXnManagerQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3626,6 +3672,41 @@ export type GetAllSiteAvailabilitiesQueryResult = Apollo.QueryResult<GetAllSiteA
 export function refetchGetAllSiteAvailabilitiesQuery(variables?: GetAllSiteAvailabilitiesQueryVariables) {
       return { query: GetAllSiteAvailabilitiesDocument, variables: variables }
     }
+export const GetAllSiteCompaniesDocument = gql`
+    query GetAllSiteCompanies {
+  GetAllSiteCompanies
+}
+    `;
+
+/**
+ * __useGetAllSiteCompaniesQuery__
+ *
+ * To run a query within a React component, call `useGetAllSiteCompaniesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSiteCompaniesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSiteCompaniesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSiteCompaniesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSiteCompaniesQuery, GetAllSiteCompaniesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSiteCompaniesQuery, GetAllSiteCompaniesQueryVariables>(GetAllSiteCompaniesDocument, options);
+      }
+export function useGetAllSiteCompaniesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSiteCompaniesQuery, GetAllSiteCompaniesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSiteCompaniesQuery, GetAllSiteCompaniesQueryVariables>(GetAllSiteCompaniesDocument, options);
+        }
+export type GetAllSiteCompaniesQueryHookResult = ReturnType<typeof useGetAllSiteCompaniesQuery>;
+export type GetAllSiteCompaniesLazyQueryHookResult = ReturnType<typeof useGetAllSiteCompaniesLazyQuery>;
+export type GetAllSiteCompaniesQueryResult = Apollo.QueryResult<GetAllSiteCompaniesQuery, GetAllSiteCompaniesQueryVariables>;
+export function refetchGetAllSiteCompaniesQuery(variables?: GetAllSiteCompaniesQueryVariables) {
+      return { query: GetAllSiteCompaniesDocument, variables: variables }
+    }
 export const GetAllSiteCoverDocument = gql`
     query GetAllSiteCover {
   GetAllSiteCover {
@@ -4887,6 +4968,72 @@ export type GetSiteByWaterSupplyLazyQueryHookResult = ReturnType<typeof useGetSi
 export type GetSiteByWaterSupplyQueryResult = Apollo.QueryResult<GetSiteByWaterSupplyQuery, GetSiteByWaterSupplyQueryVariables>;
 export function refetchGetSiteByWaterSupplyQuery(variables: GetSiteByWaterSupplyQueryVariables) {
       return { query: GetSiteByWaterSupplyDocument, variables: variables }
+    }
+export const GetStatisticCustomChoiceSiteDocument = gql`
+    query GetStatisticCustomChoiceSite {
+  GetStatisticCustomChoiceSite {
+    AccreditationDocument
+    AccreditedDate
+    ApprovalDecision
+    Company
+    Availability
+    DateOfMeterChange
+    Description
+    ExpiryDate
+    Group
+    Group2
+    IstDistributionCompany
+    Level
+    Location
+    Logger
+    LoggerModel
+    Marks
+    Meter
+    Model
+    ProductionCompany
+    Property
+    Provider
+    QndDistributionCompany
+    Size
+    Status
+    Takeovered
+    Transmitter
+    UsingLogger
+    _id
+    AccreditationType
+    Approved
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticCustomChoiceSiteQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticCustomChoiceSiteQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticCustomChoiceSiteQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticCustomChoiceSiteQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStatisticCustomChoiceSiteQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticCustomChoiceSiteQuery, GetStatisticCustomChoiceSiteQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticCustomChoiceSiteQuery, GetStatisticCustomChoiceSiteQueryVariables>(GetStatisticCustomChoiceSiteDocument, options);
+      }
+export function useGetStatisticCustomChoiceSiteLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticCustomChoiceSiteQuery, GetStatisticCustomChoiceSiteQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticCustomChoiceSiteQuery, GetStatisticCustomChoiceSiteQueryVariables>(GetStatisticCustomChoiceSiteDocument, options);
+        }
+export type GetStatisticCustomChoiceSiteQueryHookResult = ReturnType<typeof useGetStatisticCustomChoiceSiteQuery>;
+export type GetStatisticCustomChoiceSiteLazyQueryHookResult = ReturnType<typeof useGetStatisticCustomChoiceSiteLazyQuery>;
+export type GetStatisticCustomChoiceSiteQueryResult = Apollo.QueryResult<GetStatisticCustomChoiceSiteQuery, GetStatisticCustomChoiceSiteQueryVariables>;
+export function refetchGetStatisticCustomChoiceSiteQuery(variables?: GetStatisticCustomChoiceSiteQueryVariables) {
+      return { query: GetStatisticCustomChoiceSiteDocument, variables: variables }
     }
 export const GetStatisticSiteXnManagerDocument = gql`
     query GetStatisticSiteXNManager {
