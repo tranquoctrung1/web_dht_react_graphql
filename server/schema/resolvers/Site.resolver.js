@@ -218,6 +218,34 @@ module.exports = {
 
             return result;
         },
+        GetStatisticAccredited: async (parent, { date }, context, info) => {
+            const result = [];
+
+            const listSite = await SiteModel.GetAllSites();
+
+            const listMeter = await DeviceMeterModel.GetMeterAccreditated(date);
+
+            for (const meter of listMeter) {
+                const find = listSite.find((el) => el.Meter === meter.Serial);
+
+                if (find !== undefined) {
+                    const obj = {
+                        _id: find._id,
+                        Location: find.Location,
+                        Marks: meter.Marks,
+                        Size: meter.Size,
+                        DateOfChange: meter.AccreditatedDate,
+                        DescriptionOfChange: find.DescriptionOfChange,
+                        AccreditationDocument: meter.AccreditationDocument,
+                        ExpiryDate: meter.ExpiryDate,
+                    };
+
+                    result.push(obj);
+                }
+            }
+
+            return result;
+        },
     },
 
     Mutation: {

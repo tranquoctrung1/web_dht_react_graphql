@@ -112,7 +112,7 @@ const mockdata = [
             },
             {
                 label: 'Hoạt Động Phát Sinh Trong Kỳ',
-                link: '/statisticAction',
+                link: '/statisticChangePeriod',
             },
             {
                 label: 'Thống Kê Tùy Chọn Đồng Hồ',

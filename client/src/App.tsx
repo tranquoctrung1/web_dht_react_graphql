@@ -26,6 +26,7 @@ import ChangeTransmitterPage from './pages/changeTransmitter';
 import ChangeLoggerPage from './pages/changeLogger';
 import StatisticMarkSizePage from './pages/statictisMarkSize';
 import StatisticCustomChoiceSitePage from './pages/statisticCustomChoiceSite';
+import StatisticChangePeriodPage from './pages/statisticChangePeriod';
 
 function App() {
     const router = createBrowserRouter([
@@ -112,6 +113,10 @@ function App() {
                 {
                     path: '/statisticCustomChoiceSite',
                     element: <StatisticCustomChoiceSitePage />,
+                },
+                {
+                    path: '/statisticChangePeriod',
+                    element: <StatisticChangePeriodPage />,
                 },
             ],
         },

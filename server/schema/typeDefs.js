@@ -564,6 +564,17 @@ module.exports = gql`
         Approved: Boolean
     }
 
+    type StatisticAccredited {
+        _id: String
+        Location: String
+        Size: Int
+        Marks: String
+        DateOfChange: Date
+        DescriptionOfChange: String
+        AccreditationDocument: String
+        ExpiryDate: Date
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1200,6 +1211,8 @@ module.exports = gql`
         GetAllHistorySiteLogger: [HistorySiteLogger]
 
         GetStatisticCustomChoiceSite: [StatisticCustomChoiceSite]
+
+        GetStatisticAccredited(date: Date): [StatisticAccredited]
     }
 
     # declare Mutation

@@ -1012,6 +1012,7 @@ export type Query = {
   GetPreciousByCompany?: Maybe<Array<Maybe<Precious>>>;
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
+  GetStatisticAccredited?: Maybe<Array<Maybe<StatisticAccredited>>>;
   GetStatisticCustomChoiceSite?: Maybe<Array<Maybe<StatisticCustomChoiceSite>>>;
   GetStatisticSiteXNManager?: Maybe<Array<Maybe<StatisticSiteXnManager>>>;
   GetTransmitterMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1064,6 +1065,11 @@ export type QueryGetPreciousByCompanyArgs = {
 
 export type QueryGetSiteByWaterSupplyArgs = {
   company: Scalars['String'];
+};
+
+
+export type QueryGetStatisticAccreditedArgs = {
+  date?: InputMaybe<Scalars['Date']>;
 };
 
 
@@ -1333,6 +1339,18 @@ export type SiteTransmitterDateChangeUpdateInput = {
   DateOfTransmitterChange?: InputMaybe<Scalars['Date']>;
   Transmitter?: InputMaybe<Scalars['String']>;
   _id?: InputMaybe<Scalars['String']>;
+};
+
+export type StatisticAccredited = {
+  __typename?: 'StatisticAccredited';
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  _id?: Maybe<Scalars['String']>;
 };
 
 export type StatisticCustomChoiceSite = {
@@ -1883,6 +1901,13 @@ export type GetSiteByWaterSupplyQueryVariables = Exact<{
 
 
 export type GetSiteByWaterSupplyQuery = { __typename?: 'Query', GetSiteByWaterSupply: Array<{ __typename?: 'Site', _id: string, OldId?: string | null, Location?: string | null, Logger?: string | null, Company?: string | null, Description?: string | null, MeterDirection?: string | null, ProductionCompany?: string | null, IstDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, Address?: string | null }> };
+
+export type GetStatisticAccreditedQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+}>;
+
+
+export type GetStatisticAccreditedQuery = { __typename?: 'Query', GetStatisticAccredited?: Array<{ __typename?: 'StatisticAccredited', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Location?: string | null, Marks?: string | null, Size?: number | null, _id?: string | null } | null> | null };
 
 export type GetStatisticCustomChoiceSiteQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4968,6 +4993,51 @@ export type GetSiteByWaterSupplyLazyQueryHookResult = ReturnType<typeof useGetSi
 export type GetSiteByWaterSupplyQueryResult = Apollo.QueryResult<GetSiteByWaterSupplyQuery, GetSiteByWaterSupplyQueryVariables>;
 export function refetchGetSiteByWaterSupplyQuery(variables: GetSiteByWaterSupplyQueryVariables) {
       return { query: GetSiteByWaterSupplyDocument, variables: variables }
+    }
+export const GetStatisticAccreditedDocument = gql`
+    query GetStatisticAccredited($date: Date) {
+  GetStatisticAccredited(date: $date) {
+    AccreditationDocument
+    DateOfChange
+    DescriptionOfChange
+    ExpiryDate
+    Location
+    Marks
+    Size
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticAccreditedQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticAccreditedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticAccreditedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticAccreditedQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetStatisticAccreditedQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticAccreditedQuery, GetStatisticAccreditedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticAccreditedQuery, GetStatisticAccreditedQueryVariables>(GetStatisticAccreditedDocument, options);
+      }
+export function useGetStatisticAccreditedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticAccreditedQuery, GetStatisticAccreditedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticAccreditedQuery, GetStatisticAccreditedQueryVariables>(GetStatisticAccreditedDocument, options);
+        }
+export type GetStatisticAccreditedQueryHookResult = ReturnType<typeof useGetStatisticAccreditedQuery>;
+export type GetStatisticAccreditedLazyQueryHookResult = ReturnType<typeof useGetStatisticAccreditedLazyQuery>;
+export type GetStatisticAccreditedQueryResult = Apollo.QueryResult<GetStatisticAccreditedQuery, GetStatisticAccreditedQueryVariables>;
+export function refetchGetStatisticAccreditedQuery(variables?: GetStatisticAccreditedQueryVariables) {
+      return { query: GetStatisticAccreditedDocument, variables: variables }
     }
 export const GetStatisticCustomChoiceSiteDocument = gql`
     query GetStatisticCustomChoiceSite {
