@@ -35,6 +35,23 @@ module.exports.GetAll = async () => {
     return result;
 };
 
+module.exports.GetHistoryDateChange = async (date) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(HistorySiteTransmitterCollection);
+
+    let result = await collection
+        .find({
+            DateChanged: { $ne: null },
+            DateChanged: { $gte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.Insert = async (history) => {
     let Connect = new ConnectDB.Connect();
 

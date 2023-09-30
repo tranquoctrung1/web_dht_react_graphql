@@ -457,6 +457,108 @@ module.exports.GetAllSiteCompanies = async () => {
     return result;
 };
 
+module.exports.GetSiteMeterDateChange = async (date) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({
+            DateOfMeterChange: { $ne: null },
+            DateOfMeterChange: { $gte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSiteTransmitterDateChange = async (date) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({
+            DateOfTransmitterChange: { $ne: null },
+            DateOfTransmitterChange: { $gte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSiteLoggerDateChange = async (date) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({
+            DateOfLoggerChange: { $ne: null },
+            DateOfLoggerChange: { $gte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSitDateBatteryChange = async (date) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({
+            DateOfBatteryChange: { $ne: null },
+            DateOfBatteryChange: { $gte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSitDateTranmitterBatteryChange = async (date) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({
+            DateOfTransmitterBatteryChange: { $ne: null },
+            DateOfTransmitterBatteryChange: { $gte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSitDateLoggerBatteryChange = async (date) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({
+            DateOfLoggerBatteryChange: { $ne: null },
+            DateOfLoggerBatteryChange: { $gte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.Insert = async (site) => {
     let Connect = new ConnectDB.Connect();
 

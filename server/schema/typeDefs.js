@@ -575,6 +575,86 @@ module.exports = gql`
         ExpiryDate: Date
     }
 
+    type StatisticMeterChange {
+        Meter: String
+        Transmitter: String
+        _id: String
+        Level: String
+        Location: String
+        Marks: String
+        Size: Int
+        OldMeter: String
+        OldTran: String
+        DateOfChange: Date
+        DescriptionOfChange: String
+        AccreditationDocument: String
+        ExpiryDate: Date
+    }
+
+    type StatisticTransmitterChange {
+        Meter: String
+        Transmitter: String
+        _id: String
+        Location: String
+        Marks: String
+        Size: Int
+        Model: String
+        OldMeter: String
+        OldTran: String
+        DateOfChange: Date
+        DescriptionOfChange: String
+        AccreditationDocument: String
+        ExpiryDate: Date
+    }
+
+    type StatisticLoggerChange {
+        _id: String
+        Location: String
+        OldLogger: String
+        NewLogger: String
+        DateOfChange: Date
+        DescriptionOfChange: String
+    }
+
+    type StatisticBatteryChange {
+        Id: String
+        Meter: String
+        Transmitter: String
+        Location: String
+        Marks: String
+        Size: Int
+        DateOfChange: Date
+        DescriptionOfChange: String
+        AccreditationDocument: String
+        ExpiryDate: Date
+    }
+
+    type StatisticTransmitterBatteryChange {
+        Id: String
+        Meter: String
+        Transmitter: String
+        Location: String
+        Marks: String
+        Size: Int
+        DateOfChange: Date
+        DescriptionOfChange: String
+        AccreditationDocument: String
+        ExpiryDate: Date
+    }
+
+    type StatisticLoggerBatteryChange {
+        Id: String
+        Meter: String
+        Transmitter: String
+        Location: String
+        Marks: String
+        Size: Int
+        DateOfChange: Date
+        DescriptionOfChange: String
+        AccreditationDocument: String
+        ExpiryDate: Date
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1213,6 +1293,22 @@ module.exports = gql`
         GetStatisticCustomChoiceSite: [StatisticCustomChoiceSite]
 
         GetStatisticAccredited(date: Date): [StatisticAccredited]
+
+        GetStatisticMeterChange(date: Date): [StatisticMeterChange]
+
+        GetStatisticTransmitterChange(date: Date): [StatisticTransmitterChange]
+
+        GetStatisticLoggerChange(date: Date): [StatisticLoggerChange]
+
+        GetStatisticBatteryChange(date: Date): [StatisticBatteryChange]
+
+        GetStatisticTransmitterBatteryChange(
+            date: Date
+        ): [StatisticTransmitterBatteryChange]
+
+        GetStatisticLoggerBatteryChange(
+            date: Date
+        ): [StatisticLoggerBatteryChange]
     }
 
     # declare Mutation

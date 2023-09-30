@@ -6,7 +6,15 @@ import { checkAdminViewerRole, convertDateToString } from '../utils/utils';
 
 import { useEffect, useState } from 'react';
 
-import { useGetStatisticAccreditedLazyQuery } from '../__generated__/graphql';
+import {
+    useGetStatisticAccreditedLazyQuery,
+    useGetStatisticMeterChangeLazyQuery,
+    useGetStatisticTransmitterChangeLazyQuery,
+    useGetStatisticLoggerChangeLazyQuery,
+    useGetStatisticBatteryChangeLazyQuery,
+    useGetStatisticTransmitterBatteryChangeLazyQuery,
+    useGetStatisticLoggerBatteryChangeLazyQuery,
+} from '../__generated__/graphql';
 
 import DataTable from 'react-data-table-component';
 // @ts-ignore
@@ -28,6 +36,17 @@ const StatisticChangePeriodPage = () => {
 
     const [getStatisticAccreditation, {}] =
         useGetStatisticAccreditedLazyQuery();
+    const [getStatisticMeterChange, {}] = useGetStatisticMeterChangeLazyQuery();
+    const [getStatisticTransmitterChange, {}] =
+        useGetStatisticTransmitterChangeLazyQuery();
+    const [getStatisticLoggerChange, {}] =
+        useGetStatisticLoggerChangeLazyQuery();
+    const [getStatisticBatteryChange, {}] =
+        useGetStatisticBatteryChangeLazyQuery();
+    const [getStatisticTransmitterBatteryChange, {}] =
+        useGetStatisticTransmitterBatteryChangeLazyQuery();
+    const [getStatisticLoggerBatteryChange, {}] =
+        useGetStatisticLoggerBatteryChangeLazyQuery();
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
@@ -149,55 +168,494 @@ const StatisticChangePeriodPage = () => {
         },
         {
             name: 'Ghi chú',
-            selector: (row: any) => row.Description,
+            selector: (row: any) => row.DescriptionOfChange,
             sortable: true,
-            cellExport: (row: any) => row.Description,
+            cellExport: (row: any) => row.DescriptionOfChange,
         },
     ];
 
+    const columnsForLogger = [
+        {
+            name: 'STT',
+            selector: (row: any) => row.STT,
+            sortable: true,
+            cellExport: (row: any) => row.STT,
+            width: '80px',
+        },
+        {
+            name: 'Mã vị trí',
+            selector: (row: any) => row._id,
+            sortable: true,
+            cellExport: (row: any) => row._id,
+            width: '150px',
+        },
+        {
+            name: 'Vị trí',
+            selector: (row: any) => row.Location,
+            sortable: true,
+            cellExport: (row: any) => row.Location,
+            width: '300px',
+        },
+        {
+            name: 'Logger cũ',
+            selector: (row: any) => row.OldLooger,
+            sortable: true,
+            cellExport: (row: any) => row.OldLooger,
+            width: '100px',
+        },
+        {
+            name: 'Logger mới',
+            selector: (row: any) => row.NewLogger,
+            sortable: true,
+            cellExport: (row: any) => row.NewLogger,
+        },
+        {
+            name: 'Ngày thay',
+            selector: (row: any) => row.DateOfChange,
+            sortable: true,
+            cellExport: (row: any) => row.DateOfChange,
+            width: '100px',
+            format: (row: any) => convertDateToString(row.DateOfChange),
+        },
+        {
+            name: 'Ghi chú',
+            selector: (row: any) => row.DescriptionOfChange,
+            sortable: true,
+            cellExport: (row: any) => row.DescriptionOfChange,
+        },
+    ];
+
+    const columnsForAnother = [
+        {
+            name: 'STT',
+            selector: (row: any) => row.STT,
+            sortable: true,
+            cellExport: (row: any) => row.STT,
+            width: '80px',
+        },
+        {
+            name: 'Mã vị trí',
+            selector: (row: any) => row._id,
+            sortable: true,
+            cellExport: (row: any) => row._id,
+            width: '150px',
+        },
+        {
+            name: 'Vị trí',
+            selector: (row: any) => row.Location,
+            sortable: true,
+            cellExport: (row: any) => row.Location,
+            width: '300px',
+        },
+        {
+            name: 'Đồng hồ cũ',
+            selector: (row: any) => row.OldMeter,
+            sortable: true,
+            cellExport: (row: any) => row.OldMeter,
+            width: '100px',
+        },
+        {
+            name: 'Bộ hiển thị cũ',
+            selector: (row: any) => row.OldTran,
+            sortable: true,
+            cellExport: (row: any) => row.OldTran,
+            width: '100px',
+        },
+        {
+            name: 'Mã ĐH',
+            selector: (row: any) => '',
+            sortable: true,
+            cellExport: (row: any) => '',
+            width: '100px',
+        },
+        {
+            name: 'Đồng hồ',
+            selector: (row: any) => row.Meter,
+            sortable: true,
+            cellExport: (row: any) => row.Meter,
+            width: '100px',
+        },
+        {
+            name: 'Mã BHT',
+            selector: (row: any) => '',
+            sortable: true,
+            cellExport: (row: any) => '',
+            width: '100px',
+        },
+        {
+            name: 'Bộ hiển thị',
+            selector: (row: any) => row.Transmitter,
+            sortable: true,
+            cellExport: (row: any) => row.Transmitter,
+            width: '100px',
+        },
+        {
+            name: 'Hiệu',
+            selector: (row: any) => row.Marks,
+            sortable: true,
+            cellExport: (row: any) => row.Marks,
+            width: '100px',
+        },
+        {
+            name: 'Cỡ',
+            selector: (row: any) => row.Size,
+            sortable: true,
+            cellExport: (row: any) => row.Size,
+            width: '100px',
+        },
+
+        {
+            name: 'Ngày thay',
+            selector: (row: any) => row.DateOfChange,
+            sortable: true,
+            cellExport: (row: any) => row.DateOfChange,
+            width: '100px',
+            format: (row: any) => convertDateToString(row.DateOfChange),
+        },
+        {
+            name: 'Giấy kiểm định',
+            selector: (row: any) => row.AccreditationDocument,
+            sortable: true,
+            cellExport: (row: any) => row.AccreditationDocument,
+            width: '100px',
+        },
+        {
+            name: 'Ngày hết hạn KĐ',
+            selector: (row: any) => row.ExpiryDate,
+            sortable: true,
+            cellExport: (row: any) => row.ExpiryDate,
+            width: '100px',
+            format: (row: any) => convertDateToString(row.ExpiryDate),
+        },
+        {
+            name: 'Ghi chú',
+            selector: (row: any) => row.DescriptionOfChange,
+            sortable: true,
+            cellExport: (row: any) => row.DescriptionOfChange,
+        },
+    ];
+
+    const getStatisticAcccreditationAction = () => {
+        getStatisticAccreditation({
+            variables: {
+                date: time,
+            },
+        })
+            .then((res) => {
+                if (
+                    res?.data?.GetStatisticAccredited !== null &&
+                    res?.data?.GetStatisticAccredited !== undefined
+                ) {
+                    const temp = [];
+
+                    let count = 1;
+
+                    for (const item of res.data.GetStatisticAccredited) {
+                        const obj = {
+                            STT: count++,
+                            ...item,
+                        };
+
+                        temp.push(obj);
+                    }
+
+                    //@ts-ignore
+                    setData([...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAccrediation]);
+
+                    setTitle(
+                        `Điểm Lắp Đặt Kiểm Định Đồng Hồ Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                    );
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const getStatisticMeterChangeAction = () => {
+        getStatisticMeterChange({
+            variables: {
+                date: time,
+            },
+        })
+            .then((res) => {
+                if (
+                    res?.data?.GetStatisticMeterChange !== null &&
+                    res?.data?.GetStatisticMeterChange !== undefined
+                ) {
+                    const temp = [];
+
+                    let count = 1;
+
+                    for (const item of res.data?.GetStatisticMeterChange) {
+                        const obj = {
+                            STT: count++,
+                            ...item,
+                        };
+
+                        temp.push(obj);
+                    }
+
+                    //@ts-ignore
+                    setData([...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAnother]);
+
+                    setTitle(
+                        `Điểm Lắp Đặt Mới Thay Đồng Hồ Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                    );
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const getStatisticTransmitterChangeAction = () => {
+        getStatisticTransmitterChange({
+            variables: {
+                date: time,
+            },
+        })
+            .then((res) => {
+                if (
+                    res?.data?.GetStatisticTransmitterChange !== null &&
+                    res?.data?.GetStatisticTransmitterChange !== undefined
+                ) {
+                    const temp = [];
+
+                    let count = 1;
+
+                    for (const item of res.data
+                        ?.GetStatisticTransmitterChange) {
+                        const obj = {
+                            STT: count++,
+                            ...item,
+                        };
+
+                        temp.push(obj);
+                    }
+
+                    //@ts-ignore
+                    setData([...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAnother]);
+
+                    setTitle(
+                        `Điểm Lắp Đặt Mới Thay Bộ Hiển Thị Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                    );
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const getStatisticLoggerChangeAction = () => {
+        getStatisticLoggerChange({
+            variables: {
+                date: time,
+            },
+        })
+            .then((res) => {
+                if (
+                    res?.data?.GetStatisticLoggerChange !== null &&
+                    res?.data?.GetStatisticLoggerChange !== undefined
+                ) {
+                    const temp = [];
+
+                    let count = 1;
+
+                    for (const item of res.data?.GetStatisticLoggerChange) {
+                        const obj = {
+                            STT: count++,
+                            ...item,
+                        };
+
+                        temp.push(obj);
+                    }
+
+                    //@ts-ignore
+                    setData([...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForLogger]);
+
+                    setTitle(
+                        `Điểm Lắp Đặt Mới Thay Logger Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                    );
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const getStatisticBatteryChangeAction = () => {
+        getStatisticBatteryChange({
+            variables: {
+                date: time,
+            },
+        })
+            .then((res) => {
+                if (
+                    res?.data?.GetStatisticBatteryChange !== null &&
+                    res?.data?.GetStatisticBatteryChange !== undefined
+                ) {
+                    const temp = [];
+
+                    let count = 1;
+
+                    for (const item of res.data?.GetStatisticBatteryChange) {
+                        const obj = {
+                            STT: count++,
+                            ...item,
+                        };
+
+                        temp.push(obj);
+                    }
+
+                    //@ts-ignore
+                    setData([...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAnother]);
+
+                    setTitle(
+                        `Điểm Lắp Đặt Mới Thay Acquy Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                    );
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const getStatisticTransmitterBatteryChangeAction = () => {
+        getStatisticTransmitterBatteryChange({
+            variables: {
+                date: time,
+            },
+        })
+            .then((res) => {
+                if (
+                    res?.data?.GetStatisticTransmitterBatteryChange !== null &&
+                    res?.data?.GetStatisticTransmitterBatteryChange !==
+                        undefined
+                ) {
+                    const temp = [];
+
+                    let count = 1;
+
+                    for (const item of res.data
+                        ?.GetStatisticTransmitterBatteryChange) {
+                        const obj = {
+                            STT: count++,
+                            ...item,
+                        };
+
+                        temp.push(obj);
+                    }
+
+                    //@ts-ignore
+                    setData([...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAnother]);
+
+                    setTitle(
+                        `Điểm Lắp Đặt Mới Thay Pin Bộ Hiển Thị Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                    );
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const getStatisticLoggerBatteryChangeAction = () => {
+        getStatisticLoggerBatteryChange({
+            variables: {
+                date: time,
+            },
+        })
+            .then((res) => {
+                if (
+                    res?.data?.GetStatisticLoggerBatteryChange !== null &&
+                    res?.data?.GetStatisticLoggerBatteryChange !== undefined
+                ) {
+                    const temp = [];
+
+                    let count = 1;
+
+                    for (const item of res.data
+                        ?.GetStatisticLoggerBatteryChange) {
+                        const obj = {
+                            STT: count++,
+                            ...item,
+                        };
+
+                        temp.push(obj);
+                    }
+
+                    //@ts-ignore
+                    setData([...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAnother]);
+
+                    setTitle(
+                        `Điểm Lắp Đặt Mới Thay Pin Logger Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                    );
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     const onViewClicked = () => {
         if (type !== 0 && time !== null && time !== undefined) {
-            if (type == 1) {
-                getStatisticAccreditation({
-                    variables: {
-                        date: time,
-                    },
-                })
-                    .then((res) => {
-                        if (
-                            res?.data?.GetStatisticAccredited !== null &&
-                            res?.data?.GetStatisticAccredited !== undefined
-                        ) {
-                            const temp = [];
-
-                            let count = 1;
-
-                            for (const item of res.data
-                                .GetStatisticAccredited) {
-                                const obj = {
-                                    STT: count++,
-                                    ...item,
-                                };
-
-                                temp.push(obj);
-                            }   
-
-                            //@ts-ignore
-                            setData([...temp]);
-
-                            //@ts-ignore
-                            setColumn([...columnsForAccrediation]);
-
-                            setTitle(
-                                `Điểm Lắp Đặt Kiểm Định Đồng Hồ Sau Ngày ${convertDateToString(
-                                    time,
-                                )}`,
-                            );
-                        }
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
+            if (type === 1) {
+                getStatisticAcccreditationAction();
+            } else if (type === 2) {
+                getStatisticMeterChangeAction();
+            } else if (type === 3) {
+                getStatisticTransmitterChangeAction();
+            } else if (type === 4) {
+                getStatisticLoggerChangeAction();
+            } else if (type === 5) {
+                getStatisticBatteryChangeAction();
+            } else if (type === 6) {
+                getStatisticTransmitterBatteryChangeAction();
+            } else if (type === 7) {
+                getStatisticLoggerBatteryChangeAction();
             }
         }
     };

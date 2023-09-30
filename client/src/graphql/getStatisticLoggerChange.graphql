@@ -1,0 +1,10 @@
+query GetStatisticLoggerChange($date: Date) {
+    GetStatisticLoggerChange(date: $date) {
+        Location
+        NewLogger
+        OldLogger
+        _id
+        DateOfChange
+        DescriptionOfChange
+    }
+}

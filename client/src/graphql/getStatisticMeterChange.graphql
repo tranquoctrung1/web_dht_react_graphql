@@ -1,0 +1,17 @@
+query GetStatisticMeterChange($date: Date) {
+    GetStatisticMeterChange(date: $date) {
+        AccreditationDocument
+        DateOfChange
+        ExpiryDate
+        DescriptionOfChange
+        _id
+        Level
+        Location
+        Marks
+        Meter
+        OldMeter
+        OldTran
+        Size
+        Transmitter
+    }
+}

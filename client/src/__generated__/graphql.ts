@@ -1013,8 +1013,14 @@ export type Query = {
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
   GetStatisticAccredited?: Maybe<Array<Maybe<StatisticAccredited>>>;
+  GetStatisticBatteryChange?: Maybe<Array<Maybe<StatisticBatteryChange>>>;
   GetStatisticCustomChoiceSite?: Maybe<Array<Maybe<StatisticCustomChoiceSite>>>;
+  GetStatisticLoggerBatteryChange?: Maybe<Array<Maybe<StatisticLoggerBatteryChange>>>;
+  GetStatisticLoggerChange?: Maybe<Array<Maybe<StatisticLoggerChange>>>;
+  GetStatisticMeterChange?: Maybe<Array<Maybe<StatisticMeterChange>>>;
   GetStatisticSiteXNManager?: Maybe<Array<Maybe<StatisticSiteXnManager>>>;
+  GetStatisticTransmitterBatteryChange?: Maybe<Array<Maybe<StatisticTransmitterBatteryChange>>>;
+  GetStatisticTransmitterChange?: Maybe<Array<Maybe<StatisticTransmitterChange>>>;
   GetTransmitterMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetTransmitterModel?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetTransmitterProvider?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1069,6 +1075,36 @@ export type QueryGetSiteByWaterSupplyArgs = {
 
 
 export type QueryGetStatisticAccreditedArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+};
+
+
+export type QueryGetStatisticBatteryChangeArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+};
+
+
+export type QueryGetStatisticLoggerBatteryChangeArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+};
+
+
+export type QueryGetStatisticLoggerChangeArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+};
+
+
+export type QueryGetStatisticMeterChangeArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+};
+
+
+export type QueryGetStatisticTransmitterBatteryChangeArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+};
+
+
+export type QueryGetStatisticTransmitterChangeArgs = {
   date?: InputMaybe<Scalars['Date']>;
 };
 
@@ -1353,6 +1389,20 @@ export type StatisticAccredited = {
   _id?: Maybe<Scalars['String']>;
 };
 
+export type StatisticBatteryChange = {
+  __typename?: 'StatisticBatteryChange';
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  Id?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Meter?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Transmitter?: Maybe<Scalars['String']>;
+};
+
 export type StatisticCustomChoiceSite = {
   __typename?: 'StatisticCustomChoiceSite';
   AccreditationDocument?: Maybe<Scalars['String']>;
@@ -1387,6 +1437,47 @@ export type StatisticCustomChoiceSite = {
   _id?: Maybe<Scalars['String']>;
 };
 
+export type StatisticLoggerBatteryChange = {
+  __typename?: 'StatisticLoggerBatteryChange';
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  Id?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Meter?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Transmitter?: Maybe<Scalars['String']>;
+};
+
+export type StatisticLoggerChange = {
+  __typename?: 'StatisticLoggerChange';
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  NewLogger?: Maybe<Scalars['String']>;
+  OldLogger?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['String']>;
+};
+
+export type StatisticMeterChange = {
+  __typename?: 'StatisticMeterChange';
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  Level?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Meter?: Maybe<Scalars['String']>;
+  OldMeter?: Maybe<Scalars['String']>;
+  OldTran?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Transmitter?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['String']>;
+};
+
 export type StatisticSiteXnManager = {
   __typename?: 'StatisticSiteXNManager';
   Availability?: Maybe<Scalars['String']>;
@@ -1400,6 +1491,37 @@ export type StatisticSiteXnManager = {
   Size?: Maybe<Scalars['Int']>;
   Status?: Maybe<Scalars['String']>;
   UsingLogger?: Maybe<Scalars['Boolean']>;
+};
+
+export type StatisticTransmitterBatteryChange = {
+  __typename?: 'StatisticTransmitterBatteryChange';
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  Id?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Meter?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Transmitter?: Maybe<Scalars['String']>;
+};
+
+export type StatisticTransmitterChange = {
+  __typename?: 'StatisticTransmitterChange';
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Meter?: Maybe<Scalars['String']>;
+  Model?: Maybe<Scalars['String']>;
+  OldMeter?: Maybe<Scalars['String']>;
+  OldTran?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Transmitter?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['String']>;
 };
 
 export type SubtractWaterB1 = {
@@ -1909,15 +2031,57 @@ export type GetStatisticAccreditedQueryVariables = Exact<{
 
 export type GetStatisticAccreditedQuery = { __typename?: 'Query', GetStatisticAccredited?: Array<{ __typename?: 'StatisticAccredited', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Location?: string | null, Marks?: string | null, Size?: number | null, _id?: string | null } | null> | null };
 
+export type GetStatisticBatteryChangeQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+}>;
+
+
+export type GetStatisticBatteryChangeQuery = { __typename?: 'Query', GetStatisticBatteryChange?: Array<{ __typename?: 'StatisticBatteryChange', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Id?: string | null, Location?: string | null, Marks?: string | null, Meter?: string | null, Size?: number | null, Transmitter?: string | null } | null> | null };
+
 export type GetStatisticCustomChoiceSiteQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetStatisticCustomChoiceSiteQuery = { __typename?: 'Query', GetStatisticCustomChoiceSite?: Array<{ __typename?: 'StatisticCustomChoiceSite', AccreditationDocument?: string | null, AccreditedDate?: any | null, ApprovalDecision?: string | null, Company?: string | null, Availability?: string | null, DateOfMeterChange?: any | null, Description?: string | null, ExpiryDate?: any | null, Group?: string | null, Group2?: string | null, IstDistributionCompany?: string | null, Level?: string | null, Location?: string | null, Logger?: string | null, LoggerModel?: string | null, Marks?: string | null, Meter?: string | null, Model?: string | null, ProductionCompany?: string | null, Property?: boolean | null, Provider?: string | null, QndDistributionCompany?: string | null, Size?: number | null, Status?: string | null, Takeovered?: boolean | null, Transmitter?: string | null, UsingLogger?: boolean | null, _id?: string | null, AccreditationType?: string | null, Approved?: boolean | null } | null> | null };
 
+export type GetStatisticLoggerBatteryChangeQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+}>;
+
+
+export type GetStatisticLoggerBatteryChangeQuery = { __typename?: 'Query', GetStatisticLoggerBatteryChange?: Array<{ __typename?: 'StatisticLoggerBatteryChange', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Id?: string | null, Location?: string | null, Marks?: string | null, Meter?: string | null, Size?: number | null, Transmitter?: string | null } | null> | null };
+
+export type GetStatisticLoggerChangeQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+}>;
+
+
+export type GetStatisticLoggerChangeQuery = { __typename?: 'Query', GetStatisticLoggerChange?: Array<{ __typename?: 'StatisticLoggerChange', Location?: string | null, NewLogger?: string | null, OldLogger?: string | null, _id?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null } | null> | null };
+
+export type GetStatisticMeterChangeQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+}>;
+
+
+export type GetStatisticMeterChangeQuery = { __typename?: 'Query', GetStatisticMeterChange?: Array<{ __typename?: 'StatisticMeterChange', AccreditationDocument?: string | null, DateOfChange?: any | null, ExpiryDate?: any | null, DescriptionOfChange?: string | null, _id?: string | null, Level?: string | null, Location?: string | null, Marks?: string | null, Meter?: string | null, OldMeter?: string | null, OldTran?: string | null, Size?: number | null, Transmitter?: string | null } | null> | null };
+
 export type GetStatisticSiteXnManagerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetStatisticSiteXnManagerQuery = { __typename?: 'Query', GetStatisticSiteXNManager?: Array<{ __typename?: 'StatisticSiteXNManager', Availability?: string | null, Company?: string | null, Description?: string | null, Level?: string | null, Location?: string | null, Marks?: string | null, STT?: number | null, SiteId?: string | null, Size?: number | null, Status?: string | null, UsingLogger?: boolean | null } | null> | null };
+
+export type GetStatisticTransmitterChangeQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+}>;
+
+
+export type GetStatisticTransmitterChangeQuery = { __typename?: 'Query', GetStatisticTransmitterChange?: Array<{ __typename?: 'StatisticTransmitterChange', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Location?: string | null, Marks?: string | null, Meter?: string | null, Model?: string | null, OldMeter?: string | null, OldTran?: string | null, Size?: number | null, Transmitter?: string | null, _id?: string | null } | null> | null };
+
+export type GetStatisticTransmitterBatteryChangeQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+}>;
+
+
+export type GetStatisticTransmitterBatteryChangeQuery = { __typename?: 'Query', GetStatisticTransmitterBatteryChange?: Array<{ __typename?: 'StatisticTransmitterBatteryChange', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Id?: string | null, Location?: string | null, Marks?: string | null, Meter?: string | null, Size?: number | null, Transmitter?: string | null } | null> | null };
 
 export type InsertDataManualMutationVariables = Exact<{
   dataManual?: InputMaybe<DataManualInsertInput>;
@@ -5039,6 +5203,53 @@ export type GetStatisticAccreditedQueryResult = Apollo.QueryResult<GetStatisticA
 export function refetchGetStatisticAccreditedQuery(variables?: GetStatisticAccreditedQueryVariables) {
       return { query: GetStatisticAccreditedDocument, variables: variables }
     }
+export const GetStatisticBatteryChangeDocument = gql`
+    query GetStatisticBatteryChange($date: Date) {
+  GetStatisticBatteryChange(date: $date) {
+    AccreditationDocument
+    DateOfChange
+    DescriptionOfChange
+    ExpiryDate
+    Id
+    Location
+    Marks
+    Meter
+    Size
+    Transmitter
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticBatteryChangeQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticBatteryChangeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticBatteryChangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticBatteryChangeQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetStatisticBatteryChangeQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticBatteryChangeQuery, GetStatisticBatteryChangeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticBatteryChangeQuery, GetStatisticBatteryChangeQueryVariables>(GetStatisticBatteryChangeDocument, options);
+      }
+export function useGetStatisticBatteryChangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticBatteryChangeQuery, GetStatisticBatteryChangeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticBatteryChangeQuery, GetStatisticBatteryChangeQueryVariables>(GetStatisticBatteryChangeDocument, options);
+        }
+export type GetStatisticBatteryChangeQueryHookResult = ReturnType<typeof useGetStatisticBatteryChangeQuery>;
+export type GetStatisticBatteryChangeLazyQueryHookResult = ReturnType<typeof useGetStatisticBatteryChangeLazyQuery>;
+export type GetStatisticBatteryChangeQueryResult = Apollo.QueryResult<GetStatisticBatteryChangeQuery, GetStatisticBatteryChangeQueryVariables>;
+export function refetchGetStatisticBatteryChangeQuery(variables?: GetStatisticBatteryChangeQueryVariables) {
+      return { query: GetStatisticBatteryChangeDocument, variables: variables }
+    }
 export const GetStatisticCustomChoiceSiteDocument = gql`
     query GetStatisticCustomChoiceSite {
   GetStatisticCustomChoiceSite {
@@ -5105,6 +5316,146 @@ export type GetStatisticCustomChoiceSiteQueryResult = Apollo.QueryResult<GetStat
 export function refetchGetStatisticCustomChoiceSiteQuery(variables?: GetStatisticCustomChoiceSiteQueryVariables) {
       return { query: GetStatisticCustomChoiceSiteDocument, variables: variables }
     }
+export const GetStatisticLoggerBatteryChangeDocument = gql`
+    query GetStatisticLoggerBatteryChange($date: Date) {
+  GetStatisticLoggerBatteryChange(date: $date) {
+    AccreditationDocument
+    DateOfChange
+    DescriptionOfChange
+    ExpiryDate
+    Id
+    Location
+    Marks
+    Meter
+    Size
+    Transmitter
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticLoggerBatteryChangeQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticLoggerBatteryChangeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticLoggerBatteryChangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticLoggerBatteryChangeQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetStatisticLoggerBatteryChangeQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticLoggerBatteryChangeQuery, GetStatisticLoggerBatteryChangeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticLoggerBatteryChangeQuery, GetStatisticLoggerBatteryChangeQueryVariables>(GetStatisticLoggerBatteryChangeDocument, options);
+      }
+export function useGetStatisticLoggerBatteryChangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticLoggerBatteryChangeQuery, GetStatisticLoggerBatteryChangeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticLoggerBatteryChangeQuery, GetStatisticLoggerBatteryChangeQueryVariables>(GetStatisticLoggerBatteryChangeDocument, options);
+        }
+export type GetStatisticLoggerBatteryChangeQueryHookResult = ReturnType<typeof useGetStatisticLoggerBatteryChangeQuery>;
+export type GetStatisticLoggerBatteryChangeLazyQueryHookResult = ReturnType<typeof useGetStatisticLoggerBatteryChangeLazyQuery>;
+export type GetStatisticLoggerBatteryChangeQueryResult = Apollo.QueryResult<GetStatisticLoggerBatteryChangeQuery, GetStatisticLoggerBatteryChangeQueryVariables>;
+export function refetchGetStatisticLoggerBatteryChangeQuery(variables?: GetStatisticLoggerBatteryChangeQueryVariables) {
+      return { query: GetStatisticLoggerBatteryChangeDocument, variables: variables }
+    }
+export const GetStatisticLoggerChangeDocument = gql`
+    query GetStatisticLoggerChange($date: Date) {
+  GetStatisticLoggerChange(date: $date) {
+    Location
+    NewLogger
+    OldLogger
+    _id
+    DateOfChange
+    DescriptionOfChange
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticLoggerChangeQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticLoggerChangeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticLoggerChangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticLoggerChangeQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetStatisticLoggerChangeQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticLoggerChangeQuery, GetStatisticLoggerChangeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticLoggerChangeQuery, GetStatisticLoggerChangeQueryVariables>(GetStatisticLoggerChangeDocument, options);
+      }
+export function useGetStatisticLoggerChangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticLoggerChangeQuery, GetStatisticLoggerChangeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticLoggerChangeQuery, GetStatisticLoggerChangeQueryVariables>(GetStatisticLoggerChangeDocument, options);
+        }
+export type GetStatisticLoggerChangeQueryHookResult = ReturnType<typeof useGetStatisticLoggerChangeQuery>;
+export type GetStatisticLoggerChangeLazyQueryHookResult = ReturnType<typeof useGetStatisticLoggerChangeLazyQuery>;
+export type GetStatisticLoggerChangeQueryResult = Apollo.QueryResult<GetStatisticLoggerChangeQuery, GetStatisticLoggerChangeQueryVariables>;
+export function refetchGetStatisticLoggerChangeQuery(variables?: GetStatisticLoggerChangeQueryVariables) {
+      return { query: GetStatisticLoggerChangeDocument, variables: variables }
+    }
+export const GetStatisticMeterChangeDocument = gql`
+    query GetStatisticMeterChange($date: Date) {
+  GetStatisticMeterChange(date: $date) {
+    AccreditationDocument
+    DateOfChange
+    ExpiryDate
+    DescriptionOfChange
+    _id
+    Level
+    Location
+    Marks
+    Meter
+    OldMeter
+    OldTran
+    Size
+    Transmitter
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticMeterChangeQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticMeterChangeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticMeterChangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticMeterChangeQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetStatisticMeterChangeQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticMeterChangeQuery, GetStatisticMeterChangeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticMeterChangeQuery, GetStatisticMeterChangeQueryVariables>(GetStatisticMeterChangeDocument, options);
+      }
+export function useGetStatisticMeterChangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticMeterChangeQuery, GetStatisticMeterChangeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticMeterChangeQuery, GetStatisticMeterChangeQueryVariables>(GetStatisticMeterChangeDocument, options);
+        }
+export type GetStatisticMeterChangeQueryHookResult = ReturnType<typeof useGetStatisticMeterChangeQuery>;
+export type GetStatisticMeterChangeLazyQueryHookResult = ReturnType<typeof useGetStatisticMeterChangeLazyQuery>;
+export type GetStatisticMeterChangeQueryResult = Apollo.QueryResult<GetStatisticMeterChangeQuery, GetStatisticMeterChangeQueryVariables>;
+export function refetchGetStatisticMeterChangeQuery(variables?: GetStatisticMeterChangeQueryVariables) {
+      return { query: GetStatisticMeterChangeDocument, variables: variables }
+    }
 export const GetStatisticSiteXnManagerDocument = gql`
     query GetStatisticSiteXNManager {
   GetStatisticSiteXNManager {
@@ -5151,6 +5502,103 @@ export type GetStatisticSiteXnManagerLazyQueryHookResult = ReturnType<typeof use
 export type GetStatisticSiteXnManagerQueryResult = Apollo.QueryResult<GetStatisticSiteXnManagerQuery, GetStatisticSiteXnManagerQueryVariables>;
 export function refetchGetStatisticSiteXnManagerQuery(variables?: GetStatisticSiteXnManagerQueryVariables) {
       return { query: GetStatisticSiteXnManagerDocument, variables: variables }
+    }
+export const GetStatisticTransmitterChangeDocument = gql`
+    query GetStatisticTransmitterChange($date: Date) {
+  GetStatisticTransmitterChange(date: $date) {
+    AccreditationDocument
+    DateOfChange
+    DescriptionOfChange
+    ExpiryDate
+    Location
+    Marks
+    Meter
+    Model
+    OldMeter
+    OldTran
+    Size
+    Transmitter
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticTransmitterChangeQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticTransmitterChangeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticTransmitterChangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticTransmitterChangeQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetStatisticTransmitterChangeQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticTransmitterChangeQuery, GetStatisticTransmitterChangeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticTransmitterChangeQuery, GetStatisticTransmitterChangeQueryVariables>(GetStatisticTransmitterChangeDocument, options);
+      }
+export function useGetStatisticTransmitterChangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticTransmitterChangeQuery, GetStatisticTransmitterChangeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticTransmitterChangeQuery, GetStatisticTransmitterChangeQueryVariables>(GetStatisticTransmitterChangeDocument, options);
+        }
+export type GetStatisticTransmitterChangeQueryHookResult = ReturnType<typeof useGetStatisticTransmitterChangeQuery>;
+export type GetStatisticTransmitterChangeLazyQueryHookResult = ReturnType<typeof useGetStatisticTransmitterChangeLazyQuery>;
+export type GetStatisticTransmitterChangeQueryResult = Apollo.QueryResult<GetStatisticTransmitterChangeQuery, GetStatisticTransmitterChangeQueryVariables>;
+export function refetchGetStatisticTransmitterChangeQuery(variables?: GetStatisticTransmitterChangeQueryVariables) {
+      return { query: GetStatisticTransmitterChangeDocument, variables: variables }
+    }
+export const GetStatisticTransmitterBatteryChangeDocument = gql`
+    query GetStatisticTransmitterBatteryChange($date: Date) {
+  GetStatisticTransmitterBatteryChange(date: $date) {
+    AccreditationDocument
+    DateOfChange
+    DescriptionOfChange
+    ExpiryDate
+    Id
+    Location
+    Marks
+    Meter
+    Size
+    Transmitter
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticTransmitterBatteryChangeQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticTransmitterBatteryChangeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticTransmitterBatteryChangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticTransmitterBatteryChangeQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetStatisticTransmitterBatteryChangeQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticTransmitterBatteryChangeQuery, GetStatisticTransmitterBatteryChangeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticTransmitterBatteryChangeQuery, GetStatisticTransmitterBatteryChangeQueryVariables>(GetStatisticTransmitterBatteryChangeDocument, options);
+      }
+export function useGetStatisticTransmitterBatteryChangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticTransmitterBatteryChangeQuery, GetStatisticTransmitterBatteryChangeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticTransmitterBatteryChangeQuery, GetStatisticTransmitterBatteryChangeQueryVariables>(GetStatisticTransmitterBatteryChangeDocument, options);
+        }
+export type GetStatisticTransmitterBatteryChangeQueryHookResult = ReturnType<typeof useGetStatisticTransmitterBatteryChangeQuery>;
+export type GetStatisticTransmitterBatteryChangeLazyQueryHookResult = ReturnType<typeof useGetStatisticTransmitterBatteryChangeLazyQuery>;
+export type GetStatisticTransmitterBatteryChangeQueryResult = Apollo.QueryResult<GetStatisticTransmitterBatteryChangeQuery, GetStatisticTransmitterBatteryChangeQueryVariables>;
+export function refetchGetStatisticTransmitterBatteryChangeQuery(variables?: GetStatisticTransmitterBatteryChangeQueryVariables) {
+      return { query: GetStatisticTransmitterBatteryChangeDocument, variables: variables }
     }
 export const InsertDataManualDocument = gql`
     mutation InsertDataManual($dataManual: DataManualInsertInput) {

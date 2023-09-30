@@ -1,6 +1,10 @@
 const SiteModel = require('../../models/SiteSite.model');
 const DeviceMeterModel = require('../../models/DeviceMeter.model');
 const DeviceLoggerModel = require('../../models/DeviceLogger.model');
+const HistorySiteMeterModel = require('../../models/HistorySiteMeter.model');
+const DeviceTransmitterModel = require('../../models/DeviceTransmitter.model');
+const HistorySiteTransmitterModel = require('../../models/HistorySiteTransmitter.model');
+const HistorySiteLoggerModel = require('../../models/HistorySiteLogger.model');
 
 module.exports = {
     Query: {
@@ -77,7 +81,7 @@ module.exports = {
 
                 count++;
 
-                result.push(obj);
+                resufindTransmitter.push(obj);
             }
 
             return result;
@@ -238,6 +242,243 @@ module.exports = {
                         DescriptionOfChange: find.DescriptionOfChange,
                         AccreditationDocument: meter.AccreditationDocument,
                         ExpiryDate: meter.ExpiryDate,
+                    };
+
+                    result.push(obj);
+                }
+            }
+
+            return result;
+        },
+        GetStatisticMeterChange: async (parent, { date }, context, info) => {
+            const result = [];
+
+            const listSite = await SiteModel.GetSiteMeterDateChange(date);
+
+            const listMeter = await DeviceMeterModel.GetAll();
+
+            const listHistorySiteMeter =
+                await HistorySiteMeterModel.GetHistoryDateChange(date);
+
+            for (const h of listHistorySiteMeter) {
+                const findSite = listSite.find((el) => el._id === h.SiteId);
+
+                if (findSite !== undefined) {
+                    const findMeter = listMeter.find(
+                        (el) => el.Serial === findSite.Meter,
+                    );
+
+                    if (findMeter !== undefined) {
+                        const obj = {
+                            Meter: h.NewMeterSerial,
+                            Transmitter: '',
+                            _id: findSite._id,
+                            Level: findMeter.ApprovalDecision,
+                            Location: findSite.Location,
+                            Marks: findMeter.Marks,
+                            Size: findMeter.Size,
+                            OldMeter: h.OldMeterSerial,
+                            OldTran: '',
+                            DateOfChange: h.DateChanged,
+                            DescriptionOfChange: findSite.DescriptionOfChange,
+                            AccreditationDocument:
+                                findMeter.AccreditationDocument,
+                            ExpiryDate: findMeter.ExpiryDate,
+                        };
+
+                        result.push(obj);
+                    }
+                }
+            }
+
+            return result;
+        },
+
+        GetStatisticTransmitterChange: async (
+            parent,
+            { date },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listSite = await SiteModel.GetSiteTransmitterDateChange(date);
+
+            const listMeter = await DeviceMeterModel.GetAll();
+
+            const listTransmitter = await DeviceTransmitterModel.GetAll();
+
+            const listHistorySiteTransmitter =
+                await HistorySiteTransmitterModel.GetHistoryDateChange(date);
+
+            for (const h of listHistorySiteTransmitter) {
+                const findSite = listSite.find((el) => el._id === h.SiteId);
+
+                if (findSite !== undefined) {
+                    const findTransmitter = listTransmitter.find(
+                        (el) => el.Serial === findSite.Transmitter,
+                    );
+                    if (findTransmitter !== undefined) {
+                        const obj = {
+                            Meter: '',
+                            Transmitter: h.NewMeterSerial,
+                            _id: findSite._id,
+                            Location: findSite.Location,
+                            Marks: '',
+                            Size: 0,
+                            Model: findTransmitter.ApprovalDecision,
+                            OldMeter: '',
+                            OldTran: h.OldMeterSerial,
+                            DateOfChange: h.DateChanged,
+                            DescriptionOfChange: findSite.DescriptionOfChange,
+                            AccreditationDocument: '',
+                            ExpiryDate: null,
+                        };
+
+                        const findMeter = listMeter.find(
+                            (el) => el.Serial === findSite.Meter,
+                        );
+
+                        if (findMeter !== undefined) {
+                            obj.Marks = findMeter.Marks;
+                            obj.Size = findMeter.Size;
+                            obj.AccreditationDocument =
+                                findMeter.AccreditationDocument;
+                            obj.ExpiryDate = findMeter.ExpiryDate;
+                        }
+
+                        result.push(obj);
+                    }
+                }
+            }
+            return result;
+        },
+
+        GetStatisticLoggerChange: async (parent, { date }, context, info) => {
+            const result = [];
+
+            const listSite = await SiteModel.GetSiteLoggerDateChange(date);
+
+            const listHistorySiteLogger =
+                await HistorySiteLoggerModel.GetHistoryDateChange(date);
+
+            for (const h of listHistorySiteLogger) {
+                const findSite = listSite.find((el) => el._id === h.SiteId);
+
+                if (findSite !== undefined) {
+                    const obj = {
+                        _id: findSite._id,
+                        Location: findSite.Location,
+                        NewLogger: h.NewMeterSerial,
+                        OldLogger: h.OldMeterSerial,
+                        DateOfChange: h.DateChanged,
+                        DescriptionOfChange: findSite.DescriptionOfChange,
+                    };
+
+                    result.push(obj);
+                }
+            }
+
+            return result;
+        },
+        GetStatisticBatteryChange: async (parent, { date }, context, info) => {
+            const result = [];
+
+            const listSite = await SiteModel.GetSitDateBatteryChange(date);
+
+            const listMeter = await DeviceMeterModel.GetAll();
+
+            for (const site of listSite) {
+                const find = listMeter.find((el) => el.Serial === site.Meter);
+
+                if (find !== undefined) {
+                    const obj = {
+                        Id: site._id,
+                        Meter: site.Meter,
+                        Transmitter: site.Transmitter,
+                        Location: site.Location,
+                        Marks: find.Marks,
+                        Size: find.Size,
+                        DateOfChange: site.DateOfBatteryChange,
+                        DescriptionOfChange: site.DescriptionOfChange,
+                        AccreditationDocument: find.AccreditationDocument,
+                        ExpiryDate: find.ExpiryDate,
+                    };
+
+                    result.push(obj);
+                }
+            }
+
+            return result;
+        },
+
+        GetStatisticTransmitterBatteryChange: async (
+            parent,
+            { date },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listSite = await SiteModel.GetSitDateTranmitterBatteryChange(
+                date,
+            );
+
+            const listMeter = await DeviceMeterModel.GetAll();
+
+            for (const site of listSite) {
+                const find = listMeter.find((el) => el.Serial === site.Meter);
+
+                if (find !== undefined) {
+                    const obj = {
+                        Id: site._id,
+                        Meter: site.Meter,
+                        Transmitter: site.Transmitter,
+                        Location: site.Location,
+                        Marks: find.Marks,
+                        Size: find.Size,
+                        DateOfChange: site.DateOfTransmitterBatteryChange,
+                        DescriptionOfChange: site.DescriptionOfChange,
+                        AccreditationDocument: find.AccreditationDocument,
+                        ExpiryDate: find.ExpiryDate,
+                    };
+
+                    result.push(obj);
+                }
+            }
+
+            return result;
+        },
+
+        GetStatisticLoggerBatteryChange: async (
+            parent,
+            { date },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listSite = await SiteModel.GetSitDateLoggerBatteryChange(
+                date,
+            );
+
+            const listMeter = await DeviceMeterModel.GetAll();
+
+            for (const site of listSite) {
+                const find = listMeter.find((el) => el.Serial === site.Meter);
+
+                if (find !== undefined) {
+                    const obj = {
+                        Id: site._id,
+                        Meter: site.Meter,
+                        Transmitter: site.Transmitter,
+                        Location: site.Location,
+                        Marks: find.Marks,
+                        Size: find.Size,
+                        DateOfChange: site.DateOfLoggerBatteryChange,
+                        DescriptionOfChange: site.DescriptionOfChange,
+                        AccreditationDocument: find.AccreditationDocument,
+                        ExpiryDate: find.ExpiryDate,
                     };
 
                     result.push(obj);

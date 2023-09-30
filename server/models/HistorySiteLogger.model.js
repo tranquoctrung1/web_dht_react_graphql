@@ -69,6 +69,22 @@ module.exports.Delete = async (history) => {
 
     return result.deletedCount;
 };
+module.exports.GetHistoryDateChange = async (date) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(HistorySiteLoggerCollection);
+
+    let result = await collection
+        .find({
+            DateChanged: { $ne: null },
+            DateChanged: { $gte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
 
 module.exports.Update = async (history) => {
     let result = 0;

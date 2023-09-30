@@ -1,0 +1,14 @@
+query GetStatisticTransmitterBatteryChange($date: Date) {
+    GetStatisticTransmitterBatteryChange(date: $date) {
+        AccreditationDocument
+        DateOfChange
+        DescriptionOfChange
+        ExpiryDate
+        Id
+        Location
+        Marks
+        Meter
+        Size
+        Transmitter
+    }
+}
