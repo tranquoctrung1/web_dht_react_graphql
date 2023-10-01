@@ -1014,7 +1014,10 @@ export type Query = {
   GetSiteByWaterSupply: Array<Site>;
   GetStatisticAccredited?: Maybe<Array<Maybe<StatisticAccredited>>>;
   GetStatisticBatteryChange?: Maybe<Array<Maybe<StatisticBatteryChange>>>;
+  GetStatisticCustomChoiceLogger?: Maybe<Array<Maybe<StatisticCustomChoiceLogger>>>;
+  GetStatisticCustomChoiceMeter?: Maybe<Array<Maybe<StatisticCustomChoiceMeter>>>;
   GetStatisticCustomChoiceSite?: Maybe<Array<Maybe<StatisticCustomChoiceSite>>>;
+  GetStatisticCustomChoiceTransmitter?: Maybe<Array<Maybe<StatisticCustomChoiceTransmitter>>>;
   GetStatisticLoggerBatteryChange?: Maybe<Array<Maybe<StatisticLoggerBatteryChange>>>;
   GetStatisticLoggerChange?: Maybe<Array<Maybe<StatisticLoggerChange>>>;
   GetStatisticMeterChange?: Maybe<Array<Maybe<StatisticMeterChange>>>;
@@ -1403,6 +1406,47 @@ export type StatisticBatteryChange = {
   Transmitter?: Maybe<Scalars['String']>;
 };
 
+export type StatisticCustomChoiceLogger = {
+  __typename?: 'StatisticCustomChoiceLogger';
+  Description?: Maybe<Scalars['String']>;
+  Installed?: Maybe<Scalars['Boolean']>;
+  Location?: Maybe<Scalars['String']>;
+  LoggerId?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Model?: Maybe<Scalars['String']>;
+  Provider?: Maybe<Scalars['String']>;
+  ReceiptDate?: Maybe<Scalars['Date']>;
+  Serial?: Maybe<Scalars['String']>;
+  SiteCompany?: Maybe<Scalars['String']>;
+  SiteId?: Maybe<Scalars['String']>;
+  SiteStatus?: Maybe<Scalars['String']>;
+  Status?: Maybe<Scalars['String']>;
+};
+
+export type StatisticCustomChoiceMeter = {
+  __typename?: 'StatisticCustomChoiceMeter';
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  AccreditationType?: Maybe<Scalars['String']>;
+  AccreditedDate?: Maybe<Scalars['Date']>;
+  Description?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  InitialIndex?: Maybe<Scalars['Float']>;
+  Installed?: Maybe<Scalars['Boolean']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Model?: Maybe<Scalars['String']>;
+  Nationality?: Maybe<Scalars['String']>;
+  Provider?: Maybe<Scalars['String']>;
+  ReceiptDate?: Maybe<Scalars['Date']>;
+  Serial?: Maybe<Scalars['String']>;
+  SiteCompany?: Maybe<Scalars['String']>;
+  SiteId?: Maybe<Scalars['String']>;
+  SiteStatus?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
+  TransmitterSerial?: Maybe<Scalars['String']>;
+};
+
 export type StatisticCustomChoiceSite = {
   __typename?: 'StatisticCustomChoiceSite';
   AccreditationDocument?: Maybe<Scalars['String']>;
@@ -1435,6 +1479,24 @@ export type StatisticCustomChoiceSite = {
   Transmitter?: Maybe<Scalars['String']>;
   UsingLogger?: Maybe<Scalars['Boolean']>;
   _id?: Maybe<Scalars['String']>;
+};
+
+export type StatisticCustomChoiceTransmitter = {
+  __typename?: 'StatisticCustomChoiceTransmitter';
+  Description?: Maybe<Scalars['String']>;
+  InitialIndex?: Maybe<Scalars['Float']>;
+  Installed?: Maybe<Scalars['Boolean']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Model?: Maybe<Scalars['String']>;
+  Provider?: Maybe<Scalars['String']>;
+  ReceiptDate?: Maybe<Scalars['Date']>;
+  Serial?: Maybe<Scalars['String']>;
+  SiteCompany?: Maybe<Scalars['String']>;
+  SiteId?: Maybe<Scalars['String']>;
+  SiteStatus?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
 };
 
 export type StatisticLoggerBatteryChange = {
@@ -2038,10 +2100,25 @@ export type GetStatisticBatteryChangeQueryVariables = Exact<{
 
 export type GetStatisticBatteryChangeQuery = { __typename?: 'Query', GetStatisticBatteryChange?: Array<{ __typename?: 'StatisticBatteryChange', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Id?: string | null, Location?: string | null, Marks?: string | null, Meter?: string | null, Size?: number | null, Transmitter?: string | null } | null> | null };
 
+export type GetStatisticCustomChoiceLoggerQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStatisticCustomChoiceLoggerQuery = { __typename?: 'Query', GetStatisticCustomChoiceLogger?: Array<{ __typename?: 'StatisticCustomChoiceLogger', Description?: string | null, Installed?: boolean | null, Location?: string | null, LoggerId?: string | null, Marks?: string | null, Model?: string | null, Provider?: string | null, ReceiptDate?: any | null, Serial?: string | null, SiteCompany?: string | null, SiteId?: string | null, SiteStatus?: string | null, Status?: string | null } | null> | null };
+
+export type GetStatisticCustomChoiceMeterQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStatisticCustomChoiceMeterQuery = { __typename?: 'Query', GetStatisticCustomChoiceMeter?: Array<{ __typename?: 'StatisticCustomChoiceMeter', AccreditationDocument?: string | null, AccreditationType?: string | null, AccreditedDate?: any | null, Description?: string | null, ExpiryDate?: any | null, InitialIndex?: number | null, Installed?: boolean | null, Location?: string | null, Marks?: string | null, Model?: string | null, Nationality?: string | null, Provider?: string | null, ReceiptDate?: any | null, Serial?: string | null, SiteCompany?: string | null, SiteId?: string | null, SiteStatus?: string | null, Size?: number | null, Status?: string | null, TransmitterSerial?: string | null } | null> | null };
+
 export type GetStatisticCustomChoiceSiteQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetStatisticCustomChoiceSiteQuery = { __typename?: 'Query', GetStatisticCustomChoiceSite?: Array<{ __typename?: 'StatisticCustomChoiceSite', AccreditationDocument?: string | null, AccreditedDate?: any | null, ApprovalDecision?: string | null, Company?: string | null, Availability?: string | null, DateOfMeterChange?: any | null, Description?: string | null, ExpiryDate?: any | null, Group?: string | null, Group2?: string | null, IstDistributionCompany?: string | null, Level?: string | null, Location?: string | null, Logger?: string | null, LoggerModel?: string | null, Marks?: string | null, Meter?: string | null, Model?: string | null, ProductionCompany?: string | null, Property?: boolean | null, Provider?: string | null, QndDistributionCompany?: string | null, Size?: number | null, Status?: string | null, Takeovered?: boolean | null, Transmitter?: string | null, UsingLogger?: boolean | null, _id?: string | null, AccreditationType?: string | null, Approved?: boolean | null } | null> | null };
+
+export type GetStatisticCustomChoiceTransmitterQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStatisticCustomChoiceTransmitterQuery = { __typename?: 'Query', GetStatisticCustomChoiceTransmitter?: Array<{ __typename?: 'StatisticCustomChoiceTransmitter', Description?: string | null, InitialIndex?: number | null, Installed?: boolean | null, Location?: string | null, Marks?: string | null, Model?: string | null, Provider?: string | null, ReceiptDate?: any | null, Serial?: string | null, SiteCompany?: string | null, SiteId?: string | null, SiteStatus?: string | null, Size?: number | null, Status?: string | null } | null> | null };
 
 export type GetStatisticLoggerBatteryChangeQueryVariables = Exact<{
   date?: InputMaybe<Scalars['Date']>;
@@ -5250,6 +5327,111 @@ export type GetStatisticBatteryChangeQueryResult = Apollo.QueryResult<GetStatist
 export function refetchGetStatisticBatteryChangeQuery(variables?: GetStatisticBatteryChangeQueryVariables) {
       return { query: GetStatisticBatteryChangeDocument, variables: variables }
     }
+export const GetStatisticCustomChoiceLoggerDocument = gql`
+    query GetStatisticCustomChoiceLogger {
+  GetStatisticCustomChoiceLogger {
+    Description
+    Installed
+    Location
+    LoggerId
+    Marks
+    Model
+    Provider
+    ReceiptDate
+    Serial
+    SiteCompany
+    SiteId
+    SiteStatus
+    Status
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticCustomChoiceLoggerQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticCustomChoiceLoggerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticCustomChoiceLoggerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticCustomChoiceLoggerQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStatisticCustomChoiceLoggerQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticCustomChoiceLoggerQuery, GetStatisticCustomChoiceLoggerQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticCustomChoiceLoggerQuery, GetStatisticCustomChoiceLoggerQueryVariables>(GetStatisticCustomChoiceLoggerDocument, options);
+      }
+export function useGetStatisticCustomChoiceLoggerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticCustomChoiceLoggerQuery, GetStatisticCustomChoiceLoggerQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticCustomChoiceLoggerQuery, GetStatisticCustomChoiceLoggerQueryVariables>(GetStatisticCustomChoiceLoggerDocument, options);
+        }
+export type GetStatisticCustomChoiceLoggerQueryHookResult = ReturnType<typeof useGetStatisticCustomChoiceLoggerQuery>;
+export type GetStatisticCustomChoiceLoggerLazyQueryHookResult = ReturnType<typeof useGetStatisticCustomChoiceLoggerLazyQuery>;
+export type GetStatisticCustomChoiceLoggerQueryResult = Apollo.QueryResult<GetStatisticCustomChoiceLoggerQuery, GetStatisticCustomChoiceLoggerQueryVariables>;
+export function refetchGetStatisticCustomChoiceLoggerQuery(variables?: GetStatisticCustomChoiceLoggerQueryVariables) {
+      return { query: GetStatisticCustomChoiceLoggerDocument, variables: variables }
+    }
+export const GetStatisticCustomChoiceMeterDocument = gql`
+    query GetStatisticCustomChoiceMeter {
+  GetStatisticCustomChoiceMeter {
+    AccreditationDocument
+    AccreditationType
+    AccreditedDate
+    Description
+    ExpiryDate
+    InitialIndex
+    Installed
+    Location
+    Marks
+    Model
+    Nationality
+    Provider
+    ReceiptDate
+    Serial
+    SiteCompany
+    SiteId
+    SiteStatus
+    Size
+    Status
+    TransmitterSerial
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticCustomChoiceMeterQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticCustomChoiceMeterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticCustomChoiceMeterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticCustomChoiceMeterQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStatisticCustomChoiceMeterQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticCustomChoiceMeterQuery, GetStatisticCustomChoiceMeterQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticCustomChoiceMeterQuery, GetStatisticCustomChoiceMeterQueryVariables>(GetStatisticCustomChoiceMeterDocument, options);
+      }
+export function useGetStatisticCustomChoiceMeterLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticCustomChoiceMeterQuery, GetStatisticCustomChoiceMeterQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticCustomChoiceMeterQuery, GetStatisticCustomChoiceMeterQueryVariables>(GetStatisticCustomChoiceMeterDocument, options);
+        }
+export type GetStatisticCustomChoiceMeterQueryHookResult = ReturnType<typeof useGetStatisticCustomChoiceMeterQuery>;
+export type GetStatisticCustomChoiceMeterLazyQueryHookResult = ReturnType<typeof useGetStatisticCustomChoiceMeterLazyQuery>;
+export type GetStatisticCustomChoiceMeterQueryResult = Apollo.QueryResult<GetStatisticCustomChoiceMeterQuery, GetStatisticCustomChoiceMeterQueryVariables>;
+export function refetchGetStatisticCustomChoiceMeterQuery(variables?: GetStatisticCustomChoiceMeterQueryVariables) {
+      return { query: GetStatisticCustomChoiceMeterDocument, variables: variables }
+    }
 export const GetStatisticCustomChoiceSiteDocument = gql`
     query GetStatisticCustomChoiceSite {
   GetStatisticCustomChoiceSite {
@@ -5315,6 +5497,56 @@ export type GetStatisticCustomChoiceSiteLazyQueryHookResult = ReturnType<typeof 
 export type GetStatisticCustomChoiceSiteQueryResult = Apollo.QueryResult<GetStatisticCustomChoiceSiteQuery, GetStatisticCustomChoiceSiteQueryVariables>;
 export function refetchGetStatisticCustomChoiceSiteQuery(variables?: GetStatisticCustomChoiceSiteQueryVariables) {
       return { query: GetStatisticCustomChoiceSiteDocument, variables: variables }
+    }
+export const GetStatisticCustomChoiceTransmitterDocument = gql`
+    query GetStatisticCustomChoiceTransmitter {
+  GetStatisticCustomChoiceTransmitter {
+    Description
+    InitialIndex
+    Installed
+    Location
+    Marks
+    Model
+    Provider
+    ReceiptDate
+    Serial
+    SiteCompany
+    SiteId
+    SiteStatus
+    Size
+    Status
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticCustomChoiceTransmitterQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticCustomChoiceTransmitterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticCustomChoiceTransmitterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticCustomChoiceTransmitterQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStatisticCustomChoiceTransmitterQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticCustomChoiceTransmitterQuery, GetStatisticCustomChoiceTransmitterQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticCustomChoiceTransmitterQuery, GetStatisticCustomChoiceTransmitterQueryVariables>(GetStatisticCustomChoiceTransmitterDocument, options);
+      }
+export function useGetStatisticCustomChoiceTransmitterLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticCustomChoiceTransmitterQuery, GetStatisticCustomChoiceTransmitterQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticCustomChoiceTransmitterQuery, GetStatisticCustomChoiceTransmitterQueryVariables>(GetStatisticCustomChoiceTransmitterDocument, options);
+        }
+export type GetStatisticCustomChoiceTransmitterQueryHookResult = ReturnType<typeof useGetStatisticCustomChoiceTransmitterQuery>;
+export type GetStatisticCustomChoiceTransmitterLazyQueryHookResult = ReturnType<typeof useGetStatisticCustomChoiceTransmitterLazyQuery>;
+export type GetStatisticCustomChoiceTransmitterQueryResult = Apollo.QueryResult<GetStatisticCustomChoiceTransmitterQuery, GetStatisticCustomChoiceTransmitterQueryVariables>;
+export function refetchGetStatisticCustomChoiceTransmitterQuery(variables?: GetStatisticCustomChoiceTransmitterQueryVariables) {
+      return { query: GetStatisticCustomChoiceTransmitterDocument, variables: variables }
     }
 export const GetStatisticLoggerBatteryChangeDocument = gql`
     query GetStatisticLoggerBatteryChange($date: Date) {

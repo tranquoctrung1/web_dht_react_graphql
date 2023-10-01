@@ -1,0 +1,24 @@
+query GetStatisticCustomChoiceMeter {
+    GetStatisticCustomChoiceMeter {
+        AccreditationDocument
+        AccreditationType
+        AccreditedDate
+        Description
+        ExpiryDate
+        InitialIndex
+        Installed
+        Location
+        Marks
+        Model
+        Nationality
+        Provider
+        ReceiptDate
+        Serial
+        SiteCompany
+        SiteId
+        SiteStatus
+        Size
+        Status
+        TransmitterSerial
+    }
+}

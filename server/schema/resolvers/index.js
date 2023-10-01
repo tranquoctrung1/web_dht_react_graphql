@@ -35,6 +35,7 @@ const DeviceStatus = require('./DeviceStatus.resolver');
 const HistorySiteMeter = require('./HistorySiteMeterChange.resolver');
 const HistorySiteTransmitter = require('./HistorySiteTransmitterChange.resolver');
 const HistorySiteLogger = require('./HistorySiteLoggerChange.resolver');
+const Statistic = require('./Statistic.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -76,6 +77,7 @@ module.exports = {
         ...HistorySiteMeter.Query,
         ...HistorySiteTransmitter.Query,
         ...HistorySiteLogger.Query,
+        ...Statistic.Query,
     },
 
     Mutation: {

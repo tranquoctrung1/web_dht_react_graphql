@@ -1,0 +1,18 @@
+query GetStatisticCustomChoiceTransmitter {
+    GetStatisticCustomChoiceTransmitter {
+        Description
+        InitialIndex
+        Installed
+        Location
+        Marks
+        Model
+        Provider
+        ReceiptDate
+        Serial
+        SiteCompany
+        SiteId
+        SiteStatus
+        Size
+        Status
+    }
+}

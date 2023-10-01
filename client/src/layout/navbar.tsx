@@ -116,15 +116,15 @@ const mockdata = [
             },
             {
                 label: 'Thống Kê Tùy Chọn Đồng Hồ',
-                link: '/statisticChooseMeter',
+                link: '/statisticCustomChoiceMeter',
             },
             {
                 label: 'Thống Kê Tùy Chọn Bộ Hiển Thị',
-                link: '/statisticChooseTransmitter',
+                link: '/statisticCustomChoiceTransmitter',
             },
             {
                 label: 'Thống Kê Tùy Chọn Logger',
-                link: '/statisticChooseLogger',
+                link: '/statisticCustomChoiceLogger',
             },
             { label: 'Lịch Sử Điểm Lắp Đặt', link: '/statisticHistorySite' },
             {

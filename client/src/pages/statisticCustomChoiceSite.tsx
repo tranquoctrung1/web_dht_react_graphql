@@ -236,15 +236,19 @@ const StatisticCustomChoiceSitePage = () => {
             })
             .catch((err) => console.log(err));
 
-        getStatisticCustomSite().then((res) => {
-            if (
-                res?.data?.GetStatisticCustomChoiceSite !== null &&
-                res?.data?.GetStatisticCustomChoiceSite !== undefined
-            ) {
-                //@ts-ignore
-                setStatisticData([...res.data.GetStatisticCustomChoiceSite]);
-            }
-        });
+        getStatisticCustomSite()
+            .then((res) => {
+                if (
+                    res?.data?.GetStatisticCustomChoiceSite !== null &&
+                    res?.data?.GetStatisticCustomChoiceSite !== undefined
+                ) {
+                    //@ts-ignore
+                    setStatisticData([
+                        ...res.data.GetStatisticCustomChoiceSite,
+                    ]);
+                }
+            })
+            .catch((err) => console.log(err));
     }, []);
 
     const onViewClicked = () => {

@@ -655,6 +655,62 @@ module.exports = gql`
         ExpiryDate: Date
     }
 
+    type StatisticCustomChoiceMeter {
+        Serial: String
+        ReceiptDate: Date
+        AccreditedDate: Date
+        ExpiryDate: Date
+        AccreditationDocument: String
+        AccreditationType: String
+        Provider: String
+        Marks: String
+        Size: Int
+        Model: String
+        Status: String
+        Installed: Boolean
+        InitialIndex: Float
+        Description: String
+        SiteId: String
+        Location: String
+        TransmitterSerial: String
+        SiteCompany: String
+        SiteStatus: String
+        Nationality: String
+    }
+
+    type StatisticCustomChoiceTransmitter {
+        Serial: String
+        ReceiptDate: Date
+        Provider: String
+        Marks: String
+        Size: Int
+        Model: String
+        Status: String
+        Installed: Boolean
+        InitialIndex: Float
+        Description: String
+        SiteId: String
+        Location: String
+        SiteStatus: String
+        SiteCompany: String
+    }
+
+    type StatisticCustomChoiceLogger {
+        Serial: String
+        ReceiptDate: Date
+        Provider: String
+        Marks: String
+        Model: String
+        Status: String
+        Installed: Boolean
+        Description: String
+        SiteId: String
+        Location: String
+        SiteStatus: String
+        SiteCompany: String
+        LoggerId: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1309,6 +1365,12 @@ module.exports = gql`
         GetStatisticLoggerBatteryChange(
             date: Date
         ): [StatisticLoggerBatteryChange]
+
+        GetStatisticCustomChoiceMeter: [StatisticCustomChoiceMeter]
+
+        GetStatisticCustomChoiceTransmitter: [StatisticCustomChoiceTransmitter]
+
+        GetStatisticCustomChoiceLogger: [StatisticCustomChoiceLogger]
     }
 
     # declare Mutation

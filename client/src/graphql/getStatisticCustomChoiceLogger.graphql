@@ -1,0 +1,17 @@
+query GetStatisticCustomChoiceLogger {
+    GetStatisticCustomChoiceLogger {
+        Description
+        Installed
+        Location
+        LoggerId
+        Marks
+        Model
+        Provider
+        ReceiptDate
+        Serial
+        SiteCompany
+        SiteId
+        SiteStatus
+        Status
+    }
+}
