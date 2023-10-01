@@ -30,6 +30,7 @@ import StatisticChangePeriodPage from './pages/statisticChangePeriod';
 import StatisticCustomChoiceMeterPage from './pages/staisticCustomChoiceMeter';
 import StatisticCustomChoiceTransmitterPage from './pages/statisticCustomChoiceTransmitter';
 import StatisticCustomChoiceLoggerPage from './pages/statisticCustomChoiceLogger';
+import StatisticHistorySitePage from './pages/statisticHistorySite';
 
 function App() {
     const router = createBrowserRouter([
@@ -132,6 +133,10 @@ function App() {
                 {
                     path: '/statisticCustomChoiceLogger',
                     element: <StatisticCustomChoiceLoggerPage />,
+                },
+                {
+                    path: '/statisticHistorySite',
+                    element: <StatisticHistorySitePage />,
                 },
             ],
         },

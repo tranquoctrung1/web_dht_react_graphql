@@ -52,6 +52,18 @@ module.exports.GetHistoryDateChange = async (date) => {
     return result;
 };
 
+module.exports.GetHistoryBySiteId = async (siteid) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(HistorySiteTransmitterCollection);
+
+    let result = await collection.find({ SiteId: siteid }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.Insert = async (history) => {
     let Connect = new ConnectDB.Connect();
 

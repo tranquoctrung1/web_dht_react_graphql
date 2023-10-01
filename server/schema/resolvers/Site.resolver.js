@@ -44,6 +44,9 @@ module.exports = {
         GetAllSiteCompanies: async (parent, {}, context, info) => {
             return await SiteModel.GetAllSiteCompanies();
         },
+        GetSiteById: async (parent, { siteid }, context, info) => {
+            return await SiteModel.GetSiteById(siteid);
+        },
     },
 
     Mutation: {

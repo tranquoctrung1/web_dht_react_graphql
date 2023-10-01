@@ -711,6 +711,59 @@ module.exports = gql`
         LoggerId: String
     }
 
+    type StatisticHistoryMeterAndMeterBySiteId {
+        STT: Int
+        DateChanged: Date
+        OldSerial: String
+        OldProvider: String
+        OldMarks: String
+        OldSize: Int
+        OldModel: String
+        OldIndex: Float
+        NewSerial: String
+        NewProvider: String
+        NewMarks: String
+        NewSize: Int
+        NewModel: String
+        NewIndex: Float
+        AccreditationDocument: String
+        Description: String
+    }
+
+    type StatisticHistoryTransmitterAndTransmitterBySiteId {
+        STT: Int
+        DateChanged: Date
+        OldSerial: String
+        OldProvider: String
+        OldMarks: String
+        OldSize: Int
+        OldModel: String
+        OldIndex: Float
+        NewSerial: String
+        NewProvider: String
+        NewMarks: String
+        NewSize: Int
+        NewModel: String
+        NewIndex: Float
+        Description: String
+    }
+
+    type StatisticHistoryLoggerAndLoggerBySiteId {
+        STT: Int
+        DateChanged: Date
+        OldSerial: String
+        OldProvider: String
+        OldMarks: String
+        OldModel: String
+        OldIndex: Float
+        NewSerial: String
+        NewProvider: String
+        NewMarks: String
+        NewModel: String
+        NewIndex: Float
+        Description: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1371,6 +1424,26 @@ module.exports = gql`
         GetStatisticCustomChoiceTransmitter: [StatisticCustomChoiceTransmitter]
 
         GetStatisticCustomChoiceLogger: [StatisticCustomChoiceLogger]
+
+        GetSiteById(siteid: String): Site
+
+        GetHistoryTransmitterBySiteId(siteid: String): [HistorySiteTransmitter]
+
+        GetHistoryLoggerBySiteId(siteid: String): [HistorySiteLogger]
+
+        GetHistoryMeterBySiteId(siteid: String): [HistorySiteMeter]
+
+        GetStatisticHistoryMeterAndMeterBySiteId(
+            siteid: String
+        ): [StatisticHistoryMeterAndMeterBySiteId]
+
+        GetStatisticHistoryTransmitterAndTransmitterBySiteId(
+            siteid: String
+        ): [StatisticHistoryTransmitterAndTransmitterBySiteId]
+
+        GetStatisticHistoryLoggerAndLoggerBySiteId(
+            siteid: String
+        ): [StatisticHistoryLoggerAndLoggerBySiteId]
     }
 
     # declare Mutation

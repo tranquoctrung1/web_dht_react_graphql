@@ -559,6 +559,18 @@ module.exports.GetSitDateLoggerBatteryChange = async (date) => {
     return result;
 };
 
+module.exports.GetSiteById = async (siteid) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection.find({ _id: siteid }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.Insert = async (site) => {
     let Connect = new ConnectDB.Connect();
 

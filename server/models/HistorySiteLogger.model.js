@@ -35,6 +35,18 @@ module.exports.GetAll = async () => {
     return result;
 };
 
+module.exports.GetHistoryBySiteId = async (siteid) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(HistorySiteLoggerCollection);
+
+    let result = await collection.find({ SiteId: siteid }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.Insert = async (history) => {
     let Connect = new ConnectDB.Connect();
 

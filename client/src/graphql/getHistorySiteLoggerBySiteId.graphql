@@ -1,0 +1,12 @@
+query GetHistoryLoggerBySiteId($siteid: String) {
+    GetHistoryLoggerBySiteId(siteid: $siteid) {
+        DateChanged
+        Description
+        NewMeterIndex
+        NewMeterSerial
+        OldMeterIndex
+        OldMeterSerial
+        SiteId
+        _id
+    }
+}

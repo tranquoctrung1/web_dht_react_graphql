@@ -610,5 +610,181 @@ module.exports = {
 
             return result;
         },
+
+        GetStatisticHistoryMeterAndMeterBySiteId: async (
+            parent,
+            { siteid },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listHistoryMeter =
+                await HistorySiteMeterModel.GetHistoryBySiteId(siteid);
+
+            const listMeter = await DeviceMeterModel.GetAll();
+
+            for (const h of listHistoryMeter) {
+                let count = 1;
+                const obj = {
+                    STT: count++,
+                    DateChanged: h.DateChanged,
+                    OldSerial: h.OldMeterSerial,
+                    OldProvider: '',
+                    OldMarks: '',
+                    OldSize: 0,
+                    OldModel: '',
+                    OldIndex: h.OldMeterIndex,
+                    NewSerial: h.NewMeterSerial,
+                    NewProvider: '',
+                    NewMarks: '',
+                    NewSize: 0,
+                    NewModel: '',
+                    NewIndex: h.NewMeterIndex,
+                    AccreditationDocument: '',
+                    Description: h.Description,
+                };
+
+                const findOldMeter = listMeter.find(
+                    (el) => el.Serial === h.OldMeterSerial,
+                );
+                if (findOldMeter !== undefined) {
+                    obj.OldProvider = findOldMeter.Provider;
+                    obj.OldMarks = findOldMeter.Marks;
+                    obj.OldSize = findOldMeter.Size;
+                    obj.OldModel = findOldMeter.Model;
+                }
+
+                const findNewMeter = listMeter.find(
+                    (el) => el.Serial === h.NewMeterSerial,
+                );
+                if (findNewMeter !== undefined) {
+                    obj.NewProvider = findNewMeter.Provider;
+                    obj.NewMarks = findNewMeter.Marks;
+                    obj.NewSize = findNewMeter.Size;
+                    obj.NewModel = findNewMeter.Model;
+                    obj.AccreditationDocument =
+                        findNewMeter.AccreditationDocument;
+                }
+
+                result.push(obj);
+            }
+
+            return result;
+        },
+
+        GetStatisticHistoryTransmitterAndTransmitterBySiteId: async (
+            parent,
+            { siteid },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listHistoryTransmitter =
+                await HistorySiteTransmitterModel.GetHistoryBySiteId(siteid);
+
+            const listTransmitter = await DeviceTransmitterModel.GetAll();
+
+            for (const h of listHistoryTransmitter) {
+                let count = 1;
+                const obj = {
+                    STT: count++,
+                    DateChanged: h.DateChanged,
+                    OldSerial: h.OldMeterSerial,
+                    OldProvider: '',
+                    OldMarks: '',
+                    OldSize: 0,
+                    OldModel: '',
+                    OldIndex: h.OldMeterIndex,
+                    NewSerial: h.NewMeterSerial,
+                    NewProvider: '',
+                    NewMarks: '',
+                    NewSize: 0,
+                    NewModel: '',
+                    NewIndex: h.NewMeterIndex,
+                    Description: h.Description,
+                };
+
+                const findOldTransmitter = listTransmitter.find(
+                    (el) => el.Serial === h.OldMeterSerial,
+                );
+                if (findOldTransmitter !== undefined) {
+                    obj.OldProvider = findOldTransmitter.Provider;
+                    obj.OldMarks = findOldTransmitter.Marks;
+                    obj.OldSize = findOldTransmitter.Size;
+                    obj.OldModel = findOldTransmitter.Model;
+                }
+
+                const findNewTransmitter = listTransmitter.find(
+                    (el) => el.Serial === h.NewMeterSerial,
+                );
+                if (findNewTransmitter !== undefined) {
+                    obj.NewProvider = findNewTransmitter.Provider;
+                    obj.NewMarks = findNewTransmitter.Marks;
+                    obj.NewSize = findNewTransmitter.Size;
+                    obj.NewModel = findNewTransmitter.Model;
+                }
+
+                result.push(obj);
+            }
+
+            return result;
+        },
+
+        GetStatisticHistoryLoggerAndLoggerBySiteId: async (
+            parent,
+            { siteid },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listHistoryLogger =
+                await HistorySiteLoggerModel.GetHistoryBySiteId(siteid);
+
+            const listLogger = await DeviceLoggerModel.GetAll();
+
+            for (const h of listHistoryLogger) {
+                let count = 1;
+                const obj = {
+                    STT: count++,
+                    DateChanged: h.DateChanged,
+                    OldSerial: h.OldMeterSerial,
+                    OldProvider: '',
+                    OldMarks: '',
+                    OldModel: '',
+                    OldIndex: h.OldMeterIndex,
+                    NewSerial: h.NewMeterSerial,
+                    NewProvider: '',
+                    NewMarks: '',
+                    NewModel: '',
+                    NewIndex: h.NewMeterIndex,
+                    Description: h.Description,
+                };
+
+                const findOldLogger = listLogger.find(
+                    (el) => el.Serial === h.OldMeterSerial,
+                );
+                if (findOldLogger !== undefined) {
+                    obj.OldProvider = findOldLogger.Provider;
+                    obj.OldMarks = findOldLogger.Marks;
+                    obj.OldModel = findOldLogger.Model;
+                }
+
+                const findNewLogger = listLogger.find(
+                    (el) => el.Serial === h.NewMeterSerial,
+                );
+                if (findNewLogger !== undefined) {
+                    obj.NewProvider = findNewLogger.Provider;
+                    obj.NewMarks = findNewLogger.Marks;
+                    obj.NewModel = findNewLogger.Model;
+                }
+
+                result.push(obj);
+            }
+
+            return result;
+        },
     },
 };

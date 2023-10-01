@@ -1,0 +1,12 @@
+query GetHistoryTransmitterBySiteId($siteid: String) {
+    GetHistoryTransmitterBySiteId(siteid: $siteid) {
+        DateChanged
+        Description
+        NewMeterIndex
+        NewMeterSerial
+        OldMeterIndex
+        OldMeterSerial
+        SiteId
+        _id
+    }
+}

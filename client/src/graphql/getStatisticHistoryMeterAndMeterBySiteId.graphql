@@ -1,0 +1,20 @@
+query GetStatisticHistoryMeterAndMeterBySiteId($siteid: String) {
+    GetStatisticHistoryMeterAndMeterBySiteId(siteid: $siteid) {
+        AccreditationDocument
+        DateChanged
+        Description
+        NewIndex
+        NewMarks
+        NewModel
+        NewProvider
+        NewSerial
+        NewSize
+        OldIndex
+        OldMarks
+        OldModel
+        OldProvider
+        OldSerial
+        OldSize
+        STT
+    }
+}

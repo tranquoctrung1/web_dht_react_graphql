@@ -1,0 +1,19 @@
+query GetStatisticHistoryTransmitterAndTransmitterBySiteId($siteid: String) {
+    GetStatisticHistoryTransmitterAndTransmitterBySiteId(siteid: $siteid) {
+        DateChanged
+        Description
+        NewIndex
+        NewMarks
+        NewModel
+        NewProvider
+        NewSerial
+        NewSize
+        OldIndex
+        OldMarks
+        OldModel
+        OldProvider
+        OldSerial
+        OldSize
+        STT
+    }
+}

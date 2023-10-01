@@ -1001,6 +1001,9 @@ export type Query = {
   GetDataLoggerByTimeStamp?: Maybe<Array<DataLogger>>;
   GetDataManualBySiteId?: Maybe<Array<Maybe<DataManual>>>;
   GetDataManualBySiteIdAndTimeStamp?: Maybe<Array<Maybe<DataManual>>>;
+  GetHistoryLoggerBySiteId?: Maybe<Array<Maybe<HistorySiteLogger>>>;
+  GetHistoryMeterBySiteId?: Maybe<Array<Maybe<HistorySiteMeter>>>;
+  GetHistoryTransmitterBySiteId?: Maybe<Array<Maybe<HistorySiteTransmitter>>>;
   GetLoggerMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetLoggerModel?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetLoggerProvider?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1010,6 +1013,7 @@ export type Query = {
   GetMeterProvider?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetMeterSize?: Maybe<Array<Maybe<Scalars['Int']>>>;
   GetPreciousByCompany?: Maybe<Array<Maybe<Precious>>>;
+  GetSiteById?: Maybe<Site>;
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
   GetStatisticAccredited?: Maybe<Array<Maybe<StatisticAccredited>>>;
@@ -1018,6 +1022,9 @@ export type Query = {
   GetStatisticCustomChoiceMeter?: Maybe<Array<Maybe<StatisticCustomChoiceMeter>>>;
   GetStatisticCustomChoiceSite?: Maybe<Array<Maybe<StatisticCustomChoiceSite>>>;
   GetStatisticCustomChoiceTransmitter?: Maybe<Array<Maybe<StatisticCustomChoiceTransmitter>>>;
+  GetStatisticHistoryLoggerAndLoggerBySiteId?: Maybe<Array<Maybe<StatisticHistoryLoggerAndLoggerBySiteId>>>;
+  GetStatisticHistoryMeterAndMeterBySiteId?: Maybe<Array<Maybe<StatisticHistoryMeterAndMeterBySiteId>>>;
+  GetStatisticHistoryTransmitterAndTransmitterBySiteId?: Maybe<Array<Maybe<StatisticHistoryTransmitterAndTransmitterBySiteId>>>;
   GetStatisticLoggerBatteryChange?: Maybe<Array<Maybe<StatisticLoggerBatteryChange>>>;
   GetStatisticLoggerChange?: Maybe<Array<Maybe<StatisticLoggerChange>>>;
   GetStatisticMeterChange?: Maybe<Array<Maybe<StatisticMeterChange>>>;
@@ -1067,8 +1074,28 @@ export type QueryGetDataManualBySiteIdAndTimeStampArgs = {
 };
 
 
+export type QueryGetHistoryLoggerBySiteIdArgs = {
+  siteid?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryGetHistoryMeterBySiteIdArgs = {
+  siteid?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryGetHistoryTransmitterBySiteIdArgs = {
+  siteid?: InputMaybe<Scalars['String']>;
+};
+
+
 export type QueryGetPreciousByCompanyArgs = {
   company?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryGetSiteByIdArgs = {
+  siteid?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1084,6 +1111,21 @@ export type QueryGetStatisticAccreditedArgs = {
 
 export type QueryGetStatisticBatteryChangeArgs = {
   date?: InputMaybe<Scalars['Date']>;
+};
+
+
+export type QueryGetStatisticHistoryLoggerAndLoggerBySiteIdArgs = {
+  siteid?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryGetStatisticHistoryMeterAndMeterBySiteIdArgs = {
+  siteid?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryGetStatisticHistoryTransmitterAndTransmitterBySiteIdArgs = {
+  siteid?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1497,6 +1539,62 @@ export type StatisticCustomChoiceTransmitter = {
   SiteStatus?: Maybe<Scalars['String']>;
   Size?: Maybe<Scalars['Int']>;
   Status?: Maybe<Scalars['String']>;
+};
+
+export type StatisticHistoryLoggerAndLoggerBySiteId = {
+  __typename?: 'StatisticHistoryLoggerAndLoggerBySiteId';
+  DateChanged?: Maybe<Scalars['Date']>;
+  Description?: Maybe<Scalars['String']>;
+  NewIndex?: Maybe<Scalars['Float']>;
+  NewMarks?: Maybe<Scalars['String']>;
+  NewModel?: Maybe<Scalars['String']>;
+  NewProvider?: Maybe<Scalars['String']>;
+  NewSerial?: Maybe<Scalars['String']>;
+  OldIndex?: Maybe<Scalars['Float']>;
+  OldMarks?: Maybe<Scalars['String']>;
+  OldModel?: Maybe<Scalars['String']>;
+  OldProvider?: Maybe<Scalars['String']>;
+  OldSerial?: Maybe<Scalars['String']>;
+  STT?: Maybe<Scalars['Int']>;
+};
+
+export type StatisticHistoryMeterAndMeterBySiteId = {
+  __typename?: 'StatisticHistoryMeterAndMeterBySiteId';
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  DateChanged?: Maybe<Scalars['Date']>;
+  Description?: Maybe<Scalars['String']>;
+  NewIndex?: Maybe<Scalars['Float']>;
+  NewMarks?: Maybe<Scalars['String']>;
+  NewModel?: Maybe<Scalars['String']>;
+  NewProvider?: Maybe<Scalars['String']>;
+  NewSerial?: Maybe<Scalars['String']>;
+  NewSize?: Maybe<Scalars['Int']>;
+  OldIndex?: Maybe<Scalars['Float']>;
+  OldMarks?: Maybe<Scalars['String']>;
+  OldModel?: Maybe<Scalars['String']>;
+  OldProvider?: Maybe<Scalars['String']>;
+  OldSerial?: Maybe<Scalars['String']>;
+  OldSize?: Maybe<Scalars['Int']>;
+  STT?: Maybe<Scalars['Int']>;
+};
+
+export type StatisticHistoryTransmitterAndTransmitterBySiteId = {
+  __typename?: 'StatisticHistoryTransmitterAndTransmitterBySiteId';
+  DateChanged?: Maybe<Scalars['Date']>;
+  Description?: Maybe<Scalars['String']>;
+  NewIndex?: Maybe<Scalars['Float']>;
+  NewMarks?: Maybe<Scalars['String']>;
+  NewModel?: Maybe<Scalars['String']>;
+  NewProvider?: Maybe<Scalars['String']>;
+  NewSerial?: Maybe<Scalars['String']>;
+  NewSize?: Maybe<Scalars['Int']>;
+  OldIndex?: Maybe<Scalars['Float']>;
+  OldMarks?: Maybe<Scalars['String']>;
+  OldModel?: Maybe<Scalars['String']>;
+  OldProvider?: Maybe<Scalars['String']>;
+  OldSerial?: Maybe<Scalars['String']>;
+  OldSize?: Maybe<Scalars['Int']>;
+  STT?: Maybe<Scalars['Int']>;
 };
 
 export type StatisticLoggerBatteryChange = {
@@ -2062,6 +2160,27 @@ export type GetDataManualBySiteIdAndTimeStampQueryVariables = Exact<{
 
 export type GetDataManualBySiteIdAndTimeStampQuery = { __typename?: 'Query', GetDataManualBySiteIdAndTimeStamp?: Array<{ __typename?: 'DataManual', Description?: string | null, Index?: number | null, Output?: number | null, SiteId?: string | null, Stt?: number | null, TimeStamp?: any | null, _id: string } | null> | null };
 
+export type GetHistoryLoggerBySiteIdQueryVariables = Exact<{
+  siteid?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetHistoryLoggerBySiteIdQuery = { __typename?: 'Query', GetHistoryLoggerBySiteId?: Array<{ __typename?: 'HistorySiteLogger', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
+
+export type GetHistoryMeterBySiteIdQueryVariables = Exact<{
+  siteid?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetHistoryMeterBySiteIdQuery = { __typename?: 'Query', GetHistoryMeterBySiteId?: Array<{ __typename?: 'HistorySiteMeter', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
+
+export type GetHistoryTransmitterBySiteIdQueryVariables = Exact<{
+  siteid?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetHistoryTransmitterBySiteIdQuery = { __typename?: 'Query', GetHistoryTransmitterBySiteId?: Array<{ __typename?: 'HistorySiteTransmitter', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
+
 export type GetAllMeterAccreditationTypeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2073,6 +2192,13 @@ export type GetPreciousByCompanyQueryVariables = Exact<{
 
 
 export type GetPreciousByCompanyQuery = { __typename?: 'Query', GetPreciousByCompany?: Array<{ __typename?: 'Precious', _id: string, Company: string, Start?: string | null, CompanyName?: string | null, End?: string | null, Period?: string | null, CreateAt?: string | null, UsernameCreated?: string | null, Location?: Array<{ __typename?: 'Location', Location?: string | null, Reason?: string | null, SiteId?: string | null, AverageDate?: Array<Array<string | null> | null> | null, QuantityLogger?: number | null, TotalQuantity?: number | null, PrevTetHoliday?: Array<string | null> | null, NextTetHoliday?: Array<string | null> | null, TenDayPrevTetHoliday?: Array<string | null> | null, KFactory?: number | null, AveragePrevTetHoliday?: number | null, AverageTenDayPrevTetHoliday?: number | null, Periods?: Array<{ __typename?: 'Periods', Period?: string | null, Quantity?: number | null } | null> | null, DateCalclogger?: Array<{ __typename?: 'DateCalclogger', Quantity?: number | null, From?: string | null, To?: string | null, DateRange?: Array<string | null> | null } | null> | null } | null> | null, Index?: Array<{ __typename?: 'Index', SiteId?: string | null, Location?: string | null, PreviousPeriodIndex?: number | null, NextPeriodIndex?: number | null } | null> | null, LockValve?: Array<{ __typename?: 'LockValve', SiteId?: string | null, Location?: string | null } | null> | null, SubtractWaterB1?: Array<{ __typename?: 'SubtractWaterB1', NumberPrecious?: string | null, Content?: string | null, Provider?: string | null, AmountWater?: number | null, Note?: string | null } | null> | null, SubtractWaterB2?: Array<{ __typename?: 'SubtractWaterB2', NumberPrecious?: string | null, Content?: string | null, AmountWater?: number | null, Provider?: string | null, Note?: string | null } | null> | null, WaterCustomer?: Array<{ __typename?: 'WaterCustomer', NumberPrecious?: string | null, DatePublished?: string | null, AmountMeter?: number | null, AmountWater?: number | null, Note?: string | null } | null> | null } | null> | null };
+
+export type GetSiteByIdQueryVariables = Exact<{
+  siteid?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetSiteByIdQuery = { __typename?: 'Query', GetSiteById?: { __typename?: 'Site', Address?: string | null, Availability?: string | null, ChangeIndex?: number | null, ChangeIndex1?: number | null, CoverID?: string | null, Company?: string | null, DateOfBatteryChange?: any | null, DateOfLoggerBatteryChange?: any | null, DateOfLoggerChange?: any | null, DateOfTransmitterBatteryChange?: any | null, DateOfMeterChange?: any | null, DateOfTransmitterChange?: any | null, Description?: string | null, Display?: boolean | null, DescriptionOfChange?: string | null, District?: string | null, Group?: string | null, Group2?: string | null, Group4?: string | null, Group3?: string | null, Group5?: string | null, IsErrorBattery?: boolean | null, IstDoNotCalculateReverse?: boolean | null, IstDistributionCompany?: string | null, Latitude?: number | null, Level?: string | null, Location?: string | null, Logger?: string | null, Longitude?: number | null, Meter?: string | null, MeterDirection?: string | null, OldId?: string | null, ProductionCompany?: string | null, Property?: boolean | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: boolean | null, StaffId?: string | null, Status?: string | null, TakeoverDate?: any | null, Takeovered?: boolean | null, Transmitter?: string | null, UsingLogger?: boolean | null, ViewGroup?: string | null, _id: string } | null };
 
 export type GetSiteByWaterSubtractB2ForTaQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2119,6 +2245,27 @@ export type GetStatisticCustomChoiceTransmitterQueryVariables = Exact<{ [key: st
 
 
 export type GetStatisticCustomChoiceTransmitterQuery = { __typename?: 'Query', GetStatisticCustomChoiceTransmitter?: Array<{ __typename?: 'StatisticCustomChoiceTransmitter', Description?: string | null, InitialIndex?: number | null, Installed?: boolean | null, Location?: string | null, Marks?: string | null, Model?: string | null, Provider?: string | null, ReceiptDate?: any | null, Serial?: string | null, SiteCompany?: string | null, SiteId?: string | null, SiteStatus?: string | null, Size?: number | null, Status?: string | null } | null> | null };
+
+export type GetStatisticHistoryLoggerAndLoggerBySiteIdQueryVariables = Exact<{
+  siteid?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetStatisticHistoryLoggerAndLoggerBySiteIdQuery = { __typename?: 'Query', GetStatisticHistoryLoggerAndLoggerBySiteId?: Array<{ __typename?: 'StatisticHistoryLoggerAndLoggerBySiteId', DateChanged?: any | null, Description?: string | null, NewMarks?: string | null, NewIndex?: number | null, NewModel?: string | null, NewProvider?: string | null, NewSerial?: string | null, OldMarks?: string | null, OldIndex?: number | null, OldProvider?: string | null, OldModel?: string | null, OldSerial?: string | null, STT?: number | null } | null> | null };
+
+export type GetStatisticHistoryMeterAndMeterBySiteIdQueryVariables = Exact<{
+  siteid?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetStatisticHistoryMeterAndMeterBySiteIdQuery = { __typename?: 'Query', GetStatisticHistoryMeterAndMeterBySiteId?: Array<{ __typename?: 'StatisticHistoryMeterAndMeterBySiteId', AccreditationDocument?: string | null, DateChanged?: any | null, Description?: string | null, NewIndex?: number | null, NewMarks?: string | null, NewModel?: string | null, NewProvider?: string | null, NewSerial?: string | null, NewSize?: number | null, OldIndex?: number | null, OldMarks?: string | null, OldModel?: string | null, OldProvider?: string | null, OldSerial?: string | null, OldSize?: number | null, STT?: number | null } | null> | null };
+
+export type GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryVariables = Exact<{
+  siteid?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery = { __typename?: 'Query', GetStatisticHistoryTransmitterAndTransmitterBySiteId?: Array<{ __typename?: 'StatisticHistoryTransmitterAndTransmitterBySiteId', DateChanged?: any | null, Description?: string | null, NewIndex?: number | null, NewMarks?: string | null, NewModel?: string | null, NewProvider?: string | null, NewSerial?: string | null, NewSize?: number | null, OldIndex?: number | null, OldMarks?: string | null, OldModel?: string | null, OldProvider?: string | null, OldSerial?: string | null, OldSize?: number | null, STT?: number | null } | null> | null };
 
 export type GetStatisticLoggerBatteryChangeQueryVariables = Exact<{
   date?: InputMaybe<Scalars['Date']>;
@@ -4966,6 +5113,141 @@ export type GetDataManualBySiteIdAndTimeStampQueryResult = Apollo.QueryResult<Ge
 export function refetchGetDataManualBySiteIdAndTimeStampQuery(variables?: GetDataManualBySiteIdAndTimeStampQueryVariables) {
       return { query: GetDataManualBySiteIdAndTimeStampDocument, variables: variables }
     }
+export const GetHistoryLoggerBySiteIdDocument = gql`
+    query GetHistoryLoggerBySiteId($siteid: String) {
+  GetHistoryLoggerBySiteId(siteid: $siteid) {
+    DateChanged
+    Description
+    NewMeterIndex
+    NewMeterSerial
+    OldMeterIndex
+    OldMeterSerial
+    SiteId
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetHistoryLoggerBySiteIdQuery__
+ *
+ * To run a query within a React component, call `useGetHistoryLoggerBySiteIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHistoryLoggerBySiteIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHistoryLoggerBySiteIdQuery({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *   },
+ * });
+ */
+export function useGetHistoryLoggerBySiteIdQuery(baseOptions?: Apollo.QueryHookOptions<GetHistoryLoggerBySiteIdQuery, GetHistoryLoggerBySiteIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetHistoryLoggerBySiteIdQuery, GetHistoryLoggerBySiteIdQueryVariables>(GetHistoryLoggerBySiteIdDocument, options);
+      }
+export function useGetHistoryLoggerBySiteIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetHistoryLoggerBySiteIdQuery, GetHistoryLoggerBySiteIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetHistoryLoggerBySiteIdQuery, GetHistoryLoggerBySiteIdQueryVariables>(GetHistoryLoggerBySiteIdDocument, options);
+        }
+export type GetHistoryLoggerBySiteIdQueryHookResult = ReturnType<typeof useGetHistoryLoggerBySiteIdQuery>;
+export type GetHistoryLoggerBySiteIdLazyQueryHookResult = ReturnType<typeof useGetHistoryLoggerBySiteIdLazyQuery>;
+export type GetHistoryLoggerBySiteIdQueryResult = Apollo.QueryResult<GetHistoryLoggerBySiteIdQuery, GetHistoryLoggerBySiteIdQueryVariables>;
+export function refetchGetHistoryLoggerBySiteIdQuery(variables?: GetHistoryLoggerBySiteIdQueryVariables) {
+      return { query: GetHistoryLoggerBySiteIdDocument, variables: variables }
+    }
+export const GetHistoryMeterBySiteIdDocument = gql`
+    query GetHistoryMeterBySiteId($siteid: String) {
+  GetHistoryMeterBySiteId(siteid: $siteid) {
+    DateChanged
+    Description
+    NewMeterIndex
+    NewMeterSerial
+    OldMeterIndex
+    OldMeterSerial
+    SiteId
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetHistoryMeterBySiteIdQuery__
+ *
+ * To run a query within a React component, call `useGetHistoryMeterBySiteIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHistoryMeterBySiteIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHistoryMeterBySiteIdQuery({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *   },
+ * });
+ */
+export function useGetHistoryMeterBySiteIdQuery(baseOptions?: Apollo.QueryHookOptions<GetHistoryMeterBySiteIdQuery, GetHistoryMeterBySiteIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetHistoryMeterBySiteIdQuery, GetHistoryMeterBySiteIdQueryVariables>(GetHistoryMeterBySiteIdDocument, options);
+      }
+export function useGetHistoryMeterBySiteIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetHistoryMeterBySiteIdQuery, GetHistoryMeterBySiteIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetHistoryMeterBySiteIdQuery, GetHistoryMeterBySiteIdQueryVariables>(GetHistoryMeterBySiteIdDocument, options);
+        }
+export type GetHistoryMeterBySiteIdQueryHookResult = ReturnType<typeof useGetHistoryMeterBySiteIdQuery>;
+export type GetHistoryMeterBySiteIdLazyQueryHookResult = ReturnType<typeof useGetHistoryMeterBySiteIdLazyQuery>;
+export type GetHistoryMeterBySiteIdQueryResult = Apollo.QueryResult<GetHistoryMeterBySiteIdQuery, GetHistoryMeterBySiteIdQueryVariables>;
+export function refetchGetHistoryMeterBySiteIdQuery(variables?: GetHistoryMeterBySiteIdQueryVariables) {
+      return { query: GetHistoryMeterBySiteIdDocument, variables: variables }
+    }
+export const GetHistoryTransmitterBySiteIdDocument = gql`
+    query GetHistoryTransmitterBySiteId($siteid: String) {
+  GetHistoryTransmitterBySiteId(siteid: $siteid) {
+    DateChanged
+    Description
+    NewMeterIndex
+    NewMeterSerial
+    OldMeterIndex
+    OldMeterSerial
+    SiteId
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetHistoryTransmitterBySiteIdQuery__
+ *
+ * To run a query within a React component, call `useGetHistoryTransmitterBySiteIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHistoryTransmitterBySiteIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHistoryTransmitterBySiteIdQuery({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *   },
+ * });
+ */
+export function useGetHistoryTransmitterBySiteIdQuery(baseOptions?: Apollo.QueryHookOptions<GetHistoryTransmitterBySiteIdQuery, GetHistoryTransmitterBySiteIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetHistoryTransmitterBySiteIdQuery, GetHistoryTransmitterBySiteIdQueryVariables>(GetHistoryTransmitterBySiteIdDocument, options);
+      }
+export function useGetHistoryTransmitterBySiteIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetHistoryTransmitterBySiteIdQuery, GetHistoryTransmitterBySiteIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetHistoryTransmitterBySiteIdQuery, GetHistoryTransmitterBySiteIdQueryVariables>(GetHistoryTransmitterBySiteIdDocument, options);
+        }
+export type GetHistoryTransmitterBySiteIdQueryHookResult = ReturnType<typeof useGetHistoryTransmitterBySiteIdQuery>;
+export type GetHistoryTransmitterBySiteIdLazyQueryHookResult = ReturnType<typeof useGetHistoryTransmitterBySiteIdLazyQuery>;
+export type GetHistoryTransmitterBySiteIdQueryResult = Apollo.QueryResult<GetHistoryTransmitterBySiteIdQuery, GetHistoryTransmitterBySiteIdQueryVariables>;
+export function refetchGetHistoryTransmitterBySiteIdQuery(variables?: GetHistoryTransmitterBySiteIdQueryVariables) {
+      return { query: GetHistoryTransmitterBySiteIdDocument, variables: variables }
+    }
 export const GetAllMeterAccreditationTypeDocument = gql`
     query GetAllMeterAccreditationType {
   GetAllMeterAccreditationType {
@@ -5104,6 +5386,87 @@ export type GetPreciousByCompanyLazyQueryHookResult = ReturnType<typeof useGetPr
 export type GetPreciousByCompanyQueryResult = Apollo.QueryResult<GetPreciousByCompanyQuery, GetPreciousByCompanyQueryVariables>;
 export function refetchGetPreciousByCompanyQuery(variables?: GetPreciousByCompanyQueryVariables) {
       return { query: GetPreciousByCompanyDocument, variables: variables }
+    }
+export const GetSiteByIdDocument = gql`
+    query GetSiteById($siteid: String) {
+  GetSiteById(siteid: $siteid) {
+    Address
+    Availability
+    ChangeIndex
+    ChangeIndex1
+    CoverID
+    Company
+    DateOfBatteryChange
+    DateOfLoggerBatteryChange
+    DateOfLoggerChange
+    DateOfTransmitterBatteryChange
+    DateOfMeterChange
+    DateOfTransmitterChange
+    Description
+    Display
+    DescriptionOfChange
+    District
+    Group
+    Group2
+    Group4
+    Group3
+    Group5
+    IsErrorBattery
+    IstDoNotCalculateReverse
+    IstDistributionCompany
+    Latitude
+    Level
+    Location
+    Logger
+    Longitude
+    Meter
+    MeterDirection
+    OldId
+    ProductionCompany
+    Property
+    QndDistributionCompany
+    QndDoNotCalculateReverse
+    StaffId
+    Status
+    TakeoverDate
+    Takeovered
+    Transmitter
+    UsingLogger
+    ViewGroup
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetSiteByIdQuery__
+ *
+ * To run a query within a React component, call `useGetSiteByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSiteByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSiteByIdQuery({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *   },
+ * });
+ */
+export function useGetSiteByIdQuery(baseOptions?: Apollo.QueryHookOptions<GetSiteByIdQuery, GetSiteByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSiteByIdQuery, GetSiteByIdQueryVariables>(GetSiteByIdDocument, options);
+      }
+export function useGetSiteByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSiteByIdQuery, GetSiteByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSiteByIdQuery, GetSiteByIdQueryVariables>(GetSiteByIdDocument, options);
+        }
+export type GetSiteByIdQueryHookResult = ReturnType<typeof useGetSiteByIdQuery>;
+export type GetSiteByIdLazyQueryHookResult = ReturnType<typeof useGetSiteByIdLazyQuery>;
+export type GetSiteByIdQueryResult = Apollo.QueryResult<GetSiteByIdQuery, GetSiteByIdQueryVariables>;
+export function refetchGetSiteByIdQuery(variables?: GetSiteByIdQueryVariables) {
+      return { query: GetSiteByIdDocument, variables: variables }
     }
 export const GetSiteByWaterSubtractB2ForTaDocument = gql`
     query GetSiteByWaterSubtractB2ForTA {
@@ -5547,6 +5910,161 @@ export type GetStatisticCustomChoiceTransmitterLazyQueryHookResult = ReturnType<
 export type GetStatisticCustomChoiceTransmitterQueryResult = Apollo.QueryResult<GetStatisticCustomChoiceTransmitterQuery, GetStatisticCustomChoiceTransmitterQueryVariables>;
 export function refetchGetStatisticCustomChoiceTransmitterQuery(variables?: GetStatisticCustomChoiceTransmitterQueryVariables) {
       return { query: GetStatisticCustomChoiceTransmitterDocument, variables: variables }
+    }
+export const GetStatisticHistoryLoggerAndLoggerBySiteIdDocument = gql`
+    query GetStatisticHistoryLoggerAndLoggerBySiteId($siteid: String) {
+  GetStatisticHistoryLoggerAndLoggerBySiteId(siteid: $siteid) {
+    DateChanged
+    Description
+    NewMarks
+    NewIndex
+    NewModel
+    NewProvider
+    NewSerial
+    OldMarks
+    OldIndex
+    OldProvider
+    OldModel
+    OldSerial
+    STT
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticHistoryLoggerAndLoggerBySiteIdQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticHistoryLoggerAndLoggerBySiteIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticHistoryLoggerAndLoggerBySiteIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticHistoryLoggerAndLoggerBySiteIdQuery({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *   },
+ * });
+ */
+export function useGetStatisticHistoryLoggerAndLoggerBySiteIdQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticHistoryLoggerAndLoggerBySiteIdQuery, GetStatisticHistoryLoggerAndLoggerBySiteIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticHistoryLoggerAndLoggerBySiteIdQuery, GetStatisticHistoryLoggerAndLoggerBySiteIdQueryVariables>(GetStatisticHistoryLoggerAndLoggerBySiteIdDocument, options);
+      }
+export function useGetStatisticHistoryLoggerAndLoggerBySiteIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticHistoryLoggerAndLoggerBySiteIdQuery, GetStatisticHistoryLoggerAndLoggerBySiteIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticHistoryLoggerAndLoggerBySiteIdQuery, GetStatisticHistoryLoggerAndLoggerBySiteIdQueryVariables>(GetStatisticHistoryLoggerAndLoggerBySiteIdDocument, options);
+        }
+export type GetStatisticHistoryLoggerAndLoggerBySiteIdQueryHookResult = ReturnType<typeof useGetStatisticHistoryLoggerAndLoggerBySiteIdQuery>;
+export type GetStatisticHistoryLoggerAndLoggerBySiteIdLazyQueryHookResult = ReturnType<typeof useGetStatisticHistoryLoggerAndLoggerBySiteIdLazyQuery>;
+export type GetStatisticHistoryLoggerAndLoggerBySiteIdQueryResult = Apollo.QueryResult<GetStatisticHistoryLoggerAndLoggerBySiteIdQuery, GetStatisticHistoryLoggerAndLoggerBySiteIdQueryVariables>;
+export function refetchGetStatisticHistoryLoggerAndLoggerBySiteIdQuery(variables?: GetStatisticHistoryLoggerAndLoggerBySiteIdQueryVariables) {
+      return { query: GetStatisticHistoryLoggerAndLoggerBySiteIdDocument, variables: variables }
+    }
+export const GetStatisticHistoryMeterAndMeterBySiteIdDocument = gql`
+    query GetStatisticHistoryMeterAndMeterBySiteId($siteid: String) {
+  GetStatisticHistoryMeterAndMeterBySiteId(siteid: $siteid) {
+    AccreditationDocument
+    DateChanged
+    Description
+    NewIndex
+    NewMarks
+    NewModel
+    NewProvider
+    NewSerial
+    NewSize
+    OldIndex
+    OldMarks
+    OldModel
+    OldProvider
+    OldSerial
+    OldSize
+    STT
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticHistoryMeterAndMeterBySiteIdQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticHistoryMeterAndMeterBySiteIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticHistoryMeterAndMeterBySiteIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticHistoryMeterAndMeterBySiteIdQuery({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *   },
+ * });
+ */
+export function useGetStatisticHistoryMeterAndMeterBySiteIdQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticHistoryMeterAndMeterBySiteIdQuery, GetStatisticHistoryMeterAndMeterBySiteIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticHistoryMeterAndMeterBySiteIdQuery, GetStatisticHistoryMeterAndMeterBySiteIdQueryVariables>(GetStatisticHistoryMeterAndMeterBySiteIdDocument, options);
+      }
+export function useGetStatisticHistoryMeterAndMeterBySiteIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticHistoryMeterAndMeterBySiteIdQuery, GetStatisticHistoryMeterAndMeterBySiteIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticHistoryMeterAndMeterBySiteIdQuery, GetStatisticHistoryMeterAndMeterBySiteIdQueryVariables>(GetStatisticHistoryMeterAndMeterBySiteIdDocument, options);
+        }
+export type GetStatisticHistoryMeterAndMeterBySiteIdQueryHookResult = ReturnType<typeof useGetStatisticHistoryMeterAndMeterBySiteIdQuery>;
+export type GetStatisticHistoryMeterAndMeterBySiteIdLazyQueryHookResult = ReturnType<typeof useGetStatisticHistoryMeterAndMeterBySiteIdLazyQuery>;
+export type GetStatisticHistoryMeterAndMeterBySiteIdQueryResult = Apollo.QueryResult<GetStatisticHistoryMeterAndMeterBySiteIdQuery, GetStatisticHistoryMeterAndMeterBySiteIdQueryVariables>;
+export function refetchGetStatisticHistoryMeterAndMeterBySiteIdQuery(variables?: GetStatisticHistoryMeterAndMeterBySiteIdQueryVariables) {
+      return { query: GetStatisticHistoryMeterAndMeterBySiteIdDocument, variables: variables }
+    }
+export const GetStatisticHistoryTransmitterAndTransmitterBySiteIdDocument = gql`
+    query GetStatisticHistoryTransmitterAndTransmitterBySiteId($siteid: String) {
+  GetStatisticHistoryTransmitterAndTransmitterBySiteId(siteid: $siteid) {
+    DateChanged
+    Description
+    NewIndex
+    NewMarks
+    NewModel
+    NewProvider
+    NewSerial
+    NewSize
+    OldIndex
+    OldMarks
+    OldModel
+    OldProvider
+    OldSerial
+    OldSize
+    STT
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *   },
+ * });
+ */
+export function useGetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery, GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery, GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryVariables>(GetStatisticHistoryTransmitterAndTransmitterBySiteIdDocument, options);
+      }
+export function useGetStatisticHistoryTransmitterAndTransmitterBySiteIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery, GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery, GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryVariables>(GetStatisticHistoryTransmitterAndTransmitterBySiteIdDocument, options);
+        }
+export type GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryHookResult = ReturnType<typeof useGetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery>;
+export type GetStatisticHistoryTransmitterAndTransmitterBySiteIdLazyQueryHookResult = ReturnType<typeof useGetStatisticHistoryTransmitterAndTransmitterBySiteIdLazyQuery>;
+export type GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryResult = Apollo.QueryResult<GetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery, GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryVariables>;
+export function refetchGetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery(variables?: GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryVariables) {
+      return { query: GetStatisticHistoryTransmitterAndTransmitterBySiteIdDocument, variables: variables }
     }
 export const GetStatisticLoggerBatteryChangeDocument = gql`
     query GetStatisticLoggerBatteryChange($date: Date) {

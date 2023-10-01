@@ -5,6 +5,14 @@ module.exports = {
         GetAllHistorySiteTransmitter: async (parent, {}, context, info) => {
             return await HistorySiteTransmitterModel.GetAll();
         },
+        GetHistoryTransmitterBySiteId: async (
+            parent,
+            { siteid },
+            context,
+            info,
+        ) => {
+            return await HistorySiteLoggerModel.GetHistoryBySiteId(siteid);
+        },
     },
     Mutation: {
         InsertHistorySiteTransmitter: async (

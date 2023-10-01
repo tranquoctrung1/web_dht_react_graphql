@@ -5,6 +5,9 @@ module.exports = {
         GetAllHistorySiteLogger: async (parent, {}, context, info) => {
             return await HistorySiteLoggerModel.GetAll();
         },
+        GetHistoryLoggerBySiteId: async (parent, { siteid }, context, info) => {
+            return await HistorySiteLoggerModel.GetHistoryBySiteId(siteid);
+        },
     },
     Mutation: {
         InsertHistorySiteLogger: async (parent, { history }, context, info) => {

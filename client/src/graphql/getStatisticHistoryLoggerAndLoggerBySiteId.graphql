@@ -1,0 +1,17 @@
+query GetStatisticHistoryLoggerAndLoggerBySiteId($siteid: String) {
+    GetStatisticHistoryLoggerAndLoggerBySiteId(siteid: $siteid) {
+        DateChanged
+        Description
+        NewMarks
+        NewIndex
+        NewModel
+        NewProvider
+        NewSerial
+        OldMarks
+        OldIndex
+        OldProvider
+        OldModel
+        OldSerial
+        STT
+    }
+}
