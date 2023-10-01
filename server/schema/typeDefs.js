@@ -764,6 +764,17 @@ module.exports = gql`
         Description: String
     }
 
+    type StatisticAccreditationAndExpiryDate {
+        _id: String
+        Location: String
+        Marks: String
+        Size: Int
+        DateOfChange: Date
+        DescriptionOfChange: String
+        AccreditationDocument: String
+        ExpiryDate: Date
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1444,6 +1455,10 @@ module.exports = gql`
         GetStatisticHistoryLoggerAndLoggerBySiteId(
             siteid: String
         ): [StatisticHistoryLoggerAndLoggerBySiteId]
+
+        GetStatisticAccreditationAndExpiryDate(
+            date: Date
+        ): [StatisticAccreditationAndExpiryDate]
     }
 
     # declare Mutation

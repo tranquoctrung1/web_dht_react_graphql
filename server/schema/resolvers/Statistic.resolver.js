@@ -786,5 +786,41 @@ module.exports = {
 
             return result;
         },
+
+        GetStatisticAccreditationAndExpiryDate: async (
+            parent,
+            { date },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listMeter = await DeviceMeterModel.GetMeterExpiryDate(date);
+
+            const listSite = await SiteModel.GetAllSites();
+
+            for (const meter of listMeter) {
+                const findSite = listSite.find(
+                    (el) => el.Meter === meter.Serial,
+                );
+
+                if (findSite !== undefined) {
+                    const obj = {
+                        _id: findSite._id,
+                        Location: findSite.Location,
+                        Marks: meter.Marks,
+                        Size: meter.Size,
+                        DateOfChange: meter.AccreditedDate,
+                        DescriptionOfChange: findSite.DescriptionOfChange,
+                        AccreditationDocument: meter.AccreditationDocument,
+                        ExpiryDate: meter.ExpiryDate,
+                    };
+
+                    result.push(obj);
+                }
+            }
+
+            return result;
+        },
     },
 };

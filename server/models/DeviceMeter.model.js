@@ -223,6 +223,23 @@ module.exports.GetMeterAccreditated = async (date) => {
     return result;
 };
 
+module.exports.GetMeterExpiryDate = async (date) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DeviceMeterCollection);
+
+    let result = await collection
+        .find({
+            AccreditatedDate: { $ne: null },
+            ExpiryDate: { $lte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.Insert = async (meter) => {
     let Connect = new ConnectDB.Connect();
 
