@@ -31,6 +31,10 @@ import StatisticCustomChoiceMeterPage from './pages/staisticCustomChoiceMeter';
 import StatisticCustomChoiceTransmitterPage from './pages/statisticCustomChoiceTransmitter';
 import StatisticCustomChoiceLoggerPage from './pages/statisticCustomChoiceLogger';
 import StatisticHistorySitePage from './pages/statisticHistorySite';
+import StatisticAccreditationAndExpiryDatePage from './pages/statisticAccreditationAndExpiryDate';
+import StatisticMeterInfoPage from './pages/statisticMeterInfo';
+import StatisticTransmitterInfoPage from './pages/statisticTransmitterInfo';
+import StatisticLoggerInfoPage from './pages/statisticLoggerInfo';
 
 function App() {
     const router = createBrowserRouter([
@@ -137,6 +141,22 @@ function App() {
                 {
                     path: '/statisticHistorySite',
                     element: <StatisticHistorySitePage />,
+                },
+                {
+                    path: '/statisticMeterExpireTime',
+                    element: <StatisticAccreditationAndExpiryDatePage />,
+                },
+                {
+                    path: '/statisticMeterInfo',
+                    element: <StatisticMeterInfoPage />,
+                },
+                {
+                    path: '/statisticTransmitterInfo',
+                    element: <StatisticTransmitterInfoPage />,
+                },
+                {
+                    path: '/statisticLoggerInfo',
+                    element: <StatisticLoggerInfoPage />,
                 },
             ],
         },

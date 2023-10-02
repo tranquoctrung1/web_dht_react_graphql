@@ -1016,6 +1016,7 @@ export type Query = {
   GetSiteById?: Maybe<Site>;
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
+  GetStatisticAccreditationAndExpiryDate?: Maybe<Array<Maybe<StatisticAccreditationAndExpiryDate>>>;
   GetStatisticAccredited?: Maybe<Array<Maybe<StatisticAccredited>>>;
   GetStatisticBatteryChange?: Maybe<Array<Maybe<StatisticBatteryChange>>>;
   GetStatisticCustomChoiceLogger?: Maybe<Array<Maybe<StatisticCustomChoiceLogger>>>;
@@ -1101,6 +1102,11 @@ export type QueryGetSiteByIdArgs = {
 
 export type QueryGetSiteByWaterSupplyArgs = {
   company: Scalars['String'];
+};
+
+
+export type QueryGetStatisticAccreditationAndExpiryDateArgs = {
+  date?: InputMaybe<Scalars['Date']>;
 };
 
 
@@ -1420,6 +1426,18 @@ export type SiteTransmitterDateChangeUpdateInput = {
   DateOfTransmitterChange?: InputMaybe<Scalars['Date']>;
   Transmitter?: InputMaybe<Scalars['String']>;
   _id?: InputMaybe<Scalars['String']>;
+};
+
+export type StatisticAccreditationAndExpiryDate = {
+  __typename?: 'StatisticAccreditationAndExpiryDate';
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  _id?: Maybe<Scalars['String']>;
 };
 
 export type StatisticAccredited = {
@@ -2218,6 +2236,13 @@ export type GetStatisticAccreditedQueryVariables = Exact<{
 
 
 export type GetStatisticAccreditedQuery = { __typename?: 'Query', GetStatisticAccredited?: Array<{ __typename?: 'StatisticAccredited', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Location?: string | null, Marks?: string | null, Size?: number | null, _id?: string | null } | null> | null };
+
+export type GetStatisticAccreditationAndExpiryDateQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+}>;
+
+
+export type GetStatisticAccreditationAndExpiryDateQuery = { __typename?: 'Query', GetStatisticAccreditationAndExpiryDate?: Array<{ __typename?: 'StatisticAccreditationAndExpiryDate', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Location?: string | null, Marks?: string | null, Size?: number | null, _id?: string | null } | null> | null };
 
 export type GetStatisticBatteryChangeQueryVariables = Exact<{
   date?: InputMaybe<Scalars['Date']>;
@@ -5642,6 +5667,51 @@ export type GetStatisticAccreditedLazyQueryHookResult = ReturnType<typeof useGet
 export type GetStatisticAccreditedQueryResult = Apollo.QueryResult<GetStatisticAccreditedQuery, GetStatisticAccreditedQueryVariables>;
 export function refetchGetStatisticAccreditedQuery(variables?: GetStatisticAccreditedQueryVariables) {
       return { query: GetStatisticAccreditedDocument, variables: variables }
+    }
+export const GetStatisticAccreditationAndExpiryDateDocument = gql`
+    query GetStatisticAccreditationAndExpiryDate($date: Date) {
+  GetStatisticAccreditationAndExpiryDate(date: $date) {
+    AccreditationDocument
+    DateOfChange
+    DescriptionOfChange
+    ExpiryDate
+    Location
+    Marks
+    Size
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticAccreditationAndExpiryDateQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticAccreditationAndExpiryDateQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticAccreditationAndExpiryDateQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticAccreditationAndExpiryDateQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetStatisticAccreditationAndExpiryDateQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticAccreditationAndExpiryDateQuery, GetStatisticAccreditationAndExpiryDateQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticAccreditationAndExpiryDateQuery, GetStatisticAccreditationAndExpiryDateQueryVariables>(GetStatisticAccreditationAndExpiryDateDocument, options);
+      }
+export function useGetStatisticAccreditationAndExpiryDateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticAccreditationAndExpiryDateQuery, GetStatisticAccreditationAndExpiryDateQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticAccreditationAndExpiryDateQuery, GetStatisticAccreditationAndExpiryDateQueryVariables>(GetStatisticAccreditationAndExpiryDateDocument, options);
+        }
+export type GetStatisticAccreditationAndExpiryDateQueryHookResult = ReturnType<typeof useGetStatisticAccreditationAndExpiryDateQuery>;
+export type GetStatisticAccreditationAndExpiryDateLazyQueryHookResult = ReturnType<typeof useGetStatisticAccreditationAndExpiryDateLazyQuery>;
+export type GetStatisticAccreditationAndExpiryDateQueryResult = Apollo.QueryResult<GetStatisticAccreditationAndExpiryDateQuery, GetStatisticAccreditationAndExpiryDateQueryVariables>;
+export function refetchGetStatisticAccreditationAndExpiryDateQuery(variables?: GetStatisticAccreditationAndExpiryDateQueryVariables) {
+      return { query: GetStatisticAccreditationAndExpiryDateDocument, variables: variables }
     }
 export const GetStatisticBatteryChangeDocument = gql`
     query GetStatisticBatteryChange($date: Date) {

@@ -1,0 +1,12 @@
+query GetStatisticAccreditationAndExpiryDate($date: Date) {
+    GetStatisticAccreditationAndExpiryDate(date: $date) {
+        AccreditationDocument
+        DateOfChange
+        DescriptionOfChange
+        ExpiryDate
+        Location
+        Marks
+        Size
+        _id
+    }
+}

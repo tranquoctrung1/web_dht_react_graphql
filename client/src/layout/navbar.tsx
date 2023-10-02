@@ -135,12 +135,12 @@ const mockdata = [
                 label: 'Đồng Hồ Đến Hạn Kiểm Định',
                 link: '/statisticMeterExpireTime',
             },
-            { label: 'Hồ Sơ Thiết Bị Đồng Hồ', link: '/statisticMeterFile' },
+            { label: 'Hồ Sơ Thiết Bị Đồng Hồ', link: '/statisticMeterInfo' },
             {
                 label: 'Hồ Sơ Thiết Bị Bộ Hiển Thị',
-                link: '/statisticTransmitterFile',
+                link: '/statisticTransmitterInfo',
             },
-            { label: 'Hồ Sơ Thiết Bị Logger', link: '/statisticLoggerFile' },
+            { label: 'Hồ Sơ Thiết Bị Logger', link: '/statisticLoggerInfo' },
         ],
     },
     {
