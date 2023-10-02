@@ -775,6 +775,31 @@ module.exports = gql`
         ExpiryDate: Date
     }
 
+    type CompanyInStatisticMarkSize {
+        Company: String
+        Amount: Int
+    }
+
+    type SizeInStatisticMarkSize {
+        Size: String
+        Companies: [CompanyInStatisticMarkSize]
+    }
+
+    type ModelInStatisticMarkSize {
+        Model: String
+        Sizes: [SizeInStatisticMarkSize]
+    }
+
+    type MarkInStatisticMarkSize {
+        Mark: String
+        Models: [ModelInStatisticMarkSize]
+    }
+
+    type StatisticMarkSizeXNManager {
+        Provider: String
+        Marks: [MarkInStatisticMarkSize]
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1459,6 +1484,8 @@ module.exports = gql`
         GetStatisticAccreditationAndExpiryDate(
             date: Date
         ): [StatisticAccreditationAndExpiryDate]
+
+        GetStatisticMarkSizeXNManager: [StatisticMarkSizeXNManager]
     }
 
     # declare Mutation

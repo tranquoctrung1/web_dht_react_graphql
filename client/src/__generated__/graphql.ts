@@ -68,6 +68,12 @@ export type Company = {
   Production?: Maybe<Scalars['Int']>;
 };
 
+export type CompanyInStatisticMarkSize = {
+  __typename?: 'CompanyInStatisticMarkSize';
+  Amount?: Maybe<Scalars['Int']>;
+  Company?: Maybe<Scalars['String']>;
+};
+
 export type DataLogger = {
   __typename?: 'DataLogger';
   TimeStamp?: Maybe<Scalars['Date']>;
@@ -536,6 +542,18 @@ export type Login = {
   Role?: Maybe<Scalars['String']>;
   Uid?: Maybe<Scalars['String']>;
   token?: Maybe<Scalars['String']>;
+};
+
+export type MarkInStatisticMarkSize = {
+  __typename?: 'MarkInStatisticMarkSize';
+  Mark?: Maybe<Scalars['String']>;
+  Models?: Maybe<Array<Maybe<ModelInStatisticMarkSize>>>;
+};
+
+export type ModelInStatisticMarkSize = {
+  __typename?: 'ModelInStatisticMarkSize';
+  Model?: Maybe<Scalars['String']>;
+  Sizes?: Maybe<Array<Maybe<SizeInStatisticMarkSize>>>;
 };
 
 export type Mutation = {
@@ -1028,6 +1046,7 @@ export type Query = {
   GetStatisticHistoryTransmitterAndTransmitterBySiteId?: Maybe<Array<Maybe<StatisticHistoryTransmitterAndTransmitterBySiteId>>>;
   GetStatisticLoggerBatteryChange?: Maybe<Array<Maybe<StatisticLoggerBatteryChange>>>;
   GetStatisticLoggerChange?: Maybe<Array<Maybe<StatisticLoggerChange>>>;
+  GetStatisticMarkSizeXNManager?: Maybe<Array<Maybe<StatisticMarkSizeXnManager>>>;
   GetStatisticMeterChange?: Maybe<Array<Maybe<StatisticMeterChange>>>;
   GetStatisticSiteXNManager?: Maybe<Array<Maybe<StatisticSiteXnManager>>>;
   GetStatisticTransmitterBatteryChange?: Maybe<Array<Maybe<StatisticTransmitterBatteryChange>>>;
@@ -1428,6 +1447,12 @@ export type SiteTransmitterDateChangeUpdateInput = {
   _id?: InputMaybe<Scalars['String']>;
 };
 
+export type SizeInStatisticMarkSize = {
+  __typename?: 'SizeInStatisticMarkSize';
+  Companies?: Maybe<Array<Maybe<CompanyInStatisticMarkSize>>>;
+  Size?: Maybe<Scalars['String']>;
+};
+
 export type StatisticAccreditationAndExpiryDate = {
   __typename?: 'StatisticAccreditationAndExpiryDate';
   AccreditationDocument?: Maybe<Scalars['String']>;
@@ -1637,6 +1662,12 @@ export type StatisticLoggerChange = {
   NewLogger?: Maybe<Scalars['String']>;
   OldLogger?: Maybe<Scalars['String']>;
   _id?: Maybe<Scalars['String']>;
+};
+
+export type StatisticMarkSizeXnManager = {
+  __typename?: 'StatisticMarkSizeXNManager';
+  Marks?: Maybe<Array<Maybe<MarkInStatisticMarkSize>>>;
+  Provider?: Maybe<Scalars['String']>;
 };
 
 export type StatisticMeterChange = {
@@ -2305,6 +2336,11 @@ export type GetStatisticLoggerChangeQueryVariables = Exact<{
 
 
 export type GetStatisticLoggerChangeQuery = { __typename?: 'Query', GetStatisticLoggerChange?: Array<{ __typename?: 'StatisticLoggerChange', Location?: string | null, NewLogger?: string | null, OldLogger?: string | null, _id?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null } | null> | null };
+
+export type GetStatisticMarkSizeXnManagerQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStatisticMarkSizeXnManagerQuery = { __typename?: 'Query', GetStatisticMarkSizeXNManager?: Array<{ __typename?: 'StatisticMarkSizeXNManager', Provider?: string | null, Marks?: Array<{ __typename?: 'MarkInStatisticMarkSize', Mark?: string | null, Models?: Array<{ __typename?: 'ModelInStatisticMarkSize', Model?: string | null, Sizes?: Array<{ __typename?: 'SizeInStatisticMarkSize', Size?: string | null, Companies?: Array<{ __typename?: 'CompanyInStatisticMarkSize', Amount?: number | null, Company?: string | null } | null> | null } | null> | null } | null> | null } | null> | null } | null> | null };
 
 export type GetStatisticMeterChangeQueryVariables = Exact<{
   date?: InputMaybe<Scalars['Date']>;
@@ -6225,6 +6261,56 @@ export type GetStatisticLoggerChangeLazyQueryHookResult = ReturnType<typeof useG
 export type GetStatisticLoggerChangeQueryResult = Apollo.QueryResult<GetStatisticLoggerChangeQuery, GetStatisticLoggerChangeQueryVariables>;
 export function refetchGetStatisticLoggerChangeQuery(variables?: GetStatisticLoggerChangeQueryVariables) {
       return { query: GetStatisticLoggerChangeDocument, variables: variables }
+    }
+export const GetStatisticMarkSizeXnManagerDocument = gql`
+    query GetStatisticMarkSizeXNManager {
+  GetStatisticMarkSizeXNManager {
+    Provider
+    Marks {
+      Mark
+      Models {
+        Model
+        Sizes {
+          Size
+          Companies {
+            Amount
+            Company
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticMarkSizeXnManagerQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticMarkSizeXnManagerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticMarkSizeXnManagerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticMarkSizeXnManagerQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStatisticMarkSizeXnManagerQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticMarkSizeXnManagerQuery, GetStatisticMarkSizeXnManagerQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticMarkSizeXnManagerQuery, GetStatisticMarkSizeXnManagerQueryVariables>(GetStatisticMarkSizeXnManagerDocument, options);
+      }
+export function useGetStatisticMarkSizeXnManagerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticMarkSizeXnManagerQuery, GetStatisticMarkSizeXnManagerQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticMarkSizeXnManagerQuery, GetStatisticMarkSizeXnManagerQueryVariables>(GetStatisticMarkSizeXnManagerDocument, options);
+        }
+export type GetStatisticMarkSizeXnManagerQueryHookResult = ReturnType<typeof useGetStatisticMarkSizeXnManagerQuery>;
+export type GetStatisticMarkSizeXnManagerLazyQueryHookResult = ReturnType<typeof useGetStatisticMarkSizeXnManagerLazyQuery>;
+export type GetStatisticMarkSizeXnManagerQueryResult = Apollo.QueryResult<GetStatisticMarkSizeXnManagerQuery, GetStatisticMarkSizeXnManagerQueryVariables>;
+export function refetchGetStatisticMarkSizeXnManagerQuery(variables?: GetStatisticMarkSizeXnManagerQueryVariables) {
+      return { query: GetStatisticMarkSizeXnManagerDocument, variables: variables }
     }
 export const GetStatisticMeterChangeDocument = gql`
     query GetStatisticMeterChange($date: Date) {

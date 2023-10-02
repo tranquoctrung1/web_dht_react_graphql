@@ -7,6 +7,8 @@ const HistorySiteTransmitterModel = require('../../models/HistorySiteTransmitter
 const HistorySiteLoggerModel = require('../../models/HistorySiteLogger.model');
 const DeviceSiteConfigModel = require('../../models/DeviceSiteConfig.model');
 
+const Utils = require('../../utils');
+
 module.exports = {
     Query: {
         GetStatisticSiteXNManager: async (parent, {}, context, info) => {
@@ -46,62 +48,248 @@ module.exports = {
             return result;
         },
 
-        // // need complete
-        // GetStatisticMarkSizeXNManager: async (parent, {}, context, info) => {
-        //     const result = [];
+        GetStatisticMarkSizeXNManager: async (parent, {}, context, info) => {
+            const result = [];
 
-        //     const listSites = await SiteModel.GetStatisticXNManager();
+            const listSites = await SiteModel.GetStatisticXNManager();
 
-        //     const listMeter = await DeviceMeterModel.GetAll();
+            const listMeter = await DeviceMeterModel.GetAll();
 
-        //     for (const site of listSites) {
-        //         const find = listMeter.find((el) => el.Serial === site.Meter);
+            for (const site of listSites) {
+                const find = listMeter.find((el) => el.Serial === site.Meter);
 
-        //         if (find !== undefined) {
-        //             if (result.length <= 0) {
-        //                 const obj = {
-        //                     Provider: find.Provider,
-        //                     Marks: [
-        //                         {
-        //                             Mark: find.Marks,
-        //                             Models: [
-        //                                 {
-        //                                     Model: find.Model,
-        //                                     Sizes: [
-        //                                         {
-        //                                             Size: find.Size,
-        //                                             Companies: [],
-        //                                         },
-        //                                     ],
-        //                                 },
-        //                             ],
-        //                         },
-        //                     ],
-        //                 };
+                if (find !== undefined) {
+                    if (result.length <= 0) {
+                        const obj = {
+                            Provider: find.Provider,
+                            Marks: [
+                                {
+                                    Mark: find.Marks,
+                                    Models: [
+                                        {
+                                            Model: find.Model,
+                                            Sizes: [
+                                                {
+                                                    Size: find.Size,
+                                                    Companies: [
+                                                        {
+                                                            Company: 'Total',
+                                                            Amount: 0,
+                                                        },
+                                                        ...Utils.CreateListCompanyForStatisticMarkSize(
+                                                            listSites,
+                                                        ),
+                                                    ],
+                                                },
+                                                {
+                                                    Size: 'Tổng ' + find.Model,
+                                                    Companies: [
+                                                        {
+                                                            Company: 'Total',
+                                                            Amount: 0,
+                                                        },
+                                                        ...Utils.CreateListCompanyForStatisticMarkSize(
+                                                            listSites,
+                                                        ),
+                                                    ],
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        };
 
-        //                 result.push(obj);
-        //             } else {
-        //                 const findProvider = result.find(
-        //                     (el) => el.Provider === find.Provider,
-        //                 );
+                        result.push(obj);
 
-        //                 if (findProvider !== undefined) {
-        //                     if (find.Provider.Mark.length <= 0) {
-        //                     } else {
-        //                     }
-        //                 } else {
-        //                     const obj = {
-        //                         Provider: findProvider.Provider,
-        //                         Size: [],
-        //                     };
+                        Utils.UpdateAmountSize(result, find, site);
+                    } else {
+                        const findProvider = result.find(
+                            (el) => el.Provider === find.Provider,
+                        );
 
-        //                     result.push(obj);
-        //                 }
-        //             }
-        //         } else {
-        //         }
-        //     }
-        // },
+                        if (findProvider !== undefined) {
+                            const findMark = findProvider.Marks.find(
+                                (el) => el.Mark === find.Marks,
+                            );
+
+                            if (findMark !== undefined) {
+                                const findModel = findMark.Models.find(
+                                    (el) => el.Model === find.Model,
+                                );
+
+                                if (findModel !== undefined) {
+                                    const findSize = findModel.Sizes.find(
+                                        (el) => el.Size === find.Size,
+                                    );
+
+                                    if (findSize !== undefined) {
+                                        const t = site._id[0] + site._id[1];
+
+                                        const findCompany =
+                                            findSize.Companies.find(
+                                                (el) => el.Company === t,
+                                            );
+
+                                        if (findCompany !== undefined) {
+                                            Utils.UpdateAmountSize(
+                                                result,
+                                                find,
+                                                site,
+                                            );
+                                        }
+                                    } else {
+                                        const obj = {
+                                            Size: find.Size,
+                                            Companies: [
+                                                {
+                                                    Company: 'Tổng ',
+                                                    Amount: 0,
+                                                },
+                                                ...Utils.CreateListCompanyForStatisticMarkSize(
+                                                    listSites,
+                                                ),
+                                            ],
+                                        };
+
+                                        findModel.Sizes.unshift(obj);
+
+                                        Utils.UpdateAmountSize(
+                                            result,
+                                            find,
+                                            site,
+                                        );
+                                    }
+                                } else {
+                                    const obj = {
+                                        Model: find.Model,
+                                        Sizes: [
+                                            {
+                                                Size: find.Size,
+                                                Companies: [
+                                                    {
+                                                        Company: 'Total',
+                                                        Amount: 0,
+                                                    },
+                                                    ...Utils.CreateListCompanyForStatisticMarkSize(
+                                                        listSites,
+                                                    ),
+                                                ],
+                                            },
+                                            {
+                                                Size: 'Tổng ' + find.Model,
+                                                Companies: [
+                                                    {
+                                                        Company: 'Total',
+                                                        Amount: 0,
+                                                    },
+                                                    ...Utils.CreateListCompanyForStatisticMarkSize(
+                                                        listSites,
+                                                    ),
+                                                ],
+                                            },
+                                        ],
+                                    };
+
+                                    findMark.Models.push(obj);
+
+                                    Utils.UpdateAmountSize(result, find, site);
+                                }
+                            } else {
+                                const obj = {
+                                    Mark: find.Marks,
+                                    Models: [
+                                        {
+                                            Model: find.Model,
+                                            Sizes: [
+                                                {
+                                                    Size: find.Size,
+                                                    Companies: [
+                                                        {
+                                                            Company: 'Total',
+                                                            Amount: 0,
+                                                        },
+                                                        ...Utils.CreateListCompanyForStatisticMarkSize(
+                                                            listSites,
+                                                        ),
+                                                    ],
+                                                },
+                                                {
+                                                    Size: 'Tổng ' + find.Model,
+                                                    Companies: [
+                                                        {
+                                                            Company: 'Total',
+                                                            Amount: 0,
+                                                        },
+                                                        ...Utils.CreateListCompanyForStatisticMarkSize(
+                                                            listSites,
+                                                        ),
+                                                    ],
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                };
+
+                                findProvider.Marks.push(obj);
+
+                                Utils.UpdateAmountSize(result, find, site);
+                            }
+                        } else {
+                            const obj = {
+                                Provider: find.Provider,
+                                Marks: [
+                                    {
+                                        Mark: find.Marks,
+                                        Models: [
+                                            {
+                                                Model: find.Model,
+                                                Sizes: [
+                                                    {
+                                                        Size: find.Size,
+                                                        Companies: [
+                                                            {
+                                                                Company:
+                                                                    'Total',
+                                                                Amount: 0,
+                                                            },
+                                                            ...Utils.CreateListCompanyForStatisticMarkSize(
+                                                                listSites,
+                                                            ),
+                                                        ],
+                                                    },
+                                                    {
+                                                        Size:
+                                                            'Tổng ' +
+                                                            find.Model,
+                                                        Companies: [
+                                                            {
+                                                                Company:
+                                                                    'Total',
+                                                                Amount: 0,
+                                                            },
+                                                            ...Utils.CreateListCompanyForStatisticMarkSize(
+                                                                listSites,
+                                                            ),
+                                                        ],
+                                                    },
+                                                ],
+                                            },
+                                        ],
+                                    },
+                                ],
+                            };
+
+                            result.push(obj);
+
+                            Utils.UpdateAmountSize(result, find, site);
+                        }
+                    }
+                }
+            }
+
+            return result;
+        },
 
         GetStatisticCustomChoiceSite: async (parent, {}, context, info) => {
             const result = [];

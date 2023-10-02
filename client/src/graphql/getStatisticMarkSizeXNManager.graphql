@@ -1,0 +1,18 @@
+query GetStatisticMarkSizeXNManager {
+    GetStatisticMarkSizeXNManager {
+        Provider
+        Marks {
+            Mark
+            Models {
+                Model
+                Sizes {
+                    Size
+                    Companies {
+                        Amount
+                        Company
+                    }
+                }
+            }
+        }
+    }
+}
