@@ -2,10 +2,8 @@ import { Grid, Col, Button, Text, Center, Table } from '@mantine/core';
 
 import { useEffect, useState } from 'react';
 
-import DataTable from 'react-data-table-component';
-// @ts-ignore
-import DataTableExtensions from 'react-data-table-component-extensions';
-import 'react-data-table-component-extensions/dist/index.css';
+// @ts-ignore comment
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 
@@ -178,7 +176,7 @@ const StatisticMarkSizePage = () => {
                 id="tableStatistic"
                 verticalSpacing="xs"
                 fontSize="xs"
-                style={{ tableLayout: 'auto', width: '200%' }}
+                style={{ tableLayout: 'auto', width: '100%' }}
             >
                 <caption>Thống Kê Hiệu Cở Xí Nghiệp Quản Lý</caption>
                 <thead>{th}</thead>
@@ -203,16 +201,30 @@ const StatisticMarkSizePage = () => {
                 </Col>
             ) : null}
             {data.length > 0 && (
-                <Col
-                    span={12}
-                    style={{
-                        overflow: 'scroll',
-                        width: '95%',
-                        height: '50rem',
-                    }}
-                >
-                    {renderTable(data)}
-                </Col>
+                <>
+                    <Col span={12}>
+                        <Center>
+                            <ReactHTMLTableToExcel
+                                id="table-xls"
+                                className="btn-export"
+                                table="tableStatistic"
+                                filename={`Thống kê theo hiệu cở`}
+                                sheet="tableStatistic"
+                                buttonText="Xuất Excel"
+                            />
+                        </Center>
+                    </Col>
+                    <Col
+                        span={12}
+                        style={{
+                            overflow: 'scroll',
+                            width: '95%',
+                            height: '50rem',
+                        }}
+                    >
+                        {renderTable(data)}
+                    </Col>
+                </>
             )}
         </Grid>
     );

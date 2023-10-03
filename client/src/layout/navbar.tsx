@@ -108,7 +108,7 @@ const mockdata = [
             },
             {
                 label: 'Thống Kê Tùy Chọn Hiệu Cỡ',
-                link: '/statisticChooseModel',
+                link: '/statisticCustomChoiceMarkSize',
             },
             {
                 label: 'Hoạt Động Phát Sinh Trong Kỳ',

@@ -35,6 +35,7 @@ import StatisticAccreditationAndExpiryDatePage from './pages/statisticAccreditat
 import StatisticMeterInfoPage from './pages/statisticMeterInfo';
 import StatisticTransmitterInfoPage from './pages/statisticTransmitterInfo';
 import StatisticLoggerInfoPage from './pages/statisticLoggerInfo';
+import StatisticCustomChoiceMarkSizePage from './pages/statisticCustomeChoiceMarkSize';
 
 function App() {
     const router = createBrowserRouter([
@@ -157,6 +158,10 @@ function App() {
                 {
                     path: '/statisticLoggerInfo',
                     element: <StatisticLoggerInfoPage />,
+                },
+                {
+                    path: '/statisticCustomChoiceMarkSize',
+                    element: <StatisticCustomChoiceMarkSizePage />,
                 },
             ],
         },

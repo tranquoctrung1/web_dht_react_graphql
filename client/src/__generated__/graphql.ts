@@ -1038,6 +1038,7 @@ export type Query = {
   GetStatisticAccredited?: Maybe<Array<Maybe<StatisticAccredited>>>;
   GetStatisticBatteryChange?: Maybe<Array<Maybe<StatisticBatteryChange>>>;
   GetStatisticCustomChoiceLogger?: Maybe<Array<Maybe<StatisticCustomChoiceLogger>>>;
+  GetStatisticCustomChoiceMarkSize?: Maybe<Array<Maybe<StatisticCustomChoiceMarkSize>>>;
   GetStatisticCustomChoiceMeter?: Maybe<Array<Maybe<StatisticCustomChoiceMeter>>>;
   GetStatisticCustomChoiceSite?: Maybe<Array<Maybe<StatisticCustomChoiceSite>>>;
   GetStatisticCustomChoiceTransmitter?: Maybe<Array<Maybe<StatisticCustomChoiceTransmitter>>>;
@@ -1506,6 +1507,40 @@ export type StatisticCustomChoiceLogger = {
   SiteId?: Maybe<Scalars['String']>;
   SiteStatus?: Maybe<Scalars['String']>;
   Status?: Maybe<Scalars['String']>;
+};
+
+export type StatisticCustomChoiceMarkSize = {
+  __typename?: 'StatisticCustomChoiceMarkSize';
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  AccreditationType?: Maybe<Scalars['String']>;
+  AccreditedDate?: Maybe<Scalars['Date']>;
+  ApprovalDecision?: Maybe<Scalars['String']>;
+  Approved?: Maybe<Scalars['Boolean']>;
+  Availability?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  DateOfMeterChange?: Maybe<Scalars['Date']>;
+  Description?: Maybe<Scalars['String']>;
+  ExpiryDate?: Maybe<Scalars['Date']>;
+  Group?: Maybe<Scalars['String']>;
+  Group2?: Maybe<Scalars['String']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
+  Level?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Logger?: Maybe<Scalars['String']>;
+  LoggerModel?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Meter?: Maybe<Scalars['String']>;
+  Model?: Maybe<Scalars['String']>;
+  ProductionCompany?: Maybe<Scalars['String']>;
+  Property?: Maybe<Scalars['Boolean']>;
+  Provider?: Maybe<Scalars['String']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
+  Takeovered?: Maybe<Scalars['Boolean']>;
+  Transmitter?: Maybe<Scalars['String']>;
+  UsingLogger?: Maybe<Scalars['Boolean']>;
+  _id?: Maybe<Scalars['String']>;
 };
 
 export type StatisticCustomChoiceMeter = {
@@ -2286,6 +2321,11 @@ export type GetStatisticCustomChoiceLoggerQueryVariables = Exact<{ [key: string]
 
 
 export type GetStatisticCustomChoiceLoggerQuery = { __typename?: 'Query', GetStatisticCustomChoiceLogger?: Array<{ __typename?: 'StatisticCustomChoiceLogger', Description?: string | null, Installed?: boolean | null, Location?: string | null, LoggerId?: string | null, Marks?: string | null, Model?: string | null, Provider?: string | null, ReceiptDate?: any | null, Serial?: string | null, SiteCompany?: string | null, SiteId?: string | null, SiteStatus?: string | null, Status?: string | null } | null> | null };
+
+export type GetStatisticCustomChoiceMarkSizeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStatisticCustomChoiceMarkSizeQuery = { __typename?: 'Query', GetStatisticCustomChoiceMarkSize?: Array<{ __typename?: 'StatisticCustomChoiceMarkSize', AccreditationDocument?: string | null, AccreditationType?: string | null, AccreditedDate?: any | null, ApprovalDecision?: string | null, Approved?: boolean | null, Availability?: string | null, Company?: string | null, DateOfMeterChange?: any | null, Description?: string | null, Group?: string | null, ExpiryDate?: any | null, Group2?: string | null, IstDistributionCompany?: string | null, Level?: string | null, Location?: string | null, Logger?: string | null, LoggerModel?: string | null, Marks?: string | null, Meter?: string | null, Model?: string | null, ProductionCompany?: string | null, Property?: boolean | null, Provider?: string | null, QndDistributionCompany?: string | null, Size?: number | null, Status?: string | null, Takeovered?: boolean | null, Transmitter?: string | null, UsingLogger?: boolean | null, _id?: string | null } | null> | null };
 
 export type GetStatisticCustomChoiceMeterQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5844,6 +5884,72 @@ export type GetStatisticCustomChoiceLoggerLazyQueryHookResult = ReturnType<typeo
 export type GetStatisticCustomChoiceLoggerQueryResult = Apollo.QueryResult<GetStatisticCustomChoiceLoggerQuery, GetStatisticCustomChoiceLoggerQueryVariables>;
 export function refetchGetStatisticCustomChoiceLoggerQuery(variables?: GetStatisticCustomChoiceLoggerQueryVariables) {
       return { query: GetStatisticCustomChoiceLoggerDocument, variables: variables }
+    }
+export const GetStatisticCustomChoiceMarkSizeDocument = gql`
+    query GetStatisticCustomChoiceMarkSize {
+  GetStatisticCustomChoiceMarkSize {
+    AccreditationDocument
+    AccreditationType
+    AccreditedDate
+    ApprovalDecision
+    Approved
+    Availability
+    Company
+    DateOfMeterChange
+    Description
+    Group
+    ExpiryDate
+    Group2
+    IstDistributionCompany
+    Level
+    Location
+    Logger
+    LoggerModel
+    Marks
+    Meter
+    Model
+    ProductionCompany
+    Property
+    Provider
+    QndDistributionCompany
+    Size
+    Status
+    Takeovered
+    Transmitter
+    UsingLogger
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticCustomChoiceMarkSizeQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticCustomChoiceMarkSizeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticCustomChoiceMarkSizeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticCustomChoiceMarkSizeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStatisticCustomChoiceMarkSizeQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticCustomChoiceMarkSizeQuery, GetStatisticCustomChoiceMarkSizeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticCustomChoiceMarkSizeQuery, GetStatisticCustomChoiceMarkSizeQueryVariables>(GetStatisticCustomChoiceMarkSizeDocument, options);
+      }
+export function useGetStatisticCustomChoiceMarkSizeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticCustomChoiceMarkSizeQuery, GetStatisticCustomChoiceMarkSizeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticCustomChoiceMarkSizeQuery, GetStatisticCustomChoiceMarkSizeQueryVariables>(GetStatisticCustomChoiceMarkSizeDocument, options);
+        }
+export type GetStatisticCustomChoiceMarkSizeQueryHookResult = ReturnType<typeof useGetStatisticCustomChoiceMarkSizeQuery>;
+export type GetStatisticCustomChoiceMarkSizeLazyQueryHookResult = ReturnType<typeof useGetStatisticCustomChoiceMarkSizeLazyQuery>;
+export type GetStatisticCustomChoiceMarkSizeQueryResult = Apollo.QueryResult<GetStatisticCustomChoiceMarkSizeQuery, GetStatisticCustomChoiceMarkSizeQueryVariables>;
+export function refetchGetStatisticCustomChoiceMarkSizeQuery(variables?: GetStatisticCustomChoiceMarkSizeQueryVariables) {
+      return { query: GetStatisticCustomChoiceMarkSizeDocument, variables: variables }
     }
 export const GetStatisticCustomChoiceMeterDocument = gql`
     query GetStatisticCustomChoiceMeter {

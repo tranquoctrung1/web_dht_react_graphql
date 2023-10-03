@@ -1010,5 +1010,83 @@ module.exports = {
 
             return result;
         },
+        GetStatisticCustomChoiceMarkSize: async (parent, {}, context, info) => {
+            const result = [];
+
+            const listSite = await SiteModel.GetAllSites();
+
+            const listMeter = await DeviceMeterModel.GetAll();
+
+            const listLogger = await DeviceLoggerModel.GetAll();
+
+            for (const site of listSite) {
+                const obj = {
+                    _id: site._id,
+                    Provider: '',
+                    Marks: '',
+                    Size: null,
+                    ApprovalDecision: '',
+                    Model: '',
+                    Location: site.Location,
+                    Level: site.Level,
+                    Group: site.Group,
+                    Group2: site.Group2,
+                    Company: site.Company,
+                    Status: site.Status,
+                    Availability: site.Availability,
+                    IstDistributionCompany: site.IstDistributionCompany,
+                    QndDistributionCompany: site.QndDistributionCompany,
+                    ProductionCompany: site.ProductionCompany,
+                    Property: site.Property,
+                    Takeovered: site.Takeovered,
+                    UsingLogger: site.UsingLogger,
+                    Description: site.Description,
+                    LoggerModel: '',
+                    Meter: site.Meter,
+                    Transmitter: site.Transmitter,
+                    Logger: site.Logger,
+                    AccreditationDocument: '',
+                    AccreditedDate: null,
+                    ExpiryDate: null,
+                    DateOfMeterChange:
+                        site.DateOfMeterChange === null
+                            ? site.TakeoverDate === null
+                                ? null
+                                : site.TakeoverDate
+                            : site.DateOfMeterChange,
+                    AccreditationType: '',
+                    Approved: null,
+                };
+
+                const findMeter = listMeter.find(
+                    (el) => el.Serial === site.Meter,
+                );
+
+                if (findMeter !== undefined) {
+                    obj.Provider = findMeter.Provider;
+                    obj.Marks = findMeter.Marks;
+                    obj.Size = findMeter.Size;
+                    obj.ApprovalDecision = findMeter.ApprovalDecision;
+                    obj.Model = findMeter.Model;
+                    obj.AccreditationDocument = findMeter.AccreditationDocument;
+                    obj.AccreditedDate = findMeter.AccreditedDate;
+                    obj.ExpiryDate = findMeter.ExpiryDate;
+                    obj.AccreditationType = findMeter.AccreditationType;
+                    obj.Approved = findMeter.Approved;
+                }
+
+                const findLogger = listLogger.find(
+                    (el) => el.Serial === site.Logger,
+                );
+
+                if (findLogger !== undefined) {
+                    obj.LoggerModel = findLogger.Model;
+                }
+
+                result.push(obj);
+            }
+
+            return result;
+        },
     },
 };

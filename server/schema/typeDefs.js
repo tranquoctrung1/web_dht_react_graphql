@@ -800,6 +800,39 @@ module.exports = gql`
         Marks: [MarkInStatisticMarkSize]
     }
 
+    type StatisticCustomChoiceMarkSize {
+        _id: String
+        Provider: String
+        Marks: String
+        Size: Int
+        ApprovalDecision: String
+        Model: String
+        Location: String
+        Level: String
+        Group: String
+        Group2: String
+        Company: String
+        Status: String
+        Availability: String
+        IstDistributionCompany: String
+        QndDistributionCompany: String
+        ProductionCompany: String
+        Property: Boolean
+        Takeovered: Boolean
+        UsingLogger: Boolean
+        Description: String
+        LoggerModel: String
+        Meter: String
+        Transmitter: String
+        Logger: String
+        AccreditationDocument: String
+        AccreditedDate: Date
+        ExpiryDate: Date
+        DateOfMeterChange: Date
+        AccreditationType: String
+        Approved: Boolean
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1486,6 +1519,8 @@ module.exports = gql`
         ): [StatisticAccreditationAndExpiryDate]
 
         GetStatisticMarkSizeXNManager: [StatisticMarkSizeXNManager]
+
+        GetStatisticCustomChoiceMarkSize: [StatisticCustomChoiceMarkSize]
     }
 
     # declare Mutation

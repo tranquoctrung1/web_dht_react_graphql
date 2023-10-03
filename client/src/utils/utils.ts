@@ -1,5 +1,3 @@
-import { TypeOrFieldNameRegExp } from '@apollo/client/cache/inmemory/helpers';
-
 export const convertDateToStringNotTime = (date: any) => {
     if (
         date != null &&
@@ -326,4 +324,148 @@ export const checkAdminViewerRole = () => {
     }
 
     return check;
+};
+
+export const createListCompanyForStatisticMarkSize = (listSites: any) => {
+    // find list companies
+    const listCompanies = [];
+
+    for (const site of listSites) {
+        if (site._id !== null && site._id !== undefined && site._id !== '') {
+            const t = site._id[0] + site._id[1];
+            const find = listCompanies.find((el) => el === t);
+            if (find === undefined) {
+                listCompanies.push(t);
+            }
+        }
+    }
+
+    const listInitSizeCompanies = [];
+
+    for (const c of listCompanies) {
+        const obj = {
+            Company: c,
+            Amount: 0,
+        };
+
+        listInitSizeCompanies.push(obj);
+    }
+
+    return listInitSizeCompanies;
+};
+
+export const updateAmoutSizeForMark = (data: any, site: any) => {
+    const temp = data;
+
+    if (temp.length > 0) {
+        //@ts-ignore
+        const findProvider = data.find((el) => el.Provider === site.Provider);
+
+        if (findProvider !== undefined) {
+            const findMark = findProvider.Marks.find(
+                //@ts-ignore
+                (el) => el.Mark === site.Marks,
+            );
+
+            if (findMark !== undefined) {
+                const t = site._id[0] + site._id[1];
+
+                const findCompany = findMark.Companies.find(
+                    //@ts-ignore
+                    (el) => el.Company === t,
+                );
+
+                if (findCompany !== undefined) {
+                    findCompany.Amount += 1;
+
+                    findMark.Companies[0].Amount += 1;
+                }
+            }
+        }
+    }
+
+    return temp;
+};
+
+export const updateAmoutSizeForSize = (data: any, site: any) => {
+    const temp = data;
+
+    if (temp.length > 0) {
+        //@ts-ignore
+        const findSize = temp.find((el) => el.Size === site.Size);
+
+        if (findSize !== undefined) {
+            const t = site._id[0] + site._id[1];
+
+            //@ts-ignore
+            const findCompany = findSize.Companies.find(
+                //@ts-ignore
+                (el) => el.Company == t,
+            );
+
+            if (findCompany !== undefined) {
+                findCompany.Amount += 1;
+
+                findSize.Companies[0].Amount += 1;
+            }
+        }
+    }
+
+    return temp;
+};
+
+export const updateAmountMarkSize = (data: any, site: any) => {
+    const temp = data;
+
+    if (temp.length > 0 && site._id !== '') {
+        //@ts-ignore
+        const findProvider = temp.find((el) => el.Provider === site.Provider);
+        if (findProvider !== undefined) {
+            const findMark = findProvider.Marks.find(
+                //@ts-ignore
+                (el) => el.Mark === site.Marks,
+            );
+
+            if (findMark !== undefined) {
+                const findModel = findMark.Models.find(
+                    //@ts-ignore
+                    (el) => el.Model === site.Model,
+                );
+
+                if (findModel !== undefined) {
+                    const findSize = findModel.Sizes.find(
+                        //@ts-ignore
+                        (el) => el.Size === site.Size,
+                    );
+
+                    if (findSize !== undefined) {
+                        const t = site._id[0] + site._id[1];
+
+                        const findCompany = findSize.Companies.find(
+                            //@ts-ignore
+                            (el) => el.Company === t,
+                        );
+
+                        if (findCompany !== undefined) {
+                            findCompany.Amount += 1;
+                            findSize.Companies[0].Amount += 1;
+
+                            const findTotalSize = findModel.Sizes[
+                                findModel.Sizes.length - 1
+                                //@ts-ignore
+                            ].Companies.find((el) => el.Company === t);
+                            if (findTotalSize !== undefined) {
+                                findTotalSize.Amount += 1;
+                                findModel.Sizes[
+                                    findModel.Sizes.length - 1
+                                ].Companies[0].Amount += 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return temp;
 };
