@@ -415,7 +415,7 @@ module.exports = gql`
         CoverL: Int
         CoverW: Int
         CoverH: Int
-        CoverMeterial: Int
+        CoverMeterial: String
         CoverNL: Int
     }
 
@@ -1359,6 +1359,25 @@ module.exports = gql`
         Installed: Boolean
     }
 
+    input SiteCoverInsertInput {
+        CoverID: String
+        CoverL: Int
+        CoverW: Int
+        CoverH: Int
+        CoverMeterial: String
+        CoverNL: Int
+    }
+
+    input SiteCoverUpdateInput {
+        _id: ID!
+        CoverID: String
+        CoverL: Int
+        CoverW: Int
+        CoverH: Int
+        CoverMeterial: String
+        CoverNL: Int
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -1616,6 +1635,16 @@ module.exports = gql`
             date: Date
             year: Int
         ): [StatisticLoggerBatteryChangeByYearUsing]
+
+        GetAllCoverL: [Int]
+
+        GetAllCoverW: [Int]
+
+        GetAllCoverH: [Int]
+
+        GetAllCorverMeterial: [String]
+
+        GetAllCoverNL: [Int]
     }
 
     # declare Mutation
@@ -1713,5 +1742,11 @@ module.exports = gql`
         UpdateSiteLoggerDateChange(site: SiteLoggerDateChangeUpdateInput): Int
 
         UpdateLoggerInstall(logger: DeviceLoggerInstallUpdateInput): Int
+
+        InsertCover(cover: SiteCoverInsertInput): String
+
+        UpdateCover(cover: SiteCoverUpdateInput): Int
+
+        DeleteCover(cover: SiteCoverUpdateInput): Int
     }
 `;

@@ -558,6 +558,7 @@ export type ModelInStatisticMarkSize = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  DeleteCover?: Maybe<Scalars['Int']>;
   DeleteDataManual?: Maybe<Scalars['Int']>;
   DeleteDeviceChannelConifg?: Maybe<Scalars['Int']>;
   DeleteDeviceSiteConfig?: Maybe<Scalars['Int']>;
@@ -570,6 +571,7 @@ export type Mutation = {
   DeleteSite?: Maybe<Scalars['Int']>;
   DeleteTransmitter?: Maybe<Scalars['Int']>;
   DeleteUser?: Maybe<Scalars['Int']>;
+  InsertCover?: Maybe<Scalars['String']>;
   InsertDataManual?: Maybe<Scalars['String']>;
   InsertDeviceSiteConfig?: Maybe<Scalars['String']>;
   InsertHistorySiteLogger?: Maybe<Scalars['String']>;
@@ -581,6 +583,7 @@ export type Mutation = {
   InsertSite?: Maybe<Scalars['String']>;
   InsertTransmitter?: Maybe<Scalars['String']>;
   InsertUser?: Maybe<Scalars['String']>;
+  UpdateCover?: Maybe<Scalars['Int']>;
   UpdateDataManual?: Maybe<Scalars['Int']>;
   UpdateDeviceChannelConfig?: Maybe<Scalars['String']>;
   UpdateDeviceSiteConfig?: Maybe<Scalars['String']>;
@@ -600,6 +603,11 @@ export type Mutation = {
   UpdateTransmitter?: Maybe<Scalars['Int']>;
   UpdateTransmitterInstall?: Maybe<Scalars['Int']>;
   UpdateUser?: Maybe<Scalars['Int']>;
+};
+
+
+export type MutationDeleteCoverArgs = {
+  cover?: InputMaybe<SiteCoverUpdateInput>;
 };
 
 
@@ -663,6 +671,11 @@ export type MutationDeleteUserArgs = {
 };
 
 
+export type MutationInsertCoverArgs = {
+  cover?: InputMaybe<SiteCoverInsertInput>;
+};
+
+
 export type MutationInsertDataManualArgs = {
   dataManual?: InputMaybe<DataManualInsertInput>;
 };
@@ -715,6 +728,11 @@ export type MutationInsertTransmitterArgs = {
 
 export type MutationInsertUserArgs = {
   user?: InputMaybe<UserInsertInput>;
+};
+
+
+export type MutationUpdateCoverArgs = {
+  cover?: InputMaybe<SiteCoverUpdateInput>;
 };
 
 
@@ -971,7 +989,12 @@ export type QuantityLoggerDayWaterSupply = {
 
 export type Query = {
   __typename?: 'Query';
+  GetAllCorverMeterial?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllCoverH?: Maybe<Array<Maybe<Scalars['Int']>>>;
   GetAllCoverID?: Maybe<Array<Maybe<Scalars['String']>>>;
+  GetAllCoverL?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  GetAllCoverNL?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  GetAllCoverW?: Maybe<Array<Maybe<Scalars['Int']>>>;
   GetAllDataManual?: Maybe<Array<Maybe<DataManual>>>;
   GetAllDeviceChannelConifg?: Maybe<Array<Maybe<Channel>>>;
   GetAllDeviceSiteConfig?: Maybe<Array<Maybe<DeviceSiteConfig>>>;
@@ -1364,9 +1387,28 @@ export type SiteCover = {
   CoverH?: Maybe<Scalars['Int']>;
   CoverID?: Maybe<Scalars['String']>;
   CoverL?: Maybe<Scalars['Int']>;
-  CoverMeterial?: Maybe<Scalars['Int']>;
+  CoverMeterial?: Maybe<Scalars['String']>;
   CoverNL?: Maybe<Scalars['Int']>;
   CoverW?: Maybe<Scalars['Int']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteCoverInsertInput = {
+  CoverH?: InputMaybe<Scalars['Int']>;
+  CoverID?: InputMaybe<Scalars['String']>;
+  CoverL?: InputMaybe<Scalars['Int']>;
+  CoverMeterial?: InputMaybe<Scalars['String']>;
+  CoverNL?: InputMaybe<Scalars['Int']>;
+  CoverW?: InputMaybe<Scalars['Int']>;
+};
+
+export type SiteCoverUpdateInput = {
+  CoverH?: InputMaybe<Scalars['Int']>;
+  CoverID?: InputMaybe<Scalars['String']>;
+  CoverL?: InputMaybe<Scalars['Int']>;
+  CoverMeterial?: InputMaybe<Scalars['String']>;
+  CoverNL?: InputMaybe<Scalars['Int']>;
+  CoverW?: InputMaybe<Scalars['Int']>;
   _id: Scalars['ID'];
 };
 
@@ -2014,6 +2056,13 @@ export type GetCompaniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCompaniesQuery = { __typename?: 'Query', GetCompanies?: Array<{ __typename?: 'Company', Company?: string | null, Description?: string | null, Production?: number | null }> | null };
 
+export type DeleteCoverMutationVariables = Exact<{
+  cover?: InputMaybe<SiteCoverUpdateInput>;
+}>;
+
+
+export type DeleteCoverMutation = { __typename?: 'Mutation', DeleteCover?: number | null };
+
 export type DeleteDataManualMutationVariables = Exact<{
   dataManual?: InputMaybe<DataManualUpdateInput>;
 }>;
@@ -2097,6 +2146,31 @@ export type DeleteUserMutationVariables = Exact<{
 
 
 export type DeleteUserMutation = { __typename?: 'Mutation', DeleteUser?: number | null };
+
+export type GetAllCoverHQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllCoverHQuery = { __typename?: 'Query', GetAllCoverH?: Array<number | null> | null };
+
+export type GetAllCoverLQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllCoverLQuery = { __typename?: 'Query', GetAllCoverL?: Array<number | null> | null };
+
+export type GetAllCorverMeterialQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllCorverMeterialQuery = { __typename?: 'Query', GetAllCorverMeterial?: Array<string | null> | null };
+
+export type GetAllCoverNlQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllCoverNlQuery = { __typename?: 'Query', GetAllCoverNL?: Array<number | null> | null };
+
+export type GetAllCoverWQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllCoverWQuery = { __typename?: 'Query', GetAllCoverW?: Array<number | null> | null };
 
 export type GetAllDeviceChannelConifgQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2226,7 +2300,7 @@ export type GetAllSiteCompaniesQuery = { __typename?: 'Query', GetAllSiteCompani
 export type GetAllSiteCoverQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllSiteCoverQuery = { __typename?: 'Query', GetAllSiteCover?: Array<{ __typename?: 'SiteCover', CoverH?: number | null, CoverID?: string | null, CoverL?: number | null, CoverMeterial?: number | null, CoverNL?: number | null, CoverW?: number | null, _id: string } | null> | null };
+export type GetAllSiteCoverQuery = { __typename?: 'Query', GetAllSiteCover?: Array<{ __typename?: 'SiteCover', CoverH?: number | null, CoverID?: string | null, CoverL?: number | null, CoverMeterial?: string | null, CoverNL?: number | null, CoverW?: number | null, _id: string } | null> | null };
 
 export type GetAllSiteGroupQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2569,6 +2643,13 @@ export type GetStatisticTransmitterBatteryChangeByYearUsingQueryVariables = Exac
 
 export type GetStatisticTransmitterBatteryChangeByYearUsingQuery = { __typename?: 'Query', GetStatisticTransmitterBatteryChangeByYearUsing?: Array<{ __typename?: 'StatisticTransmitterBatteryChangeByYearUsing', Company?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, Location?: string | null, Marks?: string | null, Size?: number | null, _id?: string | null, Status?: string | null } | null> | null };
 
+export type InsertCoverMutationVariables = Exact<{
+  cover?: InputMaybe<SiteCoverInsertInput>;
+}>;
+
+
+export type InsertCoverMutation = { __typename?: 'Mutation', InsertCover?: string | null };
+
 export type InsertDataManualMutationVariables = Exact<{
   dataManual?: InputMaybe<DataManualInsertInput>;
 }>;
@@ -2692,6 +2773,13 @@ export type QuantityLoggerDayWaterSupplyQueryVariables = Exact<{
 
 
 export type QuantityLoggerDayWaterSupplyQuery = { __typename?: 'Query', QuantityLoggerDayWaterSupply: Array<{ __typename?: 'QuantityLoggerDayWaterSupply', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, Size?: number | null, SiteId: string, OldId?: string | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
+
+export type UpdateCoverMutationVariables = Exact<{
+  cover?: InputMaybe<SiteCoverUpdateInput>;
+}>;
+
+
+export type UpdateCoverMutation = { __typename?: 'Mutation', UpdateCover?: number | null };
 
 export type UpdateDataManualMutationVariables = Exact<{
   dataManual?: InputMaybe<DataManualUpdateInput>;
@@ -2916,6 +3004,37 @@ export type GetCompaniesQueryResult = Apollo.QueryResult<GetCompaniesQuery, GetC
 export function refetchGetCompaniesQuery(variables?: GetCompaniesQueryVariables) {
       return { query: GetCompaniesDocument, variables: variables }
     }
+export const DeleteCoverDocument = gql`
+    mutation DeleteCover($cover: SiteCoverUpdateInput) {
+  DeleteCover(cover: $cover)
+}
+    `;
+export type DeleteCoverMutationFn = Apollo.MutationFunction<DeleteCoverMutation, DeleteCoverMutationVariables>;
+
+/**
+ * __useDeleteCoverMutation__
+ *
+ * To run a mutation, you first call `useDeleteCoverMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCoverMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteCoverMutation, { data, loading, error }] = useDeleteCoverMutation({
+ *   variables: {
+ *      cover: // value for 'cover'
+ *   },
+ * });
+ */
+export function useDeleteCoverMutation(baseOptions?: Apollo.MutationHookOptions<DeleteCoverMutation, DeleteCoverMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteCoverMutation, DeleteCoverMutationVariables>(DeleteCoverDocument, options);
+      }
+export type DeleteCoverMutationHookResult = ReturnType<typeof useDeleteCoverMutation>;
+export type DeleteCoverMutationResult = Apollo.MutationResult<DeleteCoverMutation>;
+export type DeleteCoverMutationOptions = Apollo.BaseMutationOptions<DeleteCoverMutation, DeleteCoverMutationVariables>;
 export const DeleteDataManualDocument = gql`
     mutation DeleteDataManual($dataManual: DataManualUpdateInput) {
   DeleteDataManual(dataManual: $dataManual)
@@ -3290,6 +3409,181 @@ export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
 export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
+export const GetAllCoverHDocument = gql`
+    query GetAllCoverH {
+  GetAllCoverH
+}
+    `;
+
+/**
+ * __useGetAllCoverHQuery__
+ *
+ * To run a query within a React component, call `useGetAllCoverHQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllCoverHQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllCoverHQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllCoverHQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCoverHQuery, GetAllCoverHQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllCoverHQuery, GetAllCoverHQueryVariables>(GetAllCoverHDocument, options);
+      }
+export function useGetAllCoverHLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCoverHQuery, GetAllCoverHQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllCoverHQuery, GetAllCoverHQueryVariables>(GetAllCoverHDocument, options);
+        }
+export type GetAllCoverHQueryHookResult = ReturnType<typeof useGetAllCoverHQuery>;
+export type GetAllCoverHLazyQueryHookResult = ReturnType<typeof useGetAllCoverHLazyQuery>;
+export type GetAllCoverHQueryResult = Apollo.QueryResult<GetAllCoverHQuery, GetAllCoverHQueryVariables>;
+export function refetchGetAllCoverHQuery(variables?: GetAllCoverHQueryVariables) {
+      return { query: GetAllCoverHDocument, variables: variables }
+    }
+export const GetAllCoverLDocument = gql`
+    query GetAllCoverL {
+  GetAllCoverL
+}
+    `;
+
+/**
+ * __useGetAllCoverLQuery__
+ *
+ * To run a query within a React component, call `useGetAllCoverLQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllCoverLQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllCoverLQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllCoverLQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCoverLQuery, GetAllCoverLQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllCoverLQuery, GetAllCoverLQueryVariables>(GetAllCoverLDocument, options);
+      }
+export function useGetAllCoverLLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCoverLQuery, GetAllCoverLQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllCoverLQuery, GetAllCoverLQueryVariables>(GetAllCoverLDocument, options);
+        }
+export type GetAllCoverLQueryHookResult = ReturnType<typeof useGetAllCoverLQuery>;
+export type GetAllCoverLLazyQueryHookResult = ReturnType<typeof useGetAllCoverLLazyQuery>;
+export type GetAllCoverLQueryResult = Apollo.QueryResult<GetAllCoverLQuery, GetAllCoverLQueryVariables>;
+export function refetchGetAllCoverLQuery(variables?: GetAllCoverLQueryVariables) {
+      return { query: GetAllCoverLDocument, variables: variables }
+    }
+export const GetAllCorverMeterialDocument = gql`
+    query GetAllCorverMeterial {
+  GetAllCorverMeterial
+}
+    `;
+
+/**
+ * __useGetAllCorverMeterialQuery__
+ *
+ * To run a query within a React component, call `useGetAllCorverMeterialQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllCorverMeterialQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllCorverMeterialQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllCorverMeterialQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCorverMeterialQuery, GetAllCorverMeterialQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllCorverMeterialQuery, GetAllCorverMeterialQueryVariables>(GetAllCorverMeterialDocument, options);
+      }
+export function useGetAllCorverMeterialLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCorverMeterialQuery, GetAllCorverMeterialQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllCorverMeterialQuery, GetAllCorverMeterialQueryVariables>(GetAllCorverMeterialDocument, options);
+        }
+export type GetAllCorverMeterialQueryHookResult = ReturnType<typeof useGetAllCorverMeterialQuery>;
+export type GetAllCorverMeterialLazyQueryHookResult = ReturnType<typeof useGetAllCorverMeterialLazyQuery>;
+export type GetAllCorverMeterialQueryResult = Apollo.QueryResult<GetAllCorverMeterialQuery, GetAllCorverMeterialQueryVariables>;
+export function refetchGetAllCorverMeterialQuery(variables?: GetAllCorverMeterialQueryVariables) {
+      return { query: GetAllCorverMeterialDocument, variables: variables }
+    }
+export const GetAllCoverNlDocument = gql`
+    query GetAllCoverNL {
+  GetAllCoverNL
+}
+    `;
+
+/**
+ * __useGetAllCoverNlQuery__
+ *
+ * To run a query within a React component, call `useGetAllCoverNlQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllCoverNlQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllCoverNlQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllCoverNlQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCoverNlQuery, GetAllCoverNlQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllCoverNlQuery, GetAllCoverNlQueryVariables>(GetAllCoverNlDocument, options);
+      }
+export function useGetAllCoverNlLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCoverNlQuery, GetAllCoverNlQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllCoverNlQuery, GetAllCoverNlQueryVariables>(GetAllCoverNlDocument, options);
+        }
+export type GetAllCoverNlQueryHookResult = ReturnType<typeof useGetAllCoverNlQuery>;
+export type GetAllCoverNlLazyQueryHookResult = ReturnType<typeof useGetAllCoverNlLazyQuery>;
+export type GetAllCoverNlQueryResult = Apollo.QueryResult<GetAllCoverNlQuery, GetAllCoverNlQueryVariables>;
+export function refetchGetAllCoverNlQuery(variables?: GetAllCoverNlQueryVariables) {
+      return { query: GetAllCoverNlDocument, variables: variables }
+    }
+export const GetAllCoverWDocument = gql`
+    query GetAllCoverW {
+  GetAllCoverW
+}
+    `;
+
+/**
+ * __useGetAllCoverWQuery__
+ *
+ * To run a query within a React component, call `useGetAllCoverWQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllCoverWQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllCoverWQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllCoverWQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCoverWQuery, GetAllCoverWQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllCoverWQuery, GetAllCoverWQueryVariables>(GetAllCoverWDocument, options);
+      }
+export function useGetAllCoverWLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCoverWQuery, GetAllCoverWQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllCoverWQuery, GetAllCoverWQueryVariables>(GetAllCoverWDocument, options);
+        }
+export type GetAllCoverWQueryHookResult = ReturnType<typeof useGetAllCoverWQuery>;
+export type GetAllCoverWLazyQueryHookResult = ReturnType<typeof useGetAllCoverWLazyQuery>;
+export type GetAllCoverWQueryResult = Apollo.QueryResult<GetAllCoverWQuery, GetAllCoverWQueryVariables>;
+export function refetchGetAllCoverWQuery(variables?: GetAllCoverWQueryVariables) {
+      return { query: GetAllCoverWDocument, variables: variables }
+    }
 export const GetAllDeviceChannelConifgDocument = gql`
     query GetAllDeviceChannelConifg {
   GetAllDeviceChannelConifg {
@@ -7048,6 +7342,37 @@ export type GetStatisticTransmitterBatteryChangeByYearUsingQueryResult = Apollo.
 export function refetchGetStatisticTransmitterBatteryChangeByYearUsingQuery(variables?: GetStatisticTransmitterBatteryChangeByYearUsingQueryVariables) {
       return { query: GetStatisticTransmitterBatteryChangeByYearUsingDocument, variables: variables }
     }
+export const InsertCoverDocument = gql`
+    mutation InsertCover($cover: SiteCoverInsertInput) {
+  InsertCover(cover: $cover)
+}
+    `;
+export type InsertCoverMutationFn = Apollo.MutationFunction<InsertCoverMutation, InsertCoverMutationVariables>;
+
+/**
+ * __useInsertCoverMutation__
+ *
+ * To run a mutation, you first call `useInsertCoverMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertCoverMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertCoverMutation, { data, loading, error }] = useInsertCoverMutation({
+ *   variables: {
+ *      cover: // value for 'cover'
+ *   },
+ * });
+ */
+export function useInsertCoverMutation(baseOptions?: Apollo.MutationHookOptions<InsertCoverMutation, InsertCoverMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertCoverMutation, InsertCoverMutationVariables>(InsertCoverDocument, options);
+      }
+export type InsertCoverMutationHookResult = ReturnType<typeof useInsertCoverMutation>;
+export type InsertCoverMutationResult = Apollo.MutationResult<InsertCoverMutation>;
+export type InsertCoverMutationOptions = Apollo.BaseMutationOptions<InsertCoverMutation, InsertCoverMutationVariables>;
 export const InsertDataManualDocument = gql`
     mutation InsertDataManual($dataManual: DataManualInsertInput) {
   InsertDataManual(dataManual: $dataManual)
@@ -7662,6 +7987,37 @@ export type QuantityLoggerDayWaterSupplyQueryResult = Apollo.QueryResult<Quantit
 export function refetchQuantityLoggerDayWaterSupplyQuery(variables: QuantityLoggerDayWaterSupplyQueryVariables) {
       return { query: QuantityLoggerDayWaterSupplyDocument, variables: variables }
     }
+export const UpdateCoverDocument = gql`
+    mutation UpdateCover($cover: SiteCoverUpdateInput) {
+  UpdateCover(cover: $cover)
+}
+    `;
+export type UpdateCoverMutationFn = Apollo.MutationFunction<UpdateCoverMutation, UpdateCoverMutationVariables>;
+
+/**
+ * __useUpdateCoverMutation__
+ *
+ * To run a mutation, you first call `useUpdateCoverMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCoverMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCoverMutation, { data, loading, error }] = useUpdateCoverMutation({
+ *   variables: {
+ *      cover: // value for 'cover'
+ *   },
+ * });
+ */
+export function useUpdateCoverMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCoverMutation, UpdateCoverMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateCoverMutation, UpdateCoverMutationVariables>(UpdateCoverDocument, options);
+      }
+export type UpdateCoverMutationHookResult = ReturnType<typeof useUpdateCoverMutation>;
+export type UpdateCoverMutationResult = Apollo.MutationResult<UpdateCoverMutation>;
+export type UpdateCoverMutationOptions = Apollo.BaseMutationOptions<UpdateCoverMutation, UpdateCoverMutationVariables>;
 export const UpdateDataManualDocument = gql`
     mutation UpdateDataManual($dataManual: DataManualUpdateInput) {
   UpdateDataManual(dataManual: $dataManual)

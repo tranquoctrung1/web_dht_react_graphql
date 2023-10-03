@@ -93,6 +93,7 @@ module.exports = {
         ...HistorySiteMeter.Mutation,
         ...HistorySiteTransmitter.Mutation,
         ...HistorySiteLogger.Mutation,
+        ...SiteCover.Mutation,
     },
 
     SiteAndChannel: {

@@ -42,7 +42,7 @@ module.exports = {
 
                 count++;
 
-                resufindTransmitter.push(obj);
+                result.push(obj);
             }
 
             return result;

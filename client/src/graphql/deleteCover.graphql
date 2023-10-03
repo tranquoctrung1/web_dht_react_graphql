@@ -1,0 +1,3 @@
+mutation DeleteCover($cover: SiteCoverUpdateInput) {
+    DeleteCover(cover: $cover)
+}

@@ -1,0 +1,3 @@
+mutation InsertCover($cover: SiteCoverInsertInput) {
+    InsertCover(cover: $cover)
+}
