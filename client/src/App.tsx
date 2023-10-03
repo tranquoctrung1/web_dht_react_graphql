@@ -36,6 +36,7 @@ import StatisticMeterInfoPage from './pages/statisticMeterInfo';
 import StatisticTransmitterInfoPage from './pages/statisticTransmitterInfo';
 import StatisticLoggerInfoPage from './pages/statisticLoggerInfo';
 import StatisticCustomChoiceMarkSizePage from './pages/statisticCustomeChoiceMarkSize';
+import StatisticMeterWorkPage from './pages/statisticMeterWork';
 
 function App() {
     const router = createBrowserRouter([
@@ -162,6 +163,10 @@ function App() {
                 {
                     path: '/statisticCustomChoiceMarkSize',
                     element: <StatisticCustomChoiceMarkSizePage />,
+                },
+                {
+                    path: '/statisticMeterWork',
+                    element: <StatisticMeterWorkPage />,
                 },
             ],
         },

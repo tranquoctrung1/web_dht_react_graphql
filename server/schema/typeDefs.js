@@ -833,6 +833,71 @@ module.exports = gql`
         Approved: Boolean
     }
 
+    type StatisticMeterDateChangeByYearUsing {
+        _id: String
+        Location: String
+        Marks: String
+        Size: Int
+        DateOfChange: Date
+        DescriptionOfChange: String
+        Company: String
+        Status: String
+        TakeoverDate: Date
+    }
+
+    type StatisticTransmitterDateChangeByYearUsing {
+        _id: String
+        Location: String
+        Marks: String
+        Size: Int
+        DateOfChange: Date
+        DescriptionOfChange: String
+        Company: String
+        Status: String
+    }
+
+    type StatisticLoggerDateChangeByYearUsing {
+        _id: String
+        Location: String
+        Marks: String
+        DateOfChange: Date
+        DescriptionOfChange: String
+        Company: String
+        Status: String
+    }
+
+    type StatisticBatteryChangeByYearUsing {
+        _id: String
+        Location: String
+        Marks: String
+        Size: Int
+        DateOfChange: Date
+        DescriptionOfChange: String
+        Company: String
+        Status: String
+    }
+
+    type StatisticTransmitterBatteryChangeByYearUsing {
+        _id: String
+        Location: String
+        Marks: String
+        Size: Int
+        DateOfChange: Date
+        DescriptionOfChange: String
+        Company: String
+        Status: String
+    }
+
+    type StatisticLoggerBatteryChangeByYearUsing {
+        _id: String
+        Location: String
+        Marks: String
+        DateOfChange: Date
+        DescriptionOfChange: String
+        Company: String
+        Status: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1521,6 +1586,36 @@ module.exports = gql`
         GetStatisticMarkSizeXNManager: [StatisticMarkSizeXNManager]
 
         GetStatisticCustomChoiceMarkSize: [StatisticCustomChoiceMarkSize]
+
+        GetStatisticMeterChangeByYearUsing(
+            date: Date
+            year: Int
+        ): [StatisticMeterDateChangeByYearUsing]
+
+        GetStatisticTransmitterChangeByYearUsing(
+            date: Date
+            year: Int
+        ): [StatisticTransmitterDateChangeByYearUsing]
+
+        GetStatisticLoggerChangeByYearUsing(
+            date: Date
+            year: Int
+        ): [StatisticLoggerDateChangeByYearUsing]
+
+        GetStatisticBatteryChangeByYearUsing(
+            date: Date
+            year: Int
+        ): [StatisticBatteryChangeByYearUsing]
+
+        GetStatisticTransmitterBatteryChangeByYearUsing(
+            date: Date
+            year: Int
+        ): [StatisticTransmitterBatteryChangeByYearUsing]
+
+        GetStatisticLoggerBatteryChangeByYearUsing(
+            date: Date
+            year: Int
+        ): [StatisticLoggerBatteryChangeByYearUsing]
     }
 
     # declare Mutation

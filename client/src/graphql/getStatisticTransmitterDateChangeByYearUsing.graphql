@@ -1,0 +1,12 @@
+query GetStatisticTransmitterBatteryChangeByYearUsing($date: Date, $year: Int) {
+    GetStatisticTransmitterBatteryChangeByYearUsing(date: $date, year: $year) {
+        Company
+        DateOfChange
+        DescriptionOfChange
+        Location
+        Marks
+        Size
+        _id
+        Status
+    }
+}

@@ -1,0 +1,11 @@
+query GetStatisticLoggerChangeByYearUsing($date: Date, $year: Int) {
+    GetStatisticLoggerChangeByYearUsing(date: $date, year: $year) {
+        Company
+        DateOfChange
+        DescriptionOfChange
+        Location
+        Marks
+        Status
+        _id
+    }
+}

@@ -1037,6 +1037,7 @@ export type Query = {
   GetStatisticAccreditationAndExpiryDate?: Maybe<Array<Maybe<StatisticAccreditationAndExpiryDate>>>;
   GetStatisticAccredited?: Maybe<Array<Maybe<StatisticAccredited>>>;
   GetStatisticBatteryChange?: Maybe<Array<Maybe<StatisticBatteryChange>>>;
+  GetStatisticBatteryChangeByYearUsing?: Maybe<Array<Maybe<StatisticBatteryChangeByYearUsing>>>;
   GetStatisticCustomChoiceLogger?: Maybe<Array<Maybe<StatisticCustomChoiceLogger>>>;
   GetStatisticCustomChoiceMarkSize?: Maybe<Array<Maybe<StatisticCustomChoiceMarkSize>>>;
   GetStatisticCustomChoiceMeter?: Maybe<Array<Maybe<StatisticCustomChoiceMeter>>>;
@@ -1046,12 +1047,17 @@ export type Query = {
   GetStatisticHistoryMeterAndMeterBySiteId?: Maybe<Array<Maybe<StatisticHistoryMeterAndMeterBySiteId>>>;
   GetStatisticHistoryTransmitterAndTransmitterBySiteId?: Maybe<Array<Maybe<StatisticHistoryTransmitterAndTransmitterBySiteId>>>;
   GetStatisticLoggerBatteryChange?: Maybe<Array<Maybe<StatisticLoggerBatteryChange>>>;
+  GetStatisticLoggerBatteryChangeByYearUsing?: Maybe<Array<Maybe<StatisticLoggerBatteryChangeByYearUsing>>>;
   GetStatisticLoggerChange?: Maybe<Array<Maybe<StatisticLoggerChange>>>;
+  GetStatisticLoggerChangeByYearUsing?: Maybe<Array<Maybe<StatisticLoggerDateChangeByYearUsing>>>;
   GetStatisticMarkSizeXNManager?: Maybe<Array<Maybe<StatisticMarkSizeXnManager>>>;
   GetStatisticMeterChange?: Maybe<Array<Maybe<StatisticMeterChange>>>;
+  GetStatisticMeterChangeByYearUsing?: Maybe<Array<Maybe<StatisticMeterDateChangeByYearUsing>>>;
   GetStatisticSiteXNManager?: Maybe<Array<Maybe<StatisticSiteXnManager>>>;
   GetStatisticTransmitterBatteryChange?: Maybe<Array<Maybe<StatisticTransmitterBatteryChange>>>;
+  GetStatisticTransmitterBatteryChangeByYearUsing?: Maybe<Array<Maybe<StatisticTransmitterBatteryChangeByYearUsing>>>;
   GetStatisticTransmitterChange?: Maybe<Array<Maybe<StatisticTransmitterChange>>>;
+  GetStatisticTransmitterChangeByYearUsing?: Maybe<Array<Maybe<StatisticTransmitterDateChangeByYearUsing>>>;
   GetTransmitterMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetTransmitterModel?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetTransmitterProvider?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1140,6 +1146,12 @@ export type QueryGetStatisticBatteryChangeArgs = {
 };
 
 
+export type QueryGetStatisticBatteryChangeByYearUsingArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QueryGetStatisticHistoryLoggerAndLoggerBySiteIdArgs = {
   siteid?: InputMaybe<Scalars['String']>;
 };
@@ -1160,8 +1172,20 @@ export type QueryGetStatisticLoggerBatteryChangeArgs = {
 };
 
 
+export type QueryGetStatisticLoggerBatteryChangeByYearUsingArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QueryGetStatisticLoggerChangeArgs = {
   date?: InputMaybe<Scalars['Date']>;
+};
+
+
+export type QueryGetStatisticLoggerChangeByYearUsingArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1170,13 +1194,31 @@ export type QueryGetStatisticMeterChangeArgs = {
 };
 
 
+export type QueryGetStatisticMeterChangeByYearUsingArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QueryGetStatisticTransmitterBatteryChangeArgs = {
   date?: InputMaybe<Scalars['Date']>;
 };
 
 
+export type QueryGetStatisticTransmitterBatteryChangeByYearUsingArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QueryGetStatisticTransmitterChangeArgs = {
   date?: InputMaybe<Scalars['Date']>;
+};
+
+
+export type QueryGetStatisticTransmitterChangeByYearUsingArgs = {
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1492,6 +1534,18 @@ export type StatisticBatteryChange = {
   Transmitter?: Maybe<Scalars['String']>;
 };
 
+export type StatisticBatteryChangeByYearUsing = {
+  __typename?: 'StatisticBatteryChangeByYearUsing';
+  Company?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['String']>;
+};
+
 export type StatisticCustomChoiceLogger = {
   __typename?: 'StatisticCustomChoiceLogger';
   Description?: Maybe<Scalars['String']>;
@@ -1689,6 +1743,17 @@ export type StatisticLoggerBatteryChange = {
   Transmitter?: Maybe<Scalars['String']>;
 };
 
+export type StatisticLoggerBatteryChangeByYearUsing = {
+  __typename?: 'StatisticLoggerBatteryChangeByYearUsing';
+  Company?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Status?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['String']>;
+};
+
 export type StatisticLoggerChange = {
   __typename?: 'StatisticLoggerChange';
   DateOfChange?: Maybe<Scalars['Date']>;
@@ -1696,6 +1761,17 @@ export type StatisticLoggerChange = {
   Location?: Maybe<Scalars['String']>;
   NewLogger?: Maybe<Scalars['String']>;
   OldLogger?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['String']>;
+};
+
+export type StatisticLoggerDateChangeByYearUsing = {
+  __typename?: 'StatisticLoggerDateChangeByYearUsing';
+  Company?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Status?: Maybe<Scalars['String']>;
   _id?: Maybe<Scalars['String']>;
 };
 
@@ -1719,6 +1795,19 @@ export type StatisticMeterChange = {
   OldTran?: Maybe<Scalars['String']>;
   Size?: Maybe<Scalars['Int']>;
   Transmitter?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['String']>;
+};
+
+export type StatisticMeterDateChangeByYearUsing = {
+  __typename?: 'StatisticMeterDateChangeByYearUsing';
+  Company?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
+  TakeoverDate?: Maybe<Scalars['Date']>;
   _id?: Maybe<Scalars['String']>;
 };
 
@@ -1751,6 +1840,18 @@ export type StatisticTransmitterBatteryChange = {
   Transmitter?: Maybe<Scalars['String']>;
 };
 
+export type StatisticTransmitterBatteryChangeByYearUsing = {
+  __typename?: 'StatisticTransmitterBatteryChangeByYearUsing';
+  Company?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['String']>;
+};
+
 export type StatisticTransmitterChange = {
   __typename?: 'StatisticTransmitterChange';
   AccreditationDocument?: Maybe<Scalars['String']>;
@@ -1765,6 +1866,18 @@ export type StatisticTransmitterChange = {
   OldTran?: Maybe<Scalars['String']>;
   Size?: Maybe<Scalars['Int']>;
   Transmitter?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['String']>;
+};
+
+export type StatisticTransmitterDateChangeByYearUsing = {
+  __typename?: 'StatisticTransmitterDateChangeByYearUsing';
+  Company?: Maybe<Scalars['String']>;
+  DateOfChange?: Maybe<Scalars['Date']>;
+  DescriptionOfChange?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
   _id?: Maybe<Scalars['String']>;
 };
 
@@ -2317,6 +2430,14 @@ export type GetStatisticBatteryChangeQueryVariables = Exact<{
 
 export type GetStatisticBatteryChangeQuery = { __typename?: 'Query', GetStatisticBatteryChange?: Array<{ __typename?: 'StatisticBatteryChange', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Id?: string | null, Location?: string | null, Marks?: string | null, Meter?: string | null, Size?: number | null, Transmitter?: string | null } | null> | null };
 
+export type GetStatisticBatteryChangeByYearUsingQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetStatisticBatteryChangeByYearUsingQuery = { __typename?: 'Query', GetStatisticBatteryChangeByYearUsing?: Array<{ __typename?: 'StatisticBatteryChangeByYearUsing', Company?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, Location?: string | null, Marks?: string | null, Size?: number | null, Status?: string | null, _id?: string | null } | null> | null };
+
 export type GetStatisticCustomChoiceLoggerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2370,12 +2491,28 @@ export type GetStatisticLoggerBatteryChangeQueryVariables = Exact<{
 
 export type GetStatisticLoggerBatteryChangeQuery = { __typename?: 'Query', GetStatisticLoggerBatteryChange?: Array<{ __typename?: 'StatisticLoggerBatteryChange', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Id?: string | null, Location?: string | null, Marks?: string | null, Meter?: string | null, Size?: number | null, Transmitter?: string | null } | null> | null };
 
+export type GetStatisticTransmitterChangeByYearUsingQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetStatisticTransmitterChangeByYearUsingQuery = { __typename?: 'Query', GetStatisticTransmitterChangeByYearUsing?: Array<{ __typename?: 'StatisticTransmitterDateChangeByYearUsing', Company?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, Location?: string | null, Marks?: string | null, Size?: number | null, Status?: string | null, _id?: string | null } | null> | null };
+
 export type GetStatisticLoggerChangeQueryVariables = Exact<{
   date?: InputMaybe<Scalars['Date']>;
 }>;
 
 
 export type GetStatisticLoggerChangeQuery = { __typename?: 'Query', GetStatisticLoggerChange?: Array<{ __typename?: 'StatisticLoggerChange', Location?: string | null, NewLogger?: string | null, OldLogger?: string | null, _id?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null } | null> | null };
+
+export type GetStatisticLoggerBatteryChangeByYearUsingQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetStatisticLoggerBatteryChangeByYearUsingQuery = { __typename?: 'Query', GetStatisticLoggerBatteryChangeByYearUsing?: Array<{ __typename?: 'StatisticLoggerBatteryChangeByYearUsing', Company?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, Location?: string | null, Marks?: string | null, Status?: string | null, _id?: string | null } | null> | null };
 
 export type GetStatisticMarkSizeXnManagerQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2388,6 +2525,14 @@ export type GetStatisticMeterChangeQueryVariables = Exact<{
 
 
 export type GetStatisticMeterChangeQuery = { __typename?: 'Query', GetStatisticMeterChange?: Array<{ __typename?: 'StatisticMeterChange', AccreditationDocument?: string | null, DateOfChange?: any | null, ExpiryDate?: any | null, DescriptionOfChange?: string | null, _id?: string | null, Level?: string | null, Location?: string | null, Marks?: string | null, Meter?: string | null, OldMeter?: string | null, OldTran?: string | null, Size?: number | null, Transmitter?: string | null } | null> | null };
+
+export type GetStatisticMeterChangeByYearUsingQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetStatisticMeterChangeByYearUsingQuery = { __typename?: 'Query', GetStatisticMeterChangeByYearUsing?: Array<{ __typename?: 'StatisticMeterDateChangeByYearUsing', Company?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, Location?: string | null, Marks?: string | null, Size?: number | null, Status?: string | null, _id?: string | null, TakeoverDate?: any | null } | null> | null };
 
 export type GetStatisticSiteXnManagerQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2407,6 +2552,22 @@ export type GetStatisticTransmitterBatteryChangeQueryVariables = Exact<{
 
 
 export type GetStatisticTransmitterBatteryChangeQuery = { __typename?: 'Query', GetStatisticTransmitterBatteryChange?: Array<{ __typename?: 'StatisticTransmitterBatteryChange', AccreditationDocument?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, ExpiryDate?: any | null, Id?: string | null, Location?: string | null, Marks?: string | null, Meter?: string | null, Size?: number | null, Transmitter?: string | null } | null> | null };
+
+export type GetStatisticLoggerChangeByYearUsingQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetStatisticLoggerChangeByYearUsingQuery = { __typename?: 'Query', GetStatisticLoggerChangeByYearUsing?: Array<{ __typename?: 'StatisticLoggerDateChangeByYearUsing', Company?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, Location?: string | null, Marks?: string | null, Status?: string | null, _id?: string | null } | null> | null };
+
+export type GetStatisticTransmitterBatteryChangeByYearUsingQueryVariables = Exact<{
+  date?: InputMaybe<Scalars['Date']>;
+  year?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetStatisticTransmitterBatteryChangeByYearUsingQuery = { __typename?: 'Query', GetStatisticTransmitterBatteryChangeByYearUsing?: Array<{ __typename?: 'StatisticTransmitterBatteryChangeByYearUsing', Company?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, Location?: string | null, Marks?: string | null, Size?: number | null, _id?: string | null, Status?: string | null } | null> | null };
 
 export type InsertDataManualMutationVariables = Exact<{
   dataManual?: InputMaybe<DataManualInsertInput>;
@@ -5836,6 +5997,52 @@ export type GetStatisticBatteryChangeQueryResult = Apollo.QueryResult<GetStatist
 export function refetchGetStatisticBatteryChangeQuery(variables?: GetStatisticBatteryChangeQueryVariables) {
       return { query: GetStatisticBatteryChangeDocument, variables: variables }
     }
+export const GetStatisticBatteryChangeByYearUsingDocument = gql`
+    query GetStatisticBatteryChangeByYearUsing($date: Date, $year: Int) {
+  GetStatisticBatteryChangeByYearUsing(date: $date, year: $year) {
+    Company
+    DateOfChange
+    DescriptionOfChange
+    Location
+    Marks
+    Size
+    Status
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticBatteryChangeByYearUsingQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticBatteryChangeByYearUsingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticBatteryChangeByYearUsingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticBatteryChangeByYearUsingQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      year: // value for 'year'
+ *   },
+ * });
+ */
+export function useGetStatisticBatteryChangeByYearUsingQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticBatteryChangeByYearUsingQuery, GetStatisticBatteryChangeByYearUsingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticBatteryChangeByYearUsingQuery, GetStatisticBatteryChangeByYearUsingQueryVariables>(GetStatisticBatteryChangeByYearUsingDocument, options);
+      }
+export function useGetStatisticBatteryChangeByYearUsingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticBatteryChangeByYearUsingQuery, GetStatisticBatteryChangeByYearUsingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticBatteryChangeByYearUsingQuery, GetStatisticBatteryChangeByYearUsingQueryVariables>(GetStatisticBatteryChangeByYearUsingDocument, options);
+        }
+export type GetStatisticBatteryChangeByYearUsingQueryHookResult = ReturnType<typeof useGetStatisticBatteryChangeByYearUsingQuery>;
+export type GetStatisticBatteryChangeByYearUsingLazyQueryHookResult = ReturnType<typeof useGetStatisticBatteryChangeByYearUsingLazyQuery>;
+export type GetStatisticBatteryChangeByYearUsingQueryResult = Apollo.QueryResult<GetStatisticBatteryChangeByYearUsingQuery, GetStatisticBatteryChangeByYearUsingQueryVariables>;
+export function refetchGetStatisticBatteryChangeByYearUsingQuery(variables?: GetStatisticBatteryChangeByYearUsingQueryVariables) {
+      return { query: GetStatisticBatteryChangeByYearUsingDocument, variables: variables }
+    }
 export const GetStatisticCustomChoiceLoggerDocument = gql`
     query GetStatisticCustomChoiceLogger {
   GetStatisticCustomChoiceLogger {
@@ -6325,6 +6532,52 @@ export type GetStatisticLoggerBatteryChangeQueryResult = Apollo.QueryResult<GetS
 export function refetchGetStatisticLoggerBatteryChangeQuery(variables?: GetStatisticLoggerBatteryChangeQueryVariables) {
       return { query: GetStatisticLoggerBatteryChangeDocument, variables: variables }
     }
+export const GetStatisticTransmitterChangeByYearUsingDocument = gql`
+    query GetStatisticTransmitterChangeByYearUsing($date: Date, $year: Int) {
+  GetStatisticTransmitterChangeByYearUsing(date: $date, year: $year) {
+    Company
+    DateOfChange
+    DescriptionOfChange
+    Location
+    Marks
+    Size
+    Status
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticTransmitterChangeByYearUsingQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticTransmitterChangeByYearUsingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticTransmitterChangeByYearUsingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticTransmitterChangeByYearUsingQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      year: // value for 'year'
+ *   },
+ * });
+ */
+export function useGetStatisticTransmitterChangeByYearUsingQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticTransmitterChangeByYearUsingQuery, GetStatisticTransmitterChangeByYearUsingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticTransmitterChangeByYearUsingQuery, GetStatisticTransmitterChangeByYearUsingQueryVariables>(GetStatisticTransmitterChangeByYearUsingDocument, options);
+      }
+export function useGetStatisticTransmitterChangeByYearUsingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticTransmitterChangeByYearUsingQuery, GetStatisticTransmitterChangeByYearUsingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticTransmitterChangeByYearUsingQuery, GetStatisticTransmitterChangeByYearUsingQueryVariables>(GetStatisticTransmitterChangeByYearUsingDocument, options);
+        }
+export type GetStatisticTransmitterChangeByYearUsingQueryHookResult = ReturnType<typeof useGetStatisticTransmitterChangeByYearUsingQuery>;
+export type GetStatisticTransmitterChangeByYearUsingLazyQueryHookResult = ReturnType<typeof useGetStatisticTransmitterChangeByYearUsingLazyQuery>;
+export type GetStatisticTransmitterChangeByYearUsingQueryResult = Apollo.QueryResult<GetStatisticTransmitterChangeByYearUsingQuery, GetStatisticTransmitterChangeByYearUsingQueryVariables>;
+export function refetchGetStatisticTransmitterChangeByYearUsingQuery(variables?: GetStatisticTransmitterChangeByYearUsingQueryVariables) {
+      return { query: GetStatisticTransmitterChangeByYearUsingDocument, variables: variables }
+    }
 export const GetStatisticLoggerChangeDocument = gql`
     query GetStatisticLoggerChange($date: Date) {
   GetStatisticLoggerChange(date: $date) {
@@ -6367,6 +6620,51 @@ export type GetStatisticLoggerChangeLazyQueryHookResult = ReturnType<typeof useG
 export type GetStatisticLoggerChangeQueryResult = Apollo.QueryResult<GetStatisticLoggerChangeQuery, GetStatisticLoggerChangeQueryVariables>;
 export function refetchGetStatisticLoggerChangeQuery(variables?: GetStatisticLoggerChangeQueryVariables) {
       return { query: GetStatisticLoggerChangeDocument, variables: variables }
+    }
+export const GetStatisticLoggerBatteryChangeByYearUsingDocument = gql`
+    query GetStatisticLoggerBatteryChangeByYearUsing($date: Date, $year: Int) {
+  GetStatisticLoggerBatteryChangeByYearUsing(date: $date, year: $year) {
+    Company
+    DateOfChange
+    DescriptionOfChange
+    Location
+    Marks
+    Status
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticLoggerBatteryChangeByYearUsingQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticLoggerBatteryChangeByYearUsingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticLoggerBatteryChangeByYearUsingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticLoggerBatteryChangeByYearUsingQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      year: // value for 'year'
+ *   },
+ * });
+ */
+export function useGetStatisticLoggerBatteryChangeByYearUsingQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticLoggerBatteryChangeByYearUsingQuery, GetStatisticLoggerBatteryChangeByYearUsingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticLoggerBatteryChangeByYearUsingQuery, GetStatisticLoggerBatteryChangeByYearUsingQueryVariables>(GetStatisticLoggerBatteryChangeByYearUsingDocument, options);
+      }
+export function useGetStatisticLoggerBatteryChangeByYearUsingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticLoggerBatteryChangeByYearUsingQuery, GetStatisticLoggerBatteryChangeByYearUsingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticLoggerBatteryChangeByYearUsingQuery, GetStatisticLoggerBatteryChangeByYearUsingQueryVariables>(GetStatisticLoggerBatteryChangeByYearUsingDocument, options);
+        }
+export type GetStatisticLoggerBatteryChangeByYearUsingQueryHookResult = ReturnType<typeof useGetStatisticLoggerBatteryChangeByYearUsingQuery>;
+export type GetStatisticLoggerBatteryChangeByYearUsingLazyQueryHookResult = ReturnType<typeof useGetStatisticLoggerBatteryChangeByYearUsingLazyQuery>;
+export type GetStatisticLoggerBatteryChangeByYearUsingQueryResult = Apollo.QueryResult<GetStatisticLoggerBatteryChangeByYearUsingQuery, GetStatisticLoggerBatteryChangeByYearUsingQueryVariables>;
+export function refetchGetStatisticLoggerBatteryChangeByYearUsingQuery(variables?: GetStatisticLoggerBatteryChangeByYearUsingQueryVariables) {
+      return { query: GetStatisticLoggerBatteryChangeByYearUsingDocument, variables: variables }
     }
 export const GetStatisticMarkSizeXnManagerDocument = gql`
     query GetStatisticMarkSizeXNManager {
@@ -6467,6 +6765,53 @@ export type GetStatisticMeterChangeLazyQueryHookResult = ReturnType<typeof useGe
 export type GetStatisticMeterChangeQueryResult = Apollo.QueryResult<GetStatisticMeterChangeQuery, GetStatisticMeterChangeQueryVariables>;
 export function refetchGetStatisticMeterChangeQuery(variables?: GetStatisticMeterChangeQueryVariables) {
       return { query: GetStatisticMeterChangeDocument, variables: variables }
+    }
+export const GetStatisticMeterChangeByYearUsingDocument = gql`
+    query GetStatisticMeterChangeByYearUsing($date: Date, $year: Int) {
+  GetStatisticMeterChangeByYearUsing(date: $date, year: $year) {
+    Company
+    DateOfChange
+    DescriptionOfChange
+    Location
+    Marks
+    Size
+    Status
+    _id
+    TakeoverDate
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticMeterChangeByYearUsingQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticMeterChangeByYearUsingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticMeterChangeByYearUsingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticMeterChangeByYearUsingQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      year: // value for 'year'
+ *   },
+ * });
+ */
+export function useGetStatisticMeterChangeByYearUsingQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticMeterChangeByYearUsingQuery, GetStatisticMeterChangeByYearUsingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticMeterChangeByYearUsingQuery, GetStatisticMeterChangeByYearUsingQueryVariables>(GetStatisticMeterChangeByYearUsingDocument, options);
+      }
+export function useGetStatisticMeterChangeByYearUsingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticMeterChangeByYearUsingQuery, GetStatisticMeterChangeByYearUsingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticMeterChangeByYearUsingQuery, GetStatisticMeterChangeByYearUsingQueryVariables>(GetStatisticMeterChangeByYearUsingDocument, options);
+        }
+export type GetStatisticMeterChangeByYearUsingQueryHookResult = ReturnType<typeof useGetStatisticMeterChangeByYearUsingQuery>;
+export type GetStatisticMeterChangeByYearUsingLazyQueryHookResult = ReturnType<typeof useGetStatisticMeterChangeByYearUsingLazyQuery>;
+export type GetStatisticMeterChangeByYearUsingQueryResult = Apollo.QueryResult<GetStatisticMeterChangeByYearUsingQuery, GetStatisticMeterChangeByYearUsingQueryVariables>;
+export function refetchGetStatisticMeterChangeByYearUsingQuery(variables?: GetStatisticMeterChangeByYearUsingQueryVariables) {
+      return { query: GetStatisticMeterChangeByYearUsingDocument, variables: variables }
     }
 export const GetStatisticSiteXnManagerDocument = gql`
     query GetStatisticSiteXNManager {
@@ -6611,6 +6956,97 @@ export type GetStatisticTransmitterBatteryChangeLazyQueryHookResult = ReturnType
 export type GetStatisticTransmitterBatteryChangeQueryResult = Apollo.QueryResult<GetStatisticTransmitterBatteryChangeQuery, GetStatisticTransmitterBatteryChangeQueryVariables>;
 export function refetchGetStatisticTransmitterBatteryChangeQuery(variables?: GetStatisticTransmitterBatteryChangeQueryVariables) {
       return { query: GetStatisticTransmitterBatteryChangeDocument, variables: variables }
+    }
+export const GetStatisticLoggerChangeByYearUsingDocument = gql`
+    query GetStatisticLoggerChangeByYearUsing($date: Date, $year: Int) {
+  GetStatisticLoggerChangeByYearUsing(date: $date, year: $year) {
+    Company
+    DateOfChange
+    DescriptionOfChange
+    Location
+    Marks
+    Status
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticLoggerChangeByYearUsingQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticLoggerChangeByYearUsingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticLoggerChangeByYearUsingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticLoggerChangeByYearUsingQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      year: // value for 'year'
+ *   },
+ * });
+ */
+export function useGetStatisticLoggerChangeByYearUsingQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticLoggerChangeByYearUsingQuery, GetStatisticLoggerChangeByYearUsingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticLoggerChangeByYearUsingQuery, GetStatisticLoggerChangeByYearUsingQueryVariables>(GetStatisticLoggerChangeByYearUsingDocument, options);
+      }
+export function useGetStatisticLoggerChangeByYearUsingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticLoggerChangeByYearUsingQuery, GetStatisticLoggerChangeByYearUsingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticLoggerChangeByYearUsingQuery, GetStatisticLoggerChangeByYearUsingQueryVariables>(GetStatisticLoggerChangeByYearUsingDocument, options);
+        }
+export type GetStatisticLoggerChangeByYearUsingQueryHookResult = ReturnType<typeof useGetStatisticLoggerChangeByYearUsingQuery>;
+export type GetStatisticLoggerChangeByYearUsingLazyQueryHookResult = ReturnType<typeof useGetStatisticLoggerChangeByYearUsingLazyQuery>;
+export type GetStatisticLoggerChangeByYearUsingQueryResult = Apollo.QueryResult<GetStatisticLoggerChangeByYearUsingQuery, GetStatisticLoggerChangeByYearUsingQueryVariables>;
+export function refetchGetStatisticLoggerChangeByYearUsingQuery(variables?: GetStatisticLoggerChangeByYearUsingQueryVariables) {
+      return { query: GetStatisticLoggerChangeByYearUsingDocument, variables: variables }
+    }
+export const GetStatisticTransmitterBatteryChangeByYearUsingDocument = gql`
+    query GetStatisticTransmitterBatteryChangeByYearUsing($date: Date, $year: Int) {
+  GetStatisticTransmitterBatteryChangeByYearUsing(date: $date, year: $year) {
+    Company
+    DateOfChange
+    DescriptionOfChange
+    Location
+    Marks
+    Size
+    _id
+    Status
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticTransmitterBatteryChangeByYearUsingQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticTransmitterBatteryChangeByYearUsingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticTransmitterBatteryChangeByYearUsingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticTransmitterBatteryChangeByYearUsingQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      year: // value for 'year'
+ *   },
+ * });
+ */
+export function useGetStatisticTransmitterBatteryChangeByYearUsingQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticTransmitterBatteryChangeByYearUsingQuery, GetStatisticTransmitterBatteryChangeByYearUsingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticTransmitterBatteryChangeByYearUsingQuery, GetStatisticTransmitterBatteryChangeByYearUsingQueryVariables>(GetStatisticTransmitterBatteryChangeByYearUsingDocument, options);
+      }
+export function useGetStatisticTransmitterBatteryChangeByYearUsingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticTransmitterBatteryChangeByYearUsingQuery, GetStatisticTransmitterBatteryChangeByYearUsingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticTransmitterBatteryChangeByYearUsingQuery, GetStatisticTransmitterBatteryChangeByYearUsingQueryVariables>(GetStatisticTransmitterBatteryChangeByYearUsingDocument, options);
+        }
+export type GetStatisticTransmitterBatteryChangeByYearUsingQueryHookResult = ReturnType<typeof useGetStatisticTransmitterBatteryChangeByYearUsingQuery>;
+export type GetStatisticTransmitterBatteryChangeByYearUsingLazyQueryHookResult = ReturnType<typeof useGetStatisticTransmitterBatteryChangeByYearUsingLazyQuery>;
+export type GetStatisticTransmitterBatteryChangeByYearUsingQueryResult = Apollo.QueryResult<GetStatisticTransmitterBatteryChangeByYearUsingQuery, GetStatisticTransmitterBatteryChangeByYearUsingQueryVariables>;
+export function refetchGetStatisticTransmitterBatteryChangeByYearUsingQuery(variables?: GetStatisticTransmitterBatteryChangeByYearUsingQueryVariables) {
+      return { query: GetStatisticTransmitterBatteryChangeByYearUsingDocument, variables: variables }
     }
 export const InsertDataManualDocument = gql`
     mutation InsertDataManual($dataManual: DataManualInsertInput) {

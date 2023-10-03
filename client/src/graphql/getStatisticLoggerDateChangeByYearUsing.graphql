@@ -1,0 +1,11 @@
+query GetStatisticLoggerBatteryChangeByYearUsing($date: Date, $year: Int) {
+    GetStatisticLoggerBatteryChangeByYearUsing(date: $date, year: $year) {
+        Company
+        DateOfChange
+        DescriptionOfChange
+        Location
+        Marks
+        Status
+        _id
+    }
+}

@@ -1,0 +1,12 @@
+query GetStatisticTransmitterChangeByYearUsing($date: Date, $year: Int) {
+    GetStatisticTransmitterChangeByYearUsing(date: $date, year: $year) {
+        Company
+        DateOfChange
+        DescriptionOfChange
+        Location
+        Marks
+        Size
+        Status
+        _id
+    }
+}

@@ -474,6 +474,36 @@ module.exports.GetSiteMeterDateChange = async (date) => {
     return result;
 };
 
+module.exports.GetSiteMeterDateChangeByYearUsing = async (date, year) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    const time = new Date(date);
+
+    time.setDate(time.getDate() - year * 365.5);
+
+    let result = await collection
+        .find({
+            $or: [
+                {
+                    DateOfMeterChange: { $ne: null },
+                    DateOfMeterChange: { $lte: new Date(time) },
+                },
+                {
+                    DateOfMeterChange: { $eq: null },
+                    TakeoverDate: { $ne: null },
+                    TakeoverDate: { $lte: time },
+                },
+            ],
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.GetSiteTransmitterDateChange = async (date) => {
     let Connect = new ConnectDB.Connect();
 
@@ -483,6 +513,31 @@ module.exports.GetSiteTransmitterDateChange = async (date) => {
         .find({
             DateOfTransmitterChange: { $ne: null },
             DateOfTransmitterChange: { $gte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSiteTransmitterDateChangeByYearUsing = async (date, year) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    const time = new Date(date);
+
+    time.setDate(time.getDate() - year * 365.5);
+
+    let result = await collection
+        .find({
+            $or: [
+                {
+                    DateOfTransmitterChange: { $ne: null },
+                    DateOfTransmitterChange: { $lte: new Date(time) },
+                },
+            ],
         })
         .toArray();
 
@@ -508,6 +563,31 @@ module.exports.GetSiteLoggerDateChange = async (date) => {
     return result;
 };
 
+module.exports.GetSiteLoggerDateChangeByYearUsing = async (date, year) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    const time = new Date(date);
+
+    time.setDate(time.getDate() - year * 365.5);
+
+    let result = await collection
+        .find({
+            $or: [
+                {
+                    DateOfLoggerChange: { $ne: null },
+                    DateOfLoggerChange: { $lte: new Date(time) },
+                },
+            ],
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.GetSitDateBatteryChange = async (date) => {
     let Connect = new ConnectDB.Connect();
 
@@ -517,6 +597,27 @@ module.exports.GetSitDateBatteryChange = async (date) => {
         .find({
             DateOfBatteryChange: { $ne: null },
             DateOfBatteryChange: { $gte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSitDateBatteryChangeByYearUsing = async (date, year) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    const time = new Date(date);
+
+    time.setDate(time.getDate() - year * 365.5);
+
+    let result = await collection
+        .find({
+            DateOfBatteryChange: { $ne: null },
+            DateOfBatteryChange: { $lte: new Date(date) },
         })
         .toArray();
 
@@ -542,6 +643,30 @@ module.exports.GetSitDateTranmitterBatteryChange = async (date) => {
     return result;
 };
 
+module.exports.GetSitDateTransmitterBatteryChangeByYearUsing = async (
+    date,
+    year,
+) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    const time = new Date(date);
+
+    time.setDate(time.getDate() - year * 365.5);
+
+    let result = await collection
+        .find({
+            DateOfTransmitterBatteryChange: { $ne: null },
+            DateOfTransmitterBatteryChange: { $lte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.GetSitDateLoggerBatteryChange = async (date) => {
     let Connect = new ConnectDB.Connect();
 
@@ -551,6 +676,30 @@ module.exports.GetSitDateLoggerBatteryChange = async (date) => {
         .find({
             DateOfLoggerBatteryChange: { $ne: null },
             DateOfLoggerBatteryChange: { $gte: new Date(date) },
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSitDateLoggerBatteryChangeByYearUsing = async (
+    date,
+    year,
+) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    const time = new Date(date);
+
+    time.setDate(time.getDate() - year * 365.5);
+
+    let result = await collection
+        .find({
+            DateOfLoggerBatteryChange: { $ne: null },
+            DateOfLoggerBatteryChange: { $lte: new Date(date) },
         })
         .toArray();
 

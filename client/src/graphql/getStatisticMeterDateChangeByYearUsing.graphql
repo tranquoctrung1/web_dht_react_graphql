@@ -1,0 +1,13 @@
+query GetStatisticMeterChangeByYearUsing($date: Date, $year: Int) {
+    GetStatisticMeterChangeByYearUsing(date: $date, year: $year) {
+        Company
+        DateOfChange
+        DescriptionOfChange
+        Location
+        Marks
+        Size
+        Status
+        _id
+        TakeoverDate
+    }
+}

@@ -1,0 +1,12 @@
+query GetStatisticBatteryChangeByYearUsing($date: Date, $year: Int) {
+    GetStatisticBatteryChangeByYearUsing(date: $date, year: $year) {
+        Company
+        DateOfChange
+        DescriptionOfChange
+        Location
+        Marks
+        Size
+        Status
+        _id
+    }
+}

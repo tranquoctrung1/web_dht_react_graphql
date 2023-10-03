@@ -1088,5 +1088,247 @@ module.exports = {
 
             return result;
         },
+
+        GetStatisticMeterChangeByYearUsing: async (
+            parent,
+            { date, year },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listSite = await SiteModel.GetSiteMeterDateChangeByYearUsing(
+                date,
+                year,
+            );
+
+            const listMeter = await DeviceMeterModel.GetAll();
+
+            for (const site of listSite) {
+                const obj = {
+                    _id: site._id,
+                    Location: site.Location,
+                    Marks: '',
+                    Size: 0,
+                    DateOfChange: site.DateOfMeterChange,
+                    DescriptionOfChange: site.DescriptionOfChange,
+                    Company: site.Company,
+                    Status: site.Status,
+                    TakeoverDate: site.TakeoverDate,
+                };
+
+                const find = listMeter.find((el) => el.Serial === site.Meter);
+
+                if (find !== undefined) {
+                    obj.Marks = find.Marks;
+                    obj.Size = find.Size;
+                }
+
+                result.push(obj);
+            }
+
+            return result;
+        },
+        GetStatisticTransmitterChangeByYearUsing: async (
+            parent,
+            { date, year },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listSite =
+                await SiteModel.GetSiteTransmitterDateChangeByYearUsing(
+                    date,
+                    year,
+                );
+
+            const listTransmitter = await DeviceTransmitterModel.GetAll();
+
+            for (const site of listSite) {
+                const obj = {
+                    _id: site._id,
+                    Location: site.Location,
+                    Marks: '',
+                    Size: 0,
+                    DateOfChange: site.DateOfTransmitterChange,
+                    DescriptionOfChange: site.DescriptionOfChange,
+                    Company: site.Company,
+                    Status: site.Status,
+                };
+
+                const find = listTransmitter.find(
+                    (el) => el.Serial === site.Transmitter,
+                );
+
+                if (find !== undefined) {
+                    obj.Marks = find.Marks;
+                    obj.Size = find.Size;
+                }
+
+                result.push(obj);
+            }
+
+            return result;
+        },
+        GetStatisticLoggerChangeByYearUsing: async (
+            parent,
+            { date, year },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listSite = await SiteModel.GetSiteLoggerDateChangeByYearUsing(
+                date,
+                year,
+            );
+
+            const listLogger = await DeviceLoggerModel.GetAll();
+
+            for (const site of listSite) {
+                const obj = {
+                    _id: site._id,
+                    Location: site.Location,
+                    Marks: '',
+                    DateOfChange: site.DateOfLoggerChange,
+                    DescriptionOfChange: site.DescriptionOfChange,
+                    Company: site.Company,
+                    Status: site.Status,
+                };
+
+                const find = listLogger.find((el) => el.Serial === site.Logger);
+
+                if (find !== undefined) {
+                    obj.Marks = find.Marks;
+                }
+
+                result.push(obj);
+            }
+
+            return result;
+        },
+
+        GetStatisticBatteryChangeByYearUsing: async (
+            parent,
+            { date, year },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listSite = await SiteModel.GetSitDateBatteryChangeByYearUsing(
+                date,
+                year,
+            );
+
+            const listMeter = await DeviceMeterModel.GetAll();
+
+            for (const site of listSite) {
+                const obj = {
+                    _id: site._id,
+                    Location: site.Location,
+                    Marks: '',
+                    Size: 0,
+                    DateOfChange: site.DateOfBatteryChange,
+                    DescriptionOfChange: site.DescriptionOfChange,
+                    Company: site.Company,
+                    Status: site.Status,
+                };
+
+                const find = listMeter.find((el) => el.Serial === site.Meter);
+
+                if (find !== undefined) {
+                    obj.Marks = find.Marks;
+                    obj.Size = find.Size;
+                }
+
+                result.push(obj);
+            }
+
+            return result;
+        },
+
+        GetStatisticTransmitterBatteryChangeByYearUsing: async (
+            parent,
+            { date, year },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listSite =
+                await SiteModel.GetSitDateTransmitterBatteryChangeByYearUsing(
+                    date,
+                    year,
+                );
+
+            const listTransmitter = await DeviceTransmitterModel.GetAll();
+
+            for (const site of listSite) {
+                const obj = {
+                    _id: site._id,
+                    Location: site.Location,
+                    Marks: '',
+                    Size: 0,
+                    DateOfChange: site.DateOfTransmitterBatteryChange,
+                    DescriptionOfChange: site.DescriptionOfChange,
+                    Company: site.Company,
+                    Status: site.Status,
+                };
+
+                const find = listTransmitter.find(
+                    (el) => el.Serial === site.Transmitter,
+                );
+
+                if (find !== undefined) {
+                    obj.Marks = find.Marks;
+                    obj.Size = find.Size;
+                }
+
+                result.push(obj);
+            }
+
+            return result;
+        },
+
+        GetStatisticLoggerBatteryChangeByYearUsing: async (
+            parent,
+            { date, year },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            const listSite =
+                await SiteModel.GetSitDateLoggerBatteryChangeByYearUsing(
+                    date,
+                    year,
+                );
+
+            const listLogger = await DeviceLoggerModel.GetAll();
+
+            for (const site of listSite) {
+                const obj = {
+                    _id: site._id,
+                    Location: site.Location,
+                    Marks: '',
+                    DateOfChange: site.DateOfLoggerBatteryChange,
+                    DescriptionOfChange: site.DescriptionOfChange,
+                    Company: site.Company,
+                    Status: site.Status,
+                };
+
+                const find = listLogger.find((el) => el.Serial === site.Logger);
+
+                if (find !== undefined) {
+                    obj.Marks = find.Marks;
+                }
+
+                result.push(obj);
+            }
+
+            return result;
+        },
     },
 };
