@@ -1005,6 +1005,22 @@ export type QuantityDayGroup5 = {
   Size?: Maybe<Scalars['Int']>;
 };
 
+export type QuantityDayLevel = {
+  __typename?: 'QuantityDayLevel';
+  Address?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Display?: Maybe<Scalars['Boolean']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
+  ListQuantity?: Maybe<Array<Maybe<Quantity>>>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  MeterDirection?: Maybe<Scalars['String']>;
+  OldId?: Maybe<Scalars['String']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  SiteId: Scalars['String'];
+  Size?: Maybe<Scalars['Int']>;
+};
+
 export type QuantityDayWaterSupply = {
   __typename?: 'QuantityDayWaterSupply';
   Address?: Maybe<Scalars['String']>;
@@ -1182,6 +1198,7 @@ export type Query = {
   QuantityDayGroup3: Array<QuantityDayGroup3>;
   QuantityDayGroup4: Array<QuantityDayGroup4>;
   QuantityDayGroup5: Array<QuantityDayGroup5>;
+  QuantityDayLevel: Array<QuantityDayLevel>;
   QuantityDayWaterSupply: Array<QuantityDayWaterSupply>;
   QuantityLoggerByTimeStamp: Array<QuantityLoggerByTimeStamp>;
   QuantityLoggerDay: Scalars['Float'];
@@ -1384,6 +1401,13 @@ export type QueryQuantityDayGroup4Args = {
 export type QueryQuantityDayGroup5Args = {
   end: Scalars['String'];
   group: Scalars['String'];
+  start: Scalars['String'];
+};
+
+
+export type QueryQuantityDayLevelArgs = {
+  end: Scalars['String'];
+  level: Scalars['String'];
   start: Scalars['String'];
 };
 
@@ -2638,6 +2662,15 @@ export type QuantityDayGroup3QueryVariables = Exact<{
 
 
 export type QuantityDayGroup3Query = { __typename?: 'Query', QuantityDayGroup3: Array<{ __typename?: 'QuantityDayGroup3', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, OldId?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, SiteId: string, Size?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
+
+export type QuantityDayLevelQueryVariables = Exact<{
+  level: Scalars['String'];
+  start: Scalars['String'];
+  end: Scalars['String'];
+}>;
+
+
+export type QuantityDayLevelQuery = { __typename?: 'Query', QuantityDayLevel: Array<{ __typename?: 'QuantityDayLevel', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, OldId?: string | null, QndDistributionCompany?: string | null, SiteId: string, Size?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
 
 export type GetSiteByIdQueryVariables = Exact<{
   siteid?: InputMaybe<Scalars['String']>;
@@ -6402,6 +6435,61 @@ export type QuantityDayGroup3LazyQueryHookResult = ReturnType<typeof useQuantity
 export type QuantityDayGroup3QueryResult = Apollo.QueryResult<QuantityDayGroup3Query, QuantityDayGroup3QueryVariables>;
 export function refetchQuantityDayGroup3Query(variables: QuantityDayGroup3QueryVariables) {
       return { query: QuantityDayGroup3Document, variables: variables }
+    }
+export const QuantityDayLevelDocument = gql`
+    query QuantityDayLevel($level: String!, $start: String!, $end: String!) {
+  QuantityDayLevel(level: $level, start: $start, end: $end) {
+    Address
+    Company
+    Display
+    IstDistributionCompany
+    ListQuantity {
+      IsEnoughData
+      TimeStamp
+      Value
+    }
+    Location
+    Marks
+    MeterDirection
+    OldId
+    QndDistributionCompany
+    SiteId
+    Size
+  }
+}
+    `;
+
+/**
+ * __useQuantityDayLevelQuery__
+ *
+ * To run a query within a React component, call `useQuantityDayLevelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuantityDayLevelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuantityDayLevelQuery({
+ *   variables: {
+ *      level: // value for 'level'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useQuantityDayLevelQuery(baseOptions: Apollo.QueryHookOptions<QuantityDayLevelQuery, QuantityDayLevelQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QuantityDayLevelQuery, QuantityDayLevelQueryVariables>(QuantityDayLevelDocument, options);
+      }
+export function useQuantityDayLevelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuantityDayLevelQuery, QuantityDayLevelQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QuantityDayLevelQuery, QuantityDayLevelQueryVariables>(QuantityDayLevelDocument, options);
+        }
+export type QuantityDayLevelQueryHookResult = ReturnType<typeof useQuantityDayLevelQuery>;
+export type QuantityDayLevelLazyQueryHookResult = ReturnType<typeof useQuantityDayLevelLazyQuery>;
+export type QuantityDayLevelQueryResult = Apollo.QueryResult<QuantityDayLevelQuery, QuantityDayLevelQueryVariables>;
+export function refetchQuantityDayLevelQuery(variables: QuantityDayLevelQueryVariables) {
+      return { query: QuantityDayLevelDocument, variables: variables }
     }
 export const GetSiteByIdDocument = gql`
     query GetSiteById($siteid: String) {

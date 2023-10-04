@@ -210,6 +210,21 @@ module.exports.GetSitesByGroup5S = async (group) => {
     return result;
 };
 
+module.exports.GetSitesByLevel = async (level) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({ Level: level })
+        .sort({ _id: -1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.GetAllSites = async () => {
     let Connect = new ConnectDB.Connect();
 

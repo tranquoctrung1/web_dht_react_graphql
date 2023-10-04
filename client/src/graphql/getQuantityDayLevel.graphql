@@ -1,0 +1,20 @@
+query QuantityDayLevel($level: String!, $start: String!, $end: String!) {
+    QuantityDayLevel(level: $level, start: $start, end: $end) {
+        Address
+        Company
+        Display
+        IstDistributionCompany
+        ListQuantity {
+            IsEnoughData
+            TimeStamp
+            Value
+        }
+        Location
+        Marks
+        MeterDirection
+        OldId
+        QndDistributionCompany
+        SiteId
+        Size
+    }
+}

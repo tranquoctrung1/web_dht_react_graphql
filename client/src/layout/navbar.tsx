@@ -160,7 +160,7 @@ const mockdata = [
             { label: 'Sản Lượng Theo Nhóm 5', link: '/quantityGroup5' },
             {
                 label: 'Sản Lượng Theo Cấp Đồng Hồ',
-                link: '/quantityMeterLevel',
+                link: '/quantityLevel',
             },
             { label: 'Sản Lượng Tổng Hợp', link: '/quantityTotal' },
         ],
