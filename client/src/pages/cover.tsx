@@ -19,7 +19,6 @@ import {
 import { checkAdminViewerRole } from '../utils/utils';
 
 import Swal from 'sweetalert2';
-import { m } from 'framer-motion';
 
 const CoverPage = () => {
     const [coverData, setCoverData] = useState([]);

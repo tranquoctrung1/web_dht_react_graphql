@@ -38,6 +38,7 @@ import StatisticLoggerInfoPage from './pages/statisticLoggerInfo';
 import StatisticCustomChoiceMarkSizePage from './pages/statisticCustomeChoiceMarkSize';
 import StatisticMeterWorkPage from './pages/statisticMeterWork';
 import CoverPage from './pages/cover';
+import DownloadMeterFilePage from './pages/downloadMeterFile';
 
 function App() {
     const router = createBrowserRouter([
@@ -172,6 +173,10 @@ function App() {
                 {
                     path: '/cover',
                     element: <CoverPage />,
+                },
+                {
+                    path: '/downloadMeterFile',
+                    element: <DownloadMeterFilePage />,
                 },
             ],
         },

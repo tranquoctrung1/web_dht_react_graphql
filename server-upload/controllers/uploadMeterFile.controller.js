@@ -1,5 +1,14 @@
 const MeterFileModel = require('../models/MeterFile.model');
 
+module.exports.GetAll = async (req, res) => {
+    try {
+        res.status(200).json({ message: await MeterFileModel.GetAll() });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: err });
+    }
+};
+
 module.exports.UploadFile = async (req, res) => {
     try {
         const fileUpload = {
@@ -14,6 +23,17 @@ module.exports.UploadFile = async (req, res) => {
         res.status(200).json({
             message: await MeterFileModel.Insert(fileUpload),
         });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: err });
+    }
+};
+
+module.exports.DeleteFile = async (req, res) => {
+    try {
+        const { id } = req.query;
+
+        res.status(200).json({ message: await MeterFileModel.Delete(id) });
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: err });

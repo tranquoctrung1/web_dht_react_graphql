@@ -1,4 +1,5 @@
 const ConnectDB = require('../db/connect');
+const { ObjectId } = require('mongodb');
 
 const MeterFileCollection = 't_Meter_Files';
 
@@ -14,6 +15,18 @@ module.exports.MeterFile = class MeterFile {
     }
 };
 
+module.exports.GetAll = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(MeterFileCollection);
+
+    let result = await collection.find({}).sort({ UploadDate: -1 }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.Insert = async (meterFile) => {
     let Connect = new ConnectDB.Connect();
 
@@ -24,4 +37,18 @@ module.exports.Insert = async (meterFile) => {
     Connect.disconnect();
 
     return result.insertedId;
+};
+
+module.exports.Delete = async (id) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(MeterFileCollection);
+
+    let result = await collection.deleteMany({
+        _id: new ObjectId(id),
+    });
+
+    Connect.disconnect();
+
+    return result.deletedCount;
 };

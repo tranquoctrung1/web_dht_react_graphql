@@ -60,7 +60,7 @@ const mockdata = [
             { label: 'Bộ Hiển Thị', link: '/transmitter' },
             { label: 'Logger', link: '/logger' },
             { label: 'Nắp Hầm', link: '/cover' },
-            { label: 'Tải File Đồng Hồ', link: '/downloadFileMeter' },
+            { label: 'Tải File Đồng Hồ', link: '/downloadMeterFile' },
             { label: 'Xóa Đồng Hồ Không Sử Dụng', link: '/deleteMeter' },
             {
                 label: 'Xóa Bộ Hiển Thi Không Sử Dụng',

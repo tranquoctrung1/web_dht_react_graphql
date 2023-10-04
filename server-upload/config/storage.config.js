@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
 
         const ext = file.originalname.split('.');
         if (ext.length > 1) {
-            filename = `${file.fieldname}-${Date.now()}.${ext[1]}`;
+            filename = `${file.fieldname}-${Date.now()}.${ext[ext.length - 1]}`;
         } else {
             filename = `${file.fieldname}-${Date.now()}`;
         }
