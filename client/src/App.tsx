@@ -42,6 +42,7 @@ import DownloadMeterFilePage from './pages/downloadMeterFile';
 import DeleteUselessMeterPage from './pages/deleteUselessMeter';
 import DeleteUselessTransmitterPage from './pages/deleteUselessTransmitter';
 import DeleteUselessLoggerPage from './pages/deleteUselessLogger';
+import DownloadSiteFilePage from './pages/downloadSiteFile';
 
 function App() {
     const router = createBrowserRouter([
@@ -192,6 +193,10 @@ function App() {
                 {
                     path: '/deleteUselessLogger',
                     element: <DeleteUselessLoggerPage />,
+                },
+                {
+                    path: '/downloadSiteFile',
+                    element: <DownloadSiteFilePage />,
                 },
             ],
         },

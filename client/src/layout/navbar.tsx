@@ -79,7 +79,7 @@ const mockdata = [
             { label: 'Thay Đồng Hồ', link: '/meterChanged' },
             { label: 'Thay Bộ Hiển Thị', link: '/transmitterChanged' },
             { label: 'Thay Bộ Logger', link: '/loggerChanged' },
-            { label: 'Tải File Điểm Lắp Đặt', link: '/downloadFileSite' },
+            { label: 'Tải File Điểm Lắp Đặt', link: '/downloadSiteFile' },
         ],
     },
     {
