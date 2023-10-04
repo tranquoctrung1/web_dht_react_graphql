@@ -36,6 +36,11 @@ const HistorySiteMeter = require('./HistorySiteMeterChange.resolver');
 const HistorySiteTransmitter = require('./HistorySiteTransmitterChange.resolver');
 const HistorySiteLogger = require('./HistorySiteLoggerChange.resolver');
 const Statistic = require('./Statistic.resolver');
+const QuantityDayGroup = require('./QuantityDayGroup.resolver');
+const QuantityDayGroup2 = require('./QuantityDayGroup2.resolver');
+const QuantityDayGroup3 = require('./QuantityDayGroup3.resolver');
+const QuantityDayGroup4 = require('./QuantityDayGroup4.resolver');
+const QuantityDayGroup5 = require('./QuantityDayGroup5.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -78,6 +83,11 @@ module.exports = {
         ...HistorySiteTransmitter.Query,
         ...HistorySiteLogger.Query,
         ...Statistic.Query,
+        ...QuantityDayGroup.Query,
+        ...QuantityDayGroup2.Query,
+        ...QuantityDayGroup3.Query,
+        ...QuantityDayGroup4.Query,
+        ...QuantityDayGroup5.Query,
     },
 
     Mutation: {

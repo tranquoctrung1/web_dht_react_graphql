@@ -12,8 +12,8 @@ import { DateInput } from '@mantine/dates';
 import { motion } from 'framer-motion';
 
 import {
-    useGetCompaniesQuery,
-    useQuantityDayCompanyLazyQuery,
+    useGetAllSiteGroup5SQuery,
+    useQuantityDayGroup5LazyQuery,
 } from '../__generated__/graphql';
 
 import { useState, useEffect } from 'react';
@@ -32,24 +32,24 @@ import Companies from '../types/companies.type';
 
 import { checkAdminViewerRole } from '../utils/utils';
 
-const QuantityCompanyPage = () => {
-    const [selectedCompany, setSelectedCompany] = useState(null);
+const QuantityGroup5Page = () => {
+    const [selectedGroup, setSelectedGroup] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
-    const { data, error, loading } = useGetCompaniesQuery();
+    const { data, error, loading } = useGetAllSiteGroup5SQuery();
     const [
         getQuantityCompany,
         { loading: loadingQuantity, error: errorQuantity, data: dataQuanity },
-    ] = useQuantityDayCompanyLazyQuery();
+    ] = useQuantityDayGroup5LazyQuery();
 
     useEffect(() => {
         const company = localStorage.getItem('Company');
 
         if (company !== null && company !== undefined && company !== '') {
             //@ts-ignore
-            setSelectedCompany(company);
+            setSelectedGroup(company);
         }
 
         setIsAdminViewer(checkAdminViewerRole());
@@ -58,14 +58,14 @@ const QuantityCompanyPage = () => {
     if (loading) {
         return (
             <Text color="blue" weight={500}>
-                Đang tải danh sách đơn vị quản lý
+                Đang tải danh sách nhóm
             </Text>
         );
     }
     if (error) {
         return (
             <Text color="red" weight={500}>
-                Lỗi khi tải dánh sách đơn vị quản lý
+                Lỗi khi tải dánh sách nhóm
             </Text>
         );
     }
@@ -73,14 +73,17 @@ const QuantityCompanyPage = () => {
     let tempData = [];
 
     if (data != null && data != undefined) {
-        if (data.GetCompanies != null && data.GetCompanies != undefined) {
-            if (data.GetCompanies.length > 0) {
-                for (let company of data.GetCompanies) {
+        if (
+            data.GetAllSiteGroup5S != null &&
+            data.GetAllSiteGroup5S != undefined
+        ) {
+            if (data.GetAllSiteGroup5S.length > 0) {
+                for (let group of data.GetAllSiteGroup5S) {
                     let obj: Companies = {
                         // @ts-ignore comment
-                        value: company.Company,
+                        value: group?.Group,
                         // @ts-ignore comment
-                        label: `${company.Company} - ${company.Description}`,
+                        label: `${group?.Group} - ${group?.Description}`,
                     };
 
                     tempData.push(obj);
@@ -89,9 +92,9 @@ const QuantityCompanyPage = () => {
         }
     }
 
-    const onCompaniesChanged = (e: any) => {
+    const onGroupChanged = (e: any) => {
         if (e != null && e != undefined && e != '') {
-            setSelectedCompany(e);
+            setSelectedGroup(e);
         }
     };
 
@@ -109,14 +112,14 @@ const QuantityCompanyPage = () => {
 
     const onViewClicked = (e: any) => {
         if (
-            selectedCompany == null ||
-            selectedCompany == undefined ||
-            selectedCompany == ''
+            selectedGroup == null ||
+            selectedGroup == undefined ||
+            selectedGroup == ''
         ) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Chưa chọn đơn vị quản lý!',
+                text: 'Chưa chọn nhóm!',
             });
         } else if (
             startDate == null ||
@@ -137,7 +140,7 @@ const QuantityCompanyPage = () => {
         } else {
             getQuantityCompany({
                 variables: {
-                    company: selectedCompany,
+                    group: selectedGroup,
                     // @ts-ignore comment
                     start: startDate.toString(),
                     // @ts-ignore comment
@@ -148,7 +151,7 @@ const QuantityCompanyPage = () => {
     };
 
     const renderTableQuantity = (data: any) => {
-        let sortedData = quickSort(data.QuantityDayCompany);
+        let sortedData = quickSort(data.QuantityDayGroup5);
 
         if (data != null && data != undefined) {
             if (sortedData != null && sortedData != undefined) {
@@ -938,7 +941,7 @@ const QuantityCompanyPage = () => {
                             style={{ tableLayout: 'auto', width: '200%' }}
                         >
                             <caption>
-                                Sản Lượng {selectedCompany} từ{' '}
+                                Sản Lượng {selectedGroup} từ{' '}
                                 {convertDateToStringNotTimeForTitle(
                                     // @ts-ignore comment
                                     new Date(startDate),
@@ -968,15 +971,15 @@ const QuantityCompanyPage = () => {
                 <Grid>
                     <Col md={4} sm={12}>
                         <Select
-                            label="Công ty"
-                            placeholder="Chọn công ty"
+                            label="Nhóm"
+                            placeholder="Chọn nhóm"
                             withAsterisk
                             data={tempData}
                             clearable
                             searchable
                             nothingFound="Không tìm thấy!!"
-                            onChange={onCompaniesChanged}
-                            value={selectedCompany}
+                            onChange={onGroupChanged}
+                            value={selectedGroup}
                         />
                     </Col>
                     <Col md={4} sm={12}>
@@ -1018,7 +1021,7 @@ const QuantityCompanyPage = () => {
                                         id="table-xls"
                                         className="btn-export"
                                         table="tableQuantity"
-                                        filename={`Sản lượng ${selectedCompany} từ ${convertDateToStringNotTimeForTitle(
+                                        filename={`Sản lượng ${selectedGroup} từ ${convertDateToStringNotTimeForTitle(
                                             // @ts-ignore comment
                                             new Date(startDate),
                                         )} đến  ${convertDateToStringNotTimeForTitle(
@@ -1050,4 +1053,4 @@ const QuantityCompanyPage = () => {
     );
 };
 
-export default QuantityCompanyPage;
+export default QuantityGroup5Page;

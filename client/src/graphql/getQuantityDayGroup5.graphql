@@ -1,0 +1,22 @@
+query QuantityDayGroup3($group: String!, $start: String!, $end: String!) {
+    QuantityDayGroup3(group: $group, start: $start, end: $end) {
+        Address
+        Company
+        Display
+        IstDistributionCompany
+        IstDoNotCalculateReverse
+        ListQuantity {
+            IsEnoughData
+            TimeStamp
+            Value
+        }
+        Location
+        Marks
+        MeterDirection
+        OldId
+        QndDistributionCompany
+        QndDoNotCalculateReverse
+        SiteId
+        Size
+    }
+}

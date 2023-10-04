@@ -43,6 +43,11 @@ import DeleteUselessMeterPage from './pages/deleteUselessMeter';
 import DeleteUselessTransmitterPage from './pages/deleteUselessTransmitter';
 import DeleteUselessLoggerPage from './pages/deleteUselessLogger';
 import DownloadSiteFilePage from './pages/downloadSiteFile';
+import QuantityGroupPage from './pages/quantityGroup';
+import QuantityGroup2Page from './pages/quantityGroup2';
+import QuantityGroup3Page from './pages/quantityGroup3';
+import QuantityGroup4Page from './pages/quantityGroup4';
+import QuantityGroup5Page from './pages/quantityGroup5';
 
 function App() {
     const router = createBrowserRouter([
@@ -197,6 +202,26 @@ function App() {
                 {
                     path: '/downloadSiteFile',
                     element: <DownloadSiteFilePage />,
+                },
+                {
+                    path: '/quantityGroup',
+                    element: <QuantityGroupPage />,
+                },
+                {
+                    path: '/quantityGroup2',
+                    element: <QuantityGroup2Page />,
+                },
+                {
+                    path: '/quantityGroup3',
+                    element: <QuantityGroup3Page />,
+                },
+                {
+                    path: '/quantityGroup4',
+                    element: <QuantityGroup4Page />,
+                },
+                {
+                    path: '/quantityGroup5',
+                    element: <QuantityGroup5Page />,
                 },
             ],
         },

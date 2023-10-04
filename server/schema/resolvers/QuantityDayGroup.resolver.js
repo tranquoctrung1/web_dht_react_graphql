@@ -3,13 +3,14 @@ const SiteSiteModel = require('../../models/SiteSite.model');
 const DeviceSiteConfigModel = require('../../models/DeviceSiteConfig.model');
 const DeviceMeterModel = require('../../models/DeviceMeter.model');
 const DataManualModel = require('../../models/DataManual.model');
+const SiteCompaniesModel = require('../../models/SiteCompanies.model');
 const Utils = require('../../utils');
 
 module.exports = {
     Query: {
-        QuantityDayCompany: async (
+        QuantityDayGroup: async (
             parent,
-            { company, start, end },
+            { group, start, end },
             context,
             infor,
         ) => {
@@ -22,7 +23,8 @@ module.exports = {
 
             let totalDay = Utils.CalculateSpcaeDay(startDate, endDate) + 1;
 
-            let sites = await SiteSiteModel.GetSiteByCompany(company);
+            let sites = await SiteSiteModel.GetSitesByGroup(group);
+
             if (sites.length > 0) {
                 for (let site of sites) {
                     let obj = {};
@@ -38,6 +40,10 @@ module.exports = {
                     obj.Size = 0;
                     obj.Marks = '';
                     obj.Display = site.Display;
+                    obj.IstDoNotCalculateReverse =
+                        site.IstDoNotCalculateReverse;
+                    obj.QndDoNotCalculateReverse =
+                        site.QndDoNotCalculateReverse;
 
                     if (
                         site._id != null &&
@@ -50,6 +56,21 @@ module.exports = {
                         if (meter.length > 0) {
                             obj.Marks = meter[0].Marks;
                             obj.Size = meter[0].Size;
+                        }
+
+                        let siteCompanies =
+                            await SiteCompaniesModel.GetSiteCompniesByCompany(
+                                site.Company,
+                            );
+                        let production = null;
+
+                        if (siteCompanies.length > 0) {
+                            if (
+                                siteCompanies[0].Production != null &&
+                                siteCompanies[0].Production != undefined
+                            ) {
+                                production = siteCompanies[0].Production;
+                            }
                         }
 
                         let channels =
@@ -135,10 +156,39 @@ module.exports = {
                                         tempStartDataManual.setHours(
                                             tempStartDataManual.getHours() + 7,
                                         );
+
                                         objQuantity.TimeStamp =
                                             tempStartDataManual;
                                         objQuantity.Value =
                                             dataManual[0].Output;
+
+                                        if (
+                                            (obj.MeterDirection == 'N' &&
+                                                obj.IstDistributionCompany ==
+                                                    site.Company) ||
+                                            (obj.MeterDirection == 'P' &&
+                                                obj.QndDistributionCompany ==
+                                                    site.Company) ||
+                                            (objQuantity.Value < 0 &&
+                                                production == 1)
+                                        ) {
+                                            objQuantity.Value =
+                                                -objQuantity.Value;
+                                        }
+
+                                        if (
+                                            (objQuantity.Value < 0 &&
+                                                obj.IstDoNotCalculateReverse ==
+                                                    1 &&
+                                                obj.MeterDirection == 'P') ||
+                                            (objQuantity.Value > 0 &&
+                                                obj.QndDoNotCalculateReverse ==
+                                                    1 &&
+                                                obj.MeterDirection == 'N') ||
+                                            objQuantity.Value == null
+                                        ) {
+                                            objQuantity.Value = 0;
+                                        }
                                     } else {
                                         // let tempStart = new Date(startDate);
                                         // let tempEnd = new Date(startDate);
@@ -153,8 +203,8 @@ module.exports = {
                                         //     tempStart.getHours() + startHour,
                                         // );
                                         // tempStart.setMinutes(
-                                        //     tempStart.getMinutes()
-                                        // 	// +    startMinute,
+                                        //     tempStart.getMinutes(),
+                                        //     //+ startMinute,
                                         // );
 
                                         // tempEnd.setDate(tempEnd.getDate() + i);
@@ -162,7 +212,8 @@ module.exports = {
                                         //     tempEnd.getHours() + startHour,
                                         // );
                                         // tempEnd.setMinutes(
-                                        //     tempEnd.getMinutes() //+ startMinute,
+                                        //     tempEnd.getMinutes(),
+                                        //     //+ startMinute,
                                         // );
                                         // tempEnd.setSeconds(
                                         //     tempEnd.getSeconds() - 1,
@@ -176,7 +227,7 @@ module.exports = {
                                         );
                                         // tempStart2.setMinutes(
                                         //     tempStart2.getMinutes(),
-                                        //     //+    startMinute,
+                                        //     + startMinute,
                                         // );
 
                                         tempEnd2.setDate(
@@ -186,7 +237,8 @@ module.exports = {
                                             tempEnd2.getHours() + startHour,
                                         );
                                         // tempEnd2.setMinutes(
-                                        //     tempEnd2.getMinutes(), //+ startMinute,
+                                        //     tempEnd2.getMinutes(),
+                                        //     + startMinute,
                                         // );
                                         tempEnd2.setSeconds(
                                             tempEnd2.getSeconds() - 1,
@@ -282,6 +334,34 @@ module.exports = {
                                         //     objQuantity.Value = 0;
                                         //     objQuantity.IsEnoughData = false;
                                         // }
+
+                                        if (
+                                            (obj.MeterDirection == 'N' &&
+                                                obj.IstDistributionCompany ==
+                                                    site.Company) ||
+                                            (obj.MeterDirection == 'P' &&
+                                                obj.QndDistributionCompany ==
+                                                    site.Company) ||
+                                            (objQuantity.Value < 0 &&
+                                                production == 1)
+                                        ) {
+                                            objQuantity.Value =
+                                                -objQuantity.Value;
+                                        }
+
+                                        if (
+                                            (objQuantity.Value < 0 &&
+                                                obj.IstDoNotCalculateReverse ==
+                                                    1 &&
+                                                obj.MeterDirection == 'P') ||
+                                            (objQuantity.Value > 0 &&
+                                                obj.QndDoNotCalculateReverse ==
+                                                    1 &&
+                                                obj.MeterDirection == 'N') ||
+                                            objQuantity.Value == null
+                                        ) {
+                                            objQuantity.Value = 0;
+                                        }
                                     }
 
                                     obj.ListQuantity.push(objQuantity);

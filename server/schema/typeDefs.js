@@ -898,6 +898,91 @@ module.exports = gql`
         Status: String
     }
 
+    type QuantityDayGroup {
+        SiteId: String!
+        Location: String
+        Marks: String
+        Size: Int
+        MeterDirection: String
+        IstDistributionCompany: String
+        QndDistributionCompany: String
+        OldId: String
+        Company: String
+        Address: String
+        Display: Boolean
+        IstDoNotCalculateReverse: Int
+        QndDoNotCalculateReverse: Int
+        ListQuantity: [Quantity]
+    }
+
+    type QuantityDayGroup2 {
+        SiteId: String!
+        Location: String
+        Marks: String
+        Size: Int
+        MeterDirection: String
+        IstDistributionCompany: String
+        QndDistributionCompany: String
+        OldId: String
+        Company: String
+        Address: String
+        Display: Boolean
+        IstDoNotCalculateReverse: Int
+        QndDoNotCalculateReverse: Int
+        ListQuantity: [Quantity]
+    }
+
+    type QuantityDayGroup3 {
+        SiteId: String!
+        Location: String
+        Marks: String
+        Size: Int
+        MeterDirection: String
+        IstDistributionCompany: String
+        QndDistributionCompany: String
+        OldId: String
+        Company: String
+        Address: String
+        Display: Boolean
+        IstDoNotCalculateReverse: Int
+        QndDoNotCalculateReverse: Int
+        ListQuantity: [Quantity]
+    }
+
+    type QuantityDayGroup4 {
+        SiteId: String!
+        Location: String
+        Marks: String
+        Size: Int
+        MeterDirection: String
+        IstDistributionCompany: String
+        QndDistributionCompany: String
+        OldId: String
+        Company: String
+        Address: String
+        Display: Boolean
+        IstDoNotCalculateReverse: Int
+        QndDoNotCalculateReverse: Int
+        ListQuantity: [Quantity]
+    }
+
+    type QuantityDayGroup5 {
+        SiteId: String!
+        Location: String
+        Marks: String
+        Size: Int
+        MeterDirection: String
+        IstDistributionCompany: String
+        QndDistributionCompany: String
+        OldId: String
+        Company: String
+        Address: String
+        Display: Boolean
+        IstDoNotCalculateReverse: Int
+        QndDoNotCalculateReverse: Int
+        ListQuantity: [Quantity]
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1645,6 +1730,36 @@ module.exports = gql`
         GetAllCorverMeterial: [String]
 
         GetAllCoverNL: [Int]
+
+        QuantityDayGroup(
+            group: String!
+            start: String!
+            end: String!
+        ): [QuantityDayGroup!]!
+
+        QuantityDayGroup2(
+            group: String!
+            start: String!
+            end: String!
+        ): [QuantityDayGroup2!]!
+
+        QuantityDayGroup3(
+            group: String!
+            start: String!
+            end: String!
+        ): [QuantityDayGroup3!]!
+
+        QuantityDayGroup4(
+            group: String!
+            start: String!
+            end: String!
+        ): [QuantityDayGroup4!]!
+
+        QuantityDayGroup5(
+            group: String!
+            start: String!
+            end: String!
+        ): [QuantityDayGroup5!]!
     }
 
     # declare Mutation

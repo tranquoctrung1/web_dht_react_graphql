@@ -135,6 +135,81 @@ module.exports.GetSiteByWaterSupply = async (company) => {
     return result;
 };
 
+module.exports.GetSitesByGroup = async (group) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({ Group: group })
+        .sort({ _id: -1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSitesByGroup2S = async (group) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({ Group2: group })
+        .sort({ _id: -1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSitesByGroup3S = async (group) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({ Group3: group })
+        .sort({ _id: -1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSitesByGroup4S = async (group) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({ Group4: group })
+        .sort({ _id: -1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSitesByGroup5S = async (group) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({ Group5: group })
+        .sort({ _id: -1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.GetAllSites = async () => {
     let Connect = new ConnectDB.Connect();
 

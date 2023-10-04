@@ -915,6 +915,96 @@ export type QuantityDayCompany = {
   Size?: Maybe<Scalars['Int']>;
 };
 
+export type QuantityDayGroup = {
+  __typename?: 'QuantityDayGroup';
+  Address?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Display?: Maybe<Scalars['Boolean']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
+  IstDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  ListQuantity?: Maybe<Array<Maybe<Quantity>>>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  MeterDirection?: Maybe<Scalars['String']>;
+  OldId?: Maybe<Scalars['String']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  QndDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  SiteId: Scalars['String'];
+  Size?: Maybe<Scalars['Int']>;
+};
+
+export type QuantityDayGroup2 = {
+  __typename?: 'QuantityDayGroup2';
+  Address?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Display?: Maybe<Scalars['Boolean']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
+  IstDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  ListQuantity?: Maybe<Array<Maybe<Quantity>>>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  MeterDirection?: Maybe<Scalars['String']>;
+  OldId?: Maybe<Scalars['String']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  QndDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  SiteId: Scalars['String'];
+  Size?: Maybe<Scalars['Int']>;
+};
+
+export type QuantityDayGroup3 = {
+  __typename?: 'QuantityDayGroup3';
+  Address?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Display?: Maybe<Scalars['Boolean']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
+  IstDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  ListQuantity?: Maybe<Array<Maybe<Quantity>>>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  MeterDirection?: Maybe<Scalars['String']>;
+  OldId?: Maybe<Scalars['String']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  QndDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  SiteId: Scalars['String'];
+  Size?: Maybe<Scalars['Int']>;
+};
+
+export type QuantityDayGroup4 = {
+  __typename?: 'QuantityDayGroup4';
+  Address?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Display?: Maybe<Scalars['Boolean']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
+  IstDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  ListQuantity?: Maybe<Array<Maybe<Quantity>>>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  MeterDirection?: Maybe<Scalars['String']>;
+  OldId?: Maybe<Scalars['String']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  QndDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  SiteId: Scalars['String'];
+  Size?: Maybe<Scalars['Int']>;
+};
+
+export type QuantityDayGroup5 = {
+  __typename?: 'QuantityDayGroup5';
+  Address?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Display?: Maybe<Scalars['Boolean']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
+  IstDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  ListQuantity?: Maybe<Array<Maybe<Quantity>>>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  MeterDirection?: Maybe<Scalars['String']>;
+  OldId?: Maybe<Scalars['String']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  QndDoNotCalculateReverse?: Maybe<Scalars['Int']>;
+  SiteId: Scalars['String'];
+  Size?: Maybe<Scalars['Int']>;
+};
+
 export type QuantityDayWaterSupply = {
   __typename?: 'QuantityDayWaterSupply';
   Address?: Maybe<Scalars['String']>;
@@ -1087,6 +1177,11 @@ export type Query = {
   GetTransmitterSize?: Maybe<Array<Maybe<Scalars['Int']>>>;
   LoginAction?: Maybe<Login>;
   QuantityDayCompany: Array<QuantityDayCompany>;
+  QuantityDayGroup: Array<QuantityDayGroup>;
+  QuantityDayGroup2: Array<QuantityDayGroup2>;
+  QuantityDayGroup3: Array<QuantityDayGroup3>;
+  QuantityDayGroup4: Array<QuantityDayGroup4>;
+  QuantityDayGroup5: Array<QuantityDayGroup5>;
   QuantityDayWaterSupply: Array<QuantityDayWaterSupply>;
   QuantityLoggerByTimeStamp: Array<QuantityLoggerByTimeStamp>;
   QuantityLoggerDay: Scalars['Float'];
@@ -1254,6 +1349,41 @@ export type QueryLoginActionArgs = {
 export type QueryQuantityDayCompanyArgs = {
   company: Scalars['String'];
   end: Scalars['String'];
+  start: Scalars['String'];
+};
+
+
+export type QueryQuantityDayGroupArgs = {
+  end: Scalars['String'];
+  group: Scalars['String'];
+  start: Scalars['String'];
+};
+
+
+export type QueryQuantityDayGroup2Args = {
+  end: Scalars['String'];
+  group: Scalars['String'];
+  start: Scalars['String'];
+};
+
+
+export type QueryQuantityDayGroup3Args = {
+  end: Scalars['String'];
+  group: Scalars['String'];
+  start: Scalars['String'];
+};
+
+
+export type QueryQuantityDayGroup4Args = {
+  end: Scalars['String'];
+  group: Scalars['String'];
+  start: Scalars['String'];
+};
+
+
+export type QueryQuantityDayGroup5Args = {
+  end: Scalars['String'];
+  group: Scalars['String'];
   start: Scalars['String'];
 };
 
@@ -2463,6 +2593,51 @@ export type GetPreciousByCompanyQueryVariables = Exact<{
 
 
 export type GetPreciousByCompanyQuery = { __typename?: 'Query', GetPreciousByCompany?: Array<{ __typename?: 'Precious', _id: string, Company: string, Start?: string | null, CompanyName?: string | null, End?: string | null, Period?: string | null, CreateAt?: string | null, UsernameCreated?: string | null, Location?: Array<{ __typename?: 'Location', Location?: string | null, Reason?: string | null, SiteId?: string | null, AverageDate?: Array<Array<string | null> | null> | null, QuantityLogger?: number | null, TotalQuantity?: number | null, PrevTetHoliday?: Array<string | null> | null, NextTetHoliday?: Array<string | null> | null, TenDayPrevTetHoliday?: Array<string | null> | null, KFactory?: number | null, AveragePrevTetHoliday?: number | null, AverageTenDayPrevTetHoliday?: number | null, Periods?: Array<{ __typename?: 'Periods', Period?: string | null, Quantity?: number | null } | null> | null, DateCalclogger?: Array<{ __typename?: 'DateCalclogger', Quantity?: number | null, From?: string | null, To?: string | null, DateRange?: Array<string | null> | null } | null> | null } | null> | null, Index?: Array<{ __typename?: 'Index', SiteId?: string | null, Location?: string | null, PreviousPeriodIndex?: number | null, NextPeriodIndex?: number | null } | null> | null, LockValve?: Array<{ __typename?: 'LockValve', SiteId?: string | null, Location?: string | null } | null> | null, SubtractWaterB1?: Array<{ __typename?: 'SubtractWaterB1', NumberPrecious?: string | null, Content?: string | null, Provider?: string | null, AmountWater?: number | null, Note?: string | null } | null> | null, SubtractWaterB2?: Array<{ __typename?: 'SubtractWaterB2', NumberPrecious?: string | null, Content?: string | null, AmountWater?: number | null, Provider?: string | null, Note?: string | null } | null> | null, WaterCustomer?: Array<{ __typename?: 'WaterCustomer', NumberPrecious?: string | null, DatePublished?: string | null, AmountMeter?: number | null, AmountWater?: number | null, Note?: string | null } | null> | null } | null> | null };
+
+export type QuantityDayGroupQueryVariables = Exact<{
+  group: Scalars['String'];
+  start: Scalars['String'];
+  end: Scalars['String'];
+}>;
+
+
+export type QuantityDayGroupQuery = { __typename?: 'Query', QuantityDayGroup: Array<{ __typename?: 'QuantityDayGroup', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, OldId?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, SiteId: string, Size?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
+
+export type QuantityDayGroup2QueryVariables = Exact<{
+  group: Scalars['String'];
+  start: Scalars['String'];
+  end: Scalars['String'];
+}>;
+
+
+export type QuantityDayGroup2Query = { __typename?: 'Query', QuantityDayGroup2: Array<{ __typename?: 'QuantityDayGroup2', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, OldId?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, SiteId: string, Size?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
+
+export type QuantityDayGroup5QueryVariables = Exact<{
+  group: Scalars['String'];
+  start: Scalars['String'];
+  end: Scalars['String'];
+}>;
+
+
+export type QuantityDayGroup5Query = { __typename?: 'Query', QuantityDayGroup5: Array<{ __typename?: 'QuantityDayGroup5', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, OldId?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, SiteId: string, Size?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
+
+export type QuantityDayGroup4QueryVariables = Exact<{
+  group: Scalars['String'];
+  start: Scalars['String'];
+  end: Scalars['String'];
+}>;
+
+
+export type QuantityDayGroup4Query = { __typename?: 'Query', QuantityDayGroup4: Array<{ __typename?: 'QuantityDayGroup4', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, OldId?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, SiteId: string, Size?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
+
+export type QuantityDayGroup3QueryVariables = Exact<{
+  group: Scalars['String'];
+  start: Scalars['String'];
+  end: Scalars['String'];
+}>;
+
+
+export type QuantityDayGroup3Query = { __typename?: 'Query', QuantityDayGroup3: Array<{ __typename?: 'QuantityDayGroup3', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, OldId?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, SiteId: string, Size?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
 
 export type GetSiteByIdQueryVariables = Exact<{
   siteid?: InputMaybe<Scalars['String']>;
@@ -5942,6 +6117,291 @@ export type GetPreciousByCompanyLazyQueryHookResult = ReturnType<typeof useGetPr
 export type GetPreciousByCompanyQueryResult = Apollo.QueryResult<GetPreciousByCompanyQuery, GetPreciousByCompanyQueryVariables>;
 export function refetchGetPreciousByCompanyQuery(variables?: GetPreciousByCompanyQueryVariables) {
       return { query: GetPreciousByCompanyDocument, variables: variables }
+    }
+export const QuantityDayGroupDocument = gql`
+    query QuantityDayGroup($group: String!, $start: String!, $end: String!) {
+  QuantityDayGroup(group: $group, start: $start, end: $end) {
+    Address
+    Company
+    Display
+    IstDistributionCompany
+    IstDoNotCalculateReverse
+    ListQuantity {
+      IsEnoughData
+      TimeStamp
+      Value
+    }
+    Location
+    Marks
+    MeterDirection
+    OldId
+    QndDistributionCompany
+    QndDoNotCalculateReverse
+    SiteId
+    Size
+  }
+}
+    `;
+
+/**
+ * __useQuantityDayGroupQuery__
+ *
+ * To run a query within a React component, call `useQuantityDayGroupQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuantityDayGroupQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuantityDayGroupQuery({
+ *   variables: {
+ *      group: // value for 'group'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useQuantityDayGroupQuery(baseOptions: Apollo.QueryHookOptions<QuantityDayGroupQuery, QuantityDayGroupQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QuantityDayGroupQuery, QuantityDayGroupQueryVariables>(QuantityDayGroupDocument, options);
+      }
+export function useQuantityDayGroupLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuantityDayGroupQuery, QuantityDayGroupQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QuantityDayGroupQuery, QuantityDayGroupQueryVariables>(QuantityDayGroupDocument, options);
+        }
+export type QuantityDayGroupQueryHookResult = ReturnType<typeof useQuantityDayGroupQuery>;
+export type QuantityDayGroupLazyQueryHookResult = ReturnType<typeof useQuantityDayGroupLazyQuery>;
+export type QuantityDayGroupQueryResult = Apollo.QueryResult<QuantityDayGroupQuery, QuantityDayGroupQueryVariables>;
+export function refetchQuantityDayGroupQuery(variables: QuantityDayGroupQueryVariables) {
+      return { query: QuantityDayGroupDocument, variables: variables }
+    }
+export const QuantityDayGroup2Document = gql`
+    query QuantityDayGroup2($group: String!, $start: String!, $end: String!) {
+  QuantityDayGroup2(group: $group, start: $start, end: $end) {
+    Address
+    Company
+    Display
+    IstDistributionCompany
+    IstDoNotCalculateReverse
+    ListQuantity {
+      IsEnoughData
+      TimeStamp
+      Value
+    }
+    Location
+    Marks
+    MeterDirection
+    OldId
+    QndDistributionCompany
+    QndDoNotCalculateReverse
+    SiteId
+    Size
+  }
+}
+    `;
+
+/**
+ * __useQuantityDayGroup2Query__
+ *
+ * To run a query within a React component, call `useQuantityDayGroup2Query` and pass it any options that fit your needs.
+ * When your component renders, `useQuantityDayGroup2Query` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuantityDayGroup2Query({
+ *   variables: {
+ *      group: // value for 'group'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useQuantityDayGroup2Query(baseOptions: Apollo.QueryHookOptions<QuantityDayGroup2Query, QuantityDayGroup2QueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QuantityDayGroup2Query, QuantityDayGroup2QueryVariables>(QuantityDayGroup2Document, options);
+      }
+export function useQuantityDayGroup2LazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuantityDayGroup2Query, QuantityDayGroup2QueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QuantityDayGroup2Query, QuantityDayGroup2QueryVariables>(QuantityDayGroup2Document, options);
+        }
+export type QuantityDayGroup2QueryHookResult = ReturnType<typeof useQuantityDayGroup2Query>;
+export type QuantityDayGroup2LazyQueryHookResult = ReturnType<typeof useQuantityDayGroup2LazyQuery>;
+export type QuantityDayGroup2QueryResult = Apollo.QueryResult<QuantityDayGroup2Query, QuantityDayGroup2QueryVariables>;
+export function refetchQuantityDayGroup2Query(variables: QuantityDayGroup2QueryVariables) {
+      return { query: QuantityDayGroup2Document, variables: variables }
+    }
+export const QuantityDayGroup5Document = gql`
+    query QuantityDayGroup5($group: String!, $start: String!, $end: String!) {
+  QuantityDayGroup5(group: $group, start: $start, end: $end) {
+    Address
+    Company
+    Display
+    IstDistributionCompany
+    IstDoNotCalculateReverse
+    ListQuantity {
+      IsEnoughData
+      TimeStamp
+      Value
+    }
+    Location
+    Marks
+    MeterDirection
+    OldId
+    QndDistributionCompany
+    QndDoNotCalculateReverse
+    SiteId
+    Size
+  }
+}
+    `;
+
+/**
+ * __useQuantityDayGroup5Query__
+ *
+ * To run a query within a React component, call `useQuantityDayGroup5Query` and pass it any options that fit your needs.
+ * When your component renders, `useQuantityDayGroup5Query` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuantityDayGroup5Query({
+ *   variables: {
+ *      group: // value for 'group'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useQuantityDayGroup5Query(baseOptions: Apollo.QueryHookOptions<QuantityDayGroup5Query, QuantityDayGroup5QueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QuantityDayGroup5Query, QuantityDayGroup5QueryVariables>(QuantityDayGroup5Document, options);
+      }
+export function useQuantityDayGroup5LazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuantityDayGroup5Query, QuantityDayGroup5QueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QuantityDayGroup5Query, QuantityDayGroup5QueryVariables>(QuantityDayGroup5Document, options);
+        }
+export type QuantityDayGroup5QueryHookResult = ReturnType<typeof useQuantityDayGroup5Query>;
+export type QuantityDayGroup5LazyQueryHookResult = ReturnType<typeof useQuantityDayGroup5LazyQuery>;
+export type QuantityDayGroup5QueryResult = Apollo.QueryResult<QuantityDayGroup5Query, QuantityDayGroup5QueryVariables>;
+export function refetchQuantityDayGroup5Query(variables: QuantityDayGroup5QueryVariables) {
+      return { query: QuantityDayGroup5Document, variables: variables }
+    }
+export const QuantityDayGroup4Document = gql`
+    query QuantityDayGroup4($group: String!, $start: String!, $end: String!) {
+  QuantityDayGroup4(group: $group, start: $start, end: $end) {
+    Address
+    Company
+    Display
+    IstDistributionCompany
+    IstDoNotCalculateReverse
+    ListQuantity {
+      IsEnoughData
+      TimeStamp
+      Value
+    }
+    Location
+    Marks
+    MeterDirection
+    OldId
+    QndDistributionCompany
+    QndDoNotCalculateReverse
+    SiteId
+    Size
+  }
+}
+    `;
+
+/**
+ * __useQuantityDayGroup4Query__
+ *
+ * To run a query within a React component, call `useQuantityDayGroup4Query` and pass it any options that fit your needs.
+ * When your component renders, `useQuantityDayGroup4Query` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuantityDayGroup4Query({
+ *   variables: {
+ *      group: // value for 'group'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useQuantityDayGroup4Query(baseOptions: Apollo.QueryHookOptions<QuantityDayGroup4Query, QuantityDayGroup4QueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QuantityDayGroup4Query, QuantityDayGroup4QueryVariables>(QuantityDayGroup4Document, options);
+      }
+export function useQuantityDayGroup4LazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuantityDayGroup4Query, QuantityDayGroup4QueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QuantityDayGroup4Query, QuantityDayGroup4QueryVariables>(QuantityDayGroup4Document, options);
+        }
+export type QuantityDayGroup4QueryHookResult = ReturnType<typeof useQuantityDayGroup4Query>;
+export type QuantityDayGroup4LazyQueryHookResult = ReturnType<typeof useQuantityDayGroup4LazyQuery>;
+export type QuantityDayGroup4QueryResult = Apollo.QueryResult<QuantityDayGroup4Query, QuantityDayGroup4QueryVariables>;
+export function refetchQuantityDayGroup4Query(variables: QuantityDayGroup4QueryVariables) {
+      return { query: QuantityDayGroup4Document, variables: variables }
+    }
+export const QuantityDayGroup3Document = gql`
+    query QuantityDayGroup3($group: String!, $start: String!, $end: String!) {
+  QuantityDayGroup3(group: $group, start: $start, end: $end) {
+    Address
+    Company
+    Display
+    IstDistributionCompany
+    IstDoNotCalculateReverse
+    ListQuantity {
+      IsEnoughData
+      TimeStamp
+      Value
+    }
+    Location
+    Marks
+    MeterDirection
+    OldId
+    QndDistributionCompany
+    QndDoNotCalculateReverse
+    SiteId
+    Size
+  }
+}
+    `;
+
+/**
+ * __useQuantityDayGroup3Query__
+ *
+ * To run a query within a React component, call `useQuantityDayGroup3Query` and pass it any options that fit your needs.
+ * When your component renders, `useQuantityDayGroup3Query` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuantityDayGroup3Query({
+ *   variables: {
+ *      group: // value for 'group'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useQuantityDayGroup3Query(baseOptions: Apollo.QueryHookOptions<QuantityDayGroup3Query, QuantityDayGroup3QueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QuantityDayGroup3Query, QuantityDayGroup3QueryVariables>(QuantityDayGroup3Document, options);
+      }
+export function useQuantityDayGroup3LazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuantityDayGroup3Query, QuantityDayGroup3QueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QuantityDayGroup3Query, QuantityDayGroup3QueryVariables>(QuantityDayGroup3Document, options);
+        }
+export type QuantityDayGroup3QueryHookResult = ReturnType<typeof useQuantityDayGroup3Query>;
+export type QuantityDayGroup3LazyQueryHookResult = ReturnType<typeof useQuantityDayGroup3LazyQuery>;
+export type QuantityDayGroup3QueryResult = Apollo.QueryResult<QuantityDayGroup3Query, QuantityDayGroup3QueryVariables>;
+export function refetchQuantityDayGroup3Query(variables: QuantityDayGroup3QueryVariables) {
+      return { query: QuantityDayGroup3Document, variables: variables }
     }
 export const GetSiteByIdDocument = gql`
     query GetSiteById($siteid: String) {

@@ -38,28 +38,32 @@ export const convertDateToStringNotTimeForTitle = (date: any) => {
 
 // @ts-ignore
 export const quickSort = (arr: any) => {
-    if (arr.length < 2) return arr;
+    if (arr !== undefined && arr !== null) {
+        if (arr.length < 2) return arr;
 
-    // *** lấy phần tử cuối của 'arr' làm 'pivot'
-    const pivotIndex = arr.length - 1;
-    const pivot = arr[pivotIndex];
+        // *** lấy phần tử cuối của 'arr' làm 'pivot'
+        const pivotIndex = arr.length - 1;
+        const pivot = arr[pivotIndex];
 
-    const left = [];
-    const right = [];
+        const left = [];
+        const right = [];
 
-    let currentItem;
-    // *** 'i < pivotIndex' => chúng ta sẽ không loop qua 'pivot' nữa
-    for (let i = 0; i < pivotIndex; i++) {
-        currentItem = arr[i];
+        let currentItem;
+        // *** 'i < pivotIndex' => chúng ta sẽ không loop qua 'pivot' nữa
+        for (let i = 0; i < pivotIndex; i++) {
+            currentItem = arr[i];
 
-        if (currentItem.SiteId[2] < pivot.SiteId[2]) {
-            left.push(currentItem);
-        } else {
-            right.push(currentItem);
+            if (currentItem.SiteId[2] < pivot.SiteId[2]) {
+                left.push(currentItem);
+            } else {
+                right.push(currentItem);
+            }
         }
-    }
 
-    return [...quickSort(left), pivot, ...quickSort(right)];
+        return [...quickSort(left), pivot, ...quickSort(right)];
+    } else {
+        return [];
+    }
 };
 
 export const detectedDateRemainInPeriod = (
