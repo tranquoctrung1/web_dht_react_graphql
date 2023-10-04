@@ -49,6 +49,7 @@ import QuantityGroup3Page from './pages/quantityGroup3';
 import QuantityGroup4Page from './pages/quantityGroup4';
 import QuantityGroup5Page from './pages/quantityGroup5';
 import QuantityLevelPage from './pages/quantityLevel';
+import QuantityTotalPage from './pages/quantityTotal';
 
 function App() {
     const router = createBrowserRouter([
@@ -227,6 +228,10 @@ function App() {
                 {
                     path: '/quantityLevel',
                     element: <QuantityLevelPage />,
+                },
+                {
+                    path: '/quantityTotal',
+                    element: <QuantityTotalPage />,
                 },
             ],
         },

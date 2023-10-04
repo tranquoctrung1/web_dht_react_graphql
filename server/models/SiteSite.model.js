@@ -225,6 +225,36 @@ module.exports.GetSitesByLevel = async (level) => {
     return result;
 };
 
+module.exports.GetSitesByQuantityTotal = async (level) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let data = await collection
+        .find({ Display: true })
+        .sort({ _id: -1 })
+        .toArray();
+
+    let result = [];
+
+    for (let site of data) {
+        if (site._id !== null && site._id !== undefined && site._id !== '') {
+            if (
+                site._id[2] == '1' ||
+                site._id[3] == '3' ||
+                site._id[2] == '4' ||
+                site._id[2] == '5'
+            ) {
+                result.push(site);
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.GetAllSites = async () => {
     let Connect = new ConnectDB.Connect();
 

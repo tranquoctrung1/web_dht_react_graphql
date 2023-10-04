@@ -998,6 +998,21 @@ module.exports = gql`
         ListQuantity: [Quantity]
     }
 
+    type QuantityDayTotal {
+        SiteId: String!
+        Location: String
+        Marks: String
+        Size: Int
+        MeterDirection: String
+        IstDistributionCompany: String
+        QndDistributionCompany: String
+        OldId: String
+        Company: String
+        Address: String
+        Display: Boolean
+        ListQuantity: [Quantity]
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1781,6 +1796,8 @@ module.exports = gql`
             start: String!
             end: String!
         ): [QuantityDayLevel!]!
+
+        QuantityDayTotal(start: String!, end: String!): [QuantityDayTotal!]!
     }
 
     # declare Mutation

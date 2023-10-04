@@ -1,0 +1,20 @@
+query QuantityDayTotal($start: String!, $end: String!) {
+    QuantityDayTotal(start: $start, end: $end) {
+        Address
+        Company
+        Display
+        IstDistributionCompany
+        ListQuantity {
+            IsEnoughData
+            TimeStamp
+            Value
+        }
+        Location
+        Marks
+        MeterDirection
+        OldId
+        QndDistributionCompany
+        SiteId
+        Size
+    }
+}

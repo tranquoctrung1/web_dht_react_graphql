@@ -1021,6 +1021,22 @@ export type QuantityDayLevel = {
   Size?: Maybe<Scalars['Int']>;
 };
 
+export type QuantityDayTotal = {
+  __typename?: 'QuantityDayTotal';
+  Address?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Display?: Maybe<Scalars['Boolean']>;
+  IstDistributionCompany?: Maybe<Scalars['String']>;
+  ListQuantity?: Maybe<Array<Maybe<Quantity>>>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  MeterDirection?: Maybe<Scalars['String']>;
+  OldId?: Maybe<Scalars['String']>;
+  QndDistributionCompany?: Maybe<Scalars['String']>;
+  SiteId: Scalars['String'];
+  Size?: Maybe<Scalars['Int']>;
+};
+
 export type QuantityDayWaterSupply = {
   __typename?: 'QuantityDayWaterSupply';
   Address?: Maybe<Scalars['String']>;
@@ -1199,6 +1215,7 @@ export type Query = {
   QuantityDayGroup4: Array<QuantityDayGroup4>;
   QuantityDayGroup5: Array<QuantityDayGroup5>;
   QuantityDayLevel: Array<QuantityDayLevel>;
+  QuantityDayTotal: Array<QuantityDayTotal>;
   QuantityDayWaterSupply: Array<QuantityDayWaterSupply>;
   QuantityLoggerByTimeStamp: Array<QuantityLoggerByTimeStamp>;
   QuantityLoggerDay: Scalars['Float'];
@@ -1408,6 +1425,12 @@ export type QueryQuantityDayGroup5Args = {
 export type QueryQuantityDayLevelArgs = {
   end: Scalars['String'];
   level: Scalars['String'];
+  start: Scalars['String'];
+};
+
+
+export type QueryQuantityDayTotalArgs = {
+  end: Scalars['String'];
   start: Scalars['String'];
 };
 
@@ -2671,6 +2694,14 @@ export type QuantityDayLevelQueryVariables = Exact<{
 
 
 export type QuantityDayLevelQuery = { __typename?: 'Query', QuantityDayLevel: Array<{ __typename?: 'QuantityDayLevel', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, OldId?: string | null, QndDistributionCompany?: string | null, SiteId: string, Size?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
+
+export type QuantityDayTotalQueryVariables = Exact<{
+  start: Scalars['String'];
+  end: Scalars['String'];
+}>;
+
+
+export type QuantityDayTotalQuery = { __typename?: 'Query', QuantityDayTotal: Array<{ __typename?: 'QuantityDayTotal', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, OldId?: string | null, QndDistributionCompany?: string | null, SiteId: string, Size?: number | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
 
 export type GetSiteByIdQueryVariables = Exact<{
   siteid?: InputMaybe<Scalars['String']>;
@@ -6490,6 +6521,60 @@ export type QuantityDayLevelLazyQueryHookResult = ReturnType<typeof useQuantityD
 export type QuantityDayLevelQueryResult = Apollo.QueryResult<QuantityDayLevelQuery, QuantityDayLevelQueryVariables>;
 export function refetchQuantityDayLevelQuery(variables: QuantityDayLevelQueryVariables) {
       return { query: QuantityDayLevelDocument, variables: variables }
+    }
+export const QuantityDayTotalDocument = gql`
+    query QuantityDayTotal($start: String!, $end: String!) {
+  QuantityDayTotal(start: $start, end: $end) {
+    Address
+    Company
+    Display
+    IstDistributionCompany
+    ListQuantity {
+      IsEnoughData
+      TimeStamp
+      Value
+    }
+    Location
+    Marks
+    MeterDirection
+    OldId
+    QndDistributionCompany
+    SiteId
+    Size
+  }
+}
+    `;
+
+/**
+ * __useQuantityDayTotalQuery__
+ *
+ * To run a query within a React component, call `useQuantityDayTotalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuantityDayTotalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuantityDayTotalQuery({
+ *   variables: {
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useQuantityDayTotalQuery(baseOptions: Apollo.QueryHookOptions<QuantityDayTotalQuery, QuantityDayTotalQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QuantityDayTotalQuery, QuantityDayTotalQueryVariables>(QuantityDayTotalDocument, options);
+      }
+export function useQuantityDayTotalLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuantityDayTotalQuery, QuantityDayTotalQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QuantityDayTotalQuery, QuantityDayTotalQueryVariables>(QuantityDayTotalDocument, options);
+        }
+export type QuantityDayTotalQueryHookResult = ReturnType<typeof useQuantityDayTotalQuery>;
+export type QuantityDayTotalLazyQueryHookResult = ReturnType<typeof useQuantityDayTotalLazyQuery>;
+export type QuantityDayTotalQueryResult = Apollo.QueryResult<QuantityDayTotalQuery, QuantityDayTotalQueryVariables>;
+export function refetchQuantityDayTotalQuery(variables: QuantityDayTotalQueryVariables) {
+      return { query: QuantityDayTotalDocument, variables: variables }
     }
 export const GetSiteByIdDocument = gql`
     query GetSiteById($siteid: String) {

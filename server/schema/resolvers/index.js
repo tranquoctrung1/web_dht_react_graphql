@@ -42,6 +42,7 @@ const QuantityDayGroup3 = require('./QuantityDayGroup3.resolver');
 const QuantityDayGroup4 = require('./QuantityDayGroup4.resolver');
 const QuantityDayGroup5 = require('./QuantityDayGroup5.resolver');
 const QuantityDayLevel = require('./QuantityDayLevel.resolver');
+const QuantityDayTotal = require('./QuantityDayTotal.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -90,6 +91,7 @@ module.exports = {
         ...QuantityDayGroup4.Query,
         ...QuantityDayGroup5.Query,
         ...QuantityDayLevel.Query,
+        ...QuantityDayTotal.Query,
     },
 
     Mutation: {
