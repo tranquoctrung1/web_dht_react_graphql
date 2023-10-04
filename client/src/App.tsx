@@ -39,6 +39,9 @@ import StatisticCustomChoiceMarkSizePage from './pages/statisticCustomeChoiceMar
 import StatisticMeterWorkPage from './pages/statisticMeterWork';
 import CoverPage from './pages/cover';
 import DownloadMeterFilePage from './pages/downloadMeterFile';
+import DeleteUselessMeterPage from './pages/deleteUselessMeter';
+import DeleteUselessTransmitterPage from './pages/deleteUselessTransmitter';
+import DeleteUselessLoggerPage from './pages/deleteUselessLogger';
 
 function App() {
     const router = createBrowserRouter([
@@ -177,6 +180,18 @@ function App() {
                 {
                     path: '/downloadMeterFile',
                     element: <DownloadMeterFilePage />,
+                },
+                {
+                    path: '/deleteUselessMeter',
+                    element: <DeleteUselessMeterPage />,
+                },
+                {
+                    path: '/deleteUselessTransmitter',
+                    element: <DeleteUselessTransmitterPage />,
+                },
+                {
+                    path: '/deleteUselessLogger',
+                    element: <DeleteUselessLoggerPage />,
                 },
             ],
         },

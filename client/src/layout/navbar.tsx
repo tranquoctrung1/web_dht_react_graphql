@@ -61,12 +61,12 @@ const mockdata = [
             { label: 'Logger', link: '/logger' },
             { label: 'Nắp Hầm', link: '/cover' },
             { label: 'Tải File Đồng Hồ', link: '/downloadMeterFile' },
-            { label: 'Xóa Đồng Hồ Không Sử Dụng', link: '/deleteMeter' },
+            { label: 'Xóa Đồng Hồ Không Sử Dụng', link: '/deleteUselessMeter' },
             {
                 label: 'Xóa Bộ Hiển Thi Không Sử Dụng',
-                link: '/deleteTransmitter',
+                link: '/deleteUselessTransmitter',
             },
-            { label: 'Xóa Logger Không Sử Dụng', link: '/deleteLogger' },
+            { label: 'Xóa Logger Không Sử Dụng', link: '/deleteUselessLogger' },
         ],
     },
     {

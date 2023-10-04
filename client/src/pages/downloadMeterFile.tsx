@@ -197,7 +197,6 @@ const DownloadMeterFilePage = () => {
             .then((res) => {
                 if (res?.data !== null && res?.data !== undefined) {
                     if (res.status === 200) {
-                        console.log(res.data);
                     }
                 }
             })
