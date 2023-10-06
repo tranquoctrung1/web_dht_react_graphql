@@ -165,57 +165,57 @@ const mockdata = [
             { label: 'Sản Lượng Tổng Hợp', link: '/quantityTotal' },
         ],
     },
-    {
-        label: 'Tiện Ích',
-        icon: IconInfoSquare,
-        initiallyOpened: false,
-        links: [
-            {
-                label: 'Mẫu In',
-                link: '/printer',
-            },
-            { label: 'Bản Đồ', link: '/map' },
-            { label: 'Tải File Đồng Hồ', link: '/downloadMeterFile' },
-            { label: 'Tải File Điểm Lắp Đặt', link: '/downloadSiteFile' },
-            { label: 'Cảnh Báo', link: '/alarm' },
-        ],
-    },
-    {
-        label: 'Đồ Thị',
-        icon: IconChartBar,
-        initiallyOpened: false,
-        links: [
-            { label: 'Đồ Thị Một Điểm Lắp Đặt', link: '/chartSite' },
-            { label: 'Đồ Thị Theo Nhóm Đồng Hồ 1', link: '/chartSiteGroup' },
-            {
-                label: 'Đồ Thị Theo Điểm Lắp Đặt Và Nhóm 1',
-                link: '/chartSiteAndGroup',
-            },
-            { label: 'Đồ Thị Theo Nhóm Đồng Hồ 2', link: '/chartSiteGroup2' },
-            {
-                label: 'Đồ Thị Theo Điểm Lắp Đặt Và Nhóm 2',
-                link: '/chartSiteAndGroup2',
-            },
-            { label: 'Đồ Thị 2 Nhóm Lắp Đặt', link: '/chart2SiteGroup' },
-            {
-                label: 'Đồ Thị Công Ty CP và Nhóm',
-                link: '/chartCompanyAndGroup',
-            },
-            {
-                label: 'Đồ Thị Công Ty CP và Nhóm 2',
-                link: '/chartCompanyAndGroup2',
-            },
-            {
-                label: 'Đồ Thị Theo Điểm Lắp Đặt Và Công Ty CP',
-                link: '/chartSiteAndCompany',
-            },
-            { label: 'Đồ Thị Một Công Ty CP', link: '/chartCompany' },
-            {
-                label: 'Đồ Thị Một Đơn Vị Quản Lý',
-                link: '/chartCompanyManager',
-            },
-        ],
-    },
+    // {
+    //     label: 'Tiện Ích',
+    //     icon: IconInfoSquare,
+    //     initiallyOpened: false,
+    //     links: [
+    //         {
+    //             label: 'Mẫu In',
+    //             link: '/printer',
+    //         },
+    //         { label: 'Bản Đồ', link: '/map' },
+    //         { label: 'Tải File Đồng Hồ', link: '/downloadMeterFile' },
+    //         { label: 'Tải File Điểm Lắp Đặt', link: '/downloadSiteFile' },
+    //         { label: 'Cảnh Báo', link: '/alarm' },
+    //     ],
+    // },
+    // {
+    //     label: 'Đồ Thị',
+    //     icon: IconChartBar,
+    //     initiallyOpened: false,
+    //     links: [
+    //         { label: 'Đồ Thị Một Điểm Lắp Đặt', link: '/chartSite' },
+    //         { label: 'Đồ Thị Theo Nhóm Đồng Hồ 1', link: '/chartSiteGroup' },
+    //         {
+    //             label: 'Đồ Thị Theo Điểm Lắp Đặt Và Nhóm 1',
+    //             link: '/chartSiteAndGroup',
+    //         },
+    //         { label: 'Đồ Thị Theo Nhóm Đồng Hồ 2', link: '/chartSiteGroup2' },
+    //         {
+    //             label: 'Đồ Thị Theo Điểm Lắp Đặt Và Nhóm 2',
+    //             link: '/chartSiteAndGroup2',
+    //         },
+    //         { label: 'Đồ Thị 2 Nhóm Lắp Đặt', link: '/chart2SiteGroup' },
+    //         {
+    //             label: 'Đồ Thị Công Ty CP và Nhóm',
+    //             link: '/chartCompanyAndGroup',
+    //         },
+    //         {
+    //             label: 'Đồ Thị Công Ty CP và Nhóm 2',
+    //             link: '/chartCompanyAndGroup2',
+    //         },
+    //         {
+    //             label: 'Đồ Thị Theo Điểm Lắp Đặt Và Công Ty CP',
+    //             link: '/chartSiteAndCompany',
+    //         },
+    //         { label: 'Đồ Thị Một Công Ty CP', link: '/chartCompany' },
+    //         {
+    //             label: 'Đồ Thị Một Đơn Vị Quản Lý',
+    //             link: '/chartCompanyManager',
+    //         },
+    //     ],
+    // },
     {
         label: 'Admin Panel',
         icon: IconUserCircle,
@@ -226,7 +226,7 @@ const mockdata = [
                 link: '/viewUser',
             },
             { label: 'Tạo Mới Người Dùng', link: '/createUser' },
-            { label: 'Tạo Mới Dữ Liệu Khác', link: '/createOrderData' },
+            // { label: 'Tạo Mới Dữ Liệu Khác', link: '/createOrderData' },
         ],
     },
     {

@@ -1013,6 +1013,24 @@ module.exports = gql`
         ListQuantity: [Quantity]
     }
 
+    type UserAndStaff {
+        _id: ID!
+        Uid: String
+        StaffId: String
+        Pwd: String
+        Salt: String
+        Role: String
+        Active: Boolean
+        TimeStamp: Date
+        Ip: String
+        LogCount: Int
+        Zoom: Int
+        Company: String
+        Language: String
+        FirstName: String
+        LastName: String
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1493,6 +1511,11 @@ module.exports = gql`
         CoverNL: Int
     }
 
+    input UpdateActiveUserInput {
+        Uid: String
+        Active: Boolean
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -1798,6 +1821,8 @@ module.exports = gql`
         ): [QuantityDayLevel!]!
 
         QuantityDayTotal(start: String!, end: String!): [QuantityDayTotal!]!
+
+        GetAllUserAndStaff: [UserAndStaff]
     }
 
     # declare Mutation
@@ -1901,5 +1926,7 @@ module.exports = gql`
         UpdateCover(cover: SiteCoverUpdateInput): Int
 
         DeleteCover(cover: SiteCoverUpdateInput): Int
+
+        UpdateActiveUser(user: UpdateActiveUserInput): Int
     }
 `;

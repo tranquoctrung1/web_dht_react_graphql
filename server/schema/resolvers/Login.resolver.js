@@ -30,6 +30,16 @@ module.exports = {
                     result.Uid = user[0].Uid;
                     result.Role = user[0].Role;
                     result.Company = user[0].Company;
+
+                    if (user.LogCount !== null && user.LogCount !== undefined) {
+                        user.LogCount = user.LogCount + 1;
+
+                        await UserUserModel.UpdateLoginCountUser(user);
+                    }
+
+                    user.Active = true;
+
+                    await UserUserModel.UpdateActiveUser(user);
                 }
             }
 

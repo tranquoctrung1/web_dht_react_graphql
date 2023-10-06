@@ -950,7 +950,10 @@ module.exports.GetStatisticXNManager = async () => {
     let collection = await Connect.connect(SiteSiteCollection);
 
     let result = await collection
-        .find({ Status: 'DSD', $or: [{ Company: 'XN' }, { Company: 'DA' }] })
+        .find({
+            Status: 'DSD',
+            $or: [{ Company: { $regex: 'XN' } }, { Company: { $regex: 'DA' } }],
+        })
         .toArray();
 
     Connect.disconnect();

@@ -30,7 +30,11 @@ import { AnimatePresence } from 'framer-motion';
 
 import { OpenState, toggle } from '../features/openSidebar';
 
+import { useUpdateActiveUserMutation } from '../__generated__/graphql';
+
 const Layout = () => {
+    const [updateActiveUser, {}] = useUpdateActiveUserMutation();
+
     const [colorScheme, setColorScheme] = useLocalStorage({
         key: 'mantine-color-scheme-xntd',
         defaultValue: 'light',
@@ -52,10 +56,22 @@ const Layout = () => {
 
     const navigate = useNavigate();
 
-    const onLogoutClick = () => {
-        localStorage.removeItem('username');
-        localStorage.removeItem('role');
+    const onLogoutClick = async () => {
+        const obj = {
+            Uid: localStorage.getItem('Uid'),
+            Active: false,
+        };
+
+        await updateActiveUser({
+            variables: {
+                user: obj,
+            },
+        });
+
+        localStorage.removeItem('Uid');
+        localStorage.removeItem('Role');
         localStorage.removeItem('token');
+        localStorage.removeItem('Company');
 
         navigate('/login');
     };
@@ -148,11 +164,7 @@ const Layout = () => {
                                             justifyContent: 'space-between',
                                         }}
                                     >
-                                        <Text
-                                            size="sm"
-                                            weight={500}
-                                            transform="uppercase"
-                                        >
+                                        <Text size="sm" weight={500}>
                                             {localStorage.getItem('Uid')}
                                         </Text>
                                         <Space w="md" />

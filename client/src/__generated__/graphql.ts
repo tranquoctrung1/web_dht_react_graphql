@@ -583,6 +583,7 @@ export type Mutation = {
   InsertSite?: Maybe<Scalars['String']>;
   InsertTransmitter?: Maybe<Scalars['String']>;
   InsertUser?: Maybe<Scalars['String']>;
+  UpdateActiveUser?: Maybe<Scalars['Int']>;
   UpdateCover?: Maybe<Scalars['Int']>;
   UpdateDataManual?: Maybe<Scalars['Int']>;
   UpdateDeviceChannelConfig?: Maybe<Scalars['String']>;
@@ -728,6 +729,11 @@ export type MutationInsertTransmitterArgs = {
 
 export type MutationInsertUserArgs = {
   user?: InputMaybe<UserInsertInput>;
+};
+
+
+export type MutationUpdateActiveUserArgs = {
+  user?: InputMaybe<UpdateActiveUserInput>;
 };
 
 
@@ -1157,6 +1163,7 @@ export type Query = {
   GetAllTransmitterNotInstall?: Maybe<Array<Maybe<DeviceTransmitter>>>;
   GetAllUnit?: Maybe<Array<Maybe<Unit>>>;
   GetAllUser?: Maybe<Array<Maybe<User>>>;
+  GetAllUserAndStaff?: Maybe<Array<Maybe<UserAndStaff>>>;
   GetAllViewGroups?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetChannelByLoggerId?: Maybe<Array<Maybe<Channel>>>;
   GetCompanies?: Maybe<Array<Company>>;
@@ -2141,12 +2148,36 @@ export type Unit = {
   _id: Scalars['ID'];
 };
 
+export type UpdateActiveUserInput = {
+  Active?: InputMaybe<Scalars['Boolean']>;
+  Uid?: InputMaybe<Scalars['String']>;
+};
+
 export type User = {
   __typename?: 'User';
   Active?: Maybe<Scalars['Boolean']>;
   Company?: Maybe<Scalars['String']>;
   Ip?: Maybe<Scalars['String']>;
   Language?: Maybe<Scalars['String']>;
+  LogCount?: Maybe<Scalars['Int']>;
+  Pwd?: Maybe<Scalars['String']>;
+  Role?: Maybe<Scalars['String']>;
+  Salt?: Maybe<Scalars['String']>;
+  StaffId?: Maybe<Scalars['String']>;
+  TimeStamp?: Maybe<Scalars['Date']>;
+  Uid?: Maybe<Scalars['String']>;
+  Zoom?: Maybe<Scalars['Int']>;
+  _id: Scalars['ID'];
+};
+
+export type UserAndStaff = {
+  __typename?: 'UserAndStaff';
+  Active?: Maybe<Scalars['Boolean']>;
+  Company?: Maybe<Scalars['String']>;
+  FirstName?: Maybe<Scalars['String']>;
+  Ip?: Maybe<Scalars['String']>;
+  Language?: Maybe<Scalars['String']>;
+  LastName?: Maybe<Scalars['String']>;
   LogCount?: Maybe<Scalars['Int']>;
   Pwd?: Maybe<Scalars['String']>;
   Role?: Maybe<Scalars['String']>;
@@ -2563,6 +2594,11 @@ export type GetAllUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllUserQuery = { __typename?: 'Query', GetAllUser?: Array<{ __typename?: 'User', Active?: boolean | null, Company?: string | null, Ip?: string | null, Language?: string | null, LogCount?: number | null, Pwd?: string | null, Role?: string | null, Salt?: string | null, StaffId?: string | null, TimeStamp?: any | null, Uid?: string | null, Zoom?: number | null, _id: string } | null> | null };
+
+export type GetAllUserAndStaffQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllUserAndStaffQuery = { __typename?: 'Query', GetAllUserAndStaff?: Array<{ __typename?: 'UserAndStaff', Active?: boolean | null, Company?: string | null, FirstName?: string | null, Ip?: string | null, Language?: string | null, LogCount?: number | null, LastName?: string | null, Pwd?: string | null, Role?: string | null, Salt?: string | null, StaffId?: string | null, TimeStamp?: any | null, Uid?: string | null, Zoom?: number | null, _id: string } | null> | null };
 
 export type GetAllViewGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3012,6 +3048,13 @@ export type QuantityLoggerDayWaterSupplyQueryVariables = Exact<{
 
 
 export type QuantityLoggerDayWaterSupplyQuery = { __typename?: 'Query', QuantityLoggerDayWaterSupply: Array<{ __typename?: 'QuantityLoggerDayWaterSupply', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, Size?: number | null, SiteId: string, OldId?: string | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
+
+export type UpdateActiveUserMutationVariables = Exact<{
+  user?: InputMaybe<UpdateActiveUserInput>;
+}>;
+
+
+export type UpdateActiveUserMutation = { __typename?: 'Mutation', UpdateActiveUser?: number | null };
 
 export type UpdateCoverMutationVariables = Exact<{
   cover?: InputMaybe<SiteCoverUpdateInput>;
@@ -5646,6 +5689,57 @@ export type GetAllUserLazyQueryHookResult = ReturnType<typeof useGetAllUserLazyQ
 export type GetAllUserQueryResult = Apollo.QueryResult<GetAllUserQuery, GetAllUserQueryVariables>;
 export function refetchGetAllUserQuery(variables?: GetAllUserQueryVariables) {
       return { query: GetAllUserDocument, variables: variables }
+    }
+export const GetAllUserAndStaffDocument = gql`
+    query GetAllUserAndStaff {
+  GetAllUserAndStaff {
+    Active
+    Company
+    FirstName
+    Ip
+    Language
+    LogCount
+    LastName
+    Pwd
+    Role
+    Salt
+    StaffId
+    TimeStamp
+    Uid
+    Zoom
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetAllUserAndStaffQuery__
+ *
+ * To run a query within a React component, call `useGetAllUserAndStaffQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllUserAndStaffQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllUserAndStaffQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllUserAndStaffQuery(baseOptions?: Apollo.QueryHookOptions<GetAllUserAndStaffQuery, GetAllUserAndStaffQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllUserAndStaffQuery, GetAllUserAndStaffQueryVariables>(GetAllUserAndStaffDocument, options);
+      }
+export function useGetAllUserAndStaffLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllUserAndStaffQuery, GetAllUserAndStaffQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllUserAndStaffQuery, GetAllUserAndStaffQueryVariables>(GetAllUserAndStaffDocument, options);
+        }
+export type GetAllUserAndStaffQueryHookResult = ReturnType<typeof useGetAllUserAndStaffQuery>;
+export type GetAllUserAndStaffLazyQueryHookResult = ReturnType<typeof useGetAllUserAndStaffLazyQuery>;
+export type GetAllUserAndStaffQueryResult = Apollo.QueryResult<GetAllUserAndStaffQuery, GetAllUserAndStaffQueryVariables>;
+export function refetchGetAllUserAndStaffQuery(variables?: GetAllUserAndStaffQueryVariables) {
+      return { query: GetAllUserAndStaffDocument, variables: variables }
     }
 export const GetAllViewGroupsDocument = gql`
     query GetAllViewGroups {
@@ -8620,6 +8714,37 @@ export type QuantityLoggerDayWaterSupplyQueryResult = Apollo.QueryResult<Quantit
 export function refetchQuantityLoggerDayWaterSupplyQuery(variables: QuantityLoggerDayWaterSupplyQueryVariables) {
       return { query: QuantityLoggerDayWaterSupplyDocument, variables: variables }
     }
+export const UpdateActiveUserDocument = gql`
+    mutation UpdateActiveUser($user: UpdateActiveUserInput) {
+  UpdateActiveUser(user: $user)
+}
+    `;
+export type UpdateActiveUserMutationFn = Apollo.MutationFunction<UpdateActiveUserMutation, UpdateActiveUserMutationVariables>;
+
+/**
+ * __useUpdateActiveUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateActiveUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateActiveUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateActiveUserMutation, { data, loading, error }] = useUpdateActiveUserMutation({
+ *   variables: {
+ *      user: // value for 'user'
+ *   },
+ * });
+ */
+export function useUpdateActiveUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateActiveUserMutation, UpdateActiveUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateActiveUserMutation, UpdateActiveUserMutationVariables>(UpdateActiveUserDocument, options);
+      }
+export type UpdateActiveUserMutationHookResult = ReturnType<typeof useUpdateActiveUserMutation>;
+export type UpdateActiveUserMutationResult = Apollo.MutationResult<UpdateActiveUserMutation>;
+export type UpdateActiveUserMutationOptions = Apollo.BaseMutationOptions<UpdateActiveUserMutation, UpdateActiveUserMutationVariables>;
 export const UpdateCoverDocument = gql`
     mutation UpdateCover($cover: SiteCoverUpdateInput) {
   UpdateCover(cover: $cover)

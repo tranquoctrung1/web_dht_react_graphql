@@ -1,0 +1,3 @@
+mutation UpdateActiveUser($user: UpdateActiveUserInput) {
+    UpdateActiveUser(user: $user)
+}

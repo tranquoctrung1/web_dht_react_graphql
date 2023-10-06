@@ -50,6 +50,7 @@ import QuantityGroup4Page from './pages/quantityGroup4';
 import QuantityGroup5Page from './pages/quantityGroup5';
 import QuantityLevelPage from './pages/quantityLevel';
 import QuantityTotalPage from './pages/quantityTotal';
+import ViewUserPage from './pages/viewUser';
 
 function App() {
     const router = createBrowserRouter([
@@ -232,6 +233,10 @@ function App() {
                 {
                     path: '/quantityTotal',
                     element: <QuantityTotalPage />,
+                },
+                {
+                    path: '/viewUser',
+                    element: <ViewUserPage />,
                 },
             ],
         },

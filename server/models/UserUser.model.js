@@ -190,3 +190,63 @@ module.exports.VerifyPassword = async (Uid, Pwd) => {
 
     return check;
 };
+
+module.exports.UpdateActiveUser = async (user) => {
+    let result = 0;
+
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(UserUserCollection);
+
+        result = await collection.updateMany(
+            {
+                Uid: user.Uid,
+            },
+            {
+                $set: {
+                    Active: user.Active,
+                },
+            },
+        );
+
+        result = result.modifiedCount;
+
+        console.log('update active' + result);
+
+        Connect.disconnect();
+    } catch (err) {
+        console.log(err);
+    }
+
+    return result;
+};
+
+module.exports.UpdateLoginCountUser = async (user) => {
+    let result = 0;
+
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(UserUserCollection);
+
+        result = await collection.updateMany(
+            {
+                Uid: user.Uid,
+            },
+            {
+                $set: {
+                    LogCount: user.LogCount,
+                },
+            },
+        );
+
+        result = result.modifiedCount;
+
+        Connect.disconnect();
+    } catch (err) {
+        console.log(err);
+    }
+
+    return result;
+};

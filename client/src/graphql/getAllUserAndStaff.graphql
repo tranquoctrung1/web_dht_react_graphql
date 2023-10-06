@@ -1,0 +1,19 @@
+query GetAllUserAndStaff {
+    GetAllUserAndStaff {
+        Active
+        Company
+        FirstName
+        Ip
+        Language
+        LogCount
+        LastName
+        Pwd
+        Role
+        Salt
+        StaffId
+        TimeStamp
+        Uid
+        Zoom
+        _id
+    }
+}
