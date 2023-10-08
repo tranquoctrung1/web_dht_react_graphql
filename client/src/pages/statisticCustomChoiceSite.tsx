@@ -277,13 +277,26 @@ const StatisticCustomChoiceSitePage = () => {
                 //@ts-ignore
                 (el) => valueMeterModel.indexOf(el.Model) !== -1,
             );
+        } else {
+            const t = [...listDataMeterModel];
+            temp = temp.filter(
+                //@ts-ignore
+                (el) => t.indexOf(el.Model) !== -1,
+            );
         }
         if (valueCompanies.length > 0) {
             temp = temp.filter(
                 //@ts-ignore
                 (el) => valueCompanies.indexOf(el.Company) !== -1,
             );
+        } else {
+            const t = [...listCompanies, ''];
+            temp = temp.filter(
+                //@ts-ignore
+                (el) => t.indexOf(el.Company) !== -1,
+            );
         }
+
         if (valueSiteStatus.length > 0) {
             temp = temp.filter(
                 //@ts-ignore
@@ -301,13 +314,30 @@ const StatisticCustomChoiceSitePage = () => {
                 (el) =>
                     valueCalcCompanies.indexOf(
                         //@ts-ignore
-                        el.PrProductionCompanyoduct,
+                        el.ProductionCompany,
                     ) !== -1 ||
                     valueCalcCompanies.indexOf(
                         //@ts-ignore
                         el.IstDistributionCompany,
                     ) !== -1 ||
                     valueCalcCompanies.indexOf(
+                        //@ts-ignore
+                        el.QndDistributionCompany,
+                    ) !== -1,
+            );
+        } else {
+            const t = [...listCompanies, ''];
+            temp = temp.filter(
+                (el) =>
+                    t.indexOf(
+                        //@ts-ignore
+                        el.ProductionCompany,
+                    ) !== -1 ||
+                    t.indexOf(
+                        //@ts-ignore
+                        el.IstDistributionCompany,
+                    ) !== -1 ||
+                    t.indexOf(
                         //@ts-ignore
                         el.QndDistributionCompany,
                     ) !== -1,
@@ -367,6 +397,12 @@ const StatisticCustomChoiceSitePage = () => {
                     //@ts-ignore
                     valueDataMeterAcc.indexOf(el.AccreditationType) !== -1,
             );
+        } else {
+            temp = temp.filter(
+                (el) =>
+                    //@ts-ignore
+                    listDataMeterAcc.indexOf(el.AccreditationType) !== -1,
+            );
         }
         if (valueApprovaled.length > 0) {
             //@ts-ignore
@@ -396,172 +432,567 @@ const StatisticCustomChoiceSitePage = () => {
             result.push(obj);
         }
 
-        //@ts-ignore
-        setData([...result]);
+        const objTitle = {
+            STT: '',
+            _id: '',
+            Location: 'Thống Kê Tùy Chọn Điểm Lắp Đặt',
+            DeviceId: '',
+            Meter: '',
+            Marks: '',
+            Size: '',
+            Model: '',
+            Transmitter: '',
+            Logger: '',
+            AccreditationDocument: '',
+            AccreditedDate: '',
+            ExpiryDate: '',
+            DateOfMeterChange: '',
+            Level: '',
+            Group: '',
+            Group2S: '',
+            Company: '',
+            Availability: '',
+            Status: '',
+            LoggerModel: '',
+            Description: '',
+        };
+
+        const obj = {
+            STT: 'STT',
+            _id: 'Mã vị trí',
+            Location: 'Vị trí',
+            DeviceId: 'Ma TB',
+            Meter: 'Đồng hồ',
+            Marks: 'Hiệu',
+            Size: 'Cở',
+            Model: 'Model',
+            Transmitter: 'Bộ hiển thị',
+            Logger: 'Logger',
+            AccreditationDocument: 'Giấy KĐ',
+            AccreditedDate: 'Ngày kiểm định',
+            ExpiryDate: 'Ngày hết hạn',
+            DateOfMeterChange: 'Ngày thay/ bàn giao',
+            Level: 'Cấp ĐH',
+            Group: 'Nhóm ĐH',
+            Group2S: 'Nhóm ĐH 2',
+            Company: 'Quản lý',
+            Availability: 'Tình trạng',
+            Status: 'Trạng thái',
+            LoggerModel: 'Logger Model',
+            Description: 'Ghi chú',
+        };
+
+        const objDSD = {
+            STT: 'DSD',
+            _id: 'Đang sử dụng',
+            Location: '',
+            DeviceId: '',
+            Meter: '',
+            Marks: '',
+            Size: '',
+            Model: '',
+            Transmitter: '',
+            Logger: '',
+            AccreditationDocument: '',
+            AccreditedDate: '',
+            ExpiryDate: '',
+            DateOfMeterChange: '',
+            Level: '',
+            Group: '',
+            Group2S: '',
+            Company: '',
+            Availability: '',
+            Status: '',
+            LoggerModel: '',
+            Description: 'Ngày ...... tháng ...... năm ......',
+        };
+
+        const objHD = {
+            STT: 'HD',
+            _id: 'Hoạt động',
+            Location: '',
+            DeviceId: '',
+            Meter: '',
+            Marks: '',
+            Size: '',
+            Model: '',
+            Transmitter: '',
+            Logger: '',
+            AccreditationDocument: '',
+            AccreditedDate: '',
+            ExpiryDate: '',
+            DateOfMeterChange: '',
+            Level: '',
+            Group: '',
+            Group2S: '',
+            Company: '',
+            Availability: '',
+            Status: '',
+            LoggerModel: '',
+            Description: 'ĐỘI QUẢN LÝ ĐỒNG HỒ TỔNG',
+        };
+
+        const objHH = {
+            STT: 'HH',
+            _id: 'Hư hỏng',
+            Location: '',
+            DeviceId: '',
+            Meter: '',
+            Marks: '',
+            Size: '',
+            Model: '',
+            Transmitter: '',
+            Logger: '',
+            AccreditationDocument: '',
+            AccreditedDate: '',
+            ExpiryDate: '',
+            DateOfMeterChange: '',
+            Level: '',
+            Group: '',
+            Group2S: '',
+            Company: '',
+            Availability: '',
+            Status: '',
+            LoggerModel: '',
+            Description: '',
+        };
+
+        const objXN = {
+            STT: 'XN',
+            _id: 'Xí nghiệp truyền dẫn nước sạch',
+            Location: '',
+            DeviceId: '',
+            Meter: '',
+            Marks: '',
+            Size: '',
+            Model: '',
+            Transmitter: '',
+            Logger: '',
+            AccreditationDocument: '',
+            AccreditedDate: '',
+            ExpiryDate: '',
+            DateOfMeterChange: '',
+            Level: '',
+            Group: '',
+            Group2S: '',
+            Company: '',
+            Availability: '',
+            Status: '',
+            LoggerModel: '',
+            Description: '',
+        };
+
+        const objDA = {
+            STT: 'DA',
+            _id: 'Ban quản lý dự án',
+            Location: '',
+            DeviceId: '',
+            Meter: '',
+            Marks: '',
+            Size: '',
+            Model: '',
+            Transmitter: '',
+            Logger: '',
+            AccreditationDocument: '',
+            AccreditedDate: '',
+            ExpiryDate: '',
+            DateOfMeterChange: '',
+            Level: '',
+            Group: '',
+            Group2S: '',
+            Company: '',
+            Availability: '',
+            Status: '',
+            LoggerModel: '',
+            Description: '',
+        };
+
+        const objHM = {
+            STT: 'DA',
+            _id: 'Công ty nước ngầm Sài Gòn',
+            Location: '',
+            DeviceId: '',
+            Meter: '',
+            Marks: '',
+            Size: '',
+            Model: '',
+            Transmitter: '',
+            Logger: '',
+            AccreditationDocument: '',
+            AccreditedDate: '',
+            ExpiryDate: '',
+            DateOfMeterChange: '',
+            Level: '',
+            Group: '',
+            Group2S: '',
+            Company: '',
+            Availability: '',
+            Status: '',
+            LoggerModel: '',
+            Description: '',
+        };
+
+        const objTA = {
+            STT: 'TA',
+            _id: 'Xí nghiệp cấp nước Trung An',
+            Location: '',
+            DeviceId: '',
+            Meter: '',
+            Marks: '',
+            Size: '',
+            Model: '',
+            Transmitter: '',
+            Logger: '',
+            AccreditationDocument: '',
+            AccreditedDate: '',
+            ExpiryDate: '',
+            DateOfMeterChange: '',
+            Level: '',
+            Group: '',
+            Group2S: '',
+            Company: '',
+            Availability: '',
+            Status: '',
+            LoggerModel: '',
+            Description: '',
+        };
+
+        setData([
+            //@ts-ignore
+            objTitle,
+            //@ts-ignore
+            obj,
+            //@ts-ignore
+            ...result,
+            //@ts-ignore
+            objDSD,
+            //@ts-ignore
+            objHD,
+            //@ts-ignore
+            objHH,
+            //@ts-ignore
+            objXN,
+            //@ts-ignore
+            objDA,
+            //@ts-ignore
+            objHM,
+            //@ts-ignore
+            objTA,
+        ]);
     };
+
+    const conditionalRowStyles = [
+        {
+            when: (row: any) => row.STT === 'STT',
+            style: {
+                color: '#2980b9',
+                fontWeight: 'bold',
+            },
+        },
+        {
+            when: (row: any) => row.STT === '',
+            style: {
+                fontWeight: 'bolder',
+            },
+        },
+    ];
 
     const columns = [
         {
             name: 'STT',
             selector: (row: any) => row.STT,
             sortable: true,
-            cellExport: (row: any) => row.STT,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                STT
+            </div>`
+                    : row.STT,
             width: '80px',
         },
         {
             name: 'Mã vị trí',
             selector: (row: any) => row._id,
             sortable: true,
-            cellExport: (row: any) => row._id,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Mã vị trí
+            </div>`
+                    : `<div style="mso-number-format:'\@'">
+                    ${row._id}
+            </div>`,
             width: '150px',
         },
         {
             name: 'Vị trí',
             selector: (row: any) => row.Location,
             sortable: true,
-            cellExport: (row: any) => row.Location,
-            width: '300px',
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Vị trí
+    </div>`
+                    : row.STT === ''
+                    ? `<div style="color: blue; font-weight: bold; font-size: 18px">
+                        ${row.Location}
+                        </div>`
+                    : row.Location,
+            width: '500px',
         },
         {
             name: 'Ma TB',
-            selector: (row: any) => '',
+            selector: (row: any) => row.DeviceId,
             sortable: true,
-            cellExport: (row: any) => '',
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ma TB
+    </div>`
+                    : row.DeviceId,
             width: '150px',
         },
         {
             name: 'Đồng hồ',
             selector: (row: any) => row.Meter,
             sortable: true,
-            cellExport: (row: any) => row.Meter,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Đồng hồ
+</div>`
+                    : row.Meter,
             width: '150px',
         },
         {
             name: 'Hiệu',
             selector: (row: any) => row.Marks,
             sortable: true,
-            cellExport: (row: any) => row.Marks,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Hiệu
+</div>`
+                    : row.Marks,
             width: '100px',
         },
         {
             name: 'Cỡ',
             selector: (row: any) => row.Size,
             sortable: true,
-            cellExport: (row: any) => row.Size,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Cỡ
+</div>`
+                    : row.Size,
             width: '100px',
         },
         {
             name: 'Model',
             selector: (row: any) => row.Model,
             sortable: true,
-            cellExport: (row: any) => row.Model,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Model
+</div>`
+                    : row.Model,
             width: '100px',
         },
         {
             name: 'Bộ hiển thị',
             selector: (row: any) => row.Transmitter,
             sortable: true,
-            cellExport: (row: any) => row.Transmitter,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Bộ hiển thị
+</div>`
+                    : row.Transmitter,
             width: '100px',
         },
         {
             name: 'Logger',
             selector: (row: any) => row.Logger,
             sortable: true,
-            cellExport: (row: any) => row.Logger,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Logger
+</div>`
+                    : row.Logger,
             width: '100px',
         },
         {
             name: 'Giấy kiểm định',
             selector: (row: any) => row.AccreditationDocument,
             sortable: true,
-            cellExport: (row: any) => row.AccreditationDocument,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Giấy kiểm định
+</div>`
+                    : row.AccreditationDocument,
             width: '100px',
         },
         {
             name: 'Ngày kiểm định',
             selector: (row: any) => row.AccreditedDate,
             sortable: true,
-            cellExport: (row: any) => row.AccreditedDate,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ngày kiểm định
+</div>`
+                    : convertTimeStampToDate(row.AccreditedDate),
             width: '100px',
-            format: (row: any) => convertTimeStampToDate(row.AccreditedDate),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày kiểm định'
+                    : convertTimeStampToDate(row.AccreditedDate),
         },
         {
             name: 'Ngày hết hạn',
             selector: (row: any) => row.ExpiryDate,
             sortable: true,
-            cellExport: (row: any) => row.ExpiryDate,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ngày hết hạn
+</div>`
+                    : convertTimeStampToDate(row.ExpiryDate),
             width: '100px',
-            format: (row: any) => convertTimeStampToDate(row.ExpiryDate),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? ' Ngày hết hạn'
+                    : convertTimeStampToDate(row.ExpiryDate),
         },
         {
             name: 'Ngày thay/ bàn giao',
             selector: (row: any) => row.DateOfMeterChange,
             sortable: true,
-            cellExport: (row: any) => row.DateOfMeterChange,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Ngày thay/ bàn giao
+</div>`
+                    : convertTimeStampToDate(row.DateOfMeterChange),
             width: '100px',
-            format: (row: any) => convertTimeStampToDate(row.DateOfMeterChange),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày thay/ bàn giao'
+                    : convertTimeStampToDate(row.DateOfMeterChange),
         },
         {
             name: 'Cấp DH',
             selector: (row: any) => row.Level,
             sortable: true,
-            cellExport: (row: any) => row.Level,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Cấp DH
+</div>`
+                    : row.Level,
             width: '100px',
         },
         {
             name: 'Nhóm ĐH',
             selector: (row: any) => row.Group,
             sortable: true,
-            cellExport: (row: any) => row.Group,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Nhóm ĐH
+</div>`
+                    : row.Group,
             width: '100px',
         },
         {
             name: 'Nhóm ĐH 2',
             selector: (row: any) => row.Group2S,
             sortable: true,
-            cellExport: (row: any) => row.Group2S,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Nhóm ĐH 2
+</div>`
+                    : row.Group2S,
             width: '100px',
         },
         {
             name: 'Quản lý',
             selector: (row: any) => row.Company,
             sortable: true,
-            cellExport: (row: any) => row.Company,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Quản lý
+</div>`
+                    : row.Company,
             width: '100px',
         },
         {
             name: 'Tình trạng',
             selector: (row: any) => row.Availability,
             sortable: true,
-            cellExport: (row: any) => row.Availability,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Tình trạng
+</div>`
+                    : row.Availability,
             width: '100px',
         },
         {
             name: 'Trạng thái',
             selector: (row: any) => row.Status,
             sortable: true,
-            cellExport: (row: any) => row.Status,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Trạng thái
+</div>`
+                    : row.Status,
             width: '100px',
         },
         {
             name: 'Model Logger',
             selector: (row: any) => row.LoggerModel,
             sortable: true,
-            cellExport: (row: any) => row.LoggerModel,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Model Logger
+</div>`
+                    : row.LoggerModel,
             width: '100px',
         },
         {
             name: 'Ghi chú',
             selector: (row: any) => row.Description,
             sortable: true,
-            cellExport: (row: any) => row.Description,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Ghi chú
+    </div>`
+                    : row.STT === 'DSD'
+                    ? `<div style="text-align: center">
+    ${row.Description}
+</div>`
+                    : row.STT === 'HD'
+                    ? `<div style="font-weight: bold; font-size: 15px;text-align: center">
+    ${row.Description}
+</div>`
+                    : row.Description,
         },
     ];
 
     const tableData = {
         columns,
         data,
+        fileName: 'Thống Kê Tùy Chọn Điểm Lắp Đặt',
     };
 
     return (
@@ -750,6 +1181,8 @@ const StatisticCustomChoiceSitePage = () => {
             <Col span={12} style={{ maxWidth: '99%' }}>
                 <DataTableExtensions {...tableData}>
                     <DataTable
+                        noHeader
+                        noTableHead
                         columns={columns}
                         data={data}
                         title={
@@ -765,6 +1198,7 @@ const StatisticCustomChoiceSitePage = () => {
                         pagination
                         highlightOnHover={true}
                         dense={false}
+                        conditionalRowStyles={conditionalRowStyles}
                     />
                 </DataTableExtensions>
             </Col>

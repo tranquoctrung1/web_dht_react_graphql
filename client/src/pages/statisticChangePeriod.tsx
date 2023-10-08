@@ -2,7 +2,11 @@ import { Select, Button, Grid, Col, Center, Text } from '@mantine/core';
 
 import { DateInput } from '@mantine/dates';
 
-import { checkAdminViewerRole, convertDateToString } from '../utils/utils';
+import {
+    checkAdminViewerRole,
+    convertDateToString,
+    convertTimeStampToDate,
+} from '../utils/utils';
 
 import { useEffect, useState } from 'react';
 
@@ -106,40 +110,87 @@ const StatisticChangePeriodPage = () => {
         setType(e);
     };
 
+    const conditionalRowStyles = [
+        {
+            when: (row: any) => row.STT === 'STT',
+            style: {
+                color: '#2980b9',
+                fontWeight: 'bold',
+            },
+        },
+        {
+            when: (row: any) => row.STT === '',
+            style: {
+                fontWeight: 'bolder',
+            },
+        },
+    ];
+
     const columnsForAccrediation = [
         {
             name: 'STT',
             selector: (row: any) => row.STT,
             sortable: true,
-            cellExport: (row: any) => row.STT,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+        STT
+    </div>`
+                    : row.STT,
             width: '80px',
         },
         {
             name: 'Mã vị trí',
             selector: (row: any) => row._id,
             sortable: true,
-            cellExport: (row: any) => row._id,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Mã vị trí
+    </div>`
+                    : `<div style="mso-number-format:'\@'">
+            ${row._id}
+    </div>`,
             width: '150px',
         },
         {
             name: 'Vị trí',
             selector: (row: any) => row.Location,
             sortable: true,
-            cellExport: (row: any) => row.Location,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Vị trí
+</div>`
+                    : row.STT === ''
+                    ? `<div style="color: blue; font-weight: bold; font-size: 18px">
+                ${row.Location}
+                </div>`
+                    : row.Location,
             width: '300px',
         },
         {
             name: 'Hiệu',
             selector: (row: any) => row.Marks,
             sortable: true,
-            cellExport: (row: any) => row.Marks,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Hiệu
+</div>`
+                    : row.Marks,
             width: '100px',
         },
         {
             name: 'Cỡ',
             selector: (row: any) => row.Size,
             sortable: true,
-            cellExport: (row: any) => row.Size,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Cỡ
+</div>`
+                    : row.Size,
             width: '100px',
         },
 
@@ -147,30 +198,56 @@ const StatisticChangePeriodPage = () => {
             name: 'Ngày kiểm định',
             selector: (row: any) => row.DateOfChange,
             sortable: true,
-            cellExport: (row: any) => row.DateOfChange,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ngày kiểm định
+</div>`
+                    : convertTimeStampToDate(row.DateOfChange),
             width: '100px',
-            format: (row: any) => convertDateToString(row.DateOfChange),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày kiểm định'
+                    : convertTimeStampToDate(row.DateOfChange),
         },
         {
             name: 'Ngày hết hạn',
             selector: (row: any) => row.ExpiryDate,
             sortable: true,
-            cellExport: (row: any) => row.ExpiryDate,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ngày hết hạn
+</div>`
+                    : convertTimeStampToDate(row.ExpiryDate),
             width: '100px',
-            format: (row: any) => convertDateToString(row.ExpiryDate),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày hết hạn'
+                    : convertTimeStampToDate(row.ExpiryDate),
         },
         {
             name: 'Giấy kiểm định',
             selector: (row: any) => row.AccreditationDocument,
             sortable: true,
-            cellExport: (row: any) => row.AccreditationDocument,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Giấy kiểm định
+</div>`
+                    : row.AccreditationDocument,
             width: '100px',
         },
         {
             name: 'Ghi chú',
             selector: (row: any) => row.DescriptionOfChange,
             sortable: true,
-            cellExport: (row: any) => row.DescriptionOfChange,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ghi chú
+</div>`
+                    : row.DescriptionOfChange,
         },
     ];
 
@@ -179,49 +256,89 @@ const StatisticChangePeriodPage = () => {
             name: 'STT',
             selector: (row: any) => row.STT,
             sortable: true,
-            cellExport: (row: any) => row.STT,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Ghi chú
+</div>`
+                    : row.STT,
             width: '80px',
         },
         {
             name: 'Mã vị trí',
             selector: (row: any) => row._id,
             sortable: true,
-            cellExport: (row: any) => row._id,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Mã vị trí
+</div>`
+                    : `<div style="mso-number-format:'\@'">
+    ${row._id}
+</div>`,
             width: '150px',
         },
         {
             name: 'Vị trí',
             selector: (row: any) => row.Location,
             sortable: true,
-            cellExport: (row: any) => row.Location,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Vị trí
+</div>`
+                    : row.Location,
             width: '300px',
         },
         {
             name: 'Logger cũ',
             selector: (row: any) => row.OldLooger,
             sortable: true,
-            cellExport: (row: any) => row.OldLooger,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Logger cũ
+</div>`
+                    : row.OldLooger,
             width: '100px',
         },
         {
             name: 'Logger mới',
             selector: (row: any) => row.NewLogger,
             sortable: true,
-            cellExport: (row: any) => row.NewLogger,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Logger mới
+</div>`
+                    : row.NewLogger,
         },
         {
             name: 'Ngày thay',
             selector: (row: any) => row.DateOfChange,
             sortable: true,
-            cellExport: (row: any) => row.DateOfChange,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ngày thay
+</div>`
+                    : convertTimeStampToDate(row.DateOfChange),
             width: '100px',
-            format: (row: any) => convertDateToString(row.DateOfChange),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày thay'
+                    : convertTimeStampToDate(row.DateOfChange),
         },
         {
             name: 'Ghi chú',
             selector: (row: any) => row.DescriptionOfChange,
             sortable: true,
-            cellExport: (row: any) => row.DescriptionOfChange,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ghi chú
+</div>`
+                    : row.DescriptionOfChange,
         },
     ];
 
@@ -230,77 +347,138 @@ const StatisticChangePeriodPage = () => {
             name: 'STT',
             selector: (row: any) => row.STT,
             sortable: true,
-            cellExport: (row: any) => row.STT,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+STT
+</div>`
+                    : row.STT,
             width: '80px',
         },
         {
             name: 'Mã vị trí',
             selector: (row: any) => row._id,
             sortable: true,
-            cellExport: (row: any) => row._id,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Mã vị trí
+</div>`
+                    : `<div style="mso-number-format:'\@'">
+    ${row._id}
+</div>`,
             width: '150px',
         },
         {
             name: 'Vị trí',
             selector: (row: any) => row.Location,
             sortable: true,
-            cellExport: (row: any) => row.Location,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Vị trí
+</div>`
+                    : row.STT === ''
+                    ? `<div style="color: blue; font-weight: bold; font-size: 18px">
+        ${row.Location}
+        </div>`
+                    : row.Location,
             width: '300px',
         },
         {
             name: 'Đồng hồ cũ',
             selector: (row: any) => row.OldMeter,
             sortable: true,
-            cellExport: (row: any) => row.OldMeter,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Đồng hồ cũ
+</div>`
+                    : row.OldMeter,
             width: '100px',
         },
         {
             name: 'Bộ hiển thị cũ',
             selector: (row: any) => row.OldTran,
             sortable: true,
-            cellExport: (row: any) => row.OldTran,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Bộ hiển thị cũ
+</div>`
+                    : row.OldTran,
             width: '100px',
         },
         {
             name: 'Mã ĐH',
-            selector: (row: any) => '',
+            selector: (row: any) => row.MeterId,
             sortable: true,
-            cellExport: (row: any) => '',
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Mã ĐH
+</div>`
+                    : row.MeterId,
             width: '100px',
         },
         {
             name: 'Đồng hồ',
             selector: (row: any) => row.Meter,
             sortable: true,
-            cellExport: (row: any) => row.Meter,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Đồng hồ
+</div>`
+                    : row.Meter,
             width: '100px',
         },
         {
             name: 'Mã BHT',
-            selector: (row: any) => '',
+            selector: (row: any) => row.TransmitterId,
             sortable: true,
-            cellExport: (row: any) => '',
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Mã BHT
+</div>`
+                    : row.TransmitterId,
             width: '100px',
         },
         {
             name: 'Bộ hiển thị',
             selector: (row: any) => row.Transmitter,
             sortable: true,
-            cellExport: (row: any) => row.Transmitter,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Bộ hiển thị
+</div>`
+                    : row.Transmitter,
             width: '100px',
         },
         {
             name: 'Hiệu',
             selector: (row: any) => row.Marks,
             sortable: true,
-            cellExport: (row: any) => row.Marks,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Hiệu
+</div>`
+                    : row.Marks,
             width: '100px',
         },
         {
             name: 'Cỡ',
             selector: (row: any) => row.Size,
             sortable: true,
-            cellExport: (row: any) => row.Size,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Cỡ
+</div>`
+                    : row.Size,
             width: '100px',
         },
 
@@ -308,30 +486,56 @@ const StatisticChangePeriodPage = () => {
             name: 'Ngày thay',
             selector: (row: any) => row.DateOfChange,
             sortable: true,
-            cellExport: (row: any) => row.DateOfChange,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ngày thay
+</div>`
+                    : convertTimeStampToDate(row.DateOfChange),
             width: '100px',
-            format: (row: any) => convertDateToString(row.DateOfChange),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày thay'
+                    : convertTimeStampToDate(row.DateOfChange),
         },
         {
             name: 'Giấy kiểm định',
             selector: (row: any) => row.AccreditationDocument,
             sortable: true,
-            cellExport: (row: any) => row.AccreditationDocument,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Giấy kiểm định
+</div>`
+                    : row.AccreditationDocument,
             width: '100px',
         },
         {
             name: 'Ngày hết hạn KĐ',
             selector: (row: any) => row.ExpiryDate,
             sortable: true,
-            cellExport: (row: any) => row.ExpiryDate,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ngày hết hạn KĐ
+</div>`
+                    : convertTimeStampToDate(row.ExpiryDate),
             width: '100px',
-            format: (row: any) => convertDateToString(row.ExpiryDate),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày hết hạn KĐ'
+                    : convertTimeStampToDate(row.ExpiryDate),
         },
         {
             name: 'Ghi chú',
             selector: (row: any) => row.DescriptionOfChange,
             sortable: true,
-            cellExport: (row: any) => row.DescriptionOfChange,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ghi chú
+</div>`
+                    : row.DescriptionOfChange,
         },
     ];
 
@@ -359,18 +563,45 @@ const StatisticChangePeriodPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsForAccrediation]);
-
                     setTitle(
                         `Điểm Lắp Đặt Kiểm Định Đồng Hồ Sau Ngày ${convertDateToString(
                             //@ts-ignore
                             time,
                         )}`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Điểm Lắp Đặt Kiểm Định Đồng Hồ Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                        Marks: '',
+                        Size: '',
+                        DateOfChange: '',
+                        ExpiryDate: '',
+                        AccreditationDocument: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        DateOfChange: 'Ngày kiểm định',
+                        ExpiryDate: 'Ngày hết hạn',
+                        AccreditationDocument: 'Giấy kiểm định',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAccrediation]);
                 }
             })
             .catch((err) => {
@@ -402,18 +633,57 @@ const StatisticChangePeriodPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsForAnother]);
-
                     setTitle(
                         `Điểm Lắp Đặt Mới Thay Đồng Hồ Sau Ngày ${convertDateToString(
                             //@ts-ignore
                             time,
                         )}`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Điểm Lắp Đặt Mới Thay Đồng Hồ Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                        OldMeter: '',
+                        OldTran: '',
+                        Meter: '',
+                        MeterId: '',
+                        TransmitterId: '',
+                        Transmitter: '',
+                        Marks: '',
+                        Size: '',
+                        DateOfChange: '',
+                        AccreditationDocument: '',
+                        ExpiryDate: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        OldMeter: 'Đồng hồ cũ',
+                        OldTran: 'Bộ hiển thị cũ',
+                        Meter: 'Meter',
+                        MeterId: 'Mã ĐH',
+                        TransmitterId: 'Mã BHT',
+                        Transmitter: 'Bộ hiển thị',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        DateOfChange: 'Ngày kiểm định',
+                        ExpiryDate: 'Ngày hết hạn',
+                        AccreditationDocument: 'Giấy kiểm định',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAnother]);
                 }
             })
             .catch((err) => {
@@ -446,18 +716,57 @@ const StatisticChangePeriodPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsForAnother]);
-
                     setTitle(
                         `Điểm Lắp Đặt Mới Thay Bộ Hiển Thị Sau Ngày ${convertDateToString(
                             //@ts-ignore
                             time,
                         )}`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Điểm Lắp Đặt Mới Thay Bộ Hiển Thị Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                        OldMeter: '',
+                        OldTran: '',
+                        Meter: '',
+                        MeterId: '',
+                        TransmitterId: '',
+                        Transmitter: '',
+                        Marks: '',
+                        Size: '',
+                        DateOfChange: '',
+                        AccreditationDocument: '',
+                        ExpiryDate: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        OldMeter: 'Đồng hồ cũ',
+                        OldTran: 'Bộ hiển thị cũ',
+                        Meter: 'Meter',
+                        MeterId: 'Mã ĐH',
+                        TransmitterId: 'Mã BHT',
+                        Transmitter: 'Bộ hiển thị',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        DateOfChange: 'Ngày kiểm định',
+                        ExpiryDate: 'Ngày hết hạn',
+                        AccreditationDocument: 'Giấy kiểm định',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAnother]);
                 }
             })
             .catch((err) => {
@@ -489,18 +798,41 @@ const StatisticChangePeriodPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsForLogger]);
-
                     setTitle(
                         `Điểm Lắp Đặt Mới Thay Logger Sau Ngày ${convertDateToString(
                             //@ts-ignore
                             time,
                         )}`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Điểm Lắp Đặt Mới Thay Logger Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                        OldLogger: '',
+                        NewLogger: '',
+                        DateOfChange: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        OldLogger: 'Logger cũ',
+                        NewLogger: 'Logger mới',
+                        DateOfChange: 'Ngày thay',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForLogger]);
                 }
             })
             .catch((err) => {
@@ -532,18 +864,60 @@ const StatisticChangePeriodPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsForAnother]);
-
                     setTitle(
                         `Điểm Lắp Đặt Mới Thay Acquy Sau Ngày ${convertDateToString(
                             //@ts-ignore
                             time,
                         )}`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Điểm Lắp Đặt Mới Thay Acquy Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                        OldMeter: '',
+                        OldTran: '',
+                        Meter: '',
+                        MeterId: '',
+                        TransmitterId: '',
+                        Transmitter: '',
+                        Marks: '',
+                        Size: '',
+                        DateOfChange: '',
+                        AccreditationDocument: '',
+                        ExpiryDate: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        OldMeter: 'Đồng hồ cũ',
+                        OldTran: 'Bộ hiển thị cũ',
+                        Meter: 'Meter',
+                        MeterId: 'Mã ĐH',
+                        TransmitterId: 'Mã BHT',
+                        Transmitter: 'Bộ hiển thị',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        DateOfChange: 'Ngày kiểm định',
+                        ExpiryDate: 'Ngày hết hạn',
+                        AccreditationDocument: 'Giấy kiểm định',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setData([...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAnother]);
                 }
             })
             .catch((err) => {
@@ -577,18 +951,57 @@ const StatisticChangePeriodPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsForAnother]);
-
                     setTitle(
                         `Điểm Lắp Đặt Mới Thay Pin Bộ Hiển Thị Sau Ngày ${convertDateToString(
                             //@ts-ignore
                             time,
                         )}`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Điểm Lắp Đặt Mới Thay Pin Bộ Hiển Thị Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                        OldMeter: '',
+                        OldTran: '',
+                        Meter: '',
+                        MeterId: '',
+                        TransmitterId: '',
+                        Transmitter: '',
+                        Marks: '',
+                        Size: '',
+                        DateOfChange: '',
+                        AccreditationDocument: '',
+                        ExpiryDate: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        OldMeter: 'Đồng hồ cũ',
+                        OldTran: 'Bộ hiển thị cũ',
+                        Meter: 'Meter',
+                        MeterId: 'Mã ĐH',
+                        TransmitterId: 'Mã BHT',
+                        Transmitter: 'Bộ hiển thị',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        DateOfChange: 'Ngày kiểm định',
+                        ExpiryDate: 'Ngày hết hạn',
+                        AccreditationDocument: 'Giấy kiểm định',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAnother]);
                 }
             })
             .catch((err) => {
@@ -621,18 +1034,57 @@ const StatisticChangePeriodPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsForAnother]);
-
                     setTitle(
                         `Điểm Lắp Đặt Mới Thay Pin Logger Sau Ngày ${convertDateToString(
                             //@ts-ignore
                             time,
                         )}`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Điểm Lắp Đặt Mới Thay Pin Logger Sau Ngày ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )}`,
+                        OldMeter: '',
+                        OldTran: '',
+                        Meter: '',
+                        MeterId: '',
+                        TransmitterId: '',
+                        Transmitter: '',
+                        Marks: '',
+                        Size: '',
+                        DateOfChange: '',
+                        AccreditationDocument: '',
+                        ExpiryDate: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        OldMeter: 'Đồng hồ cũ',
+                        OldTran: 'Bộ hiển thị cũ',
+                        Meter: 'Meter',
+                        MeterId: 'Mã ĐH',
+                        TransmitterId: 'Mã BHT',
+                        Transmitter: 'Bộ hiển thị',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        DateOfChange: 'Ngày kiểm định',
+                        ExpiryDate: 'Ngày hết hạn',
+                        AccreditationDocument: 'Giấy kiểm định',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsForAnother]);
                 }
             })
             .catch((err) => {
@@ -663,6 +1115,7 @@ const StatisticChangePeriodPage = () => {
     const tableData = {
         columns,
         data,
+        fileName: title,
     };
 
     return (
@@ -708,6 +1161,8 @@ const StatisticChangePeriodPage = () => {
             <Col span={12} style={{ maxWidth: '99%' }}>
                 <DataTableExtensions {...tableData}>
                     <DataTable
+                        noHeader
+                        noTableHead
                         columns={columns}
                         data={data}
                         title={
@@ -721,6 +1176,7 @@ const StatisticChangePeriodPage = () => {
                         pagination
                         highlightOnHover={true}
                         dense={false}
+                        conditionalRowStyles={conditionalRowStyles}
                     />
                 </DataTableExtensions>
             </Col>

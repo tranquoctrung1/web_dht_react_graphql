@@ -260,7 +260,7 @@ module.exports.GetAllSites = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = await collection.find({}).toArray();
+    let result = await collection.find({}).sort({ _id: 1 }).toArray();
 
     Connect.disconnect();
 
@@ -608,7 +608,7 @@ module.exports.GetSiteMeterDateChangeByYearUsing = async (date, year) => {
             $or: [
                 {
                     DateOfMeterChange: { $ne: null },
-                    DateOfMeterChange: { $lte: new Date(time) },
+                    DateOfMeterChange: { $lte: time },
                 },
                 {
                     DateOfMeterChange: { $eq: null },

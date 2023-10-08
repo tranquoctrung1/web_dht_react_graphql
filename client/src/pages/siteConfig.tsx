@@ -603,6 +603,7 @@ const SiteConfigPage = () => {
             AccreditationType: '',
             AccreditationDate: null,
             AccreditationExpireDate: null,
+            Size: 0,
             CoverMaterial: '',
             CoverNL: 0,
             CoverL: 0,
@@ -810,8 +811,10 @@ const SiteConfigPage = () => {
                         findMeter.AccreditatedDate === null
                             ? ''
                             : //@ts-ignore
-                              new Date(findMeter.AccreditationDate),
+                              new Date(findMeter.AccreditatedDate),
                     );
+                    //@ts-ignore
+                    setValue('Size', findMeter.Size);
                 }
             }
 
@@ -1489,7 +1492,20 @@ const SiteConfigPage = () => {
                         ></Controller>
                     ) : null}
                 </Col>
-                <Col md={3}>
+                <Col md={2}>
+                    <Controller
+                        name="Size"
+                        control={control}
+                        render={({ field }) => (
+                            <NumberInput
+                                placeholder="Kích thước đồng hồ"
+                                label="Kích thước đồng hồ"
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={2}>
                     <Controller
                         name="AccreditationDocument"
                         control={control}
@@ -1502,7 +1518,7 @@ const SiteConfigPage = () => {
                         )}
                     ></Controller>
                 </Col>
-                <Col md={3}>
+                <Col md={2}>
                     {metersAccrediationType !== undefined ? (
                         <Controller
                             name="AccreditationType"

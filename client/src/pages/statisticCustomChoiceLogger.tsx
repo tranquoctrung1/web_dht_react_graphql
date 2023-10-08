@@ -19,7 +19,7 @@ import 'react-data-table-component-extensions/dist/index.css';
 
 import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 
-import { checkAdminViewerRole, convertTimeStampToDate } from '../utils/utils';
+import { checkAdminViewerRole } from '../utils/utils';
 
 const StatisticCustomChoiceLoggerPage = () => {
     const [listDataYN, setListDataYN] = useState(['Y', 'N']);
@@ -204,99 +204,183 @@ const StatisticCustomChoiceLoggerPage = () => {
             name: 'STT',
             selector: (row: any) => row.STT,
             sortable: true,
-            cellExport: (row: any) => row.STT,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+STT
+</div>`
+                    : row.STT,
             width: '80px',
         },
         {
             name: 'Số Seri',
             selector: (row: any) => row.Serial,
             sortable: true,
-            cellExport: (row: any) => row.Serial,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Số Seri
+</div>`
+                    : row.Serial,
             width: '150px',
         },
         {
             name: 'Nhà SX',
             selector: (row: any) => row.Provider,
             sortable: true,
-            cellExport: (row: any) => row.Provider,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Nhà SX
+</div>`
+                    : row.Provider,
             width: '150px',
         },
         {
             name: 'Hiệu',
             selector: (row: any) => row.Marks,
             sortable: true,
-            cellExport: (row: any) => row.Marks,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Hiệu
+</div>`
+                    : row.Marks,
             width: '100px',
         },
-        {
-            name: 'Id Logger',
-            selector: (row: any) => row.LoggerId,
-            sortable: true,
-            cellExport: (row: any) => row.LoggerId,
-            width: '100px',
-        },
-
         {
             name: 'Lắp đặt',
             selector: (row: any) => row.Installed,
             sortable: true,
-            cellExport: (row: any) => row.Installed,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Lắp đặt
+</div>`
+                    : row.Installed === true
+                    ? 'Y'
+                    : row.Installed === false
+                    ? 'N'
+                    : row.Installed,
             width: '100px',
-            format: (row: any) => (row.Installed == false ? 'N' : 'Y'),
+            format: (row: any) =>
+                row.Installed === true
+                    ? 'Y'
+                    : row.Installed === false
+                    ? 'N'
+                    : row.Installed,
         },
         {
             name: 'Mã vị trí',
             selector: (row: any) => row.SiteId,
             sortable: true,
-            cellExport: (row: any) => row.SiteId,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Mã vị trí
+</div>`
+                    : `<div style="mso-number-format:'\@'">
+    ${row.SiteId}
+</div>`,
             width: '150px',
         },
         {
             name: 'Vị trí',
             selector: (row: any) => row.Location,
             sortable: true,
-            cellExport: (row: any) => row.Location,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Vị trí
+</div>`
+                    : row.STT === ''
+                    ? `<div style="color: blue; font-weight: bold; font-size: 18px">
+        ${row.Location}
+        </div>`
+                    : row.Location,
             width: '300px',
         },
         {
             name: 'Model',
             selector: (row: any) => row.Model,
             sortable: true,
-            cellExport: (row: any) => row.Model,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Model
+</div>`
+                    : row.Model,
             width: '100px',
         },
         {
             name: 'Trạng thái',
             selector: (row: any) => row.Status,
             sortable: true,
-            cellExport: (row: any) => row.Status,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Trạng thái
+</div>`
+                    : row.Status,
             width: '100px',
         },
         {
             name: 'Tình trạng',
             selector: (row: any) => row.SiteStatus,
             sortable: true,
-            cellExport: (row: any) => row.SiteStatus,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Tình trạng
+</div>`
+                    : row.SiteStatus,
             width: '100px',
         },
         {
             name: 'Quản lý',
             selector: (row: any) => row.SiteCompany,
             sortable: true,
-            cellExport: (row: any) => row.SiteCompany,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Quản lý
+</div>`
+                    : row.SiteCompany,
             width: '100px',
         },
         {
             name: 'Ghi chú',
             selector: (row: any) => row.Description,
             sortable: true,
-            cellExport: (row: any) => row.Description,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Ghi chú
+</div>`
+                    : row.Description,
+        },
+    ];
+
+    const conditionalRowStyles = [
+        {
+            when: (row: any) => row.STT === 'STT',
+            style: {
+                color: '#2980b9',
+                fontWeight: 'bold',
+            },
+        },
+        {
+            when: (row: any) => row.STT === '',
+            style: {
+                fontWeight: 'bolder',
+            },
         },
     ];
 
     const tableData = {
         columns,
         data,
+        fileName: 'Thống Kê Tùy Chọn Logger',
     };
 
     const onViewClicked = () => {
@@ -351,6 +435,12 @@ const StatisticCustomChoiceLoggerPage = () => {
                 //@ts-ignore
                 (el) => valueCompanies.indexOf(el.SiteCompany) !== -1,
             );
+        } else {
+            const t = [...listCompanies, ''];
+            temp = temp.filter(
+                //@ts-ignore
+                (el) => t.indexOf(el.SiteCompany) !== -1,
+            );
         }
 
         const result = [];
@@ -366,8 +456,38 @@ const StatisticCustomChoiceLoggerPage = () => {
             result.push(obj);
         }
 
+        const objTitle = {
+            STT: '',
+            Serial: '',
+            Provider: '',
+            Marks: '',
+            Model: '',
+            Installed: '',
+            SiteId: '',
+            Location: 'Thống Kê Tùy Chọn Logger',
+            Status: '',
+            SiteStatus: '',
+            SiteCompany: '',
+            Description: '',
+        };
+
+        const obj = {
+            STT: 'STT',
+            Serial: 'Serial',
+            Provider: 'Nhà sản xuất',
+            Marks: 'Hiệu',
+            Model: 'Model',
+            Installed: 'Lắp đặt',
+            SiteId: 'Mã vị trí',
+            Location: 'Vị trí',
+            Status: 'Trạng thái',
+            SiteStatus: 'Tình trạng',
+            SiteCompany: 'Quản lý',
+            Description: 'Ghi chú',
+        };
+
         //@ts-ignore
-        setData([...result]);
+        setData([objTitle, obj, ...result]);
     };
 
     return (
@@ -472,6 +592,8 @@ const StatisticCustomChoiceLoggerPage = () => {
             <Col span={12} style={{ maxWidth: '99%' }}>
                 <DataTableExtensions {...tableData}>
                     <DataTable
+                        noHeader
+                        noTableHead
                         columns={columns}
                         data={data}
                         title={
@@ -487,6 +609,7 @@ const StatisticCustomChoiceLoggerPage = () => {
                         pagination
                         highlightOnHover={true}
                         dense={false}
+                        conditionalRowStyles={conditionalRowStyles}
                     />
                 </DataTableExtensions>
             </Col>

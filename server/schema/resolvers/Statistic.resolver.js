@@ -648,41 +648,63 @@ module.exports = {
                     meter.Serial !== undefined &&
                     meter.Serial !== ''
                 ) {
-                    const obj = {
-                        Serial: meter.Serial,
-                        ReceiptDate: meter.ReceiptDate,
-                        AccreditedDate: meter.AccreditedDate,
-                        ExpiryDate: meter.ExpiryDate,
-                        AccreditationDocument: meter.AccreditationDocument,
-                        AccreditationType: meter.AccreditationType,
-                        Provider: meter.Provider,
-                        Marks: meter.Marks,
-                        Size: meter.Size,
-                        Model: meter.Model,
-                        Status: meter.Status,
-                        Installed: meter.Installed,
-                        InitialIndex: meter.InitialIndex,
-                        Description: meter.Description,
-                        SiteId: '',
-                        Location: '',
-                        TransmitterSerial: meter.SerialTransmitter,
-                        SiteCompany: '',
-                        SiteStatus: '',
-                        Nationality: meter.Nationality,
-                    };
-
-                    const findSite = listSite.find(
+                    const filterSite = listSite.filter(
                         (el) => el.Meter === meter.Serial,
                     );
+                    if (filterSite.length > 0) {
+                        for (const site of filterSite) {
+                            const obj = {
+                                Serial: meter.Serial,
+                                ReceiptDate: meter.ReceiptDate,
+                                AccreditedDate: meter.AccreditedDate,
+                                ExpiryDate: meter.ExpiryDate,
+                                AccreditationDocument:
+                                    meter.AccreditationDocument,
+                                AccreditationType: meter.AccreditationType,
+                                Provider: meter.Provider,
+                                Marks: meter.Marks,
+                                Size: meter.Size,
+                                Model: meter.Model,
+                                Status: meter.Status,
+                                Installed: meter.Installed,
+                                InitialIndex: meter.InitialIndex,
+                                Description: meter.Description,
+                                SiteId: site._id,
+                                Location: site.Location,
+                                TransmitterSerial: meter.SerialTransmitter,
+                                SiteCompany: site.Company,
+                                SiteStatus: site.Status,
+                                Nationality: meter.Nationality,
+                            };
 
-                    if (findSite !== undefined) {
-                        obj.SiteId = findSite._id;
-                        obj.Location = findSite.Location;
-                        obj.SiteCompany = findSite.Company;
-                        obj.SiteStatus = findSite.Status;
+                            result.push(obj);
+                        }
+                    } else {
+                        const obj = {
+                            Serial: meter.Serial,
+                            ReceiptDate: meter.ReceiptDate,
+                            AccreditedDate: meter.AccreditedDate,
+                            ExpiryDate: meter.ExpiryDate,
+                            AccreditationDocument: meter.AccreditationDocument,
+                            AccreditationType: meter.AccreditationType,
+                            Provider: meter.Provider,
+                            Marks: meter.Marks,
+                            Size: meter.Size,
+                            Model: meter.Model,
+                            Status: meter.Status,
+                            Installed: meter.Installed,
+                            InitialIndex: meter.InitialIndex,
+                            Description: meter.Description,
+                            SiteId: '',
+                            Location: '',
+                            TransmitterSerial: meter.SerialTransmitter,
+                            SiteCompany: '',
+                            SiteStatus: '',
+                            Nationality: meter.Nationality,
+                        };
+
+                        result.push(obj);
                     }
-
-                    result.push(obj);
                 }
             }
 
@@ -707,35 +729,51 @@ module.exports = {
                     transmitter.Serial !== undefined &&
                     transmitter.Serial !== ''
                 ) {
-                    const obj = {
-                        Serial: transmitter.Serial,
-                        ReceiptDate: transmitter.ReceiptDate,
-                        Provider: transmitter.Provider,
-                        Marks: transmitter.Marks,
-                        Size: transmitter.Size,
-                        Model: transmitter.Model,
-                        Status: transmitter.Status,
-                        Installed: transmitter.Installed,
-                        InitialIndex: transmitter.InitialIndex,
-                        Description: transmitter.Description,
-                        SiteId: '',
-                        Location: '',
-                        SiteStatus: '',
-                        SiteCompany: '',
-                    };
-
-                    const findSite = listSite.find(
+                    const filterSite = listSite.filter(
                         (el) => el.Transmitter === transmitter.Serial,
                     );
 
-                    if (findSite !== undefined) {
-                        obj.SiteId = findSite._id;
-                        obj.Location = findSite.Location;
-                        obj.SiteCompany = findSite.Company;
-                        obj.SiteStatus = findSite.Status;
-                    }
+                    if (filterSite.length > 0) {
+                        for (const site of filterSite) {
+                            const obj = {
+                                Serial: transmitter.Serial,
+                                ReceiptDate: transmitter.ReceiptDate,
+                                Provider: transmitter.Provider,
+                                Marks: transmitter.Marks,
+                                Size: transmitter.Size,
+                                Model: transmitter.Model,
+                                Status: transmitter.Status,
+                                Installed: transmitter.Installed,
+                                InitialIndex: transmitter.InitialIndex,
+                                Description: transmitter.Description,
+                                SiteId: site._id,
+                                Location: site.Location,
+                                SiteStatus: site.Status,
+                                SiteCompany: site.Company,
+                            };
 
-                    result.push(obj);
+                            result.push(obj);
+                        }
+                    } else {
+                        const obj = {
+                            Serial: transmitter.Serial,
+                            ReceiptDate: transmitter.ReceiptDate,
+                            Provider: transmitter.Provider,
+                            Marks: transmitter.Marks,
+                            Size: transmitter.Size,
+                            Model: transmitter.Model,
+                            Status: transmitter.Status,
+                            Installed: transmitter.Installed,
+                            InitialIndex: transmitter.InitialIndex,
+                            Description: transmitter.Description,
+                            SiteId: '',
+                            Location: '',
+                            SiteStatus: '',
+                            SiteCompany: '',
+                        };
+
+                        result.push(obj);
+                    }
                 }
             }
 
@@ -757,42 +795,57 @@ module.exports = {
                     logger.Serial !== undefined &&
                     logger.Serial !== ''
                 ) {
-                    const obj = {
-                        Serial: logger.Serial,
-                        ReceiptDate: logger.ReceiptDate,
-                        Provider: logger.Provider,
-                        Marks: logger.Marks,
-                        Model: logger.Model,
-                        Status: logger.Status,
-                        Installed: logger.Installed,
-                        Description: logger.Description,
-                        SiteId: '',
-                        Location: '',
-                        SiteStatus: '',
-                        SiteCompany: '',
-                        LoggerId: '',
-                    };
-
-                    const findSite = listSite.find(
+                    const filterSite = listSite.filter(
                         (el) => el.Logger === logger.Serial,
                     );
 
-                    if (findSite !== undefined) {
-                        obj.SiteId = findSite._id;
-                        obj.Location = findSite.Location;
-                        obj.SiteCompany = findSite.Company;
-                        obj.SiteStatus = findSite.Status;
+                    if (filterSite.length > 0) {
+                        for (const site of filterSite) {
+                            const obj = {
+                                Serial: logger.Serial,
+                                ReceiptDate: logger.ReceiptDate,
+                                Provider: logger.Provider,
+                                Marks: logger.Marks,
+                                Model: logger.Model,
+                                Status: logger.Status,
+                                Installed: logger.Installed,
+                                Description: logger.Description,
+                                SiteId: site._id,
+                                Location: site.Location,
+                                SiteStatus: site.Status,
+                                SiteCompany: site.Company,
+                                LoggerId: '',
+                            };
 
-                        const findLogger = listDeviceSiteConfig.find(
-                            (el) => el.SiteId === findSite._id,
-                        );
+                            const findLogger = listDeviceSiteConfig.find(
+                                (el) => el.SiteId === site._id,
+                            );
 
-                        if (findLogger !== undefined) {
-                            obj.LoggerId = findLogger.LoggerId;
+                            if (findLogger !== undefined) {
+                                obj.LoggerId = findLogger.LoggerId;
+                            }
+
+                            result.push(obj);
                         }
-                    }
+                    } else {
+                        const obj = {
+                            Serial: logger.Serial,
+                            ReceiptDate: logger.ReceiptDate,
+                            Provider: logger.Provider,
+                            Marks: logger.Marks,
+                            Model: logger.Model,
+                            Status: logger.Status,
+                            Installed: logger.Installed,
+                            Description: logger.Description,
+                            SiteId: '',
+                            Location: '',
+                            SiteStatus: '',
+                            SiteCompany: '',
+                            LoggerId: '',
+                        };
 
-                    result.push(obj);
+                        result.push(obj);
+                    }
                 }
             }
 
@@ -1105,26 +1158,41 @@ module.exports = {
             const listMeter = await DeviceMeterModel.GetAll();
 
             for (const site of listSite) {
-                const obj = {
-                    _id: site._id,
-                    Location: site.Location,
-                    Marks: '',
-                    Size: 0,
-                    DateOfChange: site.DateOfMeterChange,
-                    DescriptionOfChange: site.DescriptionOfChange,
-                    Company: site.Company,
-                    Status: site.Status,
-                    TakeoverDate: site.TakeoverDate,
-                };
+                const filterMeter = listMeter.filter(
+                    (el) => el.Serial === site.Meter,
+                );
 
-                const find = listMeter.find((el) => el.Serial === site.Meter);
+                if (filterMeter.length > 0) {
+                    for (const meter of filterMeter) {
+                        const obj = {
+                            _id: site._id,
+                            Location: site.Location,
+                            Marks: meter.Marks,
+                            Size: meter.Size,
+                            DateOfChange: site.DateOfMeterChange,
+                            DescriptionOfChange: site.DescriptionOfChange,
+                            Company: site.Company,
+                            Status: site.Status,
+                            TakeoverDate: site.TakeoverDate,
+                        };
 
-                if (find !== undefined) {
-                    obj.Marks = find.Marks;
-                    obj.Size = find.Size;
+                        result.push(obj);
+                    }
+                } else {
+                    const obj = {
+                        _id: site._id,
+                        Location: site.Location,
+                        Marks: '',
+                        Size: 0,
+                        DateOfChange: site.DateOfMeterChange,
+                        DescriptionOfChange: site.DescriptionOfChange,
+                        Company: site.Company,
+                        Status: site.Status,
+                        TakeoverDate: site.TakeoverDate,
+                    };
+
+                    result.push(obj);
                 }
-
-                result.push(obj);
             }
 
             return result;
@@ -1146,27 +1214,39 @@ module.exports = {
             const listTransmitter = await DeviceTransmitterModel.GetAll();
 
             for (const site of listSite) {
-                const obj = {
-                    _id: site._id,
-                    Location: site.Location,
-                    Marks: '',
-                    Size: 0,
-                    DateOfChange: site.DateOfTransmitterChange,
-                    DescriptionOfChange: site.DescriptionOfChange,
-                    Company: site.Company,
-                    Status: site.Status,
-                };
-
-                const find = listTransmitter.find(
+                const filterTransmitter = listTransmitter.filter(
                     (el) => el.Serial === site.Transmitter,
                 );
 
-                if (find !== undefined) {
-                    obj.Marks = find.Marks;
-                    obj.Size = find.Size;
-                }
+                if (filterTransmitter.length > 0) {
+                    for (const transmitter of filterTransmitter) {
+                        const obj = {
+                            _id: site._id,
+                            Location: site.Location,
+                            Marks: transmitter.Marks,
+                            Size: transmitter.Size,
+                            DateOfChange: site.DateOfTransmitterChange,
+                            DescriptionOfChange: site.DescriptionOfChange,
+                            Company: site.Company,
+                            Status: site.Status,
+                        };
 
-                result.push(obj);
+                        result.push(obj);
+                    }
+                } else {
+                    const obj = {
+                        _id: site._id,
+                        Location: site.Location,
+                        Marks: '',
+                        Size: 0,
+                        DateOfChange: site.DateOfTransmitterChange,
+                        DescriptionOfChange: site.DescriptionOfChange,
+                        Company: site.Company,
+                        Status: site.Status,
+                    };
+
+                    result.push(obj);
+                }
             }
 
             return result;
@@ -1187,23 +1267,37 @@ module.exports = {
             const listLogger = await DeviceLoggerModel.GetAll();
 
             for (const site of listSite) {
-                const obj = {
-                    _id: site._id,
-                    Location: site.Location,
-                    Marks: '',
-                    DateOfChange: site.DateOfLoggerChange,
-                    DescriptionOfChange: site.DescriptionOfChange,
-                    Company: site.Company,
-                    Status: site.Status,
-                };
+                const filterLogger = listLogger.filter(
+                    (el) => el.Serial === site.Logger,
+                );
 
-                const find = listLogger.find((el) => el.Serial === site.Logger);
+                if (filterLogger.length > 0) {
+                    for (const logger of filterLogger) {
+                        const obj = {
+                            _id: site._id,
+                            Location: site.Location,
+                            Marks: logger.Marks,
+                            DateOfChange: site.DateOfLoggerChange,
+                            DescriptionOfChange: site.DescriptionOfChange,
+                            Company: site.Company,
+                            Status: site.Status,
+                        };
 
-                if (find !== undefined) {
-                    obj.Marks = find.Marks;
+                        result.push(obj);
+                    }
+                } else {
+                    const obj = {
+                        _id: site._id,
+                        Location: site.Location,
+                        Marks: logger.Marks,
+                        DateOfChange: site.DateOfLoggerChange,
+                        DescriptionOfChange: site.DescriptionOfChange,
+                        Company: site.Company,
+                        Status: site.Status,
+                    };
+
+                    result.push(obj);
                 }
-
-                result.push(obj);
             }
 
             return result;
@@ -1225,25 +1319,39 @@ module.exports = {
             const listMeter = await DeviceMeterModel.GetAll();
 
             for (const site of listSite) {
-                const obj = {
-                    _id: site._id,
-                    Location: site.Location,
-                    Marks: '',
-                    Size: 0,
-                    DateOfChange: site.DateOfBatteryChange,
-                    DescriptionOfChange: site.DescriptionOfChange,
-                    Company: site.Company,
-                    Status: site.Status,
-                };
+                const filterMeter = listMeter.filter(
+                    (el) => el.Serial === site.Meter,
+                );
 
-                const find = listMeter.find((el) => el.Serial === site.Meter);
+                if (filterMeter.length > 0) {
+                    for (const meter of filterMeter) {
+                        const obj = {
+                            _id: site._id,
+                            Location: site.Location,
+                            Marks: meter.Marks,
+                            Size: meter.Size,
+                            DateOfChange: site.DateOfBatteryChange,
+                            DescriptionOfChange: site.DescriptionOfChange,
+                            Company: site.Company,
+                            Status: site.Status,
+                        };
 
-                if (find !== undefined) {
-                    obj.Marks = find.Marks;
-                    obj.Size = find.Size;
+                        result.push(obj);
+                    }
+                } else {
+                    const obj = {
+                        _id: site._id,
+                        Location: site.Location,
+                        Marks: '',
+                        Size: 0,
+                        DateOfChange: site.DateOfBatteryChange,
+                        DescriptionOfChange: site.DescriptionOfChange,
+                        Company: site.Company,
+                        Status: site.Status,
+                    };
+
+                    result.push(obj);
                 }
-
-                result.push(obj);
             }
 
             return result;
@@ -1266,27 +1374,39 @@ module.exports = {
             const listTransmitter = await DeviceTransmitterModel.GetAll();
 
             for (const site of listSite) {
-                const obj = {
-                    _id: site._id,
-                    Location: site.Location,
-                    Marks: '',
-                    Size: 0,
-                    DateOfChange: site.DateOfTransmitterBatteryChange,
-                    DescriptionOfChange: site.DescriptionOfChange,
-                    Company: site.Company,
-                    Status: site.Status,
-                };
-
-                const find = listTransmitter.find(
+                const filterTransmitter = listTransmitter.filter(
                     (el) => el.Serial === site.Transmitter,
                 );
 
-                if (find !== undefined) {
-                    obj.Marks = find.Marks;
-                    obj.Size = find.Size;
-                }
+                if (filterTransmitter.length > 0) {
+                    for (const transmitter of filterTransmitter) {
+                        const obj = {
+                            _id: site._id,
+                            Location: site.Location,
+                            Marks: transmitter.Mark,
+                            Size: transmitter.Size,
+                            DateOfChange: site.DateOfTransmitterBatteryChange,
+                            DescriptionOfChange: site.DescriptionOfChange,
+                            Company: site.Company,
+                            Status: site.Status,
+                        };
 
-                result.push(obj);
+                        result.push(obj);
+                    }
+                } else {
+                    const obj = {
+                        _id: site._id,
+                        Location: site.Location,
+                        Marks: '',
+                        Size: 0,
+                        DateOfChange: site.DateOfTransmitterBatteryChange,
+                        DescriptionOfChange: site.DescriptionOfChange,
+                        Company: site.Company,
+                        Status: site.Status,
+                    };
+
+                    result.push(obj);
+                }
             }
 
             return result;
@@ -1309,23 +1429,37 @@ module.exports = {
             const listLogger = await DeviceLoggerModel.GetAll();
 
             for (const site of listSite) {
-                const obj = {
-                    _id: site._id,
-                    Location: site.Location,
-                    Marks: '',
-                    DateOfChange: site.DateOfLoggerBatteryChange,
-                    DescriptionOfChange: site.DescriptionOfChange,
-                    Company: site.Company,
-                    Status: site.Status,
-                };
+                const filterLogger = listLogger.filter(
+                    (el) => el.Serial === site.Logger,
+                );
 
-                const find = listLogger.find((el) => el.Serial === site.Logger);
+                if (filterLogger.length > 0) {
+                    for (const logger of filterLogger) {
+                        const obj = {
+                            _id: site._id,
+                            Location: site.Location,
+                            Marks: logger.Marks,
+                            DateOfChange: site.DateOfLoggerBatteryChange,
+                            DescriptionOfChange: site.DescriptionOfChange,
+                            Company: site.Company,
+                            Status: site.Status,
+                        };
 
-                if (find !== undefined) {
-                    obj.Marks = find.Marks;
+                        result.push(obj);
+                    }
+                } else {
+                    const obj = {
+                        _id: site._id,
+                        Location: site.Location,
+                        Marks: '',
+                        DateOfChange: site.DateOfLoggerBatteryChange,
+                        DescriptionOfChange: site.DescriptionOfChange,
+                        Company: site.Company,
+                        Status: site.Status,
+                    };
+
+                    result.push(obj);
                 }
-
-                result.push(obj);
             }
 
             return result;

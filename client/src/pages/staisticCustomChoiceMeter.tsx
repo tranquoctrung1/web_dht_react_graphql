@@ -252,122 +252,244 @@ const StatisticCustomChoiceMeterPage = () => {
             name: 'STT',
             selector: (row: any) => row.STT,
             sortable: true,
-            cellExport: (row: any) => row.STT,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+        STT
+    </div>`
+                    : row.STT,
             width: '80px',
         },
         {
             name: 'Số Seri',
             selector: (row: any) => row.Serial,
             sortable: true,
-            cellExport: (row: any) => row.Serial,
-            width: '150px',
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Số Seri
+</div>`
+                    : `<div style="mso-number-format:'\@'">
+                    ${row.Serial}
+            </div>`,
         },
         {
             name: 'Nhà SX',
             selector: (row: any) => row.Provider,
             sortable: true,
-            cellExport: (row: any) => row.Provider,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Nhà SX
+</div>`
+                    : row.Provider,
             width: '150px',
         },
         {
             name: 'Hiệu',
             selector: (row: any) => row.Marks,
             sortable: true,
-            cellExport: (row: any) => row.Marks,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Hiệu
+</div>`
+                    : row.Marks,
             width: '100px',
         },
         {
             name: 'Cỡ',
             selector: (row: any) => row.Size,
             sortable: true,
-            cellExport: (row: any) => row.Size,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Cỡ
+</div>`
+                    : row.Size,
             width: '100px',
         },
         {
             name: 'Model',
             selector: (row: any) => row.Model,
             sortable: true,
-            cellExport: (row: any) => row.Model,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Model
+</div>`
+                    : row.Model,
             width: '100px',
         },
         {
             name: 'Lắp đặt',
             selector: (row: any) => row.Installed,
             sortable: true,
-            cellExport: (row: any) => row.Installed,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Lắp đặt
+</div>`
+                    : row.Installed === true
+                    ? 'Y'
+                    : row.Installed === false
+                    ? 'N'
+                    : row.Installed,
             width: '100px',
-            format: (row: any) => (row.Installed == false ? 'N' : 'Y'),
+            format: (row: any) =>
+                row.Installed === true
+                    ? 'Y'
+                    : row.Installed === false
+                    ? 'N'
+                    : row.Installed,
         },
         {
             name: 'Mã vị trí',
             selector: (row: any) => row.SiteId,
             sortable: true,
-            cellExport: (row: any) => row.SiteId,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Mã vị trí
+    </div>`
+                    : `<div style="mso-number-format:'\@'">
+            ${row.SiteId}
+    </div>`,
             width: '150px',
         },
         {
             name: 'Vị trí',
             selector: (row: any) => row.Location,
             sortable: true,
-            cellExport: (row: any) => row.Location,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Vị trí
+</div>`
+                    : row.STT === ''
+                    ? `<div style="color: blue; font-weight: bold; font-size: 18px">
+                ${row.Location}
+                </div>`
+                    : row.Location,
             width: '300px',
         },
         {
             name: 'Ngày nhập kho',
             selector: (row: any) => row.ReceiptDate,
             sortable: true,
-            cellExport: (row: any) => row.ReceiptDate,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ngày nhập kho
+</div>`
+                    : convertTimeStampToDate(row.ReceiptDate),
             width: '100px',
-            format: (row: any) => convertTimeStampToDate(row.ReceiptDate),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày nhập kho'
+                    : convertTimeStampToDate(row.ReceiptDate),
         },
         {
             name: 'Ngày kiểm định',
             selector: (row: any) => row.AccreditedDate,
             sortable: true,
-            cellExport: (row: any) => row.AccreditedDate,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Ngày kiểm định
+</div>`
+                    : convertTimeStampToDate(row.AccreditedDate),
             width: '100px',
-            format: (row: any) => convertTimeStampToDate(row.AccreditedDate),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày kiểm định'
+                    : convertTimeStampToDate(row.AccreditedDate),
         },
         {
             name: 'Ngày hết hạn',
             selector: (row: any) => row.ExpiryDate,
             sortable: true,
-            cellExport: (row: any) => row.ExpiryDate,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Ngày hết hạn
+</div>`
+                    : convertTimeStampToDate(row.ExpiryDate),
             width: '100px',
-            format: (row: any) => convertTimeStampToDate(row.ExpiryDate),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày hết hạn'
+                    : convertTimeStampToDate(row.ExpiryDate),
         },
         {
             name: 'Trạng thái',
             selector: (row: any) => row.Status,
             sortable: true,
-            cellExport: (row: any) => row.Status,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Trạng thái
+</div>`
+                    : row.Status,
             width: '100px',
         },
         {
             name: 'Tình trạng',
             selector: (row: any) => row.SiteStatus,
             sortable: true,
-            cellExport: (row: any) => row.SiteStatus,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Tình trạng
+</div>`
+                    : row.SiteStatus,
             width: '100px',
         },
         {
             name: 'Quản lý',
             selector: (row: any) => row.SiteCompany,
             sortable: true,
-            cellExport: (row: any) => row.SiteCompany,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Quản lý
+</div>`
+                    : row.SiteCompany,
             width: '100px',
         },
         {
             name: 'Ghi chú',
             selector: (row: any) => row.Description,
             sortable: true,
-            cellExport: (row: any) => row.Description,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Ghi chú
+</div>`
+                    : row.Description,
+        },
+    ];
+
+    const conditionalRowStyles = [
+        {
+            when: (row: any) => row.STT === 'STT',
+            style: {
+                color: '#2980b9',
+                fontWeight: 'bold',
+            },
+        },
+        {
+            when: (row: any) => row.STT === '',
+            style: {
+                fontWeight: 'bolder',
+            },
         },
     ];
 
     const tableData = {
         columns,
         data,
+        fileName: 'Thống Kê Tùy Chọn Đồng Hồ',
     };
 
     const onViewClicked = () => {
@@ -437,6 +559,12 @@ const StatisticCustomChoiceMeterPage = () => {
                 //@ts-ignore
                 (el) => valueCompanies.indexOf(el.SiteCompany) !== -1,
             );
+        } else {
+            const t = [...listCompanies, ''];
+            temp = temp.filter(
+                //@ts-ignore
+                (el) => t.indexOf(el.SiteCompany) !== -1,
+            );
         }
 
         const result = [];
@@ -452,8 +580,46 @@ const StatisticCustomChoiceMeterPage = () => {
             result.push(obj);
         }
 
+        const objTitle = {
+            STT: '',
+            Serial: '',
+            Provider: '',
+            Marks: '',
+            Size: '',
+            Model: '',
+            Installed: '',
+            SiteId: '',
+            Location: 'Thống Kê Tùy Chọn Đồng Hồ',
+            ReceiptDate: '',
+            AccreditedDate: '',
+            ExpiryDate: '',
+            Status: '',
+            SiteStatus: '',
+            SiteCompany: '',
+            Description: '',
+        };
+
+        const obj = {
+            STT: 'STT',
+            Serial: 'Serial',
+            Provider: 'Nhà sản xuất',
+            Marks: 'Hiệu',
+            Size: 'Cỡ',
+            Model: 'Model',
+            Installed: 'Lắp đặt',
+            SiteId: 'Mã vị trí',
+            Location: 'Vị trí',
+            ReceiptDate: 'Ngày nhập kho',
+            AccreditedDate: 'Ngày kiểm định',
+            ExpiryDate: 'Ngày hết hạn',
+            Status: 'Trạng thái',
+            SiteStatus: 'Tình trạng',
+            SiteCompany: 'Quản lý',
+            Description: 'Ghi chú',
+        };
+
         //@ts-ignore
-        setData([...result]);
+        setData([objTitle, obj, ...result]);
     };
 
     return (
@@ -582,6 +748,8 @@ const StatisticCustomChoiceMeterPage = () => {
             <Col span={12} style={{ maxWidth: '99%' }}>
                 <DataTableExtensions {...tableData}>
                     <DataTable
+                        noHeader
+                        noTableHead
                         columns={columns}
                         data={data}
                         title={
@@ -597,6 +765,7 @@ const StatisticCustomChoiceMeterPage = () => {
                         pagination
                         highlightOnHover={true}
                         dense={false}
+                        conditionalRowStyles={conditionalRowStyles}
                     />
                 </DataTableExtensions>
             </Col>

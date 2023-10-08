@@ -15,6 +15,7 @@ import {
     checkAdminViewerRole,
     convertDateToString,
     calcSpace2Date,
+    convertTimeStampToDate,
 } from '../utils/utils';
 
 import { useEffect, useState } from 'react';
@@ -35,7 +36,7 @@ import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 
-import { IconArrowBadgeUpFilled, IconTemplateOff } from '@tabler/icons-react';
+import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 
 const StatisticMeterWorkPage = () => {
     const [changeData, setChangeData] = useState([]);
@@ -177,29 +178,31 @@ const StatisticMeterWorkPage = () => {
                     let t = res.data.GetStatisticMeterChangeByYearUsing;
 
                     const data = [];
+                    const tt = [...companies];
+                    const ttemp = [...status];
 
                     for (const item of t) {
                         if (item?.TakeoverDate !== null) {
                             data.push(item);
                         } else {
-                            if (valueCompanies.length > 0) {
-                                const index = valueCompanies.indexOf(
+                            //@ts-ignore
+                            const index = tt.filter(
+                                //@ts-ignore
+                                (el) => el.value === item.Company,
+                            );
+
+                            if (index.length > 0) {
+                                //@ts-ignore
+                                const index2 = ttemp.filter(
                                     //@ts-ignore
-                                    item.Company,
+                                    (el) => el.value === item.Status,
                                 );
 
-                                if (index !== -1) {
-                                    if (valueStatus.length > 0) {
-                                        const index2 = valueStatus.indexOf(
-                                            //@ts-ignore
-                                            item.Company,
-                                        );
-
-                                        if (index2 !== -1) {
-                                            data.push(item);
-                                        }
-                                    }
+                                if (index2.length > 0) {
+                                    data.push(item);
                                 }
+
+                                console.log();
                             }
                         }
                     }
@@ -226,18 +229,47 @@ const StatisticMeterWorkPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsTemplate]);
-
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
                             //@ts-ignore
                             time,
                         )} Có Thời Gian Thay Đồng Hồ >= ${timeUse} Năm`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )} Có Thời Gian Thay Đồng Hồ >= ${timeUse} Năm`,
+                        Marks: '',
+                        Size: '',
+                        Company: '',
+                        Status: '',
+                        DateOfChange: '',
+                        DateUsing: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        Company: 'Quản lý',
+                        Status: 'Trạng thái',
+                        DateOfChange: 'Ngày thay/ kiểm',
+                        DateUsing: 'Thời gian sử dụng',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsTemplate]);
                 }
             })
             .catch((err) => {
@@ -297,19 +329,47 @@ const StatisticMeterWorkPage = () => {
 
                         temp.push(obj);
                     }
-
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsTemplate]);
-
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
                             //@ts-ignore
                             time,
                         )} Có Thời Gian Thay Bộ Hiển Thị >= ${timeUse} Năm`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )} Có Thời Gian Thay Bộ Hiển Thị >= ${timeUse} Năm`,
+                        Marks: '',
+                        Size: '',
+                        Company: '',
+                        Status: '',
+                        DateOfChange: '',
+                        DateUsing: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        Company: 'Quản lý',
+                        Status: 'Trạng thái',
+                        DateOfChange: 'Ngày thay/ kiểm',
+                        DateUsing: 'Thời gian sử dụng',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsTemplate]);
                 }
             })
             .catch((err) => {
@@ -366,18 +426,47 @@ const StatisticMeterWorkPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsTemplate]);
-
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
                             //@ts-ignore
                             time,
                         )} Có Thời Gian Thay Logger >= ${timeUse} Năm`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )} Có Thời Gian Thay Logger >= ${timeUse} Năm`,
+                        Marks: '',
+                        Size: '',
+                        Company: '',
+                        Status: '',
+                        DateOfChange: '',
+                        DateUsing: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        Company: 'Quản lý',
+                        Status: 'Trạng thái',
+                        DateOfChange: 'Ngày thay/ kiểm',
+                        DateUsing: 'Thời gian sử dụng',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsTemplate]);
                 }
             })
             .catch((err) => {
@@ -435,18 +524,47 @@ const StatisticMeterWorkPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsTemplate]);
-
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
                             //@ts-ignore
                             time,
                         )} Có Thời Gian Ac quy >= ${timeUse} Năm`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )} Có Thời Gian Ac quy >= ${timeUse} Năm`,
+                        Marks: '',
+                        Size: '',
+                        Company: '',
+                        Status: '',
+                        DateOfChange: '',
+                        DateUsing: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        Company: 'Quản lý',
+                        Status: 'Trạng thái',
+                        DateOfChange: 'Ngày thay/ kiểm',
+                        DateUsing: 'Thời gian sử dụng',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsTemplate]);
                 }
             })
             .catch((err) => {
@@ -509,18 +627,47 @@ const StatisticMeterWorkPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsTemplate]);
-
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
                             //@ts-ignore
                             time,
                         )} Có Thời Gian Thay Pin Bộ Hiển Thị >= ${timeUse} Năm`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )} Có Thời Gian Thay Pin Bộ Hiển Thị >= ${timeUse} Năm`,
+                        Marks: '',
+                        Size: '',
+                        Company: '',
+                        Status: '',
+                        DateOfChange: '',
+                        DateUsing: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        Company: 'Quản lý',
+                        Status: 'Trạng thái',
+                        DateOfChange: 'Ngày thay/ kiểm',
+                        DateUsing: 'Thời gian sử dụng',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsTemplate]);
                 }
             })
             .catch((err) => {
@@ -580,18 +727,47 @@ const StatisticMeterWorkPage = () => {
                         temp.push(obj);
                     }
 
-                    //@ts-ignore
-                    setData([...temp]);
-
-                    //@ts-ignore
-                    setColumn([...columnsTemplate]);
-
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
                             //@ts-ignore
                             time,
                         )} Có Thời Gian Thay Pin Logger >= ${timeUse} Năm`,
                     );
+
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
+                            //@ts-ignore
+                            time,
+                        )} Có Thời Gian Thay Pin Logger >= ${timeUse} Năm`,
+                        Marks: '',
+                        Size: '',
+                        Company: '',
+                        Status: '',
+                        DateOfChange: '',
+                        DateUsing: '',
+                        DescriptionOfChange: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        Company: 'Quản lý',
+                        Status: 'Trạng thái',
+                        DateOfChange: 'Ngày thay/ kiểm',
+                        DateUsing: 'Thời gian sử dụng',
+                        DescriptionOfChange: 'Ghi chú',
+                    };
+
+                    //@ts-ignore
+                    setData([objTitle, obj, ...temp]);
+
+                    //@ts-ignore
+                    setColumn([...columnsTemplate]);
                 }
             })
             .catch((err) => {
@@ -628,77 +804,153 @@ const StatisticMeterWorkPage = () => {
             name: 'STT',
             selector: (row: any) => row.STT,
             sortable: true,
-            cellExport: (row: any) => row.STT,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+STT
+</div>`
+                    : row.STT,
             width: '80px',
         },
         {
             name: 'Mã vị trí',
             selector: (row: any) => row._id,
             sortable: true,
-            cellExport: (row: any) => row._id,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+Mã vị trí
+</div>`
+                    : `<div style="mso-number-format:'\@'">
+${row._id}
+</div>`,
             width: '150px',
         },
         {
             name: 'Vị trí',
             selector: (row: any) => row.Location,
             sortable: true,
-            cellExport: (row: any) => row.Location,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+Vị trí
+</div>`
+                    : row.STT === ''
+                    ? `<div style="color: blue; font-weight: bold; font-size: 18px">
+${row.Location}
+</div>`
+                    : row.Location,
             width: '300px',
         },
         {
             name: 'Hiệu',
             selector: (row: any) => row.Marks,
             sortable: true,
-            cellExport: (row: any) => row.Marks,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Hiệu
+</div>`
+                    : row.Marks,
             width: '100px',
         },
         {
             name: 'Cỡ',
             selector: (row: any) => row.Size,
             sortable: true,
-            cellExport: (row: any) => row.Size,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Cỡ
+</div>`
+                    : row.Size,
             width: '100px',
         },
         {
             name: 'Quản lý',
             selector: (row: any) => row.Company,
             sortable: true,
-            cellExport: (row: any) => row.Company,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Quản lý
+</div>`
+                    : row.Company,
             width: '100px',
         },
         {
             name: 'Trạng thái',
             selector: (row: any) => row.Status,
             sortable: true,
-            cellExport: (row: any) => row.Status,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Trạng thái
+</div>`
+                    : row.Status,
             width: '100px',
         },
         {
             name: 'Ngày thay/ kiểm',
             selector: (row: any) => row.DateOfChange,
             sortable: true,
-            cellExport: (row: any) => row.DateOfChange,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Ngày thay/ kiểm
+</div>`
+                    : convertTimeStampToDate(row.DateOfChange),
             width: '100px',
-            format: (row: any) => convertDateToString(row.DateOfChange),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày thay/ kiểm'
+                    : convertTimeStampToDate(row.DateOfChange),
         },
         {
             name: 'Thời gian sử dụng',
             selector: (row: any) => row.DateUsing,
             sortable: true,
-            cellExport: (row: any) => row.DateUsing,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Thời gian sử dụng
+</div>`
+                    : row.DateUsing,
             width: '100px',
         },
         {
             name: 'Ghi chú',
             selector: (row: any) => row.DescriptionOfChange,
             sortable: true,
-            cellExport: (row: any) => row.DescriptionOfChange,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Ghi chú
+</div>`
+                    : row.DescriptionOfChange,
+        },
+    ];
+
+    const conditionalRowStyles = [
+        {
+            when: (row: any) => row.STT === 'STT',
+            style: {
+                color: '#2980b9',
+                fontWeight: 'bold',
+            },
+        },
+        {
+            when: (row: any) => row.STT === '',
+            style: {
+                fontWeight: 'bolder',
+            },
         },
     ];
 
     const tableData = {
         columns,
         data,
+        fileName: title,
     };
 
     return (
@@ -774,6 +1026,8 @@ const StatisticMeterWorkPage = () => {
             <Col span={12} style={{ maxWidth: '99%' }}>
                 <DataTableExtensions {...tableData}>
                     <DataTable
+                        noHeader
+                        noTableHead
                         columns={columns}
                         data={data}
                         title={
@@ -787,6 +1041,7 @@ const StatisticMeterWorkPage = () => {
                         pagination
                         highlightOnHover={true}
                         dense={false}
+                        conditionalRowStyles={conditionalRowStyles}
                     />
                 </DataTableExtensions>
             </Col>

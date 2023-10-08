@@ -39,78 +39,161 @@ const StatisticAccreditationAndExpiryDatePage = () => {
             name: 'STT',
             selector: (row: any) => row.STT,
             sortable: true,
-            cellExport: (row: any) => row.STT,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+STT
+</div>`
+                    : row.STT,
             width: '80px',
         },
         {
             name: 'Mã vị trí',
             selector: (row: any) => row._id,
             sortable: true,
-            cellExport: (row: any) => row._id,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+Mã vị trí
+</div>`
+                    : `<div style="mso-number-format:'\@'">
+${row._id}
+</div>`,
             width: '150px',
         },
         {
             name: 'Vị trí',
             selector: (row: any) => row.Location,
             sortable: true,
-            cellExport: (row: any) => row.Location,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+Vị trí
+</div>`
+                    : row.STT === ''
+                    ? `<div style="color: blue; font-weight: bold; font-size: 18px">
+${row.Location}
+</div>`
+                    : row.Location,
             width: '300px',
         },
         {
             name: 'Hiệu',
             selector: (row: any) => row.Marks,
             sortable: true,
-            cellExport: (row: any) => row.Marks,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Hiệu
+</div>`
+                    : row.Marks,
             width: '100px',
         },
         {
             name: 'Cở',
             selector: (row: any) => row.Size,
             sortable: true,
-            cellExport: (row: any) => row.Size,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Cỡ
+</div>`
+                    : row.Size,
             width: '100px',
         },
         {
             name: 'Giấy kiểm định',
             selector: (row: any) => row.AccreditationDocument,
             sortable: true,
-            cellExport: (row: any) => row.AccreditationDocument,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+            Giấy kiểm định
+</div>`
+                    : row.AccreditationDocument,
             width: '100px',
         },
         {
             name: 'Ngày thay/ kiểm ',
             selector: (row: any) => row.DateOfChange,
             sortable: true,
-            cellExport: (row: any) => row.DateOfChange,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Ngày thay/ kiểm
+</div>`
+                    : convertTimeStampToDate(row.DateOfChange),
             width: '100px',
-            format: (row: any) => convertTimeStampToDate(row.DateOfChange),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày thay/ kiểm'
+                    : convertTimeStampToDate(row.DateOfChange),
         },
         {
             name: 'Ngày hết hiệu lực KĐ',
             selector: (row: any) => row.ExpiryDate,
             sortable: true,
-            cellExport: (row: any) => row.ExpiryDate,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Ngày hết hiệu lực KĐ
+</div>`
+                    : convertTimeStampToDate(row.ExpiryDate),
             width: '100px',
-            format: (row: any) => convertTimeStampToDate(row.ExpiryDate),
+            format: (row: any) =>
+                row.STT === 'STT'
+                    ? 'Ngày hết hiệu lực KĐ'
+                    : convertTimeStampToDate(row.ExpiryDate),
         },
         {
             name: 'Thời gian sử dụng',
-            selector: (row: any) => '',
+            selector: (row: any) => row.TimeUse,
             sortable: true,
-            cellExport: (row: any) => '',
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+                    Thời gian sử dụng
+</div>`
+                    : row.TimeUse,
             width: '100px',
         },
         {
             name: 'Ghi chú',
             selector: (row: any) => row.Description,
             sortable: true,
-            cellExport: (row: any) => row.Description,
+            cellExport: (row: any) =>
+                row.STT === 'STT'
+                    ? `<div style="color: blue; font-weight: bold;">
+    Ghi chú
+</div>`
+                    : row.Description,
+        },
+    ];
+
+    const conditionalRowStyles = [
+        {
+            when: (row: any) => row.STT === 'STT',
+            style: {
+                color: '#2980b9',
+                fontWeight: 'bold',
+            },
+        },
+        {
+            when: (row: any) => row.STT === '',
+            style: {
+                fontWeight: 'bolder',
+            },
         },
     ];
 
     const tableData = {
         columns,
         data,
+        fileName: `Đồng Hồ Tổng Hết Hạn Kiểm Định (Đến Ngày 
+            ${
+                //@ts-ignore
+                convertDateToString(time)
+            })`,
     };
 
     const onViewClicked = () => {
@@ -126,8 +209,47 @@ const StatisticAccreditationAndExpiryDatePage = () => {
                     res?.data?.GetStatisticAccreditationAndExpiryDate !==
                         undefined
                 ) {
-                    //@ts-ignore
+                    const objTitle = {
+                        STT: '',
+                        _id: '',
+                        Location: `Đồng Hồ Tổng Hết Hạn Kiểm Định (Đến Ngày 
+                            ${
+                                //@ts-ignore
+                                convertDateToString(time)
+                            }
+                        )`,
+                        Marks: '',
+                        Size: '',
+                        AccreditationDocument: '',
+                        DateOfChange: '',
+                        ExpiryDate: '',
+                        TimeUse: '',
+                        Description: '',
+                    };
+
+                    const obj = {
+                        STT: 'STT',
+                        _id: 'Mã vị trí',
+                        Location: 'Vị trí',
+                        Marks: 'Hiệu',
+                        Size: 'Cở',
+                        AccreditationDocument: 'Giấy kiểm định',
+                        DateOfChange: 'Ngày thay/ kiểm ',
+                        ExpiryDate: 'Ngày hết hiệu lực KĐ',
+                        TimeUse: '',
+                        Description: 'Ghi chú',
+                    };
+
+                    console.log(
+                        res.data.GetStatisticAccreditationAndExpiryDate,
+                    );
+
                     setData([
+                        //@ts-ignore
+                        objTitle,
+                        //@ts-ignore
+                        obj,
+                        //@ts-ignore
                         ...res.data.GetStatisticAccreditationAndExpiryDate,
                     ]);
                 }
@@ -164,6 +286,8 @@ const StatisticAccreditationAndExpiryDatePage = () => {
             <Col span={12} style={{ maxWidth: '99%' }}>
                 <DataTableExtensions {...tableData}>
                     <DataTable
+                        noHeader
+                        noTableHead
                         columns={columns}
                         data={data}
                         title={
@@ -184,6 +308,7 @@ const StatisticAccreditationAndExpiryDatePage = () => {
                         pagination
                         highlightOnHover={true}
                         dense={false}
+                        conditionalRowStyles={conditionalRowStyles}
                     />
                 </DataTableExtensions>
             </Col>

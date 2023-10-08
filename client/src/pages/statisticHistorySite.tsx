@@ -219,10 +219,12 @@ const StatisticHistorySitePage = () => {
     const renderBodyMeter = (data: any) => {
         const result = [];
 
+        let count = 1;
+
         for (const item of data) {
             const content = (
                 <tr key={item.OldSerial + item.STT}>
-                    <td>{item.STT}</td>
+                    <td>{count++}</td>
                     <td>{convertTimeStampToDate(item.DateChanged)}</td>
                     <td>{item.OldSerial}</td>
                     <td>{item.OldProvider}</td>
@@ -250,10 +252,12 @@ const StatisticHistorySitePage = () => {
     const renderBodyTransmitter = (data: any) => {
         const result = [];
 
+        let count = 1;
+
         for (const item of data) {
             const content = (
                 <tr key={item.OldSerial + item.STT}>
-                    <td>{item.STT}</td>
+                    <td>{count++}</td>
                     <td>{convertTimeStampToDate(item.DateChanged)}</td>
                     <td>{item.OldSerial}</td>
                     <td>{item.OldProvider}</td>
@@ -280,10 +284,12 @@ const StatisticHistorySitePage = () => {
     const renderBodyLogger = (data: any) => {
         const result = [];
 
+        let count = 1;
+
         for (const item of data) {
             const content = (
                 <tr key={item.OldSerial + item.STT}>
-                    <td>{item.STT}</td>
+                    <td>{count++}</td>
                     <td>{convertTimeStampToDate(item.DateChanged)}</td>
                     <td>{item.OldSerial}</td>
                     <td>{item.OldProvider}</td>

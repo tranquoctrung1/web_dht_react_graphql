@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react';
 // @ts-ignore comment
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
-import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
-
 import { useGetStatisticMarkSizeXnManagerLazyQuery } from '../__generated__/graphql';
 
 import { checkAdminViewerRole } from '../utils/utils';
+
+import uuid from 'react-uuid';
 
 const onViewClicked = () => {};
 
@@ -48,9 +48,11 @@ const StatisticMarkSizePage = () => {
 
         for (const item of data[0].Marks[0].Models[0].Sizes[0].Companies) {
             if (item.Company !== 'Total') {
-                tempRowHeader.push(<th key={item.Company}>{item.Company}</th>);
+                tempRowHeader.push(
+                    <th key={item.Company + uuid()}>{item.Company}</th>,
+                );
             } else {
-                tempRowHeader.push(<th key={item.Company}>Tổng</th>);
+                tempRowHeader.push(<th key={item.Company + uuid()}>Tổng</th>);
             }
         }
 
@@ -114,7 +116,9 @@ const StatisticMarkSizePage = () => {
                         for (let i = 0; i < size.Companies.length; i++) {
                             rowCompany.push(
                                 <td
-                                    key={`${model.Model}_${size.Size}_${size.Companies[i].Company}`}
+                                    key={`${model.Model}_${size.Size}_${
+                                        size.Companies[i].Company + uuid()
+                                    }`}
                                 >
                                     {size.Companies[i].Amount}
                                 </td>,
@@ -122,7 +126,7 @@ const StatisticMarkSizePage = () => {
                         }
 
                         const content = (
-                            <tr key={`${model.Model}_${size.Size}`}>
+                            <tr key={`${model.Model}_${size.Size + uuid()}`}>
                                 <td>{provider.Provider}</td>
                                 <td>{mark.Mark}</td>
                                 <td>{model.Model}</td>
@@ -139,12 +143,14 @@ const StatisticMarkSizePage = () => {
             const rowTotalProvider = [];
             for (const t of totalProvider) {
                 rowTotalProvider.push(
-                    <td key={`total_${provider.Provider}`}>{t.value}</td>,
+                    <td key={`total_${provider.Provider + uuid()}`}>
+                        {t.value}
+                    </td>,
                 );
             }
 
             const totalContent = (
-                <tr key={provider.Provider}>
+                <tr key={provider.Provider + uuid()}>
                     <td colSpan={4}>Tổng {provider.Provider}</td>
                     {rowTotalProvider}
                 </tr>
@@ -155,11 +161,11 @@ const StatisticMarkSizePage = () => {
 
         const rowTotal = [];
         for (const t of total) {
-            rowTotal.push(<td key={`total`}>{t.value}</td>);
+            rowTotal.push(<td key={`total ${uuid()}`}>{t.value}</td>);
         }
 
         const totalContent = (
-            <tr>
+            <tr key={uuid()}>
                 <td colSpan={4}>Tổng Cộng</td>
                 {rowTotal}
             </tr>
@@ -208,7 +214,7 @@ const StatisticMarkSizePage = () => {
                                 id="table-xls"
                                 className="btn-export"
                                 table="tableStatistic"
-                                filename={`Thống kê theo hiệu cở`}
+                                filename={`Thống kê theo hiệu cở Xí nghiệp quản lý`}
                                 sheet="tableStatistic"
                                 buttonText="Xuất Excel"
                             />

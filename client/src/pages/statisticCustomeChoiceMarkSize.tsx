@@ -27,7 +27,7 @@ import {
 // @ts-ignore comment
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
-import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
+import uuid from 'react-uuid';
 
 import {
     checkAdminViewerRole,
@@ -298,11 +298,22 @@ const StatisticCustomChoiceMarkSizePage = () => {
                 //@ts-ignore
                 (el) => valueMeterModel.indexOf(el.Model) !== -1,
             );
+        } else {
+            temp = temp.filter(
+                //@ts-ignore
+                (el) => listDataMeterModel.indexOf(el.Model) !== -1,
+            );
         }
         if (valueCompanies.length > 0) {
             temp = temp.filter(
                 //@ts-ignore
                 (el) => valueCompanies.indexOf(el.Company) !== -1,
+            );
+        } else {
+            const t = [...listCompanies, ''];
+            temp = temp.filter(
+                //@ts-ignore
+                (el) => t.indexOf(el.Company) !== -1,
             );
         }
         if (valueSiteStatus.length > 0) {
@@ -329,6 +340,23 @@ const StatisticCustomChoiceMarkSizePage = () => {
                         el.IstDistributionCompany,
                     ) !== -1 ||
                     valueCalcCompanies.indexOf(
+                        //@ts-ignore
+                        el.QndDistributionCompany,
+                    ) !== -1,
+            );
+        } else {
+            const t = [...listCompanies, ''];
+            temp = temp.filter(
+                (el) =>
+                    t.indexOf(
+                        //@ts-ignore
+                        el.ProductionCompany,
+                    ) !== -1 ||
+                    t.indexOf(
+                        //@ts-ignore
+                        el.IstDistributionCompany,
+                    ) !== -1 ||
+                    t.indexOf(
                         //@ts-ignore
                         el.QndDistributionCompany,
                     ) !== -1,
@@ -387,6 +415,12 @@ const StatisticCustomChoiceMarkSizePage = () => {
                 (el) =>
                     //@ts-ignore
                     valueDataMeterAcc.indexOf(el.AccreditationType) !== -1,
+            );
+        } else {
+            temp = temp.filter(
+                (el) =>
+                    //@ts-ignore
+                    listDataMeterAcc.indexOf(el.AccreditationType) !== -1,
             );
         }
         if (valueApprovaled.length > 0) {
@@ -467,7 +501,7 @@ const StatisticCustomChoiceMarkSizePage = () => {
                             ],
                         };
 
-                        result.push(obj);
+                        findProvider.Marks.push(obj);
 
                         result = updateAmoutSizeForMark(result, site);
                     }
@@ -508,9 +542,11 @@ const StatisticCustomChoiceMarkSizePage = () => {
 
         for (const item of data[0].Marks[0].Companies) {
             if (item.Company !== 'Total') {
-                tempRowHeader.push(<th key={item.Company}>{item.Company}</th>);
+                tempRowHeader.push(
+                    <th key={item.Company + uuid()}>{item.Company}</th>,
+                );
             } else {
-                tempRowHeader.push(<th key={item.Company}>Tổng</th>);
+                tempRowHeader.push(<th key={item.Company + uuid()}>Tổng</th>);
             }
         }
 
@@ -529,44 +565,42 @@ const StatisticCustomChoiceMarkSizePage = () => {
         for (const provider of data) {
             const totalProvider = [];
             if (provider?.Marks !== undefined) {
-                for (let i = 0; i < provider.Marks[0].Companies.length; i++) {
-                    const mark = provider.Marks[0];
-
-                    if (
-                        //@ts-ignore
-                        totalProvider[i] === undefined ||
-                        //@ts-ignore
-                        totalProvider[i] === null
-                    ) {
-                        const obj = {
-                            value: mark.Companies[i].Amount,
-                        };
-                        totalProvider.push(obj);
-                    } else {
-                        totalProvider[i].value += mark.Companies[i].Amount;
-                    }
-
-                    if (
-                        //@ts-ignore
-                        total[i] === undefined ||
-                        //@ts-ignore
-                        total[i] === null
-                    ) {
-                        const obj = {
-                            value: mark.Companies[i].Amount,
-                        };
-                        total.push(obj);
-                    } else {
-                        total[i].value += mark.Companies[i].Amount;
-                    }
-                }
-
                 for (const mark of provider.Marks) {
                     const rowCompany = [];
                     for (let i = 0; i < mark.Companies.length; i++) {
+                        if (
+                            //@ts-ignore
+                            totalProvider[i] === undefined ||
+                            //@ts-ignore
+                            totalProvider[i] === null
+                        ) {
+                            const obj = {
+                                value: mark.Companies[i].Amount,
+                            };
+                            totalProvider.push(obj);
+                        } else {
+                            totalProvider[i].value += mark.Companies[i].Amount;
+                        }
+
+                        if (
+                            //@ts-ignore
+                            total[i] === undefined ||
+                            //@ts-ignore
+                            total[i] === null
+                        ) {
+                            const obj = {
+                                value: mark.Companies[i].Amount,
+                            };
+                            total.push(obj);
+                        } else {
+                            total[i].value += mark.Companies[i].Amount;
+                        }
+
                         rowCompany.push(
                             <td
-                                key={`${mark.Mark}_${mark.Companies[i].Company}`}
+                                key={`${mark.Mark}_${
+                                    mark.Companies[i].Company
+                                } ${uuid()}`}
                             >
                                 {mark.Companies[i].Amount}
                             </td>,
@@ -574,7 +608,7 @@ const StatisticCustomChoiceMarkSizePage = () => {
                     }
 
                     const content = (
-                        <tr key={`${mark.mark}`}>
+                        <tr key={`${mark.mark} ${uuid()}`}>
                             <td>{provider.Provider}</td>
                             <td>{mark.Mark}</td>
                             {rowCompany}
@@ -587,12 +621,14 @@ const StatisticCustomChoiceMarkSizePage = () => {
                 const rowTotalProvider = [];
                 for (const t of totalProvider) {
                     rowTotalProvider.push(
-                        <td key={`total_${provider.Provider}`}>{t.value}</td>,
+                        <td key={`total_${provider.Provider} ${uuid()}`}>
+                            {t.value}
+                        </td>,
                     );
                 }
 
                 const totalContent = (
-                    <tr key={provider.Provider}>
+                    <tr key={provider.Provider + uuid()}>
                         <td colSpan={2}>Tổng {provider.Provider}</td>
                         {rowTotalProvider}
                     </tr>
@@ -604,11 +640,11 @@ const StatisticCustomChoiceMarkSizePage = () => {
 
         const rowTotal = [];
         for (const t of total) {
-            rowTotal.push(<td key={`total`}>{t.value}</td>);
+            rowTotal.push(<td key={`total ${uuid()}`}>{t.value}</td>);
         }
 
         const totalContent = (
-            <tr>
+            <tr key={uuid()}>
                 <td colSpan={2}>Tổng Cộng</td>
                 {rowTotal}
             </tr>
@@ -708,9 +744,11 @@ const StatisticCustomChoiceMarkSizePage = () => {
 
         for (const item of data[0].Companies) {
             if (item.Company !== 'Total') {
-                tempRowHeader.push(<th key={item.Company}>{item.Company}</th>);
+                tempRowHeader.push(
+                    <th key={item.Company + uuid()}>{item.Company}</th>,
+                );
             } else {
-                tempRowHeader.push(<th key={item.Company}>Tổng</th>);
+                tempRowHeader.push(<th key={item.Company + uuid()}>Tổng</th>);
             }
         }
 
@@ -747,14 +785,14 @@ const StatisticCustomChoiceMarkSizePage = () => {
             const rowSize = [];
             for (let i = 0; i < size.Companies.length; i++) {
                 rowSize.push(
-                    <td key={`${size.Companies[i].Company}`}>
+                    <td key={`${size.Companies[i].Company} ${uuid()}`}>
                         {size.Companies[i].Amount}
                     </td>,
                 );
             }
 
             const content = (
-                <tr key={`${size.Size}`}>
+                <tr key={`${size.Size} ${uuid()}`}>
                     <td>{size.Size}</td>
                     {rowSize}
                 </tr>
@@ -765,11 +803,11 @@ const StatisticCustomChoiceMarkSizePage = () => {
 
         const rowTotal = [];
         for (const t of total) {
-            rowTotal.push(<td key={`total`}>{t.value}</td>);
+            rowTotal.push(<td key={`total ${uuid()}`}>{t.value}</td>);
         }
 
         const totalContent = (
-            <tr>
+            <tr key={uuid()}>
                 <td colSpan={1}>Tổng Cộng</td>
                 {rowTotal}
             </tr>
@@ -1040,9 +1078,11 @@ const StatisticCustomChoiceMarkSizePage = () => {
 
         for (const item of data[0].Marks[0].Models[0].Sizes[0].Companies) {
             if (item.Company !== 'Total') {
-                tempRowHeader.push(<th key={item.Company}>{item.Company}</th>);
+                tempRowHeader.push(
+                    <th key={item.Company + uuid()}>{item.Company}</th>,
+                );
             } else {
-                tempRowHeader.push(<th key={item.Company}>Tổng</th>);
+                tempRowHeader.push(<th key={item.Company + uuid()}>Tổng</th>);
             }
         }
 
@@ -1106,7 +1146,9 @@ const StatisticCustomChoiceMarkSizePage = () => {
                         for (let i = 0; i < size.Companies.length; i++) {
                             rowCompany.push(
                                 <td
-                                    key={`${model.Model}_${size.Size}_${size.Companies[i].Company}`}
+                                    key={`${model.Model}_${size.Size}_${
+                                        size.Companies[i].Company + uuid()
+                                    }`}
                                 >
                                     {size.Companies[i].Amount}
                                 </td>,
@@ -1114,7 +1156,7 @@ const StatisticCustomChoiceMarkSizePage = () => {
                         }
 
                         const content = (
-                            <tr key={`${model.Model}_${size.Size}`}>
+                            <tr key={`${model.Model}_${size.Size + uuid()}`}>
                                 <td>{provider.Provider}</td>
                                 <td>{mark.Mark}</td>
                                 <td>{model.Model}</td>
@@ -1131,12 +1173,14 @@ const StatisticCustomChoiceMarkSizePage = () => {
             const rowTotalProvider = [];
             for (const t of totalProvider) {
                 rowTotalProvider.push(
-                    <td key={`total_${provider.Provider}`}>{t.value}</td>,
+                    <td key={`total_${provider.Provider + uuid()}`}>
+                        {t.value}
+                    </td>,
                 );
             }
 
             const totalContent = (
-                <tr key={provider.Provider}>
+                <tr key={provider.Provider + uuid()}>
                     <td colSpan={4}>Tổng {provider.Provider}</td>
                     {rowTotalProvider}
                 </tr>
@@ -1147,11 +1191,11 @@ const StatisticCustomChoiceMarkSizePage = () => {
 
         const rowTotal = [];
         for (const t of total) {
-            rowTotal.push(<td key={`total`}>{t.value}</td>);
+            rowTotal.push(<td key={`total ${uuid()}`}>{t.value}</td>);
         }
 
         const totalContent = (
-            <tr>
+            <tr key={uuid()}>
                 <td colSpan={4}>Tổng Cộng</td>
                 {rowTotal}
             </tr>
