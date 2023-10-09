@@ -27,8 +27,24 @@ module.exports = {
         InsertDataManual: async (parent, { dataManual }, context, info) => {
             return await DataManualModel.Insert(dataManual);
         },
+        InsertIndexDataManual: async (
+            parent,
+            { dataManual },
+            context,
+            info,
+        ) => {
+            return await DataManualModel.InsertIndex(dataManual);
+        },
         UpdateDataManual: async (parent, { dataManual }, context, info) => {
             return await DataManualModel.Update(dataManual);
+        },
+        UpdateIndexDataManual: async (
+            parent,
+            { dataManual },
+            context,
+            info,
+        ) => {
+            return await DataManualModel.UpdateIndex(dataManual);
         },
         DeleteDataManual: async (parent, { dataManual }, context, info) => {
             return await DataManualModel.Delete(dataManual);

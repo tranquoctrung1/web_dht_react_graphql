@@ -12,7 +12,6 @@ import {
     convertDateToPeriod,
     convertMilisecondToStringDate,
 } from '../utils/utils';
-import { useEffect } from 'react';
 
 const AveragePrecious = () => {
     const currentCompanyPreciousState = useSelector(

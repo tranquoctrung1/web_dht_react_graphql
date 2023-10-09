@@ -577,6 +577,7 @@ export type Mutation = {
   InsertHistorySiteLogger?: Maybe<Scalars['String']>;
   InsertHistorySiteMeter?: Maybe<Scalars['String']>;
   InsertHistorySiteTransmitter?: Maybe<Scalars['String']>;
+  InsertIndexDataManual?: Maybe<Scalars['Int']>;
   InsertLogger?: Maybe<Scalars['String']>;
   InsertMeter?: Maybe<Scalars['String']>;
   InsertPrecious?: Maybe<IdOutput>;
@@ -591,6 +592,7 @@ export type Mutation = {
   UpdateHistorySiteLogger?: Maybe<Scalars['Int']>;
   UpdateHistorySiteMeter?: Maybe<Scalars['Int']>;
   UpdateHistorySiteTransmitter?: Maybe<Scalars['Int']>;
+  UpdateIndexDataManual?: Maybe<Scalars['Int']>;
   UpdateLogger?: Maybe<Scalars['Int']>;
   UpdateLoggerInstall?: Maybe<Scalars['Int']>;
   UpdateMeter?: Maybe<Scalars['Int']>;
@@ -702,6 +704,11 @@ export type MutationInsertHistorySiteTransmitterArgs = {
 };
 
 
+export type MutationInsertIndexDataManualArgs = {
+  dataManual?: InputMaybe<DataManualInsertInput>;
+};
+
+
 export type MutationInsertLoggerArgs = {
   logger?: InputMaybe<DeviceLoggerInsertInput>;
 };
@@ -769,6 +776,11 @@ export type MutationUpdateHistorySiteMeterArgs = {
 
 export type MutationUpdateHistorySiteTransmitterArgs = {
   history?: InputMaybe<HistorySiteTransmitterUpdateInput>;
+};
+
+
+export type MutationUpdateIndexDataManualArgs = {
+  dataManual?: InputMaybe<DataManualUpdateInput>;
 };
 
 
@@ -2981,6 +2993,13 @@ export type InsertHistorySiteTransmitterMutationVariables = Exact<{
 
 export type InsertHistorySiteTransmitterMutation = { __typename?: 'Mutation', InsertHistorySiteTransmitter?: string | null };
 
+export type InsertIndexDataManualMutationVariables = Exact<{
+  dataManual?: InputMaybe<DataManualInsertInput>;
+}>;
+
+
+export type InsertIndexDataManualMutation = { __typename?: 'Mutation', InsertIndexDataManual?: number | null };
+
 export type InsertPreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousInput>;
 }>;
@@ -3132,6 +3151,13 @@ export type UpdateHistorySiteTransmitterMutationVariables = Exact<{
 
 
 export type UpdateHistorySiteTransmitterMutation = { __typename?: 'Mutation', UpdateHistorySiteTransmitter?: number | null };
+
+export type UpdateIndexDataManualMutationVariables = Exact<{
+  dataManual?: InputMaybe<DataManualUpdateInput>;
+}>;
+
+
+export type UpdateIndexDataManualMutation = { __typename?: 'Mutation', UpdateIndexDataManual?: number | null };
 
 export type UpdateMeterInstallMutationVariables = Exact<{
   meter?: InputMaybe<DeviceMeterInstallUpdateInput>;
@@ -8348,6 +8374,37 @@ export function useInsertHistorySiteTransmitterMutation(baseOptions?: Apollo.Mut
 export type InsertHistorySiteTransmitterMutationHookResult = ReturnType<typeof useInsertHistorySiteTransmitterMutation>;
 export type InsertHistorySiteTransmitterMutationResult = Apollo.MutationResult<InsertHistorySiteTransmitterMutation>;
 export type InsertHistorySiteTransmitterMutationOptions = Apollo.BaseMutationOptions<InsertHistorySiteTransmitterMutation, InsertHistorySiteTransmitterMutationVariables>;
+export const InsertIndexDataManualDocument = gql`
+    mutation InsertIndexDataManual($dataManual: DataManualInsertInput) {
+  InsertIndexDataManual(dataManual: $dataManual)
+}
+    `;
+export type InsertIndexDataManualMutationFn = Apollo.MutationFunction<InsertIndexDataManualMutation, InsertIndexDataManualMutationVariables>;
+
+/**
+ * __useInsertIndexDataManualMutation__
+ *
+ * To run a mutation, you first call `useInsertIndexDataManualMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertIndexDataManualMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertIndexDataManualMutation, { data, loading, error }] = useInsertIndexDataManualMutation({
+ *   variables: {
+ *      dataManual: // value for 'dataManual'
+ *   },
+ * });
+ */
+export function useInsertIndexDataManualMutation(baseOptions?: Apollo.MutationHookOptions<InsertIndexDataManualMutation, InsertIndexDataManualMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertIndexDataManualMutation, InsertIndexDataManualMutationVariables>(InsertIndexDataManualDocument, options);
+      }
+export type InsertIndexDataManualMutationHookResult = ReturnType<typeof useInsertIndexDataManualMutation>;
+export type InsertIndexDataManualMutationResult = Apollo.MutationResult<InsertIndexDataManualMutation>;
+export type InsertIndexDataManualMutationOptions = Apollo.BaseMutationOptions<InsertIndexDataManualMutation, InsertIndexDataManualMutationVariables>;
 export const InsertPreciousDocument = gql`
     mutation InsertPrecious($precious: PreciousInput) {
   InsertPrecious(precious: $precious) {
@@ -9086,6 +9143,37 @@ export function useUpdateHistorySiteTransmitterMutation(baseOptions?: Apollo.Mut
 export type UpdateHistorySiteTransmitterMutationHookResult = ReturnType<typeof useUpdateHistorySiteTransmitterMutation>;
 export type UpdateHistorySiteTransmitterMutationResult = Apollo.MutationResult<UpdateHistorySiteTransmitterMutation>;
 export type UpdateHistorySiteTransmitterMutationOptions = Apollo.BaseMutationOptions<UpdateHistorySiteTransmitterMutation, UpdateHistorySiteTransmitterMutationVariables>;
+export const UpdateIndexDataManualDocument = gql`
+    mutation UpdateIndexDataManual($dataManual: DataManualUpdateInput) {
+  UpdateIndexDataManual(dataManual: $dataManual)
+}
+    `;
+export type UpdateIndexDataManualMutationFn = Apollo.MutationFunction<UpdateIndexDataManualMutation, UpdateIndexDataManualMutationVariables>;
+
+/**
+ * __useUpdateIndexDataManualMutation__
+ *
+ * To run a mutation, you first call `useUpdateIndexDataManualMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateIndexDataManualMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateIndexDataManualMutation, { data, loading, error }] = useUpdateIndexDataManualMutation({
+ *   variables: {
+ *      dataManual: // value for 'dataManual'
+ *   },
+ * });
+ */
+export function useUpdateIndexDataManualMutation(baseOptions?: Apollo.MutationHookOptions<UpdateIndexDataManualMutation, UpdateIndexDataManualMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateIndexDataManualMutation, UpdateIndexDataManualMutationVariables>(UpdateIndexDataManualDocument, options);
+      }
+export type UpdateIndexDataManualMutationHookResult = ReturnType<typeof useUpdateIndexDataManualMutation>;
+export type UpdateIndexDataManualMutationResult = Apollo.MutationResult<UpdateIndexDataManualMutation>;
+export type UpdateIndexDataManualMutationOptions = Apollo.BaseMutationOptions<UpdateIndexDataManualMutation, UpdateIndexDataManualMutationVariables>;
 export const UpdateMeterInstallDocument = gql`
     mutation UpdateMeterInstall($meter: DeviceMeterInstallUpdateInput) {
   UpdateMeterInstall(meter: $meter)

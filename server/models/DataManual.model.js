@@ -101,6 +101,81 @@ module.exports.Insert = async (dataManual) => {
     return result;
 };
 
+module.exports.InsertIndex = async (dataManual) => {
+    let Connect = new ConnectDB.Connect();
+
+    let countInsert = 0;
+
+    let collection = await Connect.connect(DataManualCollection);
+
+    dataManual.TimeStamp = new Date(dataManual.TimeStamp);
+
+    const temp = new Date(dataManual.TimeStamp);
+
+    temp.setMonth(temp.getMonth() - 1);
+
+    const startDate = new Date(
+        temp.getFullYear(),
+        temp.getMonth(),
+        25,
+        0,
+        0,
+        0,
+    );
+
+    let data = await collection
+        .find({ SiteId: dataManual.SiteId, TimeStamp: startDate })
+        .toArray();
+
+    const insertData = [];
+
+    if (data.length > 0) {
+        if (
+            data[0] !== null &&
+            data[0] !== undefined &&
+            data[0].Index !== null &&
+            data[0].Index !== undefined
+        ) {
+            const quantity = dataManual.Index - data[0].Index;
+
+            while (startDate.getTime() < dataManual.TimeStamp.getTime()) {
+                startDate.setDate(startDate.getDate() + 1);
+
+                const obj = {
+                    Stt: 0,
+                    SiteId: dataManual.SiteId,
+                    TimeStamp: new Date(startDate),
+                    Index: dataManual.Index,
+                    Output: quantity,
+                    Description: dataManual.Description,
+                };
+
+                insertData.push(obj);
+            }
+        }
+    }
+
+    if (insertData.length > 0) {
+        for (const item of insertData) {
+            const result = await collection
+                .find({ SiteId: item.SiteId, TimeStamp: item.TimeStamp })
+                .toArray();
+
+            if (result.length <= 0) {
+                const insert = await collection.insertOne(item);
+
+                if (insert.insert !== '') {
+                    countInsert += 1;
+                }
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return countInsert;
+};
+
 module.exports.Delete = async (dataManual) => {
     let Connect = new ConnectDB.Connect();
 
@@ -154,4 +229,89 @@ module.exports.Update = async (dataManual) => {
     }
 
     return result;
+};
+
+module.exports.UpdateIndex = async (dataManual) => {
+    let Connect = new ConnectDB.Connect();
+
+    let countInsert = 0;
+
+    let collection = await Connect.connect(DataManualCollection);
+
+    dataManual.TimeStamp = new Date(dataManual.TimeStamp);
+
+    const temp = new Date(dataManual.TimeStamp);
+
+    temp.setMonth(temp.getMonth() - 1);
+
+    const startDate = new Date(
+        temp.getFullYear(),
+        temp.getMonth(),
+        25,
+        0,
+        0,
+        0,
+    );
+
+    let data = await collection
+        .find({ SiteId: dataManual.SiteId, TimeStamp: startDate })
+        .toArray();
+
+    const updateData = [];
+
+    if (data.length > 0) {
+        if (
+            data[0] !== null &&
+            data[0] !== undefined &&
+            data[0].Index !== null &&
+            data[0].Index !== undefined
+        ) {
+            const quantity = dataManual.Index - data[0].Index;
+
+            while (startDate.getTime() < dataManual.TimeStamp.getTime()) {
+                startDate.setDate(startDate.getDate() + 1);
+
+                const obj = {
+                    Stt: 0,
+                    SiteId: dataManual.SiteId,
+                    TimeStamp: new Date(startDate),
+                    Index: dataManual.Index,
+                    Output: quantity,
+                    Description: dataManual.Description,
+                };
+
+                updateData.push(obj);
+            }
+        }
+    }
+
+    if (updateData.length > 0) {
+        for (const item of updateData) {
+            const result = await collection
+                .find({ SiteId: item.SiteId, TimeStamp: item.TimeStamp })
+                .toArray();
+
+            if (result.length > 0) {
+                const insert = await collection.updateMany(
+                    {
+                        _id: new ObjectId(result[0]._id),
+                    },
+                    {
+                        $set: {
+                            Index: item.Index,
+                            Output: item.Output,
+                        },
+                    },
+                );
+
+                if (insert.modifiedCount > 0) {
+                    countInsert += 1;
+                }
+            }
+        }
+    }
+
+    Connect.disconnect();
+
+    return countInsert;
 };

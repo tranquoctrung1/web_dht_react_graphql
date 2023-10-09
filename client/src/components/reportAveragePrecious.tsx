@@ -106,7 +106,6 @@ import {
     convertStringMilisecondToStringDate,
 } from '../utils/utils';
 
-import { getFontSizeValue } from '@mantine/core/lib/Box/style-system-props/value-getters/get-font-size-value';
 import Swal from 'sweetalert2';
 
 const ReportAveragePrecious = () => {

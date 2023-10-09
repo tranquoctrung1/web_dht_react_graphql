@@ -10,7 +10,7 @@ import {
     NumberInput,
 } from '@mantine/core';
 
-import { DateInput } from '@mantine/dates';
+import { DateInput, DatePickerInput } from '@mantine/dates';
 
 import {
     useGetAllSitesQuery,
@@ -36,9 +36,10 @@ const ManualQuantityPage = () => {
     const [meter, setMeter] = useState('');
     const [location, setLocation] = useState('');
     const [description, setDescription] = useState('');
-    const [timeStamp, setTimeStamp] = useState(null);
+    const [timeStamp, setTimeStamp] = useState<Date[]>([]);
     const [index, setIndex] = useState(null || 0);
     const [output, setOutput] = useState(null || 0);
+    const [selectedTime, setSelectedTime] = useState(null);
 
     const [column, setColumn] = useState([]);
     const [dataTable, setDataTable] = useState([]);
@@ -201,11 +202,11 @@ const ManualQuantityPage = () => {
         setOutput(e);
     };
 
-    const createObjInsertDataManual = () => {
+    const createObjInsertDataManual = (timestamp: any) => {
         const obj = {
             Stt: 0,
             SiteId: siteId,
-            TimeStamp: timeStamp,
+            TimeStamp: timestamp,
             Description: description,
             Index: index,
             Output: output,
@@ -214,12 +215,12 @@ const ManualQuantityPage = () => {
         return obj;
     };
 
-    const createObjUpdateDataManual = () => {
+    const createObjUpdateDataManual = (timestamp: any) => {
         const obj = {
             _id: id,
             Stt: 0,
             SiteId: siteId,
-            TimeStamp: timeStamp,
+            TimeStamp: timestamp,
             Description: description,
             Index: index,
             Output: output,
@@ -228,13 +229,18 @@ const ManualQuantityPage = () => {
         return obj;
     };
 
-    const createObjHandelInsertDataManual = (id: any) => {
+    const createObjHandelInsertDataManual = (id: any, timestamp: any) => {
         const obj = {
             _id: id,
             Stt: 0,
             SiteId: siteId,
             //@ts-ignore
-            TimeStamp: timeStamp == null ? '' : timeStamp.toISOString(),
+            TimeStamp:
+                //@ts-ignore
+                timestamp == null
+                    ? ''
+                    : //@ts-ignore
+                      new Date(Date.parse(time)).toISOString(),
             Description: description,
             Index: index,
             Output: output,
@@ -300,51 +306,60 @@ const ManualQuantityPage = () => {
         }
 
         if (isAllow == true) {
-            const obj = createObjInsertDataManual();
+            if (timeStamp.length > 0) {
+                let count = 0;
 
-            insertDataManual({
-                variables: {
-                    dataManual: obj,
-                },
-            })
-                .then((res) => {
-                    if (res.data !== null && res.data !== undefined) {
-                        if (
-                            res.data.InsertDataManual !== null &&
-                            res.data.InsertDataManual !== undefined
-                        ) {
-                            if (res.data.InsertDataManual !== '') {
-                                setId(res.data.InsertDataManual);
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Successfull',
-                                    text: 'Thêm thành công',
-                                });
+                for (const time of timeStamp) {
+                    const obj = createObjInsertDataManual(time);
 
-                                const dataManualInsert =
-                                    createObjHandelInsertDataManual(
-                                        res.data.InsertDataManual,
-                                    );
+                    insertDataManual({
+                        variables: {
+                            dataManual: obj,
+                        },
+                    })
+                        .then((res) => {
+                            if (res.data !== null && res.data !== undefined) {
+                                if (
+                                    res.data.InsertDataManual !== null &&
+                                    res.data.InsertDataManual !== undefined
+                                ) {
+                                    if (res.data.InsertDataManual !== '') {
+                                        setId(res.data.InsertDataManual);
 
-                                handelInsertDataManual(dataManualInsert);
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: 'Thêm  không thành công',
-                                });
+                                        const dataManualInsert =
+                                            createObjHandelInsertDataManual(
+                                                res.data.InsertDataManual,
+                                                time,
+                                            );
+
+                                        handelInsertDataManual(
+                                            dataManualInsert,
+                                        );
+
+                                        count += 1;
+                                    }
+                                }
                             }
-                        }
-                    }
-                })
-                .catch((err) => {
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
+
+                if (count > 0) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successfull',
+                        text: 'Thêm thành công',
+                    });
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Thêm  không thành công',
                     });
-                    console.log(err);
-                });
+                }
+            }
         }
     };
 
@@ -371,7 +386,7 @@ const ManualQuantityPage = () => {
         }
 
         if (isAllow == true) {
-            const obj = createObjUpdateDataManual();
+            const obj = createObjUpdateDataManual(selectedTime);
 
             updateDataManual({
                 variables: {
@@ -390,7 +405,6 @@ const ManualQuantityPage = () => {
                                     title: 'Successfull',
                                     text: 'Cập nhật thành công',
                                 });
-
                                 handleUpdateDataManual(obj);
                             } else {
                                 Swal.fire({
@@ -408,7 +422,6 @@ const ManualQuantityPage = () => {
                         title: 'Oops...',
                         text: 'Cập nhật  không thành công',
                     });
-
                     console.log(err);
                 });
         }
@@ -448,7 +461,7 @@ const ManualQuantityPage = () => {
                 }
 
                 if (isAllow == true) {
-                    const obj = createObjUpdateDataManual();
+                    const obj = createObjUpdateDataManual(selectedTime);
 
                     deleteDataManual({
                         variables: {
@@ -471,7 +484,7 @@ const ManualQuantityPage = () => {
                                         handleDeleteDataManual(obj);
                                         setId('');
                                         setDescription('');
-                                        setTimeStamp(null);
+                                        //setTimeStamp(null);
                                         setOutput(0);
                                         setIndex(0);
                                     } else {
@@ -506,7 +519,7 @@ const ManualQuantityPage = () => {
         ) {
             setId(selectedRows[0]._id);
             setDescription(selectedRows[0].Description);
-            setTimeStamp(
+            setSelectedTime(
                 //@ts-ignore
                 selectedRows[0].TimeStamp !== null
                     ? new Date(selectedRows[0].TimeStamp)
@@ -580,13 +593,16 @@ const ManualQuantityPage = () => {
                 />
             </Col>
             <Col md={3}>
-                <DateInput
+                <DatePickerInput
                     valueFormat="DD/MM/YYYY"
+                    type="multiple"
                     label="Ngày"
                     placeholder="Ngày"
-                    mx="auto"
                     value={timeStamp}
-                    onChange={onTimeStampChanged}
+                    onChange={(e) => {
+                        setTimeStamp(e);
+                    }}
+                    mx="auto"
                     withAsterisk
                 />
             </Col>

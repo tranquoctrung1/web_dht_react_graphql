@@ -1851,7 +1851,11 @@ module.exports = gql`
 
         InsertDataManual(dataManual: DataManualInsertInput): String
 
+        InsertIndexDataManual(dataManual: DataManualInsertInput): Int
+
         UpdateDataManual(dataManual: DataManualUpdateInput): Int
+
+        UpdateIndexDataManual(dataManual: DataManualUpdateInput): Int
 
         DeleteDataManual(dataManual: DataManualUpdateInput): Int
 

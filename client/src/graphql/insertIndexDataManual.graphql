@@ -1,0 +1,3 @@
+mutation InsertIndexDataManual($dataManual: DataManualInsertInput) {
+    InsertIndexDataManual(dataManual: $dataManual)
+}

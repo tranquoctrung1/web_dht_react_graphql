@@ -17,9 +17,10 @@ import {
     useGetAllMeterQuery,
     useGetAllStaffsQuery,
     useGetDataManualBySiteIdLazyQuery,
-    useInsertDataManualMutation,
-    useUpdateDataManualMutation,
+    useGetDataManualBySiteIdQuery,
     useDeleteDataManualMutation,
+    useInsertIndexDataManualMutation,
+    useUpdateIndexDataManualMutation,
 } from '../__generated__/graphql';
 import { useEffect, useState } from 'react';
 
@@ -50,9 +51,10 @@ const ManualIndexPage = () => {
     const { data: staffs, error: staffsError } = useGetAllStaffsQuery();
 
     const [getDataManual, {}] = useGetDataManualBySiteIdLazyQuery();
+    const { refetch } = useGetDataManualBySiteIdQuery();
 
-    const [insertDataManual, {}] = useInsertDataManualMutation();
-    const [updateDataManual, {}] = useUpdateDataManualMutation();
+    const [insertIndexDataManual, {}] = useInsertIndexDataManualMutation();
+    const [updateIndexDataManual, {}] = useUpdateIndexDataManualMutation();
     const [deleteDataManual, {}] = useDeleteDataManualMutation();
 
     useEffect(() => {
@@ -151,6 +153,26 @@ const ManualIndexPage = () => {
         setColumn([...obj]);
     };
 
+    const getDataManualAction = (siteId: any) => {
+        getDataManual({ variables: { siteid: siteId } })
+            .then((res) => {
+                if (res.data !== null && res.data !== undefined) {
+                    if (
+                        res.data.GetDataManualBySiteId !== null &&
+                        res.data.GetDataManualBySiteId !== undefined
+                    ) {
+                        //@ts-ignore
+                        setDataTable([...res.data.GetDataManualBySiteId]);
+
+                        setColumns();
+                    }
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     const onSiteIdChanged = (e: any) => {
         setSiteId(e);
 
@@ -166,7 +188,11 @@ const ManualIndexPage = () => {
             setStaffId(find?.StaffId);
         }
 
-        getDataManual({ variables: { siteid: e } })
+        getDataManualAction(e);
+    };
+
+    const refetchGetDataManualAction = (siteId: any) => {
+        refetch({ siteid: siteId })
             .then((res) => {
                 if (res.data !== null && res.data !== undefined) {
                     if (
@@ -302,7 +328,7 @@ const ManualIndexPage = () => {
         if (isAllow == true) {
             const obj = createObjInsertDataManual();
 
-            insertDataManual({
+            insertIndexDataManual({
                 variables: {
                     dataManual: obj,
                 },
@@ -310,23 +336,16 @@ const ManualIndexPage = () => {
                 .then((res) => {
                     if (res.data !== null && res.data !== undefined) {
                         if (
-                            res.data.InsertDataManual !== null &&
-                            res.data.InsertDataManual !== undefined
+                            res.data.InsertIndexDataManual !== null &&
+                            res.data.InsertIndexDataManual !== undefined
                         ) {
-                            if (res.data.InsertDataManual !== '') {
-                                setId(res.data.InsertDataManual);
+                            if (res.data.InsertIndexDataManual > 0) {
+                                refetchGetDataManualAction(siteId);
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Successfull',
                                     text: 'Thêm thành công',
                                 });
-
-                                const dataManualInsert =
-                                    createObjHandelInsertDataManual(
-                                        res.data.InsertDataManual,
-                                    );
-
-                                handelInsertDataManual(dataManualInsert);
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -373,7 +392,7 @@ const ManualIndexPage = () => {
         if (isAllow == true) {
             const obj = createObjUpdateDataManual();
 
-            updateDataManual({
+            updateIndexDataManual({
                 variables: {
                     dataManual: obj,
                 },
@@ -381,17 +400,17 @@ const ManualIndexPage = () => {
                 .then((res) => {
                     if (res.data !== null && res.data !== undefined) {
                         if (
-                            res.data.UpdateDataManual !== null &&
-                            res.data.UpdateDataManual !== undefined
+                            res.data.UpdateIndexDataManual !== null &&
+                            res.data.UpdateIndexDataManual !== undefined
                         ) {
-                            if (res.data.UpdateDataManual > 0) {
+                            if (res.data.UpdateIndexDataManual > 0) {
+                                refetchGetDataManualAction(siteId);
+
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Successfull',
                                     text: 'Cập nhật thành công',
                                 });
-
-                                handleUpdateDataManual(obj);
                             } else {
                                 Swal.fire({
                                     icon: 'error',

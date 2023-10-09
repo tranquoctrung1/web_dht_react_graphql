@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 
+import { Center, Text } from '@mantine/core';
+
 const HomePage = () => {
     return (
         <motion.div
@@ -8,10 +10,12 @@ const HomePage = () => {
             exit={{ opacity: 0 }}
         >
             <div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
-                minus consequuntur deleniti ex non dolore accusamus maxime quod
-                accusantium inventore! Quo repudiandae omnis culpa tenetur
-                cumque recusandae repellendus non iusto.
+                <Center>
+                    <Text color="blue" weight={500}>
+                        TỔNG CÔNG TY CÂP NƯỚC SÀI GÒN - XÍ NGHIỆP TRUYỀN DẪN
+                        NƯỚC SẠCH
+                    </Text>
+                </Center>
             </div>
         </motion.div>
     );
