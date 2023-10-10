@@ -240,7 +240,7 @@ const ManualQuantityPage = () => {
                 timestamp == null
                     ? ''
                     : //@ts-ignore
-                      new Date(Date.parse(time)).toISOString(),
+                      new Date(Date.parse(timestamp)).toISOString(),
             Description: description,
             Index: index,
             Output: output,
@@ -283,7 +283,7 @@ const ManualQuantityPage = () => {
         setDataTable([...temp]);
     };
 
-    const onInsertClicked = () => {
+    const onInsertClicked = async () => {
         let isAllow = true;
 
         if (siteId === null || siteId === undefined || siteId === '') {
@@ -312,38 +312,32 @@ const ManualQuantityPage = () => {
                 for (const time of timeStamp) {
                     const obj = createObjInsertDataManual(time);
 
-                    insertDataManual({
+                    const res = await insertDataManual({
                         variables: {
                             dataManual: obj,
                         },
-                    })
-                        .then((res) => {
-                            if (res.data !== null && res.data !== undefined) {
-                                if (
-                                    res.data.InsertDataManual !== null &&
-                                    res.data.InsertDataManual !== undefined
-                                ) {
-                                    if (res.data.InsertDataManual !== '') {
-                                        setId(res.data.InsertDataManual);
+                    });
 
-                                        const dataManualInsert =
-                                            createObjHandelInsertDataManual(
-                                                res.data.InsertDataManual,
-                                                time,
-                                            );
+                    if (res.data !== null && res.data !== undefined) {
+                        if (
+                            res.data.InsertDataManual !== null &&
+                            res.data.InsertDataManual !== undefined
+                        ) {
+                            if (res.data.InsertDataManual !== '') {
+                                setId(res.data.InsertDataManual);
 
-                                        handelInsertDataManual(
-                                            dataManualInsert,
-                                        );
+                                const dataManualInsert =
+                                    createObjHandelInsertDataManual(
+                                        res.data.InsertDataManual,
+                                        time,
+                                    );
 
-                                        count += 1;
-                                    }
-                                }
+                                handelInsertDataManual(dataManualInsert);
+
+                                count += 1;
                             }
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
+                        }
+                    }
                 }
 
                 if (count > 0) {

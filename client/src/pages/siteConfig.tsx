@@ -56,7 +56,11 @@ import { useSelector } from 'react-redux';
 
 import { HostnameState } from '../features/hostname';
 
+import { useNavigate } from 'react-router-dom';
+
 const SiteConfigPage = () => {
+    const navigate = useNavigate();
+
     const [listSite, setListSite] = useState([]);
     const [siteDataState, setSiteDataState] = useState([]);
     const [listOldId, setListOldId] = useState([]);
@@ -1210,7 +1214,9 @@ const SiteConfigPage = () => {
         }
     };
 
-    const onDocumentDownloadClicked = () => {};
+    const onDocumentDownloadClicked = () => {
+        navigate('/downloadSiteFile');
+    };
 
     return (
         <motion.div

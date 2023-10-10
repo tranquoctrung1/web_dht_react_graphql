@@ -45,7 +45,11 @@ import { HostnameState } from '../features/hostname';
 
 import { useSelector } from 'react-redux';
 
+import { useNavigate } from 'react-router-dom';
+
 const MeterPage = () => {
+    const navigate = useNavigate();
+
     const [listMeter, setListMeter] = useState([]);
     const [meterData, setMeterData] = useState([]);
     const [marksData, setMarksData] = useState([]);
@@ -775,7 +779,9 @@ const MeterPage = () => {
         }
     };
 
-    const onDownloadFileClicked = () => {};
+    const onDownloadFileClicked = () => {
+        navigate('/downloadMeterFile');
+    };
 
     return (
         <Grid>

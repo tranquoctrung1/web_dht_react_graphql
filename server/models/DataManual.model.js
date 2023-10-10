@@ -1,5 +1,6 @@
 const { ObjectId } = require('mongodb');
 const ConnectDB = require('../db/connect');
+const Utils = require('../utils');
 
 const DataManualCollection = 't_Data_Manual';
 
@@ -123,6 +124,8 @@ module.exports.InsertIndex = async (dataManual) => {
         0,
     );
 
+    const totalDay = Utils.CalculateSpcaeDay(startDate, dataManual.TimeStamp);
+
     let data = await collection
         .find({ SiteId: dataManual.SiteId, TimeStamp: startDate })
         .toArray();
@@ -138,20 +141,29 @@ module.exports.InsertIndex = async (dataManual) => {
         ) {
             const quantity = dataManual.Index - data[0].Index;
 
+            let index = data[0].Index;
+
             while (startDate.getTime() < dataManual.TimeStamp.getTime()) {
                 startDate.setDate(startDate.getDate() + 1);
+
+                index = index + quantity / totalDay;
+                index = parseFloat(index.toString());
+                index = index.toFixed(0);
+                index = parseFloat(index);
 
                 const obj = {
                     Stt: 0,
                     SiteId: dataManual.SiteId,
                     TimeStamp: new Date(startDate),
-                    Index: dataManual.Index,
+                    Index: index,
                     Output: quantity,
                     Description: dataManual.Description,
                 };
 
                 insertData.push(obj);
             }
+
+            insertData[insertData.length - 1].Index = dataManual.Index;
         }
     }
 
@@ -253,6 +265,8 @@ module.exports.UpdateIndex = async (dataManual) => {
         0,
     );
 
+    const totalDay = Utils.CalculateSpcaeDay(startDate, dataManual.TimeStamp);
+
     let data = await collection
         .find({ SiteId: dataManual.SiteId, TimeStamp: startDate })
         .toArray();
@@ -268,20 +282,29 @@ module.exports.UpdateIndex = async (dataManual) => {
         ) {
             const quantity = dataManual.Index - data[0].Index;
 
+            let index = data[0].Index;
+
             while (startDate.getTime() < dataManual.TimeStamp.getTime()) {
                 startDate.setDate(startDate.getDate() + 1);
+
+                index = index + quantity / totalDay;
+                index = parseFloat(index.toString());
+                index = index.toFixed(0);
+                index = parseFloat(index);
 
                 const obj = {
                     Stt: 0,
                     SiteId: dataManual.SiteId,
                     TimeStamp: new Date(startDate),
-                    Index: dataManual.Index,
+                    Index: index,
                     Output: quantity,
                     Description: dataManual.Description,
                 };
 
                 updateData.push(obj);
             }
+
+            updateData[updateData.length - 1].Index = dataManual.Index;
         }
     }
 
