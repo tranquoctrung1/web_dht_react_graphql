@@ -1823,6 +1823,8 @@ module.exports = gql`
         QuantityDayTotal(start: String!, end: String!): [QuantityDayTotal!]!
 
         GetAllUserAndStaff: [UserAndStaff]
+
+        VerifyToken(token: String): String
     }
 
     # declare Mutation

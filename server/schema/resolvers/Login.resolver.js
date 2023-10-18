@@ -23,7 +23,7 @@ module.exports = {
                             role: user[0].Role,
                         },
                         process.env.JWT_KEY,
-                        //{ expiresIn: "1h" }
+                        { expiresIn: 60 * 10 },
                     );
 
                     result.token = token;
@@ -31,17 +31,38 @@ module.exports = {
                     result.Role = user[0].Role;
                     result.Company = user[0].Company;
 
-                    if (user.LogCount !== null && user.LogCount !== undefined) {
-                        user.LogCount = user.LogCount + 1;
+                    const userUpdate = user[0];
 
-                        await UserUserModel.UpdateLoginCountUser(user);
+                    if (
+                        userUpdate.LogCount !== null &&
+                        userUpdate.LogCount !== undefined
+                    ) {
+                        userUpdate.LogCount = userUpdate.LogCount + 1;
+
+                        await UserUserModel.UpdateLoginCountUser(userUpdate);
                     }
 
-                    user.Active = true;
+                    userUpdate.Active = true;
 
-                    await UserUserModel.UpdateActiveUser(user);
+                    await UserUserModel.UpdateActiveUser(userUpdate);
                 }
             }
+
+            return result;
+        },
+
+        VerifyToken: async (parent, { token }, context, info) => {
+            const result = jwt.verify(
+                token,
+                process.env.JWT_KEY,
+                function (err, decoded) {
+                    if (decoded === undefined) {
+                        return 'error';
+                    }
+
+                    return '';
+                },
+            );
 
             return result;
         },

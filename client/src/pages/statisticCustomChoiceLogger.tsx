@@ -443,6 +443,21 @@ STT
             );
         }
 
+        temp.sort((a: any, b: any) => {
+            const idA = a.Serial.toLowerCase();
+            const idB = b.Serial.toLowerCase();
+
+            if (idA > idB) {
+                return 1;
+            }
+
+            if (idA < idB) {
+                return -1;
+            }
+
+            return 0;
+        });
+
         const result = [];
 
         let count = 1;

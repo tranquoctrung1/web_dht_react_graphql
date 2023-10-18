@@ -212,8 +212,6 @@ module.exports.UpdateActiveUser = async (user) => {
 
         result = result.modifiedCount;
 
-        console.log('update active' + result);
-
         Connect.disconnect();
     } catch (err) {
         console.log(err);
@@ -237,6 +235,7 @@ module.exports.UpdateLoginCountUser = async (user) => {
             {
                 $set: {
                     LogCount: user.LogCount,
+                    TimeStamp: new Date(),
                 },
             },
         );

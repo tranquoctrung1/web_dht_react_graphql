@@ -264,7 +264,7 @@ const StatisticLoggerInfoPage = () => {
                                             Lắp đặt: {''}
                                             {
                                                 //@ts-ignore
-                                                getValues('Installed') == true
+                                                getValues('Installed') == false
                                                     ? 'No'
                                                     : 'Yes'
                                             }

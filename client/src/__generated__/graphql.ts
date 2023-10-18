@@ -1240,6 +1240,7 @@ export type Query = {
   QuantityLoggerDay: Scalars['Float'];
   QuantityLoggerDayWaterSupply: Array<QuantityLoggerDayWaterSupply>;
   VerifyPassword?: Maybe<Scalars['Int']>;
+  VerifyToken?: Maybe<Scalars['String']>;
 };
 
 
@@ -1487,6 +1488,11 @@ export type QueryQuantityLoggerDayWaterSupplyArgs = {
 export type QueryVerifyPasswordArgs = {
   Pwd?: InputMaybe<Scalars['String']>;
   Uid?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryVerifyTokenArgs = {
+  token?: InputMaybe<Scalars['String']>;
 };
 
 export type Role = {
@@ -3229,6 +3235,13 @@ export type VerifyPasswordQueryVariables = Exact<{
 
 
 export type VerifyPasswordQuery = { __typename?: 'Query', VerifyPassword?: number | null };
+
+export type VerifyTokenQueryVariables = Exact<{
+  token?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type VerifyTokenQuery = { __typename?: 'Query', VerifyToken?: string | null };
 
 
 export const LoginActionDocument = gql`
@@ -9491,4 +9504,40 @@ export type VerifyPasswordLazyQueryHookResult = ReturnType<typeof useVerifyPassw
 export type VerifyPasswordQueryResult = Apollo.QueryResult<VerifyPasswordQuery, VerifyPasswordQueryVariables>;
 export function refetchVerifyPasswordQuery(variables?: VerifyPasswordQueryVariables) {
       return { query: VerifyPasswordDocument, variables: variables }
+    }
+export const VerifyTokenDocument = gql`
+    query VerifyToken($token: String) {
+  VerifyToken(token: $token)
+}
+    `;
+
+/**
+ * __useVerifyTokenQuery__
+ *
+ * To run a query within a React component, call `useVerifyTokenQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVerifyTokenQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVerifyTokenQuery({
+ *   variables: {
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useVerifyTokenQuery(baseOptions?: Apollo.QueryHookOptions<VerifyTokenQuery, VerifyTokenQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VerifyTokenQuery, VerifyTokenQueryVariables>(VerifyTokenDocument, options);
+      }
+export function useVerifyTokenLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VerifyTokenQuery, VerifyTokenQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VerifyTokenQuery, VerifyTokenQueryVariables>(VerifyTokenDocument, options);
+        }
+export type VerifyTokenQueryHookResult = ReturnType<typeof useVerifyTokenQuery>;
+export type VerifyTokenLazyQueryHookResult = ReturnType<typeof useVerifyTokenLazyQuery>;
+export type VerifyTokenQueryResult = Apollo.QueryResult<VerifyTokenQuery, VerifyTokenQueryVariables>;
+export function refetchVerifyTokenQuery(variables?: VerifyTokenQueryVariables) {
+      return { query: VerifyTokenDocument, variables: variables }
     }

@@ -550,11 +550,28 @@ STT
                     res?.data?.GetStatisticAccredited !== null &&
                     res?.data?.GetStatisticAccredited !== undefined
                 ) {
+                    const t = [...res.data.GetStatisticAccredited];
+
+                    t.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
+
                     const temp = [];
 
                     let count = 1;
 
-                    for (const item of res.data.GetStatisticAccredited) {
+                    for (const item of t) {
                         const obj = {
                             STT: count++,
                             ...item,
@@ -718,12 +735,28 @@ STT
                     res?.data?.GetStatisticTransmitterChange !== null &&
                     res?.data?.GetStatisticTransmitterChange !== undefined
                 ) {
+                    const t = [...res.data.GetStatisticTransmitterChange];
+
+                    t.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
+
                     const temp = [];
 
                     let count = 1;
 
-                    for (const item of res.data
-                        ?.GetStatisticTransmitterChange) {
+                    for (const item of t) {
                         const obj = {
                             STT: count++,
                             ...item,
@@ -801,11 +834,28 @@ STT
                     res?.data?.GetStatisticLoggerChange !== null &&
                     res?.data?.GetStatisticLoggerChange !== undefined
                 ) {
+                    const t = [...res.data.GetStatisticLoggerChange];
+
+                    t.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
+
                     const temp = [];
 
                     let count = 1;
 
-                    for (const item of res.data?.GetStatisticLoggerChange) {
+                    for (const item of t) {
                         const obj = {
                             STT: count++,
                             ...item,
@@ -867,11 +917,28 @@ STT
                     res?.data?.GetStatisticBatteryChange !== null &&
                     res?.data?.GetStatisticBatteryChange !== undefined
                 ) {
+                    const t = [...res.data.GetStatisticBatteryChange];
+
+                    t.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
+
                     const temp = [];
 
                     let count = 1;
 
-                    for (const item of res.data?.GetStatisticBatteryChange) {
+                    for (const item of t) {
                         const obj = {
                             STT: count++,
                             ...item,
@@ -953,12 +1020,30 @@ STT
                     res?.data?.GetStatisticTransmitterBatteryChange !==
                         undefined
                 ) {
+                    const t = [
+                        ...res.data.GetStatisticTransmitterBatteryChange,
+                    ];
+
+                    t.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
+
                     const temp = [];
 
                     let count = 1;
 
-                    for (const item of res.data
-                        ?.GetStatisticTransmitterBatteryChange) {
+                    for (const item of t) {
                         const obj = {
                             STT: count++,
                             ...item,
@@ -1036,12 +1121,28 @@ STT
                     res?.data?.GetStatisticLoggerBatteryChange !== null &&
                     res?.data?.GetStatisticLoggerBatteryChange !== undefined
                 ) {
+                    const t = [...res.data.GetStatisticLoggerBatteryChange];
+
+                    t.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
+
                     const temp = [];
 
                     let count = 1;
 
-                    for (const item of res.data
-                        ?.GetStatisticLoggerBatteryChange) {
+                    for (const item of t) {
                         const obj = {
                             STT: count++,
                             ...item,

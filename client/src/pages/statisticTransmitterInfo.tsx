@@ -310,12 +310,12 @@ const StatisticTransmiiterInfoPage = () => {
                             </Col>
                             <Col md={3}>
                                 <Controller
-                                    name="AccreditationDocument"
+                                    name="ApprovalDecision"
                                     control={control}
                                     render={({ field }) => (
                                         <Text size="1rem" weight={500}>
                                             Giấy phê duyệt: {''}
-                                            {getValues('AccreditationDocument')}
+                                            {getValues('ApprovalDecision')}
                                         </Text>
                                     )}
                                 ></Controller>
@@ -333,7 +333,7 @@ const StatisticTransmiiterInfoPage = () => {
                                             Lắp đặt: {''}
                                             {
                                                 //@ts-ignore
-                                                getValues('Installed') == true
+                                                getValues('Installed') == false
                                                     ? 'No'
                                                     : 'Yes'
                                             }
@@ -350,7 +350,7 @@ const StatisticTransmiiterInfoPage = () => {
                                             Đã phê duyệt: {''}
                                             {
                                                 //@ts-ignore
-                                                getValues('Approval') == true
+                                                getValues('Approval') == false
                                                     ? 'No'
                                                     : 'Yes'
                                             }

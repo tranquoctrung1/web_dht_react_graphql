@@ -12,7 +12,7 @@ import {
     Text,
 } from '@mantine/core';
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Logo from '../assets/logo.png';
 
@@ -24,16 +24,63 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import IconChangeTheme from '../components/iconChangeTheme';
 
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate, useLocation } from 'react-router-dom';
 
 import { AnimatePresence } from 'framer-motion';
 
 import { OpenState, toggle } from '../features/openSidebar';
 
-import { useUpdateActiveUserMutation } from '../__generated__/graphql';
+import {
+    useUpdateActiveUserMutation,
+    useVerifyTokenLazyQuery,
+    useVerifyTokenQuery,
+} from '../__generated__/graphql';
 
 const Layout = () => {
     const [updateActiveUser, {}] = useUpdateActiveUserMutation();
+    const [verifyToken, {}] = useVerifyTokenLazyQuery();
+    const { refetch: verifyTokenRefetch } = useVerifyTokenQuery();
+
+    const navigate = useNavigate();
+
+    const location = useLocation();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        if (token !== null && token !== undefined && token !== '') {
+            verifyTokenRefetch({ token: token })
+                .then(async (res) => {
+                    if (
+                        res?.data?.VerifyToken !== null &&
+                        res?.data?.VerifyToken !== undefined
+                    ) {
+                        if (res.data.VerifyToken === 'error') {
+                            const obj = {
+                                Uid: localStorage.getItem('Uid'),
+                                Active: false,
+                            };
+
+                            await updateActiveUser({
+                                variables: {
+                                    user: obj,
+                                },
+                            });
+
+                            localStorage.removeItem('Uid');
+                            localStorage.removeItem('Role');
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('Company');
+
+                            navigate('/login');
+                        }
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, [location]);
 
     const [colorScheme, setColorScheme] = useLocalStorage({
         key: 'mantine-color-scheme-xntd',
@@ -53,8 +100,6 @@ const Layout = () => {
     const onOpenSidebarClicked = () => {
         dispatch(toggle());
     };
-
-    const navigate = useNavigate();
 
     const onLogoutClick = async () => {
         const obj = {

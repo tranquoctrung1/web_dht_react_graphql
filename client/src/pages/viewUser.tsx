@@ -69,7 +69,7 @@ const ViewUserPage = () => {
                 ),
         },
         {
-            name: 'Thời gian tạo',
+            name: 'TimeStamp',
             selector: (row: any) => row.TimeStamp,
             sortable: true,
             cellExport: (row: any) => row.TimeStamp,
