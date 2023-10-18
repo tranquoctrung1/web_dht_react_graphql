@@ -15,6 +15,7 @@ import {
     checkAdminViewerRole,
     convertTimeStampToDate,
     convertDateToString,
+    calcSpace2Date,
 } from '../utils/utils';
 
 import { useEffect, useState } from 'react';
@@ -236,13 +237,53 @@ ${row.Location}
                         AccreditationDocument: 'Giấy kiểm định',
                         DateOfChange: 'Ngày thay/ kiểm ',
                         ExpiryDate: 'Ngày hết hiệu lực KĐ',
-                        TimeUse: '',
+                        TimeUse: 'Thời gian sử dụng',
                         Description: 'Ghi chú',
                     };
 
-                    console.log(
-                        res.data.GetStatisticAccreditationAndExpiryDate,
-                    );
+                    const t = [
+                        ...res.data.GetStatisticAccreditationAndExpiryDate,
+                    ];
+
+                    t.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
+
+                    const temp = [];
+
+                    let count = 1;
+
+                    for (const item of t) {
+                        const obj = {
+                            STT: count++,
+                            ...item,
+                            TimeUse:
+                                item?.DateOfChange !== null
+                                    ? (
+                                          calcSpace2Date(
+                                              new Date(
+                                                  item?.DateOfChange,
+                                              ).getTime(),
+                                              //@ts-ignore
+                                              time,
+                                          ) / 365.5
+                                      ).toFixed(1)
+                                    : '',
+                        };
+
+                        temp.push(obj);
+                    }
 
                     setData([
                         //@ts-ignore
@@ -250,7 +291,7 @@ ${row.Location}
                         //@ts-ignore
                         obj,
                         //@ts-ignore
-                        ...res.data.GetStatisticAccreditationAndExpiryDate,
+                        ...temp,
                     ]);
                 }
             })

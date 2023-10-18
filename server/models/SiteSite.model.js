@@ -587,6 +587,7 @@ module.exports.GetSiteMeterDateChange = async (date) => {
             DateOfMeterChange: { $ne: null },
             DateOfMeterChange: { $gte: new Date(date) },
         })
+        .sort({_id: 1})
         .toArray();
 
     Connect.disconnect();

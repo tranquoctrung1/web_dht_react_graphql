@@ -63,9 +63,9 @@ const ViewUserPage = () => {
             width: '100px',
             format: (row: any) =>
                 row.Active == true ? (
-                    <Checkbox checked color="indigo" />
+                    <Checkbox checked color="indigo" disabled />
                 ) : (
-                    <Checkbox color="indigo" />
+                    <Checkbox color="indigo" disabled />
                 ),
         },
         {

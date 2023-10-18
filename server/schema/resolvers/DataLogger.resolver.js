@@ -15,6 +15,7 @@ module.exports = {
             );
         },
 
+
         GetDataLoggerByLastRecord: async (
             parent,
             { channelid },

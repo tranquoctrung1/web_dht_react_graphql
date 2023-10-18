@@ -114,13 +114,13 @@ const StatisticMeterInfoPage = () => {
             //@ts-ignore
             setValue('Description', findMeter.Description);
             //@ts-ignore
-            setValue('ApprovalDate', findMeter.ApprovalDate);
+            setValue('ApprovalDate', findMeter.AccreditatedDate);
             //@ts-ignore
             setValue('ApprovalDecision', findMeter.ApprovalDecision);
             //@ts-ignore
-            setValue('Approval', findMeter.Approval);
+            setValue('Approval', findMeter.Approvaled);
             //@ts-ignore
-            setValue('AccreditedDate', findMeter.AccreditedDate);
+            setValue('AccreditedDate', findMeter.AccreditatedDate);
             //@ts-ignore
             setValue('ExpiryDate', findMeter.ExpiryDate);
             //@ts-ignore
@@ -324,12 +324,12 @@ const StatisticMeterInfoPage = () => {
                             </Col>
                             <Col md={3}>
                                 <Controller
-                                    name="AccreditationDocument"
+                                    name="ApprovalDecision"
                                     control={control}
                                     render={({ field }) => (
                                         <Text size="1rem" weight={500}>
                                             Giấy phê duyệt: {''}
-                                            {getValues('AccreditationDocument')}
+                                            {getValues('ApprovalDecision')}
                                         </Text>
                                     )}
                                 ></Controller>
@@ -347,7 +347,7 @@ const StatisticMeterInfoPage = () => {
                                             Lắp đặt: {''}
                                             {
                                                 //@ts-ignore
-                                                getValues('Installed') == true
+                                                getValues('Installed') == false
                                                     ? 'No'
                                                     : 'Yes'
                                             }
@@ -364,7 +364,7 @@ const StatisticMeterInfoPage = () => {
                                             Đã phê duyệt: {''}
                                             {
                                                 //@ts-ignore
-                                                getValues('Approval') == true
+                                                getValues('Approval') == false
                                                     ? 'No'
                                                     : 'Yes'
                                             }

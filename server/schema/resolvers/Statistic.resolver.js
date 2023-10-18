@@ -369,6 +369,7 @@ module.exports = {
 
             return result;
         },
+
         GetStatisticAccredited: async (parent, { date }, context, info) => {
             const result = [];
 
@@ -397,6 +398,7 @@ module.exports = {
 
             return result;
         },
+
         GetStatisticMeterChange: async (parent, { date }, context, info) => {
             const result = [];
 
@@ -528,6 +530,7 @@ module.exports = {
 
             return result;
         },
+
         GetStatisticBatteryChange: async (parent, { date }, context, info) => {
             const result = [];
 
@@ -656,7 +659,7 @@ module.exports = {
                             const obj = {
                                 Serial: meter.Serial,
                                 ReceiptDate: meter.ReceiptDate,
-                                AccreditedDate: meter.AccreditedDate,
+                                AccreditedDate: meter.AccreditatedDate,
                                 ExpiryDate: meter.ExpiryDate,
                                 AccreditationDocument:
                                     meter.AccreditationDocument,
@@ -683,7 +686,7 @@ module.exports = {
                         const obj = {
                             Serial: meter.Serial,
                             ReceiptDate: meter.ReceiptDate,
-                            AccreditedDate: meter.AccreditedDate,
+                            AccreditedDate: meter.AccreditatedDate,
                             ExpiryDate: meter.ExpiryDate,
                             AccreditationDocument: meter.AccreditationDocument,
                             AccreditationType: meter.AccreditationType,
@@ -1051,7 +1054,7 @@ module.exports = {
                         Location: findSite.Location,
                         Marks: meter.Marks,
                         Size: meter.Size,
-                        DateOfChange: meter.AccreditedDate,
+                        DateOfChange: meter.AccreditatedDate,
                         DescriptionOfChange: findSite.DescriptionOfChange,
                         AccreditationDocument: meter.AccreditationDocument,
                         ExpiryDate: meter.ExpiryDate,
@@ -1063,6 +1066,7 @@ module.exports = {
 
             return result;
         },
+
         GetStatisticCustomChoiceMarkSize: async (parent, {}, context, info) => {
             const result = [];
 
@@ -1197,6 +1201,7 @@ module.exports = {
 
             return result;
         },
+
         GetStatisticTransmitterChangeByYearUsing: async (
             parent,
             { date, year },
@@ -1251,6 +1256,7 @@ module.exports = {
 
             return result;
         },
+
         GetStatisticLoggerChangeByYearUsing: async (
             parent,
             { date, year },

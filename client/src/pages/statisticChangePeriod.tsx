@@ -620,17 +620,33 @@ STT
                     res?.data?.GetStatisticMeterChange !== null &&
                     res?.data?.GetStatisticMeterChange !== undefined
                 ) {
-                    const temp = [];
+                    const temp = [...res.data.GetStatisticMeterChange];
+
+                    temp.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
+
+                    const temp2 = [];
 
                     let count = 1;
 
-                    for (const item of res.data?.GetStatisticMeterChange) {
+                    for (const item of temp) {
                         const obj = {
                             STT: count++,
                             ...item,
                         };
-
-                        temp.push(obj);
+                        temp2.push(obj);
                     }
 
                     setTitle(
@@ -680,7 +696,7 @@ STT
                     };
 
                     //@ts-ignore
-                    setData([objTitle, obj, ...temp]);
+                    setData([objTitle, obj, ...temp2]);
 
                     //@ts-ignore
                     setColumn([...columnsForAnother]);

@@ -217,17 +217,35 @@ const StatisticMeterWorkPage = () => {
                             ...item,
                             DateUsing:
                                 item?.DateOfChange !== null
-                                    ? calcSpace2Date(
-                                          new Date(
-                                              item?.DateOfChange,
-                                          ).getTime(),
-                                          Date.now(),
-                                      )
+                                    ? (
+                                          calcSpace2Date(
+                                              new Date(
+                                                  item?.DateOfChange,
+                                              ).getTime(),
+                                              //@ts-ignore
+                                              time,
+                                          ) / 365.5
+                                      ).toFixed(1)
                                     : '',
                         };
 
                         temp.push(obj);
                     }
+
+                    temp.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
 
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
@@ -318,17 +336,36 @@ const StatisticMeterWorkPage = () => {
                             ...item,
                             DateUsing:
                                 item?.DateOfChange !== null
-                                    ? calcSpace2Date(
-                                          new Date(
-                                              item?.DateOfChange,
-                                          ).getTime(),
-                                          Date.now(),
-                                      )
+                                    ? (
+                                          calcSpace2Date(
+                                              new Date(
+                                                  item?.DateOfChange,
+                                              ).getTime(),
+                                              //@ts-ignore
+                                              time,
+                                          ) / 365.5
+                                      ).toFixed(1)
                                     : '',
                         };
 
                         temp.push(obj);
                     }
+
+                    temp.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
+
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
                             //@ts-ignore
@@ -414,17 +451,35 @@ const StatisticMeterWorkPage = () => {
                             ...item,
                             DateUsing:
                                 item?.DateOfChange !== null
-                                    ? calcSpace2Date(
-                                          new Date(
-                                              item?.DateOfChange,
-                                          ).getTime(),
-                                          Date.now(),
-                                      )
+                                    ? (
+                                          calcSpace2Date(
+                                              new Date(
+                                                  item?.DateOfChange,
+                                              ).getTime(),
+                                              //@ts-ignore
+                                              time,
+                                          ) / 365.5
+                                      ).toFixed(1)
                                     : '',
                         };
 
                         temp.push(obj);
                     }
+
+                    temp.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
 
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
@@ -512,17 +567,35 @@ const StatisticMeterWorkPage = () => {
                             ...item,
                             DateUsing:
                                 item?.DateOfChange !== null
-                                    ? calcSpace2Date(
-                                          new Date(
-                                              item?.DateOfChange,
-                                          ).getTime(),
-                                          Date.now(),
-                                      )
+                                    ? (
+                                          calcSpace2Date(
+                                              new Date(
+                                                  item?.DateOfChange,
+                                              ).getTime(),
+                                              //@ts-ignore
+                                              time,
+                                          ) / 365.5
+                                      ).toFixed(1)
                                     : '',
                         };
 
                         temp.push(obj);
                     }
+
+                    temp.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
 
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
@@ -615,17 +688,35 @@ const StatisticMeterWorkPage = () => {
                             ...item,
                             DateUsing:
                                 item?.DateOfChange !== null
-                                    ? calcSpace2Date(
-                                          new Date(
-                                              item?.DateOfChange,
-                                          ).getTime(),
-                                          Date.now(),
-                                      )
+                                    ? (
+                                          calcSpace2Date(
+                                              new Date(
+                                                  item?.DateOfChange,
+                                              ).getTime(),
+                                              //@ts-ignore
+                                              time,
+                                          ) / 365.5
+                                      ).toFixed(1)
                                     : '',
                         };
 
                         temp.push(obj);
                     }
+
+                    temp.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
 
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
@@ -715,17 +806,35 @@ const StatisticMeterWorkPage = () => {
                             ...item,
                             DateUsing:
                                 item?.DateOfChange !== null
-                                    ? calcSpace2Date(
-                                          new Date(
-                                              item?.DateOfChange,
-                                          ).getTime(),
-                                          Date.now(),
-                                      )
+                                    ? (
+                                          calcSpace2Date(
+                                              new Date(
+                                                  item?.DateOfChange,
+                                              ).getTime(),
+                                              //@ts-ignore
+                                              time,
+                                          ) / 365.5
+                                      ).toFixed(1)
                                     : '',
                         };
 
                         temp.push(obj);
                     }
+
+                    temp.sort((a: any, b: any) => {
+                        const idA = a._id.toLowerCase();
+                        const idB = b._id.toLowerCase();
+
+                        if (idA > idB) {
+                            return 1;
+                        }
+
+                        if (idA < idB) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
 
                     setTitle(
                         `Đồng Hồ Tổng Đến Ngày  ${convertDateToString(
@@ -980,7 +1089,7 @@ ${row.Location}
             </Col>
             <Col md={4}>
                 <NumberInput
-                    label="Thời gian sử dụng"
+                    label="Thời gian sử dụng năm"
                     value={timeUse}
                     //@ts-ignore
                     onChange={(e) => setTimeUse(e)}

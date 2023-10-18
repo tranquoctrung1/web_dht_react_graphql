@@ -419,6 +419,21 @@ const StatisticCustomChoiceSitePage = () => {
             temp = temp.filter((el) => t.indexOf(el.Approved) !== -1);
         }
 
+        temp.sort((a: any, b: any) => {
+            const idA = a._id.toLowerCase();
+            const idB = b._id.toLowerCase();
+
+            if (idA > idB) {
+                return 1;
+            }
+
+            if (idA < idB) {
+                return -1;
+            }
+
+            return 0;
+        });
+
         const result = [];
 
         let count = 1;

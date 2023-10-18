@@ -45,6 +45,7 @@ module.exports.GetHistoryDateChange = async (date) => {
             DateChanged: { $ne: null },
             DateChanged: { $gte: new Date(date) },
         })
+        .sort({ SiteId: 1 })
         .toArray();
 
     Connect.disconnect();

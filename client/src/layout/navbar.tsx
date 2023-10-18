@@ -50,6 +50,75 @@ const mockdataCustomer = [
     },
 ];
 
+const mockdataForStaff = [
+    {
+        label: 'Nhập Liệu',
+        icon: IconEdit,
+        initiallyOpened: false,
+        links: [
+            { label: 'Nhập Tay Chỉ Số', link: '/indexManual' },
+            { label: 'Nhập Tay Sản Lượng', link: '/quantityManual' },
+            { label: 'Sửa Dữ Liệu', link: '/dataManualChanged' },
+        ],
+    },
+    {
+        label: 'Sản Lượng',
+        icon: IconReceipt2,
+        initiallyOpened: false,
+        links: [
+            {
+                label: 'Sản Lượng Các Công Ty Cấp Nước',
+                link: '/quantityCompanyWaterSupply',
+            },
+            { label: 'Sản Lượng Theo Quản Lý', link: '/quantityCompany' },
+            { label: 'Sản Lượng Theo Nhóm ', link: '/quantityGroup' },
+            { label: 'Sản Lượng Theo Nhóm 2', link: '/quantityGroup2' },
+            { label: 'Sản Lượng Theo Nhóm 3', link: '/quantityGroup3' },
+            { label: 'Sản Lượng Theo Nhóm 4', link: '/quantityGroup4' },
+            { label: 'Sản Lượng Theo Nhóm 5', link: '/quantityGroup5' },
+            {
+                label: 'Sản Lượng Theo Cấp Đồng Hồ',
+                link: '/quantityLevel',
+            },
+            { label: 'Sản Lượng Tổng Hợp', link: '/quantityTotal' },
+        ],
+    },
+    {
+        label: 'Tài Khoản',
+        icon: IconKey,
+        initiallyOpened: false,
+        links: [
+            {
+                label: 'Đổi Mật Khẩu',
+                link: '/changePassword',
+            },
+        ],
+    },
+];
+const mockdataForMeter_Logger_Tran = [
+    {
+        label: 'Thiết Bị',
+        icon: IconDeviceDesktop,
+        initiallyOpened: false,
+        links: [
+            { label: 'Đồng Hồ ', link: '/meter' },
+            { label: 'Bộ Hiển Thị', link: '/transmitter' },
+            { label: 'Logger', link: '/logger' },
+            { label: 'Nắp Hầm', link: '/cover' },
+        ],
+    },
+    {
+        label: 'Điểm Lắp Đặt',
+        icon: IconMapPin,
+        initiallyOpened: false,
+        links: [
+            { label: 'Thay Đồng Hồ', link: '/meterChanged' },
+            { label: 'Thay Bộ Hiển Thị', link: '/transmitterChanged' },
+            { label: 'Thay Bộ Logger', link: '/loggerChanged' },
+        ],
+    },
+];
+
 const mockdata = [
     {
         label: 'Thiết Bị',
@@ -291,8 +360,16 @@ export function NavbarNested() {
     let links;
 
     if (role !== undefined && role !== null) {
-        if (role == 'customer') {
+        if (role === 'customer') {
             links = mockdataCustomer.map((item) => (
+                <LinksGroup {...item} key={item.label} />
+            ));
+        } else if (role === 'staff') {
+            links = mockdataForStaff.map((item) => (
+                <LinksGroup {...item} key={item.label} />
+            ));
+        } else if (role === 'meter_logger_tran') {
+            links = mockdataForMeter_Logger_Tran.map((item) => (
                 <LinksGroup {...item} key={item.label} />
             ));
         } else {

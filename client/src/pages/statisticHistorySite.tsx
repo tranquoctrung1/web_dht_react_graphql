@@ -1,4 +1,4 @@
-import { Grid, Col, Select, Text, Table } from '@mantine/core';
+import { Grid, Col, Select, Text, Table, Space, Center } from '@mantine/core';
 
 import {
     useGetAllSitesLazyQuery,
@@ -329,279 +329,231 @@ const StatisticHistorySitePage = () => {
             valueSiteId !== null &&
             valueSiteId !== undefined ? (
                 <>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={4}>
-                                <Controller
-                                    name="SiteId"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text
-                                            size="1.3rem"
-                                            weight={500}
-                                            color="blue"
-                                        >
-                                            {getValues('SiteId')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                            <Col md={8}>
-                                <Controller
-                                    name="Location"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text
-                                            size="1.3rem"
-                                            weight={500}
-                                            color="blue"
-                                        >
-                                            {getValues('Location')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
-                    </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Seri đồng hồ:
+                    <Col md={4}>
+                        <Controller
+                            name="SiteId"
+                            control={control}
+                            render={({ field }) => (
+                                <Text size="1rem" weight={500} color="blue">
+                                    {getValues('SiteId')}
                                 </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Meter"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('Meter')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                            )}
+                        ></Controller>
                     </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Bộ hiển thị:
+                    <Col md={8}>
+                        <Controller
+                            name="Location"
+                            control={control}
+                            render={({ field }) => (
+                                <Text size="1rem" weight={500} color="blue">
+                                    {getValues('Location')}
                                 </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Transmitter"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('Transmitter')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                            )}
+                        ></Controller>
                     </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Logger:
-                                </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Logger"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('Logger')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Seri đồng hồ:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="Meter"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('Meter')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
                     </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Hiệu:
-                                </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Marks"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('Marks')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Bộ hiển thị:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="Transmitter"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('Transmitter')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
                     </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Cở:
-                                </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Size"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('Size')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Logger:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="Logger"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('Logger')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
                     </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Quản lý:
-                                </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Company"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('Company')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Hiệu:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="Marks"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('Marks')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
                     </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Trạng thái:
-                                </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Availability"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('Availability')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Cở:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="Size"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('Size')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
                     </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Tình trạng:
-                                </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Status"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('Status')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Quản lý:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="Company"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('Company')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
                     </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Bàn giao:
-                                </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Takeovered"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('Takeovered')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Trạng thái:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="Availability"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('Availability')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
                     </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Chiều đồng hồ:
-                                </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="MeterDirection"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('MeterDirection')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Tình trạng:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="Status"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('Status')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
                     </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Tính cho:
-                                </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="CalcCompany"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('CalcCompany')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Bàn giao:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="Takeovered"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('Takeovered')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
                     </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Text weight={500} size="1rem">
-                                    Ghi chú:
-                                </Text>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Description"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            {getValues('Description')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Chiều đồng hồ:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="MeterDirection"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('MeterDirection')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
+                    </Col>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Tính cho:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="CalcCompany"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('CalcCompany')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
+                    </Col>
+                    <Col md={2}>
+                        <Center>
+                            <Text weight={500} size=".8rem">
+                                Ghi chú:
+                            </Text>
+                            <Space w="md" />
+                            <Controller
+                                name="Description"
+                                control={control}
+                                render={({ field }) => (
+                                    <Text size=".8rem" weight={500}>
+                                        {getValues('Description')}
+                                    </Text>
+                                )}
+                            ></Controller>
+                        </Center>
                     </Col>
                     {dataHistoryMeter ? (
                         <>
@@ -612,6 +564,12 @@ const StatisticHistorySitePage = () => {
                                     highlightOnHover
                                     withBorder
                                     withColumnBorders
+                                    verticalSpacing="xs"
+                                    fontSize="xs"
+                                    style={{
+                                        tableLayout: 'auto',
+                                        width: '200%',
+                                    }}
                                 >
                                     <caption>Thay đồng hồ</caption>
                                     <thead>
@@ -631,7 +589,9 @@ const StatisticHistorySitePage = () => {
                                             <th>Model</th>
                                             <th>Chỉ cố mới</th>
                                             <th>Giấy kiểm định</th>
-                                            <th>Ghi chú</th>
+                                            <th style={{ width: '500px' }}>
+                                                Ghi chú
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -651,6 +611,12 @@ const StatisticHistorySitePage = () => {
                                     highlightOnHover
                                     withBorder
                                     withColumnBorders
+                                    verticalSpacing="xs"
+                                    fontSize="xs"
+                                    style={{
+                                        tableLayout: 'auto',
+                                        width: '200%',
+                                    }}
                                 >
                                     <caption>Thay bộ hiển thị</caption>
                                     <thead>
@@ -669,7 +635,9 @@ const StatisticHistorySitePage = () => {
                                             <th>Cở</th>
                                             <th>Model</th>
                                             <th>Chỉ cố mới</th>
-                                            <th>Ghi chú</th>
+                                            <th style={{ width: '500px' }}>
+                                                Ghi chú
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -691,6 +659,12 @@ const StatisticHistorySitePage = () => {
                                     highlightOnHover
                                     withBorder
                                     withColumnBorders
+                                    verticalSpacing="xs"
+                                    fontSize="xs"
+                                    style={{
+                                        tableLayout: 'auto',
+                                        width: '200%',
+                                    }}
                                 >
                                     <caption>Thay logger</caption>
                                     <thead>
@@ -707,7 +681,9 @@ const StatisticHistorySitePage = () => {
                                             <th>Hiệu</th>
                                             <th>Model</th>
                                             <th>Chỉ cố mới</th>
-                                            <th>Ghi chú</th>
+                                            <th style={{ width: '500px' }}>
+                                                Ghi chú
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
