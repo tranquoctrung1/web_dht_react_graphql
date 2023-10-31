@@ -29,6 +29,8 @@ import { convertTimeStampToDate, checkAdminViewerRole } from '../utils/utils';
 
 import Swal from 'sweetalert2';
 
+import { motion } from 'framer-motion';
+
 const ChangeDataManualPage = () => {
     const [id, setId] = useState('');
     const [siteId, setSiteId] = useState('');
@@ -575,169 +577,175 @@ const ChangeDataManualPage = () => {
     };
 
     return (
-        <Grid>
-            <Col md={4}>
-                {sites !== undefined ? (
-                    <Select
-                        label="Mã vị trí"
-                        placeholder="Mã vị trí"
-                        searchable
-                        nothingFound="Không tìm thấy mã vị trí"
-                        //@ts-ignore
-                        data={sitesData}
-                        onChange={onSiteIdChanged}
-                        value={siteId}
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col md={4}>
+                    {sites !== undefined ? (
+                        <Select
+                            label="Mã vị trí"
+                            placeholder="Mã vị trí"
+                            searchable
+                            nothingFound="Không tìm thấy mã vị trí"
+                            //@ts-ignore
+                            data={sitesData}
+                            onChange={onSiteIdChanged}
+                            value={siteId}
+                            withAsterisk
+                        />
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {meter !== undefined ? (
+                        <Select
+                            label="Đồng hồ"
+                            placeholder="Đồng hồ"
+                            searchable
+                            nothingFound="Không tìm thấy đồng hồ"
+                            //@ts-ignore
+                            data={metersData}
+                            value={meter}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {staffs !== undefined ? (
+                        <Select
+                            label="Mã nhân viên"
+                            placeholder="Mã nhân viên"
+                            searchable
+                            nothingFound="Không tìm thấy mã nhân viên"
+                            //@ts-ignore
+                            data={staffsData}
+                            value={staffId}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    <TextInput
+                        placeholder="Vị trí"
+                        label="Vị trí"
+                        value={location}
+                    />
+                </Col>
+                <Col md={4}>
+                    <DateInput
+                        valueFormat="DD/MM/YYYY"
+                        label="Từ ngày"
+                        placeholder="Từ ngày"
+                        mx="auto"
+                        value={startDate}
+                        onChange={onStartDateChanged}
                         withAsterisk
                     />
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {meter !== undefined ? (
-                    <Select
-                        label="Đồng hồ"
-                        placeholder="Đồng hồ"
-                        searchable
-                        nothingFound="Không tìm thấy đồng hồ"
-                        //@ts-ignore
-                        data={metersData}
-                        value={meter}
+                </Col>
+                <Col md={4}>
+                    <DateInput
+                        valueFormat="DD/MM/YYYY"
+                        label="Đến ngày"
+                        placeholder="Đến ngày"
+                        mx="auto"
+                        value={endDate}
+                        onChange={onEndDateChanged}
+                        withAsterisk
                     />
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {staffs !== undefined ? (
-                    <Select
-                        label="Mã nhân viên"
-                        placeholder="Mã nhân viên"
-                        searchable
-                        nothingFound="Không tìm thấy mã nhân viên"
-                        //@ts-ignore
-                        data={staffsData}
-                        value={staffId}
+                </Col>
+                <Col md={3}>
+                    <TextInput
+                        placeholder="Ghi chú"
+                        label="Ghi chú"
+                        value={description}
+                        onChange={onDescriptionChanged}
                     />
-                ) : null}
-            </Col>
-            <Col md={4}>
-                <TextInput
-                    placeholder="Vị trí"
-                    label="Vị trí"
-                    value={location}
-                />
-            </Col>
-            <Col md={4}>
-                <DateInput
-                    valueFormat="DD/MM/YYYY"
-                    label="Từ ngày"
-                    placeholder="Từ ngày"
-                    mx="auto"
-                    value={startDate}
-                    onChange={onStartDateChanged}
-                    withAsterisk
-                />
-            </Col>
-            <Col md={4}>
-                <DateInput
-                    valueFormat="DD/MM/YYYY"
-                    label="Đến ngày"
-                    placeholder="Đến ngày"
-                    mx="auto"
-                    value={endDate}
-                    onChange={onEndDateChanged}
-                    withAsterisk
-                />
-            </Col>
-            <Col md={3}>
-                <TextInput
-                    placeholder="Ghi chú"
-                    label="Ghi chú"
-                    value={description}
-                    onChange={onDescriptionChanged}
-                />
-            </Col>
-            <Col md={3}>
-                <DateInput
-                    valueFormat="DD/MM/YYYY"
-                    label="Ngày"
-                    placeholder="Ngày"
-                    mx="auto"
-                    value={timeStamp}
-                    onChange={onTimeStampChanged}
-                    withAsterisk
-                />
-            </Col>
-            <Col md={3}>
-                <NumberInput
-                    placeholder="Chỉ số"
-                    label="Chỉ số"
-                    precision={2}
-                    value={index}
-                    onChange={onIndexChanged}
-                />
-            </Col>
-            <Col md={3}>
-                <NumberInput
-                    placeholder="Sản lượng"
-                    label="Sản lượng"
-                    precision={2}
-                    value={output}
-                    onChange={onOutputChanged}
-                />
-            </Col>
-            <Col span={12}>
-                <Center>
-                    <Button
-                        variant="filled"
-                        color="violet"
-                        onClick={onViewClicked}
-                    >
-                        Xem
-                    </Button>
-                    {isAdminViewer == false ? (
-                        <>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="green"
-                                onClick={onInsertClicked}
-                            >
-                                Thêm
-                            </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="blue"
-                                onClick={onUpdateClicked}
-                            >
-                                Sửa
-                            </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="red"
-                                onClick={onDeleteClicked}
-                            >
-                                Xóa
-                            </Button>
-                        </>
+                </Col>
+                <Col md={3}>
+                    <DateInput
+                        valueFormat="DD/MM/YYYY"
+                        label="Ngày"
+                        placeholder="Ngày"
+                        mx="auto"
+                        value={timeStamp}
+                        onChange={onTimeStampChanged}
+                        withAsterisk
+                    />
+                </Col>
+                <Col md={3}>
+                    <NumberInput
+                        placeholder="Chỉ số"
+                        label="Chỉ số"
+                        precision={2}
+                        value={index}
+                        onChange={onIndexChanged}
+                    />
+                </Col>
+                <Col md={3}>
+                    <NumberInput
+                        placeholder="Sản lượng"
+                        label="Sản lượng"
+                        precision={2}
+                        value={output}
+                        onChange={onOutputChanged}
+                    />
+                </Col>
+                <Col span={12}>
+                    <Center>
+                        <Button
+                            variant="filled"
+                            color="violet"
+                            onClick={onViewClicked}
+                        >
+                            Xem
+                        </Button>
+                        {isAdminViewer == false ? (
+                            <>
+                                <Space w="md"></Space>
+                                <Button
+                                    variant="filled"
+                                    color="green"
+                                    onClick={onInsertClicked}
+                                >
+                                    Thêm
+                                </Button>
+                                <Space w="md"></Space>
+                                <Button
+                                    variant="filled"
+                                    color="blue"
+                                    onClick={onUpdateClicked}
+                                >
+                                    Sửa
+                                </Button>
+                                <Space w="md"></Space>
+                                <Button
+                                    variant="filled"
+                                    color="red"
+                                    onClick={onDeleteClicked}
+                                >
+                                    Xóa
+                                </Button>
+                            </>
+                        ) : null}
+                    </Center>
+                </Col>
+                <Col span={12}>
+                    {dataTable.length > 0 ? (
+                        <DataTable
+                            columns={column}
+                            data={dataTable}
+                            pagination
+                            paginationPerPage={5}
+                            paginationRowsPerPageOptions={[
+                                5, 10, 50, 100, 200, 500,
+                            ]}
+                            selectableRows
+                            onSelectedRowsChange={handleSelectedRow}
+                        />
                     ) : null}
-                </Center>
-            </Col>
-            <Col span={12}>
-                {dataTable.length > 0 ? (
-                    <DataTable
-                        columns={column}
-                        data={dataTable}
-                        pagination
-                        paginationPerPage={5}
-                        paginationRowsPerPageOptions={[
-                            5, 10, 50, 100, 200, 500,
-                        ]}
-                        selectableRows
-                        onSelectedRowsChange={handleSelectedRow}
-                    />
-                ) : null}
-            </Col>
-        </Grid>
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 

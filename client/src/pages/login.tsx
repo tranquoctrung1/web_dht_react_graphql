@@ -20,7 +20,10 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Logo from '../assets/logo.png';
 
-import { useLoginActionLazyQuery } from '../__generated__/graphql';
+import {
+    useLoginActionLazyQuery,
+    useLoginActionQuery,
+} from '../__generated__/graphql';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -32,6 +35,7 @@ const LoginPage = () => {
     const [errorLogin, setErrorLogin] = useState('');
 
     const [loginAction, {}] = useLoginActionLazyQuery();
+    const { refetch: refetchLogin } = useLoginActionQuery();
 
     const { control, getValues, register } = useForm({
         defaultValues: {
@@ -86,11 +90,9 @@ const LoginPage = () => {
 
                 navigate('/quantityCompanyWaterSupply');
             } else {
-                loginAction({
-                    variables: {
-                        username: formValue.username,
-                        password: formValue.password,
-                    },
+                refetchLogin({
+                    username: formValue.username,
+                    password: formValue.password,
                 })
                     .then((res) => {
                         if (res.data !== null && res.data !== undefined) {

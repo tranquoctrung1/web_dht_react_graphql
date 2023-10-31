@@ -24,6 +24,8 @@ import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 
 import { checkAdminViewerRole, convertTimeStampToDate } from '../utils/utils';
 
+import { motion } from 'framer-motion';
+
 const StatisticCustomChoiceSitePage = () => {
     const [listDataYN, setListDataYN] = useState(['Y', 'N']);
     const [listDataSiteLevel, setListDataSiteLevel] = useState([]);
@@ -1011,213 +1013,219 @@ const StatisticCustomChoiceSitePage = () => {
     };
 
     return (
-        <Grid>
-            <Col md={2}>
-                {listDataSiteLevel ? (
-                    <MultiSelect
-                        label="Cấp đồng hồ"
-                        placeholder="Pick value"
-                        data={listDataSiteLevel}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueSiteLevel(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataSiteGroup ? (
-                    <MultiSelect
-                        label="Nhóm ĐH"
-                        placeholder="Pick value"
-                        data={listDataSiteGroup}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueSiteGroup(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataSiteGroup2S ? (
-                    <MultiSelect
-                        label="Nhóm ĐH (2)"
-                        placeholder="Pick value"
-                        data={listDataSiteGroup2S}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueSiteGroup2S(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataMeterModel ? (
-                    <MultiSelect
-                        label="Model ĐH"
-                        placeholder="Pick value"
-                        data={listDataMeterModel}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueMeterModel(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listCompanies ? (
-                    <MultiSelect
-                        label="Quản lý"
-                        placeholder="Pick value"
-                        data={listCompanies}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueCompanies(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataSiteStatus ? (
-                    <MultiSelect
-                        label="Trạng thái"
-                        placeholder="Pick value"
-                        data={listDataSiteStatus}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueSiteStatus(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataSiteAvai ? (
-                    <MultiSelect
-                        label="Tình trạng"
-                        placeholder="Pick value"
-                        data={listDataSiteAvai}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueSiteAvai(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listCompanies ? (
-                    <MultiSelect
-                        label="Tính cho"
-                        placeholder="Pick value"
-                        data={listCompanies}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueCalcCompanies(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataYN ? (
-                    <MultiSelect
-                        label="Bàn giao"
-                        placeholder="Pick value"
-                        data={listDataYN}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueTakeoverd(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataYN ? (
-                    <MultiSelect
-                        label="Tài sản"
-                        placeholder="Pick value"
-                        data={listDataYN}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueProperty(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataYN ? (
-                    <MultiSelect
-                        label="Sử dụng logger"
-                        placeholder="Pick value"
-                        data={listDataYN}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueUsingLogger(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataLoggerModel ? (
-                    <MultiSelect
-                        label="Model Logger"
-                        placeholder="Pick value"
-                        data={listDataLoggerModel}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueLoggerModel(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataMeterAcc ? (
-                    <MultiSelect
-                        label="Loại kiểm định"
-                        placeholder="Pick value"
-                        data={listDataMeterAcc}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueDataMeterAcc(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataYN ? (
-                    <MultiSelect
-                        label="Đã phê duyệt"
-                        placeholder="Pick value"
-                        data={listDataYN}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueApprovaled(e)}
-                    />
-                ) : null}
-            </Col>
-            {isAdminViewer === false ? (
-                <Col span={12}>
-                    <Center>
-                        <Button
-                            variant="filled"
-                            color="green"
-                            onClick={onViewClicked}
-                        >
-                            Xem
-                        </Button>
-                    </Center>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col md={2}>
+                    {listDataSiteLevel ? (
+                        <MultiSelect
+                            label="Cấp đồng hồ"
+                            placeholder="Pick value"
+                            data={listDataSiteLevel}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueSiteLevel(e)}
+                        />
+                    ) : null}
                 </Col>
-            ) : null}
-            <Col span={12} style={{ maxWidth: '99%' }}>
-                <DataTableExtensions {...tableData}>
-                    <DataTable
-                        noHeader
-                        noTableHead
-                        columns={columns}
-                        data={data}
-                        title={
-                            <Center>
-                                <Text weight={500}>
-                                    Thống Kê Tùy Chọn Điểm Lắp Đặt
-                                </Text>
-                            </Center>
-                        }
-                        paginationPerPage={50}
-                        sortIcon={<IconArrowBadgeUpFilled />}
-                        defaultSortAsc={true}
-                        pagination
-                        highlightOnHover={true}
-                        dense={false}
-                        conditionalRowStyles={conditionalRowStyles}
-                    />
-                </DataTableExtensions>
-            </Col>
-        </Grid>
+                <Col md={2}>
+                    {listDataSiteGroup ? (
+                        <MultiSelect
+                            label="Nhóm ĐH"
+                            placeholder="Pick value"
+                            data={listDataSiteGroup}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueSiteGroup(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataSiteGroup2S ? (
+                        <MultiSelect
+                            label="Nhóm ĐH (2)"
+                            placeholder="Pick value"
+                            data={listDataSiteGroup2S}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueSiteGroup2S(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataMeterModel ? (
+                        <MultiSelect
+                            label="Model ĐH"
+                            placeholder="Pick value"
+                            data={listDataMeterModel}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueMeterModel(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listCompanies ? (
+                        <MultiSelect
+                            label="Quản lý"
+                            placeholder="Pick value"
+                            data={listCompanies}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueCompanies(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataSiteStatus ? (
+                        <MultiSelect
+                            label="Trạng thái"
+                            placeholder="Pick value"
+                            data={listDataSiteStatus}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueSiteStatus(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataSiteAvai ? (
+                        <MultiSelect
+                            label="Tình trạng"
+                            placeholder="Pick value"
+                            data={listDataSiteAvai}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueSiteAvai(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listCompanies ? (
+                        <MultiSelect
+                            label="Tính cho"
+                            placeholder="Pick value"
+                            data={listCompanies}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueCalcCompanies(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataYN ? (
+                        <MultiSelect
+                            label="Bàn giao"
+                            placeholder="Pick value"
+                            data={listDataYN}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueTakeoverd(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataYN ? (
+                        <MultiSelect
+                            label="Tài sản"
+                            placeholder="Pick value"
+                            data={listDataYN}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueProperty(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataYN ? (
+                        <MultiSelect
+                            label="Sử dụng logger"
+                            placeholder="Pick value"
+                            data={listDataYN}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueUsingLogger(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataLoggerModel ? (
+                        <MultiSelect
+                            label="Model Logger"
+                            placeholder="Pick value"
+                            data={listDataLoggerModel}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueLoggerModel(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataMeterAcc ? (
+                        <MultiSelect
+                            label="Loại kiểm định"
+                            placeholder="Pick value"
+                            data={listDataMeterAcc}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueDataMeterAcc(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataYN ? (
+                        <MultiSelect
+                            label="Đã phê duyệt"
+                            placeholder="Pick value"
+                            data={listDataYN}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueApprovaled(e)}
+                        />
+                    ) : null}
+                </Col>
+                {isAdminViewer === false ? (
+                    <Col span={12}>
+                        <Center>
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onViewClicked}
+                            >
+                                Xem
+                            </Button>
+                        </Center>
+                    </Col>
+                ) : null}
+                <Col span={12} style={{ maxWidth: '99%' }}>
+                    <DataTableExtensions {...tableData}>
+                        <DataTable
+                            noHeader
+                            noTableHead
+                            columns={columns}
+                            data={data}
+                            title={
+                                <Center>
+                                    <Text weight={500}>
+                                        Thống Kê Tùy Chọn Điểm Lắp Đặt
+                                    </Text>
+                                </Center>
+                            }
+                            paginationPerPage={50}
+                            sortIcon={<IconArrowBadgeUpFilled />}
+                            defaultSortAsc={true}
+                            pagination
+                            highlightOnHover={true}
+                            dense={false}
+                            conditionalRowStyles={conditionalRowStyles}
+                        />
+                    </DataTableExtensions>
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 

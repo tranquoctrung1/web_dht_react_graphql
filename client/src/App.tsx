@@ -51,6 +51,7 @@ import QuantityGroup5Page from './pages/quantityGroup5';
 import QuantityLevelPage from './pages/quantityLevel';
 import QuantityTotalPage from './pages/quantityTotal';
 import ViewUserPage from './pages/viewUser';
+import StatisticHistoryMeterPage from './pages/statisticHistoryMeter';
 
 function App() {
     const router = createBrowserRouter([
@@ -237,6 +238,10 @@ function App() {
                 {
                     path: '/viewUser',
                     element: <ViewUserPage />,
+                },
+                {
+                    path: '/statisticHistoryMeter',
+                    element: <StatisticHistoryMeterPage />,
                 },
             ],
         },

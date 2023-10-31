@@ -6,7 +6,15 @@ module.exports = {
             return await HistorySiteMeterModel.GetAll();
         },
         GetHistoryMeterBySiteId: async (parent, { siteid }, context, info) => {
-            return await HistorySiteLoggerModel.GetHistoryBySiteId(siteid);
+            return await HistorySiteMeterModel.GetHistoryBySiteId(siteid);
+        },
+        GetHistoryMeterByMeter: async (
+            parent,
+            { meterSerial },
+            context,
+            info,
+        ) => {
+            return await HistorySiteMeterModel.GetHistoryByMeter(meterSerial);
         },
     },
     Mutation: {

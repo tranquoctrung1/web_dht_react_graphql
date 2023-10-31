@@ -11,6 +11,8 @@ import { checkAdminViewerRole } from '../utils/utils';
 
 import uuid from 'react-uuid';
 
+import { motion } from 'framer-motion';
+
 const onViewClicked = () => {};
 
 const StatisticMarkSizePage = () => {
@@ -192,47 +194,53 @@ const StatisticMarkSizePage = () => {
     };
 
     return (
-        <Grid>
-            {isAdminViewer === false ? (
-                <Col span={12}>
-                    <Center>
-                        <Button
-                            variant="filled"
-                            color="green"
-                            onClick={onViewClicked}
-                        >
-                            Xem
-                        </Button>
-                    </Center>
-                </Col>
-            ) : null}
-            {data.length > 0 && (
-                <>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                {isAdminViewer === false ? (
                     <Col span={12}>
                         <Center>
-                            <ReactHTMLTableToExcel
-                                id="table-xls"
-                                className="btn-export"
-                                table="tableStatistic"
-                                filename={`Thống kê theo hiệu cở Xí nghiệp quản lý`}
-                                sheet="tableStatistic"
-                                buttonText="Xuất Excel"
-                            />
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onViewClicked}
+                            >
+                                Xem
+                            </Button>
                         </Center>
                     </Col>
-                    <Col
-                        span={12}
-                        style={{
-                            overflow: 'scroll',
-                            width: '95%',
-                            height: '50rem',
-                        }}
-                    >
-                        {renderTable(data)}
-                    </Col>
-                </>
-            )}
-        </Grid>
+                ) : null}
+                {data.length > 0 && (
+                    <>
+                        <Col span={12}>
+                            <Center>
+                                <ReactHTMLTableToExcel
+                                    id="table-xls"
+                                    className="btn-export"
+                                    table="tableStatistic"
+                                    filename={`Thống kê theo hiệu cở Xí nghiệp quản lý`}
+                                    sheet="tableStatistic"
+                                    buttonText="Xuất Excel"
+                                />
+                            </Center>
+                        </Col>
+                        <Col
+                            span={12}
+                            style={{
+                                overflow: 'scroll',
+                                width: '95%',
+                                height: '50rem',
+                            }}
+                        >
+                            {renderTable(data)}
+                        </Col>
+                    </>
+                )}
+            </Grid>
+        </motion.div>
     );
 };
 

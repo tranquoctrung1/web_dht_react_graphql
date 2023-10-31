@@ -65,6 +65,20 @@ module.exports.GetHistoryBySiteId = async (siteid) => {
     return result;
 };
 
+module.exports.GetHistoryByMeter = async (meterSerial) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(HistorySiteMeterCollection);
+
+    let result = await collection
+        .find({ OldMeterSerial: meterSerial })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.Insert = async (history) => {
     let Connect = new ConnectDB.Connect();
 

@@ -26,6 +26,8 @@ import { checkAdminViewerRole } from '../utils/utils';
 
 import Swal from 'sweetalert2';
 
+import { motion } from 'framer-motion';
+
 const CreateUserPage = () => {
     const [listUser, setListUser] = useState([]);
     const [userData, setUserData] = useState([]);
@@ -461,144 +463,150 @@ const CreateUserPage = () => {
     };
 
     return (
-        <Grid>
-            <Col md={4}>
-                {userData !== undefined ? (
-                    <Controller
-                        name="Uid"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Người dùng"
-                                placeholder="Người dùng"
-                                searchable
-                                nothingFound="Không tìm thấy người dùng"
-                                //@ts-ignore
-                                data={userData}
-                                creatable
-                                getCreateLabel={(query) =>
-                                    `+ Tạo điểm: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col md={4}>
+                    {userData !== undefined ? (
+                        <Controller
+                            name="Uid"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Người dùng"
+                                    placeholder="Người dùng"
+                                    searchable
+                                    nothingFound="Không tìm thấy người dùng"
                                     //@ts-ignore
-                                    setUserData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                                {...field}
-                                onBlur={onUidBlured}
-                                withAsterisk
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="Pwd"
-                    control={control}
-                    render={({ field }) => (
-                        <PasswordInput
-                            placeholder="Mật khẩu"
-                            label="Mật khẩu"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                {company !== undefined ? (
-                    <Controller
-                        name="Company"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Công ty"
-                                placeholder="Công ty"
-                                searchable
-                                nothingFound="Không tìm thấy công ty"
-                                //@ts-ignore
-                                data={companyData}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {role !== undefined ? (
-                    <Controller
-                        name="Role"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Quyền"
-                                placeholder="Quyền"
-                                searchable
-                                nothingFound="Không tìm thấy quyền"
-                                //@ts-ignore
-                                data={roleData}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {staffs !== undefined ? (
-                    <Controller
-                        name="StaffId"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Mã nhân viên"
-                                placeholder="Mã nhân viên"
-                                searchable
-                                nothingFound="Không tìm thấy mã nhân viên"
-                                //@ts-ignore
-                                data={staffsData}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            {isAdminViewer == false ? (
-                <Col span={12}>
-                    <Center>
-                        <Button
-                            variant="filled"
-                            color="green"
-                            onClick={onInsertClicked}
-                        >
-                            Thêm
-                        </Button>
-                        <Space w="md"></Space>
-                        <Button
-                            variant="filled"
-                            color="blue"
-                            onClick={onUpdateClicked}
-                        >
-                            Sửa
-                        </Button>
-                        <Space w="md"></Space>
-                        <Button
-                            variant="filled"
-                            color="red"
-                            onClick={onDeleteClicked}
-                        >
-                            Xóa
-                        </Button>
-                    </Center>
+                                    data={userData}
+                                    creatable
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo điểm: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setUserData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                    {...field}
+                                    onBlur={onUidBlured}
+                                    withAsterisk
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
                 </Col>
-            ) : null}
-        </Grid>
+                <Col md={4}>
+                    <Controller
+                        name="Pwd"
+                        control={control}
+                        render={({ field }) => (
+                            <PasswordInput
+                                placeholder="Mật khẩu"
+                                label="Mật khẩu"
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    {company !== undefined ? (
+                        <Controller
+                            name="Company"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Công ty"
+                                    placeholder="Công ty"
+                                    searchable
+                                    nothingFound="Không tìm thấy công ty"
+                                    //@ts-ignore
+                                    data={companyData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {role !== undefined ? (
+                        <Controller
+                            name="Role"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Quyền"
+                                    placeholder="Quyền"
+                                    searchable
+                                    nothingFound="Không tìm thấy quyền"
+                                    //@ts-ignore
+                                    data={roleData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {staffs !== undefined ? (
+                        <Controller
+                            name="StaffId"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Mã nhân viên"
+                                    placeholder="Mã nhân viên"
+                                    searchable
+                                    nothingFound="Không tìm thấy mã nhân viên"
+                                    //@ts-ignore
+                                    data={staffsData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                {isAdminViewer == false ? (
+                    <Col span={12}>
+                        <Center>
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onInsertClicked}
+                            >
+                                Thêm
+                            </Button>
+                            <Space w="md"></Space>
+                            <Button
+                                variant="filled"
+                                color="blue"
+                                onClick={onUpdateClicked}
+                            >
+                                Sửa
+                            </Button>
+                            <Space w="md"></Space>
+                            <Button
+                                variant="filled"
+                                color="red"
+                                onClick={onDeleteClicked}
+                            >
+                                Xóa
+                            </Button>
+                        </Center>
+                    </Col>
+                ) : null}
+            </Grid>
+        </motion.div>
     );
 };
 

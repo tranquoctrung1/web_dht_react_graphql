@@ -21,6 +21,8 @@ import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 
 import { checkAdminViewerRole } from '../utils/utils';
 
+import { motion } from 'framer-motion';
+
 const StatisticCustomChoiceLoggerPage = () => {
     const [listDataYN, setListDataYN] = useState(['Y', 'N']);
     const [listProvider, setListProvider] = useState([]);
@@ -506,129 +508,135 @@ STT
     };
 
     return (
-        <Grid>
-            <Col md={2}>
-                {listProvider ? (
-                    <MultiSelect
-                        label="Nhà sản xuất"
-                        placeholder="Pick value"
-                        data={listProvider}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueProvider(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listMarks ? (
-                    <MultiSelect
-                        label="Hiệu"
-                        placeholder="Pick value"
-                        data={listMarks}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueMarks(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listModel ? (
-                    <MultiSelect
-                        label="Model"
-                        placeholder="Pick value"
-                        data={listModel}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueModel(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDeviceStatus ? (
-                    <MultiSelect
-                        label="Tình trạng"
-                        placeholder="Pick value"
-                        data={listDeviceStatus}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueDeviceStatus(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataYN ? (
-                    <MultiSelect
-                        label="Lắp đặt"
-                        placeholder="Pick value"
-                        data={listDataYN}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueInstalled(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataSiteStatus ? (
-                    <MultiSelect
-                        label="Trạng thái"
-                        placeholder="Pick value"
-                        data={listDataSiteStatus}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueSiteStatus(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listCompanies ? (
-                    <MultiSelect
-                        label="Quản lý"
-                        placeholder="Pick value"
-                        data={listCompanies}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueCompanies(e)}
-                    />
-                ) : null}
-            </Col>
-            {isAdminViewer === false ? (
-                <Col span={12}>
-                    <Center>
-                        <Button
-                            variant="filled"
-                            color="green"
-                            onClick={onViewClicked}
-                        >
-                            Xem
-                        </Button>
-                    </Center>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col md={2}>
+                    {listProvider ? (
+                        <MultiSelect
+                            label="Nhà sản xuất"
+                            placeholder="Pick value"
+                            data={listProvider}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueProvider(e)}
+                        />
+                    ) : null}
                 </Col>
-            ) : null}
-            <Col span={12} style={{ maxWidth: '99%' }}>
-                <DataTableExtensions {...tableData}>
-                    <DataTable
-                        noHeader
-                        noTableHead
-                        columns={columns}
-                        data={data}
-                        title={
-                            <Center>
-                                <Text weight={500}>
-                                    Thống Kê Tùy Chọn Logger
-                                </Text>
-                            </Center>
-                        }
-                        paginationPerPage={50}
-                        sortIcon={<IconArrowBadgeUpFilled />}
-                        defaultSortAsc={true}
-                        pagination
-                        highlightOnHover={true}
-                        dense={false}
-                        conditionalRowStyles={conditionalRowStyles}
-                    />
-                </DataTableExtensions>
-            </Col>
-        </Grid>
+                <Col md={2}>
+                    {listMarks ? (
+                        <MultiSelect
+                            label="Hiệu"
+                            placeholder="Pick value"
+                            data={listMarks}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueMarks(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listModel ? (
+                        <MultiSelect
+                            label="Model"
+                            placeholder="Pick value"
+                            data={listModel}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueModel(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDeviceStatus ? (
+                        <MultiSelect
+                            label="Tình trạng"
+                            placeholder="Pick value"
+                            data={listDeviceStatus}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueDeviceStatus(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataYN ? (
+                        <MultiSelect
+                            label="Lắp đặt"
+                            placeholder="Pick value"
+                            data={listDataYN}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueInstalled(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataSiteStatus ? (
+                        <MultiSelect
+                            label="Trạng thái"
+                            placeholder="Pick value"
+                            data={listDataSiteStatus}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueSiteStatus(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listCompanies ? (
+                        <MultiSelect
+                            label="Quản lý"
+                            placeholder="Pick value"
+                            data={listCompanies}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueCompanies(e)}
+                        />
+                    ) : null}
+                </Col>
+                {isAdminViewer === false ? (
+                    <Col span={12}>
+                        <Center>
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onViewClicked}
+                            >
+                                Xem
+                            </Button>
+                        </Center>
+                    </Col>
+                ) : null}
+                <Col span={12} style={{ maxWidth: '99%' }}>
+                    <DataTableExtensions {...tableData}>
+                        <DataTable
+                            noHeader
+                            noTableHead
+                            columns={columns}
+                            data={data}
+                            title={
+                                <Center>
+                                    <Text weight={500}>
+                                        Thống Kê Tùy Chọn Logger
+                                    </Text>
+                                </Center>
+                            }
+                            paginationPerPage={50}
+                            sortIcon={<IconArrowBadgeUpFilled />}
+                            defaultSortAsc={true}
+                            pagination
+                            highlightOnHover={true}
+                            dense={false}
+                            conditionalRowStyles={conditionalRowStyles}
+                        />
+                    </DataTableExtensions>
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 

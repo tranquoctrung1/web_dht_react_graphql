@@ -12,6 +12,8 @@ import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 
 import { checkAdminViewerRole } from '../utils/utils';
 
+import { motion } from 'framer-motion';
+
 const StatisticSiteXNManager = () => {
     const [getStatisticSite, {}] = useGetStatisticSiteXnManagerLazyQuery();
 
@@ -372,45 +374,51 @@ const StatisticSiteXNManager = () => {
     };
 
     return (
-        <Grid>
-            {isAdminViewer === false ? (
-                <Col span={12}>
-                    <Center>
-                        <Button
-                            variant="filled"
-                            color="green"
-                            onClick={onViewClicked}
-                        >
-                            Xem
-                        </Button>
-                    </Center>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                {isAdminViewer === false ? (
+                    <Col span={12}>
+                        <Center>
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onViewClicked}
+                            >
+                                Xem
+                            </Button>
+                        </Center>
+                    </Col>
+                ) : null}
+                <Col span={12} style={{ maxWidth: '99%' }}>
+                    <DataTableExtensions {...tableData}>
+                        <DataTable
+                            columns={columns}
+                            noTableHead
+                            noHeader
+                            data={data}
+                            title={
+                                <Center>
+                                    <Text weight={500}>
+                                        Thống Kê Điểm Lắp Đặt Xí Nghiệp Quản Lý
+                                    </Text>
+                                </Center>
+                            }
+                            paginationPerPage={50}
+                            sortIcon={<IconArrowBadgeUpFilled />}
+                            defaultSortAsc={true}
+                            pagination
+                            highlightOnHover={true}
+                            dense={false}
+                            conditionalRowStyles={conditionalRowStyles}
+                        />
+                    </DataTableExtensions>
                 </Col>
-            ) : null}
-            <Col span={12} style={{ maxWidth: '99%' }}>
-                <DataTableExtensions {...tableData}>
-                    <DataTable
-                        columns={columns}
-                        noTableHead
-                        noHeader
-                        data={data}
-                        title={
-                            <Center>
-                                <Text weight={500}>
-                                    Thống Kê Điểm Lắp Đặt Xí Nghiệp Quản Lý
-                                </Text>
-                            </Center>
-                        }
-                        paginationPerPage={50}
-                        sortIcon={<IconArrowBadgeUpFilled />}
-                        defaultSortAsc={true}
-                        pagination
-                        highlightOnHover={true}
-                        dense={false}
-                        conditionalRowStyles={conditionalRowStyles}
-                    />
-                </DataTableExtensions>
-            </Col>
-        </Grid>
+            </Grid>
+        </motion.div>
     );
 };
 

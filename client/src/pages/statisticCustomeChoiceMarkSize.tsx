@@ -38,6 +38,8 @@ import {
     updateAmountMarkSize,
 } from '../utils/utils';
 
+import { motion } from 'framer-motion';
+
 const StatisticCustomChoiceMarkSizePage = () => {
     const [listDataYN, setListDataYN] = useState(['Y', 'N']);
     const [listDataSiteLevel, setListDataSiteLevel] = useState([]);
@@ -1232,291 +1234,297 @@ const StatisticCustomChoiceMarkSizePage = () => {
     };
 
     return (
-        <Grid>
-            <Col md={2}>
-                {listDataSiteLevel ? (
-                    <MultiSelect
-                        label="Cấp đồng hồ"
-                        placeholder="Pick value"
-                        data={listDataSiteLevel}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueSiteLevel(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataSiteGroup ? (
-                    <MultiSelect
-                        label="Nhóm ĐH"
-                        placeholder="Pick value"
-                        data={listDataSiteGroup}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueSiteGroup(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataSiteGroup2S ? (
-                    <MultiSelect
-                        label="Nhóm ĐH (2)"
-                        placeholder="Pick value"
-                        data={listDataSiteGroup2S}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueSiteGroup2S(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataMeterModel ? (
-                    <MultiSelect
-                        label="Model ĐH"
-                        placeholder="Pick value"
-                        data={listDataMeterModel}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueMeterModel(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listCompanies ? (
-                    <MultiSelect
-                        label="Quản lý"
-                        placeholder="Pick value"
-                        data={listCompanies}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueCompanies(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataSiteStatus ? (
-                    <MultiSelect
-                        label="Trạng thái"
-                        placeholder="Pick value"
-                        data={listDataSiteStatus}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueSiteStatus(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataSiteAvai ? (
-                    <MultiSelect
-                        label="Tình trạng"
-                        placeholder="Pick value"
-                        data={listDataSiteAvai}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueSiteAvai(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listCompanies ? (
-                    <MultiSelect
-                        label="Tính cho"
-                        placeholder="Pick value"
-                        data={listCompanies}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueCalcCompanies(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataYN ? (
-                    <MultiSelect
-                        label="Bàn giao"
-                        placeholder="Pick value"
-                        data={listDataYN}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueTakeoverd(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataYN ? (
-                    <MultiSelect
-                        label="Tài sản"
-                        placeholder="Pick value"
-                        data={listDataYN}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueProperty(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataYN ? (
-                    <MultiSelect
-                        label="Sử dụng logger"
-                        placeholder="Pick value"
-                        data={listDataYN}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueUsingLogger(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataLoggerModel ? (
-                    <MultiSelect
-                        label="Model Logger"
-                        placeholder="Pick value"
-                        data={listDataLoggerModel}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueLoggerModel(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataMeterAcc ? (
-                    <MultiSelect
-                        label="Loại kiểm định"
-                        placeholder="Pick value"
-                        data={listDataMeterAcc}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueDataMeterAcc(e)}
-                    />
-                ) : null}
-            </Col>
-            <Col md={2}>
-                {listDataYN ? (
-                    <MultiSelect
-                        label="Đã phê duyệt"
-                        placeholder="Pick value"
-                        data={listDataYN}
-                        clearable
-                        searchable
-                        onChange={(e) => setValueApprovaled(e)}
-                    />
-                ) : null}
-            </Col>
-            {isAdminViewer === false ? (
-                <Col span={12}>
-                    <Center>
-                        <Button
-                            variant="filled"
-                            color="green"
-                            onClick={onViewMarkClicked}
-                        >
-                            Hiệu
-                        </Button>
-                        <Space w="md" />
-                        <Button
-                            variant="filled"
-                            color="blue"
-                            onClick={onViewSizeClicked}
-                        >
-                            Cở
-                        </Button>
-                        <Space w="md" />
-                        <Button
-                            variant="filled"
-                            color="violet"
-                            onClick={onViewMarkSizeClicked}
-                        >
-                            Hiệu Cở
-                        </Button>
-                    </Center>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col md={2}>
+                    {listDataSiteLevel ? (
+                        <MultiSelect
+                            label="Cấp đồng hồ"
+                            placeholder="Pick value"
+                            data={listDataSiteLevel}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueSiteLevel(e)}
+                        />
+                    ) : null}
                 </Col>
-            ) : null}
-            {isMark
-                ? dataForMark.length > 0 && (
-                      <>
-                          <Col span={12}>
-                              <Center>
-                                  <ReactHTMLTableToExcel
-                                      id="table-xls"
-                                      className="btn-export"
-                                      table="tableStatisticMark"
-                                      filename={`Thống kê tùy chọn theo hiệu`}
-                                      sheet="tableStatisticMark"
-                                      buttonText="Xuất Excel"
-                                  />
-                              </Center>
-                          </Col>
-                          <Col
-                              span={12}
-                              style={{
-                                  overflow: 'scroll',
-                                  width: '95%',
-                                  height: '50rem',
-                              }}
-                          >
-                              {renderTableMark(dataForMark)}
-                          </Col>
-                      </>
-                  )
-                : null}
+                <Col md={2}>
+                    {listDataSiteGroup ? (
+                        <MultiSelect
+                            label="Nhóm ĐH"
+                            placeholder="Pick value"
+                            data={listDataSiteGroup}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueSiteGroup(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataSiteGroup2S ? (
+                        <MultiSelect
+                            label="Nhóm ĐH (2)"
+                            placeholder="Pick value"
+                            data={listDataSiteGroup2S}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueSiteGroup2S(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataMeterModel ? (
+                        <MultiSelect
+                            label="Model ĐH"
+                            placeholder="Pick value"
+                            data={listDataMeterModel}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueMeterModel(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listCompanies ? (
+                        <MultiSelect
+                            label="Quản lý"
+                            placeholder="Pick value"
+                            data={listCompanies}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueCompanies(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataSiteStatus ? (
+                        <MultiSelect
+                            label="Trạng thái"
+                            placeholder="Pick value"
+                            data={listDataSiteStatus}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueSiteStatus(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataSiteAvai ? (
+                        <MultiSelect
+                            label="Tình trạng"
+                            placeholder="Pick value"
+                            data={listDataSiteAvai}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueSiteAvai(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listCompanies ? (
+                        <MultiSelect
+                            label="Tính cho"
+                            placeholder="Pick value"
+                            data={listCompanies}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueCalcCompanies(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataYN ? (
+                        <MultiSelect
+                            label="Bàn giao"
+                            placeholder="Pick value"
+                            data={listDataYN}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueTakeoverd(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataYN ? (
+                        <MultiSelect
+                            label="Tài sản"
+                            placeholder="Pick value"
+                            data={listDataYN}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueProperty(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataYN ? (
+                        <MultiSelect
+                            label="Sử dụng logger"
+                            placeholder="Pick value"
+                            data={listDataYN}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueUsingLogger(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataLoggerModel ? (
+                        <MultiSelect
+                            label="Model Logger"
+                            placeholder="Pick value"
+                            data={listDataLoggerModel}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueLoggerModel(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataMeterAcc ? (
+                        <MultiSelect
+                            label="Loại kiểm định"
+                            placeholder="Pick value"
+                            data={listDataMeterAcc}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueDataMeterAcc(e)}
+                        />
+                    ) : null}
+                </Col>
+                <Col md={2}>
+                    {listDataYN ? (
+                        <MultiSelect
+                            label="Đã phê duyệt"
+                            placeholder="Pick value"
+                            data={listDataYN}
+                            clearable
+                            searchable
+                            onChange={(e) => setValueApprovaled(e)}
+                        />
+                    ) : null}
+                </Col>
+                {isAdminViewer === false ? (
+                    <Col span={12}>
+                        <Center>
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onViewMarkClicked}
+                            >
+                                Hiệu
+                            </Button>
+                            <Space w="md" />
+                            <Button
+                                variant="filled"
+                                color="blue"
+                                onClick={onViewSizeClicked}
+                            >
+                                Cở
+                            </Button>
+                            <Space w="md" />
+                            <Button
+                                variant="filled"
+                                color="violet"
+                                onClick={onViewMarkSizeClicked}
+                            >
+                                Hiệu Cở
+                            </Button>
+                        </Center>
+                    </Col>
+                ) : null}
+                {isMark
+                    ? dataForMark.length > 0 && (
+                          <>
+                              <Col span={12}>
+                                  <Center>
+                                      <ReactHTMLTableToExcel
+                                          id="table-xls"
+                                          className="btn-export"
+                                          table="tableStatisticMark"
+                                          filename={`Thống kê tùy chọn theo hiệu`}
+                                          sheet="tableStatisticMark"
+                                          buttonText="Xuất Excel"
+                                      />
+                                  </Center>
+                              </Col>
+                              <Col
+                                  span={12}
+                                  style={{
+                                      overflow: 'scroll',
+                                      width: '95%',
+                                      height: '50rem',
+                                  }}
+                              >
+                                  {renderTableMark(dataForMark)}
+                              </Col>
+                          </>
+                      )
+                    : null}
 
-            {isSize
-                ? dataForSize.length > 0 && (
-                      <>
-                          <Col span={12}>
-                              <Center>
-                                  <ReactHTMLTableToExcel
-                                      id="table-xls"
-                                      className="btn-export"
-                                      table="tableStatisticSize"
-                                      filename={`Thống kê tùy chọn theo cở`}
-                                      sheet="tableStatisticSize"
-                                      buttonText="Xuất Excel"
-                                  />
-                              </Center>
-                          </Col>
-                          <Col
-                              span={12}
-                              style={{
-                                  overflow: 'scroll',
-                                  width: '95%',
-                                  height: '50rem',
-                              }}
-                          >
-                              {renderTableSize(dataForSize)}
-                          </Col>
-                      </>
-                  )
-                : null}
+                {isSize
+                    ? dataForSize.length > 0 && (
+                          <>
+                              <Col span={12}>
+                                  <Center>
+                                      <ReactHTMLTableToExcel
+                                          id="table-xls"
+                                          className="btn-export"
+                                          table="tableStatisticSize"
+                                          filename={`Thống kê tùy chọn theo cở`}
+                                          sheet="tableStatisticSize"
+                                          buttonText="Xuất Excel"
+                                      />
+                                  </Center>
+                              </Col>
+                              <Col
+                                  span={12}
+                                  style={{
+                                      overflow: 'scroll',
+                                      width: '95%',
+                                      height: '50rem',
+                                  }}
+                              >
+                                  {renderTableSize(dataForSize)}
+                              </Col>
+                          </>
+                      )
+                    : null}
 
-            {isMarkSize
-                ? dataForMarkSize.length > 0 && (
-                      <>
-                          <Col span={12}>
-                              <Center>
-                                  <ReactHTMLTableToExcel
-                                      id="table-xls"
-                                      className="btn-export"
-                                      table="tableStatisticMarkSize"
-                                      filename={`Thống kê tùy chọn theo hiệu cở`}
-                                      sheet="tableStatisticMarkSize"
-                                      buttonText="Xuất Excel"
-                                  />
-                              </Center>
-                          </Col>
-                          <Col
-                              span={12}
-                              style={{
-                                  overflow: 'scroll',
-                                  width: '95%',
-                                  height: '50rem',
-                              }}
-                          >
-                              {renderTableMarkSize(dataForMarkSize)}
-                          </Col>
-                      </>
-                  )
-                : null}
-        </Grid>
+                {isMarkSize
+                    ? dataForMarkSize.length > 0 && (
+                          <>
+                              <Col span={12}>
+                                  <Center>
+                                      <ReactHTMLTableToExcel
+                                          id="table-xls"
+                                          className="btn-export"
+                                          table="tableStatisticMarkSize"
+                                          filename={`Thống kê tùy chọn theo hiệu cở`}
+                                          sheet="tableStatisticMarkSize"
+                                          buttonText="Xuất Excel"
+                                      />
+                                  </Center>
+                              </Col>
+                              <Col
+                                  span={12}
+                                  style={{
+                                      overflow: 'scroll',
+                                      width: '95%',
+                                      height: '50rem',
+                                  }}
+                              >
+                                  {renderTableMarkSize(dataForMarkSize)}
+                              </Col>
+                          </>
+                      )
+                    : null}
+            </Grid>
+        </motion.div>
     );
 };
 

@@ -18,6 +18,8 @@ import 'react-data-table-component-extensions/dist/index.css';
 
 import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 
+import { motion } from 'framer-motion';
+
 const DeleteUselessMeterPage = () => {
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 
@@ -156,45 +158,51 @@ const DeleteUselessMeterPage = () => {
     };
 
     return (
-        <Grid>
-            <Col span={12}>
-                {isAdminViewer == false ? (
-                    <Col span={12}>
-                        <Center>
-                            <Button
-                                variant="filled"
-                                color="red"
-                                onClick={onDeleteClicked}
-                            >
-                                Xóa
-                            </Button>
-                        </Center>
-                    </Col>
-                ) : null}
-            </Col>
-
-            <Col span={12} style={{ maxWidth: '99%' }}>
-                <DataTableExtensions {...tableData}>
-                    <DataTable
-                        columns={columns}
-                        data={data}
-                        title={
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col span={12}>
+                    {isAdminViewer == false ? (
+                        <Col span={12}>
                             <Center>
-                                <Text weight={500}>Danh Sách Đồng Hồ</Text>
+                                <Button
+                                    variant="filled"
+                                    color="red"
+                                    onClick={onDeleteClicked}
+                                >
+                                    Xóa
+                                </Button>
                             </Center>
-                        }
-                        paginationPerPage={50}
-                        sortIcon={<IconArrowBadgeUpFilled />}
-                        defaultSortAsc={true}
-                        pagination
-                        highlightOnHover={true}
-                        dense={false}
-                        selectableRows
-                        onSelectedRowsChange={handleSelectedRow}
-                    />
-                </DataTableExtensions>
-            </Col>
-        </Grid>
+                        </Col>
+                    ) : null}
+                </Col>
+
+                <Col span={12} style={{ maxWidth: '99%' }}>
+                    <DataTableExtensions {...tableData}>
+                        <DataTable
+                            columns={columns}
+                            data={data}
+                            title={
+                                <Center>
+                                    <Text weight={500}>Danh Sách Đồng Hồ</Text>
+                                </Center>
+                            }
+                            paginationPerPage={50}
+                            sortIcon={<IconArrowBadgeUpFilled />}
+                            defaultSortAsc={true}
+                            pagination
+                            highlightOnHover={true}
+                            dense={false}
+                            selectableRows
+                            onSelectedRowsChange={handleSelectedRow}
+                        />
+                    </DataTableExtensions>
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 

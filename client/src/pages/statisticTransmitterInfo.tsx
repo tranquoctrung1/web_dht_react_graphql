@@ -10,6 +10,8 @@ import { useState, useEffect } from 'react';
 
 import { convertTimeStampToDate } from '../utils/utils';
 
+import { motion } from 'framer-motion';
+
 const StatisticTransmiiterInfoPage = () => {
     const [transmitterData, setTransmitterData] = useState([]);
     const [listTransmitter, setListTransmitter] = useState([]);
@@ -144,329 +146,339 @@ const StatisticTransmiiterInfoPage = () => {
     };
 
     return (
-        <Grid>
-            <Col span={12}>
-                <Select
-                    label="Serial"
-                    //@ts-ignore
-                    data={transmitterData}
-                    placeholder="Chọn Serial"
-                    nothingFound="Không tìm thấy"
-                    searchable
-                    clearable
-                    onChange={onSerialChanged}
-                />
-            </Col>
-            {valueSerial !== null &&
-            valueSerial !== undefined &&
-            valueSerial !== '' ? (
-                <>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Controller
-                                    name="Serial"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Serial: {getValues('Serial')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="SiteID"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Mã vị trí: {''}
-                                            {getValues('SiteID')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
-                    </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Controller
-                                    name="ReceiptDate"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Ngày nhập kho: {''}
-                                            {convertTimeStampToDate(
-                                                //@ts-ignore
-                                                getValues('ReceiptDate'),
-                                            )}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="SiteLocation"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Vị trí: {''}
-                                            {getValues('SiteLocation')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
-                    </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Controller
-                                    name="Provider"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Nhà sản xuất: {''}
-                                            {getValues('Provider')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
-                    </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Controller
-                                    name="ApprovalDate"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Ngày phê duyệt: {''}
-                                            {convertTimeStampToDate(
-                                                //@ts-ignore
-                                                getValues('ApprovalDate'),
-                                            )}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Marks"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Hiệu: {''}
-                                            {getValues('Marks')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
-                    </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Controller
-                                    name="Size"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Cở: {''}
-                                            {getValues('Size')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Model"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Model: {''}
-                                            {getValues('Model')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
-                    </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Controller
-                                    name="Status"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Tình trạng: {''}
-                                            {getValues('Status')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="ApprovalDecision"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Giấy phê duyệt: {''}
-                                            {getValues('ApprovalDecision')}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
-                    </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Controller
-                                    name="Installed"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Lắp đặt: {''}
-                                            {
-                                                //@ts-ignore
-                                                getValues('Installed') == false
-                                                    ? 'No'
-                                                    : 'Yes'
-                                            }
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="Approval"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Đã phê duyệt: {''}
-                                            {
-                                                //@ts-ignore
-                                                getValues('Approval') == false
-                                                    ? 'No'
-                                                    : 'Yes'
-                                            }
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
-                    </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Controller
-                                    name="Index"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Chỉ số ban đầu: {''}
-                                            {
-                                                //@ts-ignore
-                                                getValues('Index')
-                                            }
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="AccreditedDate"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Ngày kiểm định: {''}
-                                            {convertTimeStampToDate(
-                                                //@ts-ignore
-                                                getValues('AccreditedDate'),
-                                            )}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
-                    </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Controller
-                                    name="AccreditationType"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Loại kiểm định: {''}
-                                            {
-                                                //@ts-ignore
-                                                getValues('AccreditationType')
-                                            }
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                            <Col md={3}>
-                                <Controller
-                                    name="ExpiryDate"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Ngày hết hiệu lực: {''}
-                                            {convertTimeStampToDate(
-                                                //@ts-ignore
-                                                getValues('ExpiryDate'),
-                                            )}
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
-                    </Col>
-                    <Col span={12}>
-                        <Grid>
-                            <Col md={3}>
-                                <Controller
-                                    name="AccreditationDocument"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Giấy kiểm định: {''}
-                                            {
-                                                //@ts-ignore
-                                                getValues(
-                                                    'AccreditationDocument',
-                                                )
-                                            }
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                            <Col md={4}>
-                                <Controller
-                                    name="Description"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Text size="1rem" weight={500}>
-                                            Ghi chú: {''}
-                                            {
-                                                //@ts-ignore
-                                                getValues('Description')
-                                            }
-                                        </Text>
-                                    )}
-                                ></Controller>
-                            </Col>
-                        </Grid>
-                    </Col>
-                </>
-            ) : null}
-        </Grid>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col span={12}>
+                    <Select
+                        label="Serial"
+                        //@ts-ignore
+                        data={transmitterData}
+                        placeholder="Chọn Serial"
+                        nothingFound="Không tìm thấy"
+                        searchable
+                        clearable
+                        onChange={onSerialChanged}
+                    />
+                </Col>
+                {valueSerial !== null &&
+                valueSerial !== undefined &&
+                valueSerial !== '' ? (
+                    <>
+                        <Col span={12}>
+                            <Grid>
+                                <Col md={3}>
+                                    <Controller
+                                        name="Serial"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Serial: {getValues('Serial')}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                                <Col md={3}>
+                                    <Controller
+                                        name="SiteID"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Mã vị trí: {''}
+                                                {getValues('SiteID')}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                            </Grid>
+                        </Col>
+                        <Col span={12}>
+                            <Grid>
+                                <Col md={3}>
+                                    <Controller
+                                        name="ReceiptDate"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Ngày nhập kho: {''}
+                                                {convertTimeStampToDate(
+                                                    //@ts-ignore
+                                                    getValues('ReceiptDate'),
+                                                )}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                                <Col md={3}>
+                                    <Controller
+                                        name="SiteLocation"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Vị trí: {''}
+                                                {getValues('SiteLocation')}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                            </Grid>
+                        </Col>
+                        <Col span={12}>
+                            <Grid>
+                                <Col md={3}>
+                                    <Controller
+                                        name="Provider"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Nhà sản xuất: {''}
+                                                {getValues('Provider')}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                            </Grid>
+                        </Col>
+                        <Col span={12}>
+                            <Grid>
+                                <Col md={3}>
+                                    <Controller
+                                        name="ApprovalDate"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Ngày phê duyệt: {''}
+                                                {convertTimeStampToDate(
+                                                    //@ts-ignore
+                                                    getValues('ApprovalDate'),
+                                                )}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                                <Col md={3}>
+                                    <Controller
+                                        name="Marks"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Hiệu: {''}
+                                                {getValues('Marks')}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                            </Grid>
+                        </Col>
+                        <Col span={12}>
+                            <Grid>
+                                <Col md={3}>
+                                    <Controller
+                                        name="Size"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Cở: {''}
+                                                {getValues('Size')}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                                <Col md={3}>
+                                    <Controller
+                                        name="Model"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Model: {''}
+                                                {getValues('Model')}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                            </Grid>
+                        </Col>
+                        <Col span={12}>
+                            <Grid>
+                                <Col md={3}>
+                                    <Controller
+                                        name="Status"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Tình trạng: {''}
+                                                {getValues('Status')}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                                <Col md={3}>
+                                    <Controller
+                                        name="ApprovalDecision"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Giấy phê duyệt: {''}
+                                                {getValues('ApprovalDecision')}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                            </Grid>
+                        </Col>
+                        <Col span={12}>
+                            <Grid>
+                                <Col md={3}>
+                                    <Controller
+                                        name="Installed"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Lắp đặt: {''}
+                                                {
+                                                    //@ts-ignore
+                                                    getValues('Installed') ==
+                                                    false
+                                                        ? 'No'
+                                                        : 'Yes'
+                                                }
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                                <Col md={3}>
+                                    <Controller
+                                        name="Approval"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Đã phê duyệt: {''}
+                                                {
+                                                    //@ts-ignore
+                                                    getValues('Approval') ==
+                                                    false
+                                                        ? 'No'
+                                                        : 'Yes'
+                                                }
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                            </Grid>
+                        </Col>
+                        <Col span={12}>
+                            <Grid>
+                                <Col md={3}>
+                                    <Controller
+                                        name="Index"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Chỉ số ban đầu: {''}
+                                                {
+                                                    //@ts-ignore
+                                                    getValues('Index')
+                                                }
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                                <Col md={3}>
+                                    <Controller
+                                        name="AccreditedDate"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Ngày kiểm định: {''}
+                                                {convertTimeStampToDate(
+                                                    //@ts-ignore
+                                                    getValues('AccreditedDate'),
+                                                )}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                            </Grid>
+                        </Col>
+                        <Col span={12}>
+                            <Grid>
+                                <Col md={3}>
+                                    <Controller
+                                        name="AccreditationType"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Loại kiểm định: {''}
+                                                {
+                                                    //@ts-ignore
+                                                    getValues(
+                                                        'AccreditationType',
+                                                    )
+                                                }
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                                <Col md={3}>
+                                    <Controller
+                                        name="ExpiryDate"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Ngày hết hiệu lực: {''}
+                                                {convertTimeStampToDate(
+                                                    //@ts-ignore
+                                                    getValues('ExpiryDate'),
+                                                )}
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                            </Grid>
+                        </Col>
+                        <Col span={12}>
+                            <Grid>
+                                <Col md={3}>
+                                    <Controller
+                                        name="AccreditationDocument"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Giấy kiểm định: {''}
+                                                {
+                                                    //@ts-ignore
+                                                    getValues(
+                                                        'AccreditationDocument',
+                                                    )
+                                                }
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                                <Col md={4}>
+                                    <Controller
+                                        name="Description"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Text size="1rem" weight={500}>
+                                                Ghi chú: {''}
+                                                {
+                                                    //@ts-ignore
+                                                    getValues('Description')
+                                                }
+                                            </Text>
+                                        )}
+                                    ></Controller>
+                                </Col>
+                            </Grid>
+                        </Col>
+                    </>
+                ) : null}
+            </Grid>
+        </motion.div>
     );
 };
 

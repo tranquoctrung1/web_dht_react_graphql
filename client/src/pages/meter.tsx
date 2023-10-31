@@ -47,6 +47,8 @@ import { useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 
+import { motion } from 'framer-motion';
+
 const MeterPage = () => {
     const navigate = useNavigate();
 
@@ -784,482 +786,490 @@ const MeterPage = () => {
     };
 
     return (
-        <Grid>
-            <Col md={4}>
-                {listMeter !== undefined ? (
-                    <Controller
-                        name="Serial"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Serial"
-                                //@ts-ignore
-                                data={meterData}
-                                placeholder="Chọn Serial"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
-                                {...field}
-                                onBlur={onSerialBlured}
-                                getCreateLabel={(query) =>
-                                    `+ Tạo Serial: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col md={4}>
+                    {listMeter !== undefined ? (
+                        <Controller
+                            name="Serial"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Serial"
                                     //@ts-ignore
-                                    setMeterData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
+                                    data={meterData}
+                                    placeholder="Chọn Serial"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    onBlur={onSerialBlured}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo Serial: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setMeterData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="AppovalDate"
+                        control={control}
+                        render={({ field }) => (
+                            <DateInput
+                                valueFormat="DD/MM/YYYY"
+                                label="Ngày phê duyệt"
+                                placeholder="Ngày phê duyệt"
+                                mx="auto"
+                                {...field}
                             />
                         )}
                     ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="AppovalDate"
-                    control={control}
-                    render={({ field }) => (
-                        <DateInput
-                            valueFormat="DD/MM/YYYY"
-                            label="Ngày phê duyệt"
-                            placeholder="Ngày phê duyệt"
-                            mx="auto"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="AppovalDecision"
-                    control={control}
-                    render={({ field }) => (
-                        <TextInput
-                            placeholder="Mã đông hồ "
-                            label="Mã đông hồ "
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="ReceiptDate"
-                    control={control}
-                    render={({ field }) => (
-                        <DateInput
-                            valueFormat="DD/MM/YYYY"
-                            label="Ngày nhập kho"
-                            placeholder="Ngày nhập kho"
-                            mx="auto"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                {providerData !== undefined ? (
+                </Col>
+                <Col md={4}>
                     <Controller
-                        name="Provider"
+                        name="AppovalDecision"
                         control={control}
                         render={({ field }) => (
-                            <Select
-                                label="Nhà sản xuất"
-                                //@ts-ignore
-                                data={providerData}
-                                placeholder="Chọn nhà sản xuất"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
+                            <TextInput
+                                placeholder="Mã đông hồ "
+                                label="Mã đông hồ "
                                 {...field}
-                                getCreateLabel={(query) =>
-                                    `+ Tạo nhà sản xuất: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="ReceiptDate"
+                        control={control}
+                        render={({ field }) => (
+                            <DateInput
+                                valueFormat="DD/MM/YYYY"
+                                label="Ngày nhập kho"
+                                placeholder="Ngày nhập kho"
+                                mx="auto"
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    {providerData !== undefined ? (
+                        <Controller
+                            name="Provider"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Nhà sản xuất"
                                     //@ts-ignore
-                                    setProviderData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col
-                md={4}
-                style={{
-                    marginTop: '1.5rem',
-                }}
-            >
-                <Controller
-                    name="Approvaled"
-                    control={control}
-                    render={({ field }) => (
-                        <Checkbox
-                            labelPosition="left"
-                            label="Đã phê duyệt"
-                            //@ts-ignore
-                            checked={getValues('Approvaled')}
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                {nationData !== undefined ? (
-                    <Controller
-                        name="Nationality"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Quốc gia sản xuất"
-                                //@ts-ignore
-                                data={nationData}
-                                placeholder="Chọn quốc gia sản xuất"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
-                                {...field}
-                                getCreateLabel={(query) =>
-                                    `+ Tạo quốc gia sản xuất: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
-                                    //@ts-ignore
-                                    setNationData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {marksData !== undefined ? (
-                    <Controller
-                        name="Marks"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Hiệu"
-                                //@ts-ignore
-                                data={marksData}
-                                placeholder="Chọn hiệu"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
-                                {...field}
-                                getCreateLabel={(query) =>
-                                    `+ Tạo hiệu: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
-                                    //@ts-ignore
-                                    setMarksData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {sizeData !== undefined ? (
-                    <Controller
-                        name="Size"
-                        control={control}
-                        render={({ field }) => (
-                            //@ts-ignore
-                            <Select
-                                label="Cở"
-                                //@ts-ignore
-                                data={sizeData}
-                                placeholder="Chọn cở"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
-                                {...field}
-                                getCreateLabel={(query) => `+ Tạo cở: ${query}`}
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
-                                    //@ts-ignore
-                                    setSizeData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {modelData !== undefined ? (
-                    <Controller
-                        name="Model"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Model"
-                                //@ts-ignore
-                                data={modelData}
-                                placeholder="Chọn model"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
-                                {...field}
-                                getCreateLabel={(query) =>
-                                    `+ Tạo model: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
-                                    //@ts-ignore
-                                    setModelData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {deviceStatusData !== undefined ? (
-                    <Controller
-                        name="Status"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Tình trạng"
-                                placeholder="Tình trạng"
-                                searchable
-                                nothingFound="Không tìm thấy tình trạng"
-                                //@ts-ignore
-                                data={deviceStatusData}
-                                {...field}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col
-                md={4}
-                style={{
-                    marginTop: '1.5rem',
-                }}
-            >
-                <Controller
-                    name="Installed"
-                    control={control}
-                    render={({ field }) => (
-                        <Checkbox
-                            labelPosition="left"
-                            label="Lắp đặt"
-                            //@ts-ignore
-                            checked={getValues('Installed')}
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="InstallIndex"
-                    control={control}
-                    render={({ field }) => (
-                        <NumberInput
-                            placeholder="Chỉ số khách hàng"
-                            label="Chỉ số khách hàng"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="Description"
-                    control={control}
-                    render={({ field }) => (
-                        <TextInput
-                            placeholder="Ghi chú"
-                            label="Ghi chú"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                <FileInput
-                    label="Upload tài liệu"
-                    placeholder="Upload files"
-                    multiple
-                    icon={<IconUpload size="1.125rem" />}
-                    value={listFile}
-                    onChange={(e) => setListFile(e)}
-                />
-                <Button
-                    variant="filled"
-                    color="green"
-                    onClick={onUploadFileClicked}
+                                    data={providerData}
+                                    placeholder="Chọn nhà sản xuất"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo nhà sản xuất: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setProviderData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col
+                    md={4}
+                    style={{
+                        marginTop: '1.5rem',
+                    }}
                 >
-                    Upload
-                </Button>
-                <Button
-                    variant="filled"
-                    color="blue"
-                    onClick={onDownloadFileClicked}
+                    <Controller
+                        name="Approvaled"
+                        control={control}
+                        render={({ field }) => (
+                            <Checkbox
+                                labelPosition="left"
+                                label="Đã phê duyệt"
+                                //@ts-ignore
+                                checked={getValues('Approvaled')}
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    {nationData !== undefined ? (
+                        <Controller
+                            name="Nationality"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Quốc gia sản xuất"
+                                    //@ts-ignore
+                                    data={nationData}
+                                    placeholder="Chọn quốc gia sản xuất"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo quốc gia sản xuất: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setNationData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {marksData !== undefined ? (
+                        <Controller
+                            name="Marks"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Hiệu"
+                                    //@ts-ignore
+                                    data={marksData}
+                                    placeholder="Chọn hiệu"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo hiệu: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setMarksData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {sizeData !== undefined ? (
+                        <Controller
+                            name="Size"
+                            control={control}
+                            render={({ field }) => (
+                                //@ts-ignore
+                                <Select
+                                    label="Cở"
+                                    //@ts-ignore
+                                    data={sizeData}
+                                    placeholder="Chọn cở"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo cở: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setSizeData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {modelData !== undefined ? (
+                        <Controller
+                            name="Model"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Model"
+                                    //@ts-ignore
+                                    data={modelData}
+                                    placeholder="Chọn model"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo model: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setModelData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {deviceStatusData !== undefined ? (
+                        <Controller
+                            name="Status"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Tình trạng"
+                                    placeholder="Tình trạng"
+                                    searchable
+                                    nothingFound="Không tìm thấy tình trạng"
+                                    //@ts-ignore
+                                    data={deviceStatusData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col
+                    md={4}
+                    style={{
+                        marginTop: '1.5rem',
+                    }}
                 >
-                    Download
-                </Button>
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="AccreditatedDate"
-                    control={control}
-                    render={({ field }) => (
-                        <DateInput
-                            valueFormat="DD/MM/YYYY"
-                            label="Ngày kiểm định"
-                            placeholder="Ngày kiểm định"
-                            mx="auto"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="ExpiryDate"
-                    control={control}
-                    render={({ field }) => (
-                        <DateInput
-                            valueFormat="DD/MM/YYYY"
-                            label="Ngày hết hiệu lực kiểm định"
-                            placeholder="Ngày hết hiệu lực kiểm định"
-                            mx="auto"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                {meterAccData !== undefined ? (
                     <Controller
-                        name="AccreditationType"
+                        name="Installed"
                         control={control}
                         render={({ field }) => (
-                            <Select
-                                label="Loại kiểm định"
-                                placeholder="loại kiểm định"
-                                searchable
-                                nothingFound="Không tìm thấy loại kiểm định"
+                            <Checkbox
+                                labelPosition="left"
+                                label="Lắp đặt"
                                 //@ts-ignore
-                                data={meterAccData}
+                                checked={getValues('Installed')}
                                 {...field}
                             />
                         )}
                     ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="AccreditationDocument"
-                    control={control}
-                    render={({ field }) => (
-                        <TextInput
-                            placeholder="Giấy kiểm định"
-                            label="Giấy kiểm định"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                {transmitterData !== undefined ? (
+                </Col>
+                <Col md={4}>
                     <Controller
-                        name="SerialTransmitter"
+                        name="InstallIndex"
                         control={control}
                         render={({ field }) => (
-                            <Select
-                                label="Serial bộ hiển thị"
-                                placeholder="serial bộ hiển thị"
-                                searchable
-                                nothingFound="Không tìm thấy serial bộ hiển thị"
-                                //@ts-ignore
-                                data={transmitterData}
+                            <NumberInput
+                                placeholder="Chỉ số khách hàng"
+                                label="Chỉ số khách hàng"
                                 {...field}
                             />
                         )}
                     ></Controller>
-                ) : null}
-            </Col>
-            <Col span={12}>
-                {isAdminViewer == false ? (
-                    <Col span={12}>
-                        <Center>
-                            <Button
-                                variant="filled"
-                                color="green"
-                                onClick={onInsertClicked}
-                            >
-                                Thêm
-                            </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="blue"
-                                onClick={onUpdateClicked}
-                            >
-                                Sửa
-                            </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="red"
-                                onClick={onDeleteClicked}
-                            >
-                                Xóa
-                            </Button>
-                        </Center>
-                    </Col>
-                ) : null}
-            </Col>
-        </Grid>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="Description"
+                        control={control}
+                        render={({ field }) => (
+                            <TextInput
+                                placeholder="Ghi chú"
+                                label="Ghi chú"
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    <FileInput
+                        label="Upload tài liệu"
+                        placeholder="Upload files"
+                        multiple
+                        icon={<IconUpload size="1.125rem" />}
+                        value={listFile}
+                        onChange={(e) => setListFile(e)}
+                    />
+                    <Button
+                        variant="filled"
+                        color="green"
+                        onClick={onUploadFileClicked}
+                    >
+                        Upload
+                    </Button>
+                    <Button
+                        variant="filled"
+                        color="blue"
+                        onClick={onDownloadFileClicked}
+                    >
+                        Download
+                    </Button>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="AccreditatedDate"
+                        control={control}
+                        render={({ field }) => (
+                            <DateInput
+                                valueFormat="DD/MM/YYYY"
+                                label="Ngày kiểm định"
+                                placeholder="Ngày kiểm định"
+                                mx="auto"
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="ExpiryDate"
+                        control={control}
+                        render={({ field }) => (
+                            <DateInput
+                                valueFormat="DD/MM/YYYY"
+                                label="Ngày hết hiệu lực kiểm định"
+                                placeholder="Ngày hết hiệu lực kiểm định"
+                                mx="auto"
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    {meterAccData !== undefined ? (
+                        <Controller
+                            name="AccreditationType"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Loại kiểm định"
+                                    placeholder="loại kiểm định"
+                                    searchable
+                                    nothingFound="Không tìm thấy loại kiểm định"
+                                    //@ts-ignore
+                                    data={meterAccData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="AccreditationDocument"
+                        control={control}
+                        render={({ field }) => (
+                            <TextInput
+                                placeholder="Giấy kiểm định"
+                                label="Giấy kiểm định"
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    {transmitterData !== undefined ? (
+                        <Controller
+                            name="SerialTransmitter"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Serial bộ hiển thị"
+                                    placeholder="serial bộ hiển thị"
+                                    searchable
+                                    nothingFound="Không tìm thấy serial bộ hiển thị"
+                                    //@ts-ignore
+                                    data={transmitterData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col span={12}>
+                    {isAdminViewer == false ? (
+                        <Col span={12}>
+                            <Center>
+                                <Button
+                                    variant="filled"
+                                    color="green"
+                                    onClick={onInsertClicked}
+                                >
+                                    Thêm
+                                </Button>
+                                <Space w="md"></Space>
+                                <Button
+                                    variant="filled"
+                                    color="blue"
+                                    onClick={onUpdateClicked}
+                                >
+                                    Sửa
+                                </Button>
+                                <Space w="md"></Space>
+                                <Button
+                                    variant="filled"
+                                    color="red"
+                                    onClick={onDeleteClicked}
+                                >
+                                    Xóa
+                                </Button>
+                            </Center>
+                        </Col>
+                    ) : null}
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 

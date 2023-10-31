@@ -196,6 +196,7 @@ const mockdata = [
                 link: '/statisticCustomChoiceLogger',
             },
             { label: 'Lịch Sử Điểm Lắp Đặt', link: '/statisticHistorySite' },
+            { label: 'Lịch Sử Đồng Hồ', link: '/statisticHistoryMeter' },
             {
                 label: 'Thời Gian Đồng Hồ Hoạt Động',
                 link: '/statisticMeterWork',

@@ -20,6 +20,8 @@ import {
 
 import { useEffect, useState } from 'react';
 
+import { motion } from 'framer-motion';
+
 const StatisticAccreditationAndExpiryDatePage = () => {
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 
@@ -299,61 +301,67 @@ ${row.Location}
     };
 
     return (
-        <Grid>
-            <Col span={12}>
-                <DateInput
-                    valueFormat="DD/MM/YYYY"
-                    label="Mốc thời gian"
-                    placeholder="Mốc thời gian"
-                    clearable
-                    mx="auto"
-                    value={time}
-                    onChange={(e) => setTime(e)}
-                />
-            </Col>
-            {isAdminViewer === false ? (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
                 <Col span={12}>
-                    <Center>
-                        <Button
-                            variant="filled"
-                            color="green"
-                            onClick={onViewClicked}
-                        >
-                            Xem
-                        </Button>
-                    </Center>
-                </Col>
-            ) : null}
-            <Col span={12} style={{ maxWidth: '99%' }}>
-                <DataTableExtensions {...tableData}>
-                    <DataTable
-                        noHeader
-                        noTableHead
-                        columns={columns}
-                        data={data}
-                        title={
-                            <Center>
-                                <Text weight={500}>
-                                    Đồng Hồ Tổng Hết Hạn Kiểm Định (Đến Ngày{' '}
-                                    {
-                                        //@ts-ignore
-                                        convertDateToString(time)
-                                    }
-                                    )
-                                </Text>
-                            </Center>
-                        }
-                        paginationPerPage={50}
-                        sortIcon={<IconArrowBadgeUpFilled />}
-                        defaultSortAsc={true}
-                        pagination
-                        highlightOnHover={true}
-                        dense={false}
-                        conditionalRowStyles={conditionalRowStyles}
+                    <DateInput
+                        valueFormat="DD/MM/YYYY"
+                        label="Mốc thời gian"
+                        placeholder="Mốc thời gian"
+                        clearable
+                        mx="auto"
+                        value={time}
+                        onChange={(e) => setTime(e)}
                     />
-                </DataTableExtensions>
-            </Col>
-        </Grid>
+                </Col>
+                {isAdminViewer === false ? (
+                    <Col span={12}>
+                        <Center>
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onViewClicked}
+                            >
+                                Xem
+                            </Button>
+                        </Center>
+                    </Col>
+                ) : null}
+                <Col span={12} style={{ maxWidth: '99%' }}>
+                    <DataTableExtensions {...tableData}>
+                        <DataTable
+                            noHeader
+                            noTableHead
+                            columns={columns}
+                            data={data}
+                            title={
+                                <Center>
+                                    <Text weight={500}>
+                                        Đồng Hồ Tổng Hết Hạn Kiểm Định (Đến Ngày{' '}
+                                        {
+                                            //@ts-ignore
+                                            convertDateToString(time)
+                                        }
+                                        )
+                                    </Text>
+                                </Center>
+                            }
+                            paginationPerPage={50}
+                            sortIcon={<IconArrowBadgeUpFilled />}
+                            defaultSortAsc={true}
+                            pagination
+                            highlightOnHover={true}
+                            dense={false}
+                            conditionalRowStyles={conditionalRowStyles}
+                        />
+                    </DataTableExtensions>
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 

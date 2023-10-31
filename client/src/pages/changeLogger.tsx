@@ -30,6 +30,8 @@ import { useEffect, useState } from 'react';
 
 import { checkAdminViewerRole } from '../utils/utils';
 
+import { motion } from 'framer-motion';
+
 const ChangeLoggerPage = () => {
     const [siteData, setSiteData] = useState([]);
     const [LoggerData, setLoggerData] = useState([]);
@@ -560,151 +562,157 @@ const ChangeLoggerPage = () => {
     };
 
     return (
-        <Grid>
-            <Col md={4}>
-                {siteData !== undefined ? (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col md={4}>
+                    {siteData !== undefined ? (
+                        <Controller
+                            name="SiteId"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Điểm lắp đặt"
+                                    placeholder="Điểm lắp đặt"
+                                    searchable
+                                    nothingFound="Không tìm thấy điểm lắp đặt"
+                                    //@ts-ignore
+                                    data={siteData}
+                                    {...field}
+                                    onChange={onSiteChanged}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
                     <Controller
-                        name="SiteId"
+                        name="DateChanged"
                         control={control}
                         render={({ field }) => (
-                            <Select
-                                label="Điểm lắp đặt"
-                                placeholder="Điểm lắp đặt"
-                                searchable
-                                nothingFound="Không tìm thấy điểm lắp đặt"
-                                //@ts-ignore
-                                data={siteData}
-                                {...field}
-                                onChange={onSiteChanged}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="DateChanged"
-                    control={control}
-                    render={({ field }) => (
-                        <DateInput
-                            valueFormat="DD/MM/YYYY"
-                            label="Ngày thay"
-                            placeholder="Ngày thay"
-                            mx="auto"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                {LoggerData !== undefined ? (
-                    <Controller
-                        name="OldMeterSerial"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Serial củ"
-                                placeholder="Serial củ"
-                                searchable
-                                nothingFound="Không tìm thấy serial củ"
-                                //@ts-ignore
-                                data={LoggerData}
+                            <DateInput
+                                valueFormat="DD/MM/YYYY"
+                                label="Ngày thay"
+                                placeholder="Ngày thay"
+                                mx="auto"
                                 {...field}
                             />
                         )}
                     ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {LoggerData !== undefined ? (
+                </Col>
+                <Col md={4}>
+                    {LoggerData !== undefined ? (
+                        <Controller
+                            name="OldMeterSerial"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Serial củ"
+                                    placeholder="Serial củ"
+                                    searchable
+                                    nothingFound="Không tìm thấy serial củ"
+                                    //@ts-ignore
+                                    data={LoggerData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {LoggerData !== undefined ? (
+                        <Controller
+                            name="NewMeterSerial"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Serial mới"
+                                    placeholder="Serial mới"
+                                    searchable
+                                    nothingFound="Không tìm thấy serial mới"
+                                    //@ts-ignore
+                                    data={LoggerData}
+                                    {...field}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
                     <Controller
-                        name="NewMeterSerial"
+                        name="OldMeterIndex"
                         control={control}
                         render={({ field }) => (
-                            <Select
-                                label="Serial mới"
-                                placeholder="Serial mới"
-                                searchable
-                                nothingFound="Không tìm thấy serial mới"
-                                //@ts-ignore
-                                data={LoggerData}
+                            <NumberInput
+                                placeholder="Chỉ số củ"
+                                label="Chỉ số củ"
                                 {...field}
                             />
                         )}
                     ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="OldMeterIndex"
-                    control={control}
-                    render={({ field }) => (
-                        <NumberInput
-                            placeholder="Chỉ số củ"
-                            label="Chỉ số củ"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="NewMeterIndex"
-                    control={control}
-                    render={({ field }) => (
-                        <NumberInput
-                            placeholder="Chỉ số mới"
-                            label="Chỉ số mới"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="Description"
-                    control={control}
-                    render={({ field }) => (
-                        <TextInput
-                            placeholder="Ghi chú"
-                            label="Ghi chú"
-                            {...field}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col span={12}>
-                {isAdminViewer == false ? (
-                    <Col span={12}>
-                        <Center>
-                            <Button
-                                variant="filled"
-                                color="green"
-                                onClick={onInsertClicked}
-                            >
-                                Thêm
-                            </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="blue"
-                                onClick={onUpdateClicked}
-                            >
-                                Sửa
-                            </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="red"
-                                onClick={onDeleteClicked}
-                            >
-                                Xóa
-                            </Button>
-                        </Center>
-                    </Col>
-                ) : null}
-            </Col>
-        </Grid>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="NewMeterIndex"
+                        control={control}
+                        render={({ field }) => (
+                            <NumberInput
+                                placeholder="Chỉ số mới"
+                                label="Chỉ số mới"
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="Description"
+                        control={control}
+                        render={({ field }) => (
+                            <TextInput
+                                placeholder="Ghi chú"
+                                label="Ghi chú"
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col span={12}>
+                    {isAdminViewer == false ? (
+                        <Col span={12}>
+                            <Center>
+                                <Button
+                                    variant="filled"
+                                    color="green"
+                                    onClick={onInsertClicked}
+                                >
+                                    Thêm
+                                </Button>
+                                <Space w="md"></Space>
+                                <Button
+                                    variant="filled"
+                                    color="blue"
+                                    onClick={onUpdateClicked}
+                                >
+                                    Sửa
+                                </Button>
+                                <Space w="md"></Space>
+                                <Button
+                                    variant="filled"
+                                    color="red"
+                                    onClick={onDeleteClicked}
+                                >
+                                    Xóa
+                                </Button>
+                            </Center>
+                        </Col>
+                    ) : null}
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 

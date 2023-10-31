@@ -12,6 +12,8 @@ import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 
 import { convertDateToTimeString } from '../utils/utils';
 
+import { motion } from 'framer-motion';
+
 const ViewUserPage = () => {
     const [data, setData] = useState([]);
 
@@ -112,27 +114,35 @@ const ViewUserPage = () => {
     };
 
     return (
-        <Grid>
-            <Col span={12} style={{ maxWidth: '99%' }}>
-                <DataTableExtensions {...tableData}>
-                    <DataTable
-                        columns={columns}
-                        data={data}
-                        title={
-                            <Center>
-                                <Text weight={500}>Danh sách người dùng</Text>
-                            </Center>
-                        }
-                        paginationPerPage={50}
-                        sortIcon={<IconArrowBadgeUpFilled />}
-                        defaultSortAsc={true}
-                        pagination
-                        highlightOnHover={true}
-                        dense={false}
-                    />
-                </DataTableExtensions>
-            </Col>
-        </Grid>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col span={12} style={{ maxWidth: '99%' }}>
+                    <DataTableExtensions {...tableData}>
+                        <DataTable
+                            columns={columns}
+                            data={data}
+                            title={
+                                <Center>
+                                    <Text weight={500}>
+                                        Danh sách người dùng
+                                    </Text>
+                                </Center>
+                            }
+                            paginationPerPage={50}
+                            sortIcon={<IconArrowBadgeUpFilled />}
+                            defaultSortAsc={true}
+                            pagination
+                            highlightOnHover={true}
+                            dense={false}
+                        />
+                    </DataTableExtensions>
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 

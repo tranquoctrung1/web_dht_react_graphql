@@ -23,6 +23,8 @@ import { convertTimeStampToDate } from '../utils/utils';
 
 import Swal from 'sweetalert2';
 
+import { motion } from 'framer-motion';
+
 const DownloadSiteFilePage = () => {
     const [siteData, setSiteData] = useState([]);
 
@@ -248,74 +250,80 @@ const DownloadSiteFilePage = () => {
     };
 
     return (
-        <Grid>
-            <Col span={12}>
-                <Select
-                    label="Serial"
-                    placeholder="Serial"
-                    searchable
-                    nothingFound="Không tìm thấy Serial"
-                    //@ts-ignore
-                    data={siteData}
-                    clearable
-                    onChange={onSerialChanged}
-                />
-            </Col>
-            <Col span={12}>
-                {isAdminViewer == false ? (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col span={12}>
+                    <Select
+                        label="Serial"
+                        placeholder="Serial"
+                        searchable
+                        nothingFound="Không tìm thấy Serial"
+                        //@ts-ignore
+                        data={siteData}
+                        clearable
+                        onChange={onSerialChanged}
+                    />
+                </Col>
+                <Col span={12}>
+                    {isAdminViewer == false ? (
+                        <Col span={12}>
+                            <Center>
+                                <Button
+                                    variant="filled"
+                                    color="green"
+                                    onClick={onDownloadClicked}
+                                >
+                                    Download
+                                </Button>
+                                <Space w="md"></Space>
+                                <Button
+                                    variant="filled"
+                                    color="red"
+                                    onClick={onDeleteClicked}
+                                >
+                                    Xóa
+                                </Button>
+                            </Center>
+                        </Col>
+                    ) : null}
+                </Col>
+                {errorDownload !== '' ? (
                     <Col span={12}>
-                        <Center>
-                            <Button
-                                variant="filled"
-                                color="green"
-                                onClick={onDownloadClicked}
-                            >
-                                Download
-                            </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="red"
-                                onClick={onDeleteClicked}
-                            >
-                                Xóa
-                            </Button>
-                        </Center>
+                        <Text weight={500} color="red">
+                            {errorDownload}
+                        </Text>
                     </Col>
                 ) : null}
-            </Col>
-            {errorDownload !== '' ? (
-                <Col span={12}>
-                    <Text weight={500} color="red">
-                        {errorDownload}
-                    </Text>
-                </Col>
-            ) : null}
 
-            <Col span={12} style={{ maxWidth: '99%' }}>
-                <DataTableExtensions {...tableData}>
-                    <DataTable
-                        columns={columns}
-                        data={data}
-                        title={
-                            <Center>
-                                <Text weight={500}>
-                                    Danh Sách File Điểm Lắp Đặt
-                                </Text>
-                            </Center>
-                        }
-                        paginationPerPage={50}
-                        sortIcon={<IconArrowBadgeUpFilled />}
-                        defaultSortAsc={true}
-                        pagination
-                        highlightOnHover={true}
-                        dense={false}
-                        selectableRows
-                        onSelectedRowsChange={handleSelectedRow}
-                    />
-                </DataTableExtensions>
-            </Col>
-        </Grid>
+                <Col span={12} style={{ maxWidth: '99%' }}>
+                    <DataTableExtensions {...tableData}>
+                        <DataTable
+                            columns={columns}
+                            data={data}
+                            title={
+                                <Center>
+                                    <Text weight={500}>
+                                        Danh Sách File Điểm Lắp Đặt
+                                    </Text>
+                                </Center>
+                            }
+                            paginationPerPage={50}
+                            sortIcon={<IconArrowBadgeUpFilled />}
+                            defaultSortAsc={true}
+                            pagination
+                            highlightOnHover={true}
+                            dense={false}
+                            selectableRows
+                            onSelectedRowsChange={handleSelectedRow}
+                        />
+                    </DataTableExtensions>
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 

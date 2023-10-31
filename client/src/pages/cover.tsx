@@ -20,6 +20,8 @@ import { checkAdminViewerRole } from '../utils/utils';
 
 import Swal from 'sweetalert2';
 
+import { motion } from 'framer-motion';
+
 const CoverPage = () => {
     const [coverData, setCoverData] = useState([]);
     const [coverLData, setCoverLData] = useState([]);
@@ -560,254 +562,260 @@ const CoverPage = () => {
     };
 
     return (
-        <Grid>
-            <Col md={4}>
-                {listCover !== undefined ? (
-                    <Controller
-                        name="CoverID"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Mã nấp hầm"
-                                //@ts-ignore
-                                data={coverData}
-                                placeholder="Chọn mã nấp hầm"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
-                                {...field}
-                                onBlur={onCoverIDBlured}
-                                getCreateLabel={(query) =>
-                                    `+ Tạo mã nấp hầm: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col md={4}>
+                    {listCover !== undefined ? (
+                        <Controller
+                            name="CoverID"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Mã nấp hầm"
                                     //@ts-ignore
-                                    setCoverData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {coverMeterialData !== undefined ? (
-                    <Controller
-                        name="CoverMeterial"
-                        control={control}
-                        render={({ field }) => (
-                            <Select
-                                label="Vật liệu"
-                                //@ts-ignore
-                                data={coverMeterialData}
-                                placeholder="Chọn vật liệu"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
-                                {...field}
-                                getCreateLabel={(query) =>
-                                    `+ Tạo vật liệu: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
+                                    data={coverData}
+                                    placeholder="Chọn mã nấp hầm"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    onBlur={onCoverIDBlured}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo mã nấp hầm: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setCoverData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {coverMeterialData !== undefined ? (
+                        <Controller
+                            name="CoverMeterial"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    label="Vật liệu"
                                     //@ts-ignore
-                                    setCoverMeterialData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {coverNLData !== undefined ? (
-                    <Controller
-                        name="CoverNL"
-                        control={control}
-                        render={({ field }) => (
-                            //@ts-ignore
-                            <Select
-                                label="Số tấm"
+                                    data={coverMeterialData}
+                                    placeholder="Chọn vật liệu"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo vật liệu: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setCoverMeterialData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {coverNLData !== undefined ? (
+                        <Controller
+                            name="CoverNL"
+                            control={control}
+                            render={({ field }) => (
                                 //@ts-ignore
-                                data={coverNLData}
-                                placeholder="Chọn số tấm"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
-                                {...field}
-                                getCreateLabel={(query) =>
-                                    `+ Tạo số tấm: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
+                                <Select
+                                    label="Số tấm"
                                     //@ts-ignore
-                                    setCoverNLData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {coverLData !== undefined ? (
-                    <Controller
-                        name="CoverL"
-                        control={control}
-                        render={({ field }) => (
-                            //@ts-ignore
-                            <Select
-                                label="Dài"
+                                    data={coverNLData}
+                                    placeholder="Chọn số tấm"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo số tấm: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setCoverNLData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {coverLData !== undefined ? (
+                        <Controller
+                            name="CoverL"
+                            control={control}
+                            render={({ field }) => (
                                 //@ts-ignore
-                                data={coverLData}
-                                placeholder="Chọn dài"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
-                                {...field}
-                                getCreateLabel={(query) =>
-                                    `+ Tạo dài: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
+                                <Select
+                                    label="Dài"
                                     //@ts-ignore
-                                    setCoverLData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {coverWData !== undefined ? (
-                    <Controller
-                        name="CoverW"
-                        control={control}
-                        render={({ field }) => (
-                            //@ts-ignore
-                            <Select
-                                label="Rộng"
+                                    data={coverLData}
+                                    placeholder="Chọn dài"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo dài: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setCoverLData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {coverWData !== undefined ? (
+                        <Controller
+                            name="CoverW"
+                            control={control}
+                            render={({ field }) => (
                                 //@ts-ignore
-                                data={coverWData}
-                                placeholder="Chọn rộng"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
-                                {...field}
-                                getCreateLabel={(query) =>
-                                    `+ Tạo rộng: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
+                                <Select
+                                    label="Rộng"
                                     //@ts-ignore
-                                    setCoverWData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col md={4}>
-                {coverHData !== undefined ? (
-                    <Controller
-                        name="CoverH"
-                        control={control}
-                        render={({ field }) => (
-                            //@ts-ignore
-                            <Select
-                                label="Cao"
+                                    data={coverWData}
+                                    placeholder="Chọn rộng"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo rộng: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setCoverWData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col md={4}>
+                    {coverHData !== undefined ? (
+                        <Controller
+                            name="CoverH"
+                            control={control}
+                            render={({ field }) => (
                                 //@ts-ignore
-                                data={coverHData}
-                                placeholder="Chọn cao"
-                                nothingFound="Không tìm thấy"
-                                searchable
-                                creatable
-                                {...field}
-                                getCreateLabel={(query) =>
-                                    `+ Tạo cao: ${query}`
-                                }
-                                onCreate={(query) => {
-                                    const item = {
-                                        value: query,
-                                        label: query,
-                                    };
+                                <Select
+                                    label="Cao"
                                     //@ts-ignore
-                                    setCoverHData((current) => [
-                                        ...current,
-                                        item,
-                                    ]);
-                                    return item;
-                                }}
-                            />
-                        )}
-                    ></Controller>
-                ) : null}
-            </Col>
-            <Col span={12}>
-                {isAdminViewer == false ? (
-                    <Col span={12}>
-                        <Center>
-                            <Button
-                                variant="filled"
-                                color="green"
-                                onClick={onInsertClicked}
-                            >
-                                Thêm
-                            </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="blue"
-                                onClick={onUpdateClicked}
-                            >
-                                Sửa
-                            </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="red"
-                                onClick={onDeleteClicked}
-                            >
-                                Xóa
-                            </Button>
-                        </Center>
-                    </Col>
-                ) : null}
-            </Col>
-        </Grid>
+                                    data={coverHData}
+                                    placeholder="Chọn cao"
+                                    nothingFound="Không tìm thấy"
+                                    searchable
+                                    creatable
+                                    {...field}
+                                    getCreateLabel={(query) =>
+                                        `+ Tạo cao: ${query}`
+                                    }
+                                    onCreate={(query) => {
+                                        const item = {
+                                            value: query,
+                                            label: query,
+                                        };
+                                        //@ts-ignore
+                                        setCoverHData((current) => [
+                                            ...current,
+                                            item,
+                                        ]);
+                                        return item;
+                                    }}
+                                />
+                            )}
+                        ></Controller>
+                    ) : null}
+                </Col>
+                <Col span={12}>
+                    {isAdminViewer == false ? (
+                        <Col span={12}>
+                            <Center>
+                                <Button
+                                    variant="filled"
+                                    color="green"
+                                    onClick={onInsertClicked}
+                                >
+                                    Thêm
+                                </Button>
+                                <Space w="md"></Space>
+                                <Button
+                                    variant="filled"
+                                    color="blue"
+                                    onClick={onUpdateClicked}
+                                >
+                                    Sửa
+                                </Button>
+                                <Space w="md"></Space>
+                                <Button
+                                    variant="filled"
+                                    color="red"
+                                    onClick={onDeleteClicked}
+                                >
+                                    Xóa
+                                </Button>
+                            </Center>
+                        </Col>
+                    ) : null}
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 

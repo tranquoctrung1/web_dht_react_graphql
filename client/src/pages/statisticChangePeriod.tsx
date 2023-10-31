@@ -27,6 +27,8 @@ import 'react-data-table-component-extensions/dist/index.css';
 
 import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 
+import { motion } from 'framer-motion';
+
 const StatisticChangePeriodPage = () => {
     const [changeData, setChangeData] = useState([]);
     const [time, setTime] = useState<Date | null>(null);
@@ -1236,68 +1238,74 @@ STT
     };
 
     return (
-        <Grid>
-            <Col md={6}>
-                {changeData ? (
-                    <Select
-                        label="Loại"
-                        placeholder="Loại"
-                        searchable
-                        nothingFound="Không tìm thấy loại"
-                        //@ts-ignore
-                        data={changeData}
-                        onChange={onChangeTypeChanged}
-                    />
-                ) : null}
-            </Col>
-            <Col md={6}>
-                <DateInput
-                    valueFormat="DD/MM/YYYY"
-                    label="mốc thời gian"
-                    placeholder="mốc thời gian"
-                    mx="auto"
-                    value={time}
-                    onChange={(e) => setTime(e)}
-                />
-            </Col>
-
-            {isAdminViewer == false ? (
-                <Col span={12}>
-                    <Center>
-                        <Button
-                            variant="filled"
-                            color="green"
-                            onClick={onViewClicked}
-                        >
-                            Xem
-                        </Button>
-                    </Center>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col md={6}>
+                    {changeData ? (
+                        <Select
+                            label="Loại"
+                            placeholder="Loại"
+                            searchable
+                            nothingFound="Không tìm thấy loại"
+                            //@ts-ignore
+                            data={changeData}
+                            onChange={onChangeTypeChanged}
+                        />
+                    ) : null}
                 </Col>
-            ) : null}
-
-            <Col span={12} style={{ maxWidth: '99%' }}>
-                <DataTableExtensions {...tableData}>
-                    <DataTable
-                        noHeader
-                        noTableHead
-                        columns={columns}
-                        data={data}
-                        title={
-                            <Center>
-                                <Text weight={500}>{title}</Text>
-                            </Center>
-                        }
-                        paginationPerPage={50}
-                        sortIcon={<IconArrowBadgeUpFilled />}
-                        defaultSortAsc={true}
-                        pagination
-                        highlightOnHover={true}
-                        dense={false}
-                        conditionalRowStyles={conditionalRowStyles}
+                <Col md={6}>
+                    <DateInput
+                        valueFormat="DD/MM/YYYY"
+                        label="mốc thời gian"
+                        placeholder="mốc thời gian"
+                        mx="auto"
+                        value={time}
+                        onChange={(e) => setTime(e)}
                     />
-                </DataTableExtensions>
-            </Col>
-        </Grid>
+                </Col>
+
+                {isAdminViewer == false ? (
+                    <Col span={12}>
+                        <Center>
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onViewClicked}
+                            >
+                                Xem
+                            </Button>
+                        </Center>
+                    </Col>
+                ) : null}
+
+                <Col span={12} style={{ maxWidth: '99%' }}>
+                    <DataTableExtensions {...tableData}>
+                        <DataTable
+                            noHeader
+                            noTableHead
+                            columns={columns}
+                            data={data}
+                            title={
+                                <Center>
+                                    <Text weight={500}>{title}</Text>
+                                </Center>
+                            }
+                            paginationPerPage={50}
+                            sortIcon={<IconArrowBadgeUpFilled />}
+                            defaultSortAsc={true}
+                            pagination
+                            highlightOnHover={true}
+                            dense={false}
+                            conditionalRowStyles={conditionalRowStyles}
+                        />
+                    </DataTableExtensions>
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 

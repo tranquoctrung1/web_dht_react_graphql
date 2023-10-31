@@ -1184,6 +1184,7 @@ export type Query = {
   GetDataManualBySiteId?: Maybe<Array<Maybe<DataManual>>>;
   GetDataManualBySiteIdAndTimeStamp?: Maybe<Array<Maybe<DataManual>>>;
   GetHistoryLoggerBySiteId?: Maybe<Array<Maybe<HistorySiteLogger>>>;
+  GetHistoryMeterByMeter?: Maybe<Array<Maybe<HistorySiteMeter>>>;
   GetHistoryMeterBySiteId?: Maybe<Array<Maybe<HistorySiteMeter>>>;
   GetHistoryTransmitterBySiteId?: Maybe<Array<Maybe<HistorySiteTransmitter>>>;
   GetLoggerMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1275,6 +1276,11 @@ export type QueryGetDataManualBySiteIdAndTimeStampArgs = {
 
 export type QueryGetHistoryLoggerBySiteIdArgs = {
   siteid?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryGetHistoryMeterByMeterArgs = {
+  meterSerial?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -2668,6 +2674,13 @@ export type GetHistoryLoggerBySiteIdQueryVariables = Exact<{
 
 
 export type GetHistoryLoggerBySiteIdQuery = { __typename?: 'Query', GetHistoryLoggerBySiteId?: Array<{ __typename?: 'HistorySiteLogger', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
+
+export type GetHistoryMeterByMeterQueryVariables = Exact<{
+  meterSerial?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetHistoryMeterByMeterQuery = { __typename?: 'Query', GetHistoryMeterByMeter?: Array<{ __typename?: 'HistorySiteMeter', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
 
 export type GetHistoryMeterBySiteIdQueryVariables = Exact<{
   siteid?: InputMaybe<Scalars['String']>;
@@ -6085,6 +6098,51 @@ export type GetHistoryLoggerBySiteIdLazyQueryHookResult = ReturnType<typeof useG
 export type GetHistoryLoggerBySiteIdQueryResult = Apollo.QueryResult<GetHistoryLoggerBySiteIdQuery, GetHistoryLoggerBySiteIdQueryVariables>;
 export function refetchGetHistoryLoggerBySiteIdQuery(variables?: GetHistoryLoggerBySiteIdQueryVariables) {
       return { query: GetHistoryLoggerBySiteIdDocument, variables: variables }
+    }
+export const GetHistoryMeterByMeterDocument = gql`
+    query GetHistoryMeterByMeter($meterSerial: String) {
+  GetHistoryMeterByMeter(meterSerial: $meterSerial) {
+    DateChanged
+    Description
+    NewMeterIndex
+    NewMeterSerial
+    OldMeterIndex
+    OldMeterSerial
+    SiteId
+    _id
+  }
+}
+    `;
+
+/**
+ * __useGetHistoryMeterByMeterQuery__
+ *
+ * To run a query within a React component, call `useGetHistoryMeterByMeterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHistoryMeterByMeterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHistoryMeterByMeterQuery({
+ *   variables: {
+ *      meterSerial: // value for 'meterSerial'
+ *   },
+ * });
+ */
+export function useGetHistoryMeterByMeterQuery(baseOptions?: Apollo.QueryHookOptions<GetHistoryMeterByMeterQuery, GetHistoryMeterByMeterQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetHistoryMeterByMeterQuery, GetHistoryMeterByMeterQueryVariables>(GetHistoryMeterByMeterDocument, options);
+      }
+export function useGetHistoryMeterByMeterLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetHistoryMeterByMeterQuery, GetHistoryMeterByMeterQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetHistoryMeterByMeterQuery, GetHistoryMeterByMeterQueryVariables>(GetHistoryMeterByMeterDocument, options);
+        }
+export type GetHistoryMeterByMeterQueryHookResult = ReturnType<typeof useGetHistoryMeterByMeterQuery>;
+export type GetHistoryMeterByMeterLazyQueryHookResult = ReturnType<typeof useGetHistoryMeterByMeterLazyQuery>;
+export type GetHistoryMeterByMeterQueryResult = Apollo.QueryResult<GetHistoryMeterByMeterQuery, GetHistoryMeterByMeterQueryVariables>;
+export function refetchGetHistoryMeterByMeterQuery(variables?: GetHistoryMeterByMeterQueryVariables) {
+      return { query: GetHistoryMeterByMeterDocument, variables: variables }
     }
 export const GetHistoryMeterBySiteIdDocument = gql`
     query GetHistoryMeterBySiteId($siteid: String) {

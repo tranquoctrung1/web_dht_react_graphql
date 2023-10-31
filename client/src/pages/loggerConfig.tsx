@@ -43,6 +43,8 @@ import { getHourAndMinute, checkAdminViewerRole } from '../utils/utils';
 
 import Swal from 'sweetalert2';
 
+import { motion } from 'framer-motion';
+
 const LoggerConfigPage = () => {
     const [listDevieSiteConfig, setListDeviceSiteConfig] = useState([]);
     const [listChannelData, setListChannelData] = useState([]);
@@ -942,7 +944,11 @@ const LoggerConfigPage = () => {
     };
 
     return (
-        <>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
             <Grid>
                 <Col md={3}>
                     {sites !== undefined ? (
@@ -1049,7 +1055,7 @@ const LoggerConfigPage = () => {
                     </Col>
                 ) : null}
             </Grid>
-        </>
+        </motion.div>
     );
 };
 

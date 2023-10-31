@@ -1825,6 +1825,8 @@ module.exports = gql`
         GetAllUserAndStaff: [UserAndStaff]
 
         VerifyToken(token: String): String
+
+        GetHistoryMeterByMeter(meterSerial: String): [HistorySiteMeter]
     }
 
     # declare Mutation

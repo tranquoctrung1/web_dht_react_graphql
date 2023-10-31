@@ -18,6 +18,8 @@ import {
 
 import Swal from 'sweetalert2';
 
+import { motion } from 'framer-motion';
+
 const ChangePasswordPage = () => {
     const [errorPassword, setErrorPassword] = useState('');
     const [errorRepeatNewPassword, setErrorRepeatNewPassword] = useState('');
@@ -200,67 +202,73 @@ const ChangePasswordPage = () => {
     };
 
     return (
-        <Grid>
-            <Col md={4}>
-                <Controller
-                    name="Pwd"
-                    control={control}
-                    render={({ field }) => (
-                        <PasswordInput
-                            placeholder="Mật khẩu củ"
-                            label="Mật khẩu củ"
-                            {...field}
-                            error={errorPassword}
-                            onBlur={onPasswordBlured}
-                            withAsterisk
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="NewPwd"
-                    control={control}
-                    render={({ field }) => (
-                        <PasswordInput
-                            placeholder="Mật khẩu mới"
-                            label="Mật khẩu mới"
-                            {...field}
-                            onBlur={onNewPasswordBlured}
-                            withAsterisk
-                            error={errorNewPassword}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col md={4}>
-                <Controller
-                    name="RepeatNewPwd"
-                    control={control}
-                    render={({ field }) => (
-                        <PasswordInput
-                            placeholder="Nhập lại mật khẩu mới"
-                            label="Nhập lại mật khẩu mới"
-                            {...field}
-                            onBlur={onRepeatNewPasswordBlured}
-                            withAsterisk
-                            error={errorRepeatNewPassword}
-                        />
-                    )}
-                ></Controller>
-            </Col>
-            <Col span={12}>
-                <Center>
-                    <Button
-                        variant="filled"
-                        color="green"
-                        onClick={onUpdatePasswordClicked}
-                    >
-                        Cập nhật mật khẩu
-                    </Button>
-                </Center>
-            </Col>
-        </Grid>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <Grid>
+                <Col md={4}>
+                    <Controller
+                        name="Pwd"
+                        control={control}
+                        render={({ field }) => (
+                            <PasswordInput
+                                placeholder="Mật khẩu củ"
+                                label="Mật khẩu củ"
+                                {...field}
+                                error={errorPassword}
+                                onBlur={onPasswordBlured}
+                                withAsterisk
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="NewPwd"
+                        control={control}
+                        render={({ field }) => (
+                            <PasswordInput
+                                placeholder="Mật khẩu mới"
+                                label="Mật khẩu mới"
+                                {...field}
+                                onBlur={onNewPasswordBlured}
+                                withAsterisk
+                                error={errorNewPassword}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="RepeatNewPwd"
+                        control={control}
+                        render={({ field }) => (
+                            <PasswordInput
+                                placeholder="Nhập lại mật khẩu mới"
+                                label="Nhập lại mật khẩu mới"
+                                {...field}
+                                onBlur={onRepeatNewPasswordBlured}
+                                withAsterisk
+                                error={errorRepeatNewPassword}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col span={12}>
+                    <Center>
+                        <Button
+                            variant="filled"
+                            color="green"
+                            onClick={onUpdatePasswordClicked}
+                        >
+                            Cập nhật mật khẩu
+                        </Button>
+                    </Center>
+                </Col>
+            </Grid>
+        </motion.div>
     );
 };
 
