@@ -587,7 +587,7 @@ module.exports.GetSiteMeterDateChange = async (date) => {
             DateOfMeterChange: { $ne: null },
             DateOfMeterChange: { $gte: new Date(date) },
         })
-        .sort({_id: 1})
+        .sort({ _id: 1 })
         .toArray();
 
     Connect.disconnect();
@@ -835,6 +835,18 @@ module.exports.GetSiteById = async (siteid) => {
     let collection = await Connect.connect(SiteSiteCollection);
 
     let result = await collection.find({ _id: siteid }).toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetSiteByStaffId = async (staffid) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection.find({ StaffId: staffid }).toArray();
 
     Connect.disconnect();
 

@@ -464,6 +464,20 @@ module.exports = gql`
         Description: String
     }
 
+    type SiteByStaffId {
+        STT: Int
+        SiteId: String
+        Marks: String
+        Size: Int
+        Location: String
+        Level: String
+        Company: String
+        Availability: String
+        Status: String
+        UsingLogger: Boolean
+        Description: String
+    }
+
     type User {
         _id: ID!
         Uid: String
@@ -1827,6 +1841,8 @@ module.exports = gql`
         VerifyToken(token: String): String
 
         GetHistoryMeterByMeter(meterSerial: String): [HistorySiteMeter]
+
+        GetStatisticSiteByStaffId(staffid: String): [SiteByStaffId]
     }
 
     # declare Mutation

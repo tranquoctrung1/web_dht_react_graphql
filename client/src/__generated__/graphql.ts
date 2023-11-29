@@ -1218,6 +1218,7 @@ export type Query = {
   GetStatisticMarkSizeXNManager?: Maybe<Array<Maybe<StatisticMarkSizeXnManager>>>;
   GetStatisticMeterChange?: Maybe<Array<Maybe<StatisticMeterChange>>>;
   GetStatisticMeterChangeByYearUsing?: Maybe<Array<Maybe<StatisticMeterDateChangeByYearUsing>>>;
+  GetStatisticSiteByStaffId?: Maybe<Array<Maybe<SiteByStaffId>>>;
   GetStatisticSiteXNManager?: Maybe<Array<Maybe<StatisticSiteXnManager>>>;
   GetStatisticTransmitterBatteryChange?: Maybe<Array<Maybe<StatisticTransmitterBatteryChange>>>;
   GetStatisticTransmitterBatteryChangeByYearUsing?: Maybe<Array<Maybe<StatisticTransmitterBatteryChangeByYearUsing>>>;
@@ -1375,6 +1376,11 @@ export type QueryGetStatisticMeterChangeArgs = {
 export type QueryGetStatisticMeterChangeByYearUsingArgs = {
   date?: InputMaybe<Scalars['Date']>;
   year?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryGetStatisticSiteByStaffIdArgs = {
+  staffid?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1588,6 +1594,21 @@ export type SiteAvailabilities = {
   Availability?: Maybe<Scalars['String']>;
   Description?: Maybe<Scalars['String']>;
   _id: Scalars['ID'];
+};
+
+export type SiteByStaffId = {
+  __typename?: 'SiteByStaffId';
+  Availability?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Description?: Maybe<Scalars['String']>;
+  Level?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  STT?: Maybe<Scalars['Int']>;
+  SiteId?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  Status?: Maybe<Scalars['String']>;
+  UsingLogger?: Maybe<Scalars['Boolean']>;
 };
 
 export type SiteCover = {
@@ -2913,6 +2934,13 @@ export type GetStatisticMeterChangeByYearUsingQueryVariables = Exact<{
 
 
 export type GetStatisticMeterChangeByYearUsingQuery = { __typename?: 'Query', GetStatisticMeterChangeByYearUsing?: Array<{ __typename?: 'StatisticMeterDateChangeByYearUsing', Company?: string | null, DateOfChange?: any | null, DescriptionOfChange?: string | null, Location?: string | null, Marks?: string | null, Size?: number | null, Status?: string | null, _id?: string | null, TakeoverDate?: any | null } | null> | null };
+
+export type GetStatisticSiteByStaffIdQueryVariables = Exact<{
+  staffid?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetStatisticSiteByStaffIdQuery = { __typename?: 'Query', GetStatisticSiteByStaffId?: Array<{ __typename?: 'SiteByStaffId', Availability?: string | null, Company?: string | null, Description?: string | null, Level?: string | null, Location?: string | null, Marks?: string | null, STT?: number | null, Size?: number | null, Status?: string | null, UsingLogger?: boolean | null, SiteId?: string | null } | null> | null };
 
 export type GetStatisticSiteXnManagerQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -7930,6 +7958,54 @@ export type GetStatisticMeterChangeByYearUsingLazyQueryHookResult = ReturnType<t
 export type GetStatisticMeterChangeByYearUsingQueryResult = Apollo.QueryResult<GetStatisticMeterChangeByYearUsingQuery, GetStatisticMeterChangeByYearUsingQueryVariables>;
 export function refetchGetStatisticMeterChangeByYearUsingQuery(variables?: GetStatisticMeterChangeByYearUsingQueryVariables) {
       return { query: GetStatisticMeterChangeByYearUsingDocument, variables: variables }
+    }
+export const GetStatisticSiteByStaffIdDocument = gql`
+    query GetStatisticSiteByStaffId($staffid: String) {
+  GetStatisticSiteByStaffId(staffid: $staffid) {
+    Availability
+    Company
+    Description
+    Level
+    Location
+    Marks
+    STT
+    Size
+    Status
+    UsingLogger
+    SiteId
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticSiteByStaffIdQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticSiteByStaffIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticSiteByStaffIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticSiteByStaffIdQuery({
+ *   variables: {
+ *      staffid: // value for 'staffid'
+ *   },
+ * });
+ */
+export function useGetStatisticSiteByStaffIdQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticSiteByStaffIdQuery, GetStatisticSiteByStaffIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticSiteByStaffIdQuery, GetStatisticSiteByStaffIdQueryVariables>(GetStatisticSiteByStaffIdDocument, options);
+      }
+export function useGetStatisticSiteByStaffIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticSiteByStaffIdQuery, GetStatisticSiteByStaffIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticSiteByStaffIdQuery, GetStatisticSiteByStaffIdQueryVariables>(GetStatisticSiteByStaffIdDocument, options);
+        }
+export type GetStatisticSiteByStaffIdQueryHookResult = ReturnType<typeof useGetStatisticSiteByStaffIdQuery>;
+export type GetStatisticSiteByStaffIdLazyQueryHookResult = ReturnType<typeof useGetStatisticSiteByStaffIdLazyQuery>;
+export type GetStatisticSiteByStaffIdQueryResult = Apollo.QueryResult<GetStatisticSiteByStaffIdQuery, GetStatisticSiteByStaffIdQueryVariables>;
+export function refetchGetStatisticSiteByStaffIdQuery(variables?: GetStatisticSiteByStaffIdQueryVariables) {
+      return { query: GetStatisticSiteByStaffIdDocument, variables: variables }
     }
 export const GetStatisticSiteXnManagerDocument = gql`
     query GetStatisticSiteXNManager {

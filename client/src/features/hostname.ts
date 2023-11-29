@@ -7,7 +7,7 @@ interface HostnameState {
 }
 
 const initialState: HostnameState = {
-    value: 'http://14.161.22.76:3003/api',
+    value: 'http://14.161.22.76:6002/api',
 };
 
 export const HostnameSlice = createSlice({

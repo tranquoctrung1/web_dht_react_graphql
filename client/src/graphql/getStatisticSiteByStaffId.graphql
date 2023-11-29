@@ -1,0 +1,15 @@
+query GetStatisticSiteByStaffId($staffid: String) {
+    GetStatisticSiteByStaffId(staffid: $staffid) {
+        Availability
+        Company
+        Description
+        Level
+        Location
+        Marks
+        STT
+        Size
+        Status
+        UsingLogger
+        SiteId
+    }
+}

@@ -235,21 +235,18 @@ const mockdata = [
             { label: 'Sản Lượng Tổng Hợp', link: '/quantityTotal' },
         ],
     },
-    // {
-    //     label: 'Tiện Ích',
-    //     icon: IconInfoSquare,
-    //     initiallyOpened: false,
-    //     links: [
-    //         {
-    //             label: 'Mẫu In',
-    //             link: '/printer',
-    //         },
-    //         { label: 'Bản Đồ', link: '/map' },
-    //         { label: 'Tải File Đồng Hồ', link: '/downloadMeterFile' },
-    //         { label: 'Tải File Điểm Lắp Đặt', link: '/downloadSiteFile' },
-    //         { label: 'Cảnh Báo', link: '/alarm' },
-    //     ],
-    // },
+    {
+        label: 'Tiện Ích',
+        icon: IconInfoSquare,
+        initiallyOpened: false,
+        links: [
+            {
+                label: 'Mẫu In',
+                link: '/formPrinter',
+            },
+            
+        ],
+    },
     // {
     //     label: 'Đồ Thị',
     //     icon: IconChartBar,

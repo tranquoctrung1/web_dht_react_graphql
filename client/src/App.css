@@ -1,19 +1,35 @@
 .btn-export {
-	padding: 10px 20px;
-	font-size: .9rem;
-	font-weight: bold;
-	background: #2f9e44;
-	border: none;
-	outline: 0;
-	border-radius: 5px;
-	cursor: pointer;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-ms-border-radius: 5px;
-	-o-border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    background: #2f9e44;
+    border: none;
+    outline: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
 }
 
-.leaflet-container 
-{
-	height: 91vh;
+.leaflet-container {
+    height: 91vh;
+}
+
+@page portrait_A4_page {
+    size: 595.3pt 841.9pt;
+    margin: 72pt 72pt 72pt 72pt;
+    mso-header-margin: 35.4pt;
+    mso-footer-margin: 35.4pt;
+    mso-paper-source: 0;
+}
+
+@page landscape_A4_page {
+    size: 841.9pt 595.3pt;
+    mso-page-orientation: landscape;
+    margin: 72pt 72pt 72pt 72pt;
+    mso-header-margin: 35.45pt;
+    mso-footer-margin: 35.45pt;
+    mso-paper-source: 0;
 }

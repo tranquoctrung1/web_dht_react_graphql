@@ -52,6 +52,7 @@ import QuantityLevelPage from './pages/quantityLevel';
 import QuantityTotalPage from './pages/quantityTotal';
 import ViewUserPage from './pages/viewUser';
 import StatisticHistoryMeterPage from './pages/statisticHistoryMeter';
+import FormPrinterPage from './pages/formPrinter';
 
 function App() {
     const router = createBrowserRouter([
@@ -242,6 +243,10 @@ function App() {
                 {
                     path: '/statisticHistoryMeter',
                     element: <StatisticHistoryMeterPage />,
+                },
+                {
+                    path: '/formPrinter',
+                    element: <FormPrinterPage />,
                 },
             ],
         },

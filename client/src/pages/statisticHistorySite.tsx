@@ -575,7 +575,7 @@ const StatisticHistorySitePage = () => {
                                         fontSize="xs"
                                         style={{
                                             tableLayout: 'auto',
-                                            width: '200%',
+                                            width: '100%',
                                         }}
                                     >
                                         <caption>Thay đồng hồ</caption>
@@ -622,7 +622,7 @@ const StatisticHistorySitePage = () => {
                                         fontSize="xs"
                                         style={{
                                             tableLayout: 'auto',
-                                            width: '200%',
+                                            width: '100%',
                                         }}
                                     >
                                         <caption>Thay bộ hiển thị</caption>
@@ -670,7 +670,7 @@ const StatisticHistorySitePage = () => {
                                         fontSize="xs"
                                         style={{
                                             tableLayout: 'auto',
-                                            width: '200%',
+                                            width: '100%',
                                         }}
                                     >
                                         <caption>Thay logger</caption>
