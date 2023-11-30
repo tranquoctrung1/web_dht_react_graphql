@@ -269,16 +269,16 @@ const DownloadMeterFilePage = () => {
                     />
                 </Col>
                 <Col span={12}>
-                    {isAdminViewer == false ? (
-                        <Col span={12}>
-                            <Center>
-                                <Button
-                                    variant="filled"
-                                    color="green"
-                                    onClick={onDownloadClicked}
-                                >
-                                    Download
-                                </Button>
+                    <Center>
+                        <Button
+                            variant="filled"
+                            color="green"
+                            onClick={onDownloadClicked}
+                        >
+                            Download
+                        </Button>
+                        {isAdminViewer == false ? (
+                            <>
                                 <Space w="md"></Space>
                                 <Button
                                     variant="filled"
@@ -287,9 +287,9 @@ const DownloadMeterFilePage = () => {
                                 >
                                     Xóa
                                 </Button>
-                            </Center>
-                        </Col>
-                    ) : null}
+                            </>
+                        ) : null}
+                    </Center>
                 </Col>
                 {errorDownload !== '' ? (
                     <Col span={12}>
