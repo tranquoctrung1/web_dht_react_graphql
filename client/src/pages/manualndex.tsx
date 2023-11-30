@@ -549,6 +549,14 @@ const ManualIndexPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Nhập tay chỉ số đông hồ
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={3}>
                     {sites !== undefined ? (
                         <Select

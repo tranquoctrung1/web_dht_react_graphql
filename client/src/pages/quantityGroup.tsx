@@ -966,6 +966,14 @@ const QuantityGroupPage = () => {
         >
             <>
                 <Grid>
+                    <Col span={12}>
+                        <Center>
+                            <Text weight={500} size="1.2rem">
+                                Sản lượng theo nhóm đồng hồ
+                            </Text>
+                        </Center>
+                        <hr />
+                    </Col>
                     <Col md={4} sm={12}>
                         <Select
                             label="Nhóm"

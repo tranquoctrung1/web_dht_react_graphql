@@ -257,6 +257,14 @@ const DownloadMeterFilePage = () => {
         >
             <Grid>
                 <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Download file đồng hồ
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
+                <Col span={12}>
                     <Select
                         label="Serial"
                         placeholder="Serial"

@@ -966,6 +966,14 @@ const QuantityCompanyPage = () => {
         >
             <>
                 <Grid>
+                    <Col span={12}>
+                        <Center>
+                            <Text weight={500} size="1.2rem">
+                                Sản lượng theo quản lý
+                            </Text>
+                        </Center>
+                        <hr />
+                    </Col>
                     <Col md={4} sm={12}>
                         <Select
                             label="Công ty"

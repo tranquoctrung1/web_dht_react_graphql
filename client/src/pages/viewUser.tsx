@@ -120,6 +120,14 @@ const ViewUserPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Xem người dùng
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col span={12} style={{ maxWidth: '99%' }}>
                     <DataTableExtensions {...tableData}>
                         <DataTable

@@ -583,6 +583,14 @@ const ChangeDataManualPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Sửa dữ liệu nhập tay
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={4}>
                     {sites !== undefined ? (
                         <Select

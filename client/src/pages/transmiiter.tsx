@@ -696,6 +696,14 @@ const TransmitterPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Bộ hiển thị
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={4}>
                     {listTransmitter !== undefined ? (
                         <Controller

@@ -200,6 +200,14 @@ const StatisticMarkSizePage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Thống kê hiệu cỡ (XNQL)
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 {isAdminViewer === false ? (
                     <Col span={12}>
                         <Center>

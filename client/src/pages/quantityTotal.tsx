@@ -899,6 +899,14 @@ const QuantityTotalPage = () => {
         >
             <>
                 <Grid>
+                    <Col span={12}>
+                        <Center>
+                            <Text weight={500} size="1.2rem">
+                                Sản lượng tổng hợp
+                            </Text>
+                        </Center>
+                        <hr />
+                    </Col>
                     <Col md={6} sm={12}>
                         <DateInput
                             placeholder="Ngày bắt đầu"

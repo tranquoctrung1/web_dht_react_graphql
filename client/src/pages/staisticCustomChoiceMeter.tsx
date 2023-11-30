@@ -647,6 +647,14 @@ const StatisticCustomChoiceMeterPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Thống kê tùy chọn đồng hồ
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={2}>
                     {listProvider ? (
                         <MultiSelect

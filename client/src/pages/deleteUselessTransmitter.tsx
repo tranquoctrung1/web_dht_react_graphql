@@ -165,6 +165,14 @@ const DeleteUselessTransmitterPage = () => {
         >
             <Grid>
                 <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Xóa bộ hiển thị không sử dụng
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
+                <Col span={12}>
                     {isAdminViewer == false ? (
                         <Col span={12}>
                             <Center>

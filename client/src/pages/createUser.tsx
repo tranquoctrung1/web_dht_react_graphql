@@ -469,6 +469,14 @@ const CreateUserPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Tạo mới người dùng
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={4}>
                     {userData !== undefined ? (
                         <Controller

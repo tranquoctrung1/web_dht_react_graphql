@@ -1225,6 +1225,14 @@ const SiteConfigPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Điểm lắp đặt
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={4}>
                     {siteDataState != undefined ? (
                         <Controller

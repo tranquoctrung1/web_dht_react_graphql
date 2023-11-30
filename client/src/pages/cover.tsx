@@ -1,4 +1,4 @@
-import { Select, Grid, Col, Button, Space, Center } from '@mantine/core';
+import { Select, Grid, Col, Button, Space, Center, Text } from '@mantine/core';
 
 import { useEffect, useState } from 'react';
 
@@ -568,6 +568,14 @@ const CoverPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Nấp hầm
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={4}>
                     {listCover !== undefined ? (
                         <Controller

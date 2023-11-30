@@ -483,6 +483,14 @@ const LoggerPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Logger
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={3}>
                     {listLogger !== undefined ? (
                         <Controller

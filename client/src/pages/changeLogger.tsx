@@ -7,6 +7,7 @@ import {
     Space,
     Center,
     TextInput,
+    Text,
 } from '@mantine/core';
 
 import { DateInput } from '@mantine/dates';
@@ -568,6 +569,14 @@ const ChangeLoggerPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Thay logger
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={4}>
                     {siteData !== undefined ? (
                         <Controller

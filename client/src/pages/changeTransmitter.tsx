@@ -7,6 +7,7 @@ import {
     Space,
     Center,
     TextInput,
+    Text,
 } from '@mantine/core';
 
 import { DateInput } from '@mantine/dates';
@@ -579,6 +580,14 @@ const ChangeTransmitterPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Thay bộ hiển thị
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={4}>
                     {siteData !== undefined ? (
                         <Controller

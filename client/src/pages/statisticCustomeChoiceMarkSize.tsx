@@ -1240,6 +1240,14 @@ const StatisticCustomChoiceMarkSizePage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Thống kê tùy chọn hiệu cỡ
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={2}>
                     {listDataSiteLevel ? (
                         <MultiSelect

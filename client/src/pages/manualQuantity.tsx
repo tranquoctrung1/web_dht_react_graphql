@@ -537,6 +537,14 @@ const ManualQuantityPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Nhập tay sản lượng
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={3}>
                     {sites !== undefined ? (
                         <Select

@@ -321,6 +321,14 @@ const StatisticHistorySitePage = () => {
         >
             <Grid>
                 <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Thống kê lịch sử điểm lắp đặt
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
+                <Col span={12}>
                     <Select
                         label="Mã vị trí"
                         //@ts-ignore

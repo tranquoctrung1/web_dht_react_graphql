@@ -1,4 +1,4 @@
-import { Grid, Col, Select, Text } from '@mantine/core';
+import { Grid, Col, Select, Text, Center } from '@mantine/core';
 
 import { Controller, useForm } from 'react-hook-form';
 
@@ -122,6 +122,14 @@ const StatisticLoggerInfoPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Thống kê hồ sơ thiết bị logger
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col span={12}>
                     <Select
                         label="Serial"

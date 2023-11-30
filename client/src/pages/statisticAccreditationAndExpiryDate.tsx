@@ -308,6 +308,14 @@ ${row.Location}
         >
             <Grid>
                 <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Thống kê đồng hồ đến hạn kiểm định
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
+                <Col span={12}>
                     <DateInput
                         valueFormat="DD/MM/YYYY"
                         label="Mốc thời gian"

@@ -950,6 +950,14 @@ const LoggerConfigPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Cấu hình logger điểm lắp đặt
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={3}>
                     {sites !== undefined ? (
                         <Controller

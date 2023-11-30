@@ -5,6 +5,7 @@ import {
     Col,
     Center,
     PasswordInput,
+    Text,
 } from '@mantine/core';
 
 import { Controller, useForm } from 'react-hook-form';
@@ -208,6 +209,14 @@ const ChangePasswordPage = () => {
             exit={{ opacity: 0 }}
         >
             <Grid>
+                <Col span={12}>
+                    <Center>
+                        <Text weight={500} size="1.2rem">
+                            Thay đổi mật khẩu
+                        </Text>
+                    </Center>
+                    <hr />
+                </Col>
                 <Col md={4}>
                     <Controller
                         name="Pwd"
