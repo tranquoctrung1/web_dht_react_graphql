@@ -1007,17 +1007,15 @@ const QuantityCompanyPage = () => {
                     </Col>
                     <Col span={12}>
                         <Center>
-                            {isAdminViewer == false ? (
-                                <Button
-                                    variant="filled"
-                                    color="green"
-                                    onClick={onViewClicked}
-                                    loading={loadingQuantity}
-                                    loaderPosition="right"
-                                >
-                                    Sản Lượng
-                                </Button>
-                            ) : null}
+                            <Button
+                                variant="filled"
+                                color="green"
+                                onClick={onViewClicked}
+                                loading={loadingQuantity}
+                                loaderPosition="right"
+                            >
+                                Sản Lượng
+                            </Button>
 
                             {dataQuanity && (
                                 <>
