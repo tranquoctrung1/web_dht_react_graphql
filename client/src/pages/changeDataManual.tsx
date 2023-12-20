@@ -576,6 +576,63 @@ const ChangeDataManualPage = () => {
         }
     };
 
+    const onStartDateBlured = (e: any) => {
+        if (e.target.value !== '') {
+            const splitDate = e.target.value.split('/');
+
+            if (splitDate.length === 3) {
+                const year = parseInt(splitDate[2]);
+                const month = parseInt(splitDate[1]) - 1;
+                const day = parseInt(splitDate[0]);
+
+                //@ts-ignore
+                setStartDate(new Date(year, month, day));
+            } else {
+                setStartDate(null);
+            }
+        } else {
+            setStartDate(null);
+        }
+    };
+
+    const onEndDateBlured = (e: any) => {
+        if (e.target.value !== '') {
+            const splitDate = e.target.value.split('/');
+
+            if (splitDate.length === 3) {
+                const year = parseInt(splitDate[2]);
+                const month = parseInt(splitDate[1]) - 1;
+                const day = parseInt(splitDate[0]);
+
+                //@ts-ignore
+                setEndDate(new Date(year, month, day));
+            } else {
+                setEndDate(null);
+            }
+        } else {
+            setEndDate(null);
+        }
+    };
+
+    const onTimeStampBlured = (e: any) => {
+        if (e.target.value !== '') {
+            const splitDate = e.target.value.split('/');
+
+            if (splitDate.length === 3) {
+                const year = parseInt(splitDate[2]);
+                const month = parseInt(splitDate[1]) - 1;
+                const day = parseInt(splitDate[0]);
+
+                //@ts-ignore
+                setTimeStamp(new Date(year, month, day));
+            } else {
+                setTimeStamp(null);
+            }
+        } else {
+            setTimeStamp(null);
+        }
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -648,6 +705,7 @@ const ChangeDataManualPage = () => {
                         value={startDate}
                         onChange={onStartDateChanged}
                         withAsterisk
+                        onBlur={onStartDateBlured}
                     />
                 </Col>
                 <Col md={4}>
@@ -659,6 +717,7 @@ const ChangeDataManualPage = () => {
                         value={endDate}
                         onChange={onEndDateChanged}
                         withAsterisk
+                        onBlur={onEndDateBlured}
                     />
                 </Col>
                 <Col md={3}>
@@ -678,6 +737,7 @@ const ChangeDataManualPage = () => {
                         value={timeStamp}
                         onChange={onTimeStampChanged}
                         withAsterisk
+                        onBlur={onTimeStampBlured}
                     />
                 </Col>
                 <Col md={3}>

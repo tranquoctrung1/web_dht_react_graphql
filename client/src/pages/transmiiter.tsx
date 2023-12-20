@@ -689,6 +689,30 @@ const TransmitterPage = () => {
         });
     };
 
+    const onDateBlured = (e: any, name: string) => {
+        if (e.target.value !== '') {
+            const splitDate = e.target.value.split('/');
+
+            if (splitDate.length === 3) {
+                const year = parseInt(splitDate[2]);
+                const month = parseInt(splitDate[1]) - 1;
+                const day = parseInt(splitDate[0]);
+                setValue(
+                    //@ts-ignore
+                    name,
+                    //@ts-ignore
+                    new Date(year, month, day),
+                );
+            } else {
+                //@ts-ignore
+                setValue(name, '');
+            }
+        } else {
+            //@ts-ignore
+            setValue(name, '');
+        }
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -751,6 +775,7 @@ const TransmitterPage = () => {
                                 placeholder="Ngày phê duyệt"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) => onDateBlured(e, 'AppovalDate')}
                             />
                         )}
                     ></Controller>
@@ -779,6 +804,7 @@ const TransmitterPage = () => {
                                 placeholder="Ngày nhập kho"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) => onDateBlured(e, 'ReceiptDate')}
                             />
                         )}
                     ></Controller>
@@ -1020,6 +1046,9 @@ const TransmitterPage = () => {
                                 placeholder="Ngày kiểm định"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) =>
+                                    onDateBlured(e, 'AccreditatedDate')
+                                }
                             />
                         )}
                     ></Controller>
@@ -1035,6 +1064,7 @@ const TransmitterPage = () => {
                                 placeholder="Ngày hết hiệu lực kiểm định"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) => onDateBlured(e, 'ExpiryDate')}
                             />
                         )}
                     ></Controller>

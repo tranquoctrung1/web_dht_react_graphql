@@ -208,19 +208,17 @@ const StatisticMarkSizePage = () => {
                     </Center>
                     <hr />
                 </Col>
-                {isAdminViewer === false ? (
-                    <Col span={12}>
-                        <Center>
-                            <Button
-                                variant="filled"
-                                color="green"
-                                onClick={onViewClicked}
-                            >
-                                Xem
-                            </Button>
-                        </Center>
-                    </Col>
-                ) : null}
+                <Col span={12}>
+                    <Center>
+                        <Button
+                            variant="filled"
+                            color="green"
+                            onClick={onViewClicked}
+                        >
+                            Xem
+                        </Button>
+                    </Center>
+                </Col>
                 {data.length > 0 && (
                     <>
                         <Col span={12}>

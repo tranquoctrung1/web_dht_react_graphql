@@ -57,7 +57,10 @@ module.exports.GetHistoryBySiteId = async (siteid) => {
 
     let collection = await Connect.connect(HistorySiteTransmitterCollection);
 
-    let result = await collection.find({ SiteId: siteid }).toArray();
+    let result = await collection
+        .find({ SiteId: siteid })
+        .sort({ DateChanged: -1 })
+        .toArray();
 
     Connect.disconnect();
 

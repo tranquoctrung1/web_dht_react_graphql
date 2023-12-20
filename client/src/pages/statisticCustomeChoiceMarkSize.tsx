@@ -1416,35 +1416,33 @@ const StatisticCustomChoiceMarkSizePage = () => {
                         />
                     ) : null}
                 </Col>
-                {isAdminViewer === false ? (
-                    <Col span={12}>
-                        <Center>
-                            <Button
-                                variant="filled"
-                                color="green"
-                                onClick={onViewMarkClicked}
-                            >
-                                Hiệu
-                            </Button>
-                            <Space w="md" />
-                            <Button
-                                variant="filled"
-                                color="blue"
-                                onClick={onViewSizeClicked}
-                            >
-                                Cở
-                            </Button>
-                            <Space w="md" />
-                            <Button
-                                variant="filled"
-                                color="violet"
-                                onClick={onViewMarkSizeClicked}
-                            >
-                                Hiệu Cở
-                            </Button>
-                        </Center>
-                    </Col>
-                ) : null}
+                <Col span={12}>
+                    <Center>
+                        <Button
+                            variant="filled"
+                            color="green"
+                            onClick={onViewMarkClicked}
+                        >
+                            Hiệu
+                        </Button>
+                        <Space w="md" />
+                        <Button
+                            variant="filled"
+                            color="blue"
+                            onClick={onViewSizeClicked}
+                        >
+                            Cở
+                        </Button>
+                        <Space w="md" />
+                        <Button
+                            variant="filled"
+                            color="violet"
+                            onClick={onViewMarkSizeClicked}
+                        >
+                            Hiệu Cở
+                        </Button>
+                    </Center>
+                </Col>
                 {isMark
                     ? dataForMark.length > 0 && (
                           <>

@@ -1218,6 +1218,30 @@ const SiteConfigPage = () => {
         navigate('/downloadSiteFile');
     };
 
+    const onDateBlured = (e: any, name: string) => {
+        if (e.target.value !== '') {
+            const splitDate = e.target.value.split('/');
+
+            if (splitDate.length === 3) {
+                const year = parseInt(splitDate[2]);
+                const month = parseInt(splitDate[1]) - 1;
+                const day = parseInt(splitDate[0]);
+                setValue(
+                    //@ts-ignore
+                    name,
+                    //@ts-ignore
+                    new Date(year, month, day),
+                );
+            } else {
+                //@ts-ignore
+                setValue(name, '');
+            }
+        } else {
+            //@ts-ignore
+            setValue(name, '');
+        }
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -1355,15 +1379,15 @@ const SiteConfigPage = () => {
                             >
                                 Upload
                             </Button>
-                            <Button
-                                variant="filled"
-                                color="green"
-                                onClick={onDocumentDownloadClicked}
-                            >
-                                Download
-                            </Button>
                         </>
                     ) : null}
+                    <Button
+                        variant="filled"
+                        color="green"
+                        onClick={onDocumentDownloadClicked}
+                    >
+                        Download
+                    </Button>
                 </Col>
                 <Col md={4}>
                     <Controller
@@ -1562,6 +1586,9 @@ const SiteConfigPage = () => {
                                 placeholder="Ngày kiểm định"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) =>
+                                    onDateBlured(e, 'AccreditationDate')
+                                }
                             />
                         )}
                     ></Controller>
@@ -1577,6 +1604,9 @@ const SiteConfigPage = () => {
                                 placeholder="Ngày hết hạn kiểm định"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) =>
+                                    onDateBlured(e, 'AccreditationExpireDate')
+                                }
                             />
                         )}
                     ></Controller>
@@ -1592,6 +1622,9 @@ const SiteConfigPage = () => {
                                 placeholder="Ngày thay đồng hồ"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) =>
+                                    onDateBlured(e, 'DateOfMeterChange')
+                                }
                             />
                         )}
                     ></Controller>
@@ -1607,6 +1640,9 @@ const SiteConfigPage = () => {
                                 placeholder="Ngày thay ac quy"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) =>
+                                    onDateBlured(e, 'DateOfBatteryChange')
+                                }
                             />
                         )}
                     ></Controller>
@@ -1635,6 +1671,9 @@ const SiteConfigPage = () => {
                                 placeholder="Ngày thay bộ hiển thị"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) =>
+                                    onDateBlured(e, 'DateOfTransmitterChange')
+                                }
                             />
                         )}
                     ></Controller>
@@ -1650,6 +1689,12 @@ const SiteConfigPage = () => {
                                 placeholder="Ngày thay pin bộ hiển thị"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) =>
+                                    onDateBlured(
+                                        e,
+                                        'DateOfTransmitterBatteryChange',
+                                    )
+                                }
                             />
                         )}
                     ></Controller>
@@ -1679,6 +1724,9 @@ const SiteConfigPage = () => {
                                 placeholder="Ngày thay logger"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) =>
+                                    onDateBlured(e, 'DateOfLoggerChange')
+                                }
                             />
                         )}
                     ></Controller>
@@ -1694,6 +1742,9 @@ const SiteConfigPage = () => {
                                 placeholder="Ngày thay pin logger"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) =>
+                                    onDateBlured(e, 'DateOfLoggerBatteryChange')
+                                }
                             />
                         )}
                     ></Controller>
@@ -2126,6 +2177,7 @@ const SiteConfigPage = () => {
                                 placeholder="Ngày bàn giao"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) => onDateBlured(e, 'TakeoverDate')}
                             />
                         )}
                     ></Controller>

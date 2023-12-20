@@ -1237,6 +1237,25 @@ STT
         fileName: title,
     };
 
+    const onTimeBlured = (e: any) => {
+        if (e.target.value !== '') {
+            const splitDate = e.target.value.split('/');
+
+            if (splitDate.length === 3) {
+                const year = parseInt(splitDate[2]);
+                const month = parseInt(splitDate[1]) - 1;
+                const day = parseInt(splitDate[0]);
+
+                //@ts-ignore
+                setTime(new Date(year, month, day));
+            } else {
+                setTime(null);
+            }
+        } else {
+            setTime(null);
+        }
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -1273,23 +1292,20 @@ STT
                         mx="auto"
                         value={time}
                         onChange={(e) => setTime(e)}
+                        onBlur={onTimeBlured}
                     />
                 </Col>
-
-                {isAdminViewer == false ? (
-                    <Col span={12}>
-                        <Center>
-                            <Button
-                                variant="filled"
-                                color="green"
-                                onClick={onViewClicked}
-                            >
-                                Xem
-                            </Button>
-                        </Center>
-                    </Col>
-                ) : null}
-
+                <Col span={12}>
+                    <Center>
+                        <Button
+                            variant="filled"
+                            color="green"
+                            onClick={onViewClicked}
+                        >
+                            Xem
+                        </Button>
+                    </Center>
+                </Col>
                 <Col span={12} style={{ maxWidth: '99%' }}>
                     <DataTableExtensions {...tableData}>
                         <DataTable

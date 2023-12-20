@@ -534,7 +534,17 @@ const QuantityPrecious = () => {
                                 </span>
                             </td>
                             <td></td>
-                            <td></td>
+                            <td>
+                                <span
+                                    style={{
+                                        textTransform: 'uppercase',
+                                        fontSize: '14px',
+                                        fontWeight: 500,
+                                    }}
+                                >
+                                    Cộng Hòa Xã Hội Chủ Nghĩa Việt Nam
+                                </span>
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -551,11 +561,11 @@ const QuantityPrecious = () => {
                             <td>
                                 <span
                                     style={{
-                                        textTransform: 'uppercase',
                                         fontSize: '14px',
+                                        fontWeight: 500,
                                     }}
                                 >
-                                    Cộng Hòa Xã Hội Chủ Nghĩa Việt Nam
+                                    Độc lập - Tự do - Hạnh phúc
                                 </span>
                             </td>
                         </tr>
@@ -574,10 +584,10 @@ const QuantityPrecious = () => {
                             <td>
                                 <span
                                     style={{
-                                        fontSize: '14px',
+                                        fontSize: '.6rem',
                                     }}
                                 >
-                                    Độc lập - Tự do - Hạnh phúc
+                                    _____________________
                                 </span>
                             </td>
                         </tr>
@@ -593,15 +603,7 @@ const QuantityPrecious = () => {
                                 </span>
                             </td>
                             <td></td>
-                            <td>
-                                <span
-                                    style={{
-                                        fontSize: '.6rem',
-                                    }}
-                                >
-                                    _____________________
-                                </span>
-                            </td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>
@@ -637,7 +639,10 @@ const QuantityPrecious = () => {
                     }}
                 >
                     Biên Bản Xác Định Sản Lượng Nước Mua Bán Sỉ Của{' '}
-                    {currentCompanyNamePreciousState} Kỳ {/* @ts-ignore */}
+                    {currentCompanyNamePreciousState
+                        .replaceAll('CTCP', 'Công Ty Cổ Phần')
+                        .replaceAll('CN', 'Cấp Nước')}{' '}
+                    Kỳ {/* @ts-ignore */}
                     {convertDatePeriodToMonth(currentEndDatePreciousState)}/
                     {/* @ts-ignore */}
                     {convertDatePeriodToYear(currentEndDatePreciousState)}
@@ -664,7 +669,12 @@ const QuantityPrecious = () => {
                     .............................................................................................
                 </div>
                 <div style={{ marginTop: '5px' }}>
-                    Cùng xác nhận lượng nước mua bán sỉ của kỳ 06/2022 như sau:
+                    Cùng xác nhận lượng nước mua bán sỉ của kỳ{' '}
+                    {/* @ts-ignore */}
+                    {convertDatePeriodToMonth(currentEndDatePreciousState)}/
+                    {/* @ts-ignore */}
+                    {convertDatePeriodToYear(currentEndDatePreciousState)} như
+                    sau:
                 </div>
                 <div style={{ marginTop: '5px', fontWeight: 'bold' }}>
                     Từ ngày{' '}

@@ -124,13 +124,13 @@ const QuantityWaterSupply = () => {
 
     const onStartDateChanged = (e: any) => {
         if (e != null && e != undefined && e != '') {
-            setStartDate(e.getTime());
+            setStartDate(e);
         }
     };
 
     const onEndDateChanged = (e: any) => {
         if (e != null && e != undefined && e != '') {
-            setEndDate(e.getTime());
+            setEndDate(e);
         }
     };
 
@@ -168,9 +168,9 @@ const QuantityWaterSupply = () => {
                 variables: {
                     company: selectedCompany,
                     // @ts-ignore comment
-                    start: startDate.toString(),
+                    start: startDate.getTime().toString(),
                     // @ts-ignore comment
-                    end: endDate.toString(),
+                    end: endDate.getTime().toString(),
                 },
             });
         }
@@ -1030,6 +1030,44 @@ const QuantityWaterSupply = () => {
         }
     };
 
+    const onStartDateBlured = (e: any) => {
+        if (e.target.value !== '') {
+            const splitDate = e.target.value.split('/');
+            console.log(splitDate);
+
+            if (splitDate.length === 3) {
+                const year = parseInt(splitDate[2]);
+                const month = parseInt(splitDate[1]) - 1;
+                const day = parseInt(splitDate[0]);
+                //@ts-ignore
+                setStartDate(new Date(year, month, day));
+            } else {
+                setStartDate(null);
+            }
+        } else {
+            setStartDate(null);
+        }
+    };
+
+    const onEndDateBlured = (e: any) => {
+        if (e.target.value !== '') {
+            const splitDate = e.target.value.split('/');
+
+            if (splitDate.length === 3) {
+                const year = parseInt(splitDate[2]);
+                const month = parseInt(splitDate[1]) - 1;
+                const day = parseInt(splitDate[0]);
+
+                //@ts-ignore
+                setEndDate(new Date(year, month, day));
+            } else {
+                setEndDate(null);
+            }
+        } else {
+            setEndDate(null);
+        }
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -1066,7 +1104,9 @@ const QuantityWaterSupply = () => {
                             label="Ngày bắt đầu"
                             withAsterisk
                             valueFormat="DD/MM/YYYY"
+                            value={startDate}
                             onChange={onStartDateChanged}
+                            onBlur={onStartDateBlured}
                         />
                     </Col>
                     <Col md={4} sm={12}>
@@ -1075,7 +1115,9 @@ const QuantityWaterSupply = () => {
                             label="Ngày kết thúc"
                             valueFormat="DD/MM/YYYY"
                             withAsterisk
+                            value={endDate}
                             onChange={onEndDateChanged}
+                            onBlur={onEndDateBlured}
                         />
                     </Col>
                     <Col span={12}>

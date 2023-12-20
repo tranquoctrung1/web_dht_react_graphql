@@ -442,7 +442,11 @@ const MeterPage = () => {
                     : null,
             Model: formValue.Model,
             Status: formValue.Status,
-            Installed: formValue.Installed,
+            Installed:
+                //@ts-ignore
+                formValue.Installed === 0 || formValue.Installed === false
+                    ? false
+                    : true,
             InstallIndex: formValue.InstallIndex,
             Description: formValue.Description,
             AppovalDate: formValue.AppovalDate,
@@ -476,7 +480,11 @@ const MeterPage = () => {
                     : null,
             Model: formValue.Model,
             Status: formValue.Status,
-            Installed: formValue.Installed,
+            Installed:
+                //@ts-ignore
+                formValue.Installed === 0 || formValue.Installed === false
+                    ? false
+                    : true,
             InstallIndex: formValue.InstallIndex,
             Description: formValue.Description,
             AppovalDate: formValue.AppovalDate,
@@ -785,6 +793,30 @@ const MeterPage = () => {
         navigate('/downloadMeterFile');
     };
 
+    const onDateBlured = (e: any, name: string) => {
+        if (e.target.value !== '') {
+            const splitDate = e.target.value.split('/');
+
+            if (splitDate.length === 3) {
+                const year = parseInt(splitDate[2]);
+                const month = parseInt(splitDate[1]) - 1;
+                const day = parseInt(splitDate[0]);
+                setValue(
+                    //@ts-ignore
+                    name,
+                    //@ts-ignore
+                    new Date(year, month, day),
+                );
+            } else {
+                //@ts-ignore
+                setValue(name, '');
+            }
+        } else {
+            //@ts-ignore
+            setValue(name, '');
+        }
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -847,6 +879,7 @@ const MeterPage = () => {
                                 placeholder="Ngày phê duyệt"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) => onDateBlured(e, 'AppovalDate')}
                             />
                         )}
                     ></Controller>
@@ -875,6 +908,7 @@ const MeterPage = () => {
                                 placeholder="Ngày nhập kho"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) => onDateBlured(e, 'ReceiptDate')}
                             />
                         )}
                     ></Controller>
@@ -1149,13 +1183,15 @@ const MeterPage = () => {
                         value={listFile}
                         onChange={(e) => setListFile(e)}
                     />
-                    <Button
-                        variant="filled"
-                        color="green"
-                        onClick={onUploadFileClicked}
-                    >
-                        Upload
-                    </Button>
+                    {isAdminViewer == false ? (
+                        <Button
+                            variant="filled"
+                            color="green"
+                            onClick={onUploadFileClicked}
+                        >
+                            Upload
+                        </Button>
+                    ) : null}
                     <Button
                         variant="filled"
                         color="blue"
@@ -1175,6 +1211,9 @@ const MeterPage = () => {
                                 placeholder="Ngày kiểm định"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) =>
+                                    onDateBlured(e, 'AccreditatedDate')
+                                }
                             />
                         )}
                     ></Controller>
@@ -1190,6 +1229,7 @@ const MeterPage = () => {
                                 placeholder="Ngày hết hiệu lực kiểm định"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) => onDateBlured(e, 'ExpiryDate')}
                             />
                         )}
                     ></Controller>

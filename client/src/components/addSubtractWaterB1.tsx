@@ -133,6 +133,7 @@ const AddSubtractWaterB1 = ({ index }: AddSubtractWaterB1Interface) => {
                     thousandsSeparator="."
                     placeholder="Lượng nước giảm trừ"
                     value={amountWater}
+                    precision={0}
                     //defaultValue={amountWater}
                     onBlur={onAmountWaterBlured}
                 />

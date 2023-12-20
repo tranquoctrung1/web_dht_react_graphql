@@ -1195,19 +1195,17 @@ const StatisticCustomChoiceSitePage = () => {
                         />
                     ) : null}
                 </Col>
-                {isAdminViewer === false ? (
-                    <Col span={12}>
-                        <Center>
-                            <Button
-                                variant="filled"
-                                color="green"
-                                onClick={onViewClicked}
-                            >
-                                Xem
-                            </Button>
-                        </Center>
-                    </Col>
-                ) : null}
+                <Col span={12}>
+                    <Center>
+                        <Button
+                            variant="filled"
+                            color="green"
+                            onClick={onViewClicked}
+                        >
+                            Xem
+                        </Button>
+                    </Center>
+                </Col>
                 <Col span={12} style={{ maxWidth: '99%' }}>
                     <DataTableExtensions {...tableData}>
                         <DataTable

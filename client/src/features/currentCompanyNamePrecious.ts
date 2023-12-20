@@ -18,7 +18,9 @@ export const CurrentCompanyNamePrecious = createSlice({
             state,
             action: PayloadAction<string>,
         ) => {
-            state.value = action.payload;
+            const split = action.payload.split('-');
+
+            state.value = split[1];
         },
     },
 });

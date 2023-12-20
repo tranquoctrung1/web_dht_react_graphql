@@ -542,6 +542,25 @@ const ManualIndexPage = () => {
         }
     };
 
+    const onDateBlured = (e: any) => {
+        if (e.target.value !== '') {
+            const splitDate = e.target.value.split('/');
+
+            if (splitDate.length === 3) {
+                const year = parseInt(splitDate[2]);
+                const month = parseInt(splitDate[1]) - 1;
+                const day = parseInt(splitDate[0]);
+
+                //@ts-ignore
+                setTimeStamp(new Date(year, month, day));
+            } else {
+                setTimeStamp(null);
+            }
+        } else {
+            setTimeStamp(null);
+        }
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -622,6 +641,7 @@ const ManualIndexPage = () => {
                         value={timeStamp}
                         onChange={onTimeStampChanged}
                         withAsterisk
+                        onBlur={(e) => onDateBlured(e)}
                     />
                 </Col>
                 <Col md={3}>

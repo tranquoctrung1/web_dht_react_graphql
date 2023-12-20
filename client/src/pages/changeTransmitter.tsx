@@ -573,6 +573,30 @@ const ChangeTransmitterPage = () => {
         });
     };
 
+    const onDateBlured = (e: any, name: string) => {
+        if (e.target.value !== '') {
+            const splitDate = e.target.value.split('/');
+
+            if (splitDate.length === 3) {
+                const year = parseInt(splitDate[2]);
+                const month = parseInt(splitDate[1]) - 1;
+                const day = parseInt(splitDate[0]);
+                setValue(
+                    //@ts-ignore
+                    name,
+                    //@ts-ignore
+                    new Date(year, month, day),
+                );
+            } else {
+                //@ts-ignore
+                setValue(name, '');
+            }
+        } else {
+            //@ts-ignore
+            setValue(name, '');
+        }
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -619,6 +643,7 @@ const ChangeTransmitterPage = () => {
                                 placeholder="Ngày thay"
                                 mx="auto"
                                 {...field}
+                                onBlur={(e) => onDateBlured(e, 'DateChanged')}
                             />
                         )}
                     ></Controller>

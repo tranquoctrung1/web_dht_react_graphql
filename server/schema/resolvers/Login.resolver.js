@@ -23,7 +23,7 @@ module.exports = {
                             role: user[0].Role,
                         },
                         process.env.JWT_KEY,
-                        { expiresIn: 60 * 10 },
+                        { expiresIn: 60 * 30 },
                     );
 
                     result.token = token;
