@@ -210,9 +210,9 @@ const QuantityWaterSupply = () => {
                 variables: {
                     company: selectedCompany,
                     // @ts-ignore comment
-                    start: startDate.toString(),
+                    start: startDate.getTime().toString(),
                     // @ts-ignore comment
-                    end: endDate.toString(),
+                    end: endDate.getTime().toString(),
                 },
             });
         }
