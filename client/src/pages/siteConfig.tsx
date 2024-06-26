@@ -12,6 +12,7 @@ import {
     Text,
     Center,
     Space,
+    Textarea,
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 
@@ -1754,9 +1755,12 @@ const SiteConfigPage = () => {
                         name="DescriptionOfChange"
                         control={control}
                         render={({ field }) => (
-                            <TextInput
+                            <Textarea
                                 placeholder="Ghi chú"
                                 label="Ghi chú"
+                                autosize
+                                minRows={2}
+                                maxRows={4}
                                 {...field}
                             />
                         )}
@@ -2096,9 +2100,12 @@ const SiteConfigPage = () => {
                         name="Description"
                         control={control}
                         render={({ field }) => (
-                            <TextInput
+                            <Textarea
                                 placeholder="Ghi chú"
                                 label="Ghi chú"
+                                autosize
+                                minRows={2}
+                                maxRows={4}
                                 {...field}
                             />
                         )}

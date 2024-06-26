@@ -119,7 +119,7 @@ const mockdataForMeter_Logger_Tran = [
     },
 ];
 
-const mockdata = [
+const mockdataAdminViewer = [
     {
         label: 'Thiết Bị',
         icon: IconDeviceDesktop,
@@ -244,7 +244,146 @@ const mockdata = [
                 label: 'Mẫu In',
                 link: '/formPrinter',
             },
-            
+        ],
+    },
+    {
+        label: 'Tài Khoản',
+        icon: IconKey,
+        initiallyOpened: false,
+        links: [
+            {
+                label: 'Đổi Mật Khẩu',
+                link: '/changePassword',
+            },
+        ],
+    },
+];
+
+const mockdataAdmin = [
+    {
+        label: 'Thiết Bị',
+        icon: IconDeviceDesktop,
+        initiallyOpened: false,
+        links: [
+            { label: 'Đồng Hồ ', link: '/meter' },
+            { label: 'Bộ Hiển Thị', link: '/transmitter' },
+            { label: 'Logger', link: '/logger' },
+            { label: 'Nắp Hầm', link: '/cover' },
+            { label: 'Tải File Đồng Hồ', link: '/downloadMeterFile' },
+            { label: 'Xóa Đồng Hồ Không Sử Dụng', link: '/deleteUselessMeter' },
+            {
+                label: 'Xóa Bộ Hiển Thi Không Sử Dụng',
+                link: '/deleteUselessTransmitter',
+            },
+            { label: 'Xóa Logger Không Sử Dụng', link: '/deleteUselessLogger' },
+        ],
+    },
+    {
+        label: 'Điểm Lắp Đặt',
+        icon: IconMapPin,
+        initiallyOpened: false,
+        links: [
+            { label: 'Thông Tin Điểm Lắp Đặt', link: '/siteConfig' },
+            { label: 'Cấu Hình Logger', link: '/loggerConfig' },
+            { label: 'Thay Đồng Hồ', link: '/meterChanged' },
+            { label: 'Thay Bộ Hiển Thị', link: '/transmitterChanged' },
+            { label: 'Thay Bộ Logger', link: '/loggerChanged' },
+            { label: 'Tải File Điểm Lắp Đặt', link: '/downloadSiteFile' },
+        ],
+    },
+    {
+        label: 'Nhập Liệu',
+        icon: IconEdit,
+        initiallyOpened: false,
+        links: [
+            { label: 'Nhập Tay Chỉ Số', link: '/indexManual' },
+            { label: 'Nhập Tay Sản Lượng', link: '/quantityManual' },
+            { label: 'Sửa Dữ Liệu', link: '/dataManualChanged' },
+        ],
+    },
+    {
+        label: 'Thống Kê',
+        icon: IconFileAnalytics,
+        initiallyOpened: false,
+        links: [
+            { label: 'Điểm Lắp Đặt Xí Nghiệp Quản Lý', link: '/statisticSite' },
+            {
+                label: 'Theo Hiệu Cở (Xí Nghiệp Quản Lý)',
+                link: '/statisticMarkSize',
+            },
+            {
+                label: 'Thống Kê Tùy Chọn Điểm Lắp Đặt',
+                link: '/statisticCustomChoiceSite',
+            },
+            {
+                label: 'Thống Kê Tùy Chọn Hiệu Cỡ',
+                link: '/statisticCustomChoiceMarkSize',
+            },
+            {
+                label: 'Hoạt Động Phát Sinh Trong Kỳ',
+                link: '/statisticChangePeriod',
+            },
+            {
+                label: 'Thống Kê Tùy Chọn Đồng Hồ',
+                link: '/statisticCustomChoiceMeter',
+            },
+            {
+                label: 'Thống Kê Tùy Chọn Bộ Hiển Thị',
+                link: '/statisticCustomChoiceTransmitter',
+            },
+            {
+                label: 'Thống Kê Tùy Chọn Logger',
+                link: '/statisticCustomChoiceLogger',
+            },
+            { label: 'Lịch Sử Điểm Lắp Đặt', link: '/statisticHistorySite' },
+            { label: 'Lịch Sử Đồng Hồ', link: '/statisticHistoryMeter' },
+            {
+                label: 'Thời Gian Đồng Hồ Hoạt Động',
+                link: '/statisticMeterWork',
+            },
+            {
+                label: 'Đồng Hồ Đến Hạn Kiểm Định',
+                link: '/statisticMeterExpireTime',
+            },
+            { label: 'Hồ Sơ Thiết Bị Đồng Hồ', link: '/statisticMeterInfo' },
+            {
+                label: 'Hồ Sơ Thiết Bị Bộ Hiển Thị',
+                link: '/statisticTransmitterInfo',
+            },
+            { label: 'Hồ Sơ Thiết Bị Logger', link: '/statisticLoggerInfo' },
+        ],
+    },
+    {
+        label: 'Sản Lượng',
+        icon: IconReceipt2,
+        initiallyOpened: false,
+        links: [
+            {
+                label: 'Sản Lượng Các Công Ty Cấp Nước',
+                link: '/quantityCompanyWaterSupply',
+            },
+            { label: 'Sản Lượng Theo Quản Lý', link: '/quantityCompany' },
+            { label: 'Sản Lượng Theo Nhóm ', link: '/quantityGroup' },
+            { label: 'Sản Lượng Theo Nhóm 2', link: '/quantityGroup2' },
+            { label: 'Sản Lượng Theo Nhóm 3', link: '/quantityGroup3' },
+            { label: 'Sản Lượng Theo Nhóm 4', link: '/quantityGroup4' },
+            { label: 'Sản Lượng Theo Nhóm 5', link: '/quantityGroup5' },
+            {
+                label: 'Sản Lượng Theo Cấp Đồng Hồ',
+                link: '/quantityLevel',
+            },
+            { label: 'Sản Lượng Tổng Hợp', link: '/quantityTotal' },
+        ],
+    },
+    {
+        label: 'Tiện Ích',
+        icon: IconInfoSquare,
+        initiallyOpened: false,
+        links: [
+            {
+                label: 'Mẫu In',
+                link: '/formPrinter',
+            },
         ],
     },
     // {
@@ -370,13 +509,17 @@ export function NavbarNested() {
             links = mockdataForMeter_Logger_Tran.map((item) => (
                 <LinksGroup {...item} key={item.label} />
             ));
+        } else if (role === 'adminviewer') {
+            links = mockdataAdminViewer.map((item) => (
+                <LinksGroup {...item} key={item.label} />
+            ));
         } else {
-            links = mockdata.map((item) => (
+            links = mockdataAdmin.map((item) => (
                 <LinksGroup {...item} key={item.label} />
             ));
         }
     } else {
-        links = mockdata.map((item) => (
+        links = mockdataAdmin.map((item) => (
             <LinksGroup {...item} key={item.label} />
         ));
     }

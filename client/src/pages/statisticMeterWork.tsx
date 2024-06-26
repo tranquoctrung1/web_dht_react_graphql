@@ -177,36 +177,22 @@ const StatisticMeterWorkPage = () => {
                     res?.data?.GetStatisticMeterChangeByYearUsing !== null &&
                     res?.data?.GetStatisticMeterChangeByYearUsing !== undefined
                 ) {
-                    let t = res.data.GetStatisticMeterChangeByYearUsing;
+                    let data = res.data.GetStatisticMeterChangeByYearUsing;
 
-                    const data = [];
-                    const tt = [...companies];
-                    const ttemp = [...status];
+                    const tt = [...valueCompanies];
+                    const ttemp = [...valueStatus];
 
-                    for (const item of t) {
-                        if (item?.TakeoverDate !== null) {
-                            data.push(item);
-                        } else {
+                    if (tt.length > 0) {
+                        data = data.filter(
                             //@ts-ignore
-                            const index = tt.filter(
-                                //@ts-ignore
-                                (el) => el.value === item.Company,
-                            );
-
-                            if (index.length > 0) {
-                                //@ts-ignore
-                                const index2 = ttemp.filter(
-                                    //@ts-ignore
-                                    (el) => el.value === item.Status,
-                                );
-
-                                if (index2.length > 0) {
-                                    data.push(item);
-                                }
-
-                                console.log();
-                            }
-                        }
+                            (el) => tt.indexOf(el?.Company) !== -1,
+                        );
+                    }
+                    if (ttemp.length > 0) {
+                        data = data.filter(
+                            //@ts-ignore
+                            (el) => ttemp.indexOf(el?.Status) !== -1,
+                        );
                     }
 
                     const temp = [];

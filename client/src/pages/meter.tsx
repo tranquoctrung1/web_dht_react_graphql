@@ -10,6 +10,7 @@ import {
     Checkbox,
     NumberInput,
     FileInput,
+    Textarea,
 } from '@mantine/core';
 
 import { DateInput } from '@mantine/dates';
@@ -1166,9 +1167,12 @@ const MeterPage = () => {
                         name="Description"
                         control={control}
                         render={({ field }) => (
-                            <TextInput
+                            <Textarea
                                 placeholder="Ghi chú"
                                 label="Ghi chú"
+                                autosize
+                                minRows={2}
+                                maxRows={4}
                                 {...field}
                             />
                         )}

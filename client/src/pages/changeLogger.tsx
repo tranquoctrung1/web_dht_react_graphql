@@ -8,6 +8,7 @@ import {
     Center,
     TextInput,
     Text,
+    Textarea,
 } from '@mantine/core';
 
 import { DateInput } from '@mantine/dates';
@@ -706,9 +707,12 @@ const ChangeLoggerPage = () => {
                         name="Description"
                         control={control}
                         render={({ field }) => (
-                            <TextInput
+                            <Textarea
                                 placeholder="Ghi chú"
                                 label="Ghi chú"
+                                autosize
+                                minRows={2}
+                                maxRows={4}
                                 {...field}
                             />
                         )}

@@ -13,7 +13,7 @@ module.exports.UploadFile = async (req, res) => {
     try {
         const fileUpload = {
             SiteId: req.body.siteId,
-            FileName: req.file.filename,
+            FileName: req.file.originalname,
             MIMEType: req.file.mimetype,
             Size: req.file.size,
             Path: req.file.path,
@@ -24,7 +24,6 @@ module.exports.UploadFile = async (req, res) => {
             message: await SiteFileModel.Insert(fileUpload),
         });
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: err });
     }
 };
@@ -35,7 +34,6 @@ module.exports.DeleteFile = async (req, res) => {
 
         res.status(200).json({ message: await SiteFileModel.Delete(id) });
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: err });
     }
 };
