@@ -1,0 +1,3 @@
+mutation InsertSiteGroup($siteGroup: SiteGroupInsertInput) {
+    InsertSiteGroup(siteGroup: $siteGroup)
+}

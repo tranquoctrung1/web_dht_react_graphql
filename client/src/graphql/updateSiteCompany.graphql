@@ -1,0 +1,3 @@
+mutation UpdateSiteCompany($company: SiteCompanyUpdateInput) {
+    UpdateSiteCompany(company: $company)
+}

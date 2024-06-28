@@ -1,0 +1,3 @@
+mutation UpdateSiteGroup($siteGroup: SiteGroupUpdateInput) {
+    UpdateSiteGroup(siteGroup: $siteGroup)
+}

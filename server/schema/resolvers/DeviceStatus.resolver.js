@@ -6,4 +6,15 @@ module.exports = {
             return await DeviceStatusModel.GetAll();
         },
     },
+    Mutation: {
+        InsertDeviceStatus: async (parent, { status }, context, info) => {
+            return await DeviceStatusModel.Insert(status);
+        },
+        UpdateDeviceStatus: async (parent, { status }, context, info) => {
+            return await DeviceStatusModel.Update(status);
+        },
+        DeleteDeviceStatus: async (parent, { status }, context, info) => {
+            return await DeviceStatusModel.Delete(status);
+        },
+    },
 };

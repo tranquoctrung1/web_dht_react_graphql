@@ -1,0 +1,3 @@
+mutation DeleteUserRole($role: UserRoleUpdateInput) {
+    DeleteUserRole(role: $role)
+}

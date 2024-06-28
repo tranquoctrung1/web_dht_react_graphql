@@ -1,0 +1,3 @@
+mutation UpdateSiteAvailability($available: SiteAvailabilitiesUpdateInput) {
+    UpdateSiteAvailability(available: $available)
+}

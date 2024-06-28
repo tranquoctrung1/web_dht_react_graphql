@@ -6,4 +6,16 @@ module.exports = {
             return await SiteLevelModel.GetAll();
         },
     },
+
+    Mutation: {
+        InsertSiteLevel: async (parrent, { siteLevel }, context, info) => {
+            return await SiteLevelModel.Insert(siteLevel);
+        },
+        UpdateSiteLevel: async (parrent, { siteLevel }, context, info) => {
+            return await SiteLevelModel.Update(siteLevel);
+        },
+        DeleteSiteLevel: async (parrent, { siteLevel }, context, info) => {
+            return await SiteLevelModel.Delete(siteLevel);
+        },
+    },
 };

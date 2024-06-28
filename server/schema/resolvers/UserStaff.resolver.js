@@ -6,4 +6,15 @@ module.exports = {
             return await UserStaffModel.GetAllStaffs();
         },
     },
+    Mutation: {
+        InsertUserStaff: async (parent, { staff }, context, info) => {
+            return await UserStaffModel.Insert(staff);
+        },
+        UpdateUserStaff: async (parent, { staff }, context, info) => {
+            return await UserStaffModel.Update(staff);
+        },
+        DeleteUserStaff: async (parent, { staff }, context, info) => {
+            return await UserStaffModel.Delete(staff);
+        },
+    },
 };

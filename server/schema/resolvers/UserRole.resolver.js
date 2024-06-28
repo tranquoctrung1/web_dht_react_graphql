@@ -6,4 +6,15 @@ module.exports = {
             return await UserRoleModel.GetAll();
         },
     },
+    Mutation: {
+        InsertUserRole: async (parent, { role }, context, info) => {
+            return await UserRoleModel.Insert(role);
+        },
+        UpdateUserRole: async (parent, { role }, context, info) => {
+            return await UserRoleModel.Update(role);
+        },
+        DeleteUserRole: async (parent, { role }, context, info) => {
+            return await UserRoleModel.Delete(role);
+        },
+    },
 };

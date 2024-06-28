@@ -1,5 +1,6 @@
 schema:
-    - http://14.161.22.76:6001
+    # - http://14.161.22.76:6001
+    - http://localhost:3001
 
 documents:
     - 'src/**/*.graphql'

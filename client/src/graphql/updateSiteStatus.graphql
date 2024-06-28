@@ -1,0 +1,3 @@
+mutation UpdateSiteStatus($status: SiteStatusUpdateInput) {
+    UpdateSiteStatus(status: $status)
+}

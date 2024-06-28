@@ -1,0 +1,3 @@
+mutation DeleteSiteLevel($siteLevel: SiteLevelUpdateInput) {
+    DeleteSiteLevel(siteLevel: $siteLevel)
+}

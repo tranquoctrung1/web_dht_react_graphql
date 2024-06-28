@@ -1530,6 +1530,138 @@ module.exports = gql`
         Active: Boolean
     }
 
+    input SiteLevelInsertInput {
+        Level: String
+        Description: String
+    }
+
+    input SiteLevelUpdateInput {
+        _id: ID!
+        Level: String
+        Description: String
+    }
+
+    input SiteGroupInsertInput {
+        Group: String
+        Description: String
+    }
+    input SiteGroup2SInsertInput {
+        Group: String
+        Description: String
+    }
+    input SiteGroup3SInsertInput {
+        Group: String
+        Description: String
+    }
+    input SiteGroup4SInsertInput {
+        Group: String
+        Description: String
+    }
+    input SiteGroup5SInsertInput {
+        Group: String
+        Description: String
+    }
+
+    input SiteGroupUpdateInput {
+        _id: ID!
+        Group: String
+        Description: String
+    }
+    input SiteGroup2SUpdateInput {
+        _id: ID!
+        Group: String
+        Description: String
+    }
+    input SiteGroup3SUpdateInput {
+        _id: ID!
+        Group: String
+        Description: String
+    }
+    input SiteGroup4SUpdateInput {
+        _id: ID!
+        Group: String
+        Description: String
+    }
+    input SiteGroup5SUpdateInput {
+        _id: ID!
+        Group: String
+        Description: String
+    }
+
+    input SiteCompanyInsertInput {
+        Company: String
+        Production: String
+        Description: String
+    }
+
+    input SiteCompanyUpdateInput {
+        _id: ID!
+        Company: String
+        Production: String
+        Description: String
+    }
+
+    input SiteStatusInsertInput {
+        Status: String
+        Description: String
+    }
+
+    input SiteStatusUpdateInput {
+        _id: ID!
+        Status: String
+        Description: String
+    }
+
+    input SiteAvailabilitiesInsertInput {
+        Availability: String
+        Description: String
+    }
+
+    input SiteAvailabilitiesUpdateInput {
+        _id: ID!
+        Availability: String
+        Description: String
+    }
+
+    input DeviceStatusInsertInput {
+        Status: String
+        Description: String
+    }
+
+    input DeviceStatusUpdateInput {
+        _id: ID!
+        Status: String
+        Description: String
+    }
+
+    input DeviceMeterAccreditationTypeInsertInput {
+        AccreditationType: String
+        Description: String
+    }
+
+    input DeviceMeterAccreditationTypeUpdateInput {
+        _id: ID!
+        AccreditationType: String
+        Description: String
+    }
+
+    input UserRoleInsertInput {
+        Role: String
+        Description: String
+    }
+
+    input UserRoleUpdateInput {
+        _id: ID!
+        Role: String
+        Description: String
+    }
+
+    input UserStaffInsertInput {
+        _id: String
+        FirstName: String
+        LastName: String
+    }
+
     # declare Query
     type Query {
         QuantityDayCompany(
@@ -1952,5 +2084,89 @@ module.exports = gql`
         DeleteCover(cover: SiteCoverUpdateInput): Int
 
         UpdateActiveUser(user: UpdateActiveUserInput): Int
+
+        InsertSiteLevel(siteLevel: SiteLevelInsertInput): String
+
+        UpdateSiteLevel(siteLevel: SiteLevelUpdateInput): Int
+
+        DeleteSiteLevel(siteLevel: SiteLevelUpdateInput): Int
+
+        InsertSiteGroup(siteGroup: SiteGroupInsertInput): String
+
+        UpdateSiteGroup(siteGroup: SiteGroupUpdateInput): Int
+
+        DeleteSiteGroup(siteGroup: SiteGroupUpdateInput): Int
+
+        InsertSiteGroup2S(siteGroup: SiteGroup2SInsertInput): String
+
+        UpdateSiteGroup2S(siteGroup: SiteGroup2SUpdateInput): Int
+
+        DeleteSiteGroup2S(siteGroup: SiteGroup2SUpdateInput): Int
+
+        InsertSiteGroup3S(siteGroup: SiteGroup3SInsertInput): String
+
+        UpdateSiteGroup3S(siteGroup: SiteGroup3SUpdateInput): Int
+
+        DeleteSiteGroup3S(siteGroup: SiteGroup3SUpdateInput): Int
+
+        InsertSiteGroup4S(siteGroup: SiteGroup4SInsertInput): String
+
+        UpdateSiteGroup4S(siteGroup: SiteGroup4SUpdateInput): Int
+
+        DeleteSiteGroup4S(siteGroup: SiteGroup4SUpdateInput): Int
+
+        InsertSiteGroup5S(siteGroup: SiteGroup5SInsertInput): String
+
+        UpdateSiteGroup5S(siteGroup: SiteGroup5SUpdateInput): Int
+
+        DeleteSiteGroup5S(siteGroup: SiteGroup5SUpdateInput): Int
+
+        InsertSiteCompany(company: SiteCompanyInsertInput): String
+
+        UpdateSiteCompany(company: SiteCompanyUpdateInput): Int
+
+        DeleteSiteCompany(company: SiteCompanyUpdateInput): Int
+
+        InsertSiteStatus(status: SiteStatusInsertInput): String
+
+        UpdateSiteStatus(status: SiteStatusUpdateInput): Int
+
+        DeleteSiteStatus(status: SiteStatusUpdateInput): Int
+
+        InsertSiteAvailability(available: SiteAvailabilitiesInsertInput): String
+
+        UpdateSiteAvailability(available: SiteAvailabilitiesUpdateInput): Int
+
+        DeleteSiteAvailability(available: SiteAvailabilitiesUpdateInput): Int
+
+        InsertDeviceStatus(status: DeviceStatusInsertInput): String
+
+        UpdateDeviceStatus(status: DeviceStatusUpdateInput): Int
+
+        DeleteDeviceStatus(status: DeviceStatusUpdateInput): Int
+
+        InsertMeterAccreditation(
+            type: DeviceMeterAccreditationTypeInsertInput
+        ): String
+
+        UpdateMeterAccreditation(
+            type: DeviceMeterAccreditationTypeUpdateInput
+        ): Int
+
+        DeleteMeterAccreditation(
+            type: DeviceMeterAccreditationTypeUpdateInput
+        ): Int
+
+        InsertUserRole(role: UserRoleInsertInput): String
+
+        UpdateUserRole(role: UserRoleUpdateInput): Int
+
+        DeleteUserRole(role: UserRoleUpdateInput): Int
+
+        InsertUserStaff(staff: UserStaffInsertInput): String
+
+        UpdateUserStaff(staff: UserStaffInsertInput): Int
+
+        DeleteUserStaff(staff: UserStaffInsertInput): Int
     }
 `;

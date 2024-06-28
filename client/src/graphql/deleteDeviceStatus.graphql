@@ -1,0 +1,3 @@
+mutation DeleteDeviceStatus($status: DeviceStatusUpdateInput) {
+    DeleteDeviceStatus(status: $status)
+}

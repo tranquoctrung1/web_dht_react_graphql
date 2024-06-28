@@ -1,0 +1,3 @@
+mutation InsertSiteAvailability($available: SiteAvailabilitiesInsertInput) {
+    InsertSiteAvailability(available: $available)
+}

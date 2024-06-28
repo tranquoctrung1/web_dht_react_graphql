@@ -197,6 +197,17 @@ export type DeviceMeterAccreditationType = {
   _id: Scalars['ID'];
 };
 
+export type DeviceMeterAccreditationTypeInsertInput = {
+  AccreditationType?: InputMaybe<Scalars['String']>;
+  Description?: InputMaybe<Scalars['String']>;
+};
+
+export type DeviceMeterAccreditationTypeUpdateInput = {
+  AccreditationType?: InputMaybe<Scalars['String']>;
+  Description?: InputMaybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
 export type DeviceMeterInsertInput = {
   AccreditatedDate?: InputMaybe<Scalars['Date']>;
   AccreditationDocument?: InputMaybe<Scalars['String']>;
@@ -296,6 +307,17 @@ export type DeviceStatus = {
   __typename?: 'DeviceStatus';
   Description?: Maybe<Scalars['String']>;
   Status?: Maybe<Scalars['String']>;
+};
+
+export type DeviceStatusInsertInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Status?: InputMaybe<Scalars['String']>;
+};
+
+export type DeviceStatusUpdateInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Status?: InputMaybe<Scalars['String']>;
+  _id: Scalars['ID'];
 };
 
 export type DeviceTransmitter = {
@@ -562,33 +584,60 @@ export type Mutation = {
   DeleteDataManual?: Maybe<Scalars['Int']>;
   DeleteDeviceChannelConifg?: Maybe<Scalars['Int']>;
   DeleteDeviceSiteConfig?: Maybe<Scalars['Int']>;
+  DeleteDeviceStatus?: Maybe<Scalars['Int']>;
   DeleteHistorySiteLogger?: Maybe<Scalars['Int']>;
   DeleteHistorySiteMeter?: Maybe<Scalars['Int']>;
   DeleteHistorySiteTransmitter?: Maybe<Scalars['Int']>;
   DeleteLogger?: Maybe<Scalars['Int']>;
   DeleteMeter?: Maybe<Scalars['Int']>;
+  DeleteMeterAccreditation?: Maybe<Scalars['Int']>;
   DeletePrecious?: Maybe<RowModified>;
   DeleteSite?: Maybe<Scalars['Int']>;
+  DeleteSiteAvailability?: Maybe<Scalars['Int']>;
+  DeleteSiteCompany?: Maybe<Scalars['Int']>;
+  DeleteSiteGroup?: Maybe<Scalars['Int']>;
+  DeleteSiteGroup2S?: Maybe<Scalars['Int']>;
+  DeleteSiteGroup3S?: Maybe<Scalars['Int']>;
+  DeleteSiteGroup4S?: Maybe<Scalars['Int']>;
+  DeleteSiteGroup5S?: Maybe<Scalars['Int']>;
+  DeleteSiteLevel?: Maybe<Scalars['Int']>;
+  DeleteSiteStatus?: Maybe<Scalars['Int']>;
   DeleteTransmitter?: Maybe<Scalars['Int']>;
   DeleteUser?: Maybe<Scalars['Int']>;
+  DeleteUserRole?: Maybe<Scalars['Int']>;
+  DeleteUserStaff?: Maybe<Scalars['Int']>;
   InsertCover?: Maybe<Scalars['String']>;
   InsertDataManual?: Maybe<Scalars['String']>;
   InsertDeviceSiteConfig?: Maybe<Scalars['String']>;
+  InsertDeviceStatus?: Maybe<Scalars['String']>;
   InsertHistorySiteLogger?: Maybe<Scalars['String']>;
   InsertHistorySiteMeter?: Maybe<Scalars['String']>;
   InsertHistorySiteTransmitter?: Maybe<Scalars['String']>;
   InsertIndexDataManual?: Maybe<Scalars['Int']>;
   InsertLogger?: Maybe<Scalars['String']>;
   InsertMeter?: Maybe<Scalars['String']>;
+  InsertMeterAccreditation?: Maybe<Scalars['String']>;
   InsertPrecious?: Maybe<IdOutput>;
   InsertSite?: Maybe<Scalars['String']>;
+  InsertSiteAvailability?: Maybe<Scalars['String']>;
+  InsertSiteCompany?: Maybe<Scalars['String']>;
+  InsertSiteGroup?: Maybe<Scalars['String']>;
+  InsertSiteGroup2S?: Maybe<Scalars['String']>;
+  InsertSiteGroup3S?: Maybe<Scalars['String']>;
+  InsertSiteGroup4S?: Maybe<Scalars['String']>;
+  InsertSiteGroup5S?: Maybe<Scalars['String']>;
+  InsertSiteLevel?: Maybe<Scalars['String']>;
+  InsertSiteStatus?: Maybe<Scalars['String']>;
   InsertTransmitter?: Maybe<Scalars['String']>;
   InsertUser?: Maybe<Scalars['String']>;
+  InsertUserRole?: Maybe<Scalars['String']>;
+  InsertUserStaff?: Maybe<Scalars['String']>;
   UpdateActiveUser?: Maybe<Scalars['Int']>;
   UpdateCover?: Maybe<Scalars['Int']>;
   UpdateDataManual?: Maybe<Scalars['Int']>;
   UpdateDeviceChannelConfig?: Maybe<Scalars['String']>;
   UpdateDeviceSiteConfig?: Maybe<Scalars['String']>;
+  UpdateDeviceStatus?: Maybe<Scalars['Int']>;
   UpdateHistorySiteLogger?: Maybe<Scalars['Int']>;
   UpdateHistorySiteMeter?: Maybe<Scalars['Int']>;
   UpdateHistorySiteTransmitter?: Maybe<Scalars['Int']>;
@@ -596,16 +645,28 @@ export type Mutation = {
   UpdateLogger?: Maybe<Scalars['Int']>;
   UpdateLoggerInstall?: Maybe<Scalars['Int']>;
   UpdateMeter?: Maybe<Scalars['Int']>;
+  UpdateMeterAccreditation?: Maybe<Scalars['Int']>;
   UpdateMeterInstall?: Maybe<Scalars['Int']>;
   UpdatePassword?: Maybe<Scalars['Int']>;
   UpdatePrecious?: Maybe<IdOutput>;
   UpdateSite?: Maybe<Scalars['String']>;
+  UpdateSiteAvailability?: Maybe<Scalars['Int']>;
+  UpdateSiteCompany?: Maybe<Scalars['Int']>;
+  UpdateSiteGroup?: Maybe<Scalars['Int']>;
+  UpdateSiteGroup2S?: Maybe<Scalars['Int']>;
+  UpdateSiteGroup3S?: Maybe<Scalars['Int']>;
+  UpdateSiteGroup4S?: Maybe<Scalars['Int']>;
+  UpdateSiteGroup5S?: Maybe<Scalars['Int']>;
+  UpdateSiteLevel?: Maybe<Scalars['Int']>;
   UpdateSiteLoggerDateChange?: Maybe<Scalars['Int']>;
   UpdateSiteMeterDateChange?: Maybe<Scalars['Int']>;
+  UpdateSiteStatus?: Maybe<Scalars['Int']>;
   UpdateSiteTransmitterDateChange?: Maybe<Scalars['Int']>;
   UpdateTransmitter?: Maybe<Scalars['Int']>;
   UpdateTransmitterInstall?: Maybe<Scalars['Int']>;
   UpdateUser?: Maybe<Scalars['Int']>;
+  UpdateUserRole?: Maybe<Scalars['Int']>;
+  UpdateUserStaff?: Maybe<Scalars['Int']>;
 };
 
 
@@ -626,6 +687,11 @@ export type MutationDeleteDeviceChannelConifgArgs = {
 
 export type MutationDeleteDeviceSiteConfigArgs = {
   siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
+};
+
+
+export type MutationDeleteDeviceStatusArgs = {
+  status?: InputMaybe<DeviceStatusUpdateInput>;
 };
 
 
@@ -654,6 +720,11 @@ export type MutationDeleteMeterArgs = {
 };
 
 
+export type MutationDeleteMeterAccreditationArgs = {
+  type?: InputMaybe<DeviceMeterAccreditationTypeUpdateInput>;
+};
+
+
 export type MutationDeletePreciousArgs = {
   precious?: InputMaybe<PreciousUpdateInput>;
 };
@@ -664,6 +735,51 @@ export type MutationDeleteSiteArgs = {
 };
 
 
+export type MutationDeleteSiteAvailabilityArgs = {
+  available?: InputMaybe<SiteAvailabilitiesUpdateInput>;
+};
+
+
+export type MutationDeleteSiteCompanyArgs = {
+  company?: InputMaybe<SiteCompanyUpdateInput>;
+};
+
+
+export type MutationDeleteSiteGroupArgs = {
+  siteGroup?: InputMaybe<SiteGroupUpdateInput>;
+};
+
+
+export type MutationDeleteSiteGroup2SArgs = {
+  siteGroup?: InputMaybe<SiteGroup2SUpdateInput>;
+};
+
+
+export type MutationDeleteSiteGroup3SArgs = {
+  siteGroup?: InputMaybe<SiteGroup3SUpdateInput>;
+};
+
+
+export type MutationDeleteSiteGroup4SArgs = {
+  siteGroup?: InputMaybe<SiteGroup4SUpdateInput>;
+};
+
+
+export type MutationDeleteSiteGroup5SArgs = {
+  siteGroup?: InputMaybe<SiteGroup5SUpdateInput>;
+};
+
+
+export type MutationDeleteSiteLevelArgs = {
+  siteLevel?: InputMaybe<SiteLevelUpdateInput>;
+};
+
+
+export type MutationDeleteSiteStatusArgs = {
+  status?: InputMaybe<SiteStatusUpdateInput>;
+};
+
+
 export type MutationDeleteTransmitterArgs = {
   transmitter?: InputMaybe<DeviceTransmitterUpdateInput>;
 };
@@ -671,6 +787,16 @@ export type MutationDeleteTransmitterArgs = {
 
 export type MutationDeleteUserArgs = {
   user?: InputMaybe<UserUpdateInput>;
+};
+
+
+export type MutationDeleteUserRoleArgs = {
+  role?: InputMaybe<UserRoleUpdateInput>;
+};
+
+
+export type MutationDeleteUserStaffArgs = {
+  staff?: InputMaybe<UserStaffInsertInput>;
 };
 
 
@@ -686,6 +812,11 @@ export type MutationInsertDataManualArgs = {
 
 export type MutationInsertDeviceSiteConfigArgs = {
   siteConfig?: InputMaybe<DeviceSiteConfigInsertInput>;
+};
+
+
+export type MutationInsertDeviceStatusArgs = {
+  status?: InputMaybe<DeviceStatusInsertInput>;
 };
 
 
@@ -719,6 +850,11 @@ export type MutationInsertMeterArgs = {
 };
 
 
+export type MutationInsertMeterAccreditationArgs = {
+  type?: InputMaybe<DeviceMeterAccreditationTypeInsertInput>;
+};
+
+
 export type MutationInsertPreciousArgs = {
   precious?: InputMaybe<PreciousInput>;
 };
@@ -729,6 +865,51 @@ export type MutationInsertSiteArgs = {
 };
 
 
+export type MutationInsertSiteAvailabilityArgs = {
+  available?: InputMaybe<SiteAvailabilitiesInsertInput>;
+};
+
+
+export type MutationInsertSiteCompanyArgs = {
+  company?: InputMaybe<SiteCompanyInsertInput>;
+};
+
+
+export type MutationInsertSiteGroupArgs = {
+  siteGroup?: InputMaybe<SiteGroupInsertInput>;
+};
+
+
+export type MutationInsertSiteGroup2SArgs = {
+  siteGroup?: InputMaybe<SiteGroup2SInsertInput>;
+};
+
+
+export type MutationInsertSiteGroup3SArgs = {
+  siteGroup?: InputMaybe<SiteGroup3SInsertInput>;
+};
+
+
+export type MutationInsertSiteGroup4SArgs = {
+  siteGroup?: InputMaybe<SiteGroup4SInsertInput>;
+};
+
+
+export type MutationInsertSiteGroup5SArgs = {
+  siteGroup?: InputMaybe<SiteGroup5SInsertInput>;
+};
+
+
+export type MutationInsertSiteLevelArgs = {
+  siteLevel?: InputMaybe<SiteLevelInsertInput>;
+};
+
+
+export type MutationInsertSiteStatusArgs = {
+  status?: InputMaybe<SiteStatusInsertInput>;
+};
+
+
 export type MutationInsertTransmitterArgs = {
   transmitter?: InputMaybe<DeviceTransmitterInsertInput>;
 };
@@ -736,6 +917,16 @@ export type MutationInsertTransmitterArgs = {
 
 export type MutationInsertUserArgs = {
   user?: InputMaybe<UserInsertInput>;
+};
+
+
+export type MutationInsertUserRoleArgs = {
+  role?: InputMaybe<UserRoleInsertInput>;
+};
+
+
+export type MutationInsertUserStaffArgs = {
+  staff?: InputMaybe<UserStaffInsertInput>;
 };
 
 
@@ -761,6 +952,11 @@ export type MutationUpdateDeviceChannelConfigArgs = {
 
 export type MutationUpdateDeviceSiteConfigArgs = {
   siteConfig?: InputMaybe<DeviceSiteConfigUpdateInput>;
+};
+
+
+export type MutationUpdateDeviceStatusArgs = {
+  status?: InputMaybe<DeviceStatusUpdateInput>;
 };
 
 
@@ -799,6 +995,11 @@ export type MutationUpdateMeterArgs = {
 };
 
 
+export type MutationUpdateMeterAccreditationArgs = {
+  type?: InputMaybe<DeviceMeterAccreditationTypeUpdateInput>;
+};
+
+
 export type MutationUpdateMeterInstallArgs = {
   meter?: InputMaybe<DeviceMeterInstallUpdateInput>;
 };
@@ -819,6 +1020,46 @@ export type MutationUpdateSiteArgs = {
 };
 
 
+export type MutationUpdateSiteAvailabilityArgs = {
+  available?: InputMaybe<SiteAvailabilitiesUpdateInput>;
+};
+
+
+export type MutationUpdateSiteCompanyArgs = {
+  company?: InputMaybe<SiteCompanyUpdateInput>;
+};
+
+
+export type MutationUpdateSiteGroupArgs = {
+  siteGroup?: InputMaybe<SiteGroupUpdateInput>;
+};
+
+
+export type MutationUpdateSiteGroup2SArgs = {
+  siteGroup?: InputMaybe<SiteGroup2SUpdateInput>;
+};
+
+
+export type MutationUpdateSiteGroup3SArgs = {
+  siteGroup?: InputMaybe<SiteGroup3SUpdateInput>;
+};
+
+
+export type MutationUpdateSiteGroup4SArgs = {
+  siteGroup?: InputMaybe<SiteGroup4SUpdateInput>;
+};
+
+
+export type MutationUpdateSiteGroup5SArgs = {
+  siteGroup?: InputMaybe<SiteGroup5SUpdateInput>;
+};
+
+
+export type MutationUpdateSiteLevelArgs = {
+  siteLevel?: InputMaybe<SiteLevelUpdateInput>;
+};
+
+
 export type MutationUpdateSiteLoggerDateChangeArgs = {
   site?: InputMaybe<SiteLoggerDateChangeUpdateInput>;
 };
@@ -826,6 +1067,11 @@ export type MutationUpdateSiteLoggerDateChangeArgs = {
 
 export type MutationUpdateSiteMeterDateChangeArgs = {
   site?: InputMaybe<SiteMeterDateChangeUpdateInput>;
+};
+
+
+export type MutationUpdateSiteStatusArgs = {
+  status?: InputMaybe<SiteStatusUpdateInput>;
 };
 
 
@@ -846,6 +1092,16 @@ export type MutationUpdateTransmitterInstallArgs = {
 
 export type MutationUpdateUserArgs = {
   user?: InputMaybe<UserUpdateInput>;
+};
+
+
+export type MutationUpdateUserRoleArgs = {
+  role?: InputMaybe<UserRoleUpdateInput>;
+};
+
+
+export type MutationUpdateUserStaffArgs = {
+  staff?: InputMaybe<UserStaffInsertInput>;
 };
 
 export type Periods = {
@@ -1596,6 +1852,17 @@ export type SiteAvailabilities = {
   _id: Scalars['ID'];
 };
 
+export type SiteAvailabilitiesInsertInput = {
+  Availability?: InputMaybe<Scalars['String']>;
+  Description?: InputMaybe<Scalars['String']>;
+};
+
+export type SiteAvailabilitiesUpdateInput = {
+  Availability?: InputMaybe<Scalars['String']>;
+  Description?: InputMaybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
 export type SiteByStaffId = {
   __typename?: 'SiteByStaffId';
   Availability?: Maybe<Scalars['String']>;
@@ -1609,6 +1876,19 @@ export type SiteByStaffId = {
   Size?: Maybe<Scalars['Int']>;
   Status?: Maybe<Scalars['String']>;
   UsingLogger?: Maybe<Scalars['Boolean']>;
+};
+
+export type SiteCompanyInsertInput = {
+  Company?: InputMaybe<Scalars['String']>;
+  Description?: InputMaybe<Scalars['String']>;
+  Production?: InputMaybe<Scalars['String']>;
+};
+
+export type SiteCompanyUpdateInput = {
+  Company?: InputMaybe<Scalars['String']>;
+  Description?: InputMaybe<Scalars['String']>;
+  Production?: InputMaybe<Scalars['String']>;
+  _id: Scalars['ID'];
 };
 
 export type SiteCover = {
@@ -1655,10 +1935,32 @@ export type SiteGroup2S = {
   _id: Scalars['ID'];
 };
 
+export type SiteGroup2SInsertInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Group?: InputMaybe<Scalars['String']>;
+};
+
+export type SiteGroup2SUpdateInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Group?: InputMaybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
 export type SiteGroup3S = {
   __typename?: 'SiteGroup3S';
   Description?: Maybe<Scalars['String']>;
   Group?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteGroup3SInsertInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Group?: InputMaybe<Scalars['String']>;
+};
+
+export type SiteGroup3SUpdateInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Group?: InputMaybe<Scalars['String']>;
   _id: Scalars['ID'];
 };
 
@@ -1669,10 +1971,43 @@ export type SiteGroup4S = {
   _id: Scalars['ID'];
 };
 
+export type SiteGroup4SInsertInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Group?: InputMaybe<Scalars['String']>;
+};
+
+export type SiteGroup4SUpdateInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Group?: InputMaybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
 export type SiteGroup5S = {
   __typename?: 'SiteGroup5S';
   Description?: Maybe<Scalars['String']>;
   Group?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteGroup5SInsertInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Group?: InputMaybe<Scalars['String']>;
+};
+
+export type SiteGroup5SUpdateInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Group?: InputMaybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteGroupInsertInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Group?: InputMaybe<Scalars['String']>;
+};
+
+export type SiteGroupUpdateInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Group?: InputMaybe<Scalars['String']>;
   _id: Scalars['ID'];
 };
 
@@ -1729,6 +2064,17 @@ export type SiteLevel = {
   _id: Scalars['ID'];
 };
 
+export type SiteLevelInsertInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Level?: InputMaybe<Scalars['String']>;
+};
+
+export type SiteLevelUpdateInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Level?: InputMaybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
 export type SiteLoggerDateChangeUpdateInput = {
   DateOfLoggerChange?: InputMaybe<Scalars['Date']>;
   Logger?: InputMaybe<Scalars['String']>;
@@ -1752,6 +2098,17 @@ export type SiteStatus = {
   __typename?: 'SiteStatus';
   Description?: Maybe<Scalars['String']>;
   Status?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type SiteStatusInsertInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Status?: InputMaybe<Scalars['String']>;
+};
+
+export type SiteStatusUpdateInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Status?: InputMaybe<Scalars['String']>;
   _id: Scalars['ID'];
 };
 
@@ -2249,11 +2606,28 @@ export type UserInsertInput = {
   Zoom?: InputMaybe<Scalars['Int']>;
 };
 
+export type UserRoleInsertInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Role?: InputMaybe<Scalars['String']>;
+};
+
+export type UserRoleUpdateInput = {
+  Description?: InputMaybe<Scalars['String']>;
+  Role?: InputMaybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
 export type UserStaff = {
   __typename?: 'UserStaff';
   FirstName?: Maybe<Scalars['String']>;
   LastName?: Maybe<Scalars['String']>;
   _id?: Maybe<Scalars['String']>;
+};
+
+export type UserStaffInsertInput = {
+  FirstName?: InputMaybe<Scalars['String']>;
+  LastName?: InputMaybe<Scalars['String']>;
+  _id?: InputMaybe<Scalars['String']>;
 };
 
 export type UserUpdateInput = {
@@ -2351,6 +2725,13 @@ export type DeleteDeviceSiteConfigMutationVariables = Exact<{
 
 export type DeleteDeviceSiteConfigMutation = { __typename?: 'Mutation', DeleteDeviceSiteConfig?: number | null };
 
+export type DeleteDeviceStatusMutationVariables = Exact<{
+  status?: InputMaybe<DeviceStatusUpdateInput>;
+}>;
+
+
+export type DeleteDeviceStatusMutation = { __typename?: 'Mutation', DeleteDeviceStatus?: number | null };
+
 export type DeleteTransmitterMutationVariables = Exact<{
   transmitter?: InputMaybe<DeviceTransmitterUpdateInput>;
 }>;
@@ -2379,6 +2760,13 @@ export type DeleteHistorySiteTransmitterMutationVariables = Exact<{
 
 export type DeleteHistorySiteTransmitterMutation = { __typename?: 'Mutation', DeleteHistorySiteTransmitter?: number | null };
 
+export type DeleteMeterAccreditationMutationVariables = Exact<{
+  type?: InputMaybe<DeviceMeterAccreditationTypeUpdateInput>;
+}>;
+
+
+export type DeleteMeterAccreditationMutation = { __typename?: 'Mutation', DeleteMeterAccreditation?: number | null };
+
 export type DeletePreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousUpdateInput>;
 }>;
@@ -2393,12 +2781,89 @@ export type DeleteSiteMutationVariables = Exact<{
 
 export type DeleteSiteMutation = { __typename?: 'Mutation', DeleteSite?: number | null };
 
+export type DeleteSiteAvailabilityMutationVariables = Exact<{
+  available?: InputMaybe<SiteAvailabilitiesUpdateInput>;
+}>;
+
+
+export type DeleteSiteAvailabilityMutation = { __typename?: 'Mutation', DeleteSiteAvailability?: number | null };
+
+export type DeleteSiteCompanyMutationVariables = Exact<{
+  company?: InputMaybe<SiteCompanyUpdateInput>;
+}>;
+
+
+export type DeleteSiteCompanyMutation = { __typename?: 'Mutation', DeleteSiteCompany?: number | null };
+
+export type DeleteSiteGroupMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroupUpdateInput>;
+}>;
+
+
+export type DeleteSiteGroupMutation = { __typename?: 'Mutation', DeleteSiteGroup?: number | null };
+
+export type DeleteSiteGroup2SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup2SUpdateInput>;
+}>;
+
+
+export type DeleteSiteGroup2SMutation = { __typename?: 'Mutation', DeleteSiteGroup2S?: number | null };
+
+export type DeleteSiteGroup3SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup3SUpdateInput>;
+}>;
+
+
+export type DeleteSiteGroup3SMutation = { __typename?: 'Mutation', DeleteSiteGroup3S?: number | null };
+
+export type DeleteSiteGroup4SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup4SUpdateInput>;
+}>;
+
+
+export type DeleteSiteGroup4SMutation = { __typename?: 'Mutation', DeleteSiteGroup4S?: number | null };
+
+export type DeleteSiteGroup5SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup5SUpdateInput>;
+}>;
+
+
+export type DeleteSiteGroup5SMutation = { __typename?: 'Mutation', DeleteSiteGroup5S?: number | null };
+
+export type DeleteSiteLevelMutationVariables = Exact<{
+  siteLevel?: InputMaybe<SiteLevelUpdateInput>;
+}>;
+
+
+export type DeleteSiteLevelMutation = { __typename?: 'Mutation', DeleteSiteLevel?: number | null };
+
+export type DeleteSiteStatusMutationVariables = Exact<{
+  status?: InputMaybe<SiteStatusUpdateInput>;
+}>;
+
+
+export type DeleteSiteStatusMutation = { __typename?: 'Mutation', DeleteSiteStatus?: number | null };
+
 export type DeleteUserMutationVariables = Exact<{
   user?: InputMaybe<UserUpdateInput>;
 }>;
 
 
 export type DeleteUserMutation = { __typename?: 'Mutation', DeleteUser?: number | null };
+
+export type DeleteUserRoleMutationVariables = Exact<{
+  role?: InputMaybe<UserRoleUpdateInput>;
+}>;
+
+
+export type DeleteUserRoleMutation = { __typename?: 'Mutation', DeleteUserRole?: number | null };
+
+export type DeleteUserStaffMutationVariables = Exact<{
+  staff?: InputMaybe<UserStaffInsertInput>;
+}>;
+
+
+export type DeleteUserStaffMutation = { __typename?: 'Mutation', DeleteUserStaff?: number | null };
 
 export type GetAllCoverHQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3012,6 +3477,13 @@ export type InsertDeviceSiteConfigMutationVariables = Exact<{
 
 export type InsertDeviceSiteConfigMutation = { __typename?: 'Mutation', InsertDeviceSiteConfig?: string | null };
 
+export type InsertDeviceStatusMutationVariables = Exact<{
+  status?: InputMaybe<DeviceStatusInsertInput>;
+}>;
+
+
+export type InsertDeviceStatusMutation = { __typename?: 'Mutation', InsertDeviceStatus?: string | null };
+
 export type InsertTransmitterMutationVariables = Exact<{
   transmitter?: InputMaybe<DeviceTransmitterInsertInput>;
 }>;
@@ -3047,6 +3519,13 @@ export type InsertIndexDataManualMutationVariables = Exact<{
 
 export type InsertIndexDataManualMutation = { __typename?: 'Mutation', InsertIndexDataManual?: number | null };
 
+export type InsertMeterAccreditationMutationVariables = Exact<{
+  type?: InputMaybe<DeviceMeterAccreditationTypeInsertInput>;
+}>;
+
+
+export type InsertMeterAccreditationMutation = { __typename?: 'Mutation', InsertMeterAccreditation?: string | null };
+
 export type InsertPreciousMutationVariables = Exact<{
   precious?: InputMaybe<PreciousInput>;
 }>;
@@ -3061,12 +3540,89 @@ export type InsertSiteMutationVariables = Exact<{
 
 export type InsertSiteMutation = { __typename?: 'Mutation', InsertSite?: string | null };
 
+export type InsertSiteAvailabilityMutationVariables = Exact<{
+  available?: InputMaybe<SiteAvailabilitiesInsertInput>;
+}>;
+
+
+export type InsertSiteAvailabilityMutation = { __typename?: 'Mutation', InsertSiteAvailability?: string | null };
+
+export type InsertSiteCompanyMutationVariables = Exact<{
+  company?: InputMaybe<SiteCompanyInsertInput>;
+}>;
+
+
+export type InsertSiteCompanyMutation = { __typename?: 'Mutation', InsertSiteCompany?: string | null };
+
+export type InsertSiteGroupMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroupInsertInput>;
+}>;
+
+
+export type InsertSiteGroupMutation = { __typename?: 'Mutation', InsertSiteGroup?: string | null };
+
+export type InsertSiteGroup2SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup2SInsertInput>;
+}>;
+
+
+export type InsertSiteGroup2SMutation = { __typename?: 'Mutation', InsertSiteGroup2S?: string | null };
+
+export type InsertSiteGroup3SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup3SInsertInput>;
+}>;
+
+
+export type InsertSiteGroup3SMutation = { __typename?: 'Mutation', InsertSiteGroup3S?: string | null };
+
+export type InsertSiteGroup4SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup4SInsertInput>;
+}>;
+
+
+export type InsertSiteGroup4SMutation = { __typename?: 'Mutation', InsertSiteGroup4S?: string | null };
+
+export type InsertSiteGroup5SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup5SInsertInput>;
+}>;
+
+
+export type InsertSiteGroup5SMutation = { __typename?: 'Mutation', InsertSiteGroup5S?: string | null };
+
+export type InsertSiteLevelMutationVariables = Exact<{
+  siteLevel?: InputMaybe<SiteLevelInsertInput>;
+}>;
+
+
+export type InsertSiteLevelMutation = { __typename?: 'Mutation', InsertSiteLevel?: string | null };
+
+export type InsertSiteStatusMutationVariables = Exact<{
+  status?: InputMaybe<SiteStatusInsertInput>;
+}>;
+
+
+export type InsertSiteStatusMutation = { __typename?: 'Mutation', InsertSiteStatus?: string | null };
+
 export type InsertUserMutationVariables = Exact<{
   user?: InputMaybe<UserInsertInput>;
 }>;
 
 
 export type InsertUserMutation = { __typename?: 'Mutation', InsertUser?: string | null };
+
+export type InsertUserRoleMutationVariables = Exact<{
+  role?: InputMaybe<UserRoleInsertInput>;
+}>;
+
+
+export type InsertUserRoleMutation = { __typename?: 'Mutation', InsertUserRole?: string | null };
+
+export type InsertUserStaffMutationVariables = Exact<{
+  staff?: InputMaybe<UserStaffInsertInput>;
+}>;
+
+
+export type InsertUserStaffMutation = { __typename?: 'Mutation', InsertUserStaff?: string | null };
 
 export type QuantityDayCompanyQueryVariables = Exact<{
   company: Scalars['String'];
@@ -3171,6 +3727,13 @@ export type UpdateDeviceSiteConfigMutationVariables = Exact<{
 
 export type UpdateDeviceSiteConfigMutation = { __typename?: 'Mutation', UpdateDeviceSiteConfig?: string | null };
 
+export type UpdateDeviceStatusMutationVariables = Exact<{
+  status?: InputMaybe<DeviceStatusUpdateInput>;
+}>;
+
+
+export type UpdateDeviceStatusMutation = { __typename?: 'Mutation', UpdateDeviceStatus?: number | null };
+
 export type UpdateTransmitterMutationVariables = Exact<{
   transmitter?: InputMaybe<DeviceTransmitterUpdateInput>;
 }>;
@@ -3206,6 +3769,13 @@ export type UpdateIndexDataManualMutationVariables = Exact<{
 
 export type UpdateIndexDataManualMutation = { __typename?: 'Mutation', UpdateIndexDataManual?: number | null };
 
+export type UpdateMeterAccreditationMutationVariables = Exact<{
+  type?: InputMaybe<DeviceMeterAccreditationTypeUpdateInput>;
+}>;
+
+
+export type UpdateMeterAccreditationMutation = { __typename?: 'Mutation', UpdateMeterAccreditation?: number | null };
+
 export type UpdateMeterInstallMutationVariables = Exact<{
   meter?: InputMaybe<DeviceMeterInstallUpdateInput>;
 }>;
@@ -3234,6 +3804,62 @@ export type UpdateSiteMutationVariables = Exact<{
 
 export type UpdateSiteMutation = { __typename?: 'Mutation', UpdateSite?: string | null };
 
+export type UpdateSiteAvailabilityMutationVariables = Exact<{
+  available?: InputMaybe<SiteAvailabilitiesUpdateInput>;
+}>;
+
+
+export type UpdateSiteAvailabilityMutation = { __typename?: 'Mutation', UpdateSiteAvailability?: number | null };
+
+export type UpdateSiteCompanyMutationVariables = Exact<{
+  company?: InputMaybe<SiteCompanyUpdateInput>;
+}>;
+
+
+export type UpdateSiteCompanyMutation = { __typename?: 'Mutation', UpdateSiteCompany?: number | null };
+
+export type UpdateSiteGroupMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroupUpdateInput>;
+}>;
+
+
+export type UpdateSiteGroupMutation = { __typename?: 'Mutation', UpdateSiteGroup?: number | null };
+
+export type UpdateSiteGroup2SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup2SUpdateInput>;
+}>;
+
+
+export type UpdateSiteGroup2SMutation = { __typename?: 'Mutation', UpdateSiteGroup2S?: number | null };
+
+export type UpdateSiteGroup3SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup3SUpdateInput>;
+}>;
+
+
+export type UpdateSiteGroup3SMutation = { __typename?: 'Mutation', UpdateSiteGroup3S?: number | null };
+
+export type UpdateSiteGroup4SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup4SUpdateInput>;
+}>;
+
+
+export type UpdateSiteGroup4SMutation = { __typename?: 'Mutation', UpdateSiteGroup4S?: number | null };
+
+export type UpdateSiteGroup5SMutationVariables = Exact<{
+  siteGroup?: InputMaybe<SiteGroup5SUpdateInput>;
+}>;
+
+
+export type UpdateSiteGroup5SMutation = { __typename?: 'Mutation', UpdateSiteGroup5S?: number | null };
+
+export type UpdateSiteLevelMutationVariables = Exact<{
+  siteLevel?: InputMaybe<SiteLevelUpdateInput>;
+}>;
+
+
+export type UpdateSiteLevelMutation = { __typename?: 'Mutation', UpdateSiteLevel?: number | null };
+
 export type UpdateSiteLoggerDateChangeMutationVariables = Exact<{
   site?: InputMaybe<SiteLoggerDateChangeUpdateInput>;
 }>;
@@ -3247,6 +3873,13 @@ export type UpdateSiteMeterDateChangeMutationVariables = Exact<{
 
 
 export type UpdateSiteMeterDateChangeMutation = { __typename?: 'Mutation', UpdateSiteMeterDateChange?: number | null };
+
+export type UpdateSiteStatusMutationVariables = Exact<{
+  status?: InputMaybe<SiteStatusUpdateInput>;
+}>;
+
+
+export type UpdateSiteStatusMutation = { __typename?: 'Mutation', UpdateSiteStatus?: number | null };
 
 export type UpdateSiteTransmitterDateChangeMutationVariables = Exact<{
   site?: InputMaybe<SiteTransmitterDateChangeUpdateInput>;
@@ -3268,6 +3901,20 @@ export type UpdateUserMutationVariables = Exact<{
 
 
 export type UpdateUserMutation = { __typename?: 'Mutation', UpdateUser?: number | null };
+
+export type UpdateUserRoleMutationVariables = Exact<{
+  role?: InputMaybe<UserRoleUpdateInput>;
+}>;
+
+
+export type UpdateUserRoleMutation = { __typename?: 'Mutation', UpdateUserRole?: number | null };
+
+export type UpdateUserStaffMutationVariables = Exact<{
+  staff?: InputMaybe<UserStaffInsertInput>;
+}>;
+
+
+export type UpdateUserStaffMutation = { __typename?: 'Mutation', UpdateUserStaff?: number | null };
 
 export type VerifyPasswordQueryVariables = Exact<{
   uid?: InputMaybe<Scalars['String']>;
@@ -3552,6 +4199,37 @@ export function useDeleteDeviceSiteConfigMutation(baseOptions?: Apollo.MutationH
 export type DeleteDeviceSiteConfigMutationHookResult = ReturnType<typeof useDeleteDeviceSiteConfigMutation>;
 export type DeleteDeviceSiteConfigMutationResult = Apollo.MutationResult<DeleteDeviceSiteConfigMutation>;
 export type DeleteDeviceSiteConfigMutationOptions = Apollo.BaseMutationOptions<DeleteDeviceSiteConfigMutation, DeleteDeviceSiteConfigMutationVariables>;
+export const DeleteDeviceStatusDocument = gql`
+    mutation DeleteDeviceStatus($status: DeviceStatusUpdateInput) {
+  DeleteDeviceStatus(status: $status)
+}
+    `;
+export type DeleteDeviceStatusMutationFn = Apollo.MutationFunction<DeleteDeviceStatusMutation, DeleteDeviceStatusMutationVariables>;
+
+/**
+ * __useDeleteDeviceStatusMutation__
+ *
+ * To run a mutation, you first call `useDeleteDeviceStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteDeviceStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteDeviceStatusMutation, { data, loading, error }] = useDeleteDeviceStatusMutation({
+ *   variables: {
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useDeleteDeviceStatusMutation(baseOptions?: Apollo.MutationHookOptions<DeleteDeviceStatusMutation, DeleteDeviceStatusMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteDeviceStatusMutation, DeleteDeviceStatusMutationVariables>(DeleteDeviceStatusDocument, options);
+      }
+export type DeleteDeviceStatusMutationHookResult = ReturnType<typeof useDeleteDeviceStatusMutation>;
+export type DeleteDeviceStatusMutationResult = Apollo.MutationResult<DeleteDeviceStatusMutation>;
+export type DeleteDeviceStatusMutationOptions = Apollo.BaseMutationOptions<DeleteDeviceStatusMutation, DeleteDeviceStatusMutationVariables>;
 export const DeleteTransmitterDocument = gql`
     mutation DeleteTransmitter($transmitter: DeviceTransmitterUpdateInput) {
   DeleteTransmitter(transmitter: $transmitter)
@@ -3676,6 +4354,37 @@ export function useDeleteHistorySiteTransmitterMutation(baseOptions?: Apollo.Mut
 export type DeleteHistorySiteTransmitterMutationHookResult = ReturnType<typeof useDeleteHistorySiteTransmitterMutation>;
 export type DeleteHistorySiteTransmitterMutationResult = Apollo.MutationResult<DeleteHistorySiteTransmitterMutation>;
 export type DeleteHistorySiteTransmitterMutationOptions = Apollo.BaseMutationOptions<DeleteHistorySiteTransmitterMutation, DeleteHistorySiteTransmitterMutationVariables>;
+export const DeleteMeterAccreditationDocument = gql`
+    mutation DeleteMeterAccreditation($type: DeviceMeterAccreditationTypeUpdateInput) {
+  DeleteMeterAccreditation(type: $type)
+}
+    `;
+export type DeleteMeterAccreditationMutationFn = Apollo.MutationFunction<DeleteMeterAccreditationMutation, DeleteMeterAccreditationMutationVariables>;
+
+/**
+ * __useDeleteMeterAccreditationMutation__
+ *
+ * To run a mutation, you first call `useDeleteMeterAccreditationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteMeterAccreditationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteMeterAccreditationMutation, { data, loading, error }] = useDeleteMeterAccreditationMutation({
+ *   variables: {
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useDeleteMeterAccreditationMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMeterAccreditationMutation, DeleteMeterAccreditationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteMeterAccreditationMutation, DeleteMeterAccreditationMutationVariables>(DeleteMeterAccreditationDocument, options);
+      }
+export type DeleteMeterAccreditationMutationHookResult = ReturnType<typeof useDeleteMeterAccreditationMutation>;
+export type DeleteMeterAccreditationMutationResult = Apollo.MutationResult<DeleteMeterAccreditationMutation>;
+export type DeleteMeterAccreditationMutationOptions = Apollo.BaseMutationOptions<DeleteMeterAccreditationMutation, DeleteMeterAccreditationMutationVariables>;
 export const DeletePreciousDocument = gql`
     mutation DeletePrecious($precious: PreciousUpdateInput) {
   DeletePrecious(precious: $precious) {
@@ -3740,6 +4449,285 @@ export function useDeleteSiteMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteSiteMutationHookResult = ReturnType<typeof useDeleteSiteMutation>;
 export type DeleteSiteMutationResult = Apollo.MutationResult<DeleteSiteMutation>;
 export type DeleteSiteMutationOptions = Apollo.BaseMutationOptions<DeleteSiteMutation, DeleteSiteMutationVariables>;
+export const DeleteSiteAvailabilityDocument = gql`
+    mutation DeleteSiteAvailability($available: SiteAvailabilitiesUpdateInput) {
+  DeleteSiteAvailability(available: $available)
+}
+    `;
+export type DeleteSiteAvailabilityMutationFn = Apollo.MutationFunction<DeleteSiteAvailabilityMutation, DeleteSiteAvailabilityMutationVariables>;
+
+/**
+ * __useDeleteSiteAvailabilityMutation__
+ *
+ * To run a mutation, you first call `useDeleteSiteAvailabilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSiteAvailabilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSiteAvailabilityMutation, { data, loading, error }] = useDeleteSiteAvailabilityMutation({
+ *   variables: {
+ *      available: // value for 'available'
+ *   },
+ * });
+ */
+export function useDeleteSiteAvailabilityMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSiteAvailabilityMutation, DeleteSiteAvailabilityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSiteAvailabilityMutation, DeleteSiteAvailabilityMutationVariables>(DeleteSiteAvailabilityDocument, options);
+      }
+export type DeleteSiteAvailabilityMutationHookResult = ReturnType<typeof useDeleteSiteAvailabilityMutation>;
+export type DeleteSiteAvailabilityMutationResult = Apollo.MutationResult<DeleteSiteAvailabilityMutation>;
+export type DeleteSiteAvailabilityMutationOptions = Apollo.BaseMutationOptions<DeleteSiteAvailabilityMutation, DeleteSiteAvailabilityMutationVariables>;
+export const DeleteSiteCompanyDocument = gql`
+    mutation DeleteSiteCompany($company: SiteCompanyUpdateInput) {
+  DeleteSiteCompany(company: $company)
+}
+    `;
+export type DeleteSiteCompanyMutationFn = Apollo.MutationFunction<DeleteSiteCompanyMutation, DeleteSiteCompanyMutationVariables>;
+
+/**
+ * __useDeleteSiteCompanyMutation__
+ *
+ * To run a mutation, you first call `useDeleteSiteCompanyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSiteCompanyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSiteCompanyMutation, { data, loading, error }] = useDeleteSiteCompanyMutation({
+ *   variables: {
+ *      company: // value for 'company'
+ *   },
+ * });
+ */
+export function useDeleteSiteCompanyMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSiteCompanyMutation, DeleteSiteCompanyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSiteCompanyMutation, DeleteSiteCompanyMutationVariables>(DeleteSiteCompanyDocument, options);
+      }
+export type DeleteSiteCompanyMutationHookResult = ReturnType<typeof useDeleteSiteCompanyMutation>;
+export type DeleteSiteCompanyMutationResult = Apollo.MutationResult<DeleteSiteCompanyMutation>;
+export type DeleteSiteCompanyMutationOptions = Apollo.BaseMutationOptions<DeleteSiteCompanyMutation, DeleteSiteCompanyMutationVariables>;
+export const DeleteSiteGroupDocument = gql`
+    mutation DeleteSiteGroup($siteGroup: SiteGroupUpdateInput) {
+  DeleteSiteGroup(siteGroup: $siteGroup)
+}
+    `;
+export type DeleteSiteGroupMutationFn = Apollo.MutationFunction<DeleteSiteGroupMutation, DeleteSiteGroupMutationVariables>;
+
+/**
+ * __useDeleteSiteGroupMutation__
+ *
+ * To run a mutation, you first call `useDeleteSiteGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSiteGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSiteGroupMutation, { data, loading, error }] = useDeleteSiteGroupMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useDeleteSiteGroupMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSiteGroupMutation, DeleteSiteGroupMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSiteGroupMutation, DeleteSiteGroupMutationVariables>(DeleteSiteGroupDocument, options);
+      }
+export type DeleteSiteGroupMutationHookResult = ReturnType<typeof useDeleteSiteGroupMutation>;
+export type DeleteSiteGroupMutationResult = Apollo.MutationResult<DeleteSiteGroupMutation>;
+export type DeleteSiteGroupMutationOptions = Apollo.BaseMutationOptions<DeleteSiteGroupMutation, DeleteSiteGroupMutationVariables>;
+export const DeleteSiteGroup2SDocument = gql`
+    mutation DeleteSiteGroup2S($siteGroup: SiteGroup2SUpdateInput) {
+  DeleteSiteGroup2S(siteGroup: $siteGroup)
+}
+    `;
+export type DeleteSiteGroup2SMutationFn = Apollo.MutationFunction<DeleteSiteGroup2SMutation, DeleteSiteGroup2SMutationVariables>;
+
+/**
+ * __useDeleteSiteGroup2SMutation__
+ *
+ * To run a mutation, you first call `useDeleteSiteGroup2SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSiteGroup2SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSiteGroup2SMutation, { data, loading, error }] = useDeleteSiteGroup2SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useDeleteSiteGroup2SMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSiteGroup2SMutation, DeleteSiteGroup2SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSiteGroup2SMutation, DeleteSiteGroup2SMutationVariables>(DeleteSiteGroup2SDocument, options);
+      }
+export type DeleteSiteGroup2SMutationHookResult = ReturnType<typeof useDeleteSiteGroup2SMutation>;
+export type DeleteSiteGroup2SMutationResult = Apollo.MutationResult<DeleteSiteGroup2SMutation>;
+export type DeleteSiteGroup2SMutationOptions = Apollo.BaseMutationOptions<DeleteSiteGroup2SMutation, DeleteSiteGroup2SMutationVariables>;
+export const DeleteSiteGroup3SDocument = gql`
+    mutation DeleteSiteGroup3S($siteGroup: SiteGroup3SUpdateInput) {
+  DeleteSiteGroup3S(siteGroup: $siteGroup)
+}
+    `;
+export type DeleteSiteGroup3SMutationFn = Apollo.MutationFunction<DeleteSiteGroup3SMutation, DeleteSiteGroup3SMutationVariables>;
+
+/**
+ * __useDeleteSiteGroup3SMutation__
+ *
+ * To run a mutation, you first call `useDeleteSiteGroup3SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSiteGroup3SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSiteGroup3SMutation, { data, loading, error }] = useDeleteSiteGroup3SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useDeleteSiteGroup3SMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSiteGroup3SMutation, DeleteSiteGroup3SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSiteGroup3SMutation, DeleteSiteGroup3SMutationVariables>(DeleteSiteGroup3SDocument, options);
+      }
+export type DeleteSiteGroup3SMutationHookResult = ReturnType<typeof useDeleteSiteGroup3SMutation>;
+export type DeleteSiteGroup3SMutationResult = Apollo.MutationResult<DeleteSiteGroup3SMutation>;
+export type DeleteSiteGroup3SMutationOptions = Apollo.BaseMutationOptions<DeleteSiteGroup3SMutation, DeleteSiteGroup3SMutationVariables>;
+export const DeleteSiteGroup4SDocument = gql`
+    mutation DeleteSiteGroup4S($siteGroup: SiteGroup4SUpdateInput) {
+  DeleteSiteGroup4S(siteGroup: $siteGroup)
+}
+    `;
+export type DeleteSiteGroup4SMutationFn = Apollo.MutationFunction<DeleteSiteGroup4SMutation, DeleteSiteGroup4SMutationVariables>;
+
+/**
+ * __useDeleteSiteGroup4SMutation__
+ *
+ * To run a mutation, you first call `useDeleteSiteGroup4SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSiteGroup4SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSiteGroup4SMutation, { data, loading, error }] = useDeleteSiteGroup4SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useDeleteSiteGroup4SMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSiteGroup4SMutation, DeleteSiteGroup4SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSiteGroup4SMutation, DeleteSiteGroup4SMutationVariables>(DeleteSiteGroup4SDocument, options);
+      }
+export type DeleteSiteGroup4SMutationHookResult = ReturnType<typeof useDeleteSiteGroup4SMutation>;
+export type DeleteSiteGroup4SMutationResult = Apollo.MutationResult<DeleteSiteGroup4SMutation>;
+export type DeleteSiteGroup4SMutationOptions = Apollo.BaseMutationOptions<DeleteSiteGroup4SMutation, DeleteSiteGroup4SMutationVariables>;
+export const DeleteSiteGroup5SDocument = gql`
+    mutation DeleteSiteGroup5S($siteGroup: SiteGroup5SUpdateInput) {
+  DeleteSiteGroup5S(siteGroup: $siteGroup)
+}
+    `;
+export type DeleteSiteGroup5SMutationFn = Apollo.MutationFunction<DeleteSiteGroup5SMutation, DeleteSiteGroup5SMutationVariables>;
+
+/**
+ * __useDeleteSiteGroup5SMutation__
+ *
+ * To run a mutation, you first call `useDeleteSiteGroup5SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSiteGroup5SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSiteGroup5SMutation, { data, loading, error }] = useDeleteSiteGroup5SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useDeleteSiteGroup5SMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSiteGroup5SMutation, DeleteSiteGroup5SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSiteGroup5SMutation, DeleteSiteGroup5SMutationVariables>(DeleteSiteGroup5SDocument, options);
+      }
+export type DeleteSiteGroup5SMutationHookResult = ReturnType<typeof useDeleteSiteGroup5SMutation>;
+export type DeleteSiteGroup5SMutationResult = Apollo.MutationResult<DeleteSiteGroup5SMutation>;
+export type DeleteSiteGroup5SMutationOptions = Apollo.BaseMutationOptions<DeleteSiteGroup5SMutation, DeleteSiteGroup5SMutationVariables>;
+export const DeleteSiteLevelDocument = gql`
+    mutation DeleteSiteLevel($siteLevel: SiteLevelUpdateInput) {
+  DeleteSiteLevel(siteLevel: $siteLevel)
+}
+    `;
+export type DeleteSiteLevelMutationFn = Apollo.MutationFunction<DeleteSiteLevelMutation, DeleteSiteLevelMutationVariables>;
+
+/**
+ * __useDeleteSiteLevelMutation__
+ *
+ * To run a mutation, you first call `useDeleteSiteLevelMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSiteLevelMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSiteLevelMutation, { data, loading, error }] = useDeleteSiteLevelMutation({
+ *   variables: {
+ *      siteLevel: // value for 'siteLevel'
+ *   },
+ * });
+ */
+export function useDeleteSiteLevelMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSiteLevelMutation, DeleteSiteLevelMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSiteLevelMutation, DeleteSiteLevelMutationVariables>(DeleteSiteLevelDocument, options);
+      }
+export type DeleteSiteLevelMutationHookResult = ReturnType<typeof useDeleteSiteLevelMutation>;
+export type DeleteSiteLevelMutationResult = Apollo.MutationResult<DeleteSiteLevelMutation>;
+export type DeleteSiteLevelMutationOptions = Apollo.BaseMutationOptions<DeleteSiteLevelMutation, DeleteSiteLevelMutationVariables>;
+export const DeleteSiteStatusDocument = gql`
+    mutation DeleteSiteStatus($status: SiteStatusUpdateInput) {
+  DeleteSiteStatus(status: $status)
+}
+    `;
+export type DeleteSiteStatusMutationFn = Apollo.MutationFunction<DeleteSiteStatusMutation, DeleteSiteStatusMutationVariables>;
+
+/**
+ * __useDeleteSiteStatusMutation__
+ *
+ * To run a mutation, you first call `useDeleteSiteStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSiteStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSiteStatusMutation, { data, loading, error }] = useDeleteSiteStatusMutation({
+ *   variables: {
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useDeleteSiteStatusMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSiteStatusMutation, DeleteSiteStatusMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSiteStatusMutation, DeleteSiteStatusMutationVariables>(DeleteSiteStatusDocument, options);
+      }
+export type DeleteSiteStatusMutationHookResult = ReturnType<typeof useDeleteSiteStatusMutation>;
+export type DeleteSiteStatusMutationResult = Apollo.MutationResult<DeleteSiteStatusMutation>;
+export type DeleteSiteStatusMutationOptions = Apollo.BaseMutationOptions<DeleteSiteStatusMutation, DeleteSiteStatusMutationVariables>;
 export const DeleteUserDocument = gql`
     mutation DeleteUser($user: UserUpdateInput) {
   DeleteUser(user: $user)
@@ -3771,6 +4759,68 @@ export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
 export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
+export const DeleteUserRoleDocument = gql`
+    mutation DeleteUserRole($role: UserRoleUpdateInput) {
+  DeleteUserRole(role: $role)
+}
+    `;
+export type DeleteUserRoleMutationFn = Apollo.MutationFunction<DeleteUserRoleMutation, DeleteUserRoleMutationVariables>;
+
+/**
+ * __useDeleteUserRoleMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserRoleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserRoleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserRoleMutation, { data, loading, error }] = useDeleteUserRoleMutation({
+ *   variables: {
+ *      role: // value for 'role'
+ *   },
+ * });
+ */
+export function useDeleteUserRoleMutation(baseOptions?: Apollo.MutationHookOptions<DeleteUserRoleMutation, DeleteUserRoleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteUserRoleMutation, DeleteUserRoleMutationVariables>(DeleteUserRoleDocument, options);
+      }
+export type DeleteUserRoleMutationHookResult = ReturnType<typeof useDeleteUserRoleMutation>;
+export type DeleteUserRoleMutationResult = Apollo.MutationResult<DeleteUserRoleMutation>;
+export type DeleteUserRoleMutationOptions = Apollo.BaseMutationOptions<DeleteUserRoleMutation, DeleteUserRoleMutationVariables>;
+export const DeleteUserStaffDocument = gql`
+    mutation DeleteUserStaff($staff: UserStaffInsertInput) {
+  DeleteUserStaff(staff: $staff)
+}
+    `;
+export type DeleteUserStaffMutationFn = Apollo.MutationFunction<DeleteUserStaffMutation, DeleteUserStaffMutationVariables>;
+
+/**
+ * __useDeleteUserStaffMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserStaffMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserStaffMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserStaffMutation, { data, loading, error }] = useDeleteUserStaffMutation({
+ *   variables: {
+ *      staff: // value for 'staff'
+ *   },
+ * });
+ */
+export function useDeleteUserStaffMutation(baseOptions?: Apollo.MutationHookOptions<DeleteUserStaffMutation, DeleteUserStaffMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteUserStaffMutation, DeleteUserStaffMutationVariables>(DeleteUserStaffDocument, options);
+      }
+export type DeleteUserStaffMutationHookResult = ReturnType<typeof useDeleteUserStaffMutation>;
+export type DeleteUserStaffMutationResult = Apollo.MutationResult<DeleteUserStaffMutation>;
+export type DeleteUserStaffMutationOptions = Apollo.BaseMutationOptions<DeleteUserStaffMutation, DeleteUserStaffMutationVariables>;
 export const GetAllCoverHDocument = gql`
     query GetAllCoverH {
   GetAllCoverH
@@ -8397,6 +9447,37 @@ export function useInsertDeviceSiteConfigMutation(baseOptions?: Apollo.MutationH
 export type InsertDeviceSiteConfigMutationHookResult = ReturnType<typeof useInsertDeviceSiteConfigMutation>;
 export type InsertDeviceSiteConfigMutationResult = Apollo.MutationResult<InsertDeviceSiteConfigMutation>;
 export type InsertDeviceSiteConfigMutationOptions = Apollo.BaseMutationOptions<InsertDeviceSiteConfigMutation, InsertDeviceSiteConfigMutationVariables>;
+export const InsertDeviceStatusDocument = gql`
+    mutation InsertDeviceStatus($status: DeviceStatusInsertInput) {
+  InsertDeviceStatus(status: $status)
+}
+    `;
+export type InsertDeviceStatusMutationFn = Apollo.MutationFunction<InsertDeviceStatusMutation, InsertDeviceStatusMutationVariables>;
+
+/**
+ * __useInsertDeviceStatusMutation__
+ *
+ * To run a mutation, you first call `useInsertDeviceStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertDeviceStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertDeviceStatusMutation, { data, loading, error }] = useInsertDeviceStatusMutation({
+ *   variables: {
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useInsertDeviceStatusMutation(baseOptions?: Apollo.MutationHookOptions<InsertDeviceStatusMutation, InsertDeviceStatusMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertDeviceStatusMutation, InsertDeviceStatusMutationVariables>(InsertDeviceStatusDocument, options);
+      }
+export type InsertDeviceStatusMutationHookResult = ReturnType<typeof useInsertDeviceStatusMutation>;
+export type InsertDeviceStatusMutationResult = Apollo.MutationResult<InsertDeviceStatusMutation>;
+export type InsertDeviceStatusMutationOptions = Apollo.BaseMutationOptions<InsertDeviceStatusMutation, InsertDeviceStatusMutationVariables>;
 export const InsertTransmitterDocument = gql`
     mutation InsertTransmitter($transmitter: DeviceTransmitterInsertInput) {
   InsertTransmitter(transmitter: $transmitter)
@@ -8552,6 +9633,37 @@ export function useInsertIndexDataManualMutation(baseOptions?: Apollo.MutationHo
 export type InsertIndexDataManualMutationHookResult = ReturnType<typeof useInsertIndexDataManualMutation>;
 export type InsertIndexDataManualMutationResult = Apollo.MutationResult<InsertIndexDataManualMutation>;
 export type InsertIndexDataManualMutationOptions = Apollo.BaseMutationOptions<InsertIndexDataManualMutation, InsertIndexDataManualMutationVariables>;
+export const InsertMeterAccreditationDocument = gql`
+    mutation InsertMeterAccreditation($type: DeviceMeterAccreditationTypeInsertInput) {
+  InsertMeterAccreditation(type: $type)
+}
+    `;
+export type InsertMeterAccreditationMutationFn = Apollo.MutationFunction<InsertMeterAccreditationMutation, InsertMeterAccreditationMutationVariables>;
+
+/**
+ * __useInsertMeterAccreditationMutation__
+ *
+ * To run a mutation, you first call `useInsertMeterAccreditationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertMeterAccreditationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertMeterAccreditationMutation, { data, loading, error }] = useInsertMeterAccreditationMutation({
+ *   variables: {
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useInsertMeterAccreditationMutation(baseOptions?: Apollo.MutationHookOptions<InsertMeterAccreditationMutation, InsertMeterAccreditationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertMeterAccreditationMutation, InsertMeterAccreditationMutationVariables>(InsertMeterAccreditationDocument, options);
+      }
+export type InsertMeterAccreditationMutationHookResult = ReturnType<typeof useInsertMeterAccreditationMutation>;
+export type InsertMeterAccreditationMutationResult = Apollo.MutationResult<InsertMeterAccreditationMutation>;
+export type InsertMeterAccreditationMutationOptions = Apollo.BaseMutationOptions<InsertMeterAccreditationMutation, InsertMeterAccreditationMutationVariables>;
 export const InsertPreciousDocument = gql`
     mutation InsertPrecious($precious: PreciousInput) {
   InsertPrecious(precious: $precious) {
@@ -8616,6 +9728,285 @@ export function useInsertSiteMutation(baseOptions?: Apollo.MutationHookOptions<I
 export type InsertSiteMutationHookResult = ReturnType<typeof useInsertSiteMutation>;
 export type InsertSiteMutationResult = Apollo.MutationResult<InsertSiteMutation>;
 export type InsertSiteMutationOptions = Apollo.BaseMutationOptions<InsertSiteMutation, InsertSiteMutationVariables>;
+export const InsertSiteAvailabilityDocument = gql`
+    mutation InsertSiteAvailability($available: SiteAvailabilitiesInsertInput) {
+  InsertSiteAvailability(available: $available)
+}
+    `;
+export type InsertSiteAvailabilityMutationFn = Apollo.MutationFunction<InsertSiteAvailabilityMutation, InsertSiteAvailabilityMutationVariables>;
+
+/**
+ * __useInsertSiteAvailabilityMutation__
+ *
+ * To run a mutation, you first call `useInsertSiteAvailabilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertSiteAvailabilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertSiteAvailabilityMutation, { data, loading, error }] = useInsertSiteAvailabilityMutation({
+ *   variables: {
+ *      available: // value for 'available'
+ *   },
+ * });
+ */
+export function useInsertSiteAvailabilityMutation(baseOptions?: Apollo.MutationHookOptions<InsertSiteAvailabilityMutation, InsertSiteAvailabilityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertSiteAvailabilityMutation, InsertSiteAvailabilityMutationVariables>(InsertSiteAvailabilityDocument, options);
+      }
+export type InsertSiteAvailabilityMutationHookResult = ReturnType<typeof useInsertSiteAvailabilityMutation>;
+export type InsertSiteAvailabilityMutationResult = Apollo.MutationResult<InsertSiteAvailabilityMutation>;
+export type InsertSiteAvailabilityMutationOptions = Apollo.BaseMutationOptions<InsertSiteAvailabilityMutation, InsertSiteAvailabilityMutationVariables>;
+export const InsertSiteCompanyDocument = gql`
+    mutation InsertSiteCompany($company: SiteCompanyInsertInput) {
+  InsertSiteCompany(company: $company)
+}
+    `;
+export type InsertSiteCompanyMutationFn = Apollo.MutationFunction<InsertSiteCompanyMutation, InsertSiteCompanyMutationVariables>;
+
+/**
+ * __useInsertSiteCompanyMutation__
+ *
+ * To run a mutation, you first call `useInsertSiteCompanyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertSiteCompanyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertSiteCompanyMutation, { data, loading, error }] = useInsertSiteCompanyMutation({
+ *   variables: {
+ *      company: // value for 'company'
+ *   },
+ * });
+ */
+export function useInsertSiteCompanyMutation(baseOptions?: Apollo.MutationHookOptions<InsertSiteCompanyMutation, InsertSiteCompanyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertSiteCompanyMutation, InsertSiteCompanyMutationVariables>(InsertSiteCompanyDocument, options);
+      }
+export type InsertSiteCompanyMutationHookResult = ReturnType<typeof useInsertSiteCompanyMutation>;
+export type InsertSiteCompanyMutationResult = Apollo.MutationResult<InsertSiteCompanyMutation>;
+export type InsertSiteCompanyMutationOptions = Apollo.BaseMutationOptions<InsertSiteCompanyMutation, InsertSiteCompanyMutationVariables>;
+export const InsertSiteGroupDocument = gql`
+    mutation InsertSiteGroup($siteGroup: SiteGroupInsertInput) {
+  InsertSiteGroup(siteGroup: $siteGroup)
+}
+    `;
+export type InsertSiteGroupMutationFn = Apollo.MutationFunction<InsertSiteGroupMutation, InsertSiteGroupMutationVariables>;
+
+/**
+ * __useInsertSiteGroupMutation__
+ *
+ * To run a mutation, you first call `useInsertSiteGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertSiteGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertSiteGroupMutation, { data, loading, error }] = useInsertSiteGroupMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useInsertSiteGroupMutation(baseOptions?: Apollo.MutationHookOptions<InsertSiteGroupMutation, InsertSiteGroupMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertSiteGroupMutation, InsertSiteGroupMutationVariables>(InsertSiteGroupDocument, options);
+      }
+export type InsertSiteGroupMutationHookResult = ReturnType<typeof useInsertSiteGroupMutation>;
+export type InsertSiteGroupMutationResult = Apollo.MutationResult<InsertSiteGroupMutation>;
+export type InsertSiteGroupMutationOptions = Apollo.BaseMutationOptions<InsertSiteGroupMutation, InsertSiteGroupMutationVariables>;
+export const InsertSiteGroup2SDocument = gql`
+    mutation InsertSiteGroup2S($siteGroup: SiteGroup2SInsertInput) {
+  InsertSiteGroup2S(siteGroup: $siteGroup)
+}
+    `;
+export type InsertSiteGroup2SMutationFn = Apollo.MutationFunction<InsertSiteGroup2SMutation, InsertSiteGroup2SMutationVariables>;
+
+/**
+ * __useInsertSiteGroup2SMutation__
+ *
+ * To run a mutation, you first call `useInsertSiteGroup2SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertSiteGroup2SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertSiteGroup2SMutation, { data, loading, error }] = useInsertSiteGroup2SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useInsertSiteGroup2SMutation(baseOptions?: Apollo.MutationHookOptions<InsertSiteGroup2SMutation, InsertSiteGroup2SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertSiteGroup2SMutation, InsertSiteGroup2SMutationVariables>(InsertSiteGroup2SDocument, options);
+      }
+export type InsertSiteGroup2SMutationHookResult = ReturnType<typeof useInsertSiteGroup2SMutation>;
+export type InsertSiteGroup2SMutationResult = Apollo.MutationResult<InsertSiteGroup2SMutation>;
+export type InsertSiteGroup2SMutationOptions = Apollo.BaseMutationOptions<InsertSiteGroup2SMutation, InsertSiteGroup2SMutationVariables>;
+export const InsertSiteGroup3SDocument = gql`
+    mutation InsertSiteGroup3S($siteGroup: SiteGroup3SInsertInput) {
+  InsertSiteGroup3S(siteGroup: $siteGroup)
+}
+    `;
+export type InsertSiteGroup3SMutationFn = Apollo.MutationFunction<InsertSiteGroup3SMutation, InsertSiteGroup3SMutationVariables>;
+
+/**
+ * __useInsertSiteGroup3SMutation__
+ *
+ * To run a mutation, you first call `useInsertSiteGroup3SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertSiteGroup3SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertSiteGroup3SMutation, { data, loading, error }] = useInsertSiteGroup3SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useInsertSiteGroup3SMutation(baseOptions?: Apollo.MutationHookOptions<InsertSiteGroup3SMutation, InsertSiteGroup3SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertSiteGroup3SMutation, InsertSiteGroup3SMutationVariables>(InsertSiteGroup3SDocument, options);
+      }
+export type InsertSiteGroup3SMutationHookResult = ReturnType<typeof useInsertSiteGroup3SMutation>;
+export type InsertSiteGroup3SMutationResult = Apollo.MutationResult<InsertSiteGroup3SMutation>;
+export type InsertSiteGroup3SMutationOptions = Apollo.BaseMutationOptions<InsertSiteGroup3SMutation, InsertSiteGroup3SMutationVariables>;
+export const InsertSiteGroup4SDocument = gql`
+    mutation InsertSiteGroup4S($siteGroup: SiteGroup4SInsertInput) {
+  InsertSiteGroup4S(siteGroup: $siteGroup)
+}
+    `;
+export type InsertSiteGroup4SMutationFn = Apollo.MutationFunction<InsertSiteGroup4SMutation, InsertSiteGroup4SMutationVariables>;
+
+/**
+ * __useInsertSiteGroup4SMutation__
+ *
+ * To run a mutation, you first call `useInsertSiteGroup4SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertSiteGroup4SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertSiteGroup4SMutation, { data, loading, error }] = useInsertSiteGroup4SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useInsertSiteGroup4SMutation(baseOptions?: Apollo.MutationHookOptions<InsertSiteGroup4SMutation, InsertSiteGroup4SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertSiteGroup4SMutation, InsertSiteGroup4SMutationVariables>(InsertSiteGroup4SDocument, options);
+      }
+export type InsertSiteGroup4SMutationHookResult = ReturnType<typeof useInsertSiteGroup4SMutation>;
+export type InsertSiteGroup4SMutationResult = Apollo.MutationResult<InsertSiteGroup4SMutation>;
+export type InsertSiteGroup4SMutationOptions = Apollo.BaseMutationOptions<InsertSiteGroup4SMutation, InsertSiteGroup4SMutationVariables>;
+export const InsertSiteGroup5SDocument = gql`
+    mutation InsertSiteGroup5S($siteGroup: SiteGroup5SInsertInput) {
+  InsertSiteGroup5S(siteGroup: $siteGroup)
+}
+    `;
+export type InsertSiteGroup5SMutationFn = Apollo.MutationFunction<InsertSiteGroup5SMutation, InsertSiteGroup5SMutationVariables>;
+
+/**
+ * __useInsertSiteGroup5SMutation__
+ *
+ * To run a mutation, you first call `useInsertSiteGroup5SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertSiteGroup5SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertSiteGroup5SMutation, { data, loading, error }] = useInsertSiteGroup5SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useInsertSiteGroup5SMutation(baseOptions?: Apollo.MutationHookOptions<InsertSiteGroup5SMutation, InsertSiteGroup5SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertSiteGroup5SMutation, InsertSiteGroup5SMutationVariables>(InsertSiteGroup5SDocument, options);
+      }
+export type InsertSiteGroup5SMutationHookResult = ReturnType<typeof useInsertSiteGroup5SMutation>;
+export type InsertSiteGroup5SMutationResult = Apollo.MutationResult<InsertSiteGroup5SMutation>;
+export type InsertSiteGroup5SMutationOptions = Apollo.BaseMutationOptions<InsertSiteGroup5SMutation, InsertSiteGroup5SMutationVariables>;
+export const InsertSiteLevelDocument = gql`
+    mutation InsertSiteLevel($siteLevel: SiteLevelInsertInput) {
+  InsertSiteLevel(siteLevel: $siteLevel)
+}
+    `;
+export type InsertSiteLevelMutationFn = Apollo.MutationFunction<InsertSiteLevelMutation, InsertSiteLevelMutationVariables>;
+
+/**
+ * __useInsertSiteLevelMutation__
+ *
+ * To run a mutation, you first call `useInsertSiteLevelMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertSiteLevelMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertSiteLevelMutation, { data, loading, error }] = useInsertSiteLevelMutation({
+ *   variables: {
+ *      siteLevel: // value for 'siteLevel'
+ *   },
+ * });
+ */
+export function useInsertSiteLevelMutation(baseOptions?: Apollo.MutationHookOptions<InsertSiteLevelMutation, InsertSiteLevelMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertSiteLevelMutation, InsertSiteLevelMutationVariables>(InsertSiteLevelDocument, options);
+      }
+export type InsertSiteLevelMutationHookResult = ReturnType<typeof useInsertSiteLevelMutation>;
+export type InsertSiteLevelMutationResult = Apollo.MutationResult<InsertSiteLevelMutation>;
+export type InsertSiteLevelMutationOptions = Apollo.BaseMutationOptions<InsertSiteLevelMutation, InsertSiteLevelMutationVariables>;
+export const InsertSiteStatusDocument = gql`
+    mutation InsertSiteStatus($status: SiteStatusInsertInput) {
+  InsertSiteStatus(status: $status)
+}
+    `;
+export type InsertSiteStatusMutationFn = Apollo.MutationFunction<InsertSiteStatusMutation, InsertSiteStatusMutationVariables>;
+
+/**
+ * __useInsertSiteStatusMutation__
+ *
+ * To run a mutation, you first call `useInsertSiteStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertSiteStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertSiteStatusMutation, { data, loading, error }] = useInsertSiteStatusMutation({
+ *   variables: {
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useInsertSiteStatusMutation(baseOptions?: Apollo.MutationHookOptions<InsertSiteStatusMutation, InsertSiteStatusMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertSiteStatusMutation, InsertSiteStatusMutationVariables>(InsertSiteStatusDocument, options);
+      }
+export type InsertSiteStatusMutationHookResult = ReturnType<typeof useInsertSiteStatusMutation>;
+export type InsertSiteStatusMutationResult = Apollo.MutationResult<InsertSiteStatusMutation>;
+export type InsertSiteStatusMutationOptions = Apollo.BaseMutationOptions<InsertSiteStatusMutation, InsertSiteStatusMutationVariables>;
 export const InsertUserDocument = gql`
     mutation InsertUser($user: UserInsertInput) {
   InsertUser(user: $user)
@@ -8647,6 +10038,68 @@ export function useInsertUserMutation(baseOptions?: Apollo.MutationHookOptions<I
 export type InsertUserMutationHookResult = ReturnType<typeof useInsertUserMutation>;
 export type InsertUserMutationResult = Apollo.MutationResult<InsertUserMutation>;
 export type InsertUserMutationOptions = Apollo.BaseMutationOptions<InsertUserMutation, InsertUserMutationVariables>;
+export const InsertUserRoleDocument = gql`
+    mutation InsertUserRole($role: UserRoleInsertInput) {
+  InsertUserRole(role: $role)
+}
+    `;
+export type InsertUserRoleMutationFn = Apollo.MutationFunction<InsertUserRoleMutation, InsertUserRoleMutationVariables>;
+
+/**
+ * __useInsertUserRoleMutation__
+ *
+ * To run a mutation, you first call `useInsertUserRoleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertUserRoleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertUserRoleMutation, { data, loading, error }] = useInsertUserRoleMutation({
+ *   variables: {
+ *      role: // value for 'role'
+ *   },
+ * });
+ */
+export function useInsertUserRoleMutation(baseOptions?: Apollo.MutationHookOptions<InsertUserRoleMutation, InsertUserRoleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertUserRoleMutation, InsertUserRoleMutationVariables>(InsertUserRoleDocument, options);
+      }
+export type InsertUserRoleMutationHookResult = ReturnType<typeof useInsertUserRoleMutation>;
+export type InsertUserRoleMutationResult = Apollo.MutationResult<InsertUserRoleMutation>;
+export type InsertUserRoleMutationOptions = Apollo.BaseMutationOptions<InsertUserRoleMutation, InsertUserRoleMutationVariables>;
+export const InsertUserStaffDocument = gql`
+    mutation InsertUserStaff($staff: UserStaffInsertInput) {
+  InsertUserStaff(staff: $staff)
+}
+    `;
+export type InsertUserStaffMutationFn = Apollo.MutationFunction<InsertUserStaffMutation, InsertUserStaffMutationVariables>;
+
+/**
+ * __useInsertUserStaffMutation__
+ *
+ * To run a mutation, you first call `useInsertUserStaffMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertUserStaffMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertUserStaffMutation, { data, loading, error }] = useInsertUserStaffMutation({
+ *   variables: {
+ *      staff: // value for 'staff'
+ *   },
+ * });
+ */
+export function useInsertUserStaffMutation(baseOptions?: Apollo.MutationHookOptions<InsertUserStaffMutation, InsertUserStaffMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertUserStaffMutation, InsertUserStaffMutationVariables>(InsertUserStaffDocument, options);
+      }
+export type InsertUserStaffMutationHookResult = ReturnType<typeof useInsertUserStaffMutation>;
+export type InsertUserStaffMutationResult = Apollo.MutationResult<InsertUserStaffMutation>;
+export type InsertUserStaffMutationOptions = Apollo.BaseMutationOptions<InsertUserStaffMutation, InsertUserStaffMutationVariables>;
 export const QuantityDayCompanyDocument = gql`
     query QuantityDayCompany($company: String!, $start: String!, $end: String!) {
   QuantityDayCompany(company: $company, start: $start, end: $end) {
@@ -9166,6 +10619,37 @@ export function useUpdateDeviceSiteConfigMutation(baseOptions?: Apollo.MutationH
 export type UpdateDeviceSiteConfigMutationHookResult = ReturnType<typeof useUpdateDeviceSiteConfigMutation>;
 export type UpdateDeviceSiteConfigMutationResult = Apollo.MutationResult<UpdateDeviceSiteConfigMutation>;
 export type UpdateDeviceSiteConfigMutationOptions = Apollo.BaseMutationOptions<UpdateDeviceSiteConfigMutation, UpdateDeviceSiteConfigMutationVariables>;
+export const UpdateDeviceStatusDocument = gql`
+    mutation UpdateDeviceStatus($status: DeviceStatusUpdateInput) {
+  UpdateDeviceStatus(status: $status)
+}
+    `;
+export type UpdateDeviceStatusMutationFn = Apollo.MutationFunction<UpdateDeviceStatusMutation, UpdateDeviceStatusMutationVariables>;
+
+/**
+ * __useUpdateDeviceStatusMutation__
+ *
+ * To run a mutation, you first call `useUpdateDeviceStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateDeviceStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateDeviceStatusMutation, { data, loading, error }] = useUpdateDeviceStatusMutation({
+ *   variables: {
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useUpdateDeviceStatusMutation(baseOptions?: Apollo.MutationHookOptions<UpdateDeviceStatusMutation, UpdateDeviceStatusMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateDeviceStatusMutation, UpdateDeviceStatusMutationVariables>(UpdateDeviceStatusDocument, options);
+      }
+export type UpdateDeviceStatusMutationHookResult = ReturnType<typeof useUpdateDeviceStatusMutation>;
+export type UpdateDeviceStatusMutationResult = Apollo.MutationResult<UpdateDeviceStatusMutation>;
+export type UpdateDeviceStatusMutationOptions = Apollo.BaseMutationOptions<UpdateDeviceStatusMutation, UpdateDeviceStatusMutationVariables>;
 export const UpdateTransmitterDocument = gql`
     mutation UpdateTransmitter($transmitter: DeviceTransmitterUpdateInput) {
   UpdateTransmitter(transmitter: $transmitter)
@@ -9321,6 +10805,37 @@ export function useUpdateIndexDataManualMutation(baseOptions?: Apollo.MutationHo
 export type UpdateIndexDataManualMutationHookResult = ReturnType<typeof useUpdateIndexDataManualMutation>;
 export type UpdateIndexDataManualMutationResult = Apollo.MutationResult<UpdateIndexDataManualMutation>;
 export type UpdateIndexDataManualMutationOptions = Apollo.BaseMutationOptions<UpdateIndexDataManualMutation, UpdateIndexDataManualMutationVariables>;
+export const UpdateMeterAccreditationDocument = gql`
+    mutation UpdateMeterAccreditation($type: DeviceMeterAccreditationTypeUpdateInput) {
+  UpdateMeterAccreditation(type: $type)
+}
+    `;
+export type UpdateMeterAccreditationMutationFn = Apollo.MutationFunction<UpdateMeterAccreditationMutation, UpdateMeterAccreditationMutationVariables>;
+
+/**
+ * __useUpdateMeterAccreditationMutation__
+ *
+ * To run a mutation, you first call `useUpdateMeterAccreditationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateMeterAccreditationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateMeterAccreditationMutation, { data, loading, error }] = useUpdateMeterAccreditationMutation({
+ *   variables: {
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useUpdateMeterAccreditationMutation(baseOptions?: Apollo.MutationHookOptions<UpdateMeterAccreditationMutation, UpdateMeterAccreditationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateMeterAccreditationMutation, UpdateMeterAccreditationMutationVariables>(UpdateMeterAccreditationDocument, options);
+      }
+export type UpdateMeterAccreditationMutationHookResult = ReturnType<typeof useUpdateMeterAccreditationMutation>;
+export type UpdateMeterAccreditationMutationResult = Apollo.MutationResult<UpdateMeterAccreditationMutation>;
+export type UpdateMeterAccreditationMutationOptions = Apollo.BaseMutationOptions<UpdateMeterAccreditationMutation, UpdateMeterAccreditationMutationVariables>;
 export const UpdateMeterInstallDocument = gql`
     mutation UpdateMeterInstall($meter: DeviceMeterInstallUpdateInput) {
   UpdateMeterInstall(meter: $meter)
@@ -9447,6 +10962,254 @@ export function useUpdateSiteMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateSiteMutationHookResult = ReturnType<typeof useUpdateSiteMutation>;
 export type UpdateSiteMutationResult = Apollo.MutationResult<UpdateSiteMutation>;
 export type UpdateSiteMutationOptions = Apollo.BaseMutationOptions<UpdateSiteMutation, UpdateSiteMutationVariables>;
+export const UpdateSiteAvailabilityDocument = gql`
+    mutation UpdateSiteAvailability($available: SiteAvailabilitiesUpdateInput) {
+  UpdateSiteAvailability(available: $available)
+}
+    `;
+export type UpdateSiteAvailabilityMutationFn = Apollo.MutationFunction<UpdateSiteAvailabilityMutation, UpdateSiteAvailabilityMutationVariables>;
+
+/**
+ * __useUpdateSiteAvailabilityMutation__
+ *
+ * To run a mutation, you first call `useUpdateSiteAvailabilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSiteAvailabilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSiteAvailabilityMutation, { data, loading, error }] = useUpdateSiteAvailabilityMutation({
+ *   variables: {
+ *      available: // value for 'available'
+ *   },
+ * });
+ */
+export function useUpdateSiteAvailabilityMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSiteAvailabilityMutation, UpdateSiteAvailabilityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSiteAvailabilityMutation, UpdateSiteAvailabilityMutationVariables>(UpdateSiteAvailabilityDocument, options);
+      }
+export type UpdateSiteAvailabilityMutationHookResult = ReturnType<typeof useUpdateSiteAvailabilityMutation>;
+export type UpdateSiteAvailabilityMutationResult = Apollo.MutationResult<UpdateSiteAvailabilityMutation>;
+export type UpdateSiteAvailabilityMutationOptions = Apollo.BaseMutationOptions<UpdateSiteAvailabilityMutation, UpdateSiteAvailabilityMutationVariables>;
+export const UpdateSiteCompanyDocument = gql`
+    mutation UpdateSiteCompany($company: SiteCompanyUpdateInput) {
+  UpdateSiteCompany(company: $company)
+}
+    `;
+export type UpdateSiteCompanyMutationFn = Apollo.MutationFunction<UpdateSiteCompanyMutation, UpdateSiteCompanyMutationVariables>;
+
+/**
+ * __useUpdateSiteCompanyMutation__
+ *
+ * To run a mutation, you first call `useUpdateSiteCompanyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSiteCompanyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSiteCompanyMutation, { data, loading, error }] = useUpdateSiteCompanyMutation({
+ *   variables: {
+ *      company: // value for 'company'
+ *   },
+ * });
+ */
+export function useUpdateSiteCompanyMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSiteCompanyMutation, UpdateSiteCompanyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSiteCompanyMutation, UpdateSiteCompanyMutationVariables>(UpdateSiteCompanyDocument, options);
+      }
+export type UpdateSiteCompanyMutationHookResult = ReturnType<typeof useUpdateSiteCompanyMutation>;
+export type UpdateSiteCompanyMutationResult = Apollo.MutationResult<UpdateSiteCompanyMutation>;
+export type UpdateSiteCompanyMutationOptions = Apollo.BaseMutationOptions<UpdateSiteCompanyMutation, UpdateSiteCompanyMutationVariables>;
+export const UpdateSiteGroupDocument = gql`
+    mutation UpdateSiteGroup($siteGroup: SiteGroupUpdateInput) {
+  UpdateSiteGroup(siteGroup: $siteGroup)
+}
+    `;
+export type UpdateSiteGroupMutationFn = Apollo.MutationFunction<UpdateSiteGroupMutation, UpdateSiteGroupMutationVariables>;
+
+/**
+ * __useUpdateSiteGroupMutation__
+ *
+ * To run a mutation, you first call `useUpdateSiteGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSiteGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSiteGroupMutation, { data, loading, error }] = useUpdateSiteGroupMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useUpdateSiteGroupMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSiteGroupMutation, UpdateSiteGroupMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSiteGroupMutation, UpdateSiteGroupMutationVariables>(UpdateSiteGroupDocument, options);
+      }
+export type UpdateSiteGroupMutationHookResult = ReturnType<typeof useUpdateSiteGroupMutation>;
+export type UpdateSiteGroupMutationResult = Apollo.MutationResult<UpdateSiteGroupMutation>;
+export type UpdateSiteGroupMutationOptions = Apollo.BaseMutationOptions<UpdateSiteGroupMutation, UpdateSiteGroupMutationVariables>;
+export const UpdateSiteGroup2SDocument = gql`
+    mutation UpdateSiteGroup2S($siteGroup: SiteGroup2SUpdateInput) {
+  UpdateSiteGroup2S(siteGroup: $siteGroup)
+}
+    `;
+export type UpdateSiteGroup2SMutationFn = Apollo.MutationFunction<UpdateSiteGroup2SMutation, UpdateSiteGroup2SMutationVariables>;
+
+/**
+ * __useUpdateSiteGroup2SMutation__
+ *
+ * To run a mutation, you first call `useUpdateSiteGroup2SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSiteGroup2SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSiteGroup2SMutation, { data, loading, error }] = useUpdateSiteGroup2SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useUpdateSiteGroup2SMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSiteGroup2SMutation, UpdateSiteGroup2SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSiteGroup2SMutation, UpdateSiteGroup2SMutationVariables>(UpdateSiteGroup2SDocument, options);
+      }
+export type UpdateSiteGroup2SMutationHookResult = ReturnType<typeof useUpdateSiteGroup2SMutation>;
+export type UpdateSiteGroup2SMutationResult = Apollo.MutationResult<UpdateSiteGroup2SMutation>;
+export type UpdateSiteGroup2SMutationOptions = Apollo.BaseMutationOptions<UpdateSiteGroup2SMutation, UpdateSiteGroup2SMutationVariables>;
+export const UpdateSiteGroup3SDocument = gql`
+    mutation UpdateSiteGroup3S($siteGroup: SiteGroup3SUpdateInput) {
+  UpdateSiteGroup3S(siteGroup: $siteGroup)
+}
+    `;
+export type UpdateSiteGroup3SMutationFn = Apollo.MutationFunction<UpdateSiteGroup3SMutation, UpdateSiteGroup3SMutationVariables>;
+
+/**
+ * __useUpdateSiteGroup3SMutation__
+ *
+ * To run a mutation, you first call `useUpdateSiteGroup3SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSiteGroup3SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSiteGroup3SMutation, { data, loading, error }] = useUpdateSiteGroup3SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useUpdateSiteGroup3SMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSiteGroup3SMutation, UpdateSiteGroup3SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSiteGroup3SMutation, UpdateSiteGroup3SMutationVariables>(UpdateSiteGroup3SDocument, options);
+      }
+export type UpdateSiteGroup3SMutationHookResult = ReturnType<typeof useUpdateSiteGroup3SMutation>;
+export type UpdateSiteGroup3SMutationResult = Apollo.MutationResult<UpdateSiteGroup3SMutation>;
+export type UpdateSiteGroup3SMutationOptions = Apollo.BaseMutationOptions<UpdateSiteGroup3SMutation, UpdateSiteGroup3SMutationVariables>;
+export const UpdateSiteGroup4SDocument = gql`
+    mutation UpdateSiteGroup4S($siteGroup: SiteGroup4SUpdateInput) {
+  UpdateSiteGroup4S(siteGroup: $siteGroup)
+}
+    `;
+export type UpdateSiteGroup4SMutationFn = Apollo.MutationFunction<UpdateSiteGroup4SMutation, UpdateSiteGroup4SMutationVariables>;
+
+/**
+ * __useUpdateSiteGroup4SMutation__
+ *
+ * To run a mutation, you first call `useUpdateSiteGroup4SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSiteGroup4SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSiteGroup4SMutation, { data, loading, error }] = useUpdateSiteGroup4SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useUpdateSiteGroup4SMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSiteGroup4SMutation, UpdateSiteGroup4SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSiteGroup4SMutation, UpdateSiteGroup4SMutationVariables>(UpdateSiteGroup4SDocument, options);
+      }
+export type UpdateSiteGroup4SMutationHookResult = ReturnType<typeof useUpdateSiteGroup4SMutation>;
+export type UpdateSiteGroup4SMutationResult = Apollo.MutationResult<UpdateSiteGroup4SMutation>;
+export type UpdateSiteGroup4SMutationOptions = Apollo.BaseMutationOptions<UpdateSiteGroup4SMutation, UpdateSiteGroup4SMutationVariables>;
+export const UpdateSiteGroup5SDocument = gql`
+    mutation UpdateSiteGroup5S($siteGroup: SiteGroup5SUpdateInput) {
+  UpdateSiteGroup5S(siteGroup: $siteGroup)
+}
+    `;
+export type UpdateSiteGroup5SMutationFn = Apollo.MutationFunction<UpdateSiteGroup5SMutation, UpdateSiteGroup5SMutationVariables>;
+
+/**
+ * __useUpdateSiteGroup5SMutation__
+ *
+ * To run a mutation, you first call `useUpdateSiteGroup5SMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSiteGroup5SMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSiteGroup5SMutation, { data, loading, error }] = useUpdateSiteGroup5SMutation({
+ *   variables: {
+ *      siteGroup: // value for 'siteGroup'
+ *   },
+ * });
+ */
+export function useUpdateSiteGroup5SMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSiteGroup5SMutation, UpdateSiteGroup5SMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSiteGroup5SMutation, UpdateSiteGroup5SMutationVariables>(UpdateSiteGroup5SDocument, options);
+      }
+export type UpdateSiteGroup5SMutationHookResult = ReturnType<typeof useUpdateSiteGroup5SMutation>;
+export type UpdateSiteGroup5SMutationResult = Apollo.MutationResult<UpdateSiteGroup5SMutation>;
+export type UpdateSiteGroup5SMutationOptions = Apollo.BaseMutationOptions<UpdateSiteGroup5SMutation, UpdateSiteGroup5SMutationVariables>;
+export const UpdateSiteLevelDocument = gql`
+    mutation UpdateSiteLevel($siteLevel: SiteLevelUpdateInput) {
+  UpdateSiteLevel(siteLevel: $siteLevel)
+}
+    `;
+export type UpdateSiteLevelMutationFn = Apollo.MutationFunction<UpdateSiteLevelMutation, UpdateSiteLevelMutationVariables>;
+
+/**
+ * __useUpdateSiteLevelMutation__
+ *
+ * To run a mutation, you first call `useUpdateSiteLevelMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSiteLevelMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSiteLevelMutation, { data, loading, error }] = useUpdateSiteLevelMutation({
+ *   variables: {
+ *      siteLevel: // value for 'siteLevel'
+ *   },
+ * });
+ */
+export function useUpdateSiteLevelMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSiteLevelMutation, UpdateSiteLevelMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSiteLevelMutation, UpdateSiteLevelMutationVariables>(UpdateSiteLevelDocument, options);
+      }
+export type UpdateSiteLevelMutationHookResult = ReturnType<typeof useUpdateSiteLevelMutation>;
+export type UpdateSiteLevelMutationResult = Apollo.MutationResult<UpdateSiteLevelMutation>;
+export type UpdateSiteLevelMutationOptions = Apollo.BaseMutationOptions<UpdateSiteLevelMutation, UpdateSiteLevelMutationVariables>;
 export const UpdateSiteLoggerDateChangeDocument = gql`
     mutation UpdateSiteLoggerDateChange($site: SiteLoggerDateChangeUpdateInput) {
   UpdateSiteLoggerDateChange(site: $site)
@@ -9509,6 +11272,37 @@ export function useUpdateSiteMeterDateChangeMutation(baseOptions?: Apollo.Mutati
 export type UpdateSiteMeterDateChangeMutationHookResult = ReturnType<typeof useUpdateSiteMeterDateChangeMutation>;
 export type UpdateSiteMeterDateChangeMutationResult = Apollo.MutationResult<UpdateSiteMeterDateChangeMutation>;
 export type UpdateSiteMeterDateChangeMutationOptions = Apollo.BaseMutationOptions<UpdateSiteMeterDateChangeMutation, UpdateSiteMeterDateChangeMutationVariables>;
+export const UpdateSiteStatusDocument = gql`
+    mutation UpdateSiteStatus($status: SiteStatusUpdateInput) {
+  UpdateSiteStatus(status: $status)
+}
+    `;
+export type UpdateSiteStatusMutationFn = Apollo.MutationFunction<UpdateSiteStatusMutation, UpdateSiteStatusMutationVariables>;
+
+/**
+ * __useUpdateSiteStatusMutation__
+ *
+ * To run a mutation, you first call `useUpdateSiteStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSiteStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSiteStatusMutation, { data, loading, error }] = useUpdateSiteStatusMutation({
+ *   variables: {
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useUpdateSiteStatusMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSiteStatusMutation, UpdateSiteStatusMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSiteStatusMutation, UpdateSiteStatusMutationVariables>(UpdateSiteStatusDocument, options);
+      }
+export type UpdateSiteStatusMutationHookResult = ReturnType<typeof useUpdateSiteStatusMutation>;
+export type UpdateSiteStatusMutationResult = Apollo.MutationResult<UpdateSiteStatusMutation>;
+export type UpdateSiteStatusMutationOptions = Apollo.BaseMutationOptions<UpdateSiteStatusMutation, UpdateSiteStatusMutationVariables>;
 export const UpdateSiteTransmitterDateChangeDocument = gql`
     mutation UpdateSiteTransmitterDateChange($site: SiteTransmitterDateChangeUpdateInput) {
   UpdateSiteTransmitterDateChange(site: $site)
@@ -9602,6 +11396,68 @@ export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
+export const UpdateUserRoleDocument = gql`
+    mutation UpdateUserRole($role: UserRoleUpdateInput) {
+  UpdateUserRole(role: $role)
+}
+    `;
+export type UpdateUserRoleMutationFn = Apollo.MutationFunction<UpdateUserRoleMutation, UpdateUserRoleMutationVariables>;
+
+/**
+ * __useUpdateUserRoleMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserRoleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserRoleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserRoleMutation, { data, loading, error }] = useUpdateUserRoleMutation({
+ *   variables: {
+ *      role: // value for 'role'
+ *   },
+ * });
+ */
+export function useUpdateUserRoleMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserRoleMutation, UpdateUserRoleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserRoleMutation, UpdateUserRoleMutationVariables>(UpdateUserRoleDocument, options);
+      }
+export type UpdateUserRoleMutationHookResult = ReturnType<typeof useUpdateUserRoleMutation>;
+export type UpdateUserRoleMutationResult = Apollo.MutationResult<UpdateUserRoleMutation>;
+export type UpdateUserRoleMutationOptions = Apollo.BaseMutationOptions<UpdateUserRoleMutation, UpdateUserRoleMutationVariables>;
+export const UpdateUserStaffDocument = gql`
+    mutation UpdateUserStaff($staff: UserStaffInsertInput) {
+  UpdateUserStaff(staff: $staff)
+}
+    `;
+export type UpdateUserStaffMutationFn = Apollo.MutationFunction<UpdateUserStaffMutation, UpdateUserStaffMutationVariables>;
+
+/**
+ * __useUpdateUserStaffMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserStaffMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserStaffMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserStaffMutation, { data, loading, error }] = useUpdateUserStaffMutation({
+ *   variables: {
+ *      staff: // value for 'staff'
+ *   },
+ * });
+ */
+export function useUpdateUserStaffMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserStaffMutation, UpdateUserStaffMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserStaffMutation, UpdateUserStaffMutationVariables>(UpdateUserStaffDocument, options);
+      }
+export type UpdateUserStaffMutationHookResult = ReturnType<typeof useUpdateUserStaffMutation>;
+export type UpdateUserStaffMutationResult = Apollo.MutationResult<UpdateUserStaffMutation>;
+export type UpdateUserStaffMutationOptions = Apollo.BaseMutationOptions<UpdateUserStaffMutation, UpdateUserStaffMutationVariables>;
 export const VerifyPasswordDocument = gql`
     query VerifyPassword($uid: String, $pwd: String) {
   VerifyPassword(Uid: $uid, Pwd: $pwd)

@@ -432,7 +432,7 @@ const mockdataAdmin = [
                 link: '/viewUser',
             },
             { label: 'Tạo Mới Người Dùng', link: '/createUser' },
-            // { label: 'Tạo Mới Dữ Liệu Khác', link: '/createOrderData' },
+            { label: 'Tạo Mới Dữ Liệu Khác', link: '/createOtherData' },
         ],
     },
     {

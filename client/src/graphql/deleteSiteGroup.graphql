@@ -1,0 +1,3 @@
+mutation DeleteSiteGroup($siteGroup: SiteGroupUpdateInput) {
+    DeleteSiteGroup(siteGroup: $siteGroup)
+}

@@ -1,0 +1,3 @@
+mutation DeleteSiteStatus($status: SiteStatusUpdateInput) {
+    DeleteSiteStatus(status: $status)
+}

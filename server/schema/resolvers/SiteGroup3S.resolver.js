@@ -6,4 +6,15 @@ module.exports = {
             return await SiteGroup3SModel.GetAll();
         },
     },
+    Mutation: {
+        InsertSiteGroup3S: async (parent, { siteGroup }, context, info) => {
+            return await SiteGroup3SModel.Insert(siteGroup);
+        },
+        UpdateSiteGroup3S: async (parent, { siteGroup }, context, info) => {
+            return await SiteGroup3SModel.Update(siteGroup);
+        },
+        DeleteSiteGroup3S: async (parent, { siteGroup }, context, info) => {
+            return await SiteGroup3SModel.Delete(siteGroup);
+        },
+    },
 };

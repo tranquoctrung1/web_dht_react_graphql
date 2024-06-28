@@ -1,0 +1,3 @@
+mutation InsertUserRole($role: UserRoleInsertInput) {
+    InsertUserRole(role: $role)
+}

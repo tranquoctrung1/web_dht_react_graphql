@@ -1,0 +1,3 @@
+mutation UpdateDeviceStatus($status: DeviceStatusUpdateInput) {
+    UpdateDeviceStatus(status: $status)
+}

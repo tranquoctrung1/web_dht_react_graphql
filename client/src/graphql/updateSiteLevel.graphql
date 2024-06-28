@@ -1,0 +1,3 @@
+mutation UpdateSiteLevel($siteLevel: SiteLevelUpdateInput) {
+    UpdateSiteLevel(siteLevel: $siteLevel)
+}

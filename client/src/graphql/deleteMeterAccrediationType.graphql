@@ -1,0 +1,5 @@
+mutation DeleteMeterAccreditation(
+    $type: DeviceMeterAccreditationTypeUpdateInput
+) {
+    DeleteMeterAccreditation(type: $type)
+}
