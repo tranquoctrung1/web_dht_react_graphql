@@ -46,7 +46,7 @@ const UserRole = () => {
                     for (const item of res.data?.GetAllRole) {
                         const obj = {
                             value: item?.Role,
-                            label: item?.Role,
+                            label: `${item?.Role} | ${item?.Description}`,
                         };
 
                         temp.push(obj);
@@ -65,8 +65,10 @@ const UserRole = () => {
     }, []);
 
     const onChooseUserRole = (e: any) => {
-        //@ts-ignore
-        const find = list.find((el) => el.Role === e.target.value);
+        const find = list.find(
+            //@ts-ignore
+            (el) => el.Role === e.target.value.split('|')[0].trim(),
+        );
 
         if (find !== undefined) {
             //@ts-ignore

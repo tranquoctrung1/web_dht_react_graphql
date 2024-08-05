@@ -50,7 +50,7 @@ const MeterAccreditationType = () => {
                     for (const item of res.data?.GetAllMeterAccreditationType) {
                         const obj = {
                             value: item?.AccreditationType,
-                            label: item?.AccreditationType,
+                            label: `${item?.AccreditationType} | ${item?.Description}`,
                         };
 
                         temp.push(obj);
@@ -69,8 +69,11 @@ const MeterAccreditationType = () => {
     }, []);
 
     const onChooseMeterAccreditationType = (e: any) => {
-        //@ts-ignore
-        const find = list.find((el) => el.AccreditationType === e.target.value);
+        const find = list.find(
+            (el) =>
+                //@ts-ignore
+                el.AccreditationType === e.target.value.split('|')[0].trim(),
+        );
 
         if (find !== undefined) {
             //@ts-ignore

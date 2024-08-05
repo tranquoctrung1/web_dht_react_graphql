@@ -46,7 +46,7 @@ const DeviceStatus = () => {
                     for (const item of res.data?.GetAllDeviceStatus) {
                         const obj = {
                             value: item?.Status,
-                            label: item?.Status,
+                            label: `${item?.Status} | ${item?.Description}`,
                         };
 
                         temp.push(obj);
@@ -65,8 +65,10 @@ const DeviceStatus = () => {
     }, []);
 
     const onChooseDeviceStatus = (e: any) => {
-        //@ts-ignore
-        const find = deviceStatus.find((el) => el.Status === e.target.value);
+        const find = deviceStatus.find(
+            //@ts-ignore
+            (el) => el.Status === e.target.value.split('|')[0].trim(),
+        );
 
         if (find !== undefined) {
             //@ts-ignore

@@ -46,7 +46,7 @@ const SiteAvailability = () => {
                     for (const item of res.data?.GetAllSiteAvailabilities) {
                         const obj = {
                             value: item?.Availability,
-                            label: item?.Availability,
+                            label: `${item?.Availability} | ${item?.Description}`,
                         };
 
                         temp.push(obj);
@@ -65,8 +65,10 @@ const SiteAvailability = () => {
     }, []);
 
     const onChooseSiteAvai = (e: any) => {
-        //@ts-ignore
-        const find = siteAvai.find((el) => el.Availability === e.target.value);
+        const find = siteAvai.find(
+            //@ts-ignore
+            (el) => el.Availability === e.target.value.split('|')[0].trim(),
+        );
 
         if (find !== undefined) {
             //@ts-ignore

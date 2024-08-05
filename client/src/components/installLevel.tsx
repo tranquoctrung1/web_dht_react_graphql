@@ -47,7 +47,7 @@ const InstallLevel = () => {
                     for (const item of res.data.GetAllSiteLevel) {
                         const obj = {
                             value: item?.Level,
-                            label: item?.Level,
+                            label: `${item?.Level} | ${item?.Description}`,
                         };
 
                         temp.push(obj);
@@ -63,8 +63,10 @@ const InstallLevel = () => {
     }, []);
 
     const onChooseSiteLevel = (e: any) => {
-        //@ts-ignore
-        const find = siteLevel.find((el) => el.Level === e.target.value);
+        const find = siteLevel.find(
+            //@ts-ignore
+            (el) => el.Level === e.currentTarget.value.split('|')[0].trim(),
+        );
 
         if (find !== undefined) {
             //@ts-ignore

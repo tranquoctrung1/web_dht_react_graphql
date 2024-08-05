@@ -46,7 +46,7 @@ const SiteGroup3S = () => {
                     for (const item of res.data.GetAllSiteGroup3S) {
                         const obj = {
                             value: item?.Group,
-                            label: item?.Group,
+                            label: `${item?.Group} | ${item?.Description}`,
                         };
 
                         temp.push(obj);
@@ -65,8 +65,10 @@ const SiteGroup3S = () => {
     }, []);
 
     const onChooseSiteGroup = (e: any) => {
-        //@ts-ignore
-        const find = siteGroup.find((el) => el.Group === e.target.value);
+        const find = siteGroup.find(
+            //@ts-ignore
+            (el) => el.Group === e.target.value.split('|')[0].trim(),
+        );
 
         if (find !== undefined) {
             //@ts-ignore

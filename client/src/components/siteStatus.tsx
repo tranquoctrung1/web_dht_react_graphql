@@ -46,7 +46,7 @@ const SiteStatus = () => {
                     for (const item of res.data?.GetAllSiteStatus) {
                         const obj = {
                             value: item?.Status,
-                            label: item?.Status,
+                            label: `${item?.Status} | ${item?.Description}`,
                         };
 
                         temp.push(obj);
@@ -65,8 +65,10 @@ const SiteStatus = () => {
     }, []);
 
     const onChooseSiteStatus = (e: any) => {
-        //@ts-ignore
-        const find = siteStatus.find((el) => el.Status === e.target.value);
+        const find = siteStatus.find(
+            //@ts-ignore
+            (el) => el.Status === e.target.value.split('|')[0].trim(),
+        );
 
         if (find !== undefined) {
             //@ts-ignore

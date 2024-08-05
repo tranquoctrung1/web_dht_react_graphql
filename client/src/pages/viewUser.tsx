@@ -5,7 +5,7 @@ import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 
-import { useGetAllUserAndStaffLazyQuery } from '../__generated__/graphql';
+import { useGetAllUserAndStaffQuery } from '../__generated__/graphql';
 import { useEffect, useState } from 'react';
 
 import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
@@ -17,7 +17,7 @@ import { motion } from 'framer-motion';
 const ViewUserPage = () => {
     const [data, setData] = useState([]);
 
-    const [getUser, {}] = useGetAllUserAndStaffLazyQuery();
+    const { refetch: getUser } = useGetAllUserAndStaffQuery();
 
     useEffect(() => {
         getUser()

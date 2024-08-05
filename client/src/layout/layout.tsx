@@ -73,6 +73,17 @@ const Layout = () => {
                             localStorage.removeItem('Company');
 
                             navigate('/login');
+                        } else {
+                            const obj = {
+                                Uid: localStorage.getItem('Uid'),
+                                Active: true,
+                            };
+
+                            await updateActiveUser({
+                                variables: {
+                                    user: obj,
+                                },
+                            });
                         }
                     }
                 })
@@ -80,6 +91,25 @@ const Layout = () => {
                     console.log(err);
                 });
         }
+        // handle close tab or browser
+        const handleBeforeUnload = async (event: any) => {
+            const obj = {
+                Uid: localStorage.getItem('Uid'),
+                Active: false,
+            };
+
+            await updateActiveUser({
+                variables: {
+                    user: obj,
+                },
+            });
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
     }, [location]);
 
     const [colorScheme, setColorScheme] = useLocalStorage({

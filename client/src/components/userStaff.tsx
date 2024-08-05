@@ -46,7 +46,7 @@ const UserStaff = () => {
                     for (const item of res.data?.GetAllStaffs) {
                         const obj = {
                             value: item?._id,
-                            label: item?._id,
+                            label: `${item?._id} | ${item?.FirstName} ${item?.LastName}`,
                         };
 
                         temp.push(obj);
@@ -65,8 +65,10 @@ const UserStaff = () => {
     }, []);
 
     const onChooseUserStaff = (e: any) => {
-        //@ts-ignore
-        const find = list.find((el) => el._id === e.target.value);
+        const find = list.find(
+            //@ts-ignore
+            (el) => el._id === e.target.value.split('|')[0].trim(),
+        );
 
         if (find !== undefined) {
             //@ts-ignore

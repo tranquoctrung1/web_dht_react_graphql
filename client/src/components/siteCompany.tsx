@@ -47,7 +47,7 @@ const SiteCompany = () => {
                     for (const item of res.data?.GetCompanies) {
                         const obj = {
                             value: item?.Company,
-                            label: item?.Company,
+                            label: `${item.Company} | ${item.Description}`,
                         };
 
                         temp.push(obj);
@@ -66,8 +66,10 @@ const SiteCompany = () => {
     }, []);
 
     const onChooseSiteCompany = (e: any) => {
-        //@ts-ignore
-        const find = siteCompany.find((el) => el.Company === e.target.value);
+        const find = siteCompany.find(
+            //@ts-ignore
+            (el) => el.Company === e.target.value.split('|')[0].trim(),
+        );
 
         if (find !== undefined) {
             //@ts-ignore

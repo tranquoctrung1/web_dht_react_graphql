@@ -29,6 +29,8 @@ import {
     convertDateToStringNotTimeForTitle,
     convertMilisecondToStringDate,
     quickSort,
+    checkAdminViewerRole,
+    checkCustomerRole,
 } from '../utils/utils';
 // @ts-ignore comment
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
@@ -36,8 +38,6 @@ import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import ReportAveragePrecious from '../components/reportAveragePrecious';
 
 import Companies from '../types/companies.type';
-
-import { checkAdminViewerRole, checkCustomerRole } from '../utils/utils';
 
 const QuantityWaterSupply = () => {
     const [selectedCompany, setSelectedCompany] = useState(null);
@@ -986,13 +986,17 @@ const QuantityWaterSupply = () => {
 
                     let th = (
                         <tr>
-                            <th>STT</th>
-                            <th>Hiệu</th>
-                            <th>Cở</th>
-                            <th>Mã vị trí</th>
-                            <th style={{ width: '600px' }}>Vị trí</th>
-                            <th>Tổng</th>
-                            <th>Trung bình</th>
+                            <th style={{ fontWeight: 'bold', width: '50px' }}>
+                                STT
+                            </th>
+                            <th style={{ fontWeight: 'bold' }}>Hiệu</th>
+                            <th style={{ fontWeight: 'bold' }}>Cở</th>
+                            <th style={{ fontWeight: 'bold' }}>Mã vị trí</th>
+                            <th style={{ width: '600px', fontWeight: 'bold' }}>
+                                Vị trí
+                            </th>
+                            <th style={{ fontWeight: 'bold' }}>Tổng</th>
+                            <th style={{ fontWeight: 'bold' }}>Trung bình</th>
                             {timestampHeader}
                         </tr>
                     );
@@ -1158,6 +1162,7 @@ const QuantityWaterSupply = () => {
                             </Button>
                         </Center>
                     </Col>
+
                     <Col span={12}>
                         <Center>
                             {renderQuantityDayWaterSupply ? (
