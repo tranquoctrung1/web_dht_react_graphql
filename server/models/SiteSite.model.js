@@ -841,12 +841,35 @@ module.exports.GetSiteById = async (siteid) => {
     return result;
 };
 
+const textToBinary = (str = '') => {
+    let res = '';
+    res = str
+        .split('')
+        .map((char) => {
+            return char.charCodeAt(0).toString(2);
+        })
+        .join(' ');
+    return res;
+};
+
 module.exports.GetSiteByStaffId = async (staffid) => {
     let Connect = new ConnectDB.Connect();
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = await collection.find({ StaffId: staffid }).toArray();
+    let result = await collection.find({}).toArray();
+
+    if (staffid === 'Đ1') {
+        result = result.filter(
+            (el) => textToBinary(el.StaffId) === '11010000 110001',
+        );
+    } else if (staffid === 'Đ2') {
+        result = result.filter(
+            (el) => textToBinary(el.StaffId) === '11010000 110010',
+        );
+    } else {
+        result = result.filter((el) => el.StaffId === staffid);
+    }
 
     Connect.disconnect();
 
