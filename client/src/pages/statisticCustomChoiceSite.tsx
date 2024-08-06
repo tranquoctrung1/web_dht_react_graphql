@@ -283,7 +283,7 @@ const StatisticCustomChoiceSitePage = () => {
             const t = [...listDataMeterModel];
             temp = temp.filter(
                 //@ts-ignore
-                (el) => t.indexOf(el.Model) !== -1,
+                (el) => t.indexOf(el.Model) !== -1 || el._id === '12-09',
             );
         }
         if (valueCompanies.length > 0) {
@@ -298,7 +298,6 @@ const StatisticCustomChoiceSitePage = () => {
                 (el) => t.indexOf(el.Company) !== -1,
             );
         }
-
         if (valueSiteStatus.length > 0) {
             temp = temp.filter(
                 //@ts-ignore
@@ -625,7 +624,7 @@ const StatisticCustomChoiceSitePage = () => {
         };
 
         const objHM = {
-            STT: 'DA',
+            STT: 'HM',
             _id: 'Công ty nước ngầm Sài Gòn',
             Location: '',
             DeviceId: '',

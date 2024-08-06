@@ -78,7 +78,7 @@ const AddSubtractWaterB2 = ({ index }: AddSubtractWaterB2Interface) => {
     const onAmountWaterBlured = (e: any) => {
         let number = 0;
         if (e.target.value !== '') {
-            number = parseInt(e.target.value);
+            number = parseFloat(e.target.value);
         } else {
             number = 0;
         }
@@ -135,6 +135,7 @@ const AddSubtractWaterB2 = ({ index }: AddSubtractWaterB2Interface) => {
                     decimalSeparator=","
                     thousandsSeparator="."
                     value={amountWater}
+                    precision={3}
                     //defaultValue={amountWater}
                     placeholder="Lượng nước giảm trừ"
                     onBlur={onAmountWaterBlured}
