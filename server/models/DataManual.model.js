@@ -156,7 +156,33 @@ module.exports.InsertIndex = async (dataManual) => {
                     SiteId: dataManual.SiteId,
                     TimeStamp: new Date(startDate),
                     Index: index,
-                    Output: quantity,
+                    Output: parseInt((quantity / totalDay).toString()),
+                    Description: dataManual.Description,
+                };
+
+                insertData.push(obj);
+            }
+
+            insertData[insertData.length - 1].Index = dataManual.Index;
+        } else {
+            const quantity = dataManual.Index - 0;
+
+            let index = data[0].Index;
+
+            while (startDate.getTime() < dataManual.TimeStamp.getTime()) {
+                startDate.setDate(startDate.getDate() + 1);
+
+                index = index + quantity / totalDay;
+                index = parseFloat(index.toString());
+                index = index.toFixed(0);
+                index = parseFloat(index);
+
+                const obj = {
+                    Stt: 0,
+                    SiteId: dataManual.SiteId,
+                    TimeStamp: new Date(startDate),
+                    Index: index,
+                    Output: parseInt((quantity / totalDay).toString()),
                     Description: dataManual.Description,
                 };
 
@@ -297,7 +323,7 @@ module.exports.UpdateIndex = async (dataManual) => {
                     SiteId: dataManual.SiteId,
                     TimeStamp: new Date(startDate),
                     Index: index,
-                    Output: quantity,
+                    Output: parseInt((quantity / totalDay).toString()),
                     Description: dataManual.Description,
                 };
 
