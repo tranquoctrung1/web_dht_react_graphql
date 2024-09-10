@@ -197,7 +197,7 @@ const LoggerConfigPage = () => {
             //@ts-ignore
             setValue('LoggerId', find.LoggerId);
             //@ts-ignore
-            setValue('Interval', find.Interval);
+            setValue('Interval', find.Interval ?? 15);
             //@ts-ignore
             setValue('BeginTime', getHourAndMinute(find.BeginTime));
 
@@ -215,9 +215,100 @@ const LoggerConfigPage = () => {
                 );
 
                 for (let i = 0; i < listFindChannel.length; i++) {
+                    //@ts-ignore
+                    const objTemp = { ...listFindChannel[i] };
+                    if (
+                        //@ts-ignore
+                        listFindChannel[i]._id !== null &&
+                        //@ts-ignore
+                        listFindChannel[i]._id !== undefined &&
+                        //@ts-ignore
+                        listFindChannel[i]._id !== ''
+                    ) {
+                        //@ts-ignore
+                        const numberChannel =
+                            //@ts-ignore
+                            listFindChannel[i]._id[
+                                //@ts-ignore
+                                listFindChannel[i]._id.length - 1
+                            ];
+                        if (
+                            numberChannel !== null &&
+                            numberChannel !== undefined &&
+                            numberChannel !== ''
+                        ) {
+                            const temp = parseInt(numberChannel);
+                            //@ts-ignore
+                            if (temp == find.Pressure) {
+                                //@ts-ignore
+                                objTemp.Pressure1 = true;
+                                //@ts-ignore
+                                objTemp.Pressure2 = false;
+                                //@ts-ignore
+                                objTemp.ForwardFlow = false;
+                                //@ts-ignore
+                                objTemp.ReverseFlow = false;
+                            } else if (
+                                //@ts-ignore
+                                temp == find.Pressure1
+                            ) {
+                                //@ts-ignore
+                                objTemp.Pressure1 = false;
+                                //@ts-ignore
+                                objTemp.Pressure2 = true;
+                                //@ts-ignore
+                                objTemp.ForwardFlow = false;
+                                //@ts-ignore
+                                objTemp.ReverseFlow = false;
+                            } else if (
+                                //@ts-ignore
+                                temp == find.Forward
+                            ) {
+                                //@ts-ignore
+                                objTemp.Pressure1 = false;
+                                //@ts-ignore
+                                objTemp.Pressure2 = false;
+                                //@ts-ignore
+                                objTemp.ForwardFlow = true;
+                                //@ts-ignore
+                                objTemp.ReverseFlow = false;
+                            } else if (
+                                //@ts-ignore
+                                temp == find.Reverse
+                            ) {
+                                //@ts-ignore
+                                objTemp.Pressure1 = false;
+                                //@ts-ignore
+                                objTemp.Pressure2 = false;
+                                //@ts-ignore
+                                objTemp.ForwardFlow = false;
+                                //@ts-ignore
+                                objTemp.ReverseFlow = true;
+                            }
+                        } else {
+                            //@ts-ignore
+                            objTemp.Pressure1 = false;
+                            //@ts-ignore
+                            objTemp.Pressure2 = false;
+                            //@ts-ignore
+                            objTemp.ForwardFlow = false;
+                            //@ts-ignore
+                            objTemp.ReverseFlow = false;
+                        }
+                    } else {
+                        //@ts-ignore
+                        objTemp.Pressure1 = false;
+                        //@ts-ignore
+                        objTemp.Pressure2 = false;
+                        //@ts-ignore
+                        objTemp.ForwardFlow = false;
+                        //@ts-ignore
+                        objTemp.ReverseFlow = false;
+                    }
+
                     const obj = {
                         index: i,
-                        value: listFindChannel[i],
+                        value: objTemp,
                     };
 
                     //@ts-ignore
@@ -755,6 +846,8 @@ const LoggerConfigPage = () => {
 
         if (isAllow == true) {
             const obj = createObjUpdateDeviceSiteConfig();
+
+            console.log(obj);
 
             updateDeviceSiteConfig({
                 variables: {

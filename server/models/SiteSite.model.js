@@ -876,6 +876,25 @@ module.exports.GetSiteByStaffId = async (staffid) => {
     return result;
 };
 
+module.exports.GetSiteIstOrQndByCompany = async (company) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let result = await collection
+        .find({
+            $or: [
+                { IstDistributionCompany: company },
+                { QndDistributionCompany: company },
+            ],
+        })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
 module.exports.Insert = async (site) => {
     let Connect = new ConnectDB.Connect();
 

@@ -143,10 +143,19 @@ module.exports.InsertIndex = async (dataManual) => {
 
             let index = data[0].Index;
 
+            let numberSum = quantity / totalDay;
+            numberSum = parseInt(numberSum);
+
+            let numberMod = (quantity % totalDay) / totalDay;
+
+            let totalMod = 0;
+
             while (startDate.getTime() < dataManual.TimeStamp.getTime()) {
                 startDate.setDate(startDate.getDate() + 1);
 
-                index = index + quantity / totalDay;
+                totalMod += numberMod;
+
+                index = index + numberSum;
                 index = parseFloat(index.toString());
                 index = index.toFixed(0);
                 index = parseFloat(index);
@@ -156,7 +165,7 @@ module.exports.InsertIndex = async (dataManual) => {
                     SiteId: dataManual.SiteId,
                     TimeStamp: new Date(startDate),
                     Index: index,
-                    Output: parseInt((quantity / totalDay).toString()),
+                    Output: numberSum,
                     Description: dataManual.Description,
                 };
 
@@ -164,33 +173,44 @@ module.exports.InsertIndex = async (dataManual) => {
             }
 
             insertData[insertData.length - 1].Index = dataManual.Index;
-        } else {
-            const quantity = dataManual.Index - 0;
-
-            let index = data[0].Index;
-
-            while (startDate.getTime() < dataManual.TimeStamp.getTime()) {
-                startDate.setDate(startDate.getDate() + 1);
-
-                index = index + quantity / totalDay;
-                index = parseFloat(index.toString());
-                index = index.toFixed(0);
-                index = parseFloat(index);
-
-                const obj = {
-                    Stt: 0,
-                    SiteId: dataManual.SiteId,
-                    TimeStamp: new Date(startDate),
-                    Index: index,
-                    Output: parseInt((quantity / totalDay).toString()),
-                    Description: dataManual.Description,
-                };
-
-                insertData.push(obj);
-            }
-
-            insertData[insertData.length - 1].Index = dataManual.Index;
+            insertData[insertData.length - 1].Output += totalMod;
         }
+    } else {
+        const quantity = dataManual.Index - 0;
+
+        let index = 0;
+
+        let numberSum = quantity / totalDay;
+        numberSum = parseInt(numberSum);
+
+        let numberMod = (quantity % totalDay) / totalDay;
+
+        let totalMod = 0;
+
+        while (startDate.getTime() < dataManual.TimeStamp.getTime()) {
+            startDate.setDate(startDate.getDate() + 1);
+
+            totalMod += numberMod;
+
+            index = index + numberSum;
+            index = parseFloat(index.toString());
+            index = index.toFixed(0);
+            index = parseFloat(index);
+
+            const obj = {
+                Stt: 0,
+                SiteId: dataManual.SiteId,
+                TimeStamp: new Date(startDate),
+                Index: index,
+                Output: numberSum,
+                Description: dataManual.Description,
+            };
+
+            insertData.push(obj);
+        }
+
+        insertData[insertData.length - 1].Index = dataManual.Index;
+        insertData[insertData.length - 1].Output += totalMod;
     }
 
     if (insertData.length > 0) {
@@ -310,10 +330,19 @@ module.exports.UpdateIndex = async (dataManual) => {
 
             let index = data[0].Index;
 
+            let numberSum = quantity / totalDay;
+            numberSum = parseInt(numberSum);
+
+            let numberMod = (quantity % totalDay) / totalDay;
+
+            let totalMod = 0;
+
             while (startDate.getTime() < dataManual.TimeStamp.getTime()) {
                 startDate.setDate(startDate.getDate() + 1);
 
-                index = index + quantity / totalDay;
+                itotalMod += numberMod;
+
+                index = index + numberSum;
                 index = parseFloat(index.toString());
                 index = index.toFixed(0);
                 index = parseFloat(index);
@@ -323,7 +352,7 @@ module.exports.UpdateIndex = async (dataManual) => {
                     SiteId: dataManual.SiteId,
                     TimeStamp: new Date(startDate),
                     Index: index,
-                    Output: parseInt((quantity / totalDay).toString()),
+                    Output: numberSum,
                     Description: dataManual.Description,
                 };
 
@@ -331,6 +360,7 @@ module.exports.UpdateIndex = async (dataManual) => {
             }
 
             updateData[updateData.length - 1].Index = dataManual.Index;
+            updateData[updateData.length - 1].Output += totalMod;
         }
     }
 

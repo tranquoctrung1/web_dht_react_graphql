@@ -7,7 +7,6 @@ import {
     updateChannelType,
     updateUnit,
 } from '../features/listChannel';
-import { CurrentDeviceSiteConfigState } from '../features/currentDeviceSiteConfig';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -31,7 +30,6 @@ const ConfigChannel = ({ index, LoggerId }: ConfigChannelInterface) => {
     const { data: units, error: unitError } = useGetAllUnitQuery();
 
     const listChannel = useSelector(ListChannelState);
-    const currentDeviceSiteConfig = useSelector(CurrentDeviceSiteConfigState);
 
     const dispatch = useDispatch();
 
@@ -49,60 +47,14 @@ const ConfigChannel = ({ index, LoggerId }: ConfigChannelInterface) => {
                 setChannelName(channel.Name);
                 //@ts-ignore
                 setUnit(channel.Unit);
-
-                if (
-                    currentDeviceSiteConfig._id !== null &&
-                    currentDeviceSiteConfig._id !== undefined &&
-                    currentDeviceSiteConfig._id !== ''
-                ) {
-                    if (
-                        //@ts-ignore
-                        channel._id !== null &&
-                        //@ts-ignore
-                        channel._id !== undefined &&
-                        //@ts-ignore
-                        channel._id !== ''
-                    ) {
-                        //@ts-ignore
-                        const numberChannel =
-                            //@ts-ignore
-                            channel._id[channel._id.length - 1];
-                        if (
-                            numberChannel !== null &&
-                            numberChannel !== undefined &&
-                            numberChannel !== ''
-                        ) {
-                            const temp = parseInt(numberChannel);
-                            if (temp == currentDeviceSiteConfig.Pressure) {
-                                setIsPressure(true);
-                                setIsPressure1(false);
-                                setIsForwardFlow(false);
-                                setIsReverseFlow(false);
-                            } else if (
-                                temp == currentDeviceSiteConfig.Pressure1
-                            ) {
-                                setIsPressure(false);
-                                setIsPressure1(true);
-                                setIsForwardFlow(false);
-                                setIsReverseFlow(false);
-                            } else if (
-                                temp == currentDeviceSiteConfig.Forward
-                            ) {
-                                setIsPressure(false);
-                                setIsPressure1(false);
-                                setIsForwardFlow(true);
-                                setIsReverseFlow(false);
-                            } else if (
-                                temp == currentDeviceSiteConfig.Reverse
-                            ) {
-                                setIsPressure(false);
-                                setIsPressure1(false);
-                                setIsForwardFlow(false);
-                                setIsReverseFlow(true);
-                            }
-                        }
-                    }
-                }
+                //@ts-ignore
+                setIsPressure(channel.Pressure1);
+                //@ts-ignore
+                setIsPressure1(channel.Pressure2);
+                //@ts-ignore
+                setIsForwardFlow(channel.ForwardFlow);
+                //@ts-ignore
+                setIsReverseFlow(channel.ReverseFlow);
             } else {
                 setChannelId('');
                 setChannelName('');
@@ -121,7 +73,7 @@ const ConfigChannel = ({ index, LoggerId }: ConfigChannelInterface) => {
             setIsForwardFlow(false);
             setIsReverseFlow(false);
         }
-    }, [listChannel[index], currentDeviceSiteConfig]);
+    }, [listChannel[index]]);
 
     if (unitError) {
         return (

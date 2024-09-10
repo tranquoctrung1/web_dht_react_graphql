@@ -20,6 +20,7 @@ import {
     useQuantityDayWaterSupplyLazyQuery,
     useQuantityLoggerDayWaterSupplyLazyQuery,
     useUpdatePreciousMutation,
+    useGetIndexPreciousByCompanyQuery,
 } from '../__generated__/graphql';
 
 import Companies from '../types/companies.type';
@@ -155,6 +156,9 @@ const ReportAveragePrecious = () => {
     const [deletePrecious, { data: deletePreciousDataReturn }] =
         useDeletePreciousMutation();
 
+    const { refetch: getIndexPreciousByCompany } =
+        useGetIndexPreciousByCompanyQuery();
+
     //@ts-ignore
     let tempData = [];
 
@@ -223,6 +227,21 @@ const ReportAveragePrecious = () => {
                 //@ts-ignore
                 currentEndDatePreciousState,
             );
+
+            getIndexPreciousByCompany({
+                company: currentCompanyPreciousState,
+                start: e.getTime().toString(),
+                end: currentEndDatePreciousState.toString(),
+            })
+                .then((res) => {
+                    if (res?.data?.GetIndexPreciousByCompany) {
+                        //@ts-ignore
+                        dispatch(addIndexs(res.data.GetIndexPreciousByCompany));
+                    }
+                })
+                .catch((err) => {
+                    console.error(err.message);
+                });
         }
     };
 
@@ -239,6 +258,21 @@ const ReportAveragePrecious = () => {
                 currentStartDatePreciousState,
                 e.getTime(),
             );
+
+            getIndexPreciousByCompany({
+                company: currentCompanyPreciousState,
+                start: currentStartDatePreciousState.toString(),
+                end: e.getTime().toString(),
+            })
+                .then((res) => {
+                    if (res?.data?.GetIndexPreciousByCompany) {
+                        //@ts-ignore
+                        dispatch(addIndexs(res.data.GetIndexPreciousByCompany));
+                    }
+                })
+                .catch((err) => {
+                    console.error(err.message);
+                });
         }
     };
 
@@ -287,6 +321,21 @@ const ReportAveragePrecious = () => {
                 }
             })
             .catch((err) => console.log(err));
+
+        getIndexPreciousByCompany({
+            company: e,
+            start: currentStartDatePreciousState.toString(),
+            end: currentEndDatePreciousState.toString(),
+        })
+            .then((res) => {
+                if (res?.data?.GetIndexPreciousByCompany) {
+                    //@ts-ignore
+                    dispatch(addIndexs(res.data.GetIndexPreciousByCompany));
+                }
+            })
+            .catch((err) => {
+                console.error(err.message);
+            });
     };
 
     const onAddLocationClicked = () => {
@@ -746,7 +795,31 @@ const ReportAveragePrecious = () => {
             //@ts-ignore
             dispatch(addLocations([]));
         }
-        dispatch(addIndexs(precious.Index));
+
+        getIndexPreciousByCompany({
+            company: currentCompanyPreciousState,
+            start: precious.Start,
+            end: precious.End,
+        })
+            .then((res) => {
+                if (res?.data?.GetIndexPreciousByCompany) {
+                    for (const item of res.data.GetIndexPreciousByCompany) {
+                        const find = precious.Index.find(
+                            //@ts-ignore
+                            (el) => el.SiteId === item.SiteId,
+                        );
+
+                        if (find === undefined) {
+                            precious.Index.push(find);
+                        }
+                    }
+                }
+                dispatch(addIndexs(precious.Index));
+            })
+            .catch((err) => {
+                console.error(err.message);
+            });
+
         dispatch(addLockValves(precious.LockValve));
         dispatch(addSubtractWaterB1s(precious.SubtractWaterB1));
         dispatch(addSubtractWaterB2s(precious.SubtractWaterB2));

@@ -1,0 +1,12 @@
+query GetIndexPreciousByCompany(
+    $company: String
+    $start: String
+    $end: String
+) {
+    GetIndexPreciousByCompany(company: $company, start: $start, end: $end) {
+        Location
+        NextPeriodIndex
+        PreviousPeriodIndex
+        SiteId
+    }
+}

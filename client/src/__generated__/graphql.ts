@@ -510,6 +510,14 @@ export type IndexInput = {
   SiteId?: InputMaybe<Scalars['String']>;
 };
 
+export type IndexPrecious = {
+  __typename?: 'IndexPrecious';
+  Location?: Maybe<Scalars['String']>;
+  NextPeriodIndex?: Maybe<Scalars['Float']>;
+  PreviousPeriodIndex?: Maybe<Scalars['Float']>;
+  SiteId?: Maybe<Scalars['String']>;
+};
+
 export type Location = {
   __typename?: 'Location';
   AverageDate?: Maybe<Array<Maybe<Array<Maybe<Scalars['String']>>>>>;
@@ -1443,6 +1451,7 @@ export type Query = {
   GetHistoryMeterByMeter?: Maybe<Array<Maybe<HistorySiteMeter>>>;
   GetHistoryMeterBySiteId?: Maybe<Array<Maybe<HistorySiteMeter>>>;
   GetHistoryTransmitterBySiteId?: Maybe<Array<Maybe<HistorySiteTransmitter>>>;
+  GetIndexPreciousByCompany?: Maybe<Array<Maybe<IndexPrecious>>>;
   GetLoggerMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetLoggerModel?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetLoggerProvider?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1548,6 +1557,13 @@ export type QueryGetHistoryMeterBySiteIdArgs = {
 
 export type QueryGetHistoryTransmitterBySiteIdArgs = {
   siteid?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryGetIndexPreciousByCompanyArgs = {
+  company?: InputMaybe<Scalars['String']>;
+  end?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -3181,6 +3197,15 @@ export type GetHistoryTransmitterBySiteIdQueryVariables = Exact<{
 
 
 export type GetHistoryTransmitterBySiteIdQuery = { __typename?: 'Query', GetHistoryTransmitterBySiteId?: Array<{ __typename?: 'HistorySiteTransmitter', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
+
+export type GetIndexPreciousByCompanyQueryVariables = Exact<{
+  company?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['String']>;
+  end?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetIndexPreciousByCompanyQuery = { __typename?: 'Query', GetIndexPreciousByCompany?: Array<{ __typename?: 'IndexPrecious', Location?: string | null, NextPeriodIndex?: number | null, PreviousPeriodIndex?: number | null, SiteId?: string | null } | null> | null };
 
 export type GetAllMeterAccreditationTypeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -7311,6 +7336,49 @@ export type GetHistoryTransmitterBySiteIdLazyQueryHookResult = ReturnType<typeof
 export type GetHistoryTransmitterBySiteIdQueryResult = Apollo.QueryResult<GetHistoryTransmitterBySiteIdQuery, GetHistoryTransmitterBySiteIdQueryVariables>;
 export function refetchGetHistoryTransmitterBySiteIdQuery(variables?: GetHistoryTransmitterBySiteIdQueryVariables) {
       return { query: GetHistoryTransmitterBySiteIdDocument, variables: variables }
+    }
+export const GetIndexPreciousByCompanyDocument = gql`
+    query GetIndexPreciousByCompany($company: String, $start: String, $end: String) {
+  GetIndexPreciousByCompany(company: $company, start: $start, end: $end) {
+    Location
+    NextPeriodIndex
+    PreviousPeriodIndex
+    SiteId
+  }
+}
+    `;
+
+/**
+ * __useGetIndexPreciousByCompanyQuery__
+ *
+ * To run a query within a React component, call `useGetIndexPreciousByCompanyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIndexPreciousByCompanyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetIndexPreciousByCompanyQuery({
+ *   variables: {
+ *      company: // value for 'company'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useGetIndexPreciousByCompanyQuery(baseOptions?: Apollo.QueryHookOptions<GetIndexPreciousByCompanyQuery, GetIndexPreciousByCompanyQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetIndexPreciousByCompanyQuery, GetIndexPreciousByCompanyQueryVariables>(GetIndexPreciousByCompanyDocument, options);
+      }
+export function useGetIndexPreciousByCompanyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetIndexPreciousByCompanyQuery, GetIndexPreciousByCompanyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetIndexPreciousByCompanyQuery, GetIndexPreciousByCompanyQueryVariables>(GetIndexPreciousByCompanyDocument, options);
+        }
+export type GetIndexPreciousByCompanyQueryHookResult = ReturnType<typeof useGetIndexPreciousByCompanyQuery>;
+export type GetIndexPreciousByCompanyLazyQueryHookResult = ReturnType<typeof useGetIndexPreciousByCompanyLazyQuery>;
+export type GetIndexPreciousByCompanyQueryResult = Apollo.QueryResult<GetIndexPreciousByCompanyQuery, GetIndexPreciousByCompanyQueryVariables>;
+export function refetchGetIndexPreciousByCompanyQuery(variables?: GetIndexPreciousByCompanyQueryVariables) {
+      return { query: GetIndexPreciousByCompanyDocument, variables: variables }
     }
 export const GetAllMeterAccreditationTypeDocument = gql`
     query GetAllMeterAccreditationType {

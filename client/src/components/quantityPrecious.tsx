@@ -135,7 +135,7 @@ const QuantityPrecious = () => {
                         } else {
                             tempSum -= parseInt(total ? total.toFixed(0) : '0');
                             total *= -1;
-                            obj.AmountWater = `-${total.toFixed(0)}`;
+                            obj.AmountWater = `${total.toFixed(0)}`;
                         }
 
                         isChange = true;

@@ -1045,6 +1045,13 @@ module.exports = gql`
         LastName: String
     }
 
+    type IndexPrecious {
+        SiteId: String
+        Location: String
+        PreviousPeriodIndex: Float
+        NextPeriodIndex: Float
+    }
+
     # type input
     input PeriodsInput {
         Period: String
@@ -1717,6 +1724,12 @@ module.exports = gql`
         GetAllPrecious: [Precious]
 
         GetPreciousByCompany(company: String): [Precious]
+
+        GetIndexPreciousByCompany(
+            company: String
+            start: String
+            end: String
+        ): [IndexPrecious]
 
         GetSiteByWaterSubtractB2ForTA: [Site]
 

@@ -54,7 +54,25 @@ module.exports.GetPreciousByCompany = async (company) => {
 
     let result = await collection
         .find({ Company: company })
-        .sort({ End: -1 })
+        .sort({ _id: -1 })
+        .toArray();
+
+    Connect.disconnect();
+
+    return result;
+};
+
+module.exports.GetPreciousByTimeStamp = async (start, end) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(PreciousCollection);
+
+    const temp = new Date(parseInt(end));
+    const period = `${temp.getMonth() + 1}/${temp.getFullYear()}`;
+
+    let result = await collection
+        .find({ Period: period })
+        .sort({ _id: -1 })
         .toArray();
 
     Connect.disconnect();
