@@ -21,6 +21,7 @@ import {
     useQuantityLoggerDayWaterSupplyLazyQuery,
     useUpdatePreciousMutation,
     useGetIndexPreciousByCompanyQuery,
+    useUpdateOutputByPreciousMutation,
 } from '../__generated__/graphql';
 
 import Companies from '../types/companies.type';
@@ -158,6 +159,8 @@ const ReportAveragePrecious = () => {
 
     const { refetch: getIndexPreciousByCompany } =
         useGetIndexPreciousByCompanyQuery();
+
+    const [updateOutputByPrecious] = useUpdateOutputByPreciousMutation();
 
     //@ts-ignore
     let tempData = [];
@@ -477,6 +480,61 @@ const ReportAveragePrecious = () => {
         document.body.removeChild(fileDownload);
     };
 
+    const updateDataManualOutputByPrecious = (location: any) => {
+        if (location.length > 0) {
+            for (const item of location) {
+                if (item.AverageDate.length > 0) {
+                    let lengthDate = 0;
+
+                    for (const date of item.AverageDate) {
+                        lengthDate += date.length;
+                    }
+
+                    if (lengthDate === 0) {
+                        lengthDate = 1;
+                    }
+
+                    let numberSum = item.TotalQuantity / lengthDate;
+                    numberSum = parseInt(numberSum.toString());
+
+                    let numberMod =
+                        (item.TotalQuantity % lengthDate) / lengthDate;
+
+                    let totalMod = 0;
+
+                    let count = 0;
+                    for (const date of item.AverageDate) {
+                        if (date.length > 0) {
+                            for (const d of date) {
+                                totalMod += numberMod;
+
+                                if (count === lengthDate - 1) {
+                                    numberSum += totalMod;
+                                }
+
+                                count += 1;
+
+                                updateOutputByPrecious({
+                                    variables: {
+                                        siteid: item.SiteId,
+                                        timestamp: d,
+                                        output: numberSum,
+                                    },
+                                })
+                                    .then((res) => {
+                                        console.log(
+                                            res.data?.UpdateOutputByPrecious,
+                                        );
+                                    })
+                                    .catch((err) => console.error(err.message));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+
     const onInsertPreciousClicked = () => {
         let isAllow = true;
 
@@ -671,6 +729,8 @@ const ReportAveragePrecious = () => {
                     });
                     console.log(err);
                 });
+
+            updateDataManualOutputByPrecious(addLocationLocal);
         }
     };
 
@@ -1020,6 +1080,8 @@ const ReportAveragePrecious = () => {
                     });
                     console.log(err);
                 });
+
+            updateDataManualOutputByPrecious(addLocationLocal);
         }
     };
 

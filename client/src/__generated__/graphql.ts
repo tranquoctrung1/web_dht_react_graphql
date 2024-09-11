@@ -655,6 +655,7 @@ export type Mutation = {
   UpdateMeter?: Maybe<Scalars['Int']>;
   UpdateMeterAccreditation?: Maybe<Scalars['Int']>;
   UpdateMeterInstall?: Maybe<Scalars['Int']>;
+  UpdateOutputByPrecious?: Maybe<Scalars['Int']>;
   UpdatePassword?: Maybe<Scalars['Int']>;
   UpdatePrecious?: Maybe<IdOutput>;
   UpdateSite?: Maybe<Scalars['String']>;
@@ -1010,6 +1011,13 @@ export type MutationUpdateMeterAccreditationArgs = {
 
 export type MutationUpdateMeterInstallArgs = {
   meter?: InputMaybe<DeviceMeterInstallUpdateInput>;
+};
+
+
+export type MutationUpdateOutputByPreciousArgs = {
+  output?: InputMaybe<Scalars['Float']>;
+  siteid?: InputMaybe<Scalars['String']>;
+  timestamp?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -3807,6 +3815,15 @@ export type UpdateMeterInstallMutationVariables = Exact<{
 
 
 export type UpdateMeterInstallMutation = { __typename?: 'Mutation', UpdateMeterInstall?: number | null };
+
+export type UpdateOutputByPreciousMutationVariables = Exact<{
+  siteid?: InputMaybe<Scalars['String']>;
+  timestamp?: InputMaybe<Scalars['String']>;
+  output?: InputMaybe<Scalars['Float']>;
+}>;
+
+
+export type UpdateOutputByPreciousMutation = { __typename?: 'Mutation', UpdateOutputByPrecious?: number | null };
 
 export type UpdatePasswordMutationVariables = Exact<{
   user?: InputMaybe<UserUpdatePasswordInput>;
@@ -10935,6 +10952,39 @@ export function useUpdateMeterInstallMutation(baseOptions?: Apollo.MutationHookO
 export type UpdateMeterInstallMutationHookResult = ReturnType<typeof useUpdateMeterInstallMutation>;
 export type UpdateMeterInstallMutationResult = Apollo.MutationResult<UpdateMeterInstallMutation>;
 export type UpdateMeterInstallMutationOptions = Apollo.BaseMutationOptions<UpdateMeterInstallMutation, UpdateMeterInstallMutationVariables>;
+export const UpdateOutputByPreciousDocument = gql`
+    mutation UpdateOutputByPrecious($siteid: String, $timestamp: String, $output: Float) {
+  UpdateOutputByPrecious(siteid: $siteid, timestamp: $timestamp, output: $output)
+}
+    `;
+export type UpdateOutputByPreciousMutationFn = Apollo.MutationFunction<UpdateOutputByPreciousMutation, UpdateOutputByPreciousMutationVariables>;
+
+/**
+ * __useUpdateOutputByPreciousMutation__
+ *
+ * To run a mutation, you first call `useUpdateOutputByPreciousMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOutputByPreciousMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOutputByPreciousMutation, { data, loading, error }] = useUpdateOutputByPreciousMutation({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *      timestamp: // value for 'timestamp'
+ *      output: // value for 'output'
+ *   },
+ * });
+ */
+export function useUpdateOutputByPreciousMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOutputByPreciousMutation, UpdateOutputByPreciousMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOutputByPreciousMutation, UpdateOutputByPreciousMutationVariables>(UpdateOutputByPreciousDocument, options);
+      }
+export type UpdateOutputByPreciousMutationHookResult = ReturnType<typeof useUpdateOutputByPreciousMutation>;
+export type UpdateOutputByPreciousMutationResult = Apollo.MutationResult<UpdateOutputByPreciousMutation>;
+export type UpdateOutputByPreciousMutationOptions = Apollo.BaseMutationOptions<UpdateOutputByPreciousMutation, UpdateOutputByPreciousMutationVariables>;
 export const UpdatePasswordDocument = gql`
     mutation UpdatePassword($user: UserUpdatePasswordInput) {
   UpdatePassword(user: $user)

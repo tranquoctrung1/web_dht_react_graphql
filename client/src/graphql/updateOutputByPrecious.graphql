@@ -1,0 +1,11 @@
+mutation UpdateOutputByPrecious(
+    $siteid: String
+    $timestamp: String
+    $output: Float
+) {
+    UpdateOutputByPrecious(
+        siteid: $siteid
+        timestamp: $timestamp
+        output: $output
+    )
+}

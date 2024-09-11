@@ -2181,5 +2181,11 @@ module.exports = gql`
         UpdateUserStaff(staff: UserStaffInsertInput): Int
 
         DeleteUserStaff(staff: UserStaffInsertInput): Int
+
+        UpdateOutputByPrecious(
+            siteid: String
+            timestamp: String
+            output: Float
+        ): Int
     }
 `;

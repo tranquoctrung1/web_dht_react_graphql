@@ -49,5 +49,17 @@ module.exports = {
         DeleteDataManual: async (parent, { dataManual }, context, info) => {
             return await DataManualModel.Delete(dataManual);
         },
+        UpdateOutputByPrecious: async (
+            parent,
+            { siteid, timestamp, output },
+            context,
+            info,
+        ) => {
+            return await DataManualModel.UpdateOutputByPrecious(
+                siteid,
+                timestamp,
+                output,
+            );
+        },
     },
 };

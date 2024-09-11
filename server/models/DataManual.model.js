@@ -340,7 +340,7 @@ module.exports.UpdateIndex = async (dataManual) => {
             while (startDate.getTime() < dataManual.TimeStamp.getTime()) {
                 startDate.setDate(startDate.getDate() + 1);
 
-                itotalMod += numberMod;
+                totalMod += numberMod;
 
                 index = index + numberSum;
                 index = parseFloat(index.toString());
@@ -393,4 +393,42 @@ module.exports.UpdateIndex = async (dataManual) => {
     Connect.disconnect();
 
     return countInsert;
+};
+
+module.exports.UpdateOutputByPrecious = async (siteid, timestamp, output) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DataManualCollection);
+
+    const temp = new Date(parseInt(timestamp));
+
+    let data = await collection
+        .find({ SiteId: siteid, TimeStamp: temp })
+        .toArray();
+
+    if (data.length > 0) {
+        const update = await collection.updateMany(
+            {
+                _id: new ObjectId(data[0]._id),
+            },
+            {
+                $set: {
+                    Output: output,
+                },
+            },
+        );
+    } else {
+        const obj = {
+            Stt: 0,
+            SiteId: siteid,
+            TimeStamp: temp,
+            Index: null,
+            Output: output,
+            Description: '',
+        };
+
+        const insert = await collection.insertOne(obj);
+    }
+
+    return 0;
 };
