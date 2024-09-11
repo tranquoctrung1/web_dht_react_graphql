@@ -497,23 +497,9 @@ const ReportAveragePrecious = () => {
                     let numberSum = item.TotalQuantity / lengthDate;
                     numberSum = parseInt(numberSum.toString());
 
-                    let numberMod =
-                        (item.TotalQuantity % lengthDate) / lengthDate;
-
-                    let totalMod = 0;
-
-                    let count = 0;
                     for (const date of item.AverageDate) {
                         if (date.length > 0) {
                             for (const d of date) {
-                                totalMod += numberMod;
-
-                                if (count === lengthDate - 1) {
-                                    numberSum += totalMod;
-                                }
-
-                                count += 1;
-
                                 updateOutputByPrecious({
                                     variables: {
                                         siteid: item.SiteId,
