@@ -842,6 +842,8 @@ const ReportAveragePrecious = () => {
             dispatch(addLocations([]));
         }
 
+        dispatch(addIndexs(precious.Index));
+
         getIndexPreciousByCompany({
             company: currentCompanyPreciousState,
             start: precious.Start,
@@ -856,15 +858,13 @@ const ReportAveragePrecious = () => {
                         );
 
                         if (find === undefined) {
-                            precious.Index.push(find);
+                            //@ts-ignore
+                            dispatch(addIndex(item));
                         }
                     }
                 }
-                dispatch(addIndexs(precious.Index));
             })
-            .catch((err) => {
-                console.error(err.message);
-            });
+            .catch((err) => console.error(err.message));
 
         dispatch(addLockValves(precious.LockValve));
         dispatch(addSubtractWaterB1s(precious.SubtractWaterB1));
