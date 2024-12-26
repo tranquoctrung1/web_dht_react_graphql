@@ -488,8 +488,8 @@ const ReportAveragePrecious = () => {
         if (startDate !== 0) {
             dayOfStartDate = new Date(startDate).getDate();
         }
-
-        let tempDate = new Date(period);
+        //@ts-ignore
+        let tempDate = new Date(parseInt(period));
 
         let tempStartPeriod = new Date(
             tempDate.getFullYear(),
@@ -510,8 +510,8 @@ const ReportAveragePrecious = () => {
         if (endDate !== 0) {
             dayOfEndDate = new Date(endDate).getDate();
         }
-
-        let tempDate = new Date(period);
+        //@ts-ignore
+        let tempDate = new Date(parseInt(period));
 
         let tempOfEndPeriod = new Date(
             tempDate.getFullYear(),
@@ -613,6 +613,8 @@ const ReportAveragePrecious = () => {
                             (totalDayPeriod1 +
                                 totalDayPeriod2 +
                                 totalDayPeriod3);
+
+                        numberSum = Math.round(numberSum);
                     } else if (item.DateCalclogger.length > 0) {
                         let totalDay = 0;
 
@@ -627,6 +629,7 @@ const ReportAveragePrecious = () => {
                         }
 
                         numberSum = item.QuantityLogger / totalDay;
+                        numberSum = Math.round(numberSum);
                     }
 
                     numberSum = parseInt(numberSum.toString());
