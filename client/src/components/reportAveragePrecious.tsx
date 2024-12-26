@@ -106,6 +106,7 @@ import {
     convertDatePeriodToYear,
     convertDateToPeriod,
     convertStringMilisecondToStringDate,
+    calcSpace2Date,
 } from '../utils/utils';
 
 import Swal from 'sweetalert2';
@@ -480,21 +481,154 @@ const ReportAveragePrecious = () => {
         document.body.removeChild(fileDownload);
     };
 
+    const calcStartDateOfPeriod = (startDate: number, period: number) => {
+        let result = 0;
+        let dayOfStartDate = 1;
+
+        if (startDate !== 0) {
+            dayOfStartDate = new Date(startDate).getDate();
+        }
+
+        let tempDate = new Date(period);
+
+        let tempStartPeriod = new Date(
+            tempDate.getFullYear(),
+            tempDate.getMonth() - 1,
+            dayOfStartDate,
+            0,
+            0,
+            0,
+        );
+
+        return tempStartPeriod.getTime();
+    };
+
+    const calcEndDateOfPeriod = (endDate: number, period: number) => {
+        let result = 0;
+        let dayOfEndDate = 1;
+
+        if (endDate !== 0) {
+            dayOfEndDate = new Date(endDate).getDate();
+        }
+
+        let tempDate = new Date(period);
+
+        let tempOfEndPeriod = new Date(
+            tempDate.getFullYear(),
+            tempDate.getMonth(),
+            dayOfEndDate,
+            0,
+            0,
+            0,
+        );
+
+        return tempOfEndPeriod.getTime();
+    };
+
     const updateDataManualOutputByPrecious = (location: any) => {
         if (location.length > 0) {
             for (const item of location) {
                 if (item.AverageDate.length > 0) {
                     let lengthDate = 0;
 
-                    for (const date of item.AverageDate) {
-                        lengthDate += date.length;
+                    let numberSum = 0;
+
+                    if (
+                        item.Periods[0].Period != null &&
+                        item.Periods[1].Period !== null &&
+                        item.Periods[2].Period !== null
+                    ) {
+                        let totalDayPeriod1 = calcSpace2Date(
+                            calcStartDateOfPeriod(
+                                //@ts-ignore
+                                currentStartDatePreciousState,
+                                item.Periods[0].Period,
+                            ),
+                            calcEndDateOfPeriod(
+                                //@ts-ignore
+                                currentEndDatePreciousState,
+                                item.Periods[0].Period,
+                            ),
+                        );
+
+                        if (
+                            Number.isNaN(totalDayPeriod1) ||
+                            totalDayPeriod1 == null
+                        ) {
+                            totalDayPeriod1 = 0;
+                        }
+                        let totalDayPeriod2 = calcSpace2Date(
+                            calcStartDateOfPeriod(
+                                //@ts-ignore
+                                currentStartDatePreciousState,
+                                item.Periods[1].Period,
+                            ),
+                            calcEndDateOfPeriod(
+                                //@ts-ignore
+                                currentEndDatePreciousState,
+                                item.Periods[1].Period,
+                            ),
+                        );
+
+                        if (
+                            Number.isNaN(totalDayPeriod2) ||
+                            totalDayPeriod2 == null
+                        ) {
+                            totalDayPeriod2 = 0;
+                        }
+
+                        let totalDayPeriod3 = calcSpace2Date(
+                            calcStartDateOfPeriod(
+                                //@ts-ignore
+                                currentStartDatePreciousState,
+                                item.Periods[2].Period,
+                            ),
+                            calcEndDateOfPeriod(
+                                //@ts-ignore
+                                currentEndDatePreciousState,
+                                item.Periods[2].Period,
+                            ),
+                        );
+
+                        if (
+                            Number.isNaN(totalDayPeriod3) ||
+                            totalDayPeriod3 == null
+                        ) {
+                            totalDayPeriod3 = 0;
+                        }
+
+                        let sumPeriod =
+                            (item.Periods[0].Quantity
+                                ? item.Periods[0].Quantity
+                                : 0) +
+                            (item.Periods[1].Quantity
+                                ? item.Periods[1].Quantity
+                                : 0) +
+                            (item.Periods[2].Quantity
+                                ? item.Periods[2].Quantity
+                                : 0);
+
+                        numberSum =
+                            sumPeriod /
+                            (totalDayPeriod1 +
+                                totalDayPeriod2 +
+                                totalDayPeriod3);
+                    } else if (item.DateCalclogger.length > 0) {
+                        let totalDay = 0;
+
+                        for (const i of item.DateCalclogger) {
+                            if (i.DateRange.length > 0) {
+                                totalDay += i.DateRange.length;
+                            }
+                        }
+
+                        if (totalDay == 0) {
+                            totalDay = 1;
+                        }
+
+                        numberSum = item.QuantityLogger / totalDay;
                     }
 
-                    if (lengthDate === 0) {
-                        lengthDate = 1;
-                    }
-
-                    let numberSum = item.TotalQuantity / lengthDate;
                     numberSum = parseInt(numberSum.toString());
 
                     for (const date of item.AverageDate) {
