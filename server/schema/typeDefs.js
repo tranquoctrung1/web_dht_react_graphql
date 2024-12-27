@@ -2187,5 +2187,12 @@ module.exports = gql`
             timestamp: String
             output: Float
         ): Int
+
+        UpdateIndexByPrecious(
+            siteid: String
+            timestamp: String
+            index: Float
+            output: Float
+        ): Int
     }
 `;

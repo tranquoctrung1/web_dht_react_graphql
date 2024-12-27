@@ -432,3 +432,47 @@ module.exports.UpdateOutputByPrecious = async (siteid, timestamp, output) => {
 
     return 0;
 };
+
+module.exports.UpdateIndexByPrecious = async (
+    siteid,
+    timestamp,
+    index,
+    output,
+) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(DataManualCollection);
+
+    const temp = new Date(parseInt(timestamp));
+
+    let data = await collection
+        .find({ SiteId: siteid, TimeStamp: temp })
+        .toArray();
+
+    if (data.length > 0) {
+        const update = await collection.updateMany(
+            {
+                _id: new ObjectId(data[0]._id),
+            },
+            {
+                $set: {
+                    Output: output,
+                    Index: index,
+                },
+            },
+        );
+    } else {
+        const obj = {
+            Stt: 0,
+            SiteId: siteid,
+            TimeStamp: temp,
+            Index: index,
+            Output: output,
+            Description: '',
+        };
+
+        const insert = await collection.insertOne(obj);
+    }
+
+    return 0;
+};

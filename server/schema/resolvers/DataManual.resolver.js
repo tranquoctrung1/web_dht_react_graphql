@@ -61,5 +61,18 @@ module.exports = {
                 output,
             );
         },
+        UpdateIndexByPrecious: async (
+            parent,
+            { siteid, timestamp, index, output },
+            context,
+            info,
+        ) => {
+            return await DataManualModel.UpdateIndexByPrecious(
+                siteid,
+                timestamp,
+                index,
+                output,
+            );
+        },
     },
 };

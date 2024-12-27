@@ -22,6 +22,7 @@ import {
     useUpdatePreciousMutation,
     useGetIndexPreciousByCompanyQuery,
     useUpdateOutputByPreciousMutation,
+    useUpdateIndexByPreciousMutation,
 } from '../__generated__/graphql';
 
 import Companies from '../types/companies.type';
@@ -162,6 +163,7 @@ const ReportAveragePrecious = () => {
         useGetIndexPreciousByCompanyQuery();
 
     const [updateOutputByPrecious] = useUpdateOutputByPreciousMutation();
+    const [updateIndexByPrecious] = useUpdateIndexByPreciousMutation();
 
     //@ts-ignore
     let tempData = [];
@@ -613,8 +615,6 @@ const ReportAveragePrecious = () => {
                             (totalDayPeriod1 +
                                 totalDayPeriod2 +
                                 totalDayPeriod3);
-
-                        numberSum = Math.round(numberSum);
                     } else if (item.DateCalclogger.length > 0) {
                         let totalDay = 0;
 
@@ -629,8 +629,10 @@ const ReportAveragePrecious = () => {
                         }
 
                         numberSum = item.QuantityLogger / totalDay;
-                        numberSum = Math.round(numberSum);
                     }
+                    numberSum += 0.01;
+
+                    numberSum = Math.round(numberSum);
 
                     numberSum = parseInt(numberSum.toString());
 
@@ -653,6 +655,91 @@ const ReportAveragePrecious = () => {
                             }
                         }
                     }
+                }
+            }
+        }
+    };
+
+    const updateDataManualOutputByLockValvePrecious = (location: any) => {
+        if (location.length > 0) {
+            for (const item of location) {
+                let totalDay = calcSpace2Date(
+                    //@ts-ignore
+                    currentStartDatePreciousState,
+                    currentEndDatePreciousState,
+                );
+
+                for (let i = 0; i < totalDay; i++) {
+                    //@ts-ignore
+                    let time = new Date(currentStartDatePreciousState);
+                    time.setDate(time.getDate() + i);
+
+                    updateOutputByPrecious({
+                        variables: {
+                            siteid: item.SiteId,
+                            timestamp: time.getTime().toString(),
+                            output: 0,
+                        },
+                    })
+                        .then((res) => {
+                            console.log(res.data?.UpdateOutputByPrecious);
+                        })
+                        .catch((err) => console.error(err.message));
+                }
+            }
+        }
+    };
+
+    const updateDataManualOutputByIndexPrecious = (location: any) => {
+        if (location.length > 0) {
+            for (const item of location) {
+                let totalDay = calcSpace2Date(
+                    //@ts-ignore
+                    currentStartDatePreciousState,
+                    currentEndDatePreciousState,
+                );
+
+                const quantity =
+                    item.NextPeriodIndex - item.PreviousPeriodIndex;
+
+                let index = item.PreviousPeriodIndex;
+
+                let numberSum = quantity / totalDay;
+                //@ts-ignore
+                numberSum = parseInt(numberSum);
+
+                let numberMod = (quantity % totalDay) / totalDay;
+
+                let totalMod = 0;
+
+                for (let i = 0; i < totalDay; i++) {
+                    //@ts-ignore
+                    let time = new Date(currentStartDatePreciousState);
+                    time.setDate(time.getDate() + i);
+
+                    totalMod += numberMod;
+
+                    index = index + numberSum;
+                    index = parseFloat(index.toString());
+                    index = index.toFixed(0);
+                    index = parseFloat(index);
+
+                    if (i === totalDay - 1) {
+                        numberSum = numberSum + totalMod;
+                    }
+
+                    updateIndexByPrecious({
+                        variables: {
+                            siteid: item.SiteId,
+                            timestamp: time.getTime().toString(),
+                            index: index,
+                            output: numberSum,
+                        },
+                    })
+                        .then((res) => {
+                            console.log(res.data?.UpdateIndexByPrecious);
+                        })
+                        .catch((err) => console.error(err.message));
                 }
             }
         }
@@ -854,6 +941,10 @@ const ReportAveragePrecious = () => {
                 });
 
             updateDataManualOutputByPrecious(addLocationLocal);
+
+            updateDataManualOutputByLockValvePrecious(addLockValveState);
+
+            updateDataManualOutputByIndexPrecious(addIndexState);
         }
     };
 
@@ -1205,6 +1296,10 @@ const ReportAveragePrecious = () => {
                 });
 
             updateDataManualOutputByPrecious(addLocationLocal);
+
+            updateDataManualOutputByLockValvePrecious(addLockValveState);
+
+            updateDataManualOutputByIndexPrecious(addIndexState);
         }
     };
 

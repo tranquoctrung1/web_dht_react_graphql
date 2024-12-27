@@ -649,6 +649,7 @@ export type Mutation = {
   UpdateHistorySiteLogger?: Maybe<Scalars['Int']>;
   UpdateHistorySiteMeter?: Maybe<Scalars['Int']>;
   UpdateHistorySiteTransmitter?: Maybe<Scalars['Int']>;
+  UpdateIndexByPrecious?: Maybe<Scalars['Int']>;
   UpdateIndexDataManual?: Maybe<Scalars['Int']>;
   UpdateLogger?: Maybe<Scalars['Int']>;
   UpdateLoggerInstall?: Maybe<Scalars['Int']>;
@@ -981,6 +982,14 @@ export type MutationUpdateHistorySiteMeterArgs = {
 
 export type MutationUpdateHistorySiteTransmitterArgs = {
   history?: InputMaybe<HistorySiteTransmitterUpdateInput>;
+};
+
+
+export type MutationUpdateIndexByPreciousArgs = {
+  index?: InputMaybe<Scalars['Float']>;
+  output?: InputMaybe<Scalars['Float']>;
+  siteid?: InputMaybe<Scalars['String']>;
+  timestamp?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -3794,6 +3803,16 @@ export type UpdateHistorySiteTransmitterMutationVariables = Exact<{
 
 
 export type UpdateHistorySiteTransmitterMutation = { __typename?: 'Mutation', UpdateHistorySiteTransmitter?: number | null };
+
+export type UpdateIndexByPreciousMutationVariables = Exact<{
+  siteid?: InputMaybe<Scalars['String']>;
+  timestamp?: InputMaybe<Scalars['String']>;
+  index?: InputMaybe<Scalars['Float']>;
+  output?: InputMaybe<Scalars['Float']>;
+}>;
+
+
+export type UpdateIndexByPreciousMutation = { __typename?: 'Mutation', UpdateIndexByPrecious?: number | null };
 
 export type UpdateIndexDataManualMutationVariables = Exact<{
   dataManual?: InputMaybe<DataManualUpdateInput>;
@@ -10859,6 +10878,45 @@ export function useUpdateHistorySiteTransmitterMutation(baseOptions?: Apollo.Mut
 export type UpdateHistorySiteTransmitterMutationHookResult = ReturnType<typeof useUpdateHistorySiteTransmitterMutation>;
 export type UpdateHistorySiteTransmitterMutationResult = Apollo.MutationResult<UpdateHistorySiteTransmitterMutation>;
 export type UpdateHistorySiteTransmitterMutationOptions = Apollo.BaseMutationOptions<UpdateHistorySiteTransmitterMutation, UpdateHistorySiteTransmitterMutationVariables>;
+export const UpdateIndexByPreciousDocument = gql`
+    mutation UpdateIndexByPrecious($siteid: String, $timestamp: String, $index: Float, $output: Float) {
+  UpdateIndexByPrecious(
+    siteid: $siteid
+    timestamp: $timestamp
+    index: $index
+    output: $output
+  )
+}
+    `;
+export type UpdateIndexByPreciousMutationFn = Apollo.MutationFunction<UpdateIndexByPreciousMutation, UpdateIndexByPreciousMutationVariables>;
+
+/**
+ * __useUpdateIndexByPreciousMutation__
+ *
+ * To run a mutation, you first call `useUpdateIndexByPreciousMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateIndexByPreciousMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateIndexByPreciousMutation, { data, loading, error }] = useUpdateIndexByPreciousMutation({
+ *   variables: {
+ *      siteid: // value for 'siteid'
+ *      timestamp: // value for 'timestamp'
+ *      index: // value for 'index'
+ *      output: // value for 'output'
+ *   },
+ * });
+ */
+export function useUpdateIndexByPreciousMutation(baseOptions?: Apollo.MutationHookOptions<UpdateIndexByPreciousMutation, UpdateIndexByPreciousMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateIndexByPreciousMutation, UpdateIndexByPreciousMutationVariables>(UpdateIndexByPreciousDocument, options);
+      }
+export type UpdateIndexByPreciousMutationHookResult = ReturnType<typeof useUpdateIndexByPreciousMutation>;
+export type UpdateIndexByPreciousMutationResult = Apollo.MutationResult<UpdateIndexByPreciousMutation>;
+export type UpdateIndexByPreciousMutationOptions = Apollo.BaseMutationOptions<UpdateIndexByPreciousMutation, UpdateIndexByPreciousMutationVariables>;
 export const UpdateIndexDataManualDocument = gql`
     mutation UpdateIndexDataManual($dataManual: DataManualUpdateInput) {
   UpdateIndexDataManual(dataManual: $dataManual)

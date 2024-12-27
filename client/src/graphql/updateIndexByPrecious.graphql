@@ -1,0 +1,13 @@
+mutation UpdateIndexByPrecious(
+    $siteid: String
+    $timestamp: String
+    $index: Float
+    $output: Float
+) {
+    UpdateIndexByPrecious(
+        siteid: $siteid
+        timestamp: $timestamp
+        index: $index
+        output: $output
+    )
+}
