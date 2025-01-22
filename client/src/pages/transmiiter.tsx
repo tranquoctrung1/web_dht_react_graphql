@@ -280,11 +280,11 @@ const TransmitterPage = () => {
             Size: 0,
             Model: '',
             Status: '',
-            Installed: 0,
+            Installed: false,
             InstallIndex: 0,
             Description: '',
             AppovalDate: null,
-            Approvaled: 0,
+            Approvaled: false,
             AppovalDecision: '',
             MeterSerial: '',
         },
@@ -855,6 +855,7 @@ const TransmitterPage = () => {
                         name="Approvaled"
                         control={control}
                         render={({ field }) => (
+                            // @ts-ignore
                             <Checkbox
                                 labelPosition="left"
                                 label="Đã phê duyệt"
@@ -1000,6 +1001,7 @@ const TransmitterPage = () => {
                         name="Installed"
                         control={control}
                         render={({ field }) => (
+                            // @ts-ignore
                             <Checkbox
                                 labelPosition="left"
                                 label="Lắp đặt"

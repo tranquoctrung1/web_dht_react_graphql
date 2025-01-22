@@ -155,7 +155,7 @@ const LoggerPage = () => {
             Marks: '',
             Model: '',
             Status: '',
-            Installed: 0,
+            Installed: false,
             Description: '',
         },
     });
@@ -702,6 +702,7 @@ const LoggerPage = () => {
                         name="Installed"
                         control={control}
                         render={({ field }) => (
+                            // @ts-ignore
                             <Checkbox
                                 labelPosition="left"
                                 label="Lắp đặt"
