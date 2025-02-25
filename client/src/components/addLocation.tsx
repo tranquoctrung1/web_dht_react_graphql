@@ -638,7 +638,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                             let sumQuantity = 0;
                             let timeRange = date;
                             let from = date[0];
-                            let to = [date.length - 1];
+                            let to = date[date.length - 1];
 
                             if (
                                 res.data.QuantityLoggerByTimeStamp !== null &&
