@@ -16,7 +16,7 @@ import {
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 
-import { IconMapPin, IconUpload } from '@tabler/icons-react';
+import { IconMapPin, IconSignRight, IconUpload } from '@tabler/icons-react';
 
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -564,7 +564,10 @@ const SiteConfigPage = () => {
             _id: '',
             OldId: '',
             Location: '',
+
+            //@ts-ignore
             Latitude: null || 0,
+            //@ts-ignore
             Longitude: null || 0,
             ViewGroup: '',
             StaffId: '',
@@ -578,6 +581,7 @@ const SiteConfigPage = () => {
             DateOfTransmitterBatteryChange: null,
             DateOfLoggerBatteryChange: null,
             DescriptionOfChange: '',
+            //@ts-ignore
             ChangeIndex: null || 0,
             Level: '',
             Group: '',
@@ -593,9 +597,10 @@ const SiteConfigPage = () => {
             ProductionCompany: '',
             IstDistributionCompany: '',
             QndDistributionCompany: '',
-            IstDoNotCalculateReverse: 0,
-            QndDoNotCalculateReverse: 0,
+            IstDoNotCalculateReverse: false,
+            QndDoNotCalculateReverse: false,
             Description: '',
+            //@ts-ignore
             ChangeIndex1: null || 0,
             Group2: '',
             Address: '',
@@ -1954,6 +1959,7 @@ const SiteConfigPage = () => {
                                 name="IstDoNotCalculateReverse"
                                 control={control}
                                 render={({ field }) => (
+                                    // @ts-ignore
                                     <Checkbox
                                         style={{ marginTop: '1.5rem' }}
                                         //@ts-ignore
@@ -2041,6 +2047,7 @@ const SiteConfigPage = () => {
                                 name="QndDoNotCalculateReverse"
                                 control={control}
                                 render={({ field }) => (
+                                    // @ts-ignore
                                     <Checkbox
                                         style={{ marginTop: '1.5rem' }}
                                         //@ts-ignore

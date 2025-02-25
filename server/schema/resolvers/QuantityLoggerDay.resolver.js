@@ -361,6 +361,8 @@ module.exports = {
                                             objQuantity.Value = 0;
                                         }
                                     }
+                                    objQuantity.Value =
+                                        objQuantity.Value.toFixed(0);
 
                                     obj.ListQuantity.push(objQuantity);
                                 }
@@ -387,7 +389,7 @@ module.exports = {
             if (result.length > 0) {
                 for (let item of result) {
                     for (let i of item.ListQuantity) {
-                        returnedValue += i.Value;
+                        returnedValue += parseInt(i.Value);
                     }
                 }
             }
@@ -747,6 +749,9 @@ module.exports = {
                                             objQuantity.Value = 0;
                                         }
                                     }
+
+                                    objQuantity.Value =
+                                        objQuantity.Value.toFixed(0);
 
                                     obj.ListQuantity.push(objQuantity);
                                 }

@@ -362,6 +362,9 @@ module.exports = {
                                         }
                                     }
 
+                                    objQuantity.Value =
+                                        objQuantity.Value.toFixed(0);
+
                                     obj.ListQuantity.push(objQuantity);
                                 }
                             }

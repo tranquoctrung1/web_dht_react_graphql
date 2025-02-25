@@ -343,7 +343,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                 let startDate = new Date(
                     e.getFullYear(),
                     e.getMonth() - 1,
-                    dayOfStartDate,
+                    26,
                     0,
                     0,
                     0,
@@ -351,7 +351,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                 let endDate = new Date(
                     e.getFullYear(),
                     e.getMonth(),
-                    dayOfEndDate,
+                    25,
                     0,
                     0,
                     0,
@@ -422,7 +422,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                 let startDate = new Date(
                     e.getFullYear(),
                     e.getMonth() - 1,
-                    dayOfStartDate,
+                    26,
                     0,
                     0,
                     0,
@@ -430,7 +430,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                 let endDate = new Date(
                     e.getFullYear(),
                     e.getMonth(),
-                    dayOfEndDate,
+                    25,
                     0,
                     0,
                     0,
@@ -501,7 +501,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                 let startDate = new Date(
                     e.getFullYear(),
                     e.getMonth() - 1,
-                    dayOfStartDate,
+                    26,
                     0,
                     0,
                     0,
@@ -509,7 +509,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                 let endDate = new Date(
                     e.getFullYear(),
                     e.getMonth(),
-                    dayOfEndDate,
+                    25,
                     0,
                     0,
                     0,
@@ -638,7 +638,7 @@ const AddLocation = ({ index }: AddLocationInterface) => {
                             let sumQuantity = 0;
                             let timeRange = date;
                             let from = date[0];
-                            let to = date[date.length - 1];
+                            let to = [date.length - 1];
 
                             if (
                                 res.data.QuantityLoggerByTimeStamp !== null &&

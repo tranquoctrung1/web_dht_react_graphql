@@ -948,32 +948,37 @@ module.exports.Update = async (site) => {
         });
 
         site.DateOfMeterChange =
-            site.DateOfMeterChange === ''
+            site.DateOfMeterChange === '' || site.DateOfMeterChange === null
                 ? null
                 : new Date(site.DateOfMeterChange);
         site.DateOfLoggerChange =
-            site.DateOfLoggerChange === ''
+            site.DateOfLoggerChange === '' || site.DateOfLoggerChange === null
                 ? null
                 : new Date(site.DateOfLoggerChange);
         site.DateOfTransmitterChange =
-            site.DateOfTransmitterChange === ''
+            site.DateOfTransmitterChange === '' ||
+            site.DateOfTransmitterChange === null
                 ? null
                 : new Date(site.DateOfTransmitterChange);
         site.DateOfBatteryChange =
-            site.DateOfBatteryChange === ''
+            site.DateOfBatteryChange === '' || site.DateOfBatteryChange === null
                 ? null
                 : new Date(site.DateOfBatteryChange);
         site.DateOfTransmitterBatteryChange =
-            site.DateOfTransmitterBatteryChange === ''
+            site.DateOfTransmitterBatteryChange === '' ||
+            site.DateOfTransmitterBatteryChange === null
                 ? null
                 : new Date(site.DateOfTransmitterBatteryChange);
         site.DateOfLoggerBatteryChange =
-            site.DateOfLoggerBatteryChange === ''
+            site.DateOfLoggerBatteryChange === '' ||
+            site.DateOfLoggerBatteryChange === null
                 ? null
                 : new Date(site.DateOfLoggerBatteryChange);
 
         site.TakeoverDate =
-            site.TakeoverDate === '' ? null : new Date(site.TakeoverDate);
+            site.TakeoverDate === '' || site.TakeoverDate === null
+                ? null
+                : new Date(site.TakeoverDate);
 
         result = await collection.insertOne(site);
 
