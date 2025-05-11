@@ -152,14 +152,19 @@ module.exports.Insert = async (cover) => {
     let result = '';
 
     let collection = await Connect.connect(SiteCoverCollection);
+    let check = await collection.find({ CoverID: cover.CoverID }).toArray();
+    if (check.length > 0) {
+        Connect.disconnect();
+        return '';
+    } else {
+        result = await collection.insertOne(cover);
 
-    result = await collection.insertOne(cover);
+        result = result.insertedId;
 
-    result = result.insertedId;
+        Connect.disconnect();
 
-    Connect.disconnect();
-
-    return result;
+        return result;
+    }
 };
 
 module.exports.Delete = async (cover) => {

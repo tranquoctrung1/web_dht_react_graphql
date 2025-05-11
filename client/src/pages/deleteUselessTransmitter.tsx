@@ -5,7 +5,7 @@ import { checkAdminViewerRole } from '../utils/utils';
 import { useEffect, useState } from 'react';
 
 import {
-    useGetAllTransmitterLazyQuery,
+    useGetAllTransmitterQuery,
     useDeleteTransmitterMutation,
 } from '../__generated__/graphql';
 
@@ -26,7 +26,7 @@ const DeleteUselessTransmitterPage = () => {
     const [data, setData] = useState([]);
     const [listTransmitter, setListTransmitter] = useState([]);
 
-    const [getTransmitter, {}] = useGetAllTransmitterLazyQuery();
+    const { refetch: getTransmitter } = useGetAllTransmitterQuery();
     const [deleteTransmitter, {}] = useDeleteTransmitterMutation();
 
     const [selectedRowFile, setSelectedRowFile] = useState([]);

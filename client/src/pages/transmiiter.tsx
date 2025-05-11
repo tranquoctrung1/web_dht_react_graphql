@@ -20,14 +20,14 @@ import Swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
 
 import {
-    useGetAllMeterLazyQuery,
-    useGetTransmitterMarksLazyQuery,
-    useGetTransmitterModelLazyQuery,
-    useGetTransmitterSizeLazyQuery,
-    useGetTransmitterProviderLazyQuery,
-    useGetAllMeterAccreditationTypeLazyQuery,
-    useGetAllTransmitterLazyQuery,
-    useGetAllDeviceStatusLazyQuery,
+    useGetAllMeterQuery,
+    useGetTransmitterMarksQuery,
+    useGetTransmitterModelQuery,
+    useGetTransmitterSizeQuery,
+    useGetTransmitterProviderQuery,
+    useGetAllMeterAccreditationTypeQuery,
+    useGetAllTransmitterQuery,
+    useGetAllDeviceStatusQuery,
     useInsertTransmitterMutation,
     useUpdateTransmitterMutation,
     useDeleteTransmitterMutation,
@@ -52,14 +52,14 @@ const TransmitterPage = () => {
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 
-    const [getMeter, {}] = useGetAllMeterLazyQuery();
-    const [getProvider, {}] = useGetTransmitterProviderLazyQuery();
-    const [getMarks, {}] = useGetTransmitterMarksLazyQuery();
-    const [getModel, {}] = useGetTransmitterModelLazyQuery();
-    const [getSize, {}] = useGetTransmitterSizeLazyQuery();
-    const [getMeterAcc, {}] = useGetAllMeterAccreditationTypeLazyQuery();
-    const [getTransmitter, {}] = useGetAllTransmitterLazyQuery();
-    const [getDeviceStatus, {}] = useGetAllDeviceStatusLazyQuery();
+    const { refetch: getMeter } = useGetAllMeterQuery();
+    const { refetch: getProvider } = useGetTransmitterProviderQuery();
+    const { refetch: getMarks } = useGetTransmitterMarksQuery();
+    const { refetch: getModel } = useGetTransmitterModelQuery();
+    const { refetch: getSize } = useGetTransmitterSizeQuery();
+    const { refetch: getMeterAcc } = useGetAllMeterAccreditationTypeQuery();
+    const { refetch: getTransmitter } = useGetAllTransmitterQuery();
+    const { refetch: getDeviceStatus } = useGetAllDeviceStatusQuery();
 
     const [insertTransmitter, {}] = useInsertTransmitterMutation();
     const [updateTransmitter, {}] = useUpdateTransmitterMutation();
@@ -372,7 +372,11 @@ const TransmitterPage = () => {
             //@ts-ignore
             setValue('Approvaled', find.Approvaled);
             //@ts-ignore
-            setValue('AppovalDecision', find.AppovalDecision);
+            setValue(
+                'AppovalDecision',
+                //@ts-ignore
+                find.AppovalDecision ? find.AppovalDecision : '',
+            );
             //@ts-ignore
             setValue('MeterSerial', find.MeterSerial);
         }

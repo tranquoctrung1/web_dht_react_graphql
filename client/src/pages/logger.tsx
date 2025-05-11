@@ -18,14 +18,14 @@ import Swal from 'sweetalert2';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllLoggerLazyQuery,
+    useGetAllLoggerQuery,
     useInsertLoggerMutation,
     useUpdateLoggerMutation,
     useDeleteLoggerMutation,
-    useGetLoggerMarksLazyQuery,
-    useGetLoggerModelLazyQuery,
-    useGetLoggerProviderLazyQuery,
-    useGetAllDeviceStatusLazyQuery,
+    useGetLoggerMarksQuery,
+    useGetLoggerModelQuery,
+    useGetLoggerProviderQuery,
+    useGetAllDeviceStatusQuery,
 } from '../__generated__/graphql';
 
 import { useEffect, useState } from 'react';
@@ -43,15 +43,15 @@ const LoggerPage = () => {
     const [providerData, setProviderData] = useState([]);
     const [statusData, setStatusData] = useState([]);
 
-    const [getLoggers, {}] = useGetAllLoggerLazyQuery();
+    const { refetch: getLoggers } = useGetAllLoggerQuery();
     const [insertLogger, {}] = useInsertLoggerMutation();
     const [updateLogger, {}] = useUpdateLoggerMutation();
     const [deleteLogger, {}] = useDeleteLoggerMutation();
 
-    const [getMarks, {}] = useGetLoggerMarksLazyQuery();
-    const [getModel, {}] = useGetLoggerModelLazyQuery();
-    const [getProvider, {}] = useGetLoggerProviderLazyQuery();
-    const [getDeviceStatus, {}] = useGetAllDeviceStatusLazyQuery();
+    const { refetch: getMarks } = useGetLoggerMarksQuery();
+    const { refetch: getModel } = useGetLoggerModelQuery();
+    const { refetch: getProvider } = useGetLoggerProviderQuery();
+    const { refetch: getDeviceStatus } = useGetAllDeviceStatusQuery();
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());

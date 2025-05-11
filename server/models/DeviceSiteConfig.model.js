@@ -63,13 +63,19 @@ module.exports.Insert = async (siteConfig) => {
 
     let collection = await Connect.connect(DeviceSiteConfigCollection);
 
-    result = await collection.insertOne(siteConfig);
+    let check = await collection.find({ SiteId: siteConfig.SiteId }).toArray();
+    if (check.length > 0) {
+        Connect.disconnect();
+        return '';
+    } else {
+        result = await collection.insertOne(siteConfig);
 
-    result = result.insertedId;
+        result = result.insertedId;
 
-    Connect.disconnect();
+        Connect.disconnect();
 
-    return result;
+        return result;
+    }
 };
 
 module.exports.Delete = async (siteConfig) => {

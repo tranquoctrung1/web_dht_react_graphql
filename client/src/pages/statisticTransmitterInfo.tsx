@@ -3,8 +3,8 @@ import { Grid, Col, Select, Text, Center } from '@mantine/core';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllSitesLazyQuery,
-    useGetAllTransmitterLazyQuery,
+    useGetAllSitesQuery,
+    useGetAllTransmitterQuery,
 } from '../__generated__/graphql';
 import { useState, useEffect } from 'react';
 
@@ -19,8 +19,8 @@ const StatisticTransmiiterInfoPage = () => {
 
     const [valueSerial, setValueSerial] = useState('');
 
-    const [getSite, {}] = useGetAllSitesLazyQuery();
-    const [getTransmitter, {}] = useGetAllTransmitterLazyQuery();
+    const { refetch: getSite } = useGetAllSitesQuery();
+    const { refetch: getTransmitter } = useGetAllTransmitterQuery();
 
     useEffect(() => {
         getSite()

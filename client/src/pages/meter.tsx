@@ -24,15 +24,15 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import {
-    useGetAllMeterLazyQuery,
-    useGetMeterMarksLazyQuery,
-    useGetMeterProviderLazyQuery,
-    useGetMeterModelLazyQuery,
-    useGetMeterSizeLazyQuery,
-    useGetMeterNationalitiesLazyQuery,
-    useGetAllMeterAccreditationTypeLazyQuery,
-    useGetAllTransmitterLazyQuery,
-    useGetAllDeviceStatusLazyQuery,
+    useGetAllMeterQuery,
+    useGetMeterMarksQuery,
+    useGetMeterProviderQuery,
+    useGetMeterModelQuery,
+    useGetMeterSizeQuery,
+    useGetMeterNationalitiesQuery,
+    useGetAllMeterAccreditationTypeQuery,
+    useGetAllTransmitterQuery,
+    useGetAllDeviceStatusQuery,
     useInsertMeterMutation,
     useUpdateMeterMutation,
     useDeleteMeterMutation,
@@ -68,15 +68,15 @@ const MeterPage = () => {
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 
-    const [getMeter, {}] = useGetAllMeterLazyQuery();
-    const [getProvider, {}] = useGetMeterProviderLazyQuery();
-    const [getMarks, {}] = useGetMeterMarksLazyQuery();
-    const [getModel, {}] = useGetMeterModelLazyQuery();
-    const [getNation, {}] = useGetMeterNationalitiesLazyQuery();
-    const [getSize, {}] = useGetMeterSizeLazyQuery();
-    const [getMeterAcc, {}] = useGetAllMeterAccreditationTypeLazyQuery();
-    const [getTransmitter, {}] = useGetAllTransmitterLazyQuery();
-    const [getDeviceStatus, {}] = useGetAllDeviceStatusLazyQuery();
+    const { refetch: getMeter } = useGetAllMeterQuery();
+    const { refetch: getProvider } = useGetMeterProviderQuery();
+    const { refetch: getMarks } = useGetMeterMarksQuery();
+    const { refetch: getModel } = useGetMeterModelQuery();
+    const { refetch: getNation } = useGetMeterNationalitiesQuery();
+    const { refetch: getSize } = useGetMeterSizeQuery();
+    const { refetch: getMeterAcc } = useGetAllMeterAccreditationTypeQuery();
+    const { refetch: getTransmitter } = useGetAllTransmitterQuery();
+    const { refetch: getDeviceStatus } = useGetAllDeviceStatusQuery();
 
     const [insertMeter, {}] = useInsertMeterMutation();
     const [updateMeter, {}] = useUpdateMeterMutation();
@@ -415,7 +415,11 @@ const MeterPage = () => {
             //@ts-ignore
             setValue('Approvaled', find.Approvaled);
             //@ts-ignore
-            setValue('AppovalDecision', find.AppovalDecision);
+            setValue(
+                'AppovalDecision',
+                //@ts-ignore
+                find.AppovalDecision ? find.AppovalDecision : '',
+            );
             //@ts-ignore
             setValue('SerialTransmitter', find.SerialTransmitter);
             //@ts-ignore

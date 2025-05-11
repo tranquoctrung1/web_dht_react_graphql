@@ -14,8 +14,8 @@ import { TimeInput } from '@mantine/dates';
 
 import {
     useGetAllSitesQuery,
-    useGetAllDeviceSiteConfigLazyQuery,
-    useGetAllDeviceChannelConifgLazyQuery,
+    useGetAllDeviceSiteConfigQuery,
+    useGetAllDeviceChannelConifgQuery,
     useInsertDeviceSiteConfigMutation,
     useUpdateDeviceChannelConfigMutation,
     useUpdateDeviceSiteConfigMutation,
@@ -55,9 +55,9 @@ const LoggerConfigPage = () => {
     const dispatch = useDispatch();
 
     const { data: sites, error: siteError } = useGetAllSitesQuery();
-    const [getDeviceSiteConfig, {}] = useGetAllDeviceSiteConfigLazyQuery();
-    const [getDeviceChannelConfig, {}] =
-        useGetAllDeviceChannelConifgLazyQuery();
+    const { refetch: getDeviceSiteConfig } = useGetAllDeviceSiteConfigQuery();
+    const { refetch: getDeviceChannelConfig } =
+        useGetAllDeviceChannelConifgQuery();
     const [insertDeviceSiteConfig, {}] = useInsertDeviceSiteConfigMutation();
     const [updateDeviceSiteConfig, {}] = useUpdateDeviceSiteConfigMutation();
     const [deleteDeviceSiteConfig, {}] = useDeleteDeviceSiteConfigMutation();
@@ -151,6 +151,7 @@ const LoggerConfigPage = () => {
             Forward: null,
             Reverse: null,
             Interval: 15,
+            //@ts-ignore
             BeginTime: null || 0,
             ZoomInit: null,
             ZoomOn: null,
@@ -349,6 +350,7 @@ const LoggerConfigPage = () => {
             Forward: null,
             Reverse: null,
             Interval: getValues('Interval'),
+            //@ts-ignore
             BeginTime: null || 0,
             ZoomInit: null,
             ZoomOn: null,
@@ -432,6 +434,7 @@ const LoggerConfigPage = () => {
             Forward: null,
             Reverse: null,
             Interval: getValues('Interval'),
+            //@ts-ignore
             BeginTime: null || 0,
             ZoomInit: null,
             ZoomOn: null,
@@ -515,6 +518,7 @@ const LoggerConfigPage = () => {
             Forward: null,
             Reverse: null,
             Interval: getValues('Interval'),
+            //@ts-ignore
             BeginTime: null || 0,
             ZoomInit: null,
             ZoomOn: null,

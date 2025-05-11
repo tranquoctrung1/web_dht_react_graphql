@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllSiteCoverLazyQuery,
-    useGetAllCoverHLazyQuery,
-    useGetAllCoverLLazyQuery,
-    useGetAllCoverWLazyQuery,
-    useGetAllCorverMeterialLazyQuery,
-    useGetAllCoverNlLazyQuery,
+    useGetAllSiteCoverQuery,
+    useGetAllCoverHQuery,
+    useGetAllCoverLQuery,
+    useGetAllCoverWQuery,
+    useGetAllCorverMeterialQuery,
+    useGetAllCoverNlQuery,
     useInsertCoverMutation,
     useUpdateCoverMutation,
     useDeleteCoverMutation,
@@ -34,12 +34,12 @@ const CoverPage = () => {
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 
-    const [getCover, {}] = useGetAllSiteCoverLazyQuery();
-    const [getCoverL, {}] = useGetAllCoverLLazyQuery();
-    const [getCoverW, {}] = useGetAllCoverWLazyQuery();
-    const [getCoverH, {}] = useGetAllCoverHLazyQuery();
-    const [getCoverNL, {}] = useGetAllCoverNlLazyQuery();
-    const [getCoverMeterial, {}] = useGetAllCorverMeterialLazyQuery();
+    const { refetch: getCover } = useGetAllSiteCoverQuery();
+    const { refetch: getCoverL } = useGetAllCoverLQuery();
+    const { refetch: getCoverW } = useGetAllCoverWQuery();
+    const { refetch: getCoverH } = useGetAllCoverHQuery();
+    const { refetch: getCoverNL } = useGetAllCoverNlQuery();
+    const { refetch: getCoverMeterial } = useGetAllCorverMeterialQuery();
 
     const [insertCover, {}] = useInsertCoverMutation();
     const [updateCover, {}] = useUpdateCoverMutation();

@@ -2,7 +2,7 @@ import { Grid, Col, Button, Center, Text } from '@mantine/core';
 
 import { DateInput } from '@mantine/dates';
 
-import { useGetStatisticAccreditationAndExpiryDateLazyQuery } from '../__generated__/graphql';
+import { useGetStatisticAccreditationAndExpiryDateQuery } from '../__generated__/graphql';
 
 import DataTable from 'react-data-table-component';
 // @ts-ignore
@@ -30,8 +30,8 @@ const StatisticAccreditationAndExpiryDatePage = () => {
     const [statisticData, setStatisticData] = useState([]);
     const [data, setData] = useState([]);
 
-    const [getStatisticAccreditationAndExpiry, {}] =
-        useGetStatisticAccreditationAndExpiryDateLazyQuery();
+    const { refetch: getStatisticAccreditationAndExpiry } =
+        useGetStatisticAccreditationAndExpiryDateQuery();
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
@@ -201,9 +201,7 @@ ${row.Location}
 
     const onViewClicked = () => {
         getStatisticAccreditationAndExpiry({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (

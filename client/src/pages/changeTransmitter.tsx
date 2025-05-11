@@ -14,9 +14,9 @@ import {
 import { DateInput } from '@mantine/dates';
 
 import {
-    useGetAllSitesLazyQuery,
-    useGetAllTransmitterLazyQuery,
-    useGetAllHistorySiteTransmitterLazyQuery,
+    useGetAllSitesQuery,
+    useGetAllTransmitterQuery,
+    useGetAllHistorySiteTransmitterQuery,
     useInsertHistorySiteTransmitterMutation,
     useUpdateHistorySiteTransmitterMutation,
     useDeleteHistorySiteTransmitterMutation,
@@ -39,10 +39,10 @@ const ChangeTransmitterPage = () => {
     const [transmitterData, setTransmitterData] = useState([]);
     const [listHistoryTransmitter, setListHistoryTransmitter] = useState([]);
 
-    const [getSite, {}] = useGetAllSitesLazyQuery();
-    const [getTransmitter, {}] = useGetAllTransmitterLazyQuery();
-    const [getHistorySiteTransmitter, {}] =
-        useGetAllHistorySiteTransmitterLazyQuery();
+    const { refetch: getSite } = useGetAllSitesQuery();
+    const { refetch: getTransmitter } = useGetAllTransmitterQuery();
+    const { refetch: getHistorySiteTransmitter } =
+        useGetAllHistorySiteTransmitterQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 

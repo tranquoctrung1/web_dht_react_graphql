@@ -16,7 +16,7 @@ import {
     useGetAllSitesQuery,
     useGetAllMeterQuery,
     useGetAllStaffsQuery,
-    useGetDataManualBySiteIdAndTimeStampLazyQuery,
+    useGetDataManualBySiteIdAndTimeStampQuery,
     useInsertDataManualMutation,
     useUpdateDataManualMutation,
     useDeleteDataManualMutation,
@@ -39,7 +39,9 @@ const ChangeDataManualPage = () => {
     const [location, setLocation] = useState('');
     const [description, setDescription] = useState('');
     const [timeStamp, setTimeStamp] = useState(null);
+    //@ts-ignore
     const [index, setIndex] = useState(null || 0);
+    //@ts-ignore
     const [output, setOutput] = useState(null || 0);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -53,7 +55,8 @@ const ChangeDataManualPage = () => {
     const { data: meters, error: metersError } = useGetAllMeterQuery();
     const { data: staffs, error: staffsError } = useGetAllStaffsQuery();
 
-    const [getDataManual, {}] = useGetDataManualBySiteIdAndTimeStampLazyQuery();
+    const { refetch: getDataManual } =
+        useGetDataManualBySiteIdAndTimeStampQuery();
 
     const [insertDataManual, {}] = useInsertDataManualMutation();
     const [updateDataManual, {}] = useUpdateDataManualMutation();
@@ -309,11 +312,9 @@ const ChangeDataManualPage = () => {
             const totalMilisecondEnd = endDate.getTime();
 
             getDataManual({
-                variables: {
-                    siteid: siteId,
-                    start: totalMilisecondStart.toString(),
-                    end: totalMilisecondEnd.toString(),
-                },
+                siteid: siteId,
+                start: totalMilisecondStart.toString(),
+                end: totalMilisecondEnd.toString(),
             }).then((res) => {
                 if (res.data !== null && res.data !== undefined) {
                     if (

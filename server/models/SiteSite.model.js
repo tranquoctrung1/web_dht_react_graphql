@@ -901,40 +901,48 @@ module.exports.Insert = async (site) => {
     let result = '';
 
     let collection = await Connect.connect(SiteSiteCollection);
+    let check = await collection.find({ _id: site._id }).toArray();
 
-    site.DateOfMeterChange =
-        site.DateOfMeterChange === '' ? null : new Date(site.DateOfMeterChange);
-    site.DateOfLoggerChange =
-        site.DateOfLoggerChange === ''
-            ? null
-            : new Date(site.DateOfLoggerChange);
-    site.DateOfTransmitterChange =
-        site.DateOfTransmitterChange === ''
-            ? null
-            : new Date(site.DateOfTransmitterChange);
-    site.DateOfBatteryChange =
-        site.DateOfBatteryChange === ''
-            ? null
-            : new Date(site.DateOfBatteryChange);
-    site.DateOfTransmitterBatteryChange =
-        site.DateOfTransmitterBatteryChange === ''
-            ? null
-            : new Date(site.DateOfTransmitterBatteryChange);
-    site.DateOfLoggerBatteryChange =
-        site.DateOfLoggerBatteryChange === ''
-            ? null
-            : new Date(site.DateOfLoggerBatteryChange);
+    if (check.length > 0) {
+        Connect.disconnect();
+        return '';
+    } else {
+        site.DateOfMeterChange =
+            site.DateOfMeterChange === ''
+                ? null
+                : new Date(site.DateOfMeterChange);
+        site.DateOfLoggerChange =
+            site.DateOfLoggerChange === ''
+                ? null
+                : new Date(site.DateOfLoggerChange);
+        site.DateOfTransmitterChange =
+            site.DateOfTransmitterChange === ''
+                ? null
+                : new Date(site.DateOfTransmitterChange);
+        site.DateOfBatteryChange =
+            site.DateOfBatteryChange === ''
+                ? null
+                : new Date(site.DateOfBatteryChange);
+        site.DateOfTransmitterBatteryChange =
+            site.DateOfTransmitterBatteryChange === ''
+                ? null
+                : new Date(site.DateOfTransmitterBatteryChange);
+        site.DateOfLoggerBatteryChange =
+            site.DateOfLoggerBatteryChange === ''
+                ? null
+                : new Date(site.DateOfLoggerBatteryChange);
 
-    site.TakeoverDate =
-        site.TakeoverDate === '' ? null : new Date(site.TakeoverDate);
+        site.TakeoverDate =
+            site.TakeoverDate === '' ? null : new Date(site.TakeoverDate);
 
-    result = await collection.insertOne(site);
+        result = await collection.insertOne(site);
 
-    result = result.insertedId;
+        result = result.insertedId;
 
-    Connect.disconnect();
+        Connect.disconnect();
 
-    return result;
+        return result;
+    }
 };
 
 module.exports.Update = async (site) => {

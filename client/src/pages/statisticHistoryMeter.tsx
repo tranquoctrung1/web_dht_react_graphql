@@ -7,9 +7,9 @@ import { useForm, Controller } from 'react-hook-form';
 import { convertTimeStampToDate } from '../utils/utils';
 
 import {
-    useGetAllSitesLazyQuery,
-    useGetAllMeterLazyQuery,
-    useGetHistoryMeterByMeterLazyQuery,
+    useGetAllSitesQuery,
+    useGetAllMeterQuery,
+    useGetHistoryMeterByMeterQuery,
 } from '../__generated__/graphql';
 
 import { motion } from 'framer-motion';
@@ -23,9 +23,10 @@ const StatisticHistoryMeterPage = () => {
 
     const [listSiteHistory, setListSiteHistory] = useState([]);
 
-    const [getSites, {}] = useGetAllSitesLazyQuery();
-    const [getMeter, {}] = useGetAllMeterLazyQuery();
-    const [getHistoryMeterByMeter, {}] = useGetHistoryMeterByMeterLazyQuery();
+    const { refetch: getSites } = useGetAllSitesQuery();
+    const { refetch: getMeter } = useGetAllMeterQuery();
+    const { refetch: getHistoryMeterByMeter } =
+        useGetHistoryMeterByMeterQuery();
 
     const { getValues, setValue, reset, control } = useForm({
         defaultValues: {
@@ -147,9 +148,7 @@ const StatisticHistoryMeterPage = () => {
 
     const getHistorySiteMeterByMeterAction = (serial: any) => {
         getHistoryMeterByMeter({
-            variables: {
-                meterSerial: serial,
-            },
+            meterSerial: serial,
         }).then((res) => {
             if (res?.data?.GetHistoryMeterByMeter) {
                 const temp = [];

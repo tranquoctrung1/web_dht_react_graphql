@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllSiteStatusLazyQuery,
+    useGetAllSiteStatusQuery,
     useInsertSiteStatusMutation,
     useUpdateSiteStatusMutation,
     useDeleteSiteStatusMutation,
@@ -25,7 +25,7 @@ const SiteStatus = () => {
     const [siteStatus, setSiteStatus] = useState([]);
     const [siteStatusData, setSiteStatusData] = useState([]);
 
-    const [getSiteStatus] = useGetAllSiteStatusLazyQuery();
+    const { refetch: getSiteStatus } = useGetAllSiteStatusQuery();
     const [insertSiteStatus] = useInsertSiteStatusMutation();
     const [updateSiteStatus] = useUpdateSiteStatusMutation();
     const [deleteSiteStatus] = useDeleteSiteStatusMutation();

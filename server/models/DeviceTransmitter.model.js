@@ -175,30 +175,37 @@ module.exports.Insert = async (transmitter) => {
 
     let collection = await Connect.connect(DeviceTransmitterCollection);
 
-    (transmitter.ReceiptDate =
-        transmitter.ReceiptDate !== null && transmitter.ReceiptDate !== ''
-            ? new Date(transmitter.ReceiptDate)
-            : null),
-        (transmitter.AccreditatedDate =
-            transmitter.AccreditatedDate !== null &&
-            transmitter.AccreditatedDate !== ''
-                ? new Date(transmitter.AccreditatedDate)
+    let check = await collection.find({ Serial: transmitter.Serial }).toArray();
+    if (check.length == 0) {
+        (transmitter.ReceiptDate =
+            transmitter.ReceiptDate !== null && transmitter.ReceiptDate !== ''
+                ? new Date(transmitter.ReceiptDate)
                 : null),
-        (transmitter.ExpiryDate =
-            transmitter.ExpiryDate !== null && transmitter.ExpiryDate !== ''
-                ? new Date(transmitter.ExpiryDate)
-                : null),
-        (transmitter.AppovalDate =
-            transmitter.AppovalDate !== null && transmitter.AppovalDate !== ''
-                ? new Date(transmitter.AppovalDate)
-                : null),
-        (result = await collection.insertOne(transmitter));
+            (transmitter.AccreditatedDate =
+                transmitter.AccreditatedDate !== null &&
+                transmitter.AccreditatedDate !== ''
+                    ? new Date(transmitter.AccreditatedDate)
+                    : null),
+            (transmitter.ExpiryDate =
+                transmitter.ExpiryDate !== null && transmitter.ExpiryDate !== ''
+                    ? new Date(transmitter.ExpiryDate)
+                    : null),
+            (transmitter.AppovalDate =
+                transmitter.AppovalDate !== null &&
+                transmitter.AppovalDate !== ''
+                    ? new Date(transmitter.AppovalDate)
+                    : null),
+            (result = await collection.insertOne(transmitter));
 
-    result = result.insertedId;
+        result = result.insertedId;
 
-    Connect.disconnect();
+        Connect.disconnect();
 
-    return result;
+        return result;
+    } else {
+        Connect.disconnect();
+        return '';
+    }
 };
 
 module.exports.Delete = async (transmitter) => {

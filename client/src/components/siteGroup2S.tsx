@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllSiteGroup2SLazyQuery,
+    useGetAllSiteGroup2SQuery,
     useInsertSiteGroup2SMutation,
     useUpdateSiteGroup2SMutation,
     useDeleteSiteGroup2SMutation,
@@ -25,7 +25,7 @@ const SiteGroup2S = () => {
     const [siteGroup, setSiteGroup] = useState([]);
     const [siteGroupData, setSiteGroupData] = useState([]);
 
-    const [getSiteGroup] = useGetAllSiteGroup2SLazyQuery();
+    const { refetch: getSiteGroup } = useGetAllSiteGroup2SQuery();
     const [insertSiteGroup] = useInsertSiteGroup2SMutation();
     const [updateSiteGroup] = useUpdateSiteGroup2SMutation();
     const [deleteSiteGroup] = useDeleteSiteGroup2SMutation();

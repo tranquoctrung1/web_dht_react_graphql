@@ -12,16 +12,16 @@ import {
 import { useEffect, useState } from 'react';
 
 import {
-    useGetAllSiteLevelLazyQuery,
-    useGetAllSiteGroupLazyQuery,
-    useGetAllSiteGroup2SLazyQuery,
-    useGetCompaniesLazyQuery,
-    useGetMeterModelLazyQuery,
-    useGetAllSiteStatusLazyQuery,
-    useGetAllSiteAvailabilitiesLazyQuery,
-    useGetLoggerModelLazyQuery,
-    useGetAllMeterAccreditationTypeLazyQuery,
-    useGetStatisticCustomChoiceMarkSizeLazyQuery,
+    useGetAllSiteLevelQuery,
+    useGetAllSiteGroupQuery,
+    useGetAllSiteGroup2SQuery,
+    useGetCompaniesQuery,
+    useGetMeterModelQuery,
+    useGetAllSiteStatusQuery,
+    useGetAllSiteAvailabilitiesQuery,
+    useGetLoggerModelQuery,
+    useGetAllMeterAccreditationTypeQuery,
+    useGetStatisticCustomChoiceMarkSizeQuery,
 } from '../__generated__/graphql';
 
 // @ts-ignore comment
@@ -77,17 +77,17 @@ const StatisticCustomChoiceMarkSizePage = () => {
     const [isSize, setIsSize] = useState(false);
     const [isMarkSize, setIsMarkSize] = useState(false);
 
-    const [getSiteLevel, {}] = useGetAllSiteLevelLazyQuery();
-    const [getSiteGroup, {}] = useGetAllSiteGroupLazyQuery();
-    const [getSiteGroup2S, {}] = useGetAllSiteGroup2SLazyQuery();
-    const [getMeterModel, {}] = useGetMeterModelLazyQuery();
-    const [getCompanies, {}] = useGetCompaniesLazyQuery();
-    const [getSiteStatus, {}] = useGetAllSiteStatusLazyQuery();
-    const [getSiteAvai, {}] = useGetAllSiteAvailabilitiesLazyQuery();
-    const [getLoggerModel, {}] = useGetLoggerModelLazyQuery();
-    const [getMeterAcc, {}] = useGetAllMeterAccreditationTypeLazyQuery();
-    const [getStatisticCustomMarkSize, {}] =
-        useGetStatisticCustomChoiceMarkSizeLazyQuery();
+    const { refetch: getSiteLevel } = useGetAllSiteLevelQuery();
+    const { refetch: getSiteGroup } = useGetAllSiteGroupQuery();
+    const { refetch: getSiteGroup2S } = useGetAllSiteGroup2SQuery();
+    const { refetch: getMeterModel } = useGetMeterModelQuery();
+    const { refetch: getCompanies } = useGetCompaniesQuery();
+    const { refetch: getSiteStatus } = useGetAllSiteStatusQuery();
+    const { refetch: getSiteAvai } = useGetAllSiteAvailabilitiesQuery();
+    const { refetch: getLoggerModel } = useGetLoggerModelQuery();
+    const { refetch: getMeterAcc } = useGetAllMeterAccreditationTypeQuery();
+    const { refetch: getStatisticCustomMarkSize } =
+        useGetStatisticCustomChoiceMarkSizeQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 

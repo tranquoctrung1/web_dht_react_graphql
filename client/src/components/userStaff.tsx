@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllStaffsLazyQuery,
+    useGetAllStaffsQuery,
     useInsertUserStaffMutation,
     useUpdateUserStaffMutation,
     useDeleteUserStaffMutation,
@@ -25,7 +25,7 @@ const UserStaff = () => {
     const [list, setList] = useState([]);
     const [data, setData] = useState([]);
 
-    const [getUserStaff] = useGetAllStaffsLazyQuery();
+    const { refetch: getUserStaff } = useGetAllStaffsQuery();
     const [insertUserStaff] = useInsertUserStaffMutation();
     const [updateUserStaff] = useUpdateUserStaffMutation();
     const [deleteUserStaff] = useDeleteUserStaffMutation();

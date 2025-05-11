@@ -20,10 +20,7 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Logo from '../assets/logo.png';
 
-import {
-    useLoginActionLazyQuery,
-    useLoginActionQuery,
-} from '../__generated__/graphql';
+import { useLoginActionQuery } from '../__generated__/graphql';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -34,7 +31,6 @@ const LoginPage = () => {
     const [errorPassword, setErrorPassword] = useState('');
     const [errorLogin, setErrorLogin] = useState('');
 
-    const [loginAction, {}] = useLoginActionLazyQuery();
     const { refetch: refetchLogin } = useLoginActionQuery();
 
     const { control, getValues, register } = useForm({

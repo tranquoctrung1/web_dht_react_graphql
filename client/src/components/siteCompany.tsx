@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetCompaniesLazyQuery,
+    useGetCompaniesQuery,
     useInsertSiteCompanyMutation,
     useUpdateSiteCompanyMutation,
     useDeleteSiteCompanyMutation,
@@ -25,7 +25,7 @@ const SiteCompany = () => {
     const [siteCompany, setSiteCompany] = useState([]);
     const [siteCompanyData, setSiteCompanyData] = useState([]);
 
-    const [getSiteCompany] = useGetCompaniesLazyQuery();
+    const { refetch: getSiteCompany } = useGetCompaniesQuery();
     const [insertSiteCompany] = useInsertSiteCompanyMutation();
     const [updateSiteCompany] = useUpdateSiteCompanyMutation();
     const [deleteSiteCompany] = useDeleteSiteCompanyMutation();

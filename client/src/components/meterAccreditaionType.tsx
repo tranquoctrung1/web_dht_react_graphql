@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllMeterAccreditationTypeLazyQuery,
+    useGetAllMeterAccreditationTypeQuery,
     useInsertMeterAccreditationMutation,
     useUpdateMeterAccreditationMutation,
     useDeleteMeterAccreditationMutation,
@@ -25,8 +25,8 @@ const MeterAccreditationType = () => {
     const [list, setList] = useState([]);
     const [data, setData] = useState([]);
 
-    const [getMeterAccreditationType] =
-        useGetAllMeterAccreditationTypeLazyQuery();
+    const { refetch: getMeterAccreditationType } =
+        useGetAllMeterAccreditationTypeQuery();
     const [insertMeterAccreditationType] =
         useInsertMeterAccreditationMutation();
     const [updateMeterAccreditationType] =

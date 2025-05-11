@@ -13,7 +13,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 
 import {
-    useGetAllSiteLevelLazyQuery,
+    useGetAllSiteLevelQuery,
     useInsertSiteLevelMutation,
     useUpdateSiteLevelMutation,
     useDeleteSiteLevelMutation,
@@ -25,7 +25,7 @@ const InstallLevel = () => {
     const [siteLevelData, setSiteLevelData] = useState([]);
     const [siteLevel, setSiteLevel] = useState([]);
 
-    const [getAllSiteLevel] = useGetAllSiteLevelLazyQuery();
+    const { refetch: getAllSiteLevel } = useGetAllSiteLevelQuery();
     const [insertSiteLevel] = useInsertSiteLevelMutation();
     const [updateSiteLevel] = useUpdateSiteLevelMutation();
     const [deleteSiteLevel] = useDeleteSiteLevelMutation();

@@ -11,13 +11,13 @@ import {
 import { useEffect, useState } from 'react';
 
 import {
-    useGetStatisticAccreditedLazyQuery,
-    useGetStatisticMeterChangeLazyQuery,
-    useGetStatisticTransmitterChangeLazyQuery,
-    useGetStatisticLoggerChangeLazyQuery,
-    useGetStatisticBatteryChangeLazyQuery,
-    useGetStatisticTransmitterBatteryChangeLazyQuery,
-    useGetStatisticLoggerBatteryChangeLazyQuery,
+    useGetStatisticAccreditedQuery,
+    useGetStatisticMeterChangeQuery,
+    useGetStatisticTransmitterChangeQuery,
+    useGetStatisticLoggerChangeQuery,
+    useGetStatisticBatteryChangeQuery,
+    useGetStatisticTransmitterBatteryChangeQuery,
+    useGetStatisticLoggerBatteryChangeQuery,
 } from '../__generated__/graphql';
 
 import DataTable from 'react-data-table-component';
@@ -40,19 +40,20 @@ const StatisticChangePeriodPage = () => {
     const [columns, setColumn] = useState([]);
     const [title, setTitle] = useState('');
 
-    const [getStatisticAccreditation, {}] =
-        useGetStatisticAccreditedLazyQuery();
-    const [getStatisticMeterChange, {}] = useGetStatisticMeterChangeLazyQuery();
-    const [getStatisticTransmitterChange, {}] =
-        useGetStatisticTransmitterChangeLazyQuery();
-    const [getStatisticLoggerChange, {}] =
-        useGetStatisticLoggerChangeLazyQuery();
-    const [getStatisticBatteryChange, {}] =
-        useGetStatisticBatteryChangeLazyQuery();
-    const [getStatisticTransmitterBatteryChange, {}] =
-        useGetStatisticTransmitterBatteryChangeLazyQuery();
-    const [getStatisticLoggerBatteryChange, {}] =
-        useGetStatisticLoggerBatteryChangeLazyQuery();
+    const { refetch: getStatisticAccreditation } =
+        useGetStatisticAccreditedQuery();
+    const { refetch: getStatisticMeterChange } =
+        useGetStatisticMeterChangeQuery();
+    const { refetch: getStatisticTransmitterChange } =
+        useGetStatisticTransmitterChangeQuery();
+    const { refetch: getStatisticLoggerChange } =
+        useGetStatisticLoggerChangeQuery();
+    const { refetch: getStatisticBatteryChange } =
+        useGetStatisticBatteryChangeQuery();
+    const { refetch: getStatisticTransmitterBatteryChange } =
+        useGetStatisticTransmitterBatteryChangeQuery();
+    const { refetch: getStatisticLoggerBatteryChange } =
+        useGetStatisticLoggerBatteryChangeQuery();
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
@@ -543,9 +544,7 @@ STT
 
     const getStatisticAcccreditationAction = () => {
         getStatisticAccreditation({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (
@@ -630,9 +629,7 @@ STT
 
     const getStatisticMeterChangeAction = () => {
         getStatisticMeterChange({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (
@@ -728,9 +725,7 @@ STT
 
     const getStatisticTransmitterChangeAction = () => {
         getStatisticTransmitterChange({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (
@@ -827,9 +822,7 @@ STT
 
     const getStatisticLoggerChangeAction = () => {
         getStatisticLoggerChange({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (
@@ -910,9 +903,7 @@ STT
 
     const getStatisticBatteryChangeAction = () => {
         getStatisticBatteryChange({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (
@@ -1012,9 +1003,7 @@ STT
 
     const getStatisticTransmitterBatteryChangeAction = () => {
         getStatisticTransmitterBatteryChange({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (
@@ -1114,9 +1103,7 @@ STT
 
     const getStatisticLoggerBatteryChangeAction = () => {
         getStatisticLoggerBatteryChange({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (

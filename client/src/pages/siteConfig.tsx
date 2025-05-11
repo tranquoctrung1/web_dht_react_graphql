@@ -24,11 +24,10 @@ import { Controller, useForm } from 'react-hook-form';
 import {
     useGetAllViewGroupsQuery,
     useGetAllStaffsQuery,
-    useGetAllSitesLazyQuery,
-    useGetAllOldSiteIdLazyQuery,
+    useGetAllSitesQuery,
+    useGetAllOldSiteIdQuery,
     useGetAllDistrictQuery,
     useGetAllMeterQuery,
-    useGetAllMeterLazyQuery,
     useGetAllTransmitterQuery,
     useGetAllLoggerQuery,
     useGetAllMeterAccreditationTypeQuery,
@@ -42,7 +41,7 @@ import {
     useGetAllSiteGroup5SQuery,
     useGetAllSiteAvailabilitiesQuery,
     useGetCompaniesQuery,
-    useGetAllSiteCoverLazyQuery,
+    useGetAllSiteCoverQuery,
     useInsertSiteMutation,
     useUpdateSiteMutation,
     useDeleteSiteMutation,
@@ -72,10 +71,10 @@ const SiteConfigPage = () => {
     const [isAdminViewer, setIsAdminViewer] = useState(false);
     const [listFile, setListFile] = useState<File[]>([]);
 
-    const [getSites, {}] = useGetAllSitesLazyQuery();
-    const [getOldId, {}] = useGetAllOldSiteIdLazyQuery();
-    const [getMeter, {}] = useGetAllMeterLazyQuery();
-    const [getSiteCover, {}] = useGetAllSiteCoverLazyQuery();
+    const { refetch: getSites } = useGetAllSitesQuery();
+    const { refetch: getOldId } = useGetAllOldSiteIdQuery();
+    const { refetch: getMeter } = useGetAllMeterQuery();
+    const { refetch: getSiteCover } = useGetAllSiteCoverQuery();
 
     const { data: viewGroups, error: viewGroupError } =
         useGetAllViewGroupsQuery();

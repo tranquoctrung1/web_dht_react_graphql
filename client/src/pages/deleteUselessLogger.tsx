@@ -5,7 +5,7 @@ import { checkAdminViewerRole } from '../utils/utils';
 import { useEffect, useState } from 'react';
 
 import {
-    useGetAllLoggerLazyQuery,
+    useGetAllLoggerQuery,
     useDeleteLoggerMutation,
 } from '../__generated__/graphql';
 
@@ -26,7 +26,7 @@ const DeleteUselessLoggerPage = () => {
     const [data, setData] = useState([]);
     const [listLogger, setListLogger] = useState([]);
 
-    const [getLogger, {}] = useGetAllLoggerLazyQuery();
+    const { refetch: getLogger } = useGetAllLoggerQuery();
     const [deleteLogger, {}] = useDeleteLoggerMutation();
 
     const [selectedRowFile, setSelectedRowFile] = useState([]);

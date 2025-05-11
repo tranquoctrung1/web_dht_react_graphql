@@ -247,29 +247,35 @@ module.exports.Insert = async (meter) => {
 
     let collection = await Connect.connect(DeviceMeterCollection);
 
-    (meter.ReceiptDate =
-        meter.ReceiptDate !== null && meter.ReceiptDate !== ''
-            ? new Date(meter.ReceiptDate)
-            : null),
-        (meter.AccreditatedDate =
-            meter.AccreditatedDate !== null && meter.AccreditatedDate !== ''
-                ? new Date(meter.AccreditatedDate)
+    let check = await collection.find({ Serial: meter.Serial }).toArray();
+    if (check.length == 0) {
+        (meter.ReceiptDate =
+            meter.ReceiptDate !== null && meter.ReceiptDate !== ''
+                ? new Date(meter.ReceiptDate)
                 : null),
-        (meter.ExpiryDate =
-            meter.ExpiryDate !== null && meter.ExpiryDate !== ''
-                ? new Date(meter.ExpiryDate)
-                : null),
-        (meter.AppovalDate =
-            meter.AppovalDate !== null && meter.AppovalDate !== ''
-                ? new Date(meter.AppovalDate)
-                : null),
-        (result = await collection.insertOne(meter));
+            (meter.AccreditatedDate =
+                meter.AccreditatedDate !== null && meter.AccreditatedDate !== ''
+                    ? new Date(meter.AccreditatedDate)
+                    : null),
+            (meter.ExpiryDate =
+                meter.ExpiryDate !== null && meter.ExpiryDate !== ''
+                    ? new Date(meter.ExpiryDate)
+                    : null),
+            (meter.AppovalDate =
+                meter.AppovalDate !== null && meter.AppovalDate !== ''
+                    ? new Date(meter.AppovalDate)
+                    : null),
+            (result = await collection.insertOne(meter));
 
-    result = result.insertedId;
+        result = result.insertedId;
 
-    Connect.disconnect();
+        Connect.disconnect();
 
-    return result;
+        return result;
+    } else {
+        Connect.disconnect();
+        return '';
+    }
 };
 
 module.exports.Delete = async (meter) => {

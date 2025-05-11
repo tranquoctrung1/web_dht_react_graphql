@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 
 import {
     useUpdatePasswordMutation,
-    useVerifyPasswordLazyQuery,
+    useVerifyPasswordQuery,
 } from '../__generated__/graphql';
 
 import Swal from 'sweetalert2';
@@ -27,7 +27,7 @@ const ChangePasswordPage = () => {
     const [errorNewPassword, setErrorNewPassword] = useState('');
 
     const [updatePassword, {}] = useUpdatePasswordMutation();
-    const [verifyPassword, {}] = useVerifyPasswordLazyQuery();
+    const { refetch: verifyPassword } = useVerifyPasswordQuery();
 
     const { control, reset, getValues, setValue, register } = useForm({
         defaultValues: {
@@ -52,10 +52,8 @@ const ChangePasswordPage = () => {
         const Uid = getValues('Uid');
 
         verifyPassword({
-            variables: {
-                uid: Uid,
-                pwd: password,
-            },
+            uid: Uid,
+            pwd: password,
         })
             .then((res) => {
                 if (res.data !== null && res.data !== undefined) {

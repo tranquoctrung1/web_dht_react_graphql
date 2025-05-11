@@ -12,7 +12,7 @@ import {
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllUserLazyQuery,
+    useGetAllUserQuery,
     useGetAllStaffsQuery,
     useGetCompaniesQuery,
     useGetAllRoleQuery,
@@ -32,7 +32,7 @@ const CreateUserPage = () => {
     const [listUser, setListUser] = useState([]);
     const [userData, setUserData] = useState([]);
 
-    const [getUser, {}] = useGetAllUserLazyQuery();
+    const { refetch: getUser } = useGetAllUserQuery();
     const { data: staffs, error: staffErrror } = useGetAllStaffsQuery();
     const { data: company, error: companyError } = useGetCompaniesQuery();
     const { data: role, error: roleError } = useGetAllRoleQuery();

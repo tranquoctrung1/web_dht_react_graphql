@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllDeviceStatusLazyQuery,
+    useGetAllDeviceStatusQuery,
     useInsertDeviceStatusMutation,
     useUpdateDeviceStatusMutation,
     useDeleteDeviceStatusMutation,
@@ -25,7 +25,7 @@ const DeviceStatus = () => {
     const [deviceStatus, setDeviceStatus] = useState([]);
     const [deviceStatusData, setDeviceStatusData] = useState([]);
 
-    const [getDeviceStatus] = useGetAllDeviceStatusLazyQuery();
+    const { refetch: getDeviceStatus } = useGetAllDeviceStatusQuery();
     const [insertDeviceStatus] = useInsertDeviceStatusMutation();
     const [updateDeviceStatus] = useUpdateDeviceStatusMutation();
     const [deleteDeviceStatus] = useDeleteDeviceStatusMutation();

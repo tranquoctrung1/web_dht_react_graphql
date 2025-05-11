@@ -3,14 +3,14 @@ import { MultiSelect, Text, Grid, Col, Button, Center } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
 import {
-    useGetTransmitterProviderLazyQuery,
-    useGetTransmitterMarksLazyQuery,
-    useGetTransmitterSizeLazyQuery,
-    useGetTransmitterModelLazyQuery,
-    useGetCompaniesLazyQuery,
-    useGetAllSiteStatusLazyQuery,
-    useGetAllDeviceStatusLazyQuery,
-    useGetStatisticCustomChoiceTransmitterLazyQuery,
+    useGetTransmitterProviderQuery,
+    useGetTransmitterMarksQuery,
+    useGetTransmitterSizeQuery,
+    useGetTransmitterModelQuery,
+    useGetCompaniesQuery,
+    useGetAllSiteStatusQuery,
+    useGetAllDeviceStatusQuery,
+    useGetStatisticCustomChoiceTransmitterQuery,
 } from '../__generated__/graphql';
 
 import DataTable from 'react-data-table-component';
@@ -46,15 +46,15 @@ const StatisticCustomChoiceTransmitterPage = () => {
     const [statisticData, setStatisticData] = useState([]);
     const [data, setData] = useState([]);
 
-    const [getProvider, {}] = useGetTransmitterProviderLazyQuery();
-    const [getMarks, {}] = useGetTransmitterMarksLazyQuery();
-    const [getModel, {}] = useGetTransmitterModelLazyQuery();
-    const [getCompanies, {}] = useGetCompaniesLazyQuery();
-    const [getSiteStatus, {}] = useGetAllSiteStatusLazyQuery();
-    const [getSize, {}] = useGetTransmitterSizeLazyQuery();
-    const [getDeviceStatus, {}] = useGetAllDeviceStatusLazyQuery();
-    const [getStatisticCustomMeter, {}] =
-        useGetStatisticCustomChoiceTransmitterLazyQuery();
+    const { refetch: getProvider } = useGetTransmitterProviderQuery();
+    const { refetch: getMarks } = useGetTransmitterMarksQuery();
+    const { refetch: getModel } = useGetTransmitterModelQuery();
+    const { refetch: getCompanies } = useGetCompaniesQuery();
+    const { refetch: getSiteStatus } = useGetAllSiteStatusQuery();
+    const { refetch: getSize } = useGetTransmitterSizeQuery();
+    const { refetch: getDeviceStatus } = useGetAllDeviceStatusQuery();
+    const { refetch: getStatisticCustomMeter } =
+        useGetStatisticCustomChoiceTransmitterQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 

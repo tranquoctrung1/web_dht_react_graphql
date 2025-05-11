@@ -3,15 +3,15 @@ import { MultiSelect, Text, Grid, Col, Button, Center } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
 import {
-    useGetMeterProviderLazyQuery,
-    useGetMeterNationalitiesLazyQuery,
-    useGetMeterMarksLazyQuery,
-    useGetMeterSizeLazyQuery,
-    useGetMeterModelLazyQuery,
-    useGetCompaniesLazyQuery,
-    useGetAllSiteStatusLazyQuery,
-    useGetAllDeviceStatusLazyQuery,
-    useGetStatisticCustomChoiceMeterLazyQuery,
+    useGetMeterProviderQuery,
+    useGetMeterNationalitiesQuery,
+    useGetMeterMarksQuery,
+    useGetMeterSizeQuery,
+    useGetMeterModelQuery,
+    useGetCompaniesQuery,
+    useGetAllSiteStatusQuery,
+    useGetAllDeviceStatusQuery,
+    useGetStatisticCustomChoiceMeterQuery,
 } from '../__generated__/graphql';
 
 import DataTable from 'react-data-table-component';
@@ -49,16 +49,16 @@ const StatisticCustomChoiceMeterPage = () => {
     const [statisticData, setStatisticData] = useState([]);
     const [data, setData] = useState([]);
 
-    const [getProvider, {}] = useGetMeterProviderLazyQuery();
-    const [getNation, {}] = useGetMeterNationalitiesLazyQuery();
-    const [getMarks, {}] = useGetMeterMarksLazyQuery();
-    const [getModel, {}] = useGetMeterModelLazyQuery();
-    const [getCompanies, {}] = useGetCompaniesLazyQuery();
-    const [getSiteStatus, {}] = useGetAllSiteStatusLazyQuery();
-    const [getSize, {}] = useGetMeterSizeLazyQuery();
-    const [getDeviceStatus, {}] = useGetAllDeviceStatusLazyQuery();
-    const [getStatisticCustomMeter, {}] =
-        useGetStatisticCustomChoiceMeterLazyQuery();
+    const { refetch: getProvider } = useGetMeterProviderQuery();
+    const { refetch: getNation } = useGetMeterNationalitiesQuery();
+    const { refetch: getMarks } = useGetMeterMarksQuery();
+    const { refetch: getModel } = useGetMeterModelQuery();
+    const { refetch: getCompanies } = useGetCompaniesQuery();
+    const { refetch: getSiteStatus } = useGetAllSiteStatusQuery();
+    const { refetch: getSize } = useGetMeterSizeQuery();
+    const { refetch: getDeviceStatus } = useGetAllDeviceStatusQuery();
+    const { refetch: getStatisticCustomMeter } =
+        useGetStatisticCustomChoiceMeterQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 

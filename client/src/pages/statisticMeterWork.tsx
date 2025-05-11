@@ -21,14 +21,14 @@ import {
 import { useEffect, useState } from 'react';
 
 import {
-    useGetStatisticMeterChangeByYearUsingLazyQuery,
-    useGetStatisticTransmitterChangeByYearUsingLazyQuery,
-    useGetStatisticLoggerChangeByYearUsingLazyQuery,
-    useGetStatisticBatteryChangeByYearUsingLazyQuery,
-    useGetStatisticTransmitterBatteryChangeByYearUsingLazyQuery,
-    useGetStatisticLoggerBatteryChangeByYearUsingLazyQuery,
-    useGetCompaniesLazyQuery,
-    useGetAllSiteStatusLazyQuery,
+    useGetStatisticMeterChangeByYearUsingQuery,
+    useGetStatisticTransmitterChangeByYearUsingQuery,
+    useGetStatisticLoggerChangeByYearUsingQuery,
+    useGetStatisticBatteryChangeByYearUsingQuery,
+    useGetStatisticTransmitterBatteryChangeByYearUsingQuery,
+    useGetStatisticLoggerBatteryChangeByYearUsingQuery,
+    useGetCompaniesQuery,
+    useGetAllSiteStatusQuery,
 } from '../__generated__/graphql';
 
 import DataTable from 'react-data-table-component';
@@ -57,20 +57,20 @@ const StatisticMeterWorkPage = () => {
     const [columns, setColumn] = useState([]);
     const [title, setTitle] = useState('');
 
-    const [getStatisticMeterChange, {}] =
-        useGetStatisticMeterChangeByYearUsingLazyQuery();
-    const [getStatisticTransmitterChange, {}] =
-        useGetStatisticTransmitterChangeByYearUsingLazyQuery();
-    const [getStatisticLoggerChange, {}] =
-        useGetStatisticLoggerChangeByYearUsingLazyQuery();
-    const [getStatisticBatteryChange, {}] =
-        useGetStatisticBatteryChangeByYearUsingLazyQuery();
-    const [getStatisticTransmitterBatteryChange, {}] =
-        useGetStatisticTransmitterBatteryChangeByYearUsingLazyQuery();
-    const [getStatisticLoggerBatteryChange, {}] =
-        useGetStatisticLoggerBatteryChangeByYearUsingLazyQuery();
-    const [getCompanies, {}] = useGetCompaniesLazyQuery();
-    const [getSiteStatus, {}] = useGetAllSiteStatusLazyQuery();
+    const { refetch: getStatisticMeterChange } =
+        useGetStatisticMeterChangeByYearUsingQuery();
+    const { refetch: getStatisticTransmitterChange } =
+        useGetStatisticTransmitterChangeByYearUsingQuery();
+    const { refetch: getStatisticLoggerChange } =
+        useGetStatisticLoggerChangeByYearUsingQuery();
+    const { refetch: getStatisticBatteryChange } =
+        useGetStatisticBatteryChangeByYearUsingQuery();
+    const { refetch: getStatisticTransmitterBatteryChange } =
+        useGetStatisticTransmitterBatteryChangeByYearUsingQuery();
+    const { refetch: getStatisticLoggerBatteryChange } =
+        useGetStatisticLoggerBatteryChangeByYearUsingQuery();
+    const { refetch: getCompanies } = useGetCompaniesQuery();
+    const { refetch: getSiteStatus } = useGetAllSiteStatusQuery();
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
@@ -167,10 +167,8 @@ const StatisticMeterWorkPage = () => {
 
     const getStatisticMeterChangeAction = () => {
         getStatisticMeterChange({
-            variables: {
-                date: time,
-                year: timeUse,
-            },
+            date: time,
+            year: timeUse,
         })
             .then((res) => {
                 if (
@@ -285,10 +283,8 @@ const StatisticMeterWorkPage = () => {
 
     const getStatisticTransmitterChangeAction = () => {
         getStatisticTransmitterChange({
-            variables: {
-                date: time,
-                year: timeUse,
-            },
+            date: time,
+            year: timeUse,
         })
             .then((res) => {
                 if (
@@ -404,9 +400,7 @@ const StatisticMeterWorkPage = () => {
 
     const getStatisticLoggerChangeAction = () => {
         getStatisticLoggerChange({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (
@@ -519,9 +513,7 @@ const StatisticMeterWorkPage = () => {
 
     const getStatisticBatteryChangeAction = () => {
         getStatisticBatteryChange({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (
@@ -635,9 +627,7 @@ const StatisticMeterWorkPage = () => {
 
     const getStatisticTransmitterBatteryChangeAction = () => {
         getStatisticTransmitterBatteryChange({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (
@@ -756,9 +746,7 @@ const StatisticMeterWorkPage = () => {
 
     const getStatisticLoggerBatteryChangeAction = () => {
         getStatisticLoggerBatteryChange({
-            variables: {
-                date: time,
-            },
+            date: time,
         })
             .then((res) => {
                 if (

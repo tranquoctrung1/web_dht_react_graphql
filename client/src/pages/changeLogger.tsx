@@ -14,9 +14,9 @@ import {
 import { DateInput } from '@mantine/dates';
 
 import {
-    useGetAllSitesLazyQuery,
-    useGetAllLoggerLazyQuery,
-    useGetAllHistorySiteLoggerLazyQuery,
+    useGetAllSitesQuery,
+    useGetAllLoggerQuery,
+    useGetAllHistorySiteLoggerQuery,
     useInsertHistorySiteLoggerMutation,
     useUpdateHistorySiteLoggerMutation,
     useDeleteHistorySiteLoggerMutation,
@@ -39,9 +39,9 @@ const ChangeLoggerPage = () => {
     const [LoggerData, setLoggerData] = useState([]);
     const [listHistoryLogger, setListHistoryLogger] = useState([]);
 
-    const [getSite, {}] = useGetAllSitesLazyQuery();
-    const [getLogger, {}] = useGetAllLoggerLazyQuery();
-    const [getHistorySiteLogger, {}] = useGetAllHistorySiteLoggerLazyQuery();
+    const { refetch: getSite } = useGetAllSitesQuery();
+    const { refetch: getLogger } = useGetAllLoggerQuery();
+    const { refetch: getHistorySiteLogger } = useGetAllHistorySiteLoggerQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 

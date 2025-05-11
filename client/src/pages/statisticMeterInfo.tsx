@@ -3,8 +3,8 @@ import { Grid, Col, Select, Text, Center } from '@mantine/core';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllSitesLazyQuery,
-    useGetAllMeterLazyQuery,
+    useGetAllSitesQuery,
+    useGetAllMeterQuery,
 } from '../__generated__/graphql';
 import { useState, useEffect } from 'react';
 
@@ -19,8 +19,8 @@ const StatisticMeterInfoPage = () => {
 
     const [valueSerial, setValueSerial] = useState('');
 
-    const [getSite, {}] = useGetAllSitesLazyQuery();
-    const [getMeter, {}] = useGetAllMeterLazyQuery();
+    const { refetch: getSite } = useGetAllSitesQuery();
+    const { refetch: getMeter } = useGetAllMeterQuery();
 
     useEffect(() => {
         getSite()

@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 import { HostnameState } from '../features/hostname';
 
-import { useGetAllSitesLazyQuery } from '../__generated__/graphql';
+import { useGetAllSitesQuery } from '../__generated__/graphql';
 
 import { checkAdminViewerRole } from '../utils/utils';
 
@@ -38,7 +38,7 @@ const DownloadSiteFilePage = () => {
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 
-    const [getSite, {}] = useGetAllSitesLazyQuery();
+    const { refetch: getSite } = useGetAllSitesQuery();
 
     const hostname = useSelector(HostnameState);
 

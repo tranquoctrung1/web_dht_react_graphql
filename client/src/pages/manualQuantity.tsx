@@ -39,7 +39,9 @@ const ManualQuantityPage = () => {
     const [location, setLocation] = useState('');
     const [description, setDescription] = useState('');
     const [timeStamp, setTimeStamp] = useState<Date[]>([]);
+    //@ts-ignore
     const [index, setIndex] = useState(null || 0);
+    //@ts-ignore
     const [output, setOutput] = useState(null || 0);
     const [selectedTime, setSelectedTime] = useState(null);
 

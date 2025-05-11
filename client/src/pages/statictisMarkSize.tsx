@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 // @ts-ignore comment
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
-import { useGetStatisticMarkSizeXnManagerLazyQuery } from '../__generated__/graphql';
+import { useGetStatisticMarkSizeXnManagerQuery } from '../__generated__/graphql';
 
 import { checkAdminViewerRole } from '../utils/utils';
 
@@ -20,8 +20,8 @@ const StatisticMarkSizePage = () => {
 
     const [data, setData] = useState([]);
 
-    const [getStatisticMarkSize, {}] =
-        useGetStatisticMarkSizeXnManagerLazyQuery();
+    const { refetch: getStatisticMarkSize } =
+        useGetStatisticMarkSizeXnManagerQuery();
 
     const getData = () => {
         getStatisticMarkSize()

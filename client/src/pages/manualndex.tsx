@@ -40,7 +40,9 @@ const ManualIndexPage = () => {
     const [location, setLocation] = useState('');
     const [description, setDescription] = useState('');
     const [timeStamp, setTimeStamp] = useState(null);
+    //@ts-ignore
     const [index, setIndex] = useState(null || 0);
+    //@ts-ignore
     const [output, setOutput] = useState(null || 0);
 
     const [column, setColumn] = useState([]);

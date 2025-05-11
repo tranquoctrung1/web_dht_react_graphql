@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllSiteAvailabilitiesLazyQuery,
+    useGetAllSiteAvailabilitiesQuery,
     useInsertSiteAvailabilityMutation,
     useUpdateSiteAvailabilityMutation,
     useDeleteSiteAvailabilityMutation,
@@ -25,7 +25,7 @@ const SiteAvailability = () => {
     const [siteAvai, setSiteAvai] = useState([]);
     const [siteAvaiData, setSiteAvaiData] = useState([]);
 
-    const [getSiteAvai] = useGetAllSiteAvailabilitiesLazyQuery();
+    const { refetch: getSiteAvai } = useGetAllSiteAvailabilitiesQuery();
     const [insertSiteAvai] = useInsertSiteAvailabilityMutation();
     const [updateSiteAvai] = useUpdateSiteAvailabilityMutation();
     const [deleteSiteAvai] = useDeleteSiteAvailabilityMutation();

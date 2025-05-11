@@ -3,16 +3,16 @@ import { MultiSelect, Text, Grid, Col, Button, Center } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
 import {
-    useGetAllSiteLevelLazyQuery,
-    useGetAllSiteGroupLazyQuery,
-    useGetAllSiteGroup2SLazyQuery,
-    useGetMeterModelLazyQuery,
-    useGetCompaniesLazyQuery,
-    useGetAllSiteStatusLazyQuery,
-    useGetAllSiteAvailabilitiesLazyQuery,
-    useGetLoggerModelLazyQuery,
-    useGetAllMeterAccreditationTypeLazyQuery,
-    useGetStatisticCustomChoiceSiteLazyQuery,
+    useGetAllSiteLevelQuery,
+    useGetAllSiteGroupQuery,
+    useGetAllSiteGroup2SQuery,
+    useGetMeterModelQuery,
+    useGetCompaniesQuery,
+    useGetAllSiteStatusQuery,
+    useGetAllSiteAvailabilitiesQuery,
+    useGetLoggerModelQuery,
+    useGetAllMeterAccreditationTypeQuery,
+    useGetStatisticCustomChoiceSiteQuery,
 } from '../__generated__/graphql';
 
 import DataTable from 'react-data-table-component';
@@ -56,17 +56,17 @@ const StatisticCustomChoiceSitePage = () => {
     const [statisticData, setStatisticData] = useState([]);
     const [data, setData] = useState([]);
 
-    const [getSiteLevel, {}] = useGetAllSiteLevelLazyQuery();
-    const [getSiteGroup, {}] = useGetAllSiteGroupLazyQuery();
-    const [getSiteGroup2S, {}] = useGetAllSiteGroup2SLazyQuery();
-    const [getMeterModel, {}] = useGetMeterModelLazyQuery();
-    const [getCompanies, {}] = useGetCompaniesLazyQuery();
-    const [getSiteStatus, {}] = useGetAllSiteStatusLazyQuery();
-    const [getSiteAvai, {}] = useGetAllSiteAvailabilitiesLazyQuery();
-    const [getLoggerModel, {}] = useGetLoggerModelLazyQuery();
-    const [getMeterAcc, {}] = useGetAllMeterAccreditationTypeLazyQuery();
-    const [getStatisticCustomSite, {}] =
-        useGetStatisticCustomChoiceSiteLazyQuery();
+    const { refetch: getSiteLevel } = useGetAllSiteLevelQuery();
+    const { refetch: getSiteGroup } = useGetAllSiteGroupQuery();
+    const { refetch: getSiteGroup2S } = useGetAllSiteGroup2SQuery();
+    const { refetch: getMeterModel } = useGetMeterModelQuery();
+    const { refetch: getCompanies } = useGetCompaniesQuery();
+    const { refetch: getSiteStatus } = useGetAllSiteStatusQuery();
+    const { refetch: getSiteAvai } = useGetAllSiteAvailabilitiesQuery();
+    const { refetch: getLoggerModel } = useGetLoggerModelQuery();
+    const { refetch: getMeterAcc } = useGetAllMeterAccreditationTypeQuery();
+    const { refetch: getStatisticCustomSite } =
+        useGetStatisticCustomChoiceSiteQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 

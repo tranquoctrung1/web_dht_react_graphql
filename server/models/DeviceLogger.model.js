@@ -131,18 +131,24 @@ module.exports.Insert = async (logger) => {
 
     let collection = await Connect.connect(DeviceLoggerCollection);
 
-    logger.ReceiptDate =
-        logger.ReceiptDate !== null && logger.ReceiptDate !== ''
-            ? new Date(logger.ReceiptDate)
-            : null;
+    let check = await collection.find({ Serial: logger.Serial }).toArray();
+    if (check.length == 0) {
+        logger.ReceiptDate =
+            logger.ReceiptDate !== null && logger.ReceiptDate !== ''
+                ? new Date(logger.ReceiptDate)
+                : null;
 
-    result = await collection.insertOne(logger);
+        result = await collection.insertOne(logger);
 
-    result = result.insertedId;
+        result = result.insertedId;
 
-    Connect.disconnect();
+        Connect.disconnect();
 
-    return result;
+        return result;
+    } else {
+        Connect.disconnect();
+        return '';
+    }
 };
 
 module.exports.Delete = async (logger) => {

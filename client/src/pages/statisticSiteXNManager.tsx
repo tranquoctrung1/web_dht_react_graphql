@@ -5,7 +5,7 @@ import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 
-import { useGetStatisticSiteXnManagerLazyQuery } from '../__generated__/graphql';
+import { useGetStatisticSiteXnManagerQuery } from '../__generated__/graphql';
 import { useEffect, useState } from 'react';
 
 import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
@@ -15,7 +15,7 @@ import { checkAdminViewerRole } from '../utils/utils';
 import { motion } from 'framer-motion';
 
 const StatisticSiteXNManager = () => {
-    const [getStatisticSite, {}] = useGetStatisticSiteXnManagerLazyQuery();
+    const { refetch: getStatisticSite } = useGetStatisticSiteXnManagerQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 

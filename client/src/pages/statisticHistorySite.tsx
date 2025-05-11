@@ -1,11 +1,11 @@
 import { Grid, Col, Select, Text, Table, Space, Center } from '@mantine/core';
 
 import {
-    useGetAllSitesLazyQuery,
-    useGetAllMeterLazyQuery,
-    useGetStatisticHistoryMeterAndMeterBySiteIdLazyQuery,
-    useGetStatisticHistoryLoggerAndLoggerBySiteIdLazyQuery,
-    useGetStatisticHistoryTransmitterAndTransmitterBySiteIdLazyQuery,
+    useGetAllSitesQuery,
+    useGetAllMeterQuery,
+    useGetStatisticHistoryMeterAndMeterBySiteIdQuery,
+    useGetStatisticHistoryLoggerAndLoggerBySiteIdQuery,
+    useGetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery,
 } from '../__generated__/graphql';
 
 import { useEffect, useState } from 'react';
@@ -27,14 +27,14 @@ const StatisticHistorySitePage = () => {
     const [dataHistoryTransmitter, setDataHistoryTransmitter] = useState([]);
     const [dataHistoryLogger, setDataHistoryLogger] = useState([]);
 
-    const [getSites, {}] = useGetAllSitesLazyQuery();
-    const [getMeter, {}] = useGetAllMeterLazyQuery();
-    const [getHistoryMeter, {}] =
-        useGetStatisticHistoryMeterAndMeterBySiteIdLazyQuery();
-    const [getHistoryLogger, {}] =
-        useGetStatisticHistoryLoggerAndLoggerBySiteIdLazyQuery();
-    const [getHistoryTransmitter, {}] =
-        useGetStatisticHistoryTransmitterAndTransmitterBySiteIdLazyQuery();
+    const { refetch: getSites } = useGetAllSitesQuery();
+    const { refetch: getMeter } = useGetAllMeterQuery();
+    const { refetch: getHistoryMeter } =
+        useGetStatisticHistoryMeterAndMeterBySiteIdQuery();
+    const { refetch: getHistoryLogger } =
+        useGetStatisticHistoryLoggerAndLoggerBySiteIdQuery();
+    const { refetch: getHistoryTransmitter } =
+        useGetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery();
 
     const { getValues, setValue, reset, control } = useForm({
         defaultValues: {
@@ -97,9 +97,7 @@ const StatisticHistorySitePage = () => {
     const getHistoryMeterAction = (siteid: any) => {
         if (siteid !== null && siteid !== undefined && siteid !== '') {
             getHistoryMeter({
-                variables: {
-                    siteid: siteid,
-                },
+                siteid: siteid,
             }).then((res) => {
                 if (
                     res?.data?.GetStatisticHistoryMeterAndMeterBySiteId !==
@@ -119,9 +117,7 @@ const StatisticHistorySitePage = () => {
     const getHistoryTransmitterAction = (siteid: any) => {
         if (siteid !== null && siteid !== undefined && siteid !== '') {
             getHistoryTransmitter({
-                variables: {
-                    siteid: siteid,
-                },
+                siteid: siteid,
             }).then((res) => {
                 if (
                     res?.data
@@ -144,9 +140,7 @@ const StatisticHistorySitePage = () => {
     const getHistoryLoggerAction = (siteid: any) => {
         if (siteid !== null && siteid !== undefined && siteid !== '') {
             getHistoryLogger({
-                variables: {
-                    siteid: siteid,
-                },
+                siteid: siteid,
             }).then((res) => {
                 if (
                     res?.data?.GetStatisticHistoryLoggerAndLoggerBySiteId !==

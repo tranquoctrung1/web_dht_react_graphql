@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
-    useGetAllRoleLazyQuery,
+    useGetAllRoleQuery,
     useInsertUserRoleMutation,
     useUpdateUserRoleMutation,
     useDeleteUserRoleMutation,
@@ -25,7 +25,7 @@ const UserRole = () => {
     const [list, setList] = useState([]);
     const [data, setData] = useState([]);
 
-    const [getUserRole] = useGetAllRoleLazyQuery();
+    const { refetch: getUserRole } = useGetAllRoleQuery();
     const [insertUserRole] = useInsertUserRoleMutation();
     const [updateUserRole] = useUpdateUserRoleMutation();
     const [deleteUserRole] = useDeleteUserRoleMutation();

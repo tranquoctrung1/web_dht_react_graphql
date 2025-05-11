@@ -5,7 +5,7 @@ import { checkAdminViewerRole } from '../utils/utils';
 import { useEffect, useState } from 'react';
 
 import {
-    useGetAllMeterLazyQuery,
+    useGetAllMeterQuery,
     useDeleteMeterMutation,
 } from '../__generated__/graphql';
 
@@ -26,7 +26,7 @@ const DeleteUselessMeterPage = () => {
     const [data, setData] = useState([]);
     const [listMeter, setListMeter] = useState([]);
 
-    const [getMeter, {}] = useGetAllMeterLazyQuery();
+    const { refetch: getMeter } = useGetAllMeterQuery();
     const [deleteMeter, {}] = useDeleteMeterMutation();
 
     const [selectedRowFile, setSelectedRowFile] = useState([]);

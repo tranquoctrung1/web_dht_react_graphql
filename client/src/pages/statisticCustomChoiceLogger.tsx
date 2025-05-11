@@ -3,13 +3,13 @@ import { MultiSelect, Text, Grid, Col, Button, Center } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
 import {
-    useGetLoggerProviderLazyQuery,
-    useGetLoggerMarksLazyQuery,
-    useGetLoggerModelLazyQuery,
-    useGetCompaniesLazyQuery,
-    useGetAllSiteStatusLazyQuery,
-    useGetAllDeviceStatusLazyQuery,
-    useGetStatisticCustomChoiceLoggerLazyQuery,
+    useGetLoggerProviderQuery,
+    useGetLoggerMarksQuery,
+    useGetLoggerModelQuery,
+    useGetCompaniesQuery,
+    useGetAllSiteStatusQuery,
+    useGetAllDeviceStatusQuery,
+    useGetStatisticCustomChoiceLoggerQuery,
 } from '../__generated__/graphql';
 
 import DataTable from 'react-data-table-component';
@@ -43,14 +43,14 @@ const StatisticCustomChoiceLoggerPage = () => {
     const [statisticData, setStatisticData] = useState([]);
     const [data, setData] = useState([]);
 
-    const [getProvider, {}] = useGetLoggerProviderLazyQuery();
-    const [getMarks, {}] = useGetLoggerMarksLazyQuery();
-    const [getModel, {}] = useGetLoggerModelLazyQuery();
-    const [getCompanies, {}] = useGetCompaniesLazyQuery();
-    const [getSiteStatus, {}] = useGetAllSiteStatusLazyQuery();
-    const [getDeviceStatus, {}] = useGetAllDeviceStatusLazyQuery();
-    const [getStatisticCustomMeter, {}] =
-        useGetStatisticCustomChoiceLoggerLazyQuery();
+    const { refetch: getProvider } = useGetLoggerProviderQuery();
+    const { refetch: getMarks } = useGetLoggerMarksQuery();
+    const { refetch: getModel } = useGetLoggerModelQuery();
+    const { refetch: getCompanies } = useGetCompaniesQuery();
+    const { refetch: getSiteStatus } = useGetAllSiteStatusQuery();
+    const { refetch: getDeviceStatus } = useGetAllDeviceStatusQuery();
+    const { refetch: getStatisticCustomMeter } =
+        useGetStatisticCustomChoiceLoggerQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 

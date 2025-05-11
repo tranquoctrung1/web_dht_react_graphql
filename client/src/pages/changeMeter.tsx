@@ -14,9 +14,9 @@ import {
 import { DateInput } from '@mantine/dates';
 
 import {
-    useGetAllSitesLazyQuery,
-    useGetAllMeterLazyQuery,
-    useGetAllHistorySiteMeterLazyQuery,
+    useGetAllSitesQuery,
+    useGetAllMeterQuery,
+    useGetAllHistorySiteMeterQuery,
     useInsertHistorySiteMeterMutation,
     useUpdateHistorySiteMeterMutation,
     useDeleteHistorySiteMeterMutation,
@@ -39,9 +39,9 @@ const ChangeMeterPage = () => {
     const [meterData, setMeterData] = useState([]);
     const [listHistorySiteMeter, setListHistorySiteMeter] = useState([]);
 
-    const [getSite, {}] = useGetAllSitesLazyQuery();
-    const [getMeter, {}] = useGetAllMeterLazyQuery();
-    const [getHistorySiteMeter, {}] = useGetAllHistorySiteMeterLazyQuery();
+    const { refetch: getSite } = useGetAllSitesQuery();
+    const { refetch: getMeter } = useGetAllMeterQuery();
+    const { refetch: getHistorySiteMeter } = useGetAllHistorySiteMeterQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 

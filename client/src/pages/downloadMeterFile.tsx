@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 import { HostnameState } from '../features/hostname';
 
-import { useGetAllMeterLazyQuery } from '../__generated__/graphql';
+import { useGetAllMeterQuery } from '../__generated__/graphql';
 
 import { checkAdminViewerRole } from '../utils/utils';
 
@@ -38,7 +38,7 @@ const DownloadMeterFilePage = () => {
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
 
-    const [getMeter, {}] = useGetAllMeterLazyQuery();
+    const { refetch: getMeter } = useGetAllMeterQuery();
 
     const hostname = useSelector(HostnameState);
 
