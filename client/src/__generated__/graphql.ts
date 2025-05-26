@@ -66,6 +66,7 @@ export type Company = {
   Company?: Maybe<Scalars['String']>;
   Description?: Maybe<Scalars['String']>;
   Production?: Maybe<Scalars['Int']>;
+  _id: Scalars['ID'];
 };
 
 export type CompanyInStatisticMarkSize = {
@@ -2714,7 +2715,7 @@ export type LoginActionQuery = { __typename?: 'Query', LoginAction?: { __typenam
 export type GetCompaniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCompaniesQuery = { __typename?: 'Query', GetCompanies?: Array<{ __typename?: 'Company', Company?: string | null, Description?: string | null, Production?: number | null }> | null };
+export type GetCompaniesQuery = { __typename?: 'Query', GetCompanies?: Array<{ __typename?: 'Company', _id: string, Company?: string | null, Description?: string | null, Production?: number | null }> | null };
 
 export type DeleteCoverMutationVariables = Exact<{
   cover?: InputMaybe<SiteCoverUpdateInput>;
@@ -4038,6 +4039,7 @@ export function refetchLoginActionQuery(variables?: LoginActionQueryVariables) {
 export const GetCompaniesDocument = gql`
     query GetCompanies {
   GetCompanies {
+    _id
     Company
     Description
     Production

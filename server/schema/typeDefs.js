@@ -27,6 +27,7 @@ module.exports = gql`
     }
 
     type Company {
+        _id: ID!
         Company: String
         Production: Int
         Description: String

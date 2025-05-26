@@ -2,8 +2,8 @@ const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const config = {
-    connectTimeoutMS: 30000,
-    socketTimeoutMS: 30000,
+    connectTimeoutMS: 60000,
+    socketTimeoutMS: 60000,
     useUnifiedTopology: true,
 };
 

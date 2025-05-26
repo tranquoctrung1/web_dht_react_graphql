@@ -70,12 +70,11 @@ const SiteCompany = () => {
             //@ts-ignore
             (el) => el.Company === e.target.value.split('|')[0].trim(),
         );
-
         if (find !== undefined) {
             //@ts-ignore
             setValue('_id', find._id);
             //@ts-ignore
-            setValue('Company', find.Comapny);
+            setValue('Company', find.Company);
             //@ts-ignore
             setValue('Production', find.Production);
             //@ts-ignore
@@ -196,6 +195,8 @@ const SiteCompany = () => {
 
             isAllow = false;
         }
+
+        console.log(formValue);
 
         if (isAllow) {
             updateSiteCompany({
