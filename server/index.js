@@ -1,12 +1,11 @@
 const { ApolloServer } = require('@apollo/server');
-const { expressMiddleware } = require('@as-integrations/express4');
+const { expressMiddleware } = require('@as-integrations/express5');
 const {
     ApolloServerPluginCacheControl,
 } = require('@apollo/server/plugin/cacheControl');
 const {
     ApolloServerPluginDrainHttpServer,
 } = require('@apollo/server/plugin/drainHttpServer');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 const http = require('http');
@@ -18,6 +17,10 @@ const resolvers = require('./schema/resolvers');
 const app = express();
 const port = process.env.PORT || 3001;
 const httpServer = http.createServer(app);
+
+// ✅ Đặt middleware TOÀN CỤC NGAY SAU khi khởi tạo app
+app.use(cors());
+app.use(express.json());
 
 const startServer = async () => {
     const server = new ApolloServer({
@@ -34,22 +37,18 @@ const startServer = async () => {
 
     await server.start();
 
+    // ✅ Middleware Apollo sau cùng
     app.use(
         '/',
-        cors(),
-        bodyParser.json(),
         expressMiddleware(server, {
             context: async ({ req }) => ({ token: req.headers.token }),
         }),
     );
 };
 
+// Khởi chạy
 startServer();
 
-const startHttp = async () => {
-    await new Promise((resolve) => httpServer.listen({ port }, resolve));
-
+httpServer.listen(port, () => {
     console.log(`🚀 Server ready at http://localhost:${port}/`);
-};
-
-startHttp();
+});
