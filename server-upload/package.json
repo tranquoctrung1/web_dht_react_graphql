@@ -3,8 +3,10 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
+    "bin": "index.js",
     "scripts": {
-        "start": "nodemon  -e js,pug,sass index.js"
+        "start": "nodemon  -e js,pug,sass index.js",
+        "build": "pkg . --targets node18-win-x64 --output server-upload.exe"
     },
     "author": "Trung",
     "license": "ISC",
@@ -17,5 +19,10 @@
     },
     "devDependencies": {
         "nodemon": "^3.0.1"
+    },
+    "pkg": {
+        "assets": [
+            "public/**/*"
+        ]
     }
 }

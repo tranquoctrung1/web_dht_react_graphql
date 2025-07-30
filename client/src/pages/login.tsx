@@ -59,33 +59,34 @@ const LoginPage = () => {
         }
 
         if (isAllowSignIn) {
-            if (
-                formValue.username === 'admin' &&
-                formValue.password === 'Admin@123#'
-            ) {
-                localStorage.setItem(
-                    'Uid',
-                    //@ts-ignore
-                    'admin',
-                );
-                localStorage.setItem(
-                    'token',
-                    //@ts-ignore
-                    '',
-                );
-                localStorage.setItem(
-                    'Company',
-                    //@ts-ignore
-                    '',
-                );
-                localStorage.setItem(
-                    'Role',
-                    //@ts-ignore
-                    'admin',
-                );
+            // if (
+            //     formValue.username === 'admin' &&
+            //     formValue.password === 'Admin@1234#'
+            // ) {
+            //     localStorage.setItem(
+            //         'Uid',
+            //         //@ts-ignore
+            //         'admin',
+            //     );
+            //     localStorage.setItem(
+            //         'token',
+            //         //@ts-ignore
+            //         '',
+            //     );
+            //     localStorage.setItem(
+            //         'Company',
+            //         //@ts-ignore
+            //         '',
+            //     );
+            //     localStorage.setItem(
+            //         'Role',
+            //         //@ts-ignore
+            //         'admin',
+            //     );
 
-                navigate('/quantityCompanyWaterSupply');
-            } else {
+            //     navigate('/quantityCompanyWaterSupply');
+            // } else
+            {
                 refetchLogin({
                     username: formValue.username,
                     password: formValue.password,

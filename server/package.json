@@ -3,10 +3,12 @@
     "version": "1.0.0",
     "description": "server web dht node",
     "main": "index.js",
+    "bin": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon  -e js,pug,sass index.js",
-        "start-pro": "node index.js"
+        "start-pro": "node index.js",
+        "build": "pkg . --targets node18-win-x64 --output server.exe"
     },
     "keywords": [
         "Quoc",
@@ -15,27 +17,28 @@
     "author": "Quoc Trung",
     "license": "MIT",
     "dependencies": {
-        "@apollo/server": "^4.3.0",
-        "@mantine/dates": "^5.9.5",
-        "bcryptjs": "^2.4.3",
-        "body-parser": "^1.20.1",
+        "@apollo/server": "^5.0.0",
+        "@as-integrations/express4": "^1.1.2",
+        "@mantine/dates": "^8.2.1",
+        "bcryptjs": "^3.0.2",
+        "body-parser": "^2.2.0",
         "cors": "^2.8.5",
-        "dayjs": "^1.11.7",
-        "dotenv": "^16.0.3",
-        "express": "^4.18.2",
-        "graphql": "^16.6.0",
+        "dayjs": "^1.11.13",
+        "dotenv": "^17.2.1",
+        "express": "^5.1.0",
+        "graphql": "^16.11.0",
         "graphql-tag": "^2.12.6",
         "jsonwebtoken": "^9.0.2",
-        "mongodb": "^4.12.1",
-        "nodemon": "^2.0.20"
+        "mongodb": "^6.18.0",
+        "nodemon": "^3.1.10"
     },
     "devDependencies": {
-        "@babel/core": ">=7.0.0 <8.0.0",
-        "@emotion/react": ">=11.9.0",
-        "@mantine/core": "5.9.5",
-        "@mantine/hooks": "5.9.5",
-        "react": ">=16.8.0",
-        "react-dom": ">=16.8.0 <17.0.0 || >=17.0.0 <18.0.0 || >=18.0.0 <19.0.0"
+        "@babel/core": "^7.28.0",
+        "@emotion/react": ">=11.14.0",
+        "@mantine/core": "8.2.1",
+        "@mantine/hooks": "8.2.1",
+        "react": ">=19.1.1",
+        "react-dom": "^19.1.1"
     },
     "peerDependencies": {
         "@babel/core": ">=7.0.0 <8.0.0",

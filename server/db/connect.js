@@ -4,7 +4,6 @@ require('dotenv').config();
 const config = {
     connectTimeoutMS: 60000,
     socketTimeoutMS: 60000,
-    useUnifiedTopology: true,
 };
 
 module.exports.Connect = class Connect {
