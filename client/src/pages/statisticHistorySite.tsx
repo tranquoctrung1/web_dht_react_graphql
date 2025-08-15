@@ -105,10 +105,15 @@ const StatisticHistorySitePage = () => {
                     res?.data?.GetStatisticHistoryMeterAndMeterBySiteId !==
                         undefined
                 ) {
+                    const uniqueData = Array.from(
+                        new Map(
+                            res.data.GetStatisticHistoryMeterAndMeterBySiteId.map(
+                                (item) => [JSON.stringify(item), item],
+                            ),
+                        ).values(),
+                    );
                     //@ts-ignore
-                    setDataHistoryMeter([
-                        ...res.data.GetStatisticHistoryMeterAndMeterBySiteId,
-                    ]);
+                    setDataHistoryMeter([...uniqueData]);
                 }
             });
         }
@@ -127,11 +132,15 @@ const StatisticHistorySitePage = () => {
                         ?.GetStatisticHistoryTransmitterAndTransmitterBySiteId !==
                         undefined
                 ) {
+                    const uniqueData = Array.from(
+                        new Map(
+                            res.data.GetStatisticHistoryTransmitterAndTransmitterBySiteId.map(
+                                (item) => [JSON.stringify(item), item],
+                            ),
+                        ).values(),
+                    );
                     //@ts-ignore
-                    setDataHistoryTransmitter([
-                        ...res.data
-                            .GetStatisticHistoryTransmitterAndTransmitterBySiteId,
-                    ]);
+                    setDataHistoryTransmitter([...uniqueData]);
                 }
             });
         }
@@ -148,10 +157,15 @@ const StatisticHistorySitePage = () => {
                     res?.data?.GetStatisticHistoryLoggerAndLoggerBySiteId !==
                         undefined
                 ) {
+                    const uniqueData = Array.from(
+                        new Map(
+                            res.data.GetStatisticHistoryLoggerAndLoggerBySiteId.map(
+                                (item) => [JSON.stringify(item), item],
+                            ),
+                        ).values(),
+                    );
                     //@ts-ignore
-                    setDataHistoryLogger([
-                        ...res.data.GetStatisticHistoryLoggerAndLoggerBySiteId,
-                    ]);
+                    setDataHistoryLogger([...uniqueData]);
                 }
             });
         }

@@ -153,7 +153,17 @@ const StatisticHistoryMeterPage = () => {
             if (res?.data?.GetHistoryMeterByMeter) {
                 const temp = [];
 
-                for (const item of res.data.GetHistoryMeterByMeter) {
+                console.log(res.data.GetHistoryMeterByMeter);
+                const uniqueData = Array.from(
+                    new Map(
+                        res.data.GetHistoryMeterByMeter.map((item) => [
+                            JSON.stringify(item),
+                            item,
+                        ]),
+                    ).values(),
+                );
+
+                for (const item of uniqueData) {
                     //@ts-ignore
                     const find = listSite.find((el) => el._id === item?.SiteId);
 
