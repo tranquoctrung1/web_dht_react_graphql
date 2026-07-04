@@ -4,22 +4,48 @@ require('dotenv').config();
 const config = {
     connectTimeoutMS: 60000,
     socketTimeoutMS: 60000,
-    useUnifiedTopology: true,
+    maxPoolSize: 50, // size of the connection pool
+    maxIdleTimeMS: 300000, // close pooled connections idle for 5 minutes
 };
 
 module.exports.Connect = class Connect {
-    constructor() {
-        this.client = new MongoClient(process.env.MONGO_URL, config);
-        this.db = this.client.db(process.env.DB);
+    static clientPromise = null; // ✅ shared across the app
+    static client = null;
+    static db = null;
+
+    // Ensure only one connection is ever created, even under concurrent calls
+    async connectdb() {
+        if (!Connect.clientPromise) {
+            const client = new MongoClient(process.env.MONGO_URL, config);
+            Connect.clientPromise = client
+                .connect()
+                .then(() => {
+                    Connect.client = client;
+                    Connect.db = client.db(process.env.DB);
+                    return Connect.db;
+                })
+                .catch((err) => {
+                    // reset so the next call can retry instead of reusing a dead client
+                    Connect.clientPromise = null;
+                    throw err;
+                });
+        }
+        return Connect.clientPromise;
     }
 
-    async connect(collection) {
-        await this.client.connect();
-
-        return this.db.collection(collection);
+    // Get a collection using the shared connection
+    async connect(collectionName) {
+        const db = await this.connectdb();
+        return db.collection(collectionName);
     }
 
-    disconnect() {
-        this.client.close();
+    // Only call when the whole app is shutting down
+    async disconnect() {
+        if (Connect.client) {
+            await Connect.client.close();
+            Connect.client = null;
+            Connect.db = null;
+            Connect.clientPromise = null;
+        }
     }
 };

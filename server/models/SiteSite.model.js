@@ -104,8 +104,6 @@ module.exports.GetSiteByCompany = async (company) => {
         .sort({ _id: -1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -130,8 +128,6 @@ module.exports.GetSiteByWaterSupply = async (company) => {
         .sort({ _id: -1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -144,8 +140,6 @@ module.exports.GetSitesByGroup = async (group) => {
         .find({ Group: group })
         .sort({ _id: -1 })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -160,8 +154,6 @@ module.exports.GetSitesByGroup2S = async (group) => {
         .sort({ _id: -1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -174,8 +166,6 @@ module.exports.GetSitesByGroup3S = async (group) => {
         .find({ Group3: group })
         .sort({ _id: -1 })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -190,8 +180,6 @@ module.exports.GetSitesByGroup4S = async (group) => {
         .sort({ _id: -1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -205,8 +193,6 @@ module.exports.GetSitesByGroup5S = async (group) => {
         .sort({ _id: -1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -219,8 +205,6 @@ module.exports.GetSitesByLevel = async (level) => {
         .find({ Level: level })
         .sort({ _id: -1 })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -250,8 +234,6 @@ module.exports.GetSitesByQuantityTotal = async (level) => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -261,8 +243,6 @@ module.exports.GetAllSites = async () => {
     let collection = await Connect.connect(SiteSiteCollection);
 
     let result = await collection.find({}).sort({ _id: 1 }).toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -286,8 +266,6 @@ module.exports.GetAllOldSiteId = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -297,8 +275,6 @@ module.exports.GetSiteBySiteId = async (siteid) => {
     let collection = await Connect.connect(SiteSiteCollection);
 
     let result = await collection.find({ _id: siteid }).toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -321,8 +297,6 @@ module.exports.GetAllViewGroups = async () => {
             }
         }
     }
-
-    Connect.disconnect();
 
     return result;
 };
@@ -356,8 +330,6 @@ module.exports.GetSiteByWaterSubtractB2ForTA = async () => {
         .sort({ _id: 1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -379,8 +351,6 @@ module.exports.GetAllDistrict = async () => {
             }
         }
     }
-
-    Connect.disconnect();
 
     return result;
 };
@@ -404,8 +374,6 @@ module.exports.GetAllLevel = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -427,8 +395,6 @@ module.exports.GetAllGroup = async () => {
             }
         }
     }
-
-    Connect.disconnect();
 
     return result;
 };
@@ -452,8 +418,6 @@ module.exports.GetAllGroup2 = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -475,8 +439,6 @@ module.exports.GetAllGroup3 = async () => {
             }
         }
     }
-
-    Connect.disconnect();
 
     return result;
 };
@@ -500,8 +462,6 @@ module.exports.GetAllGroup4 = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -523,8 +483,6 @@ module.exports.GetAllGroup5 = async () => {
             }
         }
     }
-
-    Connect.disconnect();
 
     return result;
 };
@@ -548,8 +506,6 @@ module.exports.GetAllCoverID = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -572,8 +528,6 @@ module.exports.GetAllSiteCompanies = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -589,8 +543,6 @@ module.exports.GetSiteMeterDateChange = async (date) => {
         })
         .sort({ _id: 1 })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -620,8 +572,6 @@ module.exports.GetSiteMeterDateChangeByYearUsing = async (date, year) => {
         })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -636,8 +586,6 @@ module.exports.GetSiteTransmitterDateChange = async (date) => {
             DateOfTransmitterChange: { $gte: new Date(date) },
         })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -662,8 +610,6 @@ module.exports.GetSiteTransmitterDateChangeByYearUsing = async (date, year) => {
         })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -678,8 +624,6 @@ module.exports.GetSiteLoggerDateChange = async (date) => {
             DateOfLoggerChange: { $gte: new Date(date) },
         })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -704,8 +648,6 @@ module.exports.GetSiteLoggerDateChangeByYearUsing = async (date, year) => {
         })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -720,8 +662,6 @@ module.exports.GetSitDateBatteryChange = async (date) => {
             DateOfBatteryChange: { $gte: new Date(date) },
         })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -742,8 +682,6 @@ module.exports.GetSitDateBatteryChangeByYearUsing = async (date, year) => {
         })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -758,8 +696,6 @@ module.exports.GetSitDateTranmitterBatteryChange = async (date) => {
             DateOfTransmitterBatteryChange: { $gte: new Date(date) },
         })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -783,8 +719,6 @@ module.exports.GetSitDateTransmitterBatteryChangeByYearUsing = async (
         })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -799,8 +733,6 @@ module.exports.GetSitDateLoggerBatteryChange = async (date) => {
             DateOfLoggerBatteryChange: { $gte: new Date(date) },
         })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -824,8 +756,6 @@ module.exports.GetSitDateLoggerBatteryChangeByYearUsing = async (
         })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -835,8 +765,6 @@ module.exports.GetSiteById = async (siteid) => {
     let collection = await Connect.connect(SiteSiteCollection);
 
     let result = await collection.find({ _id: siteid }).toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -871,8 +799,6 @@ module.exports.GetSiteByStaffId = async (staffid) => {
         result = result.filter((el) => el.StaffId === staffid);
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -890,8 +816,6 @@ module.exports.GetSiteIstOrQndByCompany = async (company) => {
         })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -904,7 +828,6 @@ module.exports.Insert = async (site) => {
     let check = await collection.find({ _id: site._id }).toArray();
 
     if (check.length > 0) {
-        Connect.disconnect();
         return '';
     } else {
         site.DateOfMeterChange =
@@ -938,8 +861,6 @@ module.exports.Insert = async (site) => {
         result = await collection.insertOne(site);
 
         result = result.insertedId;
-
-        Connect.disconnect();
 
         return result;
     }
@@ -990,8 +911,6 @@ module.exports.Update = async (site) => {
 
         result = await collection.insertOne(site);
 
-        Connect.disconnect();
-
         return result.insertedId;
     } catch (err) {
         console.log(err);
@@ -1007,8 +926,6 @@ module.exports.Delete = async (site) => {
         _id: site._id,
     });
 
-    Connect.disconnect();
-
     return result.deletedCount;
 };
 
@@ -1023,8 +940,6 @@ module.exports.GetStatisticXNManager = async () => {
             $or: [{ Company: { $regex: 'XN' } }, { Company: { $regex: 'DA' } }],
         })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -1057,8 +972,6 @@ module.exports.UpdateMeterDateChange = async (site) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }
@@ -1093,8 +1006,6 @@ module.exports.UpdateTransmitterDateChange = async (site) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }
@@ -1129,8 +1040,6 @@ module.exports.UpdateLoggerDateChange = async (site) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }

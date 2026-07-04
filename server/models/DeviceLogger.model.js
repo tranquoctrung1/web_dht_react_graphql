@@ -35,8 +35,6 @@ module.exports.GetAllLoggerNotInstall = async () => {
         .sort({ Serial: 1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -46,8 +44,6 @@ module.exports.GetAll = async () => {
     let collection = await Connect.connect(DeviceLoggerCollection);
 
     let result = await collection.find().sort({ Serial: 1 }).toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -71,8 +67,6 @@ module.exports.GetAllProvider = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -94,8 +88,6 @@ module.exports.GetAllMarks = async () => {
             }
         }
     }
-
-    Connect.disconnect();
 
     return result;
 };
@@ -119,8 +111,6 @@ module.exports.GetAllModel = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -142,11 +132,8 @@ module.exports.Insert = async (logger) => {
 
         result = result.insertedId;
 
-        Connect.disconnect();
-
         return result;
     } else {
-        Connect.disconnect();
         return '';
     }
 };
@@ -159,8 +146,6 @@ module.exports.Delete = async (logger) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(logger._id),
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -200,8 +185,6 @@ module.exports.Update = async (logger) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }
@@ -232,8 +215,6 @@ module.exports.UpdateInstall = async (logger) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }

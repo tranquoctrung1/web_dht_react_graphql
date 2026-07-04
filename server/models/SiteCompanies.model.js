@@ -18,8 +18,6 @@ module.exports.GetAllSiteCompanies = async () => {
 
     let result = await collection.find({}).toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -29,8 +27,6 @@ module.exports.GetSiteCompniesByCompany = async (company) => {
     let collection = await Connect.connect(SiteCompaniesCollection);
 
     let result = await collection.find({ Company: company }).toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -46,8 +42,6 @@ module.exports.Insert = async (company) => {
 
     result = result.insertedId;
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -59,8 +53,6 @@ module.exports.Delete = async (company) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(company._id),
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -91,8 +83,6 @@ module.exports.Update = async (company) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }

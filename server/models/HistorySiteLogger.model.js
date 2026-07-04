@@ -30,8 +30,6 @@ module.exports.GetAll = async () => {
 
     let result = await collection.find().toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -44,8 +42,6 @@ module.exports.GetHistoryBySiteId = async (siteid) => {
         .find({ SiteId: siteid })
         .sort({ DateChanged: -1 })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -66,8 +62,6 @@ module.exports.Insert = async (history) => {
 
     result = result.insertedId;
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -79,8 +73,6 @@ module.exports.Delete = async (history) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(history._id),
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -95,8 +87,6 @@ module.exports.GetHistoryDateChange = async (date) => {
             DateChanged: { $gte: new Date(date) },
         })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -135,8 +125,6 @@ module.exports.Update = async (history) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }

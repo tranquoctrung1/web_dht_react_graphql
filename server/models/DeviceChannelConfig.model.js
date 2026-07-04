@@ -60,8 +60,6 @@ module.exports.GetChannelByLoggerId = async (loggerid) => {
         .sort({ _id: 1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -71,8 +69,6 @@ module.exports.GetAll = async () => {
     let collection = await Connect.connect(DeviceChannelConfigCollection);
 
     let result = await collection.find({}).sort({ _id: 1 }).toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -87,8 +83,6 @@ module.exports.Insert = async (channel) => {
     result = await collection.insertOne(channel);
 
     result = result.insertedId;
-
-    Connect.disconnect();
 
     return result;
 };
@@ -119,8 +113,6 @@ module.exports.Delete = async (channel) => {
             db.close();
         });
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -188,8 +180,6 @@ module.exports.Update = async (channel) => {
 
             result = insert.insertedId;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
         result = '';

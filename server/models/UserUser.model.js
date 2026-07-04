@@ -42,8 +42,6 @@ module.exports.GetAll = async () => {
 
     let result = await collection.find({}).toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -53,8 +51,6 @@ module.exports.GetUserByUId = async (Uid) => {
     let collection = await Connect.connect(UserUserCollection);
 
     let result = await collection.find({ Uid: Uid }).toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -81,8 +77,6 @@ module.exports.Insert = async (user) => {
         result = result.insertedId;
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -94,8 +88,6 @@ module.exports.Delete = async (user) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(user._id),
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -129,8 +121,6 @@ module.exports.Update = async (user) => {
         );
 
         result = result.modifiedCount;
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }
@@ -161,8 +151,6 @@ module.exports.UpdatePassword = async (user) => {
         );
 
         result = result.modifiedCount;
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }
@@ -185,8 +173,6 @@ module.exports.VerifyPassword = async (Uid, Pwd) => {
             check = 1;
         }
     }
-
-    Connect.disconnect();
 
     return check;
 };
@@ -211,8 +197,6 @@ module.exports.UpdateActiveUser = async (user) => {
         );
 
         result = result.modifiedCount;
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }
@@ -241,8 +225,6 @@ module.exports.UpdateLoginCountUser = async (user) => {
         );
 
         result = result.modifiedCount;
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }

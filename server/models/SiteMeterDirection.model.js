@@ -16,7 +16,5 @@ module.exports.GetAll = async () => {
 
     let result = await collection.find({}).toArray();
 
-    Connect.disconnect();
-
     return result;
 };

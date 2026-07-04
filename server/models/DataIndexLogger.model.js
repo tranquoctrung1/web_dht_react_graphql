@@ -26,7 +26,5 @@ module.exports.GetIndexLogger = async (channelid, start, end) => {
         .find({ TimeStamp: { $gte: startDate, $lte: endDate } })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };

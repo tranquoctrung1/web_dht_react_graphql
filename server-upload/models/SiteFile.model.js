@@ -1,4 +1,4 @@
-const ConnectDB = require('../db/connect');
+﻿const ConnectDB = require('../db/connect');
 const { ObjectId } = require('mongodb');
 
 const SiteFileCollection = 't_Site_Files';
@@ -21,9 +21,6 @@ module.exports.GetAll = async () => {
     let collection = await Connect.connect(SiteFileCollection);
 
     let result = await collection.find({}).sort({ UploadDate: -1 }).toArray();
-
-    Connect.disconnect();
-
     return result;
 };
 
@@ -33,9 +30,6 @@ module.exports.Insert = async (siteFile) => {
     let collection = await Connect.connect(SiteFileCollection);
 
     let result = await collection.insertOne(siteFile);
-
-    Connect.disconnect();
-
     return result.insertedId;
 };
 
@@ -47,8 +41,5 @@ module.exports.Delete = async (id) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(id),
     });
-
-    Connect.disconnect();
-
     return result.deletedCount;
 };

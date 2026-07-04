@@ -24,8 +24,6 @@ module.exports.GetDataManualBySiteIdReport = async (siteid, time) => {
         .find({ SiteId: siteid, TimeStamp: time })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -39,8 +37,6 @@ module.exports.GetDataManualBySiteId = async (siteid) => {
         .sort({ TimeStamp: -1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -50,8 +46,6 @@ module.exports.GetAll = async () => {
     let collection = await Connect.connect(DataManualCollection);
 
     let result = await collection.find({}).toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -72,8 +66,6 @@ module.exports.GetDataManualBySiteIdAndTimeStamp = async (
         .find({ SiteId: siteid, TimeStamp: { $gte: startDate, $lte: endDate } })
         .sort({ TimeStamp: -1 })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -96,8 +88,6 @@ module.exports.Insert = async (dataManual) => {
 
         result = result.insertedId;
     }
-
-    Connect.disconnect();
 
     return result;
 };
@@ -229,8 +219,6 @@ module.exports.InsertIndex = async (dataManual) => {
         }
     }
 
-    Connect.disconnect();
-
     return countInsert;
 };
 
@@ -242,8 +230,6 @@ module.exports.Delete = async (dataManual) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(dataManual._id),
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -280,8 +266,6 @@ module.exports.Update = async (dataManual) => {
 
             result = result.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }
@@ -389,8 +373,6 @@ module.exports.UpdateIndex = async (dataManual) => {
             }
         }
     }
-
-    Connect.disconnect();
 
     return countInsert;
 };

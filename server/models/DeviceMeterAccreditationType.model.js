@@ -20,8 +20,6 @@ module.exports.GetAll = async () => {
 
     let result = await collection.find({}).toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -38,8 +36,6 @@ module.exports.Insert = async (type) => {
 
     result = result.insertedId;
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -53,8 +49,6 @@ module.exports.Delete = async (type) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(type._id),
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -87,8 +81,6 @@ module.exports.Update = async (type) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }

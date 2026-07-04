@@ -21,7 +21,5 @@ module.exports.Insert = async (siteFile) => {
 
     let result = await collection.insertOne(siteFile);
 
-    Connect.disconnect();
-
     return result.insertedId;
 };

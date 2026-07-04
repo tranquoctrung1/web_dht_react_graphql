@@ -11,17 +11,13 @@ module.exports.DeviceStatus = class DeviceStatus {
 };
 
 module.exports.GetAll = async () => {
-    module.exports.GetAll = async () => {
-        let Connect = new ConnectDB.Connect();
+    let Connect = new ConnectDB.Connect();
 
-        let collection = await Connect.connect(DeviceStatusCollection);
+    let collection = await Connect.connect(DeviceStatusCollection);
 
-        let result = await collection.find().toArray();
+    let result = await collection.find().toArray();
 
-        Connect.disconnect();
-
-        return result;
-    };
+    return result;
 };
 
 module.exports.Insert = async (status) => {
@@ -35,8 +31,6 @@ module.exports.Insert = async (status) => {
 
     result = result.insertedId;
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -48,8 +42,6 @@ module.exports.Delete = async (status) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(status._id),
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -80,8 +72,6 @@ module.exports.Update = async (status) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }

@@ -42,8 +42,6 @@ module.exports.GetAllPrecious = async () => {
 
     let result = await collection.find({}).sort({ End: -1 }).toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -56,8 +54,6 @@ module.exports.GetPreciousByCompany = async (company) => {
         .find({ Company: company })
         .sort({ _id: -1 })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -75,8 +71,6 @@ module.exports.GetPreciousByTimeStamp = async (start, end) => {
         .sort({ _id: -1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -91,8 +85,6 @@ module.exports.Insert = async (precious) => {
 
     result = result.insertedId;
 
-    Connect.disconnect();
-
     return { idReturn: result };
 };
 
@@ -104,8 +96,6 @@ module.exports.Delete = async (precious) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(precious._id),
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -123,8 +113,6 @@ module.exports.Update = async (precious) => {
         });
 
         result = await collection.insertOne(precious);
-
-        Connect.disconnect();
 
         return result.insertedId;
     } catch (err) {

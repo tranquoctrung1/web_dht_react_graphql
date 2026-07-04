@@ -24,8 +24,6 @@ module.exports.GetDataLoggerByTimeStamp = async (channelid, start, end) => {
         .sort({ TimeStamp: 1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -41,8 +39,6 @@ module.exports.GetDataLoggerByLastRecord = async (channelid) => {
         .sort({ TimeStamp: -1 })
         .limit(500)
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };

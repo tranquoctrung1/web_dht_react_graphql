@@ -21,8 +21,6 @@ module.exports.GetAll = async () => {
 
     let result = await collection.find({}).toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -44,8 +42,6 @@ module.exports.GetAllCoverL = async () => {
             }
         }
     }
-
-    Connect.disconnect();
 
     return result;
 };
@@ -69,8 +65,6 @@ module.exports.GetAllCoverW = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -92,8 +86,6 @@ module.exports.GetAllCoverH = async () => {
             }
         }
     }
-
-    Connect.disconnect();
 
     return result;
 };
@@ -117,8 +109,6 @@ module.exports.GetAllCorverMeterial = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -141,8 +131,6 @@ module.exports.GetAllCoverNL = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -154,14 +142,11 @@ module.exports.Insert = async (cover) => {
     let collection = await Connect.connect(SiteCoverCollection);
     let check = await collection.find({ CoverID: cover.CoverID }).toArray();
     if (check.length > 0) {
-        Connect.disconnect();
         return '';
     } else {
         result = await collection.insertOne(cover);
 
         result = result.insertedId;
-
-        Connect.disconnect();
 
         return result;
     }
@@ -175,8 +160,6 @@ module.exports.Delete = async (cover) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(cover._id),
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -211,8 +194,6 @@ module.exports.Update = async (cover) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }

@@ -54,8 +54,6 @@ module.exports.GetMeterBySerial = async (serial) => {
 
     let result = await collection.find({ Serial: serial }).toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -69,8 +67,6 @@ module.exports.GetAllMeterNotInstall = async () => {
         .sort({ Serial: 1 })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -80,8 +76,6 @@ module.exports.GetAll = async () => {
     let collection = await Connect.connect(DeviceMeterCollection);
 
     let result = await collection.find().sort({ Serial: 1 }).toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -105,8 +99,6 @@ module.exports.GetAllNationalities = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -128,8 +120,6 @@ module.exports.GetAllProvider = async () => {
             }
         }
     }
-
-    Connect.disconnect();
 
     return result;
 };
@@ -153,8 +143,6 @@ module.exports.GetAllMarks = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -176,8 +164,6 @@ module.exports.GetAllSize = async () => {
             }
         }
     }
-
-    Connect.disconnect();
 
     return result;
 };
@@ -201,8 +187,6 @@ module.exports.GetAllModel = async () => {
         }
     }
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -218,8 +202,6 @@ module.exports.GetMeterAccreditated = async (date) => {
         })
         .toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -234,8 +216,6 @@ module.exports.GetMeterExpiryDate = async (date) => {
             ExpiryDate: { $lte: new Date(date) },
         })
         .toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -269,11 +249,8 @@ module.exports.Insert = async (meter) => {
 
         result = result.insertedId;
 
-        Connect.disconnect();
-
         return result;
     } else {
-        Connect.disconnect();
         return '';
     }
 };
@@ -286,8 +263,6 @@ module.exports.Delete = async (meter) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(meter._id),
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -350,8 +325,6 @@ module.exports.Update = async (meter) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }
@@ -382,8 +355,6 @@ module.exports.UpdateInstall = async (meter) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }

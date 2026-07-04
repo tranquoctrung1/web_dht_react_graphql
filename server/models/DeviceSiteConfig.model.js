@@ -39,8 +39,6 @@ module.exports.GetAll = async () => {
 
     let result = await collection.find({}).toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -50,8 +48,6 @@ module.exports.GetChannelBySiteId = async (siteId) => {
     let collection = await Connect.connect(DeviceSiteConfigCollection);
 
     let result = await collection.find({ SiteId: siteId }).toArray();
-
-    Connect.disconnect();
 
     return result;
 };
@@ -65,14 +61,11 @@ module.exports.Insert = async (siteConfig) => {
 
     let check = await collection.find({ SiteId: siteConfig.SiteId }).toArray();
     if (check.length > 0) {
-        Connect.disconnect();
         return '';
     } else {
         result = await collection.insertOne(siteConfig);
 
         result = result.insertedId;
-
-        Connect.disconnect();
 
         return result;
     }
@@ -86,8 +79,6 @@ module.exports.Delete = async (siteConfig) => {
     let result = await collection.deleteMany({
         _id: new ObjectId(siteConfig._id),
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -105,8 +96,6 @@ module.exports.Update = async (siteConfig) => {
         });
 
         result = await collection.insertOne(siteConfig);
-
-        Connect.disconnect();
 
         return result.insertedId;
     } catch (err) {

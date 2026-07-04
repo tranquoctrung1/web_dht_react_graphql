@@ -17,8 +17,6 @@ module.exports.GetAllStaffs = async () => {
 
     let result = await collection.find({}).toArray();
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -33,8 +31,6 @@ module.exports.Insert = async (staff) => {
 
     result = result.insertedId;
 
-    Connect.disconnect();
-
     return result;
 };
 
@@ -46,8 +42,6 @@ module.exports.Delete = async (staff) => {
     let result = await collection.deleteMany({
         _id: staff._id,
     });
-
-    Connect.disconnect();
 
     return result.deletedCount;
 };
@@ -77,8 +71,6 @@ module.exports.Update = async (staff) => {
 
             result = update.modifiedCount;
         }
-
-        Connect.disconnect();
     } catch (err) {
         console.log(err);
     }
