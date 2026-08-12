@@ -36,7 +36,17 @@
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__evaluate_script",
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__click",
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_console_messages",
-      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot"
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot",
+      "Bash(git commit -m ' *)",
+      "Bash(pnpm run *)",
+      "Bash(npm -v)",
+      "Bash(corepack enable *)",
+      "Bash(corepack pnpm *)",
+      "Bash(corepack pnpm@8 run build)",
+      "Bash(npx pkg *)",
+      "Bash(node -e \"require\\('./schema/typeDefs'\\)\")",
+      "Bash(node -e \"require\\('./schema/resolvers'\\)\")",
+      "Bash(jobs)"
     ]
   }
 }

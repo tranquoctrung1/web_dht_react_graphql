@@ -62,6 +62,14 @@ const K_LEGEND_RULES: Array<{
     },
 ];
 
+const resolveNote = (marks: string) => {
+    if (/aichi/i.test(marks ?? '')) {
+        return 'Đồng hồ Aichi';
+    }
+
+    return '';
+};
+
 const resolveKLegend = (marks: string, model: string): KLegendNames => {
     const rule = K_LEGEND_RULES.find(
         (item) => item.marks.test(marks) && item.model.test(model),
@@ -229,7 +237,7 @@ const StatisticKCoefficientByAreaPage = () => {
         },
         {
             name: 'Ghi chú',
-            selector: (row: any) => row.Description,
+            selector: (row: any) => resolveNote(row.Marks),
             sortable: true,
             width: '160px',
         },
@@ -521,7 +529,7 @@ const StatisticKCoefficientByAreaPage = () => {
                     item.K3 ?? '',
                     item.K4 ?? '',
                     inspectionMonthLabel,
-                    item.Description ?? '',
+                    resolveNote(item.Marks),
                 ];
 
                 const cols = [
@@ -842,7 +850,7 @@ const StatisticKCoefficientByAreaPage = () => {
                             }
                             paginationPerPage={50}
                             sortIcon={<IconArrowBadgeUpFilled />}
-                            defaultSortFieldId="Location"
+                            defaultSortFieldId="_id"
                             defaultSortAsc={true}
                             pagination
                             highlightOnHover={true}

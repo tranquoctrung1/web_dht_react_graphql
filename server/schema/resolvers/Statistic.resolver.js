@@ -1088,11 +1088,10 @@ module.exports = {
         ) => {
             const result = [];
 
-            let listSite = await SiteModel.GetAllSites();
-
-            if (company !== null && company !== undefined && company !== '') {
-                listSite = listSite.filter((el) => el.Company === company);
-            }
+            const listSite =
+                company !== null && company !== undefined && company !== ''
+                    ? await SiteModel.GetSiteByWaterSupply(company)
+                    : await SiteModel.GetAllSites();
 
             const listMeter = await DeviceMeterModel.GetAll();
 
@@ -1101,15 +1100,9 @@ module.exports = {
                     (el) => el.Serial === site.Meter,
                 );
 
-                if (
-                    findMeter !== undefined &&
-                    ((findMeter.K1 !== null && findMeter.K1 !== undefined) ||
-                        (findMeter.K2 !== null &&
-                            findMeter.K2 !== undefined) ||
-                        (findMeter.K3 !== null &&
-                            findMeter.K3 !== undefined) ||
-                        (findMeter.K4 !== null && findMeter.K4 !== undefined))
-                ) {
+                if (findMeter !== undefined) {
+                    const isAichi = /aichi/i.test(findMeter.Marks ?? '');
+
                     result.push({
                         _id: site._id,
                         Location: site.Location,
@@ -1118,17 +1111,23 @@ module.exports = {
                         Marks: findMeter.Marks,
                         Model: findMeter.Model,
                         Size: findMeter.Size,
-                        K1: findMeter.K1,
-                        K2: findMeter.K2,
-                        K3: findMeter.K3,
-                        K4: findMeter.K4,
+                        K1: isAichi ? null : findMeter.K1,
+                        K2: isAichi ? null : findMeter.K2,
+                        K3: isAichi ? null : findMeter.K3,
+                        K4: isAichi ? null : findMeter.K4,
                         AccreditationDocument:
                             findMeter.AccreditationDocument,
                         AccreditatedDate: findMeter.AccreditatedDate,
-                        Description: findMeter.Description,
+                        Description: isAichi
+                            ? 'Đồng hồ Aichi'
+                            : findMeter.Description,
                     });
                 }
             }
+
+            result.sort((a, b) =>
+                String(a._id ?? '').localeCompare(String(b._id ?? '')),
+            );
 
             return result;
         },
