@@ -1,4 +1,5 @@
 const UserUserModel = require('../../models/UserUser.model');
+const ActivityLogModel = require('../../models/ActivityLog.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -45,6 +46,18 @@ module.exports = {
                     userUpdate.Active = true;
 
                     await UserUserModel.UpdateActiveUser(userUpdate);
+
+                    try {
+                        await ActivityLogModel.Insert({
+                            Uid: user[0].Uid,
+                            Role: user[0].Role,
+                            Action: 'LOGIN',
+                            Page: '/login',
+                            CreatedAt: new Date(),
+                        });
+                    } catch (err) {
+                        console.log(err);
+                    }
                 }
             }
 

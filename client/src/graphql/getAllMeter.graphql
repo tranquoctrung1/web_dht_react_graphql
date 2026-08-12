@@ -10,6 +10,10 @@ query GetAllMeter {
         ExpiryDate
         InstallIndex
         Installed
+        K1
+        K2
+        K3
+        K4
         Marks
         Model
         Status

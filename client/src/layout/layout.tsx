@@ -36,6 +36,9 @@ import {
     useVerifyTokenQuery,
 } from '../__generated__/graphql';
 
+import { logActivity } from '../utils/activityLogger';
+import { url } from '../client/client';
+
 const Layout = () => {
     const [updateActiveUser, {}] = useUpdateActiveUserMutation();
     const [verifyToken, {}] = useVerifyTokenLazyQuery();
@@ -92,17 +95,35 @@ const Layout = () => {
                 });
         }
         // handle close tab or browser
-        const handleBeforeUnload = async (event: any) => {
-            const obj = {
-                Uid: localStorage.getItem('Uid'),
-                Active: false,
-            };
+        // Apollo's fetch is not guaranteed to complete once `beforeunload`
+        // fires — browsers may abort in-flight requests on page teardown.
+        // Use a raw fetch with keepalive so the request survives unload.
+        const handleBeforeUnload = () => {
+            const uid = localStorage.getItem('Uid');
+            const token = localStorage.getItem('token');
 
-            await updateActiveUser({
-                variables: {
-                    user: obj,
-                },
-            });
+            if (uid === null || uid === undefined || uid === '') {
+                return;
+            }
+
+            try {
+                fetch(url, {
+                    method: 'POST',
+                    keepalive: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        token: token || '',
+                    },
+                    body: JSON.stringify({
+                        query: 'mutation UpdateActiveUser($user: UpdateActiveUserInput) { UpdateActiveUser(user: $user) }',
+                        variables: {
+                            user: { Uid: uid, Active: false },
+                        },
+                    }),
+                });
+            } catch (e) {
+                // swallow — best-effort only
+            }
         };
 
         window.addEventListener('beforeunload', handleBeforeUnload);
@@ -111,6 +132,71 @@ const Layout = () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
     }, [location]);
+
+    // Audit: log a PAGE_VIEW on every route change (skip login / unauthenticated).
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (
+            token !== null &&
+            token !== undefined &&
+            token !== '' &&
+            location.pathname !== '/login'
+        ) {
+            logActivity('PAGE_VIEW', location.pathname);
+        }
+    }, [location.pathname]);
+
+    // Audit: document-level click tracking (capture phase) for buttons / links.
+    useEffect(() => {
+        const handleClick = (e: MouseEvent) => {
+            try {
+                const token = localStorage.getItem('token');
+                if (token === null || token === undefined || token === '') {
+                    return;
+                }
+
+                const origin = e.target as HTMLElement | null;
+                if (origin === null || origin === undefined) {
+                    return;
+                }
+
+                const el = origin.closest(
+                    'button, a[href]',
+                ) as HTMLElement | null;
+                if (el === null || el === undefined) {
+                    return;
+                }
+
+                // Explicit opt-out (e.g. the activity-log page's own controls).
+                if (el.closest('[data-no-track]') !== null) {
+                    return;
+                }
+
+                let label = (
+                    el.textContent ||
+                    el.getAttribute('aria-label') ||
+                    ''
+                ).trim();
+
+                if (label.length === 0) {
+                    return;
+                }
+                if (label.length > 80) {
+                    label = label.slice(0, 80);
+                }
+
+                logActivity('CLICK', window.location.pathname, label);
+            } catch (err) {
+                // swallow — logging must never disrupt the app
+            }
+        };
+
+        document.addEventListener('click', handleClick, true);
+
+        return () => {
+            document.removeEventListener('click', handleClick, true);
+        };
+    }, []);
 
     const [colorScheme, setColorScheme] = useLocalStorage({
         key: 'mantine-color-scheme-xntd',
@@ -160,11 +246,15 @@ const Layout = () => {
         >
             <MantineProvider
                 // @ts-ignore comment
-                theme={{ colorScheme }}
+                theme={{ colorScheme, respectReducedMotion: false }}
                 withGlobalStyles
                 withNormalizeCSS
             >
-                <div className="main" style={{ background: '#ecf0f12b' }}>
+                <div
+                    className="main"
+                    data-color-scheme={colorScheme}
+                    style={{ background: '#ecf0f12b' }}
+                >
                     <AppShell
                         padding="md"
                         navbarOffsetBreakpoint="sm"

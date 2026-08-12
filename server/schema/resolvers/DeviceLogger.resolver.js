@@ -1,4 +1,15 @@
+const jwt = require('jsonwebtoken');
 const DeviceLoggerModel = require('../../models/DeviceLogger.model');
+
+const ADMIN_ROLE = 'admin';
+
+const decodeToken = (token) => {
+    try {
+        return jwt.verify(token, process.env.JWT_KEY);
+    } catch (err) {
+        return null;
+    }
+};
 
 module.exports = {
     Query: {
@@ -27,6 +38,12 @@ module.exports = {
             return await DeviceLoggerModel.Update(logger);
         },
         DeleteLogger: async (parent, { logger }, context, info) => {
+            const decoded = decodeToken(context.token);
+
+            if (decoded === null || decoded.role !== ADMIN_ROLE) {
+                return 0;
+            }
+
             return await DeviceLoggerModel.Delete(logger);
         },
         UpdateLoggerInstall: async (parent, { logger }, context, info) => {

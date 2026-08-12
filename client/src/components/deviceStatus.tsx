@@ -64,10 +64,10 @@ const DeviceStatus = () => {
             });
     }, []);
 
-    const onChooseDeviceStatus = (e: any) => {
+    const onChooseDeviceStatus = (value: string | null) => {
         const find = deviceStatus.find(
             //@ts-ignore
-            (el) => el.Status === e.target.value.split('|')[0].trim(),
+            (el) => el.Status === (value ?? '').split('|')[0].trim(),
         );
 
         if (find !== undefined) {
@@ -346,7 +346,10 @@ const DeviceStatus = () => {
                                     ]);
                                     return item;
                                 }}
-                                onBlur={onChooseDeviceStatus}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    onChooseDeviceStatus(value);
+                                }}
                             />
                         )}
                     ></Controller>

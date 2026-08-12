@@ -16,6 +16,7 @@ query GetSiteById($siteid: String) {
         Display
         DescriptionOfChange
         District
+        ExcludeFromXNManagerList
         Group
         Group2
         Group4
@@ -31,6 +32,7 @@ query GetSiteById($siteid: String) {
         Longitude
         Meter
         MeterDirection
+        NoReplaceCalibration
         OldId
         ProductionCompany
         Property

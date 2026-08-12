@@ -1,4 +1,15 @@
+const jwt = require('jsonwebtoken');
 const DeviceTransmitterModel = require('../../models/DeviceTransmitter.model');
+
+const ADMIN_ROLE = 'admin';
+
+const decodeToken = (token) => {
+    try {
+        return jwt.verify(token, process.env.JWT_KEY);
+    } catch (err) {
+        return null;
+    }
+};
 
 module.exports = {
     Query: {
@@ -30,6 +41,12 @@ module.exports = {
             return await DeviceTransmitterModel.Update(transmitter);
         },
         DeleteTransmitter: async (parent, { transmitter }, context, info) => {
+            const decoded = decodeToken(context.token);
+
+            if (decoded === null || decoded.role !== ADMIN_ROLE) {
+                return 0;
+            }
+
             return await DeviceTransmitterModel.Delete(transmitter);
         },
     },

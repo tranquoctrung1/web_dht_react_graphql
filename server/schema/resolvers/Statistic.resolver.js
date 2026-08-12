@@ -409,34 +409,47 @@ module.exports = {
             const listHistorySiteMeter =
                 await HistorySiteMeterModel.GetHistoryDateChange(date);
 
-            for (const h of listHistorySiteMeter) {
-                const findSite = listSite.find((el) => el._id === h.SiteId);
+            for (const site of listSite) {
+                const findHistory = listHistorySiteMeter.find(
+                    (el) => el.SiteId === site._id,
+                );
 
-                if (findSite !== undefined) {
-                    const findMeter = listMeter.find(
-                        (el) => el.Serial === findSite.Meter,
-                    );
+                // Site chưa phát sinh công tác thay đồng hồ (không có lịch sử):
+                // fallback dùng đồng hồ hiện đang lắp để cột "Đồng hồ mới" không bị bỏ trống.
+                const newMeterSerial =
+                    findHistory !== undefined
+                        ? findHistory.NewMeterSerial
+                        : site.Meter;
 
-                    if (findMeter !== undefined) {
-                        const obj = {
-                            Meter: h.NewMeterSerial,
-                            Transmitter: '',
-                            _id: findSite._id,
-                            Level: findMeter.ApprovalDecision,
-                            Location: findSite.Location,
-                            Marks: findMeter.Marks,
-                            Size: findMeter.Size,
-                            OldMeter: h.OldMeterSerial,
-                            OldTran: '',
-                            DateOfChange: h.DateChanged,
-                            DescriptionOfChange: findSite.DescriptionOfChange,
-                            AccreditationDocument:
-                                findMeter.AccreditationDocument,
-                            ExpiryDate: findMeter.ExpiryDate,
-                        };
+                const findMeter = listMeter.find(
+                    (el) => el.Serial === newMeterSerial,
+                );
 
-                        result.push(obj);
-                    }
+                if (findMeter !== undefined) {
+                    const obj = {
+                        Meter: newMeterSerial,
+                        Transmitter: '',
+                        _id: site._id,
+                        Level: findMeter.ApprovalDecision,
+                        Location: site.Location,
+                        Marks: findMeter.Marks,
+                        Size: findMeter.Size,
+                        OldMeter:
+                            findHistory !== undefined
+                                ? findHistory.OldMeterSerial
+                                : '',
+                        OldTran: '',
+                        DateOfChange:
+                            findHistory !== undefined
+                                ? findHistory.DateChanged
+                                : site.DateOfMeterChange,
+                        DescriptionOfChange: site.DescriptionOfChange,
+                        AccreditationDocument:
+                            findMeter.AccreditationDocument,
+                        ExpiryDate: findMeter.ExpiryDate,
+                    };
+
+                    result.push(obj);
                 }
             }
 
@@ -1048,7 +1061,7 @@ module.exports = {
                     (el) => el.Meter === meter.Serial,
                 );
 
-                if (findSite !== undefined) {
+                if (findSite !== undefined && findSite.NoReplaceCalibration !== true) {
                     const obj = {
                         _id: findSite._id,
                         Location: findSite.Location,
@@ -1061,6 +1074,59 @@ module.exports = {
                     };
 
                     result.push(obj);
+                }
+            }
+
+            return result;
+        },
+
+        GetStatisticKCoefficientByArea: async (
+            parent,
+            { company },
+            context,
+            info,
+        ) => {
+            const result = [];
+
+            let listSite = await SiteModel.GetAllSites();
+
+            if (company !== null && company !== undefined && company !== '') {
+                listSite = listSite.filter((el) => el.Company === company);
+            }
+
+            const listMeter = await DeviceMeterModel.GetAll();
+
+            for (const site of listSite) {
+                const findMeter = listMeter.find(
+                    (el) => el.Serial === site.Meter,
+                );
+
+                if (
+                    findMeter !== undefined &&
+                    ((findMeter.K1 !== null && findMeter.K1 !== undefined) ||
+                        (findMeter.K2 !== null &&
+                            findMeter.K2 !== undefined) ||
+                        (findMeter.K3 !== null &&
+                            findMeter.K3 !== undefined) ||
+                        (findMeter.K4 !== null && findMeter.K4 !== undefined))
+                ) {
+                    result.push({
+                        _id: site._id,
+                        Location: site.Location,
+                        Company: site.Company,
+                        Serial: findMeter.Serial,
+                        Marks: findMeter.Marks,
+                        Model: findMeter.Model,
+                        Size: findMeter.Size,
+                        K1: findMeter.K1,
+                        K2: findMeter.K2,
+                        K3: findMeter.K3,
+                        K4: findMeter.K4,
+                        AccreditationDocument:
+                            findMeter.AccreditationDocument,
+                        AccreditatedDate: findMeter.AccreditatedDate,
+                        Description: findMeter.Description,
+                    });
                 }
             }
 

@@ -33,13 +33,16 @@ module.exports.Insert = async (siteFile) => {
     return result.insertedId;
 };
 
+// findOneAndDelete returns the deleted doc so the controller can also
+// remove the physical file from disk — otherwise upload storage grows
+// unbounded forever since nothing else ever unlinks these files.
 module.exports.Delete = async (id) => {
     let Connect = new ConnectDB.Connect();
 
     let collection = await Connect.connect(SiteFileCollection);
 
-    let result = await collection.deleteMany({
+    let result = await collection.findOneAndDelete({
         _id: new ObjectId(id),
     });
-    return result.deletedCount;
+    return result;
 };

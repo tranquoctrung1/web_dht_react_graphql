@@ -66,33 +66,35 @@ const LoggerConfigPage = () => {
     const [deleteDeviceChannelConfig, {}] =
         useDeleteDeviceChannelConifgMutation();
 
+    const createEmptyChannel = () => {
+        return {
+            _id: '',
+            LoggerId: '',
+            Name: '',
+            Unit: '',
+            LastTimeStamp: null,
+            LastValue: 0,
+            Description: '',
+            BaseMin: 0,
+            BaseMax: 0,
+            BaseLine: 0,
+            GroupChannel: '',
+            Pressure1: false,
+            Pressure2: false,
+            ForwardFlow: false,
+            ReverseFlow: false,
+            DisplayOnGraph: false,
+            IndexTimeStamp: null,
+            LastIndex: 0,
+            StatusViewAlarm: false,
+        };
+    };
+
     const resetListChannel = () => {
         const temp = [];
 
         for (let i = 0; i < 4; i++) {
-            const obj = {
-                _id: '',
-                LoggerId: '',
-                Name: '',
-                Unit: '',
-                LastTimeStamp: null,
-                LastValue: 0,
-                Description: '',
-                BaseMin: 0,
-                BaseMax: 0,
-                BaseLine: 0,
-                GroupChannel: '',
-                Pressure1: false,
-                Pressure2: false,
-                ForwardFlow: false,
-                ReverseFlow: false,
-                DisplayOnGraph: false,
-                IndexTimeStamp: null,
-                LastIndex: 0,
-                StatusViewAlarm: false,
-            };
-
-            temp.push(obj);
+            temp.push(createEmptyChannel());
         }
 
         //@ts-ignore
@@ -182,10 +184,10 @@ const LoggerConfigPage = () => {
         }
     }
 
-    const onSiteIdBlured = (e: any) => {
+    const onSiteIdChanged = (value: string | null) => {
         const find = listDevieSiteConfig.find(
             //@ts-ignore
-            (el) => el.SiteId === e.target.value,
+            (el) => el.SiteId === value,
         );
 
         resetListChannel();
@@ -917,6 +919,89 @@ const LoggerConfigPage = () => {
         }
     };
 
+    const onDeleteChannelClicked = (index: number) => {
+        const channel = listChannel[index];
+
+        if (
+            channel === null ||
+            channel === undefined ||
+            //@ts-ignore
+            channel._id === null ||
+            //@ts-ignore
+            channel._id === undefined ||
+            //@ts-ignore
+            channel._id === ''
+        ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Kênh chưa có Id!!!',
+            });
+
+            return;
+        }
+
+        Swal.fire({
+            title: 'Xóa kênh?',
+            //@ts-ignore
+            text: `Xóa kênh ${channel._id} không thể nào hồi phục lại!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteDeviceChannelConfig({
+                    variables: {
+                        channel: channel,
+                    },
+                })
+                    .then((res) => {
+                        if (res.data !== null && res.data !== undefined) {
+                            if (
+                                res.data.DeleteDeviceChannelConifg !== null &&
+                                res.data.DeleteDeviceChannelConifg !== undefined
+                            ) {
+                                if (res.data.DeleteDeviceChannelConifg > 0) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Successfull',
+                                        text: 'Xóa kênh thành công',
+                                    });
+
+                                    handelDeleteListChannel(channel);
+
+                                    const obj = {
+                                        index: index,
+                                        value: createEmptyChannel(),
+                                    };
+
+                                    //@ts-ignore
+                                    dispatch(updateListChannelByIndex(obj));
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Xóa kênh không thành công',
+                                    });
+                                }
+                            }
+                        }
+                    })
+                    .catch((err) => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Xóa kênh không thành công',
+                        });
+                        console.log(err);
+                    });
+            }
+        });
+    };
+
     const onDeleteClicked = () => {
         Swal.fire({
             title: 'Xóa cấu hinh logger?',
@@ -1069,7 +1154,10 @@ const LoggerConfigPage = () => {
                                     //@ts-ignore
                                     data={siteData}
                                     {...field}
-                                    onBlur={onSiteIdBlured}
+                                    onChange={(value) => {
+                                        field.onChange(value);
+                                        onSiteIdChanged(value);
+                                    }}
                                     withAsterisk
                                 />
                             )}
@@ -1119,16 +1207,48 @@ const LoggerConfigPage = () => {
                     ></Controller>
                 </Col>
                 <Col span={12}>
-                    <ConfigChannel index={0} LoggerId={getValues('LoggerId')} />
+                    <ConfigChannel
+                        index={0}
+                        LoggerId={getValues('LoggerId')}
+                        onDelete={
+                            isAdminViewer == false
+                                ? onDeleteChannelClicked
+                                : undefined
+                        }
+                    />
                 </Col>
                 <Col span={12}>
-                    <ConfigChannel index={1} LoggerId={getValues('LoggerId')} />
+                    <ConfigChannel
+                        index={1}
+                        LoggerId={getValues('LoggerId')}
+                        onDelete={
+                            isAdminViewer == false
+                                ? onDeleteChannelClicked
+                                : undefined
+                        }
+                    />
                 </Col>
                 <Col span={12}>
-                    <ConfigChannel index={2} LoggerId={getValues('LoggerId')} />
+                    <ConfigChannel
+                        index={2}
+                        LoggerId={getValues('LoggerId')}
+                        onDelete={
+                            isAdminViewer == false
+                                ? onDeleteChannelClicked
+                                : undefined
+                        }
+                    />
                 </Col>
                 <Col span={12}>
-                    <ConfigChannel index={3} LoggerId={getValues('LoggerId')} />
+                    <ConfigChannel
+                        index={3}
+                        LoggerId={getValues('LoggerId')}
+                        onDelete={
+                            isAdminViewer == false
+                                ? onDeleteChannelClicked
+                                : undefined
+                        }
+                    />
                 </Col>
                 {isAdminViewer == false ? (
                     <Col span={12}>

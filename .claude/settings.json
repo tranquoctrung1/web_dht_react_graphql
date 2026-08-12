@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"C:\\\\Users\\\\tranq\\\\Desktop\\\\report\")",
+      "Read(//c/Users/tranq/Desktop/report/**)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -c \"import openpyxl; print\\('ok'\\)\")",
+      "Bash(python -c \"import sys; print\\(sys.executable\\)\")",
+      "Bash(python -m pip install openpyxl -q)",
+      "Bash(python -c ' *)",
+      "Bash(rm -rf _workspace_prev)",
+      "Bash(mv _workspace _workspace_prev)",
+      "Bash(mkdir _workspace)",
+      "Bash(npx graphql-codegen *)",
+      "Bash(npm view *)",
+      "Bash(npm install *)",
+      "Bash(tail -60 \"C:\\\\Users\\\\tranq\\\\AppData\\\\Local\\\\npm-cache\\\\_logs\\\\2026-08-12T01_46_12_756Z-debug-0.log\")",
+      "Read(//c/Users/tranq/AppData/Local/npm-cache/_logs/**)",
+      "Bash(npx pnpm *)",
+      "Bash(where pnpm *)",
+      "Bash(npx pnpm@8 add exceljs)",
+      "Bash(tasklist //FI \"IMAGENAME eq node.exe\")",
+      "Bash(node -e \"const p=require\\('./node_modules/exceljs/package.json'\\); console.log\\(JSON.stringify\\({main:p.main, browser:p.browser, module:p.module},null,2\\)\\)\")",
+      "Bash(node -e \"console.log\\(require\\('fs'\\).existsSync\\('./node_modules/exceljs/dist/exceljs.min.js'\\)\\)\")",
+      "Bash(taskkill //PID 6488 //F)",
+      "Bash(node -e ' *)",
+      "Bash(curl -s -m 5 http://14.161.22.76:6001/ -o /dev/null -w \"%{http_code}\\\\n\")",
+      "Bash(curl -s -X POST http://localhost:3001/ -H \"Content-Type: application/json\" -d '{\"query\":\"query { GetCompanies { Company } }\"}')",
+      "Bash(curl -s -X POST http://localhost:3001/ -H 'Content-Type: application/json' -d '{\"query\":\"query\\($c:String\\){ GetStatisticKCoefficientByArea\\(company:$c\\) { _id Location Serial Marks Model K1 K2 K3 K4 } }\",\"variables\":{\"c\":\"CL\"}}')",
+      "Bash(wmic process *)",
+      "PowerShell(Get-CimInstance Win32_Process -Filter \"ProcessId=8424\")",
+      "Bash(curl -s -X POST http://localhost:3001/ -H 'Content-Type: application/json' -d '{\"query\":\"query\\($c:String\\){ GetStatisticKCoefficientByArea\\(company:$c\\) { _id K1 K2 K3 K4 } }\",\"variables\":{\"c\":\"TD\"}}')",
+      "Bash(curl -s -X POST http://localhost:3001/ -H \"Content-Type: application/json\" -d '{\"query\":\"query{ GetStatisticKCoefficientByArea { _id K1 } }\"}')",
+      "Bash(grep -n \"'Ghi chú', { size: 12, bold: true }\" src/pages/statisticKCoefficientByArea.tsx)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__navigate_page",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__evaluate_script",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__click",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_console_messages",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot"
+    ]
+  }
+}

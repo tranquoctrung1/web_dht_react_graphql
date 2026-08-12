@@ -62,10 +62,10 @@ const InstallLevel = () => {
             .catch((err) => console.error(err));
     }, []);
 
-    const onChooseSiteLevel = (e: any) => {
+    const onChooseSiteLevel = (value: string | null) => {
         const find = siteLevel.find(
             //@ts-ignore
-            (el) => el.Level === e.currentTarget.value.split('|')[0].trim(),
+            (el) => el.Level === (value ?? '').split('|')[0].trim(),
         );
 
         if (find !== undefined) {
@@ -343,7 +343,10 @@ const InstallLevel = () => {
                                     ]);
                                     return item;
                                 }}
-                                onBlur={onChooseSiteLevel}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    onChooseSiteLevel(value);
+                                }}
                             />
                         )}
                     ></Controller>

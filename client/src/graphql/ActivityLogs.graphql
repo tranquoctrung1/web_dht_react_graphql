@@ -1,0 +1,31 @@
+query ActivityLogs(
+    $Uid: String
+    $Action: String
+    $Page: String
+    $dateFrom: Date
+    $dateTo: Date
+    $skip: Int
+    $limit: Int
+) {
+    ActivityLogs(
+        Uid: $Uid
+        Action: $Action
+        Page: $Page
+        dateFrom: $dateFrom
+        dateTo: $dateTo
+        skip: $skip
+        limit: $limit
+    ) {
+        items {
+            _id
+            Uid
+            Role
+            Action
+            Page
+            Target
+            Detail
+            CreatedAt
+        }
+        total
+    }
+}

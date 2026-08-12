@@ -14,6 +14,8 @@ import {
 } from '../__generated__/graphql';
 
 import DataTable from 'react-data-table-component';
+
+import { useTableTheme } from '../hooks/useTableTheme';
 // @ts-ignore
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -25,6 +27,7 @@ import { checkAdminViewerRole, convertTimeStampToDate } from '../utils/utils';
 import { motion } from 'framer-motion';
 
 const StatisticCustomChoiceTransmitterPage = () => {
+    const tableTheme = useTableTheme();
     const [listDataYN, setListDataYN] = useState(['Y', 'N']);
     const [listProvider, setListProvider] = useState([]);
     const [listMarks, setListMarks] = useState([]);
@@ -680,6 +683,7 @@ STT
                 <Col span={12} style={{ maxWidth: '99%' }}>
                     <DataTableExtensions {...tableData}>
                         <DataTable
+                            theme={tableTheme}
                             noHeader
                             noTableHead
                             columns={columns}

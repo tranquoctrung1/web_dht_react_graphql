@@ -77,6 +77,8 @@ interface LinksGroupProps {
     label: string;
     initiallyOpened?: boolean;
     links?: { label: string; link: string }[];
+    opened?: boolean;
+    onToggle?: () => void;
 }
 
 export function LinksGroup({
@@ -84,6 +86,8 @@ export function LinksGroup({
     label,
     initiallyOpened,
     links,
+    opened: openedProp,
+    onToggle,
 }: LinksGroupProps) {
     const navigate = useNavigate();
 
@@ -91,7 +95,8 @@ export function LinksGroup({
 
     const { classes, theme } = useStyles();
     const hasLinks = Array.isArray(links);
-    const [opened, setOpened] = useState(initiallyOpened || false);
+    const [openedState, setOpenedState] = useState(initiallyOpened || false);
+    const opened = onToggle ? !!openedProp : openedState;
     const ChevronIcon =
         theme.dir === 'ltr' ? IconChevronRight : IconChevronLeft;
     const items = (hasLinks ? links : []).map((link) => (
@@ -114,7 +119,9 @@ export function LinksGroup({
     return (
         <>
             <UnstyledButton
-                onClick={() => setOpened((o) => !o)}
+                onClick={() =>
+                    onToggle ? onToggle() : setOpenedState((o) => !o)
+                }
                 className={classes.control}
             >
                 <Group position="apart" spacing={0}>
@@ -140,7 +147,15 @@ export function LinksGroup({
                     )}
                 </Group>
             </UnstyledButton>
-            {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
+            {hasLinks ? (
+                <Collapse
+                    in={opened}
+                    transitionDuration={200}
+                    transitionTimingFunction="ease"
+                >
+                    {items}
+                </Collapse>
+            ) : null}
         </>
     );
 }

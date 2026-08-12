@@ -14,9 +14,25 @@ require('dotenv').config();
 const typeDefs = require('./schema/typeDefs');
 const resolvers = require('./schema/resolvers');
 
+// A rejection/exception that escapes Apollo's resolver-execution boundary
+// (e.g. during server startup) would otherwise crash the process silently,
+// with no supervisor to restart it — permanent downtime until manual restart.
+process.on('unhandledRejection', (reason) => {
+    console.error('Unhandled promise rejection:', reason);
+});
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught exception:', err);
+});
+
 const app = express();
 const port = process.env.PORT || 3001;
 const httpServer = http.createServer(app);
+
+// Sockets left half-closed by a proxy/NAT never get force-closed without
+// these, and slowly accumulate over long uptimes until the server stops
+// accepting new connections. keepAliveTimeout must stay below headersTimeout.
+httpServer.keepAliveTimeout = 65000;
+httpServer.headersTimeout = 66000;
 
 // ✅ Đặt middleware TOÀN CỤC NGAY SAU khi khởi tạo app
 app.use(cors());

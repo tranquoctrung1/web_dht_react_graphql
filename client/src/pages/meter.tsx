@@ -330,6 +330,10 @@ const MeterPage = () => {
             AppovalDecision: '',
             SerialTransmitter: '',
             Nationality: '',
+            K1: 0,
+            K2: 0,
+            K3: 0,
+            K4: 0,
         },
     });
 
@@ -424,6 +428,14 @@ const MeterPage = () => {
             setValue('SerialTransmitter', find.SerialTransmitter);
             //@ts-ignore
             setValue('Nationality', find.Nationality);
+            //@ts-ignore
+            setValue('K1', find.K1 ?? 0);
+            //@ts-ignore
+            setValue('K2', find.K2 ?? 0);
+            //@ts-ignore
+            setValue('K3', find.K3 ?? 0);
+            //@ts-ignore
+            setValue('K4', find.K4 ?? 0);
         }
     };
 
@@ -459,6 +471,34 @@ const MeterPage = () => {
             AppovalDecision: formValue.AppovalDecision,
             SerialTransmitter: formValue.SerialTransmitter,
             Nationality: formValue.Nationality,
+            //@ts-ignore
+            K1:
+                //@ts-ignore
+                formValue.K1 !== null && formValue.K1 !== ''
+                    ? //@ts-ignore
+                      parseFloat(formValue.K1)
+                    : null,
+            //@ts-ignore
+            K2:
+                //@ts-ignore
+                formValue.K2 !== null && formValue.K2 !== ''
+                    ? //@ts-ignore
+                      parseFloat(formValue.K2)
+                    : null,
+            //@ts-ignore
+            K3:
+                //@ts-ignore
+                formValue.K3 !== null && formValue.K3 !== ''
+                    ? //@ts-ignore
+                      parseFloat(formValue.K3)
+                    : null,
+            //@ts-ignore
+            K4:
+                //@ts-ignore
+                formValue.K4 !== null && formValue.K4 !== ''
+                    ? //@ts-ignore
+                      parseFloat(formValue.K4)
+                    : null,
         };
 
         return obj;
@@ -497,6 +537,34 @@ const MeterPage = () => {
             AppovalDecision: formValue.AppovalDecision,
             SerialTransmitter: formValue.SerialTransmitter,
             Nationality: formValue.Nationality,
+            //@ts-ignore
+            K1:
+                //@ts-ignore
+                formValue.K1 !== null && formValue.K1 !== ''
+                    ? //@ts-ignore
+                      parseFloat(formValue.K1)
+                    : null,
+            //@ts-ignore
+            K2:
+                //@ts-ignore
+                formValue.K2 !== null && formValue.K2 !== ''
+                    ? //@ts-ignore
+                      parseFloat(formValue.K2)
+                    : null,
+            //@ts-ignore
+            K3:
+                //@ts-ignore
+                formValue.K3 !== null && formValue.K3 !== ''
+                    ? //@ts-ignore
+                      parseFloat(formValue.K3)
+                    : null,
+            //@ts-ignore
+            K4:
+                //@ts-ignore
+                formValue.K4 !== null && formValue.K4 !== ''
+                    ? //@ts-ignore
+                      parseFloat(formValue.K4)
+                    : null,
         };
 
         return obj;
@@ -1163,6 +1231,66 @@ const MeterPage = () => {
                             <NumberInput
                                 placeholder="Chỉ số khách hàng"
                                 label="Chỉ số khách hàng"
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="K1"
+                        control={control}
+                        render={({ field }) => (
+                            <NumberInput
+                                placeholder="Hệ số K1"
+                                label="Hệ số K1"
+                                precision={6}
+                                step={0.0001}
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="K2"
+                        control={control}
+                        render={({ field }) => (
+                            <NumberInput
+                                placeholder="Hệ số K2"
+                                label="Hệ số K2"
+                                precision={6}
+                                step={0.0001}
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="K3"
+                        control={control}
+                        render={({ field }) => (
+                            <NumberInput
+                                placeholder="Hệ số K3"
+                                label="Hệ số K3"
+                                precision={6}
+                                step={0.0001}
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col md={4}>
+                    <Controller
+                        name="K4"
+                        control={control}
+                        render={({ field }) => (
+                            <NumberInput
+                                placeholder="Hệ số K4"
+                                label="Hệ số K4"
+                                precision={6}
+                                step={0.0001}
                                 {...field}
                             />
                         )}

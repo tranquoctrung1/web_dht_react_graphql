@@ -32,6 +32,17 @@ export const AddSubtractWaterB1Slice = createSlice({
                 }
             }
         },
+        updateDatePublished: (state, action: PayloadAction) => {
+            for (let i = 0; i < state.value.length; i++) {
+                // @ts-ignore
+                if (i === action.payload.index) {
+                    // @ts-ignore
+                    state.value[i].DatePublished =
+                        //@ts-ignore
+                        action.payload.DatePublished;
+                }
+            }
+        },
         updateContent: (state, action: PayloadAction) => {
             for (let i = 0; i < state.value.length; i++) {
                 // @ts-ignore
@@ -87,6 +98,7 @@ export const {
     addSubtractWaterB1s,
     addSubtractWaterB1,
     updateNumberPrecious,
+    updateDatePublished,
     updateNote,
     updateAmountWater,
     updateContent,

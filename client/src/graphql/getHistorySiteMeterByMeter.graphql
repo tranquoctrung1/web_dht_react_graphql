@@ -4,6 +4,9 @@ query GetHistoryMeterByMeter($meterSerial: String) {
         Description
         NewMeterIndex
         NewMeterSerial
+        NewMeterMarks
+        NewMeterSize
+        NewMeterModel
         OldMeterIndex
         OldMeterSerial
         SiteId

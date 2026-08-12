@@ -1,4 +1,5 @@
 const ConnectDB = require('../db/connect');
+const { collectDistinct } = require('../utils/collectDistinct');
 const { ObjectId } = require('mongodb');
 
 const DeviceLoggerCollection = 't_Devices_Loggers';
@@ -53,21 +54,12 @@ module.exports.GetAllProvider = async () => {
 
     let collection = await Connect.connect(DeviceLoggerCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Provider: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const logger of data) {
-            let find = result.find((el) => el === logger.Provider);
-
-            if (find === undefined) {
-                result.push(logger.Provider);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Provider');
 };
 
 module.exports.GetAllMarks = async () => {
@@ -75,21 +67,12 @@ module.exports.GetAllMarks = async () => {
 
     let collection = await Connect.connect(DeviceLoggerCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Marks: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const logger of data) {
-            let find = result.find((el) => el === logger.Marks);
-
-            if (find === undefined) {
-                result.push(logger.Marks);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Marks');
 };
 
 module.exports.GetAllModel = async () => {
@@ -97,21 +80,12 @@ module.exports.GetAllModel = async () => {
 
     let collection = await Connect.connect(DeviceLoggerCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Model: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const logger of data) {
-            let find = result.find((el) => el === logger.Model);
-
-            if (find === undefined) {
-                result.push(logger.Model);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Model');
 };
 
 module.exports.Insert = async (logger) => {

@@ -68,11 +68,11 @@ const MeterAccreditationType = () => {
             });
     }, []);
 
-    const onChooseMeterAccreditationType = (e: any) => {
+    const onChooseMeterAccreditationType = (value: string | null) => {
         const find = list.find(
             (el) =>
                 //@ts-ignore
-                el.AccreditationType === e.target.value.split('|')[0].trim(),
+                el.AccreditationType === (value ?? '').split('|')[0].trim(),
         );
 
         if (find !== undefined) {
@@ -347,7 +347,10 @@ const MeterAccreditationType = () => {
                                     setData((current) => [...current, item]);
                                     return item;
                                 }}
-                                onBlur={onChooseMeterAccreditationType}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    onChooseMeterAccreditationType(value);
+                                }}
                             />
                         )}
                     ></Controller>

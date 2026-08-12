@@ -204,6 +204,58 @@ module.exports.UpdateActiveUser = async (user) => {
     return result;
 };
 
+// One-time reset for the new-web migration: zero out LogCount for every
+// account so the login-count column starts counting fresh on the new site.
+module.exports.ResetAllLogCount = async () => {
+    let result = 0;
+
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(UserUserCollection);
+
+        result = await collection.updateMany(
+            {},
+            {
+                $set: {
+                    LogCount: 0,
+                },
+            },
+        );
+
+        result = result.modifiedCount;
+    } catch (err) {
+        console.log(err);
+    }
+
+    return result;
+};
+
+module.exports.ResetLogCount = async (Uid) => {
+    let result = 0;
+
+    try {
+        let Connect = new ConnectDB.Connect();
+
+        let collection = await Connect.connect(UserUserCollection);
+
+        let update = await collection.updateMany(
+            { Uid: Uid },
+            {
+                $set: {
+                    LogCount: 0,
+                },
+            },
+        );
+
+        result = update.modifiedCount;
+    } catch (err) {
+        console.log(err);
+    }
+
+    return result;
+};
+
 module.exports.UpdateLoginCountUser = async (user) => {
     let result = 0;
 

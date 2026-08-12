@@ -44,6 +44,7 @@ query GetPreciousByCompany($company: String) {
         }
         SubtractWaterB1 {
             NumberPrecious
+            DatePublished
             Content
             Provider
             AmountWater
@@ -51,6 +52,7 @@ query GetPreciousByCompany($company: String) {
         }
         SubtractWaterB2 {
             NumberPrecious
+            DatePublished
             Content
             AmountWater
             Provider

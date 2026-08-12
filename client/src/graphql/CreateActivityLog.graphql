@@ -1,0 +1,13 @@
+mutation CreateActivityLog(
+    $Action: String
+    $Page: String
+    $Target: String
+    $Detail: String
+) {
+    CreateActivityLog(
+        Action: $Action
+        Page: $Page
+        Target: $Target
+        Detail: $Detail
+    )
+}

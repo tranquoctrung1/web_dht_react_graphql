@@ -64,10 +64,10 @@ const UserRole = () => {
             });
     }, []);
 
-    const onChooseUserRole = (e: any) => {
+    const onChooseUserRole = (value: string | null) => {
         const find = list.find(
             //@ts-ignore
-            (el) => el.Role === e.target.value.split('|')[0].trim(),
+            (el) => el.Role === (value ?? '').split('|')[0].trim(),
         );
 
         if (find !== undefined) {
@@ -342,7 +342,10 @@ const UserRole = () => {
                                     setData((current) => [...current, item]);
                                     return item;
                                 }}
-                                onBlur={onChooseUserRole}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    onChooseUserRole(value);
+                                }}
                             />
                         )}
                     ></Controller>

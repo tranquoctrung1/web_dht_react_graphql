@@ -13,6 +13,8 @@ import { useGetAllMeterQuery } from '../__generated__/graphql';
 import { checkAdminViewerRole } from '../utils/utils';
 
 import DataTable from 'react-data-table-component';
+
+import { useTableTheme } from '../hooks/useTableTheme';
 // @ts-ignore
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -26,6 +28,7 @@ import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
 
 const DownloadMeterFilePage = () => {
+    const tableTheme = useTableTheme();
     const [meterData, setMeterData] = useState([]);
 
     const [listFile, setListFile] = useState([]);
@@ -310,6 +313,7 @@ const DownloadMeterFilePage = () => {
                 <Col span={12} style={{ maxWidth: '99%' }}>
                     <DataTableExtensions {...tableData}>
                         <DataTable
+                            theme={tableTheme}
                             columns={columns}
                             data={data}
                             title={

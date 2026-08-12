@@ -78,6 +78,8 @@ module.exports = gql`
         Group5: String
         District: String
         IsErrorBattery: Boolean
+        NoReplaceCalibration: Boolean
+        ExcludeFromXNManagerList: Boolean
     }
 
     type Channel {
@@ -240,6 +242,7 @@ module.exports = gql`
 
     type SubtractWaterB1 {
         NumberPrecious: String
+        DatePublished: String
         Content: String
         Provider: String
         AmountWater: Float
@@ -248,6 +251,7 @@ module.exports = gql`
 
     type SubtractWaterB2 {
         NumberPrecious: String
+        DatePublished: String
         Content: String
         Provider: String
         AmountWater: Float
@@ -314,6 +318,10 @@ module.exports = gql`
         AppovalDecision: String
         SerialTransmitter: String
         Nationality: String
+        K1: Float
+        K2: Float
+        K3: Float
+        K4: Float
     }
 
     type DeviceTransmitter {
@@ -522,6 +530,9 @@ module.exports = gql`
         OldMeterIndex: Float
         NewMeterIndex: Float
         Description: String
+        NewMeterMarks: String
+        NewMeterSize: Int
+        NewMeterModel: String
     }
 
     type HistorySiteTransmitter {
@@ -588,6 +599,23 @@ module.exports = gql`
         DescriptionOfChange: String
         AccreditationDocument: String
         ExpiryDate: Date
+    }
+
+    type StatisticKCoefficientByArea {
+        _id: String
+        Location: String
+        Company: String
+        Serial: String
+        Marks: String
+        Model: String
+        Size: Int
+        K1: Float
+        K2: Float
+        K3: Float
+        K4: Float
+        AccreditationDocument: String
+        AccreditatedDate: Date
+        Description: String
     }
 
     type StatisticMeterChange {
@@ -1098,6 +1126,7 @@ module.exports = gql`
 
     input SubtractWaterB1Input {
         NumberPrecious: String
+        DatePublished: String
         Content: String
         Provider: String
         AmountWater: Float
@@ -1106,6 +1135,7 @@ module.exports = gql`
 
     input SubtractWaterB2Input {
         NumberPrecious: String
+        DatePublished: String
         Content: String
         Provider: String
         AmountWater: Float
@@ -1197,6 +1227,8 @@ module.exports = gql`
         Group4: String
         Group5: String
         District: String
+        NoReplaceCalibration: Boolean
+        ExcludeFromXNManagerList: Boolean
     }
 
     input DeviceSiteConfigInsertInput {
@@ -1350,6 +1382,10 @@ module.exports = gql`
         AppovalDecision: String
         SerialTransmitter: String
         Nationality: String
+        K1: Float
+        K2: Float
+        K3: Float
+        K4: Float
     }
 
     input DeviceMeterUpdateInput {
@@ -1373,6 +1409,10 @@ module.exports = gql`
         AppovalDecision: String
         SerialTransmitter: String
         Nationality: String
+        K1: Float
+        K2: Float
+        K3: Float
+        K4: Float
     }
 
     input DeviceTransmitterInsertInput {
@@ -1426,6 +1466,9 @@ module.exports = gql`
         OldMeterIndex: Float
         NewMeterIndex: Float
         Description: String
+        NewMeterMarks: String
+        NewMeterSize: Int
+        NewMeterModel: String
     }
 
     input HistorySiteMeterUpdateInput {
@@ -1437,6 +1480,9 @@ module.exports = gql`
         OldMeterIndex: Float
         NewMeterIndex: Float
         Description: String
+        NewMeterMarks: String
+        NewMeterSize: Int
+        NewMeterModel: String
     }
 
     input SiteMeterDateChangeUpdateInput {
@@ -1671,6 +1717,22 @@ module.exports = gql`
     }
 
     # declare Query
+    type ActivityLog {
+        _id: ID!
+        Uid: String
+        Role: String
+        Action: String
+        Page: String
+        Target: String
+        Detail: String
+        CreatedAt: Date
+    }
+
+    type ActivityLogPage {
+        items: [ActivityLog]
+        total: Int
+    }
+
     type Query {
         QuantityDayCompany(
             company: String!
@@ -1900,6 +1962,10 @@ module.exports = gql`
             date: Date
         ): [StatisticAccreditationAndExpiryDate]
 
+        GetStatisticKCoefficientByArea(
+            company: String
+        ): [StatisticKCoefficientByArea]
+
         GetStatisticMarkSizeXNManager: [StatisticMarkSizeXNManager]
 
         GetStatisticCustomChoiceMarkSize: [StatisticCustomChoiceMarkSize]
@@ -1989,6 +2055,16 @@ module.exports = gql`
         GetHistoryMeterByMeter(meterSerial: String): [HistorySiteMeter]
 
         GetStatisticSiteByStaffId(staffid: String): [SiteByStaffId]
+
+        ActivityLogs(
+            Uid: String
+            Action: String
+            Page: String
+            dateFrom: Date
+            dateTo: Date
+            skip: Int
+            limit: Int
+        ): ActivityLogPage
     }
 
     # declare Mutation
@@ -2099,6 +2175,10 @@ module.exports = gql`
 
         UpdateActiveUser(user: UpdateActiveUserInput): Int
 
+        ResetAllLoginCount: Int
+
+        ResetLoginCount(Uid: String): Int
+
         InsertSiteLevel(siteLevel: SiteLevelInsertInput): String
 
         UpdateSiteLevel(siteLevel: SiteLevelUpdateInput): Int
@@ -2195,5 +2275,12 @@ module.exports = gql`
             index: Float
             output: Float
         ): Int
+
+        CreateActivityLog(
+            Action: String
+            Page: String
+            Target: String
+            Detail: String
+        ): String
     }
 `;

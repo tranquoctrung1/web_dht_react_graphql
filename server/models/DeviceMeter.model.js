@@ -1,4 +1,5 @@
 const ConnectDB = require('../db/connect');
+const { collectDistinct } = require('../utils/collectDistinct');
 const { ObjectId } = require('mongodb');
 
 const DeviceMeterCollection = 't_Devices_Meters';
@@ -85,21 +86,12 @@ module.exports.GetAllNationalities = async () => {
 
     let collection = await Connect.connect(DeviceMeterCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Nationality: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const meter of data) {
-            let find = result.find((el) => el === meter.Nationality);
-
-            if (find === undefined) {
-                result.push(meter.Nationality);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Nationality');
 };
 
 module.exports.GetAllProvider = async () => {
@@ -107,21 +99,12 @@ module.exports.GetAllProvider = async () => {
 
     let collection = await Connect.connect(DeviceMeterCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Provider: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const meter of data) {
-            let find = result.find((el) => el === meter.Provider);
-
-            if (find === undefined) {
-                result.push(meter.Provider);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Provider');
 };
 
 module.exports.GetAllMarks = async () => {
@@ -129,21 +112,12 @@ module.exports.GetAllMarks = async () => {
 
     let collection = await Connect.connect(DeviceMeterCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Marks: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const meter of data) {
-            let find = result.find((el) => el === meter.Marks);
-
-            if (find === undefined) {
-                result.push(meter.Marks);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Marks');
 };
 
 module.exports.GetAllSize = async () => {
@@ -151,21 +125,12 @@ module.exports.GetAllSize = async () => {
 
     let collection = await Connect.connect(DeviceMeterCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Size: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const meter of data) {
-            let find = result.find((el) => el === meter.Size);
-
-            if (find === undefined) {
-                result.push(meter.Size);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Size');
 };
 
 module.exports.GetAllModel = async () => {
@@ -173,21 +138,12 @@ module.exports.GetAllModel = async () => {
 
     let collection = await Connect.connect(DeviceMeterCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Model: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const meter of data) {
-            let find = result.find((el) => el === meter.Model);
-
-            if (find === undefined) {
-                result.push(meter.Model);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Model');
 };
 
 module.exports.GetMeterAccreditated = async (date) => {
@@ -319,6 +275,10 @@ module.exports.Update = async (meter) => {
                         AppovalDecision: meter.AppovalDecision,
                         SerialTransmitter: meter.SerialTransmitter,
                         Nationality: meter.Nationality,
+                        K1: meter.K1,
+                        K2: meter.K2,
+                        K3: meter.K3,
+                        K4: meter.K4,
                     },
                 },
             );

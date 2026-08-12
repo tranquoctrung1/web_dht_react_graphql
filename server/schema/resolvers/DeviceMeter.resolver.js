@@ -1,4 +1,15 @@
+const jwt = require('jsonwebtoken');
 const DeviceMeterModel = require('../../models/DeviceMeter.model');
+
+const ADMIN_ROLE = 'admin';
+
+const decodeToken = (token) => {
+    try {
+        return jwt.verify(token, process.env.JWT_KEY);
+    } catch (err) {
+        return null;
+    }
+};
 
 module.exports = {
     Query: {
@@ -33,6 +44,12 @@ module.exports = {
             return await DeviceMeterModel.Update(meter);
         },
         DeleteMeter: async (parent, { meter }, context, info) => {
+            const decoded = decodeToken(context.token);
+
+            if (decoded === null || decoded.role !== ADMIN_ROLE) {
+                return 0;
+            }
+
             return await DeviceMeterModel.Delete(meter);
         },
         UpdateMeterInstall: async (parent, { meter }, context, info) => {

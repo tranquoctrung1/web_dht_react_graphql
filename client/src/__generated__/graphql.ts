@@ -16,6 +16,24 @@ export type Scalars = {
   Date: any;
 };
 
+export type ActivityLog = {
+  __typename?: 'ActivityLog';
+  Action?: Maybe<Scalars['String']>;
+  CreatedAt?: Maybe<Scalars['Date']>;
+  Detail?: Maybe<Scalars['String']>;
+  Page?: Maybe<Scalars['String']>;
+  Role?: Maybe<Scalars['String']>;
+  Target?: Maybe<Scalars['String']>;
+  Uid?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+};
+
+export type ActivityLogPage = {
+  __typename?: 'ActivityLogPage';
+  items?: Maybe<Array<Maybe<ActivityLog>>>;
+  total?: Maybe<Scalars['Int']>;
+};
+
 export type Channel = {
   __typename?: 'Channel';
   BaseLine?: Maybe<Scalars['Float']>;
@@ -179,6 +197,10 @@ export type DeviceMeter = {
   ExpiryDate?: Maybe<Scalars['Date']>;
   InstallIndex?: Maybe<Scalars['Float']>;
   Installed?: Maybe<Scalars['Boolean']>;
+  K1?: Maybe<Scalars['Float']>;
+  K2?: Maybe<Scalars['Float']>;
+  K3?: Maybe<Scalars['Float']>;
+  K4?: Maybe<Scalars['Float']>;
   Marks?: Maybe<Scalars['String']>;
   Model?: Maybe<Scalars['String']>;
   Nationality?: Maybe<Scalars['String']>;
@@ -220,6 +242,10 @@ export type DeviceMeterInsertInput = {
   ExpiryDate?: InputMaybe<Scalars['Date']>;
   InstallIndex?: InputMaybe<Scalars['Float']>;
   Installed?: InputMaybe<Scalars['Boolean']>;
+  K1?: InputMaybe<Scalars['Float']>;
+  K2?: InputMaybe<Scalars['Float']>;
+  K3?: InputMaybe<Scalars['Float']>;
+  K4?: InputMaybe<Scalars['Float']>;
   Marks?: InputMaybe<Scalars['String']>;
   Model?: InputMaybe<Scalars['String']>;
   Nationality?: InputMaybe<Scalars['String']>;
@@ -247,6 +273,10 @@ export type DeviceMeterUpdateInput = {
   ExpiryDate?: InputMaybe<Scalars['Date']>;
   InstallIndex?: InputMaybe<Scalars['Float']>;
   Installed?: InputMaybe<Scalars['Boolean']>;
+  K1?: InputMaybe<Scalars['Float']>;
+  K2?: InputMaybe<Scalars['Float']>;
+  K3?: InputMaybe<Scalars['Float']>;
+  K4?: InputMaybe<Scalars['Float']>;
   Marks?: InputMaybe<Scalars['String']>;
   Model?: InputMaybe<Scalars['String']>;
   Nationality?: InputMaybe<Scalars['String']>;
@@ -430,7 +460,10 @@ export type HistorySiteMeter = {
   DateChanged?: Maybe<Scalars['Date']>;
   Description?: Maybe<Scalars['String']>;
   NewMeterIndex?: Maybe<Scalars['Float']>;
+  NewMeterMarks?: Maybe<Scalars['String']>;
+  NewMeterModel?: Maybe<Scalars['String']>;
   NewMeterSerial?: Maybe<Scalars['String']>;
+  NewMeterSize?: Maybe<Scalars['Int']>;
   OldMeterIndex?: Maybe<Scalars['Float']>;
   OldMeterSerial?: Maybe<Scalars['String']>;
   SiteId?: Maybe<Scalars['String']>;
@@ -441,7 +474,10 @@ export type HistorySiteMeterInsertInput = {
   DateChanged?: InputMaybe<Scalars['Date']>;
   Description?: InputMaybe<Scalars['String']>;
   NewMeterIndex?: InputMaybe<Scalars['Float']>;
+  NewMeterMarks?: InputMaybe<Scalars['String']>;
+  NewMeterModel?: InputMaybe<Scalars['String']>;
   NewMeterSerial?: InputMaybe<Scalars['String']>;
+  NewMeterSize?: InputMaybe<Scalars['Int']>;
   OldMeterIndex?: InputMaybe<Scalars['Float']>;
   OldMeterSerial?: InputMaybe<Scalars['String']>;
   SiteId?: InputMaybe<Scalars['String']>;
@@ -451,7 +487,10 @@ export type HistorySiteMeterUpdateInput = {
   DateChanged?: InputMaybe<Scalars['Date']>;
   Description?: InputMaybe<Scalars['String']>;
   NewMeterIndex?: InputMaybe<Scalars['Float']>;
+  NewMeterMarks?: InputMaybe<Scalars['String']>;
+  NewMeterModel?: InputMaybe<Scalars['String']>;
   NewMeterSerial?: InputMaybe<Scalars['String']>;
+  NewMeterSize?: InputMaybe<Scalars['Int']>;
   OldMeterIndex?: InputMaybe<Scalars['Float']>;
   OldMeterSerial?: InputMaybe<Scalars['String']>;
   SiteId?: InputMaybe<Scalars['String']>;
@@ -589,6 +628,7 @@ export type ModelInStatisticMarkSize = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  CreateActivityLog?: Maybe<Scalars['String']>;
   DeleteCover?: Maybe<Scalars['Int']>;
   DeleteDataManual?: Maybe<Scalars['Int']>;
   DeleteDeviceChannelConifg?: Maybe<Scalars['Int']>;
@@ -641,6 +681,8 @@ export type Mutation = {
   InsertUser?: Maybe<Scalars['String']>;
   InsertUserRole?: Maybe<Scalars['String']>;
   InsertUserStaff?: Maybe<Scalars['String']>;
+  ResetAllLoginCount?: Maybe<Scalars['Int']>;
+  ResetLoginCount?: Maybe<Scalars['Int']>;
   UpdateActiveUser?: Maybe<Scalars['Int']>;
   UpdateCover?: Maybe<Scalars['Int']>;
   UpdateDataManual?: Maybe<Scalars['Int']>;
@@ -678,6 +720,14 @@ export type Mutation = {
   UpdateUser?: Maybe<Scalars['Int']>;
   UpdateUserRole?: Maybe<Scalars['Int']>;
   UpdateUserStaff?: Maybe<Scalars['Int']>;
+};
+
+
+export type MutationCreateActivityLogArgs = {
+  Action?: InputMaybe<Scalars['String']>;
+  Detail?: InputMaybe<Scalars['String']>;
+  Page?: InputMaybe<Scalars['String']>;
+  Target?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -938,6 +988,11 @@ export type MutationInsertUserRoleArgs = {
 
 export type MutationInsertUserStaffArgs = {
   staff?: InputMaybe<UserStaffInsertInput>;
+};
+
+
+export type MutationResetLoginCountArgs = {
+  Uid?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1411,6 +1466,7 @@ export type QuantityLoggerDayWaterSupply = {
 
 export type Query = {
   __typename?: 'Query';
+  ActivityLogs?: Maybe<ActivityLogPage>;
   GetAllCorverMeterial?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllCoverH?: Maybe<Array<Maybe<Scalars['Int']>>>;
   GetAllCoverID?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1494,6 +1550,7 @@ export type Query = {
   GetStatisticHistoryLoggerAndLoggerBySiteId?: Maybe<Array<Maybe<StatisticHistoryLoggerAndLoggerBySiteId>>>;
   GetStatisticHistoryMeterAndMeterBySiteId?: Maybe<Array<Maybe<StatisticHistoryMeterAndMeterBySiteId>>>;
   GetStatisticHistoryTransmitterAndTransmitterBySiteId?: Maybe<Array<Maybe<StatisticHistoryTransmitterAndTransmitterBySiteId>>>;
+  GetStatisticKCoefficientByArea?: Maybe<Array<Maybe<StatisticKCoefficientByArea>>>;
   GetStatisticLoggerBatteryChange?: Maybe<Array<Maybe<StatisticLoggerBatteryChange>>>;
   GetStatisticLoggerBatteryChangeByYearUsing?: Maybe<Array<Maybe<StatisticLoggerBatteryChangeByYearUsing>>>;
   GetStatisticLoggerChange?: Maybe<Array<Maybe<StatisticLoggerChange>>>;
@@ -1526,6 +1583,17 @@ export type Query = {
   QuantityLoggerDayWaterSupply: Array<QuantityLoggerDayWaterSupply>;
   VerifyPassword?: Maybe<Scalars['Int']>;
   VerifyToken?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryActivityLogsArgs = {
+  Action?: InputMaybe<Scalars['String']>;
+  Page?: InputMaybe<Scalars['String']>;
+  Uid?: InputMaybe<Scalars['String']>;
+  dateFrom?: InputMaybe<Scalars['Date']>;
+  dateTo?: InputMaybe<Scalars['Date']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1633,6 +1701,11 @@ export type QueryGetStatisticHistoryMeterAndMeterBySiteIdArgs = {
 
 export type QueryGetStatisticHistoryTransmitterAndTransmitterBySiteIdArgs = {
   siteid?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryGetStatisticKCoefficientByAreaArgs = {
+  company?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1827,6 +1900,7 @@ export type Site = {
   DescriptionOfChange?: Maybe<Scalars['String']>;
   Display?: Maybe<Scalars['Boolean']>;
   District?: Maybe<Scalars['String']>;
+  ExcludeFromXNManagerList?: Maybe<Scalars['Boolean']>;
   Group?: Maybe<Scalars['String']>;
   Group2?: Maybe<Scalars['String']>;
   Group3?: Maybe<Scalars['String']>;
@@ -1842,6 +1916,7 @@ export type Site = {
   Longitude?: Maybe<Scalars['Float']>;
   Meter?: Maybe<Scalars['String']>;
   MeterDirection?: Maybe<Scalars['String']>;
+  NoReplaceCalibration?: Maybe<Scalars['Boolean']>;
   OldId?: Maybe<Scalars['String']>;
   ProductionCompany?: Maybe<Scalars['String']>;
   Property?: Maybe<Scalars['Boolean']>;
@@ -2062,6 +2137,7 @@ export type SiteInput = {
   DescriptionOfChange?: InputMaybe<Scalars['String']>;
   Display?: InputMaybe<Scalars['Boolean']>;
   District?: InputMaybe<Scalars['String']>;
+  ExcludeFromXNManagerList?: InputMaybe<Scalars['Boolean']>;
   Group?: InputMaybe<Scalars['String']>;
   Group2?: InputMaybe<Scalars['String']>;
   Group3?: InputMaybe<Scalars['String']>;
@@ -2076,6 +2152,7 @@ export type SiteInput = {
   Longitude?: InputMaybe<Scalars['Float']>;
   Meter?: InputMaybe<Scalars['String']>;
   MeterDirection?: InputMaybe<Scalars['String']>;
+  NoReplaceCalibration?: InputMaybe<Scalars['Boolean']>;
   OldId?: InputMaybe<Scalars['String']>;
   ProductionCompany?: InputMaybe<Scalars['String']>;
   Property?: InputMaybe<Scalars['Boolean']>;
@@ -2391,6 +2468,24 @@ export type StatisticHistoryTransmitterAndTransmitterBySiteId = {
   STT?: Maybe<Scalars['Int']>;
 };
 
+export type StatisticKCoefficientByArea = {
+  __typename?: 'StatisticKCoefficientByArea';
+  AccreditatedDate?: Maybe<Scalars['Date']>;
+  AccreditationDocument?: Maybe<Scalars['String']>;
+  Company?: Maybe<Scalars['String']>;
+  Description?: Maybe<Scalars['String']>;
+  K1?: Maybe<Scalars['Float']>;
+  K2?: Maybe<Scalars['Float']>;
+  K3?: Maybe<Scalars['Float']>;
+  K4?: Maybe<Scalars['Float']>;
+  Location?: Maybe<Scalars['String']>;
+  Marks?: Maybe<Scalars['String']>;
+  Model?: Maybe<Scalars['String']>;
+  Serial?: Maybe<Scalars['String']>;
+  Size?: Maybe<Scalars['Int']>;
+  _id?: Maybe<Scalars['String']>;
+};
+
 export type StatisticLoggerBatteryChange = {
   __typename?: 'StatisticLoggerBatteryChange';
   AccreditationDocument?: Maybe<Scalars['String']>;
@@ -2547,6 +2642,7 @@ export type SubtractWaterB1 = {
   __typename?: 'SubtractWaterB1';
   AmountWater?: Maybe<Scalars['Float']>;
   Content?: Maybe<Scalars['String']>;
+  DatePublished?: Maybe<Scalars['String']>;
   Note?: Maybe<Scalars['String']>;
   NumberPrecious?: Maybe<Scalars['String']>;
   Provider?: Maybe<Scalars['String']>;
@@ -2555,6 +2651,7 @@ export type SubtractWaterB1 = {
 export type SubtractWaterB1Input = {
   AmountWater?: InputMaybe<Scalars['Float']>;
   Content?: InputMaybe<Scalars['String']>;
+  DatePublished?: InputMaybe<Scalars['String']>;
   Note?: InputMaybe<Scalars['String']>;
   NumberPrecious?: InputMaybe<Scalars['String']>;
   Provider?: InputMaybe<Scalars['String']>;
@@ -2564,6 +2661,7 @@ export type SubtractWaterB2 = {
   __typename?: 'SubtractWaterB2';
   AmountWater?: Maybe<Scalars['Float']>;
   Content?: Maybe<Scalars['String']>;
+  DatePublished?: Maybe<Scalars['String']>;
   Note?: Maybe<Scalars['String']>;
   NumberPrecious?: Maybe<Scalars['String']>;
   Provider?: Maybe<Scalars['String']>;
@@ -2572,6 +2670,7 @@ export type SubtractWaterB2 = {
 export type SubtractWaterB2Input = {
   AmountWater?: InputMaybe<Scalars['Float']>;
   Content?: InputMaybe<Scalars['String']>;
+  DatePublished?: InputMaybe<Scalars['String']>;
   Note?: InputMaybe<Scalars['String']>;
   NumberPrecious?: InputMaybe<Scalars['String']>;
   Provider?: InputMaybe<Scalars['String']>;
@@ -2703,6 +2802,29 @@ export type WaterCustomerInput = {
   Note?: InputMaybe<Scalars['String']>;
   NumberPrecious?: InputMaybe<Scalars['String']>;
 };
+
+export type ActivityLogsQueryVariables = Exact<{
+  Uid?: InputMaybe<Scalars['String']>;
+  Action?: InputMaybe<Scalars['String']>;
+  Page?: InputMaybe<Scalars['String']>;
+  dateFrom?: InputMaybe<Scalars['Date']>;
+  dateTo?: InputMaybe<Scalars['Date']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type ActivityLogsQuery = { __typename?: 'Query', ActivityLogs?: { __typename?: 'ActivityLogPage', total?: number | null, items?: Array<{ __typename?: 'ActivityLog', _id: string, Uid?: string | null, Role?: string | null, Action?: string | null, Page?: string | null, Target?: string | null, Detail?: string | null, CreatedAt?: any | null } | null> | null } | null };
+
+export type CreateActivityLogMutationVariables = Exact<{
+  Action?: InputMaybe<Scalars['String']>;
+  Page?: InputMaybe<Scalars['String']>;
+  Target?: InputMaybe<Scalars['String']>;
+  Detail?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type CreateActivityLogMutation = { __typename?: 'Mutation', CreateActivityLog?: string | null };
 
 export type LoginActionQueryVariables = Exact<{
   username?: InputMaybe<Scalars['String']>;
@@ -2952,7 +3074,7 @@ export type GetAllHistorySiteLoggerQuery = { __typename?: 'Query', GetAllHistory
 export type GetAllHistorySiteMeterQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllHistorySiteMeterQuery = { __typename?: 'Query', GetAllHistorySiteMeter?: Array<{ __typename?: 'HistorySiteMeter', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
+export type GetAllHistorySiteMeterQuery = { __typename?: 'Query', GetAllHistorySiteMeter?: Array<{ __typename?: 'HistorySiteMeter', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, NewMeterMarks?: string | null, NewMeterSize?: number | null, NewMeterModel?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
 
 export type GetAllHistorySiteTransmitterQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2987,7 +3109,7 @@ export type GetLoggerProviderQuery = { __typename?: 'Query', GetLoggerProvider?:
 export type GetAllMeterQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllMeterQuery = { __typename?: 'Query', GetAllMeter?: Array<{ __typename?: 'DeviceMeter', AccreditatedDate?: any | null, AccreditationDocument?: string | null, AccreditationType?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, ExpiryDate?: any | null, InstallIndex?: number | null, Installed?: boolean | null, Marks?: string | null, Model?: string | null, Status?: string | null, Nationality?: string | null, Provider?: string | null, ReceiptDate?: any | null, Serial?: string | null, SerialTransmitter?: string | null, Size?: number | null, _id: string } | null> | null };
+export type GetAllMeterQuery = { __typename?: 'Query', GetAllMeter?: Array<{ __typename?: 'DeviceMeter', AccreditatedDate?: any | null, AccreditationDocument?: string | null, AccreditationType?: string | null, AppovalDate?: any | null, AppovalDecision?: string | null, Approvaled?: any | null, Description?: string | null, ExpiryDate?: any | null, InstallIndex?: number | null, Installed?: boolean | null, K1?: number | null, K2?: number | null, K3?: number | null, K4?: number | null, Marks?: string | null, Model?: string | null, Status?: string | null, Nationality?: string | null, Provider?: string | null, ReceiptDate?: any | null, Serial?: string | null, SerialTransmitter?: string | null, Size?: number | null, _id: string } | null> | null };
 
 export type GetMeterMarksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3200,14 +3322,14 @@ export type GetHistoryMeterByMeterQueryVariables = Exact<{
 }>;
 
 
-export type GetHistoryMeterByMeterQuery = { __typename?: 'Query', GetHistoryMeterByMeter?: Array<{ __typename?: 'HistorySiteMeter', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
+export type GetHistoryMeterByMeterQuery = { __typename?: 'Query', GetHistoryMeterByMeter?: Array<{ __typename?: 'HistorySiteMeter', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, NewMeterMarks?: string | null, NewMeterSize?: number | null, NewMeterModel?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
 
 export type GetHistoryMeterBySiteIdQueryVariables = Exact<{
   siteid?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetHistoryMeterBySiteIdQuery = { __typename?: 'Query', GetHistoryMeterBySiteId?: Array<{ __typename?: 'HistorySiteMeter', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
+export type GetHistoryMeterBySiteIdQuery = { __typename?: 'Query', GetHistoryMeterBySiteId?: Array<{ __typename?: 'HistorySiteMeter', DateChanged?: any | null, Description?: string | null, NewMeterIndex?: number | null, NewMeterSerial?: string | null, NewMeterMarks?: string | null, NewMeterSize?: number | null, NewMeterModel?: string | null, OldMeterIndex?: number | null, OldMeterSerial?: string | null, SiteId?: string | null, _id: string } | null> | null };
 
 export type GetHistoryTransmitterBySiteIdQueryVariables = Exact<{
   siteid?: InputMaybe<Scalars['String']>;
@@ -3235,7 +3357,7 @@ export type GetPreciousByCompanyQueryVariables = Exact<{
 }>;
 
 
-export type GetPreciousByCompanyQuery = { __typename?: 'Query', GetPreciousByCompany?: Array<{ __typename?: 'Precious', _id: string, Company: string, Start?: string | null, CompanyName?: string | null, End?: string | null, Period?: string | null, CreateAt?: string | null, UsernameCreated?: string | null, Location?: Array<{ __typename?: 'Location', Location?: string | null, Reason?: string | null, SiteId?: string | null, AverageDate?: Array<Array<string | null> | null> | null, QuantityLogger?: number | null, TotalQuantity?: number | null, PrevTetHoliday?: Array<string | null> | null, NextTetHoliday?: Array<string | null> | null, TenDayPrevTetHoliday?: Array<string | null> | null, KFactory?: number | null, AveragePrevTetHoliday?: number | null, AverageTenDayPrevTetHoliday?: number | null, Periods?: Array<{ __typename?: 'Periods', Period?: string | null, Quantity?: number | null } | null> | null, DateCalclogger?: Array<{ __typename?: 'DateCalclogger', Quantity?: number | null, From?: string | null, To?: string | null, DateRange?: Array<string | null> | null } | null> | null } | null> | null, Index?: Array<{ __typename?: 'Index', SiteId?: string | null, Location?: string | null, PreviousPeriodIndex?: number | null, NextPeriodIndex?: number | null } | null> | null, LockValve?: Array<{ __typename?: 'LockValve', SiteId?: string | null, Location?: string | null } | null> | null, SubtractWaterB1?: Array<{ __typename?: 'SubtractWaterB1', NumberPrecious?: string | null, Content?: string | null, Provider?: string | null, AmountWater?: number | null, Note?: string | null } | null> | null, SubtractWaterB2?: Array<{ __typename?: 'SubtractWaterB2', NumberPrecious?: string | null, Content?: string | null, AmountWater?: number | null, Provider?: string | null, Note?: string | null } | null> | null, WaterCustomer?: Array<{ __typename?: 'WaterCustomer', NumberPrecious?: string | null, DatePublished?: string | null, AmountMeter?: number | null, AmountWater?: number | null, Note?: string | null } | null> | null } | null> | null };
+export type GetPreciousByCompanyQuery = { __typename?: 'Query', GetPreciousByCompany?: Array<{ __typename?: 'Precious', _id: string, Company: string, Start?: string | null, CompanyName?: string | null, End?: string | null, Period?: string | null, CreateAt?: string | null, UsernameCreated?: string | null, Location?: Array<{ __typename?: 'Location', Location?: string | null, Reason?: string | null, SiteId?: string | null, AverageDate?: Array<Array<string | null> | null> | null, QuantityLogger?: number | null, TotalQuantity?: number | null, PrevTetHoliday?: Array<string | null> | null, NextTetHoliday?: Array<string | null> | null, TenDayPrevTetHoliday?: Array<string | null> | null, KFactory?: number | null, AveragePrevTetHoliday?: number | null, AverageTenDayPrevTetHoliday?: number | null, Periods?: Array<{ __typename?: 'Periods', Period?: string | null, Quantity?: number | null } | null> | null, DateCalclogger?: Array<{ __typename?: 'DateCalclogger', Quantity?: number | null, From?: string | null, To?: string | null, DateRange?: Array<string | null> | null } | null> | null } | null> | null, Index?: Array<{ __typename?: 'Index', SiteId?: string | null, Location?: string | null, PreviousPeriodIndex?: number | null, NextPeriodIndex?: number | null } | null> | null, LockValve?: Array<{ __typename?: 'LockValve', SiteId?: string | null, Location?: string | null } | null> | null, SubtractWaterB1?: Array<{ __typename?: 'SubtractWaterB1', NumberPrecious?: string | null, DatePublished?: string | null, Content?: string | null, Provider?: string | null, AmountWater?: number | null, Note?: string | null } | null> | null, SubtractWaterB2?: Array<{ __typename?: 'SubtractWaterB2', NumberPrecious?: string | null, DatePublished?: string | null, Content?: string | null, AmountWater?: number | null, Provider?: string | null, Note?: string | null } | null> | null, WaterCustomer?: Array<{ __typename?: 'WaterCustomer', NumberPrecious?: string | null, DatePublished?: string | null, AmountMeter?: number | null, AmountWater?: number | null, Note?: string | null } | null> | null } | null> | null };
 
 export type QuantityDayGroupQueryVariables = Exact<{
   group: Scalars['String'];
@@ -3304,7 +3426,7 @@ export type GetSiteByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetSiteByIdQuery = { __typename?: 'Query', GetSiteById?: { __typename?: 'Site', Address?: string | null, Availability?: string | null, ChangeIndex?: number | null, ChangeIndex1?: number | null, CoverID?: string | null, Company?: string | null, DateOfBatteryChange?: any | null, DateOfLoggerBatteryChange?: any | null, DateOfLoggerChange?: any | null, DateOfTransmitterBatteryChange?: any | null, DateOfMeterChange?: any | null, DateOfTransmitterChange?: any | null, Description?: string | null, Display?: boolean | null, DescriptionOfChange?: string | null, District?: string | null, Group?: string | null, Group2?: string | null, Group4?: string | null, Group3?: string | null, Group5?: string | null, IsErrorBattery?: boolean | null, IstDoNotCalculateReverse?: boolean | null, IstDistributionCompany?: string | null, Latitude?: number | null, Level?: string | null, Location?: string | null, Logger?: string | null, Longitude?: number | null, Meter?: string | null, MeterDirection?: string | null, OldId?: string | null, ProductionCompany?: string | null, Property?: boolean | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: boolean | null, StaffId?: string | null, Status?: string | null, TakeoverDate?: any | null, Takeovered?: boolean | null, Transmitter?: string | null, UsingLogger?: boolean | null, ViewGroup?: string | null, _id: string } | null };
+export type GetSiteByIdQuery = { __typename?: 'Query', GetSiteById?: { __typename?: 'Site', Address?: string | null, Availability?: string | null, ChangeIndex?: number | null, ChangeIndex1?: number | null, CoverID?: string | null, Company?: string | null, DateOfBatteryChange?: any | null, DateOfLoggerBatteryChange?: any | null, DateOfLoggerChange?: any | null, DateOfTransmitterBatteryChange?: any | null, DateOfMeterChange?: any | null, DateOfTransmitterChange?: any | null, Description?: string | null, Display?: boolean | null, DescriptionOfChange?: string | null, District?: string | null, ExcludeFromXNManagerList?: boolean | null, Group?: string | null, Group2?: string | null, Group4?: string | null, Group3?: string | null, Group5?: string | null, IsErrorBattery?: boolean | null, IstDoNotCalculateReverse?: boolean | null, IstDistributionCompany?: string | null, Latitude?: number | null, Level?: string | null, Location?: string | null, Logger?: string | null, Longitude?: number | null, Meter?: string | null, MeterDirection?: string | null, NoReplaceCalibration?: boolean | null, OldId?: string | null, ProductionCompany?: string | null, Property?: boolean | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: boolean | null, StaffId?: string | null, Status?: string | null, TakeoverDate?: any | null, Takeovered?: boolean | null, Transmitter?: string | null, UsingLogger?: boolean | null, ViewGroup?: string | null, _id: string } | null };
 
 export type GetSiteByWaterSubtractB2ForTaQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3392,6 +3514,13 @@ export type GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryVariables =
 
 
 export type GetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery = { __typename?: 'Query', GetStatisticHistoryTransmitterAndTransmitterBySiteId?: Array<{ __typename?: 'StatisticHistoryTransmitterAndTransmitterBySiteId', DateChanged?: any | null, Description?: string | null, NewIndex?: number | null, NewMarks?: string | null, NewModel?: string | null, NewProvider?: string | null, NewSerial?: string | null, NewSize?: number | null, OldIndex?: number | null, OldMarks?: string | null, OldModel?: string | null, OldProvider?: string | null, OldSerial?: string | null, OldSize?: number | null, STT?: number | null } | null> | null };
+
+export type GetStatisticKCoefficientByAreaQueryVariables = Exact<{
+  company?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetStatisticKCoefficientByAreaQuery = { __typename?: 'Query', GetStatisticKCoefficientByArea?: Array<{ __typename?: 'StatisticKCoefficientByArea', _id?: string | null, Location?: string | null, Company?: string | null, Serial?: string | null, Marks?: string | null, Model?: string | null, Size?: number | null, K1?: number | null, K2?: number | null, K3?: number | null, K4?: number | null, AccreditationDocument?: string | null, AccreditatedDate?: any | null, Description?: string | null } | null> | null };
 
 export type GetStatisticLoggerBatteryChangeQueryVariables = Exact<{
   date?: InputMaybe<Scalars['Date']>;
@@ -3714,6 +3843,18 @@ export type QuantityLoggerDayWaterSupplyQueryVariables = Exact<{
 
 export type QuantityLoggerDayWaterSupplyQuery = { __typename?: 'Query', QuantityLoggerDayWaterSupply: Array<{ __typename?: 'QuantityLoggerDayWaterSupply', Address?: string | null, Company?: string | null, Display?: boolean | null, IstDistributionCompany?: string | null, IstDoNotCalculateReverse?: number | null, Location?: string | null, Marks?: string | null, MeterDirection?: string | null, QndDistributionCompany?: string | null, QndDoNotCalculateReverse?: number | null, Size?: number | null, SiteId: string, OldId?: string | null, ListQuantity?: Array<{ __typename?: 'Quantity', IsEnoughData?: boolean | null, TimeStamp?: any | null, Value?: number | null } | null> | null }> };
 
+export type ResetAllLoginCountMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ResetAllLoginCountMutation = { __typename?: 'Mutation', ResetAllLoginCount?: number | null };
+
+export type ResetLoginCountMutationVariables = Exact<{
+  Uid?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type ResetLoginCountMutation = { __typename?: 'Mutation', ResetLoginCount?: number | null };
+
 export type UpdateActiveUserMutationVariables = Exact<{
   user?: InputMaybe<UpdateActiveUserInput>;
 }>;
@@ -3994,6 +4135,107 @@ export type VerifyTokenQueryVariables = Exact<{
 export type VerifyTokenQuery = { __typename?: 'Query', VerifyToken?: string | null };
 
 
+export const ActivityLogsDocument = gql`
+    query ActivityLogs($Uid: String, $Action: String, $Page: String, $dateFrom: Date, $dateTo: Date, $skip: Int, $limit: Int) {
+  ActivityLogs(
+    Uid: $Uid
+    Action: $Action
+    Page: $Page
+    dateFrom: $dateFrom
+    dateTo: $dateTo
+    skip: $skip
+    limit: $limit
+  ) {
+    items {
+      _id
+      Uid
+      Role
+      Action
+      Page
+      Target
+      Detail
+      CreatedAt
+    }
+    total
+  }
+}
+    `;
+
+/**
+ * __useActivityLogsQuery__
+ *
+ * To run a query within a React component, call `useActivityLogsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useActivityLogsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActivityLogsQuery({
+ *   variables: {
+ *      Uid: // value for 'Uid'
+ *      Action: // value for 'Action'
+ *      Page: // value for 'Page'
+ *      dateFrom: // value for 'dateFrom'
+ *      dateTo: // value for 'dateTo'
+ *      skip: // value for 'skip'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useActivityLogsQuery(baseOptions?: Apollo.QueryHookOptions<ActivityLogsQuery, ActivityLogsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ActivityLogsQuery, ActivityLogsQueryVariables>(ActivityLogsDocument, options);
+      }
+export function useActivityLogsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActivityLogsQuery, ActivityLogsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ActivityLogsQuery, ActivityLogsQueryVariables>(ActivityLogsDocument, options);
+        }
+export type ActivityLogsQueryHookResult = ReturnType<typeof useActivityLogsQuery>;
+export type ActivityLogsLazyQueryHookResult = ReturnType<typeof useActivityLogsLazyQuery>;
+export type ActivityLogsQueryResult = Apollo.QueryResult<ActivityLogsQuery, ActivityLogsQueryVariables>;
+export function refetchActivityLogsQuery(variables?: ActivityLogsQueryVariables) {
+      return { query: ActivityLogsDocument, variables: variables }
+    }
+export const CreateActivityLogDocument = gql`
+    mutation CreateActivityLog($Action: String, $Page: String, $Target: String, $Detail: String) {
+  CreateActivityLog(
+    Action: $Action
+    Page: $Page
+    Target: $Target
+    Detail: $Detail
+  )
+}
+    `;
+export type CreateActivityLogMutationFn = Apollo.MutationFunction<CreateActivityLogMutation, CreateActivityLogMutationVariables>;
+
+/**
+ * __useCreateActivityLogMutation__
+ *
+ * To run a mutation, you first call `useCreateActivityLogMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateActivityLogMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createActivityLogMutation, { data, loading, error }] = useCreateActivityLogMutation({
+ *   variables: {
+ *      Action: // value for 'Action'
+ *      Page: // value for 'Page'
+ *      Target: // value for 'Target'
+ *      Detail: // value for 'Detail'
+ *   },
+ * });
+ */
+export function useCreateActivityLogMutation(baseOptions?: Apollo.MutationHookOptions<CreateActivityLogMutation, CreateActivityLogMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateActivityLogMutation, CreateActivityLogMutationVariables>(CreateActivityLogDocument, options);
+      }
+export type CreateActivityLogMutationHookResult = ReturnType<typeof useCreateActivityLogMutation>;
+export type CreateActivityLogMutationResult = Apollo.MutationResult<CreateActivityLogMutation>;
+export type CreateActivityLogMutationOptions = Apollo.BaseMutationOptions<CreateActivityLogMutation, CreateActivityLogMutationVariables>;
 export const LoginActionDocument = gql`
     query LoginAction($username: String, $password: String) {
   LoginAction(username: $username, password: $password) {
@@ -5286,6 +5528,9 @@ export const GetAllHistorySiteMeterDocument = gql`
     Description
     NewMeterIndex
     NewMeterSerial
+    NewMeterMarks
+    NewMeterSize
+    NewMeterModel
     OldMeterIndex
     OldMeterSerial
     SiteId
@@ -5575,6 +5820,10 @@ export const GetAllMeterDocument = gql`
     ExpiryDate
     InstallIndex
     Installed
+    K1
+    K2
+    K3
+    K4
     Marks
     Model
     Status
@@ -7247,6 +7496,9 @@ export const GetHistoryMeterByMeterDocument = gql`
     Description
     NewMeterIndex
     NewMeterSerial
+    NewMeterMarks
+    NewMeterSize
+    NewMeterModel
     OldMeterIndex
     OldMeterSerial
     SiteId
@@ -7292,6 +7544,9 @@ export const GetHistoryMeterBySiteIdDocument = gql`
     Description
     NewMeterIndex
     NewMeterSerial
+    NewMeterMarks
+    NewMeterSize
+    NewMeterModel
     OldMeterIndex
     OldMeterSerial
     SiteId
@@ -7504,6 +7759,7 @@ export const GetPreciousByCompanyDocument = gql`
     }
     SubtractWaterB1 {
       NumberPrecious
+      DatePublished
       Content
       Provider
       AmountWater
@@ -7511,6 +7767,7 @@ export const GetPreciousByCompanyDocument = gql`
     }
     SubtractWaterB2 {
       NumberPrecious
+      DatePublished
       Content
       AmountWater
       Provider
@@ -7970,6 +8227,7 @@ export const GetSiteByIdDocument = gql`
     Display
     DescriptionOfChange
     District
+    ExcludeFromXNManagerList
     Group
     Group2
     Group4
@@ -7985,6 +8243,7 @@ export const GetSiteByIdDocument = gql`
     Longitude
     Meter
     MeterDirection
+    NoReplaceCalibration
     OldId
     ProductionCompany
     Property
@@ -8786,6 +9045,57 @@ export type GetStatisticHistoryTransmitterAndTransmitterBySiteIdLazyQueryHookRes
 export type GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryResult = Apollo.QueryResult<GetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery, GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryVariables>;
 export function refetchGetStatisticHistoryTransmitterAndTransmitterBySiteIdQuery(variables?: GetStatisticHistoryTransmitterAndTransmitterBySiteIdQueryVariables) {
       return { query: GetStatisticHistoryTransmitterAndTransmitterBySiteIdDocument, variables: variables }
+    }
+export const GetStatisticKCoefficientByAreaDocument = gql`
+    query GetStatisticKCoefficientByArea($company: String) {
+  GetStatisticKCoefficientByArea(company: $company) {
+    _id
+    Location
+    Company
+    Serial
+    Marks
+    Model
+    Size
+    K1
+    K2
+    K3
+    K4
+    AccreditationDocument
+    AccreditatedDate
+    Description
+  }
+}
+    `;
+
+/**
+ * __useGetStatisticKCoefficientByAreaQuery__
+ *
+ * To run a query within a React component, call `useGetStatisticKCoefficientByAreaQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStatisticKCoefficientByAreaQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStatisticKCoefficientByAreaQuery({
+ *   variables: {
+ *      company: // value for 'company'
+ *   },
+ * });
+ */
+export function useGetStatisticKCoefficientByAreaQuery(baseOptions?: Apollo.QueryHookOptions<GetStatisticKCoefficientByAreaQuery, GetStatisticKCoefficientByAreaQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStatisticKCoefficientByAreaQuery, GetStatisticKCoefficientByAreaQueryVariables>(GetStatisticKCoefficientByAreaDocument, options);
+      }
+export function useGetStatisticKCoefficientByAreaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStatisticKCoefficientByAreaQuery, GetStatisticKCoefficientByAreaQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStatisticKCoefficientByAreaQuery, GetStatisticKCoefficientByAreaQueryVariables>(GetStatisticKCoefficientByAreaDocument, options);
+        }
+export type GetStatisticKCoefficientByAreaQueryHookResult = ReturnType<typeof useGetStatisticKCoefficientByAreaQuery>;
+export type GetStatisticKCoefficientByAreaLazyQueryHookResult = ReturnType<typeof useGetStatisticKCoefficientByAreaLazyQuery>;
+export type GetStatisticKCoefficientByAreaQueryResult = Apollo.QueryResult<GetStatisticKCoefficientByAreaQuery, GetStatisticKCoefficientByAreaQueryVariables>;
+export function refetchGetStatisticKCoefficientByAreaQuery(variables?: GetStatisticKCoefficientByAreaQueryVariables) {
+      return { query: GetStatisticKCoefficientByAreaDocument, variables: variables }
     }
 export const GetStatisticLoggerBatteryChangeDocument = gql`
     query GetStatisticLoggerBatteryChange($date: Date) {
@@ -10477,6 +10787,67 @@ export type QuantityLoggerDayWaterSupplyQueryResult = Apollo.QueryResult<Quantit
 export function refetchQuantityLoggerDayWaterSupplyQuery(variables: QuantityLoggerDayWaterSupplyQueryVariables) {
       return { query: QuantityLoggerDayWaterSupplyDocument, variables: variables }
     }
+export const ResetAllLoginCountDocument = gql`
+    mutation ResetAllLoginCount {
+  ResetAllLoginCount
+}
+    `;
+export type ResetAllLoginCountMutationFn = Apollo.MutationFunction<ResetAllLoginCountMutation, ResetAllLoginCountMutationVariables>;
+
+/**
+ * __useResetAllLoginCountMutation__
+ *
+ * To run a mutation, you first call `useResetAllLoginCountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetAllLoginCountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resetAllLoginCountMutation, { data, loading, error }] = useResetAllLoginCountMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useResetAllLoginCountMutation(baseOptions?: Apollo.MutationHookOptions<ResetAllLoginCountMutation, ResetAllLoginCountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ResetAllLoginCountMutation, ResetAllLoginCountMutationVariables>(ResetAllLoginCountDocument, options);
+      }
+export type ResetAllLoginCountMutationHookResult = ReturnType<typeof useResetAllLoginCountMutation>;
+export type ResetAllLoginCountMutationResult = Apollo.MutationResult<ResetAllLoginCountMutation>;
+export type ResetAllLoginCountMutationOptions = Apollo.BaseMutationOptions<ResetAllLoginCountMutation, ResetAllLoginCountMutationVariables>;
+export const ResetLoginCountDocument = gql`
+    mutation ResetLoginCount($Uid: String) {
+  ResetLoginCount(Uid: $Uid)
+}
+    `;
+export type ResetLoginCountMutationFn = Apollo.MutationFunction<ResetLoginCountMutation, ResetLoginCountMutationVariables>;
+
+/**
+ * __useResetLoginCountMutation__
+ *
+ * To run a mutation, you first call `useResetLoginCountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetLoginCountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resetLoginCountMutation, { data, loading, error }] = useResetLoginCountMutation({
+ *   variables: {
+ *      Uid: // value for 'Uid'
+ *   },
+ * });
+ */
+export function useResetLoginCountMutation(baseOptions?: Apollo.MutationHookOptions<ResetLoginCountMutation, ResetLoginCountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ResetLoginCountMutation, ResetLoginCountMutationVariables>(ResetLoginCountDocument, options);
+      }
+export type ResetLoginCountMutationHookResult = ReturnType<typeof useResetLoginCountMutation>;
+export type ResetLoginCountMutationResult = Apollo.MutationResult<ResetLoginCountMutation>;
+export type ResetLoginCountMutationOptions = Apollo.BaseMutationOptions<ResetLoginCountMutation, ResetLoginCountMutationVariables>;
 export const UpdateActiveUserDocument = gql`
     mutation UpdateActiveUser($user: UpdateActiveUserInput) {
   UpdateActiveUser(user: $user)

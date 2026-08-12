@@ -5,6 +5,10 @@ import App from './App';
 import './index.css';
 import { store } from './store';
 
+// Registers the Mantine-matched dark theme for react-data-table-component.
+// Must run once before any DataTable mounts (module-level side effect).
+import './utils/dataTableTheme';
+
 import { ApolloProvider } from '@apollo/client';
 import client from './client/client';
 

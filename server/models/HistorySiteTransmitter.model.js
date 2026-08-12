@@ -40,8 +40,7 @@ module.exports.GetHistoryDateChange = async (date) => {
 
     let result = await collection
         .find({
-            DateChanged: { $ne: null },
-            DateChanged: { $gte: new Date(date) },
+            DateChanged: { $ne: null, $gte: new Date(date) },
         })
         .toArray();
 

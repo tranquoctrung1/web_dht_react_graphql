@@ -3,7 +3,168 @@ const SiteSiteModel = require('../../models/SiteSite.model');
 const DeviceSiteConfigModel = require('../../models/DeviceSiteConfig.model');
 const DeviceMeterModel = require('../../models/DeviceMeter.model');
 const DataManualModel = require('../../models/DataManual.model');
+const PreciousModel = require('../../models/Precious.model');
 const Utils = require('../../utils');
+
+const getDayKey = (date) =>
+    `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+
+const eachDay = function* (start, end) {
+    const cur = new Date(start);
+    cur.setHours(0, 0, 0, 0);
+    const last = new Date(end);
+    last.setHours(0, 0, 0, 0);
+    while (cur <= last) {
+        yield new Date(cur);
+        cur.setDate(cur.getDate() + 1);
+    }
+};
+
+// Once a "biên bản" (Precious) is saved, its "Tính TB" / "Chỉ số" / "Khóa
+// van" entries must immediately be reflected in the per-day company
+// production report — not just in the biên bản's own on-screen preview.
+// Since QuantityDayCompany reports per day but these entries are recorded
+// per period/date-range, each entry's total is spread evenly across the
+// days it covers so the daily figures sum back to the recorded total.
+const getPreciousOverrides = async (company, startDate, endDate) => {
+    const preciousList = await PreciousModel.GetPreciousByCompany(company);
+
+    const lockedBySite = {};
+    const averageBySite = {};
+    const indexPeriodsBySite = {};
+
+    for (const precious of preciousList) {
+        const periodStart = new Date(precious.Start);
+        const periodEnd = new Date(precious.End);
+
+        // Skip biên bản periods that don't overlap the requested range.
+        if (periodEnd < startDate || periodStart > endDate) {
+            continue;
+        }
+
+        if (Array.isArray(precious.LockValve)) {
+            for (const lv of precious.LockValve) {
+                if (!lockedBySite[lv.SiteId]) {
+                    lockedBySite[lv.SiteId] = [];
+                }
+                lockedBySite[lv.SiteId].push({ periodStart, periodEnd });
+            }
+        }
+
+        if (Array.isArray(precious.Location)) {
+            for (const loc of precious.Location) {
+                if (
+                    loc.TotalQuantity === null ||
+                    loc.TotalQuantity === undefined ||
+                    !Array.isArray(loc.AverageDate) ||
+                    loc.AverageDate.length === 0
+                ) {
+                    continue;
+                }
+
+                const days = [];
+                for (const range of loc.AverageDate) {
+                    if (!Array.isArray(range) || range.length < 2) {
+                        continue;
+                    }
+                    const from = new Date(range[0]);
+                    const to = new Date(range[1]);
+                    if (isNaN(from) || isNaN(to)) {
+                        continue;
+                    }
+                    for (const d of eachDay(from, to)) {
+                        days.push(d);
+                    }
+                }
+
+                if (days.length === 0) {
+                    continue;
+                }
+
+                const valuePerDay = loc.TotalQuantity / days.length;
+
+                if (!averageBySite[loc.SiteId]) {
+                    averageBySite[loc.SiteId] = {};
+                }
+                for (const d of days) {
+                    averageBySite[loc.SiteId][getDayKey(d)] = valuePerDay;
+                }
+            }
+        }
+
+        if (Array.isArray(precious.Index)) {
+            for (const idx of precious.Index) {
+                if (
+                    idx.PreviousPeriodIndex === null ||
+                    idx.PreviousPeriodIndex === undefined ||
+                    idx.NextPeriodIndex === null ||
+                    idx.NextPeriodIndex === undefined
+                ) {
+                    continue;
+                }
+
+                if (!indexPeriodsBySite[idx.SiteId]) {
+                    indexPeriodsBySite[idx.SiteId] = [];
+                }
+                indexPeriodsBySite[idx.SiteId].push({
+                    periodStart,
+                    periodEnd,
+                    total: idx.NextPeriodIndex - idx.PreviousPeriodIndex,
+                });
+            }
+        }
+    }
+
+    return { lockedBySite, averageBySite, indexPeriodsBySite };
+};
+
+const isDateLocked = (ranges, date) => {
+    if (ranges === undefined) {
+        return false;
+    }
+    return ranges.some((r) => date >= r.periodStart && date <= r.periodEnd);
+};
+
+const getAverageValue = (bySite, date) => {
+    if (bySite === undefined) {
+        return undefined;
+    }
+    return bySite[getDayKey(date)];
+};
+
+// Index total is period-level (one number for the whole biên bản), so it's
+// spread evenly across the days of that period. Sign mirrors the client's
+// renderWaterMeter: reversed when the site feeds water FROM this company
+// TO another distribution company (IstDistributionCompany set and not
+// equal to the company being reported on).
+const getIndexValue = (periods, date, siteIstDistributionCompany, company) => {
+    if (periods === undefined) {
+        return undefined;
+    }
+
+    const period = periods.find(
+        (p) => date >= p.periodStart && date <= p.periodEnd,
+    );
+    if (period === undefined) {
+        return undefined;
+    }
+
+    const totalDays = Math.round(
+        (period.periodEnd - period.periodStart) / 86400000 + 1,
+    );
+    let valuePerDay = period.total / totalDays;
+
+    if (
+        siteIstDistributionCompany !== '' &&
+        siteIstDistributionCompany !== null &&
+        siteIstDistributionCompany !== undefined &&
+        siteIstDistributionCompany !== company
+    ) {
+        valuePerDay *= -1;
+    }
+
+    return valuePerDay;
+};
 
 module.exports = {
     Query: {
@@ -21,6 +182,9 @@ module.exports = {
             tEnd.setDate(tEnd.getDate() + 1);
 
             let totalDay = Utils.CalculateSpcaeDay(startDate, endDate) + 1;
+
+            let { lockedBySite, averageBySite, indexPeriodsBySite } =
+                await getPreciousOverrides(company, startDate, endDate);
 
             let sites = await SiteSiteModel.GetSiteByCompany(company);
             if (sites.length > 0) {
@@ -284,6 +448,40 @@ module.exports = {
                                         // }
                                     }
 
+                                    // "Tính TB" / "Chỉ số" / "Khóa van" saved in a biên
+                                    // bản take precedence over manual/logger data, same
+                                    // priority order as the client's renderWaterMeter
+                                    // (average, then index, then lock-valve last/wins).
+                                    const avgValue = getAverageValue(
+                                        averageBySite[site._id],
+                                        tempStartDataManual,
+                                    );
+                                    if (avgValue !== undefined) {
+                                        objQuantity.Value = avgValue;
+                                        objQuantity.IsEnoughData = true;
+                                    }
+
+                                    const idxValue = getIndexValue(
+                                        indexPeriodsBySite[site._id],
+                                        tempStartDataManual,
+                                        site.IstDistributionCompany,
+                                        company,
+                                    );
+                                    if (idxValue !== undefined) {
+                                        objQuantity.Value = idxValue;
+                                        objQuantity.IsEnoughData = true;
+                                    }
+
+                                    if (
+                                        isDateLocked(
+                                            lockedBySite[site._id],
+                                            tempStartDataManual,
+                                        )
+                                    ) {
+                                        objQuantity.Value = 0;
+                                        objQuantity.IsEnoughData = true;
+                                    }
+
                                     obj.ListQuantity.push(objQuantity);
                                 }
                             }
@@ -297,6 +495,36 @@ module.exports = {
                                 objQuantity.TimeStamp = tempStart2;
                                 objQuantity.Value = 0;
                                 objQuantity.IsEnoughData = false;
+
+                                const avgValue = getAverageValue(
+                                    averageBySite[site._id],
+                                    tempStart2,
+                                );
+                                if (avgValue !== undefined) {
+                                    objQuantity.Value = avgValue;
+                                    objQuantity.IsEnoughData = true;
+                                }
+
+                                const idxValue = getIndexValue(
+                                    indexPeriodsBySite[site._id],
+                                    tempStart2,
+                                    site.IstDistributionCompany,
+                                    company,
+                                );
+                                if (idxValue !== undefined) {
+                                    objQuantity.Value = idxValue;
+                                    objQuantity.IsEnoughData = true;
+                                }
+
+                                if (
+                                    isDateLocked(
+                                        lockedBySite[site._id],
+                                        tempStart2,
+                                    )
+                                ) {
+                                    objQuantity.Value = 0;
+                                    objQuantity.IsEnoughData = true;
+                                }
 
                                 obj.ListQuantity.push(objQuantity);
                             }

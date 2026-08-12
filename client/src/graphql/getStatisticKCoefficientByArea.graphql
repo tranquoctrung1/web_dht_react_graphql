@@ -1,0 +1,18 @@
+query GetStatisticKCoefficientByArea($company: String) {
+    GetStatisticKCoefficientByArea(company: $company) {
+        _id
+        Location
+        Company
+        Serial
+        Marks
+        Model
+        Size
+        K1
+        K2
+        K3
+        K4
+        AccreditationDocument
+        AccreditatedDate
+        Description
+    }
+}

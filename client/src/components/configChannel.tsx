@@ -1,4 +1,12 @@
-import { Col, TextInput, Checkbox, Select, Text, Grid } from '@mantine/core';
+import {
+    Col,
+    TextInput,
+    Checkbox,
+    Select,
+    Text,
+    Grid,
+    Button,
+} from '@mantine/core';
 
 import {
     ListChannelState,
@@ -18,7 +26,7 @@ import { useEffect, useState } from 'react';
 
 import { isEmptyObject } from '../utils/utils';
 
-const ConfigChannel = ({ index, LoggerId }: ConfigChannelInterface) => {
+const ConfigChannel = ({ index, LoggerId, onDelete }: ConfigChannelInterface) => {
     const [channellId, setChannelId] = useState('');
     const [channelName, setChannelName] = useState('');
     const [unit, setUnit] = useState('');
@@ -192,7 +200,7 @@ const ConfigChannel = ({ index, LoggerId }: ConfigChannelInterface) => {
 
     return (
         <Grid>
-            <Col md={3}>
+            <Col md={2}>
                 <TextInput
                     label="Kênh ID"
                     placeholder="Kênh ID"
@@ -255,6 +263,24 @@ const ConfigChannel = ({ index, LoggerId }: ConfigChannelInterface) => {
                     onChange={onReverseFlowChange}
                 />
             </Col>
+            {onDelete !== undefined ? (
+                <Col md={1}>
+                    <Button
+                        style={{ marginTop: '1.5rem' }}
+                        variant="filled"
+                        color="red"
+                        compact
+                        disabled={
+                            channellId === null ||
+                            channellId === undefined ||
+                            channellId === ''
+                        }
+                        onClick={() => onDelete(index)}
+                    >
+                        Xóa kênh
+                    </Button>
+                </Col>
+            ) : null}
         </Grid>
     );
 };

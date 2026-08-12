@@ -1,4 +1,5 @@
 const ConnectDB = require('../db/connect');
+const { collectDistinct } = require('../utils/collectDistinct');
 const { ObjectId } = require('mongodb');
 
 const DeviceTransmitterCollection = 't_Devices_Transmitters';
@@ -73,21 +74,12 @@ module.exports.GetAllProvider = async () => {
 
     let collection = await Connect.connect(DeviceTransmitterCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Provider: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const transmitter of data) {
-            let find = result.find((el) => el === transmitter.Provider);
-
-            if (find === undefined) {
-                result.push(transmitter.Provider);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Provider');
 };
 
 module.exports.GetAllMarks = async () => {
@@ -95,21 +87,12 @@ module.exports.GetAllMarks = async () => {
 
     let collection = await Connect.connect(DeviceTransmitterCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Marks: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const transmitter of data) {
-            let find = result.find((el) => el === transmitter.Marks);
-
-            if (find === undefined) {
-                result.push(transmitter.Marks);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Marks');
 };
 
 module.exports.GetAllSize = async () => {
@@ -117,21 +100,12 @@ module.exports.GetAllSize = async () => {
 
     let collection = await Connect.connect(DeviceTransmitterCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Size: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const transmitter of data) {
-            let find = result.find((el) => el === transmitter.Size);
-
-            if (find === undefined) {
-                result.push(transmitter.Size);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Size');
 };
 
 module.exports.GetAllModel = async () => {
@@ -139,21 +113,12 @@ module.exports.GetAllModel = async () => {
 
     let collection = await Connect.connect(DeviceTransmitterCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Model: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const transmitter of data) {
-            let find = result.find((el) => el === transmitter.Model);
-
-            if (find === undefined) {
-                result.push(transmitter.Model);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Model');
 };
 
 module.exports.Insert = async (transmitter) => {

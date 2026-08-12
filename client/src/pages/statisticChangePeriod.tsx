@@ -21,6 +21,8 @@ import {
 } from '../__generated__/graphql';
 
 import DataTable from 'react-data-table-component';
+
+import { useTableTheme } from '../hooks/useTableTheme';
 // @ts-ignore
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -30,6 +32,7 @@ import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 
 const StatisticChangePeriodPage = () => {
+    const tableTheme = useTableTheme();
     const [changeData, setChangeData] = useState([]);
     const [time, setTime] = useState<Date | null>(null);
     const [type, setType] = useState(0);
@@ -1296,6 +1299,7 @@ STT
                 <Col span={12} style={{ maxWidth: '99%' }}>
                     <DataTableExtensions {...tableData}>
                         <DataTable
+                            theme={tableTheme}
                             noHeader
                             noTableHead
                             columns={columns}

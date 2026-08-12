@@ -1,6 +1,6 @@
 import { Grid, Col, Button, Center, Text } from '@mantine/core';
 
-import { checkAdminViewerRole } from '../utils/utils';
+import { checkAdminRole } from '../utils/utils';
 
 import { useEffect, useState } from 'react';
 
@@ -12,6 +12,8 @@ import {
 import Swal from 'sweetalert2';
 
 import DataTable from 'react-data-table-component';
+
+import { useTableTheme } from '../hooks/useTableTheme';
 // @ts-ignore
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -21,7 +23,8 @@ import { IconArrowBadgeUpFilled } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 
 const DeleteUselessTransmitterPage = () => {
-    const [isAdminViewer, setIsAdminViewer] = useState(false);
+    const tableTheme = useTableTheme();
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const [data, setData] = useState([]);
     const [listTransmitter, setListTransmitter] = useState([]);
@@ -32,7 +35,7 @@ const DeleteUselessTransmitterPage = () => {
     const [selectedRowFile, setSelectedRowFile] = useState([]);
 
     useEffect(() => {
-        setIsAdminViewer(checkAdminViewerRole());
+        setIsAdmin(checkAdminRole());
 
         getTransmitter().then((res) => {
             if (
@@ -173,7 +176,7 @@ const DeleteUselessTransmitterPage = () => {
                     <hr />
                 </Col>
                 <Col span={12}>
-                    {isAdminViewer == false ? (
+                    {isAdmin == true ? (
                         <Col span={12}>
                             <Center>
                                 <Button
@@ -191,6 +194,7 @@ const DeleteUselessTransmitterPage = () => {
                 <Col span={12} style={{ maxWidth: '99%' }}>
                     <DataTableExtensions {...tableData}>
                         <DataTable
+                            theme={tableTheme}
                             columns={columns}
                             data={data}
                             title={

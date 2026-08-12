@@ -25,6 +25,8 @@ import { useEffect, useState } from 'react';
 
 import DataTable from 'react-data-table-component';
 
+import { useTableTheme } from '../hooks/useTableTheme';
+
 import { convertTimeStampToDate, checkAdminViewerRole } from '../utils/utils';
 
 import Swal from 'sweetalert2';
@@ -32,6 +34,7 @@ import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
 
 const ManualQuantityPage = () => {
+    const tableTheme = useTableTheme();
     const [id, setId] = useState('');
     const [siteId, setSiteId] = useState('');
     const [staffId, setStaffId] = useState('');
@@ -667,6 +670,7 @@ const ManualQuantityPage = () => {
                 <Col span={12}>
                     {dataTable.length > 0 ? (
                         <DataTable
+                            theme={tableTheme}
                             columns={column}
                             data={dataTable}
                             pagination

@@ -1,4 +1,5 @@
 const ConnectDB = require('../db/connect');
+const { collectDistinct } = require('../utils/collectDistinct');
 const { ObjectId } = require('mongodb');
 
 const SiteCoverCollection = 't_Site_Covers';
@@ -29,21 +30,12 @@ module.exports.GetAllCoverL = async () => {
 
     let collection = await Connect.connect(SiteCoverCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ CoverL: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const cover of data) {
-            let find = result.find((el) => el === cover.CoverL);
-
-            if (find === undefined) {
-                result.push(cover.CoverL);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'CoverL');
 };
 
 module.exports.GetAllCoverW = async () => {
@@ -51,21 +43,12 @@ module.exports.GetAllCoverW = async () => {
 
     let collection = await Connect.connect(SiteCoverCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ CoverW: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const cover of data) {
-            let find = result.find((el) => el === cover.CoverW);
-
-            if (find === undefined) {
-                result.push(cover.CoverW);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'CoverW');
 };
 
 module.exports.GetAllCoverH = async () => {
@@ -73,21 +56,12 @@ module.exports.GetAllCoverH = async () => {
 
     let collection = await Connect.connect(SiteCoverCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ CoverH: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const cover of data) {
-            let find = result.find((el) => el === cover.CoverH);
-
-            if (find === undefined) {
-                result.push(cover.CoverH);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'CoverH');
 };
 
 module.exports.GetAllCorverMeterial = async () => {
@@ -95,21 +69,12 @@ module.exports.GetAllCorverMeterial = async () => {
 
     let collection = await Connect.connect(SiteCoverCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ CoverMeterial: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const cover of data) {
-            let find = result.find((el) => el === cover.CoverMeterial);
-
-            if (find === undefined) {
-                result.push(cover.CoverMeterial);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'CoverMeterial');
 };
 
 module.exports.GetAllCoverNL = async () => {
@@ -117,21 +82,12 @@ module.exports.GetAllCoverNL = async () => {
 
     let collection = await Connect.connect(SiteCoverCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ CoverNL: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const cover of data) {
-            let find = result.find((el) => el === cover.CoverNL);
-
-            if (find === undefined) {
-                result.push(cover.CoverNL);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'CoverNL');
 };
 
 module.exports.Insert = async (cover) => {

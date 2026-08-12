@@ -175,6 +175,12 @@ const StatisticHistoryMeterPage = () => {
                             Location: find.Location,
                             DateChanged: item?.DateChanged,
                             Description: item?.Description,
+                            //@ts-ignore
+                            Marks: item?.NewMeterMarks,
+                            //@ts-ignore
+                            Size: item?.NewMeterSize,
+                            //@ts-ignore
+                            Model: item?.NewMeterModel,
                         };
 
                         temp.push(obj);
@@ -199,6 +205,9 @@ const StatisticHistoryMeterPage = () => {
                     <td>{convertTimeStampToDate(item.DateChanged)}</td>
                     <td>{item.SiteId}</td>
                     <td>{item.Location}</td>
+                    <td>{item.Marks}</td>
+                    <td>{item.Size}</td>
+                    <td>{item.Model}</td>
                     <td>{item.Description}</td>
                 </tr>
             );
@@ -508,6 +517,9 @@ const StatisticHistoryMeterPage = () => {
                                         <th>Ngày thay</th>
                                         <th>Mã vị trí</th>
                                         <th>Vị trí</th>
+                                        <th>Hiệu</th>
+                                        <th>Cỡ</th>
+                                        <th>Model</th>
                                         <th style={{ width: '500px' }}>
                                             Ghi chú
                                         </th>

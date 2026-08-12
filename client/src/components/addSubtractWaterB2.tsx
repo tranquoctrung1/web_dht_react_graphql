@@ -11,6 +11,7 @@ import {
     deleteAddSubtractWaterB2,
     updateAmountWater,
     updateContent,
+    updateDatePublished,
     updateNote,
     updateNumberPrecious,
     updateProvider,
@@ -18,6 +19,7 @@ import {
 
 const AddSubtractWaterB2 = ({ index }: AddSubtractWaterB2Interface) => {
     const [numberPrecious, setNumberPrecious] = useState('');
+    const [datePublished, setDatePublished] = useState('');
     const [content, setContent] = useState('');
     const [provider, setProvider] = useState('');
     const [amountWater, setAmountWater] = useState(0);
@@ -32,6 +34,8 @@ const AddSubtractWaterB2 = ({ index }: AddSubtractWaterB2Interface) => {
 
         //@ts-ignore
         setNumberPrecious(subtractWaterB2.NumberPrecious);
+        //@ts-ignore
+        setDatePublished(subtractWaterB2.DatePublished);
         //@ts-ignore
         setContent(subtractWaterB2.Content);
         //@ts-ignore
@@ -54,6 +58,16 @@ const AddSubtractWaterB2 = ({ index }: AddSubtractWaterB2Interface) => {
         setNumberPrecious(e.target.value);
         //@ts-ignore
         dispatch(updateNumberPrecious(obj));
+    };
+
+    const onDatePublishedBlured = (e: any) => {
+        let obj = {
+            index: index,
+            DatePublished: e.target.value,
+        };
+        setDatePublished(e.target.value);
+        //@ts-ignore
+        dispatch(updateDatePublished(obj));
     };
 
     const onContentBlured = (e: any) => {
@@ -114,7 +128,15 @@ const AddSubtractWaterB2 = ({ index }: AddSubtractWaterB2Interface) => {
                     onBlur={onNumberPerciousBlured}
                 />
             </Col>
-            <Col span={3}>
+            <Col span={2}>
+                <Input
+                    type="date"
+                    placeholder="Ngày phát hành"
+                    defaultValue={datePublished}
+                    onBlur={onDatePublishedBlured}
+                />
+            </Col>
+            <Col span={2}>
                 <Input
                     placeholder="Nội dung giảm trừ"
                     //value={content}
@@ -141,7 +163,7 @@ const AddSubtractWaterB2 = ({ index }: AddSubtractWaterB2Interface) => {
                     onBlur={onAmountWaterBlured}
                 />
             </Col>
-            <Col span={2}>
+            <Col span={1}>
                 <Input
                     placeholder="Ghi chú"
                     //value={note}

@@ -64,10 +64,10 @@ const SiteAvailability = () => {
             });
     }, []);
 
-    const onChooseSiteAvai = (e: any) => {
+    const onChooseSiteAvai = (value: string | null) => {
         const find = siteAvai.find(
             //@ts-ignore
-            (el) => el.Availability === e.target.value.split('|')[0].trim(),
+            (el) => el.Availability === (value ?? '').split('|')[0].trim(),
         );
 
         if (find !== undefined) {
@@ -345,7 +345,10 @@ const SiteAvailability = () => {
                                     ]);
                                     return item;
                                 }}
-                                onBlur={onChooseSiteAvai}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    onChooseSiteAvai(value);
+                                }}
                             />
                         )}
                     ></Controller>

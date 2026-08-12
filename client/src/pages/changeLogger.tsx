@@ -332,6 +332,31 @@ const ChangeLoggerPage = () => {
         setListHistoryLogger((current) => [...current, history]);
     };
 
+    const isSameDay = (d1: any, d2: any) => {
+        if (d1 === null || d1 === undefined || d2 === null || d2 === undefined)
+            return false;
+
+        const a = new Date(d1);
+        const b = new Date(d2);
+
+        return (
+            a.getFullYear() === b.getFullYear() &&
+            a.getMonth() === b.getMonth() &&
+            a.getDate() === b.getDate()
+        );
+    };
+
+    const findExistingHistorySiteLoggerByDate = () => {
+        const formValue = getValues();
+
+        //@ts-ignore
+        return listHistoryLogger.find(
+            (el: any) =>
+                el.SiteId === formValue.SiteId &&
+                isSameDay(el.DateChanged, formValue.DateChanged),
+        );
+    };
+
     const onInsertClicked = () => {
         const formValue = getValues();
         let isAllow = true;
@@ -351,6 +376,15 @@ const ChangeLoggerPage = () => {
         }
 
         if (isAllow == true) {
+            const existing = findExistingHistorySiteLoggerByDate();
+
+            if (existing !== undefined) {
+                //@ts-ignore
+                setValue('_id', existing._id);
+                onUpdateClicked();
+                return;
+            }
+
             insertHisotrySiteLogger({
                 variables: {
                     history: onCreateObjHistorySiteLoggerInsert(),

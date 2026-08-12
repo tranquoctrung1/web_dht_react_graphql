@@ -1,5 +1,16 @@
+const jwt = require('jsonwebtoken');
 const UserUserModel = require('../../models/UserUser.model');
 const UserStaffModel = require('../../models/UserStaff.model');
+
+const ADMIN_ROLE = 'admin';
+
+const decodeToken = (token) => {
+    try {
+        return jwt.verify(token, process.env.JWT_KEY);
+    } catch (err) {
+        return null;
+    }
+};
 
 module.exports = {
     Query: {
@@ -53,6 +64,28 @@ module.exports = {
         },
         UpdateActiveUser: async (parent, { user }, context, info) => {
             return await UserUserModel.UpdateActiveUser(user);
+        },
+        ResetAllLoginCount: async (parent, {}, context, info) => {
+            const decoded = decodeToken(context.token);
+
+            if (decoded === null || decoded.role !== ADMIN_ROLE) {
+                return 0;
+            }
+
+            return await UserUserModel.ResetAllLogCount();
+        },
+        ResetLoginCount: async (parent, { Uid }, context, info) => {
+            const decoded = decodeToken(context.token);
+
+            if (decoded === null || decoded.role !== ADMIN_ROLE) {
+                return 0;
+            }
+
+            if (Uid === null || Uid === undefined || Uid === '') {
+                return 0;
+            }
+
+            return await UserUserModel.ResetLogCount(Uid);
         },
     },
 };

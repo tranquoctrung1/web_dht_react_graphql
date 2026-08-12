@@ -4,6 +4,9 @@ query GetHistoryMeterBySiteId($siteid: String) {
         Description
         NewMeterIndex
         NewMeterSerial
+        NewMeterMarks
+        NewMeterSize
+        NewMeterModel
         OldMeterIndex
         OldMeterSerial
         SiteId

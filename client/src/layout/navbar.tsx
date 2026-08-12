@@ -22,6 +22,8 @@ import {
     IconReceipt2,
     IconUserCircle,
 } from '@tabler/icons-react';
+import { useState } from 'react';
+
 import { LinksGroup } from './navbarLinkGroup';
 
 const mockdataCustomer = [
@@ -95,30 +97,6 @@ const mockdataForStaff = [
         ],
     },
 ];
-const mockdataForMeter_Logger_Tran = [
-    {
-        label: 'Thiết Bị',
-        icon: IconDeviceDesktop,
-        initiallyOpened: false,
-        links: [
-            { label: 'Đồng Hồ ', link: '/meter' },
-            { label: 'Bộ Hiển Thị', link: '/transmitter' },
-            { label: 'Logger', link: '/logger' },
-            { label: 'Nắp Hầm', link: '/cover' },
-        ],
-    },
-    {
-        label: 'Điểm Lắp Đặt',
-        icon: IconMapPin,
-        initiallyOpened: false,
-        links: [
-            { label: 'Thay Đồng Hồ', link: '/meterChanged' },
-            { label: 'Thay Bộ Hiển Thị', link: '/transmitterChanged' },
-            { label: 'Thay Bộ Logger', link: '/loggerChanged' },
-        ],
-    },
-];
-
 const mockdataAdminViewer = [
     {
         label: 'Thiết Bị',
@@ -204,6 +182,10 @@ const mockdataAdminViewer = [
             {
                 label: 'Đồng Hồ Đến Hạn Kiểm Định',
                 link: '/statisticMeterExpireTime',
+            },
+            {
+                label: 'Hệ Số K Theo Địa Bàn',
+                link: '/statisticKCoefficientByArea',
             },
             { label: 'Hồ Sơ Thiết Bị Đồng Hồ', link: '/statisticMeterInfo' },
             {
@@ -345,6 +327,10 @@ const mockdataAdmin = [
                 label: 'Đồng Hồ Đến Hạn Kiểm Định',
                 link: '/statisticMeterExpireTime',
             },
+            {
+                label: 'Hệ Số K Theo Địa Bàn',
+                link: '/statisticKCoefficientByArea',
+            },
             { label: 'Hồ Sơ Thiết Bị Đồng Hồ', link: '/statisticMeterInfo' },
             {
                 label: 'Hồ Sơ Thiết Bị Bộ Hiển Thị',
@@ -433,6 +419,7 @@ const mockdataAdmin = [
             },
             { label: 'Tạo Mới Người Dùng', link: '/createUser' },
             { label: 'Tạo Mới Dữ Liệu Khác', link: '/createOtherData' },
+            { label: 'Nhật Ký Hoạt Động', link: '/activityLog' },
         ],
     },
     {
@@ -493,36 +480,37 @@ const useStyles = createStyles((theme) => ({
 export function NavbarNested() {
     const { classes } = useStyles();
 
+    const [openedLabel, setOpenedLabel] = useState<string | null>(null);
+
     const role = localStorage.getItem('Role');
-    let links;
+    let data;
 
     if (role !== undefined && role !== null) {
         if (role === 'customer') {
-            links = mockdataCustomer.map((item) => (
-                <LinksGroup {...item} key={item.label} />
-            ));
+            data = mockdataCustomer;
         } else if (role === 'staff') {
-            links = mockdataForStaff.map((item) => (
-                <LinksGroup {...item} key={item.label} />
-            ));
-        } else if (role === 'meter_logger_tran') {
-            links = mockdataForMeter_Logger_Tran.map((item) => (
-                <LinksGroup {...item} key={item.label} />
-            ));
-        } else if (role === 'adminviewer') {
-            links = mockdataAdminViewer.map((item) => (
-                <LinksGroup {...item} key={item.label} />
-            ));
+            data = mockdataForStaff;
+        } else if (role === 'meter_logger_tran' || role === 'adminviewer') {
+            data = mockdataAdminViewer;
         } else {
-            links = mockdataAdmin.map((item) => (
-                <LinksGroup {...item} key={item.label} />
-            ));
+            data = mockdataAdmin;
         }
     } else {
-        links = mockdataAdmin.map((item) => (
-            <LinksGroup {...item} key={item.label} />
-        ));
+        data = mockdataAdmin;
     }
+
+    const links = data.map((item) => (
+        <LinksGroup
+            {...item}
+            key={item.label}
+            opened={openedLabel === item.label}
+            onToggle={() =>
+                setOpenedLabel((cur) =>
+                    cur === item.label ? null : item.label,
+                )
+            }
+        />
+    ));
 
     return (
         <Navbar width={{ sm: 300 }} p="md" className={classes.navbar}>
@@ -531,7 +519,7 @@ export function NavbarNested() {
                     <Text color="blue" weight={500} size="lg">
                         XNTD
                     </Text>
-                    <Code sx={{ fontWeight: 700 }}>v1.0.0</Code>
+                    <Code sx={{ fontWeight: 700 }}>v1.1.0</Code>
                 </Group>
             </Navbar.Section>
 

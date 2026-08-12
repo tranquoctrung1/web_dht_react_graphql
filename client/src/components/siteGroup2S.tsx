@@ -64,10 +64,10 @@ const SiteGroup2S = () => {
             });
     }, []);
 
-    const onChooseSiteGroup = (e: any) => {
+    const onChooseSiteGroup = (value: string | null) => {
         const find = siteGroup.find(
             //@ts-ignore
-            (el) => el.Group === e.target.value.split('|')[0].trim(),
+            (el) => el.Group === (value ?? '').split('|')[0].trim(),
         );
 
         if (find !== undefined) {
@@ -345,7 +345,10 @@ const SiteGroup2S = () => {
                                     ]);
                                     return item;
                                 }}
-                                onBlur={onChooseSiteGroup}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    onChooseSiteGroup(value);
+                                }}
                             />
                         )}
                     ></Controller>

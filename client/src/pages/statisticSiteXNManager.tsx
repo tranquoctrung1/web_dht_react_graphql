@@ -1,6 +1,8 @@
 import { Grid, Button, Center, Col, Text } from '@mantine/core';
 
 import DataTable from 'react-data-table-component';
+
+import { useTableTheme } from '../hooks/useTableTheme';
 // @ts-ignore
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -15,6 +17,7 @@ import { checkAdminViewerRole } from '../utils/utils';
 import { motion } from 'framer-motion';
 
 const StatisticSiteXNManager = () => {
+    const tableTheme = useTableTheme();
     const { refetch: getStatisticSite } = useGetStatisticSiteXnManagerQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
@@ -402,6 +405,7 @@ const StatisticSiteXNManager = () => {
                 <Col span={12} style={{ maxWidth: '99%' }}>
                     <DataTableExtensions {...tableData}>
                         <DataTable
+                            theme={tableTheme}
                             columns={columns}
                             noTableHead
                             noHeader

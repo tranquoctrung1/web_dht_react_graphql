@@ -303,6 +303,9 @@ const QuantityPrecious = () => {
                             }}
                         >
                             {item.NumberPrecious}
+                            {item.DatePublished ? (
+                                <div>{item.DatePublished}</div>
+                            ) : null}
                         </td>
                         <td
                             style={{
@@ -383,6 +386,9 @@ const QuantityPrecious = () => {
                             }}
                         >
                             {item.NumberPrecious}
+                            {item.DatePublished ? (
+                                <div>{item.DatePublished}</div>
+                            ) : null}
                         </td>
                         <td
                             style={{

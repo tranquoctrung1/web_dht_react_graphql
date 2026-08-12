@@ -345,7 +345,29 @@ export const checkAdminViewerRole = () => {
     let check = false;
 
     if (role != undefined && role !== null && role !== '') {
-        if (role === 'adminviewer') {
+        if (
+            role === 'adminviewer' ||
+            role === 'meter_logger_tran' ||
+            role === 'staff'
+        ) {
+            check = true;
+        } else {
+            check = false;
+        }
+    } else {
+        check = false;
+    }
+
+    return check;
+};
+
+export const checkAdminRole = () => {
+    const role = localStorage.getItem('Role');
+
+    let check = false;
+
+    if (role != undefined && role !== null && role !== '') {
+        if (role === 'admin') {
             check = true;
         } else {
             check = false;

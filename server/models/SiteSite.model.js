@@ -1,6 +1,49 @@
 const ConnectDB = require('../db/connect');
+const { collectDistinct } = require('../utils/collectDistinct');
 
 const SiteSiteCollection = 't_Site_Sites';
+
+const DeviceMeterCollection = 't_Devices_Meters';
+const DeviceTransmitterCollection = 't_Devices_Transmitters';
+const DeviceLoggerCollection = 't_Devices_Loggers';
+
+const setDeviceInstalled = async (collectionName, serial, installed) => {
+    if (serial === null || serial === undefined || serial === '') {
+        return;
+    }
+
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(collectionName);
+
+    await collection.updateMany(
+        { Serial: serial },
+        { $set: { Installed: installed } },
+    );
+};
+
+// oldSite/newSite: site documents (null when inserting/deleting).
+// Releases devices no longer attached, marks newly attached ones installed.
+const syncDevicesInstalled = async (oldSite, newSite) => {
+    const pairs = [
+        ['Meter', DeviceMeterCollection],
+        ['Transmitter', DeviceTransmitterCollection],
+        ['Logger', DeviceLoggerCollection],
+    ];
+
+    for (const [field, collectionName] of pairs) {
+        const oldSerial = oldSite ? oldSite[field] : null;
+        const newSerial = newSite ? newSite[field] : null;
+
+        if (oldSerial && oldSerial !== newSerial) {
+            await setDeviceInstalled(collectionName, oldSerial, false);
+        }
+
+        if (newSerial) {
+            await setDeviceInstalled(collectionName, newSerial, true);
+        }
+    }
+};
 
 module.exports.SiteSite = class SiteSite {
     constructor(
@@ -252,21 +295,12 @@ module.exports.GetAllOldSiteId = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ OldId: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const site of data) {
-            let find = result.find((el) => el === site.OldId);
-
-            if (find === undefined) {
-                result.push(site.OldId);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'OldId');
 };
 
 module.exports.GetSiteBySiteId = async (siteid) => {
@@ -284,21 +318,12 @@ module.exports.GetAllViewGroups = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ ViewGroup: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const site of data) {
-            let find = result.find((el) => el === site.ViewGroup);
-
-            if (find === undefined) {
-                result.push(site.ViewGroup);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'ViewGroup');
 };
 
 module.exports.GetSiteByWaterSubtractB2ForTA = async () => {
@@ -338,21 +363,12 @@ module.exports.GetAllDistrict = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ District: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const site of data) {
-            let find = result.find((el) => el === site.District);
-
-            if (find === undefined) {
-                result.push(site.District);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'District');
 };
 
 module.exports.GetAllLevel = async () => {
@@ -360,21 +376,12 @@ module.exports.GetAllLevel = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Level: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const site of data) {
-            let find = result.find((el) => el === site.Level);
-
-            if (find === undefined) {
-                result.push(site.Level);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Level');
 };
 
 module.exports.GetAllGroup = async () => {
@@ -382,21 +389,12 @@ module.exports.GetAllGroup = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Group: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const site of data) {
-            let find = result.find((el) => el === site.Group);
-
-            if (find === undefined) {
-                result.push(site.Group);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Group');
 };
 
 module.exports.GetAllGroup2 = async () => {
@@ -404,21 +402,12 @@ module.exports.GetAllGroup2 = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Group2: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const site of data) {
-            let find = result.find((el) => el === site.Group2);
-
-            if (find === undefined) {
-                result.push(site.Group2);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Group2');
 };
 
 module.exports.GetAllGroup3 = async () => {
@@ -426,21 +415,12 @@ module.exports.GetAllGroup3 = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Group3: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const site of data) {
-            let find = result.find((el) => el === site.Group3);
-
-            if (find === undefined) {
-                result.push(site.Group3);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Group3');
 };
 
 module.exports.GetAllGroup4 = async () => {
@@ -448,21 +428,12 @@ module.exports.GetAllGroup4 = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Group4: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const site of data) {
-            let find = result.find((el) => el === site.Group4);
-
-            if (find === undefined) {
-                result.push(site.Group4);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Group4');
 };
 
 module.exports.GetAllGroup5 = async () => {
@@ -470,21 +441,12 @@ module.exports.GetAllGroup5 = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Group5: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const site of data) {
-            let find = result.find((el) => el === site.Group5);
-
-            if (find === undefined) {
-                result.push(site.Group5);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Group5');
 };
 
 module.exports.GetAllCoverID = async () => {
@@ -492,21 +454,12 @@ module.exports.GetAllCoverID = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ CoverID: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const site of data) {
-            let find = result.find((el) => el === site.CoverID);
-
-            if (find === undefined) {
-                result.push(site.CoverID);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'CoverID');
 };
 
 module.exports.GetAllSiteCompanies = async () => {
@@ -514,21 +467,12 @@ module.exports.GetAllSiteCompanies = async () => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
-    let result = [];
+    let data = await collection
+        .find({})
+        .project({ Company: 1, _id: 0 })
+        .toArray();
 
-    let data = await collection.find({}).toArray();
-
-    if (data.length > 0) {
-        for (const site of data) {
-            let find = result.find((el) => el === site.Company);
-
-            if (find === undefined) {
-                result.push(site.Company);
-            }
-        }
-    }
-
-    return result;
+    return collectDistinct(data, 'Company');
 };
 
 module.exports.GetSiteMeterDateChange = async (date) => {
@@ -538,8 +482,7 @@ module.exports.GetSiteMeterDateChange = async (date) => {
 
     let result = await collection
         .find({
-            DateOfMeterChange: { $ne: null },
-            DateOfMeterChange: { $gte: new Date(date) },
+            DateOfMeterChange: { $ne: null, $gte: new Date(date) },
         })
         .sort({ _id: 1 })
         .toArray();
@@ -560,13 +503,11 @@ module.exports.GetSiteMeterDateChangeByYearUsing = async (date, year) => {
         .find({
             $or: [
                 {
-                    DateOfMeterChange: { $ne: null },
-                    DateOfMeterChange: { $lte: time },
+                    DateOfMeterChange: { $ne: null, $lte: time },
                 },
                 {
                     DateOfMeterChange: { $eq: null },
-                    TakeoverDate: { $ne: null },
-                    TakeoverDate: { $lte: time },
+                    TakeoverDate: { $ne: null, $lte: time },
                 },
             ],
         })
@@ -582,8 +523,7 @@ module.exports.GetSiteTransmitterDateChange = async (date) => {
 
     let result = await collection
         .find({
-            DateOfTransmitterChange: { $ne: null },
-            DateOfTransmitterChange: { $gte: new Date(date) },
+            DateOfTransmitterChange: { $ne: null, $gte: new Date(date) },
         })
         .toArray();
 
@@ -603,8 +543,7 @@ module.exports.GetSiteTransmitterDateChangeByYearUsing = async (date, year) => {
         .find({
             $or: [
                 {
-                    DateOfTransmitterChange: { $ne: null },
-                    DateOfTransmitterChange: { $lte: new Date(time) },
+                    DateOfTransmitterChange: { $ne: null, $lte: new Date(time) },
                 },
             ],
         })
@@ -620,8 +559,7 @@ module.exports.GetSiteLoggerDateChange = async (date) => {
 
     let result = await collection
         .find({
-            DateOfLoggerChange: { $ne: null },
-            DateOfLoggerChange: { $gte: new Date(date) },
+            DateOfLoggerChange: { $ne: null, $gte: new Date(date) },
         })
         .toArray();
 
@@ -641,8 +579,7 @@ module.exports.GetSiteLoggerDateChangeByYearUsing = async (date, year) => {
         .find({
             $or: [
                 {
-                    DateOfLoggerChange: { $ne: null },
-                    DateOfLoggerChange: { $lte: new Date(time) },
+                    DateOfLoggerChange: { $ne: null, $lte: new Date(time) },
                 },
             ],
         })
@@ -658,8 +595,7 @@ module.exports.GetSitDateBatteryChange = async (date) => {
 
     let result = await collection
         .find({
-            DateOfBatteryChange: { $ne: null },
-            DateOfBatteryChange: { $gte: new Date(date) },
+            DateOfBatteryChange: { $ne: null, $gte: new Date(date) },
         })
         .toArray();
 
@@ -677,8 +613,7 @@ module.exports.GetSitDateBatteryChangeByYearUsing = async (date, year) => {
 
     let result = await collection
         .find({
-            DateOfBatteryChange: { $ne: null },
-            DateOfBatteryChange: { $lte: new Date(date) },
+            DateOfBatteryChange: { $ne: null, $lte: new Date(date) },
         })
         .toArray();
 
@@ -692,8 +627,7 @@ module.exports.GetSitDateTranmitterBatteryChange = async (date) => {
 
     let result = await collection
         .find({
-            DateOfTransmitterBatteryChange: { $ne: null },
-            DateOfTransmitterBatteryChange: { $gte: new Date(date) },
+            DateOfTransmitterBatteryChange: { $ne: null, $gte: new Date(date) },
         })
         .toArray();
 
@@ -714,8 +648,7 @@ module.exports.GetSitDateTransmitterBatteryChangeByYearUsing = async (
 
     let result = await collection
         .find({
-            DateOfTransmitterBatteryChange: { $ne: null },
-            DateOfTransmitterBatteryChange: { $lte: new Date(date) },
+            DateOfTransmitterBatteryChange: { $ne: null, $lte: new Date(date) },
         })
         .toArray();
 
@@ -729,8 +662,7 @@ module.exports.GetSitDateLoggerBatteryChange = async (date) => {
 
     let result = await collection
         .find({
-            DateOfLoggerBatteryChange: { $ne: null },
-            DateOfLoggerBatteryChange: { $gte: new Date(date) },
+            DateOfLoggerBatteryChange: { $ne: null, $gte: new Date(date) },
         })
         .toArray();
 
@@ -751,8 +683,7 @@ module.exports.GetSitDateLoggerBatteryChangeByYearUsing = async (
 
     let result = await collection
         .find({
-            DateOfLoggerBatteryChange: { $ne: null },
-            DateOfLoggerBatteryChange: { $lte: new Date(date) },
+            DateOfLoggerBatteryChange: { $ne: null, $lte: new Date(date) },
         })
         .toArray();
 
@@ -862,6 +793,8 @@ module.exports.Insert = async (site) => {
 
         result = result.insertedId;
 
+        await syncDevicesInstalled(null, site);
+
         return result;
     }
 };
@@ -871,6 +804,9 @@ module.exports.Update = async (site) => {
         let Connect = new ConnectDB.Connect();
 
         let collection = await Connect.connect(SiteSiteCollection);
+
+        let oldSites = await collection.find({ _id: site._id }).toArray();
+        let oldSite = oldSites.length > 0 ? oldSites[0] : null;
 
         let result = await collection.deleteMany({
             _id: site._id,
@@ -911,6 +847,8 @@ module.exports.Update = async (site) => {
 
         result = await collection.insertOne(site);
 
+        await syncDevicesInstalled(oldSite, site);
+
         return result.insertedId;
     } catch (err) {
         console.log(err);
@@ -922,9 +860,14 @@ module.exports.Delete = async (site) => {
 
     let collection = await Connect.connect(SiteSiteCollection);
 
+    let oldSites = await collection.find({ _id: site._id }).toArray();
+    let oldSite = oldSites.length > 0 ? oldSites[0] : null;
+
     let result = await collection.deleteMany({
         _id: site._id,
     });
+
+    await syncDevicesInstalled(oldSite, null);
 
     return result.deletedCount;
 };
@@ -938,6 +881,7 @@ module.exports.GetStatisticXNManager = async () => {
         .find({
             Status: 'DSD',
             $or: [{ Company: { $regex: 'XN' } }, { Company: { $regex: 'DA' } }],
+            ExcludeFromXNManagerList: { $ne: true },
         })
         .toArray();
 

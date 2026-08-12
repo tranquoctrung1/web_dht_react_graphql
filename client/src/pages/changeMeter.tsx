@@ -37,6 +37,7 @@ import { motion } from 'framer-motion';
 const ChangeMeterPage = () => {
     const [siteData, setSiteData] = useState([]);
     const [meterData, setMeterData] = useState([]);
+    const [listMeter, setListMeter] = useState([]);
     const [listHistorySiteMeter, setListHistorySiteMeter] = useState([]);
 
     const { refetch: getSite } = useGetAllSitesQuery();
@@ -94,6 +95,8 @@ const ChangeMeterPage = () => {
 
                 //@ts-ignore
                 setMeterData([...temp]);
+                //@ts-ignore
+                setListMeter([...res.data.GetAllMeter]);
             }
         });
 
@@ -157,8 +160,15 @@ const ChangeMeterPage = () => {
         }
     };
 
+    const findNewMeterInfo = (serial: any): any => {
+        //@ts-ignore
+        return listMeter.find((el: any) => el.Serial === serial);
+    };
+
     const onCreateObjHistorySiteMeterInsert = () => {
         const formValue = getValues();
+
+        const newMeter = findNewMeterInfo(formValue.NewMeterSerial);
 
         const obj = {
             DateChanged: formValue.DateChanged,
@@ -168,6 +178,9 @@ const ChangeMeterPage = () => {
             OldMeterIndex: formValue.OldMeterIndex,
             NewMeterIndex: formValue.NewMeterIndex,
             Description: formValue.Description,
+            NewMeterMarks: newMeter !== undefined ? newMeter.Marks : '',
+            NewMeterSize: newMeter !== undefined ? newMeter.Size : null,
+            NewMeterModel: newMeter !== undefined ? newMeter.Model : '',
         };
 
         return obj;
@@ -175,6 +188,8 @@ const ChangeMeterPage = () => {
 
     const onCreateObjHistorySiteMeterUpdate = () => {
         const formValue = getValues();
+
+        const newMeter = findNewMeterInfo(formValue.NewMeterSerial);
 
         const obj = {
             _id: formValue._id,
@@ -185,6 +200,9 @@ const ChangeMeterPage = () => {
             OldMeterIndex: formValue.OldMeterIndex,
             NewMeterIndex: formValue.NewMeterIndex,
             Description: formValue.Description,
+            NewMeterMarks: newMeter !== undefined ? newMeter.Marks : '',
+            NewMeterSize: newMeter !== undefined ? newMeter.Size : null,
+            NewMeterModel: newMeter !== undefined ? newMeter.Model : '',
         };
 
         return obj;
@@ -332,6 +350,31 @@ const ChangeMeterPage = () => {
         setListHistorySiteMeter((current) => [...current, history]);
     };
 
+    const isSameDay = (d1: any, d2: any) => {
+        if (d1 === null || d1 === undefined || d2 === null || d2 === undefined)
+            return false;
+
+        const a = new Date(d1);
+        const b = new Date(d2);
+
+        return (
+            a.getFullYear() === b.getFullYear() &&
+            a.getMonth() === b.getMonth() &&
+            a.getDate() === b.getDate()
+        );
+    };
+
+    const findExistingHistorySiteMeterByDate = () => {
+        const formValue = getValues();
+
+        //@ts-ignore
+        return listHistorySiteMeter.find(
+            (el: any) =>
+                el.SiteId === formValue.SiteId &&
+                isSameDay(el.DateChanged, formValue.DateChanged),
+        );
+    };
+
     const onInsertClicked = () => {
         const formValue = getValues();
         let isAllow = true;
@@ -351,6 +394,15 @@ const ChangeMeterPage = () => {
         }
 
         if (isAllow == true) {
+            const existing = findExistingHistorySiteMeterByDate();
+
+            if (existing !== undefined) {
+                //@ts-ignore
+                setValue('_id', existing._id);
+                onUpdateClicked();
+                return;
+            }
+
             insertHisotrySiteMeter({
                 variables: {
                     history: onCreateObjHistorySiteMeterInsert(),

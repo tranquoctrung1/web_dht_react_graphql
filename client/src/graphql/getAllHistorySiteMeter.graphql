@@ -4,6 +4,9 @@ query GetAllHistorySiteMeter {
         Description
         NewMeterIndex
         NewMeterSerial
+        NewMeterMarks
+        NewMeterSize
+        NewMeterModel
         OldMeterIndex
         OldMeterSerial
         SiteId

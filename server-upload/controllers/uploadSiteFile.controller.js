@@ -1,3 +1,4 @@
+const fs = require('fs');
 const SiteFileModel = require('../models/SiteFile.model');
 
 module.exports.GetAll = async (req, res) => {
@@ -24,6 +25,11 @@ module.exports.UploadFile = async (req, res) => {
             message: await SiteFileModel.Insert(fileUpload),
         });
     } catch (err) {
+        // multer already wrote the file to disk before this handler ran —
+        // if the DB insert failed, remove it so it doesn't orphan forever.
+        if (req.file && req.file.path) {
+            fs.unlink(req.file.path, () => {});
+        }
         res.status(500).json({ message: err });
     }
 };
@@ -32,7 +38,17 @@ module.exports.DeleteFile = async (req, res) => {
     try {
         const { id } = req.query;
 
-        res.status(200).json({ message: await SiteFileModel.Delete(id) });
+        const deleted = await SiteFileModel.Delete(id);
+
+        if (deleted !== null && deleted !== undefined && deleted.Path) {
+            fs.unlink(deleted.Path, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        res.status(200).json({ message: deleted });
     } catch (err) {
         res.status(500).json({ message: err });
     }

@@ -64,10 +64,10 @@ const SiteStatus = () => {
             });
     }, []);
 
-    const onChooseSiteStatus = (e: any) => {
+    const onChooseSiteStatus = (value: string | null) => {
         const find = siteStatus.find(
             //@ts-ignore
-            (el) => el.Status === e.target.value.split('|')[0].trim(),
+            (el) => el.Status === (value ?? '').split('|')[0].trim(),
         );
 
         if (find !== undefined) {
@@ -345,7 +345,10 @@ const SiteStatus = () => {
                                     ]);
                                     return item;
                                 }}
-                                onBlur={onChooseSiteStatus}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    onChooseSiteStatus(value);
+                                }}
                             />
                         )}
                     ></Controller>

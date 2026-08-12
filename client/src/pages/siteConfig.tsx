@@ -19,7 +19,7 @@ import { DateInput } from '@mantine/dates';
 import { IconMapPin, IconSignRight, IconUpload } from '@tabler/icons-react';
 
 import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 
 import {
     useGetAllViewGroupsQuery,
@@ -28,8 +28,9 @@ import {
     useGetAllOldSiteIdQuery,
     useGetAllDistrictQuery,
     useGetAllMeterQuery,
-    useGetAllTransmitterQuery,
-    useGetAllLoggerQuery,
+    useGetAllMeterNotInstallQuery,
+    useGetAllTransmitterNotInstallQuery,
+    useGetAllLoggerNotInstallQuery,
     useGetAllMeterAccreditationTypeQuery,
     useGetAllSiteLevelQuery,
     useGetAllSiteStatusQuery,
@@ -80,10 +81,12 @@ const SiteConfigPage = () => {
         useGetAllViewGroupsQuery();
     const { data: staffs, error: staffError } = useGetAllStaffsQuery();
     const { data: districts, error: districtError } = useGetAllDistrictQuery();
-    const { data: meters, error: metersError } = useGetAllMeterQuery();
+    const { data: meters, error: metersError } =
+        useGetAllMeterNotInstallQuery();
     const { data: transmitters, error: transmitterError } =
-        useGetAllTransmitterQuery();
-    const { data: loggers, error: loggerError } = useGetAllLoggerQuery();
+        useGetAllTransmitterNotInstallQuery();
+    const { data: loggers, error: loggerError } =
+        useGetAllLoggerNotInstallQuery();
     const { data: metersAccrediationType, error: meterAccrediationTypeError } =
         useGetAllMeterAccreditationTypeQuery();
     const { data: siteLevels, error: siteLevelsError } =
@@ -106,9 +109,21 @@ const SiteConfigPage = () => {
         useGetAllSiteAvailabilitiesQuery();
     const { data: companies, error: companiesError } = useGetCompaniesQuery();
 
-    const [insertSite, {}] = useInsertSiteMutation();
-    const [updateSite, {}] = useUpdateSiteMutation();
-    const [deleteSite, {}] = useDeleteSiteMutation();
+    const deviceRefetchQueries = [
+        'GetAllMeterNotInstall',
+        'GetAllTransmitterNotInstall',
+        'GetAllLoggerNotInstall',
+    ];
+
+    const [insertSite, {}] = useInsertSiteMutation({
+        refetchQueries: deviceRefetchQueries,
+    });
+    const [updateSite, {}] = useUpdateSiteMutation({
+        refetchQueries: deviceRefetchQueries,
+    });
+    const [deleteSite, {}] = useDeleteSiteMutation({
+        refetchQueries: deviceRefetchQueries,
+    });
 
     const hostname = useSelector(HostnameState);
 
@@ -272,9 +287,12 @@ const SiteConfigPage = () => {
     const metersData = [];
 
     if (meters != undefined && meters != null) {
-        if (meters.GetAllMeter != null && meters.GetAllMeter != undefined) {
-            if (meters.GetAllMeter.length > 0) {
-                for (const meter of meters.GetAllMeter) {
+        if (
+            meters.GetAllMeterNotInstall != null &&
+            meters.GetAllMeterNotInstall != undefined
+        ) {
+            if (meters.GetAllMeterNotInstall.length > 0) {
+                for (const meter of meters.GetAllMeterNotInstall) {
                     const obj = {
                         label: `${meter?.Serial} | ${meter?.Marks} | ${meter?.Size}`,
                         value: meter?.Serial,
@@ -291,11 +309,11 @@ const SiteConfigPage = () => {
 
     if (transmitters != undefined && transmitters != null) {
         if (
-            transmitters.GetAllTransmitter != null &&
-            transmitters.GetAllTransmitter != undefined
+            transmitters.GetAllTransmitterNotInstall != null &&
+            transmitters.GetAllTransmitterNotInstall != undefined
         ) {
-            if (transmitters.GetAllTransmitter.length > 0) {
-                for (const transmitter of transmitters.GetAllTransmitter) {
+            if (transmitters.GetAllTransmitterNotInstall.length > 0) {
+                for (const transmitter of transmitters.GetAllTransmitterNotInstall) {
                     const obj = {
                         label: `${transmitter?.Serial} | ${transmitter?.Marks} | ${transmitter?.Size}`,
                         value: transmitter?.Serial,
@@ -311,9 +329,12 @@ const SiteConfigPage = () => {
     const loggersData = [];
 
     if (loggers != undefined && loggers != null) {
-        if (loggers.GetAllLogger != null && loggers.GetAllLogger != undefined) {
-            if (loggers.GetAllLogger.length > 0) {
-                for (const logger of loggers.GetAllLogger) {
+        if (
+            loggers.GetAllLoggerNotInstall != null &&
+            loggers.GetAllLoggerNotInstall != undefined
+        ) {
+            if (loggers.GetAllLoggerNotInstall.length > 0) {
+                for (const logger of loggers.GetAllLoggerNotInstall) {
                     const obj = {
                         label: `${logger?.Serial} | ${logger?.Marks} | ${logger?.Model}`,
                         value: logger?.Serial,
@@ -608,6 +629,8 @@ const SiteConfigPage = () => {
             Group4: '',
             Group5: '',
             District: '',
+            NoReplaceCalibration: false,
+            ExcludeFromXNManagerList: false,
             AccreditationDocument: '',
             AccreditationType: '',
             AccreditationDate: null,
@@ -621,9 +644,62 @@ const SiteConfigPage = () => {
         },
     });
 
-    const onChooseSiteBlured = (e: any) => {
+    const [watchMeter, watchTransmitter, watchLogger] = useWatch({
+        control,
+        name: ['Meter', 'Transmitter', 'Logger'],
+    });
+
+    // Danh sách NotInstall không chứa thiết bị đã lắp cho site đang sửa,
+    // nên phải thêm serial hiện tại vào options để Select hiển thị được
+    if (
+        watchMeter !== null &&
+        watchMeter !== undefined &&
+        watchMeter !== '' &&
         //@ts-ignore
-        const find = listSite.find((el) => el._id === e.target.value);
+        !metersData.some((el) => el.value === watchMeter)
+    ) {
+        //@ts-ignore
+        const findMeter = listMeter.find((el) => el.Serial === watchMeter);
+
+        metersData.push({
+            label:
+                findMeter !== undefined
+                    ? //@ts-ignore
+                      `${findMeter?.Serial} | ${findMeter?.Marks} | ${findMeter?.Size}`
+                    : watchMeter,
+            value: watchMeter,
+        });
+    }
+
+    if (
+        watchTransmitter !== null &&
+        watchTransmitter !== undefined &&
+        watchTransmitter !== '' &&
+        //@ts-ignore
+        !transmittersData.some((el) => el.value === watchTransmitter)
+    ) {
+        transmittersData.push({
+            label: watchTransmitter,
+            value: watchTransmitter,
+        });
+    }
+
+    if (
+        watchLogger !== null &&
+        watchLogger !== undefined &&
+        watchLogger !== '' &&
+        //@ts-ignore
+        !loggersData.some((el) => el.value === watchLogger)
+    ) {
+        loggersData.push({
+            label: watchLogger,
+            value: watchLogger,
+        });
+    }
+
+    const onChooseSiteChanged = (value: string | null) => {
+        //@ts-ignore
+        const find = listSite.find((el) => el._id === value);
 
         if (find !== undefined) {
             //@ts-ignore
@@ -771,6 +847,10 @@ const SiteConfigPage = () => {
             );
             //@ts-ignore
             setValue('Takeovered', find.Takeovered);
+            //@ts-ignore
+            setValue('NoReplaceCalibration', find.NoReplaceCalibration);
+            //@ts-ignore
+            setValue('ExcludeFromXNManagerList', find.ExcludeFromXNManagerList);
             //@ts-ignore
             setValue('Transmitter', find.Transmitter);
             //@ts-ignore
@@ -922,6 +1002,8 @@ const SiteConfigPage = () => {
             Group4: getValues('Group4'),
             Group5: getValues('Group5'),
             District: getValues('District'),
+            NoReplaceCalibration: getValues('NoReplaceCalibration'),
+            ExcludeFromXNManagerList: getValues('ExcludeFromXNManagerList'),
         };
 
         return obj;
@@ -1292,7 +1374,10 @@ const SiteConfigPage = () => {
                                         ]);
                                         return item;
                                     }}
-                                    onBlur={onChooseSiteBlured}
+                                    onChange={(value) => {
+                                        field.onChange(value);
+                                        onChooseSiteChanged(value);
+                                    }}
                                 />
                             )}
                         ></Controller>
@@ -2159,6 +2244,56 @@ const SiteConfigPage = () => {
                                 label="Bàn giao"
                                 //@ts-ignore
                                 checked={getValues('Takeovered')}
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col
+                    md={3}
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: '1.5rem',
+                    }}
+                >
+                    <Controller
+                        name="NoReplaceCalibration"
+                        control={control}
+                        render={({ field }) => (
+                            // @ts-ignore
+                            <Checkbox
+                                labelPosition="left"
+                                label="Không thay kiểm định"
+                                //@ts-ignore
+                                checked={getValues('NoReplaceCalibration')}
+                                {...field}
+                            />
+                        )}
+                    ></Controller>
+                </Col>
+                <Col
+                    md={3}
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: '1.5rem',
+                    }}
+                >
+                    <Controller
+                        name="ExcludeFromXNManagerList"
+                        control={control}
+                        render={({ field }) => (
+                            // @ts-ignore
+                            <Checkbox
+                                labelPosition="left"
+                                label="Loại khỏi DS Điểm lắp đặt XN quản lý"
+                                //@ts-ignore
+                                checked={getValues(
+                                    'ExcludeFromXNManagerList',
+                                )}
                                 {...field}
                             />
                         )}

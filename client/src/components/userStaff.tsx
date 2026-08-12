@@ -64,10 +64,10 @@ const UserStaff = () => {
             });
     }, []);
 
-    const onChooseUserStaff = (e: any) => {
+    const onChooseUserStaff = (value: string | null) => {
         const find = list.find(
             //@ts-ignore
-            (el) => el._id === e.target.value.split('|')[0].trim(),
+            (el) => el._id === (value ?? '').split('|')[0].trim(),
         );
 
         if (find !== undefined) {
@@ -333,7 +333,10 @@ const UserStaff = () => {
                                     setData((current) => [...current, item]);
                                     return item;
                                 }}
-                                onBlur={onChooseUserStaff}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    onChooseUserStaff(value);
+                                }}
                             />
                         )}
                     ></Controller>

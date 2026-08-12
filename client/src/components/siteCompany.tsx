@@ -65,10 +65,10 @@ const SiteCompany = () => {
             });
     }, []);
 
-    const onChooseSiteCompany = (e: any) => {
+    const onChooseSiteCompany = (value: string | null) => {
         const find = siteCompany.find(
             //@ts-ignore
-            (el) => el.Company === e.target.value.split('|')[0].trim(),
+            (el) => el.Company === (value ?? '').split('|')[0].trim(),
         );
         if (find !== undefined) {
             //@ts-ignore
@@ -350,7 +350,10 @@ const SiteCompany = () => {
                                     ]);
                                     return item;
                                 }}
-                                onBlur={onChooseSiteCompany}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    onChooseSiteCompany(value);
+                                }}
                             />
                         )}
                     ></Controller>

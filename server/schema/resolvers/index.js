@@ -43,6 +43,7 @@ const QuantityDayGroup4 = require('./QuantityDayGroup4.resolver');
 const QuantityDayGroup5 = require('./QuantityDayGroup5.resolver');
 const QuantityDayLevel = require('./QuantityDayLevel.resolver');
 const QuantityDayTotal = require('./QuantityDayTotal.resolver');
+const ActivityLog = require('./ActivityLog.resolver');
 
 const Nested = require('./Nested.resolver');
 
@@ -92,6 +93,7 @@ module.exports = {
         ...QuantityDayGroup5.Query,
         ...QuantityDayLevel.Query,
         ...QuantityDayTotal.Query,
+        ...ActivityLog.Query,
     },
 
     Mutation: {
@@ -121,6 +123,7 @@ module.exports = {
         ...DeviceMeterAccreditationType.Mutation,
         ...UserRole.Mutation,
         ...UserStaff.Mutation,
+        ...ActivityLog.Mutation,
     },
 
     SiteAndChannel: {
