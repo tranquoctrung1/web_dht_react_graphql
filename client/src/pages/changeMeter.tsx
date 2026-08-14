@@ -30,7 +30,10 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { useEffect, useState } from 'react';
 
-import { checkAdminViewerRole } from '../utils/utils';
+import {
+    checkAdminViewerRole,
+    checkMeterLoggerTranRole,
+} from '../utils/utils';
 
 import { motion } from 'framer-motion';
 
@@ -54,7 +57,9 @@ const ChangeMeterPage = () => {
     const [updateMeterInstall, {}] = useUpdateMeterInstallMutation();
 
     useEffect(() => {
-        setIsAdminViewer(checkAdminViewerRole());
+        setIsAdminViewer(
+            checkAdminViewerRole() && !checkMeterLoggerTranRole(),
+        );
 
         getSite().then((res) => {
             if (

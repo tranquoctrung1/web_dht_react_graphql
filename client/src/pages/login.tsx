@@ -195,6 +195,12 @@ const LoginPage = () => {
                                         alignItems: 'center',
                                     }}
                                 >
+                                    <form
+                                        onSubmit={(e: any) => {
+                                            e.preventDefault();
+                                            onSigninClicked();
+                                        }}
+                                    >
                                     <Grid>
                                         <Col span={12}>
                                             <div
@@ -275,10 +281,10 @@ const LoginPage = () => {
                                         ) : null}
                                         <Col span={12}>
                                             <Button
+                                                type="submit"
                                                 color="blue"
                                                 variant="filled"
                                                 fullWidth
-                                                onClick={onSigninClicked}
                                             >
                                                 Đăng nhập
                                             </Button>
@@ -360,6 +366,7 @@ const LoginPage = () => {
                                             </Group>
                                         </Col>
                                     </Grid>
+                                    </form>
                                 </Col>
                             </Grid>
                         </Box>

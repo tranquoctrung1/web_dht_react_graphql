@@ -361,6 +361,12 @@ export const checkAdminViewerRole = () => {
     return check;
 };
 
+export const checkMeterLoggerTranRole = () => {
+    const role = localStorage.getItem('Role');
+
+    return role === 'meter_logger_tran';
+};
+
 export const checkAdminRole = () => {
     const role = localStorage.getItem('Role');
 

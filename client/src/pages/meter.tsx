@@ -40,7 +40,10 @@ import {
 
 import { useForm, Controller } from 'react-hook-form';
 
-import { checkAdminViewerRole } from '../utils/utils';
+import {
+    checkAdminViewerRole,
+    checkMeterLoggerTranRole,
+} from '../utils/utils';
 
 import { HostnameState } from '../features/hostname';
 
@@ -85,7 +88,9 @@ const MeterPage = () => {
     const hostname = useSelector(HostnameState);
 
     useEffect(() => {
-        setIsAdminViewer(checkAdminViewerRole());
+        setIsAdminViewer(
+            checkAdminViewerRole() && !checkMeterLoggerTranRole(),
+        );
 
         getMeter()
             .then((res) => {

@@ -35,7 +35,10 @@ import {
 
 import { useForm, Controller } from 'react-hook-form';
 
-import { checkAdminViewerRole } from '../utils/utils';
+import {
+    checkAdminViewerRole,
+    checkMeterLoggerTranRole,
+} from '../utils/utils';
 
 import { motion } from 'framer-motion';
 
@@ -66,7 +69,9 @@ const TransmitterPage = () => {
     const [deleteTransmitter, {}] = useDeleteTransmitterMutation();
 
     useEffect(() => {
-        setIsAdminViewer(checkAdminViewerRole());
+        setIsAdminViewer(
+            checkAdminViewerRole() && !checkMeterLoggerTranRole(),
+        );
 
         getMeter()
             .then((res) => {

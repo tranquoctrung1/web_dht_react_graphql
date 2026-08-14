@@ -30,7 +30,10 @@ import {
 
 import { useEffect, useState } from 'react';
 
-import { checkAdminViewerRole } from '../utils/utils';
+import {
+    checkAdminViewerRole,
+    checkMeterLoggerTranRole,
+} from '../utils/utils';
 
 import { motion } from 'framer-motion';
 
@@ -54,7 +57,9 @@ const LoggerPage = () => {
     const { refetch: getDeviceStatus } = useGetAllDeviceStatusQuery();
 
     useEffect(() => {
-        setIsAdminViewer(checkAdminViewerRole());
+        setIsAdminViewer(
+            checkAdminViewerRole() && !checkMeterLoggerTranRole(),
+        );
 
         getLoggers()
             .then((res) => {

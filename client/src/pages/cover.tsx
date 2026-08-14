@@ -16,7 +16,10 @@ import {
     useDeleteCoverMutation,
 } from '../__generated__/graphql';
 
-import { checkAdminViewerRole } from '../utils/utils';
+import {
+    checkAdminViewerRole,
+    checkMeterLoggerTranRole,
+} from '../utils/utils';
 
 import Swal from 'sweetalert2';
 
@@ -58,7 +61,9 @@ const CoverPage = () => {
     });
 
     useEffect(() => {
-        setIsAdminViewer(checkAdminViewerRole());
+        setIsAdminViewer(
+            checkAdminViewerRole() && !checkMeterLoggerTranRole(),
+        );
 
         getCover()
             .then((res) => {
