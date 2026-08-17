@@ -1257,7 +1257,7 @@ const QuantityWaterSupply = () => {
                     centered
                     opened={opened}
                     onClose={close}
-                    size="75%"
+                    size="95%"
                     fullScreen={isMobile}
                     transitionProps={{ transition: 'fade', duration: 200 }}
                     title={

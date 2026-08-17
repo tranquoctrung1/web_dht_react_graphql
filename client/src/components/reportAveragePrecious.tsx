@@ -1511,7 +1511,7 @@ const ReportAveragePrecious = () => {
             </Grid>
             <Grid>
                 <Col
-                    md={4}
+                    md={2}
                     sm={12}
                     style={{ border: '1px solid #95a5a6', padding: '20px' }}
                 >
@@ -1556,7 +1556,7 @@ const ReportAveragePrecious = () => {
                     </Grid>
                 </Col>
                 <Col
-                    md={8}
+                    md={10}
                     sm={12}
                     style={{ border: '1px solid #95a5a6', padding: '20px' }}
                 >
@@ -1720,25 +1720,25 @@ const ReportAveragePrecious = () => {
                                     <Col span={2}>
                                         <Center>
                                             <Text weight={500}>
-                                                Số biên bản/ Ngày phát hành
+                                                Số biên bản
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Ngày phát hành
                                             </Text>
                                         </Center>
                                     </Col>
                                     <Col span={3}>
                                         <Center>
                                             <Text weight={500}>
-                                                Nội dung giảm trừ
-                                            </Text>
-                                        </Center>
-                                    </Col>
-                                    <Col span={2}>
-                                        <Center>
-                                            <Text weight={500}>
                                                 Đơn vị thi công
                                             </Text>
                                         </Center>
                                     </Col>
-                                    <Col span={2}>
+                                    <Col span={3}>
                                         <Center>
                                             <Text weight={500}>
                                                 Lượng nước giảm trừ (m3)
@@ -1750,8 +1750,16 @@ const ReportAveragePrecious = () => {
                                             <Text weight={500}>Ghi chú</Text>
                                         </Center>
                                     </Col>
-                                    <Col span={1}></Col>
                                 </Grid>
+                                <Text
+                                    weight={500}
+                                    color="dimmed"
+                                    size="sm"
+                                    mt={4}
+                                >
+                                    Nội dung giảm trừ nhập ở ô lớn phía dưới
+                                    mỗi dòng
+                                </Text>
                                 {addSubtractWaterB1State.map((el, index) => {
                                     return (
                                         <AddSubtractWaterB1
@@ -1795,25 +1803,25 @@ const ReportAveragePrecious = () => {
                                     <Col span={2}>
                                         <Center>
                                             <Text weight={500}>
-                                                Số biên bản/ Ngày phát hành
+                                                Số biên bản
+                                            </Text>
+                                        </Center>
+                                    </Col>
+                                    <Col span={2}>
+                                        <Center>
+                                            <Text weight={500}>
+                                                Ngày phát hành
                                             </Text>
                                         </Center>
                                     </Col>
                                     <Col span={3}>
                                         <Center>
                                             <Text weight={500}>
-                                                Nội dung giảm trừ
-                                            </Text>
-                                        </Center>
-                                    </Col>
-                                    <Col span={2}>
-                                        <Center>
-                                            <Text weight={500}>
                                                 Đơn vị thi công
                                             </Text>
                                         </Center>
                                     </Col>
-                                    <Col span={2}>
+                                    <Col span={3}>
                                         <Center>
                                             <Text weight={500}>
                                                 Lượng nước giảm trừ (m3)
@@ -1825,8 +1833,16 @@ const ReportAveragePrecious = () => {
                                             <Text weight={500}>Ghi chú</Text>
                                         </Center>
                                     </Col>
-                                    <Col span={1}></Col>
                                 </Grid>
+                                <Text
+                                    weight={500}
+                                    color="dimmed"
+                                    size="sm"
+                                    mt={4}
+                                >
+                                    Nội dung giảm trừ nhập ở ô lớn phía dưới
+                                    mỗi dòng
+                                </Text>
                                 {addSubtractWaterB2State.map((el, index) => {
                                     return (
                                         <AddSubtractWaterB2

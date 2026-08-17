@@ -116,7 +116,13 @@ const AddSubtractWaterB1 = ({ index }: AddSubtractWaterB1Interface) => {
     };
 
     return (
-        <Grid>
+        <Grid
+            style={{
+                borderBottom: '1px dashed #dee2e6',
+                paddingBottom: '8px',
+                marginBottom: '4px',
+            }}
+        >
             <Col span={2}>
                 <Input
                     placeholder="Số biên bản"
@@ -133,15 +139,7 @@ const AddSubtractWaterB1 = ({ index }: AddSubtractWaterB1Interface) => {
                     onBlur={onDatePublishedBlured}
                 />
             </Col>
-            <Col span={2}>
-                <Input
-                    placeholder="Nội dung giảm trừ"
-                    //value={content}
-                    defaultValue={content}
-                    onBlur={onContentBlured}
-                />
-            </Col>
-            <Col span={2}>
+            <Col span={3}>
                 <Input
                     placeholder="Đơn vị thi công"
                     //value={provider}
@@ -149,7 +147,7 @@ const AddSubtractWaterB1 = ({ index }: AddSubtractWaterB1Interface) => {
                     onBlur={onProviderBlured}
                 />
             </Col>
-            <Col span={2}>
+            <Col span={3}>
                 <NumberInput
                     decimalSeparator=","
                     thousandsSeparator="."
@@ -160,7 +158,7 @@ const AddSubtractWaterB1 = ({ index }: AddSubtractWaterB1Interface) => {
                     onBlur={onAmountWaterBlured}
                 />
             </Col>
-            <Col span={1}>
+            <Col span={2}>
                 <Input
                     placeholder="Ghi chú"
                     //value={note}
@@ -168,11 +166,20 @@ const AddSubtractWaterB1 = ({ index }: AddSubtractWaterB1Interface) => {
                     onBlur={onNoteblured}
                 />
             </Col>
+            <Col span={11}>
+                <Input
+                    placeholder="Nội dung giảm trừ"
+                    //value={content}
+                    defaultValue={content}
+                    onBlur={onContentBlured}
+                    size="md"
+                />
+            </Col>
             <Col span={1}>
                 <IconX
                     color="red"
                     size="1.5rem"
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: 'pointer', marginTop: '8px' }}
                     onClick={onCloseAddSubtractWaterB1Clicked}
                 ></IconX>
             </Col>
