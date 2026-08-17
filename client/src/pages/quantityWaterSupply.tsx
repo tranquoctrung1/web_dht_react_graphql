@@ -31,6 +31,7 @@ import {
     quickSort,
     checkAdminViewerRole,
     checkCustomerRole,
+    checkStaffRole,
 } from '../utils/utils';
 // @ts-ignore comment
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
@@ -1127,7 +1128,8 @@ const QuantityWaterSupply = () => {
                     <Col span={12}>
                         <Center>
                             {isDisableSelectCompany == false &&
-                            isAdminViewer == false ? (
+                            (isAdminViewer == false ||
+                                checkStaffRole() == true) ? (
                                 <>
                                     {' '}
                                     <Button

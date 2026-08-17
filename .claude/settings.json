@@ -46,7 +46,12 @@
       "Bash(npx pkg *)",
       "Bash(node -e \"require\\('./schema/typeDefs'\\)\")",
       "Bash(node -e \"require\\('./schema/resolvers'\\)\")",
-      "Bash(jobs)"
+      "Bash(jobs)",
+      "Bash(npx update-browserslist-db@latest)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/caniuse-lite/package.json'\\).version\\)\")",
+      "Bash(npx pnpm@8 update caniuse-lite --latest)",
+      "Bash(npx pnpm@8 update caniuse-lite --latest --loglevel debug)",
+      "Bash(npx pnpm@8 info caniuse-lite version)"
     ]
   }
 }
