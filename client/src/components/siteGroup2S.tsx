@@ -21,6 +21,8 @@ import {
 
 import Swal from 'sweetalert2';
 
+import { checkAdminRole } from '../utils/utils';
+
 const SiteGroup2S = () => {
     const [siteGroup, setSiteGroup] = useState([]);
     const [siteGroupData, setSiteGroupData] = useState([]);
@@ -38,7 +40,11 @@ const SiteGroup2S = () => {
         },
     });
 
+    const [isAdmin, setIsAdmin] = useState(false);
+
     useEffect(() => {
+        setIsAdmin(checkAdminRole());
+
         getSiteGroup()
             .then((res) => {
                 if (res?.data?.GetAllSiteGroup2S) {
@@ -387,14 +393,18 @@ const SiteGroup2S = () => {
                     >
                         Sửa
                     </Button>
-                    <Space w="md"></Space>
-                    <Button
-                        variant="filled"
-                        color="red"
-                        onClick={onDeleteClicked}
-                    >
-                        Xóa
-                    </Button>
+                    {isAdmin && (
+                        <>
+                            <Space w="md"></Space>
+                            <Button
+                                variant="filled"
+                                color="red"
+                                onClick={onDeleteClicked}
+                            >
+                                Xóa
+                            </Button>
+                        </>
+                    )}
                 </Center>
             </Col>
         </Grid>

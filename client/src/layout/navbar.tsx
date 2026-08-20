@@ -184,6 +184,10 @@ const mockdataAdminViewer = [
                 link: '/statisticMeterExpireTime',
             },
             {
+                label: 'Điểm Lắp Đặt Chưa Thay Đồng Hồ',
+                link: '/statisticNotChangedMeter',
+            },
+            {
                 label: 'Hệ Số K Theo Địa Bàn',
                 link: '/statisticKCoefficientByArea',
             },
@@ -326,6 +330,10 @@ const mockdataAdmin = [
             {
                 label: 'Đồng Hồ Đến Hạn Kiểm Định',
                 link: '/statisticMeterExpireTime',
+            },
+            {
+                label: 'Điểm Lắp Đặt Chưa Thay Đồng Hồ',
+                link: '/statisticNotChangedMeter',
             },
             {
                 label: 'Hệ Số K Theo Địa Bàn',

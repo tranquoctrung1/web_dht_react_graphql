@@ -36,6 +36,7 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 
 import {
+    checkAdminRole,
     checkAdminViewerRole,
     checkMeterLoggerTranRole,
 } from '../utils/utils';
@@ -54,6 +55,7 @@ const TransmitterPage = () => {
     const [deviceStatusData, setDeviceStatusData] = useState([]);
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const { refetch: getMeter } = useGetAllMeterQuery();
     const { refetch: getProvider } = useGetTransmitterProviderQuery();
@@ -72,6 +74,7 @@ const TransmitterPage = () => {
         setIsAdminViewer(
             checkAdminViewerRole() && !checkMeterLoggerTranRole(),
         );
+        setIsAdmin(checkAdminRole());
 
         getMeter()
             .then((res) => {
@@ -1154,14 +1157,18 @@ const TransmitterPage = () => {
                                 >
                                     Sửa
                                 </Button>
-                                <Space w="md"></Space>
-                                <Button
-                                    variant="filled"
-                                    color="red"
-                                    onClick={onDeleteClicked}
-                                >
-                                    Xóa
-                                </Button>
+                                {isAdmin && (
+                                    <>
+                                        <Space w="md"></Space>
+                                        <Button
+                                            variant="filled"
+                                            color="red"
+                                            onClick={onDeleteClicked}
+                                        >
+                                            Xóa
+                                        </Button>
+                                    </>
+                                )}
                             </Center>
                         </Col>
                     ) : null}

@@ -1,0 +1,13 @@
+query GetSitesNotChangedMeter($company: String) {
+    GetSitesNotChangedMeter(company: $company) {
+        _id
+        Location
+        Address
+        District
+        Company
+        Meter
+        DateOfMeterChange
+        TakeoverDate
+        Status
+    }
+}

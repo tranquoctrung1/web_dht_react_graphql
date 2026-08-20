@@ -21,6 +21,8 @@ import {
 
 import Swal from 'sweetalert2';
 
+import { checkAdminRole } from '../utils/utils';
+
 const InstallLevel = () => {
     const [siteLevelData, setSiteLevelData] = useState([]);
     const [siteLevel, setSiteLevel] = useState([]);
@@ -38,7 +40,11 @@ const InstallLevel = () => {
         },
     });
 
+    const [isAdmin, setIsAdmin] = useState(false);
+
     useEffect(() => {
+        setIsAdmin(checkAdminRole());
+
         getAllSiteLevel()
             .then((res) => {
                 if (res?.data?.GetAllSiteLevel) {
@@ -385,14 +391,18 @@ const InstallLevel = () => {
                     >
                         Sửa
                     </Button>
-                    <Space w="md"></Space>
-                    <Button
-                        variant="filled"
-                        color="red"
-                        onClick={onDeleteClicked}
-                    >
-                        Xóa
-                    </Button>
+                    {isAdmin && (
+                        <>
+                            <Space w="md"></Space>
+                            <Button
+                                variant="filled"
+                                color="red"
+                                onClick={onDeleteClicked}
+                            >
+                                Xóa
+                            </Button>
+                        </>
+                    )}
                 </Center>
             </Col>
         </Grid>

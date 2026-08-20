@@ -21,6 +21,8 @@ import {
 
 import Swal from 'sweetalert2';
 
+import { checkAdminRole } from '../utils/utils';
+
 const SiteStatus = () => {
     const [siteStatus, setSiteStatus] = useState([]);
     const [siteStatusData, setSiteStatusData] = useState([]);
@@ -38,7 +40,11 @@ const SiteStatus = () => {
         },
     });
 
+    const [isAdmin, setIsAdmin] = useState(false);
+
     useEffect(() => {
+        setIsAdmin(checkAdminRole());
+
         getSiteStatus()
             .then((res) => {
                 if (res?.data?.GetAllSiteStatus) {
@@ -387,14 +393,18 @@ const SiteStatus = () => {
                     >
                         Sửa
                     </Button>
-                    <Space w="md"></Space>
-                    <Button
-                        variant="filled"
-                        color="red"
-                        onClick={onDeleteClicked}
-                    >
-                        Xóa
-                    </Button>
+                    {isAdmin && (
+                        <>
+                            <Space w="md"></Space>
+                            <Button
+                                variant="filled"
+                                color="red"
+                                onClick={onDeleteClicked}
+                            >
+                                Xóa
+                            </Button>
+                        </>
+                    )}
                 </Center>
             </Col>
         </Grid>

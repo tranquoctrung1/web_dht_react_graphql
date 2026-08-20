@@ -150,6 +150,24 @@ module.exports.GetSiteByCompany = async (company) => {
     return result;
 };
 
+// Displayed sites, optionally narrowed to one managing company.
+// `company` null/undefined/'' means "no company filter".
+module.exports.GetSitesDisplay = async (company) => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(SiteSiteCollection);
+
+    let filter = { Display: true };
+
+    if (company !== null && company !== undefined && company !== '') {
+        filter.Company = company;
+    }
+
+    let result = await collection.find(filter).sort({ _id: 1 }).toArray();
+
+    return result;
+};
+
 module.exports.GetSiteByWaterSupply = async (company) => {
     let Connect = new ConnectDB.Connect();
 

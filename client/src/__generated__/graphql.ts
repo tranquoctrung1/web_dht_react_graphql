@@ -1538,6 +1538,7 @@ export type Query = {
   GetSiteById?: Maybe<Site>;
   GetSiteByWaterSubtractB2ForTA?: Maybe<Array<Maybe<Site>>>;
   GetSiteByWaterSupply: Array<Site>;
+  GetSitesNotChangedMeter?: Maybe<Array<Maybe<Site>>>;
   GetStatisticAccreditationAndExpiryDate?: Maybe<Array<Maybe<StatisticAccreditationAndExpiryDate>>>;
   GetStatisticAccredited?: Maybe<Array<Maybe<StatisticAccredited>>>;
   GetStatisticBatteryChange?: Maybe<Array<Maybe<StatisticBatteryChange>>>;
@@ -1665,6 +1666,11 @@ export type QueryGetSiteByIdArgs = {
 
 export type QueryGetSiteByWaterSupplyArgs = {
   company: Scalars['String'];
+};
+
+
+export type QueryGetSitesNotChangedMeterArgs = {
+  company?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -3439,6 +3445,13 @@ export type GetSiteByWaterSupplyQueryVariables = Exact<{
 
 
 export type GetSiteByWaterSupplyQuery = { __typename?: 'Query', GetSiteByWaterSupply: Array<{ __typename?: 'Site', _id: string, OldId?: string | null, Location?: string | null, Logger?: string | null, Company?: string | null, Description?: string | null, MeterDirection?: string | null, ProductionCompany?: string | null, IstDistributionCompany?: string | null, QndDistributionCompany?: string | null, IstDoNotCalculateReverse?: boolean | null, QndDoNotCalculateReverse?: boolean | null, Address?: string | null }> };
+
+export type GetSitesNotChangedMeterQueryVariables = Exact<{
+  company?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetSitesNotChangedMeterQuery = { __typename?: 'Query', GetSitesNotChangedMeter?: Array<{ __typename?: 'Site', _id: string, Location?: string | null, Address?: string | null, District?: string | null, Company?: string | null, Meter?: string | null, DateOfMeterChange?: any | null, TakeoverDate?: any | null, Status?: string | null } | null> | null };
 
 export type GetStatisticAccreditedQueryVariables = Exact<{
   date?: InputMaybe<Scalars['Date']>;
@@ -8420,6 +8433,52 @@ export type GetSiteByWaterSupplyLazyQueryHookResult = ReturnType<typeof useGetSi
 export type GetSiteByWaterSupplyQueryResult = Apollo.QueryResult<GetSiteByWaterSupplyQuery, GetSiteByWaterSupplyQueryVariables>;
 export function refetchGetSiteByWaterSupplyQuery(variables: GetSiteByWaterSupplyQueryVariables) {
       return { query: GetSiteByWaterSupplyDocument, variables: variables }
+    }
+export const GetSitesNotChangedMeterDocument = gql`
+    query GetSitesNotChangedMeter($company: String) {
+  GetSitesNotChangedMeter(company: $company) {
+    _id
+    Location
+    Address
+    District
+    Company
+    Meter
+    DateOfMeterChange
+    TakeoverDate
+    Status
+  }
+}
+    `;
+
+/**
+ * __useGetSitesNotChangedMeterQuery__
+ *
+ * To run a query within a React component, call `useGetSitesNotChangedMeterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSitesNotChangedMeterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSitesNotChangedMeterQuery({
+ *   variables: {
+ *      company: // value for 'company'
+ *   },
+ * });
+ */
+export function useGetSitesNotChangedMeterQuery(baseOptions?: Apollo.QueryHookOptions<GetSitesNotChangedMeterQuery, GetSitesNotChangedMeterQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSitesNotChangedMeterQuery, GetSitesNotChangedMeterQueryVariables>(GetSitesNotChangedMeterDocument, options);
+      }
+export function useGetSitesNotChangedMeterLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSitesNotChangedMeterQuery, GetSitesNotChangedMeterQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSitesNotChangedMeterQuery, GetSitesNotChangedMeterQueryVariables>(GetSitesNotChangedMeterDocument, options);
+        }
+export type GetSitesNotChangedMeterQueryHookResult = ReturnType<typeof useGetSitesNotChangedMeterQuery>;
+export type GetSitesNotChangedMeterLazyQueryHookResult = ReturnType<typeof useGetSitesNotChangedMeterLazyQuery>;
+export type GetSitesNotChangedMeterQueryResult = Apollo.QueryResult<GetSitesNotChangedMeterQuery, GetSitesNotChangedMeterQueryVariables>;
+export function refetchGetSitesNotChangedMeterQuery(variables?: GetSitesNotChangedMeterQueryVariables) {
+      return { query: GetSitesNotChangedMeterDocument, variables: variables }
     }
 export const GetStatisticAccreditedDocument = gql`
     query GetStatisticAccredited($date: Date) {

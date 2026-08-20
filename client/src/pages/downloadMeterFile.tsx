@@ -10,7 +10,7 @@ import { HostnameState } from '../features/hostname';
 
 import { useGetAllMeterQuery } from '../__generated__/graphql';
 
-import { checkAdminViewerRole } from '../utils/utils';
+import { checkAdminRole, checkAdminViewerRole } from '../utils/utils';
 
 import DataTable from 'react-data-table-component';
 
@@ -40,6 +40,7 @@ const DownloadMeterFilePage = () => {
     const [selectedRowFile, setSelectedRowFile] = useState([]);
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const { refetch: getMeter } = useGetAllMeterQuery();
 
@@ -65,6 +66,7 @@ const DownloadMeterFilePage = () => {
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
+        setIsAdmin(checkAdminRole());
 
         getMeter()
             .then((res) => {
@@ -288,7 +290,7 @@ const DownloadMeterFilePage = () => {
                         >
                             Download
                         </Button>
-                        {isAdminViewer == false ? (
+                        {isAdmin && (
                             <>
                                 <Space w="md"></Space>
                                 <Button
@@ -299,7 +301,7 @@ const DownloadMeterFilePage = () => {
                                     Xóa
                                 </Button>
                             </>
-                        ) : null}
+                        )}
                     </Center>
                 </Col>
                 {errorDownload !== '' ? (

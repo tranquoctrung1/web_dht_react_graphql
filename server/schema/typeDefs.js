@@ -1756,6 +1756,8 @@ module.exports = gql`
 
         GetAllSites: [Site]!
 
+        GetSitesNotChangedMeter(company: String): [Site]
+
         GetChannelByLoggerId(loggerid: String!): [Channel]
 
         GetAllSiteAndChannel: [SiteAndChannel!]

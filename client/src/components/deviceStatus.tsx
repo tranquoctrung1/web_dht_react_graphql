@@ -21,6 +21,8 @@ import {
 
 import Swal from 'sweetalert2';
 
+import { checkAdminRole } from '../utils/utils';
+
 const DeviceStatus = () => {
     const [deviceStatus, setDeviceStatus] = useState([]);
     const [deviceStatusData, setDeviceStatusData] = useState([]);
@@ -38,7 +40,11 @@ const DeviceStatus = () => {
         },
     });
 
+    const [isAdmin, setIsAdmin] = useState(false);
+
     useEffect(() => {
+        setIsAdmin(checkAdminRole());
+
         getDeviceStatus()
             .then((res) => {
                 if (res?.data?.GetAllDeviceStatus) {
@@ -388,14 +394,18 @@ const DeviceStatus = () => {
                     >
                         Sửa
                     </Button>
-                    <Space w="md"></Space>
-                    <Button
-                        variant="filled"
-                        color="red"
-                        onClick={onDeleteClicked}
-                    >
-                        Xóa
-                    </Button>
+                    {isAdmin && (
+                        <>
+                            <Space w="md"></Space>
+                            <Button
+                                variant="filled"
+                                color="red"
+                                onClick={onDeleteClicked}
+                            >
+                                Xóa
+                            </Button>
+                        </>
+                    )}
                 </Center>
             </Col>
         </Grid>

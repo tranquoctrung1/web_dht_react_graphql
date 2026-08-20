@@ -21,6 +21,8 @@ import {
 
 import Swal from 'sweetalert2';
 
+import { checkAdminRole } from '../utils/utils';
+
 const MeterAccreditationType = () => {
     const [list, setList] = useState([]);
     const [data, setData] = useState([]);
@@ -42,7 +44,11 @@ const MeterAccreditationType = () => {
         },
     });
 
+    const [isAdmin, setIsAdmin] = useState(false);
+
     useEffect(() => {
+        setIsAdmin(checkAdminRole());
+
         getMeterAccreditationType()
             .then((res) => {
                 if (res?.data?.GetAllMeterAccreditationType) {
@@ -389,14 +395,18 @@ const MeterAccreditationType = () => {
                     >
                         Sửa
                     </Button>
-                    <Space w="md"></Space>
-                    <Button
-                        variant="filled"
-                        color="red"
-                        onClick={onDeleteClicked}
-                    >
-                        Xóa
-                    </Button>
+                    {isAdmin && (
+                        <>
+                            <Space w="md"></Space>
+                            <Button
+                                variant="filled"
+                                color="red"
+                                onClick={onDeleteClicked}
+                            >
+                                Xóa
+                            </Button>
+                        </>
+                    )}
                 </Center>
             </Col>
         </Grid>

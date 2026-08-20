@@ -31,6 +31,7 @@ import {
 import { useEffect, useState } from 'react';
 
 import {
+    checkAdminRole,
     checkAdminViewerRole,
     checkMeterLoggerTranRole,
 } from '../utils/utils';
@@ -41,6 +42,7 @@ const LoggerPage = () => {
     const [listLogger, setListLogger] = useState([]);
     const [loggerData, setLoggerData] = useState([]);
     const [isAdminViewer, setIsAdminViewer] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     const [marksData, setMarksData] = useState([]);
     const [modelData, setModelData] = useState([]);
     const [providerData, setProviderData] = useState([]);
@@ -60,6 +62,7 @@ const LoggerPage = () => {
         setIsAdminViewer(
             checkAdminViewerRole() && !checkMeterLoggerTranRole(),
         );
+        setIsAdmin(checkAdminRole());
 
         getLoggers()
             .then((res) => {
@@ -753,14 +756,18 @@ const LoggerPage = () => {
                                 >
                                     Sửa
                                 </Button>
-                                <Space w="md"></Space>
-                                <Button
-                                    variant="filled"
-                                    color="red"
-                                    onClick={onDeleteClicked}
-                                >
-                                    Xóa
-                                </Button>
+                                {isAdmin && (
+                                    <>
+                                        <Space w="md"></Space>
+                                        <Button
+                                            variant="filled"
+                                            color="red"
+                                            onClick={onDeleteClicked}
+                                        >
+                                            Xóa
+                                        </Button>
+                                    </>
+                                )}
                             </Center>
                         </Col>
                     ) : null}

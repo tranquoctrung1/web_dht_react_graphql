@@ -31,6 +31,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 
 import {
+    checkAdminRole,
     checkAdminViewerRole,
     checkMeterLoggerTranRole,
 } from '../utils/utils';
@@ -47,6 +48,7 @@ const ChangeLoggerPage = () => {
     const { refetch: getHistorySiteLogger } = useGetAllHistorySiteLoggerQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const [insertHisotrySiteLogger, {}] = useInsertHistorySiteLoggerMutation();
     const [updateHistorySiteLogger, {}] = useUpdateHistorySiteLoggerMutation();
@@ -59,6 +61,7 @@ const ChangeLoggerPage = () => {
         setIsAdminViewer(
             checkAdminViewerRole() && !checkMeterLoggerTranRole(),
         );
+        setIsAdmin(checkAdminRole());
 
         getSite().then((res) => {
             if (
@@ -776,14 +779,18 @@ const ChangeLoggerPage = () => {
                                 >
                                     Sửa
                                 </Button>
-                                <Space w="md"></Space>
-                                <Button
-                                    variant="filled"
-                                    color="red"
-                                    onClick={onDeleteClicked}
-                                >
-                                    Xóa
-                                </Button>
+                                {isAdmin && (
+                                    <>
+                                        <Space w="md"></Space>
+                                        <Button
+                                            variant="filled"
+                                            color="red"
+                                            onClick={onDeleteClicked}
+                                        >
+                                            Xóa
+                                        </Button>
+                                    </>
+                                )}
                             </Center>
                         </Col>
                     ) : null}

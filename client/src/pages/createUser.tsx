@@ -22,7 +22,7 @@ import {
 } from '../__generated__/graphql';
 import { useEffect, useState } from 'react';
 
-import { checkAdminViewerRole } from '../utils/utils';
+import { checkAdminRole, checkAdminViewerRole } from '../utils/utils';
 
 import Swal from 'sweetalert2';
 
@@ -38,6 +38,7 @@ const CreateUserPage = () => {
     const { data: role, error: roleError } = useGetAllRoleQuery();
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const [insertUser, {}] = useInsertUserMutation();
     const [updateUser, {}] = useUpdateUserMutation();
@@ -53,6 +54,7 @@ const CreateUserPage = () => {
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
+        setIsAdmin(checkAdminRole());
 
         getUser().then((res) => {
             if (res.data !== null && res.data !== undefined) {
@@ -602,14 +604,18 @@ const CreateUserPage = () => {
                             >
                                 Sửa
                             </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="red"
-                                onClick={onDeleteClicked}
-                            >
-                                Xóa
-                            </Button>
+                            {isAdmin && (
+                                <>
+                                    <Space w="md"></Space>
+                                    <Button
+                                        variant="filled"
+                                        color="red"
+                                        onClick={onDeleteClicked}
+                                    >
+                                        Xóa
+                                    </Button>
+                                </>
+                            )}
                         </Center>
                     </Col>
                 ) : null}

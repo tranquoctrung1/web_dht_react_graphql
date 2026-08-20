@@ -1,9 +1,26 @@
 const SiteModel = require('../../models/SiteSite.model');
+const HistorySiteMeterModel = require('../../models/HistorySiteMeter.model');
 
 module.exports = {
     Query: {
         GetAllSites: async (parent, {}, context, info) => {
             return await SiteModel.GetAllSites();
+        },
+        // Sites with no meter-change record at all: anti-join of t_Site_Sites
+        // against the distinct SiteId set of t_History_Site_Meters, done in JS
+        // (this codebase does not use $lookup aggregations).
+        GetSitesNotChangedMeter: async (parent, { company }, context, info) => {
+            const listSite = await SiteModel.GetSitesDisplay(company);
+
+            const listSiteId = await HistorySiteMeterModel.GetAllSiteIds();
+
+            const changedSiteIds = new Set(
+                listSiteId.filter(
+                    (el) => el !== null && el !== undefined && el !== '',
+                ),
+            );
+
+            return listSite.filter((site) => !changedSiteIds.has(site._id));
         },
         GetAllOldSiteId: async (parent, {}, context, info) => {
             return await SiteModel.GetAllOldSiteId();

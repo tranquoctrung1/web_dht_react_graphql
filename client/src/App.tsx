@@ -70,6 +70,9 @@ const StatisticCustomChoiceMarkSizePage = lazy(
 const StatisticMeterWorkPage = lazy(
     () => import('./pages/statisticMeterWork'),
 );
+const StatisticNotChangedMeterPage = lazy(
+    () => import('./pages/statisticNotChangedMeter'),
+);
 const CoverPage = lazy(() => import('./pages/cover'));
 const DownloadMeterFilePage = lazy(() => import('./pages/downloadMeterFile'));
 const DeleteUselessMeterPage = lazy(
@@ -229,6 +232,10 @@ const router = createBrowserRouter([
             {
                 path: '/statisticMeterWork',
                 element: <StatisticMeterWorkPage />,
+            },
+            {
+                path: '/statisticNotChangedMeter',
+                element: <StatisticNotChangedMeterPage />,
             },
             {
                 path: '/cover',

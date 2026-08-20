@@ -1,5 +1,6 @@
 const ConnectDB = require('../db/connect');
 const { ObjectId } = require('mongodb');
+const { collectDistinct } = require('../utils/collectDistinct');
 
 const HistorySiteMeterCollection = 't_History_Site_Meters';
 
@@ -31,6 +32,18 @@ module.exports.GetAll = async () => {
     let result = await collection.find().toArray();
 
     return result;
+};
+
+// Distinct SiteId values of every recorded meter change.
+// Used as the exclusion set for "sites never had a meter change".
+module.exports.GetAllSiteIds = async () => {
+    let Connect = new ConnectDB.Connect();
+
+    let collection = await Connect.connect(HistorySiteMeterCollection);
+
+    let data = await collection.find({}).project({ SiteId: 1, _id: 0 }).toArray();
+
+    return collectDistinct(data, 'SiteId');
 };
 
 module.exports.GetHistoryDateChange = async (date) => {

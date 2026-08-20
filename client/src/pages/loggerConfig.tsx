@@ -39,7 +39,11 @@ import {
 
 import { setCurrentDeviceSiteConfig } from '../features/currentDeviceSiteConfig';
 
-import { getHourAndMinute, checkAdminViewerRole } from '../utils/utils';
+import {
+    getHourAndMinute,
+    checkAdminViewerRole,
+    checkAdminRole,
+} from '../utils/utils';
 
 import Swal from 'sweetalert2';
 
@@ -49,6 +53,7 @@ const LoggerConfigPage = () => {
     const [listDevieSiteConfig, setListDeviceSiteConfig] = useState([]);
     const [listChannelData, setListChannelData] = useState([]);
     const [isAdminViewer, setIsAdminViewer] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const listChannel = useSelector(ListChannelState);
 
@@ -103,6 +108,7 @@ const LoggerConfigPage = () => {
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
+        setIsAdmin(checkAdminRole());
 
         getDeviceSiteConfig()
             .then((res) => {
@@ -1210,44 +1216,28 @@ const LoggerConfigPage = () => {
                     <ConfigChannel
                         index={0}
                         LoggerId={getValues('LoggerId')}
-                        onDelete={
-                            isAdminViewer == false
-                                ? onDeleteChannelClicked
-                                : undefined
-                        }
+                        onDelete={isAdmin ? onDeleteChannelClicked : undefined}
                     />
                 </Col>
                 <Col span={12}>
                     <ConfigChannel
                         index={1}
                         LoggerId={getValues('LoggerId')}
-                        onDelete={
-                            isAdminViewer == false
-                                ? onDeleteChannelClicked
-                                : undefined
-                        }
+                        onDelete={isAdmin ? onDeleteChannelClicked : undefined}
                     />
                 </Col>
                 <Col span={12}>
                     <ConfigChannel
                         index={2}
                         LoggerId={getValues('LoggerId')}
-                        onDelete={
-                            isAdminViewer == false
-                                ? onDeleteChannelClicked
-                                : undefined
-                        }
+                        onDelete={isAdmin ? onDeleteChannelClicked : undefined}
                     />
                 </Col>
                 <Col span={12}>
                     <ConfigChannel
                         index={3}
                         LoggerId={getValues('LoggerId')}
-                        onDelete={
-                            isAdminViewer == false
-                                ? onDeleteChannelClicked
-                                : undefined
-                        }
+                        onDelete={isAdmin ? onDeleteChannelClicked : undefined}
                     />
                 </Col>
                 {isAdminViewer == false ? (
@@ -1268,14 +1258,18 @@ const LoggerConfigPage = () => {
                             >
                                 Sửa
                             </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="red"
-                                onClick={onDeleteClicked}
-                            >
-                                Xóa
-                            </Button>
+                            {isAdmin && (
+                                <>
+                                    <Space w="md"></Space>
+                                    <Button
+                                        variant="filled"
+                                        color="red"
+                                        onClick={onDeleteClicked}
+                                    >
+                                        Xóa
+                                    </Button>
+                                </>
+                            )}
                         </Center>
                     </Col>
                 ) : null}

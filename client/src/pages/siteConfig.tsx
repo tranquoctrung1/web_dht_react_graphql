@@ -50,7 +50,7 @@ import {
 
 import Swal from 'sweetalert2';
 
-import { checkAdminViewerRole } from '../utils/utils';
+import { checkAdminRole, checkAdminViewerRole } from '../utils/utils';
 
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -70,6 +70,7 @@ const SiteConfigPage = () => {
     const [siteCover, setSiteCover] = useState([]);
     const [listSiteCover, setListSiteCover] = useState([]);
     const [isAdminViewer, setIsAdminViewer] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     const [listFile, setListFile] = useState<File[]>([]);
 
     const { refetch: getSites } = useGetAllSitesQuery();
@@ -129,6 +130,7 @@ const SiteConfigPage = () => {
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
+        setIsAdmin(checkAdminRole());
 
         getSites()
             .then((res) => {
@@ -2438,14 +2440,18 @@ const SiteConfigPage = () => {
                             >
                                 Sửa
                             </Button>
-                            <Space w="md"></Space>
-                            <Button
-                                variant="filled"
-                                color="red"
-                                onClick={onDeleteClicked}
-                            >
-                                Xóa
-                            </Button>
+                            {isAdmin && (
+                                <>
+                                    <Space w="md"></Space>
+                                    <Button
+                                        variant="filled"
+                                        color="red"
+                                        onClick={onDeleteClicked}
+                                    >
+                                        Xóa
+                                    </Button>
+                                </>
+                            )}
                         </Center>
                     </Col>
                 ) : null}

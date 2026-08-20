@@ -17,6 +17,7 @@ import {
 } from '../__generated__/graphql';
 
 import {
+    checkAdminRole,
     checkAdminViewerRole,
     checkMeterLoggerTranRole,
 } from '../utils/utils';
@@ -36,6 +37,7 @@ const CoverPage = () => {
     const [listCover, setListCover] = useState([]);
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const { refetch: getCover } = useGetAllSiteCoverQuery();
     const { refetch: getCoverL } = useGetAllCoverLQuery();
@@ -64,6 +66,7 @@ const CoverPage = () => {
         setIsAdminViewer(
             checkAdminViewerRole() && !checkMeterLoggerTranRole(),
         );
+        setIsAdmin(checkAdminRole());
 
         getCover()
             .then((res) => {
@@ -815,14 +818,18 @@ const CoverPage = () => {
                                 >
                                     Sửa
                                 </Button>
-                                <Space w="md"></Space>
-                                <Button
-                                    variant="filled"
-                                    color="red"
-                                    onClick={onDeleteClicked}
-                                >
-                                    Xóa
-                                </Button>
+                                {isAdmin && (
+                                    <>
+                                        <Space w="md"></Space>
+                                        <Button
+                                            variant="filled"
+                                            color="red"
+                                            onClick={onDeleteClicked}
+                                        >
+                                            Xóa
+                                        </Button>
+                                    </>
+                                )}
                             </Center>
                         </Col>
                     ) : null}

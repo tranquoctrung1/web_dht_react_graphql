@@ -27,7 +27,11 @@ import DataTable from 'react-data-table-component';
 
 import { useTableTheme } from '../hooks/useTableTheme';
 
-import { convertTimeStampToDate, checkAdminViewerRole } from '../utils/utils';
+import {
+    convertTimeStampToDate,
+    checkAdminViewerRole,
+    checkAdminRole,
+} from '../utils/utils';
 
 import Swal from 'sweetalert2';
 
@@ -53,6 +57,7 @@ const ChangeDataManualPage = () => {
     const [dataTable, setDataTable] = useState([]);
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const { data: sites, error: siteError } = useGetAllSitesQuery();
     const { data: meters, error: metersError } = useGetAllMeterQuery();
@@ -67,6 +72,7 @@ const ChangeDataManualPage = () => {
 
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
+        setIsAdmin(checkAdminRole());
     }, []);
 
     if (siteError || metersError || staffsError) {
@@ -789,14 +795,18 @@ const ChangeDataManualPage = () => {
                                 >
                                     Sửa
                                 </Button>
-                                <Space w="md"></Space>
-                                <Button
-                                    variant="filled"
-                                    color="red"
-                                    onClick={onDeleteClicked}
-                                >
-                                    Xóa
-                                </Button>
+                                {isAdmin && (
+                                    <>
+                                        <Space w="md"></Space>
+                                        <Button
+                                            variant="filled"
+                                            color="red"
+                                            onClick={onDeleteClicked}
+                                        >
+                                            Xóa
+                                        </Button>
+                                    </>
+                                )}
                             </>
                         ) : null}
                     </Center>
