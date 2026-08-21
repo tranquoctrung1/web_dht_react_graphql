@@ -117,7 +117,7 @@ const LicenseInfoPage = () => {
                                     License
                                 </Text>
                                 <Text size="sm" color="dimmed">
-                                    Quản lý bản quyền phần mềm
+                                    Quản lý bản quyền phần mềm - Quản lý đồng hồ tổng 
                                 </Text>
                             </div>
                         </Group>
