@@ -11,6 +11,44 @@ module.exports = gql`
         IsEnoughData: Boolean
     }
 
+    type LicenseModuleCode {
+        code: String
+        name: String
+    }
+
+    type LicenseInfo {
+        hasToken: Boolean
+        hardwareId: String
+        licenseKey: String
+        lastSuccessAt: String
+        lastError: String
+        offlineGraceDays: Int
+        payloadError: String
+        productCode: String
+        licenseType: String
+        licenseTypeLabel: String
+        seats: Int
+        moduleCodesList: [LicenseModuleCode]
+        moduleCount: Int
+        issuedAt: String
+        expiresAt: String
+        licenseId: String
+        customerId: String
+        customerName: String
+        daysLeft: Int
+        percentLeft: Int
+    }
+
+    type LicenseActivateResult {
+        success: Boolean
+        error: String
+    }
+
+    type LicenseGateStatus {
+        allowed: Boolean
+        reason: String
+    }
+
     type QuantityDayCompany {
         SiteId: String!
         Location: String
@@ -1890,6 +1928,10 @@ module.exports = gql`
 
         GetAllDeviceStatus: [DeviceStatus]
 
+        GetLicenseInfo: LicenseInfo
+
+        CheckLicenseGate: LicenseGateStatus
+
         GetMeterNationalities: [String]
 
         GetMeterProvider: [String]
@@ -2234,6 +2276,8 @@ module.exports = gql`
         UpdateSiteAvailability(available: SiteAvailabilitiesUpdateInput): Int
 
         DeleteSiteAvailability(available: SiteAvailabilitiesUpdateInput): Int
+
+        ActivateLicense(licenseKey: String): LicenseActivateResult
 
         InsertDeviceStatus(status: DeviceStatusInsertInput): String
 

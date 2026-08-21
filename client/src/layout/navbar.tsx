@@ -428,6 +428,7 @@ const mockdataAdmin = [
             { label: 'Tạo Mới Người Dùng', link: '/createUser' },
             { label: 'Tạo Mới Dữ Liệu Khác', link: '/createOtherData' },
             { label: 'Nhật Ký Hoạt Động', link: '/activityLog' },
+            { label: 'Thông Tin License', link: '/license' },
         ],
     },
     {

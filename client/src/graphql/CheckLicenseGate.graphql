@@ -1,0 +1,6 @@
+query CheckLicenseGate {
+    CheckLicenseGate {
+        allowed
+        reason
+    }
+}

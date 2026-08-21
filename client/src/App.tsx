@@ -1,9 +1,11 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Center, Loader } from '@mantine/core';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 
 import Layout from './layout/layout';
+import LicenseGatePage from './pages/licenseGate';
+import { useCheckLicenseGateLazyQuery } from './__generated__/graphql';
 
 const AboutPage = lazy(() => import('./pages/about'));
 const ErrorPage = lazy(() => import('./pages/error'));
@@ -99,6 +101,7 @@ const StatisticHistoryMeterPage = lazy(
 const FormPrinterPage = lazy(() => import('./pages/formPrinter'));
 const CreateOtherData = lazy(() => import('./pages/createOtherData'));
 const ActivityLogPage = lazy(() => import('./pages/activityLog'));
+const LicenseInfoPage = lazy(() => import('./pages/licenseInfo'));
 
 const router = createBrowserRouter([
     {
@@ -309,6 +312,10 @@ const router = createBrowserRouter([
                 path: '/activityLog',
                 element: <ActivityLogPage />,
             },
+            {
+                path: '/license',
+                element: <LicenseInfoPage />,
+            },
         ],
     },
     {
@@ -325,6 +332,59 @@ const router = createBrowserRouter([
     },
 ]);
 
+// Chặn toàn bộ ứng dụng khi license không hợp lệ, port của middleware
+// licenseGate.js bên nodejs_scada_web_dht (ở đó redirect mọi route trừ
+// /license/*; ở SPA này thay router bằng trang kích hoạt full-screen).
+function LicenseGateBoundary({ children }: { children: React.ReactNode }) {
+    const [status, setStatus] = useState<'loading' | 'allowed' | 'blocked'>(
+        'loading',
+    );
+    const [reason, setReason] = useState<string | null>(null);
+
+    const [checkGate] = useCheckLicenseGateLazyQuery({
+        fetchPolicy: 'network-only',
+    });
+
+    const runCheck = () => {
+        setStatus('loading');
+
+        checkGate()
+            .then((res) => {
+                const gate = res.data?.CheckLicenseGate;
+                if (gate?.allowed) {
+                    setStatus('allowed');
+                } else {
+                    setReason(gate?.reason || null);
+                    setStatus('blocked');
+                }
+            })
+            .catch(() => {
+                setStatus('blocked');
+            });
+    };
+
+    useEffect(() => {
+        runCheck();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    if (status === 'loading') {
+        return (
+            <Center h="100vh">
+                <Loader />
+            </Center>
+        );
+    }
+
+    if (status === 'blocked') {
+        return (
+            <LicenseGatePage reason={reason} onActivated={() => runCheck()} />
+        );
+    }
+
+    return <>{children}</>;
+}
+
 function App() {
     return (
         <Suspense
@@ -334,7 +394,9 @@ function App() {
                 </Center>
             }
         >
-            <RouterProvider router={router} />
+            <LicenseGateBoundary>
+                <RouterProvider router={router} />
+            </LicenseGateBoundary>
         </Suspense>
     );
 }

@@ -1,0 +1,27 @@
+query GetLicenseInfo {
+    GetLicenseInfo {
+        hasToken
+        hardwareId
+        licenseKey
+        lastSuccessAt
+        lastError
+        offlineGraceDays
+        payloadError
+        productCode
+        licenseType
+        licenseTypeLabel
+        seats
+        moduleCodesList {
+            code
+            name
+        }
+        moduleCount
+        issuedAt
+        expiresAt
+        licenseId
+        customerId
+        customerName
+        daysLeft
+        percentLeft
+    }
+}

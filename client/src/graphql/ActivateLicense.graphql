@@ -1,0 +1,6 @@
+mutation ActivateLicense($licenseKey: String) {
+    ActivateLicense(licenseKey: $licenseKey) {
+        success
+        error
+    }
+}

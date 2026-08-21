@@ -13,6 +13,8 @@ require('dotenv').config();
 
 const typeDefs = require('./schema/typeDefs');
 const resolvers = require('./schema/resolvers');
+const { licenseGatePlugin } = require('./plugins/licenseGatePlugin');
+const blpClient = require('./services/license/blpClient');
 
 // A rejection/exception that escapes Apollo's resolver-execution boundary
 // (e.g. during server startup) would otherwise crash the process silently,
@@ -48,6 +50,7 @@ const startServer = async () => {
                 defaultMaxAge: 5,
                 calculateHttpHeaders: false,
             }),
+            licenseGatePlugin,
         ],
     });
 
@@ -60,6 +63,11 @@ const startServer = async () => {
             context: async ({ req }) => ({ token: req.headers.token }),
         }),
     );
+
+    // Heartbeat nền với BLP (port từ blpClient.js: chạy 1 lần lúc start rồi lặp
+    // mỗi 15 phút) để signedToken/expiresAt luôn được làm mới mà không cần
+    // người dùng vào trang License bấm "Tải lại".
+    blpClient.startHeartbeat();
 };
 
 // Khởi chạy

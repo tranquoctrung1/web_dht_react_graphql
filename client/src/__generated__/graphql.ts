@@ -558,6 +558,48 @@ export type IndexPrecious = {
   SiteId?: Maybe<Scalars['String']>;
 };
 
+export type LicenseActivateResult = {
+  __typename?: 'LicenseActivateResult';
+  error?: Maybe<Scalars['String']>;
+  success?: Maybe<Scalars['Boolean']>;
+};
+
+export type LicenseGateStatus = {
+  __typename?: 'LicenseGateStatus';
+  allowed?: Maybe<Scalars['Boolean']>;
+  reason?: Maybe<Scalars['String']>;
+};
+
+export type LicenseInfo = {
+  __typename?: 'LicenseInfo';
+  customerId?: Maybe<Scalars['String']>;
+  customerName?: Maybe<Scalars['String']>;
+  daysLeft?: Maybe<Scalars['Int']>;
+  expiresAt?: Maybe<Scalars['String']>;
+  hardwareId?: Maybe<Scalars['String']>;
+  hasToken?: Maybe<Scalars['Boolean']>;
+  issuedAt?: Maybe<Scalars['String']>;
+  lastError?: Maybe<Scalars['String']>;
+  lastSuccessAt?: Maybe<Scalars['String']>;
+  licenseId?: Maybe<Scalars['String']>;
+  licenseKey?: Maybe<Scalars['String']>;
+  licenseType?: Maybe<Scalars['String']>;
+  licenseTypeLabel?: Maybe<Scalars['String']>;
+  moduleCodesList?: Maybe<Array<Maybe<LicenseModuleCode>>>;
+  moduleCount?: Maybe<Scalars['Int']>;
+  offlineGraceDays?: Maybe<Scalars['Int']>;
+  payloadError?: Maybe<Scalars['String']>;
+  percentLeft?: Maybe<Scalars['Int']>;
+  productCode?: Maybe<Scalars['String']>;
+  seats?: Maybe<Scalars['Int']>;
+};
+
+export type LicenseModuleCode = {
+  __typename?: 'LicenseModuleCode';
+  code?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
 export type Location = {
   __typename?: 'Location';
   AverageDate?: Maybe<Array<Maybe<Array<Maybe<Scalars['String']>>>>>;
@@ -628,6 +670,7 @@ export type ModelInStatisticMarkSize = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  ActivateLicense?: Maybe<LicenseActivateResult>;
   CreateActivityLog?: Maybe<Scalars['String']>;
   DeleteCover?: Maybe<Scalars['Int']>;
   DeleteDataManual?: Maybe<Scalars['Int']>;
@@ -720,6 +763,11 @@ export type Mutation = {
   UpdateUser?: Maybe<Scalars['Int']>;
   UpdateUserRole?: Maybe<Scalars['Int']>;
   UpdateUserStaff?: Maybe<Scalars['Int']>;
+};
+
+
+export type MutationActivateLicenseArgs = {
+  licenseKey?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1467,6 +1515,7 @@ export type QuantityLoggerDayWaterSupply = {
 export type Query = {
   __typename?: 'Query';
   ActivityLogs?: Maybe<ActivityLogPage>;
+  CheckLicenseGate?: Maybe<LicenseGateStatus>;
   GetAllCorverMeterial?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetAllCoverH?: Maybe<Array<Maybe<Scalars['Int']>>>;
   GetAllCoverID?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1526,6 +1575,7 @@ export type Query = {
   GetHistoryMeterBySiteId?: Maybe<Array<Maybe<HistorySiteMeter>>>;
   GetHistoryTransmitterBySiteId?: Maybe<Array<Maybe<HistorySiteTransmitter>>>;
   GetIndexPreciousByCompany?: Maybe<Array<Maybe<IndexPrecious>>>;
+  GetLicenseInfo?: Maybe<LicenseInfo>;
   GetLoggerMarks?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetLoggerModel?: Maybe<Array<Maybe<Scalars['String']>>>;
   GetLoggerProvider?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -2809,6 +2859,13 @@ export type WaterCustomerInput = {
   NumberPrecious?: InputMaybe<Scalars['String']>;
 };
 
+export type ActivateLicenseMutationVariables = Exact<{
+  licenseKey?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type ActivateLicenseMutation = { __typename?: 'Mutation', ActivateLicense?: { __typename?: 'LicenseActivateResult', success?: boolean | null, error?: string | null } | null };
+
 export type ActivityLogsQueryVariables = Exact<{
   Uid?: InputMaybe<Scalars['String']>;
   Action?: InputMaybe<Scalars['String']>;
@@ -2822,6 +2879,11 @@ export type ActivityLogsQueryVariables = Exact<{
 
 export type ActivityLogsQuery = { __typename?: 'Query', ActivityLogs?: { __typename?: 'ActivityLogPage', total?: number | null, items?: Array<{ __typename?: 'ActivityLog', _id: string, Uid?: string | null, Role?: string | null, Action?: string | null, Page?: string | null, Target?: string | null, Detail?: string | null, CreatedAt?: any | null } | null> | null } | null };
 
+export type CheckLicenseGateQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CheckLicenseGateQuery = { __typename?: 'Query', CheckLicenseGate?: { __typename?: 'LicenseGateStatus', allowed?: boolean | null, reason?: string | null } | null };
+
 export type CreateActivityLogMutationVariables = Exact<{
   Action?: InputMaybe<Scalars['String']>;
   Page?: InputMaybe<Scalars['String']>;
@@ -2831,6 +2893,11 @@ export type CreateActivityLogMutationVariables = Exact<{
 
 
 export type CreateActivityLogMutation = { __typename?: 'Mutation', CreateActivityLog?: string | null };
+
+export type GetLicenseInfoQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLicenseInfoQuery = { __typename?: 'Query', GetLicenseInfo?: { __typename?: 'LicenseInfo', hasToken?: boolean | null, hardwareId?: string | null, licenseKey?: string | null, lastSuccessAt?: string | null, lastError?: string | null, offlineGraceDays?: number | null, payloadError?: string | null, productCode?: string | null, licenseType?: string | null, licenseTypeLabel?: string | null, seats?: number | null, moduleCount?: number | null, issuedAt?: string | null, expiresAt?: string | null, licenseId?: string | null, customerId?: string | null, customerName?: string | null, daysLeft?: number | null, percentLeft?: number | null, moduleCodesList?: Array<{ __typename?: 'LicenseModuleCode', code?: string | null, name?: string | null } | null> | null } | null };
 
 export type LoginActionQueryVariables = Exact<{
   username?: InputMaybe<Scalars['String']>;
@@ -4148,6 +4215,40 @@ export type VerifyTokenQueryVariables = Exact<{
 export type VerifyTokenQuery = { __typename?: 'Query', VerifyToken?: string | null };
 
 
+export const ActivateLicenseDocument = gql`
+    mutation ActivateLicense($licenseKey: String) {
+  ActivateLicense(licenseKey: $licenseKey) {
+    success
+    error
+  }
+}
+    `;
+export type ActivateLicenseMutationFn = Apollo.MutationFunction<ActivateLicenseMutation, ActivateLicenseMutationVariables>;
+
+/**
+ * __useActivateLicenseMutation__
+ *
+ * To run a mutation, you first call `useActivateLicenseMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useActivateLicenseMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [activateLicenseMutation, { data, loading, error }] = useActivateLicenseMutation({
+ *   variables: {
+ *      licenseKey: // value for 'licenseKey'
+ *   },
+ * });
+ */
+export function useActivateLicenseMutation(baseOptions?: Apollo.MutationHookOptions<ActivateLicenseMutation, ActivateLicenseMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ActivateLicenseMutation, ActivateLicenseMutationVariables>(ActivateLicenseDocument, options);
+      }
+export type ActivateLicenseMutationHookResult = ReturnType<typeof useActivateLicenseMutation>;
+export type ActivateLicenseMutationResult = Apollo.MutationResult<ActivateLicenseMutation>;
+export type ActivateLicenseMutationOptions = Apollo.BaseMutationOptions<ActivateLicenseMutation, ActivateLicenseMutationVariables>;
 export const ActivityLogsDocument = gql`
     query ActivityLogs($Uid: String, $Action: String, $Page: String, $dateFrom: Date, $dateTo: Date, $skip: Int, $limit: Int) {
   ActivityLogs(
@@ -4210,6 +4311,44 @@ export type ActivityLogsQueryResult = Apollo.QueryResult<ActivityLogsQuery, Acti
 export function refetchActivityLogsQuery(variables?: ActivityLogsQueryVariables) {
       return { query: ActivityLogsDocument, variables: variables }
     }
+export const CheckLicenseGateDocument = gql`
+    query CheckLicenseGate {
+  CheckLicenseGate {
+    allowed
+    reason
+  }
+}
+    `;
+
+/**
+ * __useCheckLicenseGateQuery__
+ *
+ * To run a query within a React component, call `useCheckLicenseGateQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCheckLicenseGateQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCheckLicenseGateQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCheckLicenseGateQuery(baseOptions?: Apollo.QueryHookOptions<CheckLicenseGateQuery, CheckLicenseGateQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CheckLicenseGateQuery, CheckLicenseGateQueryVariables>(CheckLicenseGateDocument, options);
+      }
+export function useCheckLicenseGateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CheckLicenseGateQuery, CheckLicenseGateQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CheckLicenseGateQuery, CheckLicenseGateQueryVariables>(CheckLicenseGateDocument, options);
+        }
+export type CheckLicenseGateQueryHookResult = ReturnType<typeof useCheckLicenseGateQuery>;
+export type CheckLicenseGateLazyQueryHookResult = ReturnType<typeof useCheckLicenseGateLazyQuery>;
+export type CheckLicenseGateQueryResult = Apollo.QueryResult<CheckLicenseGateQuery, CheckLicenseGateQueryVariables>;
+export function refetchCheckLicenseGateQuery(variables?: CheckLicenseGateQueryVariables) {
+      return { query: CheckLicenseGateDocument, variables: variables }
+    }
 export const CreateActivityLogDocument = gql`
     mutation CreateActivityLog($Action: String, $Page: String, $Target: String, $Detail: String) {
   CreateActivityLog(
@@ -4249,6 +4388,65 @@ export function useCreateActivityLogMutation(baseOptions?: Apollo.MutationHookOp
 export type CreateActivityLogMutationHookResult = ReturnType<typeof useCreateActivityLogMutation>;
 export type CreateActivityLogMutationResult = Apollo.MutationResult<CreateActivityLogMutation>;
 export type CreateActivityLogMutationOptions = Apollo.BaseMutationOptions<CreateActivityLogMutation, CreateActivityLogMutationVariables>;
+export const GetLicenseInfoDocument = gql`
+    query GetLicenseInfo {
+  GetLicenseInfo {
+    hasToken
+    hardwareId
+    licenseKey
+    lastSuccessAt
+    lastError
+    offlineGraceDays
+    payloadError
+    productCode
+    licenseType
+    licenseTypeLabel
+    seats
+    moduleCodesList {
+      code
+      name
+    }
+    moduleCount
+    issuedAt
+    expiresAt
+    licenseId
+    customerId
+    customerName
+    daysLeft
+    percentLeft
+  }
+}
+    `;
+
+/**
+ * __useGetLicenseInfoQuery__
+ *
+ * To run a query within a React component, call `useGetLicenseInfoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLicenseInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLicenseInfoQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLicenseInfoQuery(baseOptions?: Apollo.QueryHookOptions<GetLicenseInfoQuery, GetLicenseInfoQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLicenseInfoQuery, GetLicenseInfoQueryVariables>(GetLicenseInfoDocument, options);
+      }
+export function useGetLicenseInfoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLicenseInfoQuery, GetLicenseInfoQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLicenseInfoQuery, GetLicenseInfoQueryVariables>(GetLicenseInfoDocument, options);
+        }
+export type GetLicenseInfoQueryHookResult = ReturnType<typeof useGetLicenseInfoQuery>;
+export type GetLicenseInfoLazyQueryHookResult = ReturnType<typeof useGetLicenseInfoLazyQuery>;
+export type GetLicenseInfoQueryResult = Apollo.QueryResult<GetLicenseInfoQuery, GetLicenseInfoQueryVariables>;
+export function refetchGetLicenseInfoQuery(variables?: GetLicenseInfoQueryVariables) {
+      return { query: GetLicenseInfoDocument, variables: variables }
+    }
 export const LoginActionDocument = gql`
     query LoginAction($username: String, $password: String) {
   LoginAction(username: $username, password: $password) {

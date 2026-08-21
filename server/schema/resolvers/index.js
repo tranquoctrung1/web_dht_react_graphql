@@ -46,9 +46,11 @@ const QuantityDayTotal = require('./QuantityDayTotal.resolver');
 const ActivityLog = require('./ActivityLog.resolver');
 
 const Nested = require('./Nested.resolver');
+const License = require('./License.resolver');
 
 module.exports = {
     Query: {
+        ...License.Query,
         ...QuantityDayCompany.Query,
         ...Company.Query,
         ...QuantityDayWaterSupply.Query,
@@ -97,6 +99,7 @@ module.exports = {
     },
 
     Mutation: {
+        ...License.Mutation,
         ...Precious.Mutation,
         ...Site.Mutation,
         ...DeviceSiteConfig.Mutation,
