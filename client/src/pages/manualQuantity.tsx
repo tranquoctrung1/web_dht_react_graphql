@@ -31,6 +31,7 @@ import {
     convertTimeStampToDate,
     checkAdminViewerRole,
     checkAdminRole,
+    checkStaffRole,
 } from '../utils/utils';
 
 import Swal from 'sweetalert2';
@@ -57,6 +58,7 @@ const ManualQuantityPage = () => {
 
     const [isAdminViewer, setIsAdminViewer] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [isStaff, setIsStaff] = useState(false);
 
     const { data: sites, error: siteError } = useGetAllSitesQuery();
     const { data: meters, error: metersError } = useGetAllMeterQuery();
@@ -71,6 +73,7 @@ const ManualQuantityPage = () => {
     useEffect(() => {
         setIsAdminViewer(checkAdminViewerRole());
         setIsAdmin(checkAdminRole());
+        setIsStaff(checkStaffRole());
     }, []);
 
     if (siteError || metersError || staffsError) {
@@ -644,7 +647,7 @@ const ManualQuantityPage = () => {
                         onChange={onOutputChanged}
                     />
                 </Col>
-                {isAdminViewer == false ? (
+                {isAdminViewer == false || isStaff ? (
                     <Col span={12}>
                         <Center>
                             <Button
