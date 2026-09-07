@@ -32,10 +32,9 @@ import {
     checkAdminViewerRole,
     checkCustomerRole,
     checkStaffRole,
+    exportTableToExcel,
 } from '../utils/utils';
 // @ts-ignore comment
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
-
 import ReportAveragePrecious from '../components/reportAveragePrecious';
 
 import Companies from '../types/companies.type';
@@ -1170,20 +1169,26 @@ const QuantityWaterSupply = () => {
                             {renderQuantityDayWaterSupply ? (
                                 dataQuanity && (
                                     <>
-                                        <ReactHTMLTableToExcel
-                                            id="table-xls"
+                                        <Button
                                             className="btn-export"
-                                            table="tableQuantity"
-                                            filename={`Sản lượng ${selectedCompany} từ ${convertDateToStringNotTimeForTitle(
-                                                // @ts-ignore comment
-                                                new Date(startDate),
-                                            )} đến  ${convertDateToStringNotTimeForTitle(
-                                                // @ts-ignore comment
-                                                new Date(endDate),
-                                            )}`}
-                                            sheet="tableQuantity"
-                                            buttonText="Xuất Excel"
-                                        />
+                                            variant="filled"
+                                            color="teal"
+                                            onClick={() =>
+                                                exportTableToExcel(
+                                                    'tableQuantity',
+                                                    `Sản lượng ${selectedCompany} từ ${convertDateToStringNotTimeForTitle(
+                                                        // @ts-ignore comment
+                                                        new Date(startDate),
+                                                    )} đến  ${convertDateToStringNotTimeForTitle(
+                                                        // @ts-ignore comment
+                                                        new Date(endDate),
+                                                    )}`,
+                                                    'tableQuantity',
+                                                )
+                                            }
+                                        >
+                                            Xuất Excel
+                                        </Button>
                                     </>
                                 )
                             ) : (
@@ -1193,20 +1198,26 @@ const QuantityWaterSupply = () => {
                             {renderQuantityLoggerDayWaterSupply ? (
                                 dataLoggerDayWaterSupply && (
                                     <>
-                                        <ReactHTMLTableToExcel
-                                            id="table-xls"
+                                        <Button
                                             className="btn-export"
-                                            table="tableQuantity"
-                                            filename={`Sản lượng logger ${selectedCompany} từ ${convertDateToStringNotTimeForTitle(
-                                                // @ts-ignore comment
-                                                new Date(startDate),
-                                            )} đến  ${convertDateToStringNotTimeForTitle(
-                                                // @ts-ignore comment
-                                                new Date(endDate),
-                                            )}`}
-                                            sheet="tableQuantity"
-                                            buttonText="Xuất Excel"
-                                        />
+                                            variant="filled"
+                                            color="teal"
+                                            onClick={() =>
+                                                exportTableToExcel(
+                                                    'tableQuantity',
+                                                    `Sản lượng logger ${selectedCompany} từ ${convertDateToStringNotTimeForTitle(
+                                                        // @ts-ignore comment
+                                                        new Date(startDate),
+                                                    )} đến  ${convertDateToStringNotTimeForTitle(
+                                                        // @ts-ignore comment
+                                                        new Date(endDate),
+                                                    )}`,
+                                                    'tableQuantity',
+                                                )
+                                            }
+                                        >
+                                            Xuất Excel
+                                        </Button>
                                     </>
                                 )
                             ) : (

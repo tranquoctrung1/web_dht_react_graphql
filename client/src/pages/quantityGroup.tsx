@@ -26,11 +26,9 @@ import {
     quickSort,
 } from '../utils/utils';
 // @ts-ignore comment
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
-
 import Companies from '../types/companies.type';
 
-import { checkAdminViewerRole } from '../utils/utils';
+import { checkAdminViewerRole, exportTableToExcel } from '../utils/utils';
 
 const QuantityGroupPage = () => {
     const [selectedGroup, setSelectedGroup] = useState(null);
@@ -1061,20 +1059,26 @@ const QuantityGroupPage = () => {
                             {dataQuanity && (
                                 <>
                                     <Space w="xl" />
-                                    <ReactHTMLTableToExcel
-                                        id="table-xls"
+                                    <Button
                                         className="btn-export"
-                                        table="tableQuantity"
-                                        filename={`Sản lượng ${selectedGroup} từ ${convertDateToStringNotTimeForTitle(
-                                            // @ts-ignore comment
-                                            new Date(startDate),
-                                        )} đến  ${convertDateToStringNotTimeForTitle(
-                                            // @ts-ignore comment
-                                            new Date(endDate),
-                                        )}`}
-                                        sheet="tableQuantity"
-                                        buttonText="Xuất Excel"
-                                    />
+                                        variant="filled"
+                                        color="teal"
+                                        onClick={() =>
+                                            exportTableToExcel(
+                                                'tableQuantity',
+                                                `Sản lượng ${selectedGroup} từ ${convertDateToStringNotTimeForTitle(
+                                                    // @ts-ignore comment
+                                                    new Date(startDate),
+                                                )} đến  ${convertDateToStringNotTimeForTitle(
+                                                    // @ts-ignore comment
+                                                    new Date(endDate),
+                                                )}`,
+                                                'tableQuantity',
+                                            )
+                                        }
+                                    >
+                                        Xuất Excel
+                                    </Button>
                                 </>
                             )}
                         </Center>

@@ -24,9 +24,6 @@ import {
     useGetStatisticCustomChoiceMarkSizeQuery,
 } from '../__generated__/graphql';
 
-// @ts-ignore comment
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
-
 import uuid from 'react-uuid';
 
 import {
@@ -36,6 +33,7 @@ import {
     updateAmoutSizeForMark,
     updateAmoutSizeForSize,
     updateAmountMarkSize,
+    exportTableToExcel,
 } from '../utils/utils';
 
 import { motion } from 'framer-motion';
@@ -1448,14 +1446,20 @@ const StatisticCustomChoiceMarkSizePage = () => {
                           <>
                               <Col span={12}>
                                   <Center>
-                                      <ReactHTMLTableToExcel
-                                          id="table-xls"
+                                      <Button
                                           className="btn-export"
-                                          table="tableStatisticMark"
-                                          filename={`Thống kê tùy chọn theo hiệu`}
-                                          sheet="tableStatisticMark"
-                                          buttonText="Xuất Excel"
-                                      />
+                                          variant="filled"
+                                          color="teal"
+                                          onClick={() =>
+                                              exportTableToExcel(
+                                                  'tableStatisticMark',
+                                                  `Thống kê tùy chọn theo hiệu`,
+                                                  'tableStatisticMark',
+                                              )
+                                          }
+                                      >
+                                          Xuất Excel
+                                      </Button>
                                   </Center>
                               </Col>
                               <Col
@@ -1477,14 +1481,20 @@ const StatisticCustomChoiceMarkSizePage = () => {
                           <>
                               <Col span={12}>
                                   <Center>
-                                      <ReactHTMLTableToExcel
-                                          id="table-xls"
+                                      <Button
                                           className="btn-export"
-                                          table="tableStatisticSize"
-                                          filename={`Thống kê tùy chọn theo cở`}
-                                          sheet="tableStatisticSize"
-                                          buttonText="Xuất Excel"
-                                      />
+                                          variant="filled"
+                                          color="teal"
+                                          onClick={() =>
+                                              exportTableToExcel(
+                                                  'tableStatisticSize',
+                                                  `Thống kê tùy chọn theo cở`,
+                                                  'tableStatisticSize',
+                                              )
+                                          }
+                                      >
+                                          Xuất Excel
+                                      </Button>
                                   </Center>
                               </Col>
                               <Col
@@ -1506,14 +1516,20 @@ const StatisticCustomChoiceMarkSizePage = () => {
                           <>
                               <Col span={12}>
                                   <Center>
-                                      <ReactHTMLTableToExcel
-                                          id="table-xls"
+                                      <Button
                                           className="btn-export"
-                                          table="tableStatisticMarkSize"
-                                          filename={`Thống kê tùy chọn theo hiệu cở`}
-                                          sheet="tableStatisticMarkSize"
-                                          buttonText="Xuất Excel"
-                                      />
+                                          variant="filled"
+                                          color="teal"
+                                          onClick={() =>
+                                              exportTableToExcel(
+                                                  'tableStatisticMarkSize',
+                                                  `Thống kê tùy chọn theo hiệu cở`,
+                                                  'tableStatisticMarkSize',
+                                              )
+                                          }
+                                      >
+                                          Xuất Excel
+                                      </Button>
                                   </Center>
                               </Col>
                               <Col

@@ -1,3 +1,149 @@
+// @ts-ignore no bundled types for this fork
+import * as XLSX from 'xlsx-js-style';
+
+const cssColorToHex = (color: string): string | null => {
+    const m = color.match(
+        /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/,
+    );
+    if (!m) return null;
+    const [, r, g, b, a] = m;
+    if (a !== undefined && parseFloat(a) === 0) return null;
+    return [r, g, b]
+        .map((x) => parseInt(x, 10).toString(16).padStart(2, '0'))
+        .join('')
+        .toUpperCase();
+};
+
+const THIN_BORDER = { style: 'thin', color: { rgb: '000000' } };
+
+// table_to_book/sheet_add_dom only copy cell text/merges - they don't read
+// CSS, so visual styling (borders, bold headers, centered text, highlighted
+// cells) has to be picked up from the DOM and applied onto the worksheet
+// cells by hand, to match how the table actually renders on screen.
+const applyTableCellStyles = (
+    table: HTMLElement,
+    ws: any,
+    rowOffset: number,
+) => {
+    const occupied: Set<number>[] = [];
+    Array.from((table as HTMLTableElement).rows).forEach((row, r) => {
+        occupied[r] = occupied[r] || new Set();
+        let c = 0;
+        Array.from(row.cells).forEach((cell) => {
+            while (occupied[r].has(c)) c++;
+            const colSpan = cell.colSpan || 1;
+            const rowSpan = cell.rowSpan || 1;
+            for (let rr = r; rr < r + rowSpan; rr++) {
+                occupied[rr] = occupied[rr] || new Set();
+                for (let cc = c; cc < c + colSpan; cc++) occupied[rr].add(cc);
+            }
+
+            const computed = window.getComputedStyle(cell);
+            const style: any = {
+                border: {
+                    top: THIN_BORDER,
+                    bottom: THIN_BORDER,
+                    left: THIN_BORDER,
+                    right: THIN_BORDER,
+                },
+            };
+
+            const bgHex = cssColorToHex(computed.backgroundColor);
+            if (bgHex) {
+                style.fill = {
+                    patternType: 'solid',
+                    fgColor: { rgb: bgHex },
+                };
+            }
+
+            const weight = computed.fontWeight;
+            const isBold = weight === 'bold' || parseInt(weight, 10) >= 700;
+            if (isBold) {
+                style.font = { bold: true };
+            }
+
+            if (computed.textAlign === 'center' || computed.textAlign === 'right') {
+                style.alignment = { horizontal: computed.textAlign };
+            }
+
+            // A merged cell only has one real entry in the sheet (the
+            // top-left corner); the other cells it spans over don't exist,
+            // so their border edges would otherwise render blank. Style
+            // every covered cell so the merge looks like one solid block.
+            for (let rr = r; rr < r + rowSpan; rr++) {
+                for (let cc = c; cc < c + colSpan; cc++) {
+                    const addr = XLSX.utils.encode_cell({
+                        r: rr + rowOffset,
+                        c: cc,
+                    });
+                    if (!ws[addr]) ws[addr] = { t: 'z' };
+                    ws[addr].s = { ...(ws[addr].s || {}), ...style };
+                }
+            }
+
+            c += colSpan;
+        });
+    });
+};
+
+// Widen each column to fit its longest value so text like long "Vị trí"
+// notes isn't clipped. The merged title row (rowOffset) is skipped since a
+// long caption would otherwise blow up column A's width alone.
+const autoSizeColumns = (ws: any, rowOffset: number) => {
+    if (!ws['!ref']) return;
+    const range = XLSX.utils.decode_range(ws['!ref']);
+    const cols: { wch: number }[] = [];
+    for (let c = range.s.c; c <= range.e.c; c++) {
+        let maxLen = 8;
+        for (let r = range.s.r + rowOffset; r <= range.e.r; r++) {
+            const cell = ws[XLSX.utils.encode_cell({ r, c })];
+            if (cell && cell.v !== undefined && cell.v !== null) {
+                maxLen = Math.max(maxLen, String(cell.v).length);
+            }
+        }
+        cols.push({ wch: Math.min(maxLen + 2, 80) });
+    }
+    ws['!cols'] = cols;
+};
+
+export const exportTableToExcel = (
+    tableId: string,
+    filename: string,
+    sheetName: string = 'Sheet1',
+) => {
+    const table = document.getElementById(tableId) as HTMLTableElement | null;
+    if (!table) return;
+    const sheet = sheetName.substring(0, 31);
+
+    const captionEl = table.querySelector('caption');
+    const captionText = captionEl?.textContent?.trim() || '';
+    const rowOffset = captionText ? 1 : 0;
+
+    const ws: any = {};
+    XLSX.utils.sheet_add_dom(ws, table, { origin: { r: rowOffset, c: 0 } });
+
+    if (captionText) {
+        XLSX.utils.sheet_add_aoa(ws, [[captionText]], { origin: 'A1' });
+        const range = XLSX.utils.decode_range(ws['!ref']);
+        ws['!merges'] = ws['!merges'] || [];
+        ws['!merges'].push({
+            s: { r: 0, c: 0 },
+            e: { r: 0, c: range.e.c },
+        });
+        ws['A1'].s = {
+            font: { bold: true },
+            alignment: { horizontal: 'center' },
+        };
+    }
+
+    applyTableCellStyles(table, ws, rowOffset);
+    autoSizeColumns(ws, rowOffset);
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, ws, sheet);
+    XLSX.writeFile(workbook, `${filename}.xlsx`);
+};
+
 export const convertDateToStringNotTime = (date: any) => {
     if (
         date != null &&

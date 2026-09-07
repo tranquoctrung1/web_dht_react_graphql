@@ -2,12 +2,9 @@ import { Grid, Col, Button, Text, Center, Table } from '@mantine/core';
 
 import { useEffect, useState } from 'react';
 
-// @ts-ignore comment
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
-
 import { useGetStatisticMarkSizeXnManagerQuery } from '../__generated__/graphql';
 
-import { checkAdminViewerRole } from '../utils/utils';
+import { checkAdminViewerRole, exportTableToExcel } from '../utils/utils';
 
 import uuid from 'react-uuid';
 
@@ -223,14 +220,20 @@ const StatisticMarkSizePage = () => {
                     <>
                         <Col span={12}>
                             <Center>
-                                <ReactHTMLTableToExcel
-                                    id="table-xls"
+                                <Button
                                     className="btn-export"
-                                    table="tableStatistic"
-                                    filename={`Thống kê theo hiệu cở Xí nghiệp quản lý`}
-                                    sheet="tableStatistic"
-                                    buttonText="Xuất Excel"
-                                />
+                                    variant="filled"
+                                    color="teal"
+                                    onClick={() =>
+                                        exportTableToExcel(
+                                            'tableStatistic',
+                                            `Thống kê theo hiệu cở Xí nghiệp quản lý`,
+                                            'tableStatistic',
+                                        )
+                                    }
+                                >
+                                    Xuất Excel
+                                </Button>
                             </Center>
                         </Col>
                         <Col
