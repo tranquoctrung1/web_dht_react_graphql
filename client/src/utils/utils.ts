@@ -141,7 +141,27 @@ export const exportTableToExcel = (
 
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, ws, sheet);
-    XLSX.writeFile(workbook, `${filename}.xlsx`);
+
+    // XLSX.writeFile()'s built-in download path misbehaves on mobile
+    // browsers (blob download silently fails or saves without the right
+    // mime type, so Office mobile then reports "unsupported file type").
+    // Build the blob ourselves with an explicit mime type and download it
+    // via a plain anchor click, which mobile Chrome/Safari handle reliably.
+    const wbout: ArrayBuffer = XLSX.write(workbook, {
+        bookType: 'xlsx',
+        type: 'array',
+    });
+    const blob = new Blob([wbout], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${filename}.xlsx`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
 };
 
 export const convertDateToStringNotTime = (date: any) => {
