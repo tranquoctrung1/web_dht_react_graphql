@@ -2537,8 +2537,10 @@ export type StatisticKCoefficientByArea = {
   Location?: Maybe<Scalars['String']>;
   Marks?: Maybe<Scalars['String']>;
   Model?: Maybe<Scalars['String']>;
+  NoReplaceCalibration?: Maybe<Scalars['Boolean']>;
   Serial?: Maybe<Scalars['String']>;
   Size?: Maybe<Scalars['Int']>;
+  StaffName?: Maybe<Scalars['String']>;
   _id?: Maybe<Scalars['String']>;
 };
 
@@ -3600,7 +3602,7 @@ export type GetStatisticKCoefficientByAreaQueryVariables = Exact<{
 }>;
 
 
-export type GetStatisticKCoefficientByAreaQuery = { __typename?: 'Query', GetStatisticKCoefficientByArea?: Array<{ __typename?: 'StatisticKCoefficientByArea', _id?: string | null, Location?: string | null, Company?: string | null, Serial?: string | null, Marks?: string | null, Model?: string | null, Size?: number | null, K1?: number | null, K2?: number | null, K3?: number | null, K4?: number | null, AccreditationDocument?: string | null, AccreditatedDate?: any | null, Description?: string | null } | null> | null };
+export type GetStatisticKCoefficientByAreaQuery = { __typename?: 'Query', GetStatisticKCoefficientByArea?: Array<{ __typename?: 'StatisticKCoefficientByArea', _id?: string | null, Location?: string | null, Company?: string | null, Serial?: string | null, Marks?: string | null, Model?: string | null, Size?: number | null, K1?: number | null, K2?: number | null, K3?: number | null, K4?: number | null, AccreditationDocument?: string | null, AccreditatedDate?: any | null, Description?: string | null, StaffName?: string | null, NoReplaceCalibration?: boolean | null } | null> | null };
 
 export type GetStatisticLoggerBatteryChangeQueryVariables = Exact<{
   date?: InputMaybe<Scalars['Date']>;
@@ -9320,6 +9322,8 @@ export const GetStatisticKCoefficientByAreaDocument = gql`
     AccreditationDocument
     AccreditatedDate
     Description
+    StaffName
+    NoReplaceCalibration
   }
 }
     `;

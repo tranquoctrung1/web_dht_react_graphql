@@ -6,6 +6,7 @@ const DeviceTransmitterModel = require('../../models/DeviceTransmitter.model');
 const HistorySiteTransmitterModel = require('../../models/HistorySiteTransmitter.model');
 const HistorySiteLoggerModel = require('../../models/HistorySiteLogger.model');
 const DeviceSiteConfigModel = require('../../models/DeviceSiteConfig.model');
+const UserStaffModel = require('../../models/UserStaff.model');
 
 const Utils = require('../../utils');
 
@@ -1094,6 +1095,7 @@ module.exports = {
                     : await SiteModel.GetAllSites();
 
             const listMeter = await DeviceMeterModel.GetAll();
+            const listStaff = await UserStaffModel.GetAllStaffs();
 
             for (const site of listSite) {
                 const findMeter = listMeter.find(
@@ -1102,6 +1104,10 @@ module.exports = {
 
                 if (findMeter !== undefined) {
                     const isAichi = /aichi/i.test(findMeter.Marks ?? '');
+
+                    const findStaff = listStaff.find(
+                        (el) => el._id === site.StaffId,
+                    );
 
                     result.push({
                         _id: site._id,
@@ -1121,6 +1127,14 @@ module.exports = {
                         Description: isAichi
                             ? 'Đồng hồ Aichi'
                             : findMeter.Description,
+                        StaffName:
+                            findStaff !== undefined
+                                ? `${findStaff.FirstName ?? ''} ${
+                                      findStaff.LastName ?? ''
+                                  }`.trim()
+                                : '',
+                        NoReplaceCalibration:
+                            site.NoReplaceCalibration ?? false,
                     });
                 }
             }

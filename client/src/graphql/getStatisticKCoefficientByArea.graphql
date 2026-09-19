@@ -14,5 +14,7 @@ query GetStatisticKCoefficientByArea($company: String) {
         AccreditationDocument
         AccreditatedDate
         Description
+        StaffName
+        NoReplaceCalibration
     }
 }

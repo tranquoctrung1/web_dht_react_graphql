@@ -255,27 +255,35 @@ const StatisticKCoefficientByAreaPage = () => {
             const quarter = Math.floor(now.getMonth() / 3) + 1;
             const year = now.getFullYear();
 
+            // Vị trí "Không thay kiểm định" (siteConfig) không được thể
+            // hiện trong file báo cáo hệ số K theo địa bàn.
+            const exportData = data.filter(
+                (item: any) => item.NoReplaceCalibration !== true,
+            );
+
             const workbook = new ExcelJS.Workbook();
             const sheet = workbook.addWorksheet('Bien ban');
 
             sheet.columns = [
-                { width: 5 },
-                { width: 10 },
-                { width: 16 },
-                { width: 8 },
-                { width: 18 },
-                { width: 12 },
-                { width: 20 },
-                { width: 11 },
-                { width: 11 },
-                { width: 11 },
-                { width: 11 },
-                { width: 11 },
-                { width: 11 },
-                { width: 11 },
-                { width: 11 },
-                { width: 14 },
-                { width: 20 },
+                { width: 5 }, // B: STT
+                { width: 10 }, // C: Hiệu
+                { width: 16 }, // D: Model
+                { width: 8 }, // E: Cỡ
+                { width: 18 }, // F: Serial number
+                { width: 12 }, // G: Mã vị trí
+                { width: 22 }, // H: Tên vị trí
+                { width: 20 }, // I: Số giấy kiểm định/Ngày kiểm định
+                { width: 11 }, // J: K1 (giấy)
+                { width: 11 }, // K: K2 (giấy)
+                { width: 11 }, // L: K3 (giấy)
+                { width: 11 }, // M: K4 (giấy)
+                { width: 11 }, // N: K1 (thực tế)
+                { width: 11 }, // O: K2 (thực tế)
+                { width: 11 }, // P: K3 (thực tế)
+                { width: 11 }, // Q: K4 (thực tế)
+                { width: 14 }, // R: Ngày kiểm tra
+                { width: 20 }, // S: Ghi chú
+                { width: 22 }, // T: Tên nhân viên quản lý hệ số K
             ];
 
             const FONT = 'Times New Roman';
@@ -439,21 +447,25 @@ const StatisticKCoefficientByAreaPage = () => {
             sheet.mergeCells(`B${headerRow1}:B${headerRow3}`);
             sheet.getCell(`B${headerRow1}`).value = 'STT';
 
-            sheet.mergeCells(`C${headerRow1}:G${headerRow1}`);
+            sheet.mergeCells(`C${headerRow1}:H${headerRow1}`);
             sheet.getCell(`C${headerRow1}`).value = 'Đồng hồ tổng';
 
-            sheet.mergeCells(`H${headerRow1}:H${headerRow3}`);
-            sheet.getCell(`H${headerRow1}`).value =
+            sheet.mergeCells(`I${headerRow1}:I${headerRow3}`);
+            sheet.getCell(`I${headerRow1}`).value =
                 'Số giấy kiểm định/Ngày kiểm định';
 
-            sheet.mergeCells(`I${headerRow1}:P${headerRow1}`);
-            sheet.getCell(`I${headerRow1}`).value = 'Kết quả';
-
-            sheet.mergeCells(`Q${headerRow1}:Q${headerRow3}`);
-            sheet.getCell(`Q${headerRow1}`).value = 'Ngày kiểm tra';
+            sheet.mergeCells(`J${headerRow1}:Q${headerRow1}`);
+            sheet.getCell(`J${headerRow1}`).value = 'Kết quả';
 
             sheet.mergeCells(`R${headerRow1}:R${headerRow3}`);
-            sheet.getCell(`R${headerRow1}`).value = 'Ghi chú';
+            sheet.getCell(`R${headerRow1}`).value = 'Ngày kiểm tra';
+
+            sheet.mergeCells(`S${headerRow1}:S${headerRow3}`);
+            sheet.getCell(`S${headerRow1}`).value = 'Ghi chú';
+
+            sheet.mergeCells(`T${headerRow1}:T${headerRow3}`);
+            sheet.getCell(`T${headerRow1}`).value =
+                'Tên nhân viên quản lý hệ số K';
 
             sheet.mergeCells(`C${headerRow2}:C${headerRow3}`);
             sheet.getCell(`C${headerRow2}`).value = 'Hiệu';
@@ -465,22 +477,24 @@ const StatisticKCoefficientByAreaPage = () => {
             sheet.getCell(`F${headerRow2}`).value = 'Serial number';
             sheet.mergeCells(`G${headerRow2}:G${headerRow3}`);
             sheet.getCell(`G${headerRow2}`).value = 'Mã vị trí';
+            sheet.mergeCells(`H${headerRow2}:H${headerRow3}`);
+            sheet.getCell(`H${headerRow2}`).value = 'Tên vị trí';
 
-            sheet.mergeCells(`I${headerRow2}:L${headerRow2}`);
-            sheet.getCell(`I${headerRow2}`).value =
+            sheet.mergeCells(`J${headerRow2}:M${headerRow2}`);
+            sheet.getCell(`J${headerRow2}`).value =
                 'Hệ số theo giấy kiểm định';
-            sheet.mergeCells(`M${headerRow2}:P${headerRow2}`);
-            sheet.getCell(`M${headerRow2}`).value =
+            sheet.mergeCells(`N${headerRow2}:Q${headerRow2}`);
+            sheet.getCell(`N${headerRow2}`).value =
                 'Hệ số theo thực tế kiểm tra';
 
-            sheet.getCell(`I${headerRow3}`).value = 'K1';
-            sheet.getCell(`J${headerRow3}`).value = 'K2';
-            sheet.getCell(`K${headerRow3}`).value = 'K3';
-            sheet.getCell(`L${headerRow3}`).value = 'K4';
-            sheet.getCell(`M${headerRow3}`).value = 'K1';
-            sheet.getCell(`N${headerRow3}`).value = 'K2';
-            sheet.getCell(`O${headerRow3}`).value = 'K3';
-            sheet.getCell(`P${headerRow3}`).value = 'K4';
+            sheet.getCell(`J${headerRow3}`).value = 'K1';
+            sheet.getCell(`K${headerRow3}`).value = 'K2';
+            sheet.getCell(`L${headerRow3}`).value = 'K3';
+            sheet.getCell(`M${headerRow3}`).value = 'K4';
+            sheet.getCell(`N${headerRow3}`).value = 'K1';
+            sheet.getCell(`O${headerRow3}`).value = 'K2';
+            sheet.getCell(`P${headerRow3}`).value = 'K3';
+            sheet.getCell(`Q${headerRow3}`).value = 'K4';
 
             for (let row = headerRow1; row <= headerRow3; row++) {
                 sheet
@@ -507,7 +521,7 @@ const StatisticKCoefficientByAreaPage = () => {
 
             let stt = 1;
 
-            for (const item of data) {
+            for (const item of exportData) {
                 const cells = [
                     stt,
                     item.Marks ?? '',
@@ -515,6 +529,7 @@ const StatisticKCoefficientByAreaPage = () => {
                     item.Size ?? '',
                     item.Serial ?? '',
                     item._id ?? '',
+                    item.Location ?? '',
                     `${item.AccreditationDocument ?? ''}${
                         item.AccreditatedDate
                             ? '\n' + formatDate(item.AccreditatedDate)
@@ -530,6 +545,7 @@ const StatisticKCoefficientByAreaPage = () => {
                     item.K4 ?? '',
                     inspectionMonthLabel,
                     resolveNote(item.Marks),
+                    item.StaffName ?? '',
                 ];
 
                 const cols = [
@@ -550,6 +566,8 @@ const StatisticKCoefficientByAreaPage = () => {
                     'P',
                     'Q',
                     'R',
+                    'S',
+                    'T',
                 ];
 
                 cols.forEach((col, idx) => {
@@ -569,7 +587,7 @@ const StatisticKCoefficientByAreaPage = () => {
             sheet.mergeCells(`B${r}:P${r}`);
             setCell(
                 `B${r}`,
-                `* Tổng số đồng hồ tổng đã kiểm tra trong Quý:  ${data.length} cái`,
+                `* Tổng số đồng hồ tổng đã kiểm tra trong Quý:  ${exportData.length} cái`,
                 { size: 13, bold: true },
             );
             r += 2;
@@ -636,7 +654,7 @@ const StatisticKCoefficientByAreaPage = () => {
                 rows: Array<[string, string, string, string, string]>;
             }> = [];
 
-            for (const item of data) {
+            for (const item of exportData) {
                 const marks = (item.Marks ?? '').trim();
                 const model = (item.Model ?? '').trim();
 

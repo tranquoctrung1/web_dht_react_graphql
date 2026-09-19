@@ -654,6 +654,8 @@ module.exports = gql`
         AccreditationDocument: String
         AccreditatedDate: Date
         Description: String
+        StaffName: String
+        NoReplaceCalibration: Boolean
     }
 
     type StatisticMeterChange {
