@@ -14,7 +14,12 @@ module.exports.UploadFile = async (req, res) => {
     try {
         const fileUpload = {
             SiteId: req.body.siteId,
-            FileName: req.file.originalname,
+            // busboy decodes multipart headers as latin1 by default, but
+            // browsers send the filename as raw UTF-8 bytes — re-interpret
+            // to recover Vietnamese diacritics instead of storing mojibake.
+            FileName: Buffer.from(req.file.originalname, 'latin1').toString(
+                'utf8',
+            ),
             MIMEType: req.file.mimetype,
             Size: req.file.size,
             Path: req.file.path,

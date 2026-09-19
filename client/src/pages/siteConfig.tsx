@@ -1272,33 +1272,43 @@ const SiteConfigPage = () => {
         }
         if (isAllow == true) {
             if (listFile.length > 0) {
-                let check = true;
+                Promise.allSettled(
+                    listFile.map((file) => {
+                        const formData = new FormData();
 
-                for (const file of listFile) {
-                    const formData = new FormData();
+                        formData.append('siteId', siteId);
+                        formData.append('file', file);
 
-                    formData.append('siteId', siteId);
-                    formData.append('file', file);
+                        return axios.post(
+                            `${hostname}/siteFile/upload`,
+                            formData,
+                        );
+                    }),
+                ).then((results) => {
+                    const allSuccess = results.every(
+                        (result) =>
+                            result.status === 'fulfilled' &&
+                            result.value?.status === 200,
+                    );
 
-                    axios
-                        .post(`${hostname}/siteFile/upload`, formData)
-                        .then((res) => {
-                            if (res?.status === 200) {
-                                check = true;
-                            } else {
-                                check = false;
-                            }
-                        })
-                        .catch((err) => console.log(err));
-                }
-
-                if (check == true) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Successfull',
-                        text: 'Upload tài liệu điểm lắp đặt thành công',
-                    });
-                }
+                    if (allSuccess) {
+                        setListFile([]);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successfull',
+                            text: 'Upload tài liệu điểm lắp đặt thành công',
+                        });
+                    } else {
+                        console.log(
+                            results.filter((r) => r.status === 'rejected'),
+                        );
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Upload tài liệu điểm lắp đặt thất bại',
+                        });
+                    }
+                });
             }
         }
     };
