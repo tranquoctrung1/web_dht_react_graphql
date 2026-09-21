@@ -2279,7 +2279,7 @@ const SiteConfigPage = () => {
                                 labelPosition="left"
                                 label="Không thay kiểm định"
                                 //@ts-ignore
-                                checked={getValues('NoReplaceCalibration')}
+                                checked={!!field.value}
                                 {...field}
                             />
                         )}

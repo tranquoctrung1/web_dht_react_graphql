@@ -156,7 +156,11 @@ const StatisticKCoefficientByAreaPage = () => {
                     res?.data?.GetStatisticKCoefficientByArea !== undefined
                 ) {
                     //@ts-ignore
-                    setData([...res.data.GetStatisticKCoefficientByArea]);
+                    setData(
+                        res.data.GetStatisticKCoefficientByArea.filter(
+                            (item: any) => item.NoReplaceCalibration !== true,
+                        ),
+                    );
                 }
             },
         );

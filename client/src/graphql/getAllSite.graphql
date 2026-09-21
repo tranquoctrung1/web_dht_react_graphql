@@ -32,6 +32,8 @@ query GetAllSites {
         Longitude
         Meter
         MeterDirection
+        NoReplaceCalibration
+        ExcludeFromXNManagerList
         OldId
         ProductionCompany
         Property
